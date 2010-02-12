@@ -7,7 +7,19 @@ public class main {
   DT3_Vertex_handle v2=t.insert(new EPIC_Point_3(1,1,15),v1);
   DT3_Vertex_handle v3=t.insert(new EPIC_Point_3(154,11,5),v2.cell());
   DT3_Vertex_handle v4=t.insert(new EPIC_Point_3(14,0,45));
+    
+  Object o1=new Object();
+  o1=(Object) new Double(4);
+  System.out.println((Double) o1);
+  System.out.println( ((Double) v4.get_info()) );
+    
+  //~ v4.set_info((Object) new Double(4));
+  v4.set_info(o1);
+  System.out.println( ((Double) v4.get_info()) );
+
   v4=t.move_point(v4,new EPIC_Point_3(14,0,46));
+  
+    
   t.remove(v4);
   v4=t.insert(new EPIC_Point_3(14,0,45));
 

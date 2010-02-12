@@ -1,9 +1,7 @@
 #ifndef CGAL_SWIG_EPIC_KERNEL_H
 #define CGAL_SWIG_EPIC_KERNEL_H
 
-#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
-
-typedef CGAL::Exact_predicates_inexact_constructions_kernel EPIC_Kernel;
+#include "typedefs.h"
 
 class EPIC_Point_3{
   EPIC_Kernel::Point_3 data;

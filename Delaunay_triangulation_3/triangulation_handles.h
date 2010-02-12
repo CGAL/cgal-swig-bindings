@@ -15,6 +15,16 @@ class CGAL_Vertex_handle{
   EPIC_Point_3 point(){return EPIC_Point_3(data->point());}
   CGAL_Cell_handle<Triangulation> cell(){return CGAL_Cell_handle<Triangulation>(data->cell());}
   
+  #ifdef SWIGJAVA
+  void set_info(jobject j){
+    data->info()=j;
+  }
+  
+  jobject get_info(){
+    return data->info();
+  }
+  #endif
+  
   bool equals(const CGAL_Vertex_handle<Triangulation>& v){
     return data==v.get_data();
   }

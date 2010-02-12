@@ -23,6 +23,20 @@
     }  
   %}
 %enddef
+
+%define Add_info(Class_name,Info_type)
+  %typemap(javacode) Class_name
+  %{
+    public void setInfo(Info_type i) {
+      setInfo_i( (Object) i);
+    }
+    
+    public Info_type getInfo(){
+      return (Info_type) getInfo_i();
+    }
+  %}
+%enddef
+
 #else
 %define Iterator_for_java(Iterator_type,Object_type)
 %enddef
@@ -49,9 +63,16 @@
 %javaconst(1);
 #endif
 
+#ifdef SWIGJAVA
+%rename(set_equal) operator=;
+#endif
+
 //include files
 %{
   #include "EPIC_Kernel.h"
+  #ifdef SWIGJAVA
+  #include "JavaData.h"
+  #endif
   #include "Delaunay_triangulation_3.h"
   #include "triangulation_handles.h"
   #include "triple.h"
@@ -61,6 +82,9 @@
 
 //definitions
 %include "EPIC_Kernel.h"
+#ifdef SWIGJAVA
+%include "JavaData.h"
+#endif
 %include "Delaunay_triangulation_3.h"
 %include "triangulation_handles.h"
 %include "triple.h"
@@ -75,34 +99,34 @@
 %template(DT3_Edge)  CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int>;
 
 //Triangulation
-%template(DT3_T)                  Delaunay_triangulation_3<EPIC_DT3>;
+%template(DT3_T)                  Delaunay_triangulation_3<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >;
 
 //Iterators
-Iterator_for_java(All_vertices_iterator,DT3_Vertex_handle)
-%template(DT3_All_vertices_iterator) All_vertices_iterator<EPIC_DT3>;
-Iterator_for_java(Finite_vertices_iterator,DT3_Vertex_handle)
-%template(DT3_Finite_vertices_iterator) Finite_vertices_iterator<EPIC_DT3>;
+Iterator_for_java(CGAL_All_vertices_iterator,DT3_Vertex_handle)
+%template(DT3_All_vertices_iterator) CGAL_All_vertices_iterator<EPIC_DT3>;
+Iterator_for_java(CGAL_Finite_vertices_iterator,DT3_Vertex_handle)
+%template(DT3_Finite_vertices_iterator) CGAL_Finite_vertices_iterator<EPIC_DT3>;
 
-Iterator_for_java(All_cells_iterator,DT3_Cell_handle)
-%template(DT3_All_cells_iterator) All_cells_iterator<EPIC_DT3>;
-Iterator_for_java(Finite_cells_iterator,DT3_Cell_handle)
-%template(DT3_Finite_cells_iterator) Finite_cells_iterator<EPIC_DT3>;
+Iterator_for_java(CGAL_All_cells_iterator,DT3_Cell_handle)
+%template(DT3_All_cells_iterator) CGAL_All_cells_iterator<EPIC_DT3>;
+Iterator_for_java(CGAL_Finite_cells_iterator,DT3_Cell_handle)
+%template(DT3_Finite_cells_iterator) CGAL_Finite_cells_iterator<EPIC_DT3>;
 
-Iterator_for_java(All_facets_iterator,DT3_Facet)
-%template(DT3_All_facets_iterator) All_facets_iterator<EPIC_DT3>;
-Iterator_for_java(Finite_facets_iterator,DT3_Facet)
-%template(DT3_Finite_facets_iterator) Finite_facets_iterator<EPIC_DT3>;
+Iterator_for_java(CGAL_All_facets_iterator,DT3_Facet)
+%template(DT3_All_facets_iterator) CGAL_All_facets_iterator<EPIC_DT3>;
+Iterator_for_java(CGAL_Finite_facets_iterator,DT3_Facet)
+%template(DT3_Finite_facets_iterator) CGAL_Finite_facets_iterator<EPIC_DT3>;
 
-Iterator_for_java(All_edges_iterator,DT3_Edge)
-%template(DT3_All_edges_iterator) All_edges_iterator<EPIC_DT3>;
-Iterator_for_java(Finite_edges_iterator,DT3_Edge)
-%template(DT3_Finite_edges_iterator) Finite_edges_iterator<EPIC_DT3>;
+Iterator_for_java(CGAL_All_edges_iterator,DT3_Edge)
+%template(DT3_All_edges_iterator) CGAL_All_edges_iterator<EPIC_DT3>;
+Iterator_for_java(CGAL_Finite_edges_iterator,DT3_Edge)
+%template(DT3_Finite_edges_iterator) CGAL_Finite_edges_iterator<EPIC_DT3>;
 
-Iterator_for_java(Point_iterator,EPIC_Point_3)
-%template(DT3_Point_iterator) Point_iterator<EPIC_DT3>;
+Iterator_for_java(CGAL_Point_iterator,EPIC_Point_3)
+%template(DT3_Point_iterator) CGAL_Point_iterator<EPIC_DT3>;
 
-Iterator_for_java(Cell_circulator,DT3_Cell_handle)
-%template(DT3_Cell_circulator) Cell_circulator<EPIC_DT3>;
+Iterator_for_java(CGAL_Cell_circulator,DT3_Cell_handle)
+%template(DT3_Cell_circulator) CGAL_Cell_circulator<EPIC_DT3>;
 
-Iterator_for_java(Facet_circulator,DT3_Facet)
-%template(DT3_Facet_circulator) Facet_circulator<EPIC_DT3>;
+Iterator_for_java(CGAL_Facet_circulator,DT3_Facet)
+%template(DT3_Facet_circulator) CGAL_Facet_circulator<EPIC_DT3>;

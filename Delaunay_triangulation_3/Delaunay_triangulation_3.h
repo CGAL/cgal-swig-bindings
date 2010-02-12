@@ -5,21 +5,19 @@
 #include "triangulation_handles.h"
 #include "triangulation_iterators.h"
 #include "triple.h"
-#include <CGAL/Delaunay_triangulation_3.h>
 
-typedef CGAL::Delaunay_triangulation_3<CGAL::Exact_predicates_inexact_constructions_kernel> EPIC_DT3;
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
 enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};
 
 typedef std::pair<CGAL_Cell_handle<EPIC_DT3>,int> DT3_Facet;
 typedef CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int> DT3_Edge;
 
-template <class Triangulation>
+template <class Triangulation,class Vertex_handle, class Cell_handle>
 class Delaunay_triangulation_3{
   Triangulation data;
   
-  typename Triangulation::Cell_handle convert (const CGAL_Cell_handle<Triangulation>& c) {return c.get_data();}
-  typename Triangulation::Vertex_handle convert (const CGAL_Vertex_handle<Triangulation>& v) {return v.get_data();}
+  typename Triangulation::Cell_handle convert (const Cell_handle& c) {return c.get_data();}
+  typename Triangulation::Vertex_handle convert (const Vertex_handle& v) {return v.get_data();}
   typename Triangulation::Facet convert(const DT3_Facet& f){return std::make_pair(convert(f.first),f.second);}
   typename Triangulation::Edge convert(const DT3_Edge& e){return CGAL::make_tuple(convert(e.first),e.second,e.third);}
   typename Triangulation::Point convert (const EPIC_Point_3& p){return p.get_data();}
@@ -44,26 +42,26 @@ MAP_FUNC(int, number_of_edges)
 MAP_FUNC(int, number_of_finite_cells)
 MAP_FUNC(int, number_of_finite_facets)
 MAP_FUNC(int, number_of_finite_edges)
-MAP_FUNC(CGAL_Vertex_handle<Triangulation>,infinite_vertex)
-MAP_FUNC(CGAL_Cell_handle<Triangulation>,infinite_cell)
-MAP_FUNC_WRAP_IN_ONE(bool,is_infinite,CGAL_Vertex_handle<Triangulation>)
-MAP_FUNC_WRAP_IN_ONE(bool,is_infinite,CGAL_Cell_handle<Triangulation>)
+MAP_FUNC(Vertex_handle,infinite_vertex)
+MAP_FUNC(Cell_handle,infinite_cell)
+MAP_FUNC_WRAP_IN_ONE(bool,is_infinite,Vertex_handle)
+MAP_FUNC_WRAP_IN_ONE(bool,is_infinite,Cell_handle)
 MAP_FUNC_WRAP_IN_ONE(bool,is_infinite,DT3_Facet)
 MAP_FUNC_WRAP_IN_ONE(bool,is_infinite,DT3_Edge)
-MAP_FUNC_WRAP_IN_TWO(bool,is_infinite,CGAL_Cell_handle<Triangulation>,int)
-MAP_FUNC_WRAP_IN_THREE(bool,is_infinite,CGAL_Cell_handle<Triangulation>,int,int)
-MAP_FUNC_WRAP_IN_ONE(bool,is_vertex,CGAL_Vertex_handle<Triangulation>)
-MAP_FUNC_WRAP_IN_ONE(bool,is_cell,CGAL_Cell_handle<Triangulation>)
-MAP_FUNC_WRAP_IN_ONE(CGAL_Cell_handle<Triangulation>,locate,EPIC_Point_3)
-MAP_FUNC_WRAP_IN_TWO(CGAL_Cell_handle<Triangulation>,locate,EPIC_Point_3,CGAL_Cell_handle<Triangulation>)
-MAP_FUNC_WRAP_IN_TWO(CGAL_Cell_handle<Triangulation>,locate,EPIC_Point_3,CGAL_Vertex_handle<Triangulation>)
+MAP_FUNC_WRAP_IN_TWO(bool,is_infinite,Cell_handle,int)
+MAP_FUNC_WRAP_IN_THREE(bool,is_infinite,Cell_handle,int,int)
+MAP_FUNC_WRAP_IN_ONE(bool,is_vertex,Vertex_handle)
+MAP_FUNC_WRAP_IN_ONE(bool,is_cell,Cell_handle)
+MAP_FUNC_WRAP_IN_ONE(Cell_handle,locate,EPIC_Point_3)
+MAP_FUNC_WRAP_IN_TWO(Cell_handle,locate,EPIC_Point_3,Cell_handle)
+MAP_FUNC_WRAP_IN_TWO(Cell_handle,locate,EPIC_Point_3,Vertex_handle)
 MAP_FUNC(bool,is_valid)
 MAP_FUNC_WRAP_IN_ONE(bool,is_valid,bool)
-MAP_FUNC_WRAP_IN_ONE(bool,is_valid,CGAL_Cell_handle<Triangulation>)
-MAP_FUNC_WRAP_IN_TWO(bool,is_valid,CGAL_Cell_handle<Triangulation>,bool)
+MAP_FUNC_WRAP_IN_ONE(bool,is_valid,Cell_handle)
+MAP_FUNC_WRAP_IN_TWO(bool,is_valid,Cell_handle,bool)
 MAP_FUNC_WRAP_IN_ONE(DT3_Facet,mirror_facet,DT3_Facet)
-MAP_FUNC_WRAP_IN_TWO(EPIC_Point_3,point,CGAL_Cell_handle<Triangulation>,int)
-MAP_FUNC_WRAP_IN_ONE(EPIC_Point_3,point,CGAL_Vertex_handle<Triangulation>)
+MAP_FUNC_WRAP_IN_TWO(EPIC_Point_3,point,Cell_handle,int)
+MAP_FUNC_WRAP_IN_ONE(EPIC_Point_3,point,Vertex_handle)
 void clear(){data.clear();}
 Delaunay_triangulation_3(const Delaunay_triangulation_3& dt):data(dt.get_data()){};
 bool equal(const Delaunay_triangulation_3& dt) {return dt.get_data()==data;}
@@ -73,19 +71,19 @@ bool __eq__(const Delaunay_triangulation_3& dt) {return equal(dt);}
 bool __ne__(const Delaunay_triangulation_3& dt) {return !__eq__(dt);}
 #endif
 
-Finite_vertices_iterator<Triangulation> finite_vertices(){return Finite_vertices_iterator<Triangulation>(data.finite_vertices_begin(),data.finite_vertices_end());}
-Finite_edges_iterator<Triangulation> finite_edges(){return Finite_edges_iterator<Triangulation>(data.finite_edges_begin(),data.finite_edges_end());}
-Finite_facets_iterator<Triangulation> finite_facets(){return Finite_facets_iterator<Triangulation>(data.finite_facets_begin(),data.finite_facets_end());}
-Finite_cells_iterator<Triangulation> finite_cells(){return Finite_cells_iterator<Triangulation>(data.finite_cells_begin(),data.finite_cells_end());}
-All_vertices_iterator<Triangulation> all_vertices(){return All_vertices_iterator<Triangulation>(data.all_vertices_begin(),data.all_vertices_end());}
-All_edges_iterator<Triangulation> all_edges(){return All_edges_iterator<Triangulation>(data.all_edges_begin(),data.all_edges_end());}
-All_facets_iterator<Triangulation> all_facets(){return All_facets_iterator<Triangulation>(data.all_facets_begin(),data.all_facets_end());}
-All_cells_iterator<Triangulation> all_cells(){return All_cells_iterator<Triangulation>(data.all_cells_begin(),data.all_cells_end());}
-Point_iterator<Triangulation> points(){return Point_iterator<Triangulation>(data.points_begin(),data.points_end());}
+CGAL_Finite_vertices_iterator<Triangulation> finite_vertices(){return CGAL_Finite_vertices_iterator<Triangulation>(data.finite_vertices_begin(),data.finite_vertices_end());}
+CGAL_Finite_edges_iterator<Triangulation> finite_edges(){return CGAL_Finite_edges_iterator<Triangulation>(data.finite_edges_begin(),data.finite_edges_end());}
+CGAL_Finite_facets_iterator<Triangulation> finite_facets(){return CGAL_Finite_facets_iterator<Triangulation>(data.finite_facets_begin(),data.finite_facets_end());}
+CGAL_Finite_cells_iterator<Triangulation> finite_cells(){return CGAL_Finite_cells_iterator<Triangulation>(data.finite_cells_begin(),data.finite_cells_end());}
+CGAL_All_vertices_iterator<Triangulation> all_vertices(){return CGAL_All_vertices_iterator<Triangulation>(data.all_vertices_begin(),data.all_vertices_end());}
+CGAL_All_edges_iterator<Triangulation> all_edges(){return CGAL_All_edges_iterator<Triangulation>(data.all_edges_begin(),data.all_edges_end());}
+CGAL_All_facets_iterator<Triangulation> all_facets(){return CGAL_All_facets_iterator<Triangulation>(data.all_facets_begin(),data.all_facets_end());}
+CGAL_All_cells_iterator<Triangulation> all_cells(){return CGAL_All_cells_iterator<Triangulation>(data.all_cells_begin(),data.all_cells_end());}
+CGAL_Point_iterator<Triangulation> points(){return CGAL_Point_iterator<Triangulation>(data.points_begin(),data.points_end());}
 
-CGAL_Vertex_handle<Triangulation> insert(const EPIC_Point_3& p){return  CGAL_Vertex_handle<Triangulation>(data.insert(p.get_data()));}
-MAP_FUNC_WRAP_IN_TWO(CGAL_Vertex_handle<Triangulation>,insert,EPIC_Point_3,CGAL_Cell_handle<Triangulation>) 
-MAP_FUNC_WRAP_IN_TWO(CGAL_Vertex_handle<Triangulation>,insert,EPIC_Point_3,CGAL_Vertex_handle<Triangulation>) 
+Vertex_handle insert(const EPIC_Point_3& p){return  Vertex_handle(data.insert(p.get_data()));}
+MAP_FUNC_WRAP_IN_TWO(Vertex_handle,insert,EPIC_Point_3,Cell_handle) 
+MAP_FUNC_WRAP_IN_TWO(Vertex_handle,insert,EPIC_Point_3,Vertex_handle) 
 
 //----------------------------------
 //Triangulation_3 interface wrapping
@@ -112,26 +110,26 @@ MAP_FUNC_WRAP_IN_TWO(CGAL_Vertex_handle<Triangulation>,insert,EPIC_Point_3,CGAL_
 
 
 
-MAP_FUNC_WRAP_IN_ONE(Cell_circulator<Triangulation>,incident_cells,DT3_Edge)
-MAP_FUNC_WRAP_IN_THREE(Cell_circulator<Triangulation>,incident_cells,CGAL_Cell_handle<Triangulation>,int,int)
-MAP_FUNC_WRAP_IN_TWO(Cell_circulator<Triangulation>,incident_cells,DT3_Edge,CGAL_Cell_handle<Triangulation>)
-MAP_FUNC_WRAP_IN_FOUR(Cell_circulator<Triangulation>,incident_cells,CGAL_Cell_handle<Triangulation>,int,int,CGAL_Cell_handle<Triangulation>)
-MAP_FUNC_WRAP_IN_ONE(Facet_circulator<Triangulation>,incident_facets,DT3_Edge)
-MAP_FUNC_WRAP_IN_THREE(Facet_circulator<Triangulation>,incident_facets,CGAL_Cell_handle<Triangulation>,int,int)
-MAP_FUNC_WRAP_IN_TWO(Facet_circulator<Triangulation>,incident_facets,DT3_Edge,DT3_Facet)
-MAP_FUNC_WRAP_IN_THREE(Facet_circulator<Triangulation>,incident_facets,DT3_Edge,CGAL_Cell_handle<Triangulation>,int)
-MAP_FUNC_WRAP_IN_FOUR(Facet_circulator<Triangulation>,incident_facets,CGAL_Cell_handle<Triangulation>,int,int,DT3_Facet)
-MAP_FUNC_WRAP_IN_FIVE(Facet_circulator<Triangulation>,incident_facets,CGAL_Cell_handle<Triangulation>,int,int,CGAL_Cell_handle<Triangulation>,int)
+MAP_FUNC_WRAP_IN_ONE(CGAL_Cell_circulator<Triangulation>,incident_cells,DT3_Edge)
+MAP_FUNC_WRAP_IN_THREE(CGAL_Cell_circulator<Triangulation>,incident_cells,Cell_handle,int,int)
+MAP_FUNC_WRAP_IN_TWO(CGAL_Cell_circulator<Triangulation>,incident_cells,DT3_Edge,Cell_handle)
+MAP_FUNC_WRAP_IN_FOUR(CGAL_Cell_circulator<Triangulation>,incident_cells,Cell_handle,int,int,Cell_handle)
+MAP_FUNC_WRAP_IN_ONE(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge)
+MAP_FUNC_WRAP_IN_THREE(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int)
+MAP_FUNC_WRAP_IN_TWO(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge,DT3_Facet)
+MAP_FUNC_WRAP_IN_THREE(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge,Cell_handle,int)
+MAP_FUNC_WRAP_IN_FOUR(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int,DT3_Facet)
+MAP_FUNC_WRAP_IN_FIVE(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int,Cell_handle,int)
 
-MAP_FUNC_WRAP_IN_TWO(bool,has_vertex,DT3_Facet,CGAL_Vertex_handle<Triangulation>)
-MAP_FUNC_WRAP_IN_THREE(bool,has_vertex,CGAL_Cell_handle<Triangulation>,int,CGAL_Vertex_handle<Triangulation>)
-MAP_FUNC_WRAP_IN_FOUR(bool,are_equal,CGAL_Cell_handle<Triangulation>,int,CGAL_Cell_handle<Triangulation>,int)
+MAP_FUNC_WRAP_IN_TWO(bool,has_vertex,DT3_Facet,Vertex_handle)
+MAP_FUNC_WRAP_IN_THREE(bool,has_vertex,Cell_handle,int,Vertex_handle)
+MAP_FUNC_WRAP_IN_FOUR(bool,are_equal,Cell_handle,int,Cell_handle,int)
 MAP_FUNC_WRAP_IN_TWO(bool,are_equal,DT3_Facet,DT3_Facet)
-MAP_FUNC_WRAP_IN_THREE(bool,are_equal,DT3_Facet,CGAL_Cell_handle<Triangulation>,int)
+MAP_FUNC_WRAP_IN_THREE(bool,are_equal,DT3_Facet,Cell_handle,int)
 
-MAP_FUNC_WRAP_IN_ONE(int,degree,CGAL_Vertex_handle<Triangulation>)
-MAP_FUNC_WRAP_IN_TWO(int,mirror_index,CGAL_Cell_handle<Triangulation>,int)
-MAP_FUNC_WRAP_IN_TWO(CGAL_Vertex_handle<Triangulation>,mirror_vertex,CGAL_Cell_handle<Triangulation>,int)
+MAP_FUNC_WRAP_IN_ONE(int,degree,Vertex_handle)
+MAP_FUNC_WRAP_IN_TWO(int,mirror_index,Cell_handle,int)
+MAP_FUNC_WRAP_IN_TWO(Vertex_handle,mirror_vertex,Cell_handle,int)
 
 
 //template <class OutputIterator> OutputIterator 	t.incident_cells ( Vertex_handle v, OutputIterator cells)
@@ -175,17 +173,17 @@ MAP_FUNC_WRAP_IN_TWO(CGAL_Vertex_handle<Triangulation>,mirror_vertex,CGAL_Cell_h
 //---------------------------------
 //Delaunay_triangulation_3 wrapping
 //---------------------------------
-void remove(CGAL_Vertex_handle<Triangulation> v){data.remove(convert(v));}
-MAP_FUNC_WRAP_IN_TWO(CGAL_Vertex_handle<Triangulation>,move_point,CGAL_Vertex_handle<Triangulation>,EPIC_Point_3);
-MAP_FUNC_WRAP_IN_TWO(Bounded_side,side_of_sphere,CGAL_Cell_handle<Triangulation>,EPIC_Point_3)
+void remove(Vertex_handle v){data.remove(convert(v));}
+MAP_FUNC_WRAP_IN_TWO(Vertex_handle,move_point,Vertex_handle,EPIC_Point_3);
+MAP_FUNC_WRAP_IN_TWO(Bounded_side,side_of_sphere,Cell_handle,EPIC_Point_3)
 MAP_FUNC_WRAP_IN_TWO(Bounded_side,side_of_circle,DT3_Facet,EPIC_Point_3)
-MAP_FUNC_WRAP_IN_THREE(Bounded_side,side_of_circle,CGAL_Cell_handle<Triangulation>,int,EPIC_Point_3)
+MAP_FUNC_WRAP_IN_THREE(Bounded_side,side_of_circle,Cell_handle,int,EPIC_Point_3)
 
-MAP_FUNC_WRAP_IN_ONE(CGAL_Vertex_handle<Triangulation>,nearest_vertex,EPIC_Point_3)
-MAP_FUNC_WRAP_IN_TWO(CGAL_Vertex_handle<Triangulation>,nearest_vertex,EPIC_Point_3,CGAL_Cell_handle<Triangulation>)
+MAP_FUNC_WRAP_IN_ONE(Vertex_handle,nearest_vertex,EPIC_Point_3)
+MAP_FUNC_WRAP_IN_TWO(Vertex_handle,nearest_vertex,EPIC_Point_3,Cell_handle)
 
-MAP_FUNC_WRAP_IN_TWO(bool,is_Gabriel,CGAL_Cell_handle<Triangulation>,int)
-MAP_FUNC_WRAP_IN_THREE(bool,is_Gabriel,CGAL_Cell_handle<Triangulation>,int,int)
+MAP_FUNC_WRAP_IN_TWO(bool,is_Gabriel,Cell_handle,int)
+MAP_FUNC_WRAP_IN_THREE(bool,is_Gabriel,Cell_handle,int,int)
 MAP_FUNC_WRAP_IN_ONE(bool,is_Gabriel,DT3_Facet)
 MAP_FUNC_WRAP_IN_ONE(bool,is_Gabriel,DT3_Edge)
 
