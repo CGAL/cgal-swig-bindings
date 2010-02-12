@@ -5,21 +5,19 @@
 
 class JavaData {
   int* cnt;
-  JavaVM *vm;
-  JNIEnv* env;
-  jint vmVersion;
   jobject data;
  
   void copy(const JavaData&);
   void clean();
+  void init(jobject);
   
 public:  
-  JavaData (JNIEnv* e = NULL, jobject ref = NULL);
+  JavaData (jobject ref = NULL);
   JavaData(const JavaData & d);
   ~JavaData();
   JavaData& operator=(const JavaData& d);
-  inline jobject get_data();
-  inline void set_data(const jobject& n);
+  jobject get_data();
+  void set_data(jobject n);
 }; //end of class
 
 #endif //JAVA_DATA_H

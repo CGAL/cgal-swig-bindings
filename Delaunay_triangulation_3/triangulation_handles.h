@@ -17,11 +17,11 @@ class CGAL_Vertex_handle{
   
   #ifdef SWIGJAVA
   void set_info(jobject j){
-    data->info()=j;
+    data->info().set_data(j);
   }
   
   jobject get_info(){
-    return data->info();
+    return data->info().get_data();
   }
   #endif
   

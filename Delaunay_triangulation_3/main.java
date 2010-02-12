@@ -11,16 +11,17 @@ public class main {
   Object o1=new Object();
   o1=(Object) new Double(4);
   System.out.println((Double) o1);
-  System.out.println( ((Double) v4.get_info()) );
+  //System.out.println( ((Double) v4.get_info()) );
     
-  //~ v4.set_info((Object) new Double(4));
+  
   v4.set_info(o1);
+  System.out.println( ((Double) v4.get_info()) );
+  v4.set_info((Object) new Double(909));
   System.out.println( ((Double) v4.get_info()) );
 
   v4=t.move_point(v4,new EPIC_Point_3(14,0,46));
-  
-    
   t.remove(v4);
+  
   v4=t.insert(new EPIC_Point_3(14,0,45));
 
   if ( v1.cell().index(v1) != v1.cell().vertex(v1.cell().index(v1)).cell().index(v1.cell().vertex(v1.cell().index(v1))) )
