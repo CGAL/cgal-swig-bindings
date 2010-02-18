@@ -29,7 +29,8 @@ void JavaData::init(jobject obj){
     cnt=new int(1);
     assert(get_cached_jvm() != NULL);
     JNIEnv* env=JNU_GetEnv();
-    jint ret = env->GetJavaVM(&get_cached_jvm());
+    //jint ret = env->GetJavaVM(&get_cached_jvm());
+    env->GetJavaVM(&get_cached_jvm());
     data = env->NewGlobalRef(obj);
   }
   else

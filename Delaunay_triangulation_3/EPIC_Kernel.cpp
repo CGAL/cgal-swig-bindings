@@ -12,7 +12,7 @@ bool EPIC_Point_3::equals(const EPIC_Point_3& p){
   return data==p.get_data();
 }
 
-#ifdef SWIGPYTHON
+#ifdef NO_SWIG_OR_PYTHON
 bool EPIC_Point_3::__eq__(const EPIC_Point_3& p){return equals(p);}
 bool EPIC_Point_3::__ne__(const EPIC_Point_3& p){return !equals(p);}
 #endif
