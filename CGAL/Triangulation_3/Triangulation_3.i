@@ -20,6 +20,8 @@
 %include "triangulation_handles.h"
 %include "triple.h"
 %include "triangulation_iterators.h"
+%include "../Common/Output_iterator.h"
+%include "../Common/Reference_wrapper.h"
 
 //Handles
 %template(DT3_Cell_handle)        CGAL_Cell_handle<EPIC_DT3>;
@@ -33,6 +35,10 @@
 //Triangulation
 %typemap(javaimports) Delaunay_triangulation_3%{import CGAL.Kernel.Point_3;%}
 %template(DT3_T)                  Delaunay_triangulation_3<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >;
+
+
+//References
+%template(Ref_int) Reference_wrapper<int>;
 
 //Iterators
 Iterator_for_java(CGAL_All_vertices_iterator,DT3_Vertex_handle)
@@ -60,6 +66,10 @@ Iterator_for_java(CGAL_All_cells_iterator,DT3_Cell_handle)
 %template(DT3_All_cells_iterator) CGAL_All_cells_iterator<EPIC_DT3>;
 Iterator_for_java(CGAL_Finite_cells_iterator,DT3_Cell_handle)
 %template(DT3_Finite_cells_iterator) CGAL_Finite_cells_iterator<EPIC_DT3>;
+//output iterator
+%template(Cell_handle_output_iterator) Output_iterator<CGAL_Cell_handle<EPIC_DT3> >;
+Iterator_for_java(General_iterator,DT3_Cell_handle)
+%template(Iterator_of_cell_handle) General_iterator< Output_iterator<CGAL_Cell_handle<EPIC_DT3> >,CGAL_Cell_handle<EPIC_DT3> >;
 
 Iterator_for_java(CGAL_All_facets_iterator,DT3_Facet)
 %template(DT3_All_facets_iterator) CGAL_All_facets_iterator<EPIC_DT3>;

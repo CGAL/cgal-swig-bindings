@@ -6,6 +6,8 @@
 #include "triangulation_handles.h"
 #include "triangulation_iterators.h"
 #include "triple.h"
+#include "../Common/Output_iterator.h"
+#include "../Common/Reference_wrapper.h"
 
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
 enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};
@@ -18,11 +20,15 @@ class Delaunay_triangulation_3{
   Triangulation data;
   
   typename Triangulation::Cell_handle convert (const Cell_handle& c) {return c.get_data();}
+  typename Triangulation::Cell_handle& convert (Cell_handle& c) {return c.get_data_ref();}
   typename Triangulation::Vertex_handle convert (const Vertex_handle& v) {return v.get_data();}
+  typename Triangulation::Vertex_handle& convert (Vertex_handle& v) {return v.get_data_ref();}
   typename Triangulation::Facet convert(const DT3_Facet& f){return std::make_pair(convert(f.first),f.second);}
-  typename Triangulation::Edge convert(const DT3_Edge& e){return CGAL::make_tuple(convert(e.first),e.second,e.third);}
+  typename Triangulation::Edge convert (const DT3_Edge& e){return CGAL::make_tuple(convert(e.first),e.second,e.third);}
   typename Triangulation::Point convert (const Point_3& p){return p.get_data();}
   const int& convert (const int& i){return i;}
+  template <class T> const T& convert(const Reference_wrapper<T>& ref){return ref.object();}
+  template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object_ref();}
   
 public:
   const Triangulation& get_data() const {return data;}
@@ -97,6 +103,11 @@ MAP_FUNC_WRAP_IN_TWO(Vertex_handle,insert,Point_3,Vertex_handle)
 //bool t.is_edge ( Vertex_handle u, Vertex_handle v, Cell_handle & c, int & i, int & j) 
 //bool  	t.is_facet ( 	Vertex_handle u,Vertex_handle v,Vertex_handle w,Cell_handle & c,int & i,int & j,int & k)
 //bool  	t.is_cell ( 	Vertex_handle u,Vertex_handle v,Vertex_handle w,Vertex_handle x,Cell_handle & c,int & i,int & j,int & k,int & l)
+
+bool is_cell (Vertex_handle u,Vertex_handle v,Vertex_handle w,Vertex_handle x,Cell_handle & c,Reference_wrapper<int>& i,Reference_wrapper<int> & j,Reference_wrapper<int> & k,Reference_wrapper<int> & l){
+  return data.is_cell(convert(u),convert(v),convert(w),convert(x),convert(c),convert(i),convert(j),convert(k),convert(l));
+}
+
 //bool t.is_cell ( Vertex_handle u, Vertex_handle v, Vertex_handle w, Vertex_handle x, Cell_handle & c) 
 //bool t.has_vertex ( Facet f, Vertex_handle v, int & j) 
 //bool t.has_vertex ( Cell_handle c, int i, Vertex_handle v, int & j) 
@@ -132,7 +143,8 @@ MAP_FUNC_WRAP_IN_TWO(int,mirror_index,Cell_handle,int)
 MAP_FUNC_WRAP_IN_TWO(Vertex_handle,mirror_vertex,Cell_handle,int)
 
 
-//template <class OutputIterator> OutputIterator 	t.incident_cells ( Vertex_handle v, OutputIterator cells)
+void incident_cells(const Vertex_handle& v,Output_iterator<Cell_handle>& out){ data.incident_cells(convert(v),std::back_inserter(out.get_data())); }
+
 //template <class OutputIterator> OutputIterator 	t.finite_incident_cells ( Vertex_handle v, OutputIterator cells)
 //template <class OutputIterator> OutputIterator 	t.incident_facets ( Vertex_handle v, OutputIterator facets)
 //template <class OutputIterator> OutputIterator 	t.finite_incident_facets ( Vertex_handle v, OutputIterator facets)
