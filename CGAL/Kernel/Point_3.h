@@ -16,6 +16,7 @@ class Point_3{
   EPIC_Kernel::Point_3 data;
 public:
   EPIC_Kernel::Point_3 get_data() const;
+  EPIC_Kernel::Point_3& get_data_ref();
   Point_3();
   Point_3(double x,double y,double z);
   Point_3(const EPIC_Kernel::Point_3& p);

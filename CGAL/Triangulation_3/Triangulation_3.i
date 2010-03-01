@@ -3,6 +3,29 @@
 %include "../common.i"
 %import  "../Kernel/Point_3.h"
 
+
+//input iterator typemap
+#ifdef SWIGPYTHON
+%typemap(in) Point_range{
+    if (!PyList_Check($input)) {
+        PyErr_SetString(PyExc_TypeError, "Not a list.");
+        return NULL;
+    }
+    int size = PyList_Size($input);
+    $1.reserve(size);
+    for (int i = 0; i < size; i++) {
+        PyObject *item = PyList_GetItem($input, i);
+        void* ret=0;
+        int res = SWIG_ConvertPtr(item, &ret, SWIGTYPE_p_Point_3,  0  | 0);
+        if (!SWIG_IsOK(res)) {
+          PyErr_SetString(PyExc_TypeError, "List item is not a Point_3.");
+          return NULL;
+        }        
+        $1.push_back( &((Point_3*)(ret))->get_data_ref() );
+    }
+}
+#endif
+
 //include files
 %{
   #include "Delaunay_triangulation_3.h"
@@ -97,3 +120,4 @@ Iterator_for_java(CGAL_Cell_circulator,DT3_Cell_handle)
 
 Iterator_for_java(CGAL_Facet_circulator,DT3_Facet)
 %template(DT3_Facet_circulator) CGAL_Facet_circulator<EPIC_DT3>;
+

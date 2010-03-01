@@ -1,6 +1,8 @@
 #ifndef SWIG_CGAL_TRIANGULATION_3_DELAUNAY_TRIANGULATION_3_H
 #define SWIG_CGAL_TRIANGULATION_3_DELAUNAY_TRIANGULATION_3_H
 
+
+#include <boost/iterator/transform_iterator.hpp>
 #include "../Kernel/Point_3.h"
 #include "typedefs.h"
 #include "triangulation_handles.h"
@@ -14,6 +16,15 @@ enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};
 
 typedef std::pair<CGAL_Cell_handle<EPIC_DT3>,int> DT3_Facet;
 typedef CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int> DT3_Edge;
+
+template <class T>
+struct Get_value{
+  typedef const T& result_type;
+  result_type operator()(const T* t) const {return *t;}
+};
+
+typedef std::vector<EPIC_Kernel::Point_3*> Point_range;
+typedef Get_value<EPIC_Kernel::Point_3> Extract_point;
 
 template <class Triangulation,class Vertex_handle, class Cell_handle>
 class Delaunay_triangulation_3{
@@ -98,7 +109,21 @@ MAP_FUNC_WRAP_IN_TWO(Vertex_handle,insert,Point_3,Vertex_handle)
  
 
 //Vertex_handle t.insert ( Point p, Locate_type lt, Cell_handle loc, int li, int lj) 
+
+
+
 //template < class InputIterator >int 	t.insert ( InputIterator first, InputIterator last) 
+
+//~ typedef std::vector<typename Triangulation::Point*> Point_range;
+
+int insert_range(Point_range range){
+  typedef boost::transform_iterator<Extract_point,Point_range::const_iterator> transform_iterator;
+  Extract_point func;
+  return data.insert(transform_iterator(range.begin(),func),transform_iterator(range.end(),func));
+}
+  
+
+
 
 //bool t.is_edge ( Vertex_handle u, Vertex_handle v, Cell_handle & c, int & i, int & j) 
 //bool  	t.is_facet ( 	Vertex_handle u,Vertex_handle v,Vertex_handle w,Cell_handle & c,int & i,int & j,int & k)
