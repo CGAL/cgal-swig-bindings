@@ -6,7 +6,7 @@
 
 //input iterator typemap
 #ifdef SWIGPYTHON
-%typemap(in) Point_range{
+%typemap(in) Point_range {
     if (!PyList_Check($input)) {
         PyErr_SetString(PyExc_TypeError, "Not a list.");
         return NULL;
@@ -25,6 +25,31 @@
     }
 }
 #endif
+
+#ifdef SWIGJAVA
+%typemap(jni) Point_range "jobjectArray"  //replace in jni class
+%typemap(jtype) Point_range "Point_3[]"   //replace in java wrapping class
+%typemap(jstype) Point_range "Point_3[]"  //replace in java function args
+%typemap(javain) Point_range "$javainput" //replace in java function call to wrapped function
+
+
+%typemap(in) Point_range {
+  int size = jenv->GetArrayLength($input);
+  $1.reserve(size);
+  for (int i = 0; i < size; ++i){
+    jobject j_obj = jenv->GetObjectArrayElement( $input, i);
+    jclass clazz = jenv->GetObjectClass(j_obj);
+    assert(clazz!=NULL);
+    jmethodID id=jenv->GetStaticMethodID(clazz, "getCPtr", "(LCGAL/Kernel/Point_3;)J");
+    assert(id!=NULL);
+    jlong jpt=(jlong) jenv->CallStaticObjectMethod(clazz,id,j_obj);
+    Point_3 *val = (Point_3 *)jpt;
+    $1.push_back( &(val->get_data_ref()) );
+  }
+}
+#endif
+
+
 
 //include files
 %{

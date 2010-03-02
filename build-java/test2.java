@@ -89,7 +89,7 @@ public class test2 {
   
   if (! ci.equals(t.infinite_cell())) System.out.println("Pb cell equality test");
   
-  if ((
+  if (!(
         t.locate(new Point_3(1,1,1)).equals(t.locate(new Point_3(1,1,1),t.infinite_cell())) &&
         t.locate(new Point_3(1,1,1)).equals(t.locate(new Point_3(1,1,1),v1)) 
        )
