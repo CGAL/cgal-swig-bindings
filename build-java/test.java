@@ -1,6 +1,7 @@
 import CGAL.Kernel.Point_3;
-import CGAL.Triangulation_3.DT3_T;
+import CGAL.Triangulation_3.Delaunay_triangulation_3;
 import CGAL.Triangulation_3.DT3_Vertex_handle;
+import java.util.Iterator;
 
 public class test {
   public static void main(String arg[]){
@@ -9,7 +10,7 @@ public class test {
 
   //~ Point_3 p=new Point_3(1,1,1);
   //~ System.out.println(p);    
-  DT3_T t=new DT3_T();
+  Delaunay_triangulation_3 t=new Delaunay_triangulation_3();
   //~ t.insert(p);
     
   Point_3 [] array=new Point_3[4];
@@ -20,6 +21,7 @@ public class test {
     
   t.insert_range(array);
     
+  Iterator<DT3_Vertex_handle> it=t.finite_vertices();
   //for (Point_3 pt : array){
   //  System.out.println(pt.getCPtr(pt));
   //  System.out.println(pt);

@@ -12,9 +12,26 @@ enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};
 typedef std::pair<CGAL_Cell_handle<EPIC_DT3>,int> DT3_Facet;
 typedef CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int> DT3_Edge;
 
-template <class Triangulation,class Vertex_handle, class Cell_handle>
-class Delaunay_triangulation_3{
+#define MAP_FUNC(RET,NAME) RET NAME() {return RET(data.NAME());}
+#define MAP_FUNC_WRAP_IN_ONE(RET,NAME,IN_TYPE) RET NAME(const IN_TYPE& c){return RET(data.NAME(convert(c)));}
+#define MAP_FUNC_WRAP_IN_TWO(RET,NAME,IN_TYPE_1,IN_TYPE_2) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2){return RET(data.NAME(convert(c1),convert(c2)));}
+#define MAP_FUNC_WRAP_IN_THREE(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3){return RET(data.NAME(convert(c1),convert(c2),convert(c3)));}
+#define MAP_FUNC_WRAP_IN_FOUR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4){return RET(data.NAME(convert(c1),convert(c2),convert(c3),convert(c4)));}
+#define MAP_FUNC_WRAP_IN_FIVE(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5){return RET(data.NAME(convert(c1),convert(c2),convert(c3),convert(c4),convert(c5)));}
+
+
+template<Triangulation>
+class Triangulation_3{
+protected:  
   Triangulation data;
+public:  
+  Triangulation_3(){};
+  MAP_FUNC(int, dimension)
+};
+
+template <class Triangulation,class Vertex_handle, class Cell_handle>
+class Delaunay_triangulation_3:public Triangulation_3<Triangulation>{
+  
   
   typename Triangulation::Cell_handle convert (const Cell_handle& c) {return c.get_data();}
   typename Triangulation::Vertex_handle convert (const Vertex_handle& v) {return v.get_data();}
@@ -25,16 +42,10 @@ class Delaunay_triangulation_3{
   
 public:
   const Triangulation& get_data() const {return data;}
-#define MAP_FUNC(RET,NAME) RET NAME() {return RET(data.NAME());}
-#define MAP_FUNC_WRAP_IN_ONE(RET,NAME,IN_TYPE) RET NAME(const IN_TYPE& c){return RET(data.NAME(convert(c)));}
-#define MAP_FUNC_WRAP_IN_TWO(RET,NAME,IN_TYPE_1,IN_TYPE_2) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2){return RET(data.NAME(convert(c1),convert(c2)));}
-#define MAP_FUNC_WRAP_IN_THREE(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3){return RET(data.NAME(convert(c1),convert(c2),convert(c3)));}
-#define MAP_FUNC_WRAP_IN_FOUR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4){return RET(data.NAME(convert(c1),convert(c2),convert(c3),convert(c4)));}
-#define MAP_FUNC_WRAP_IN_FIVE(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5){return RET(data.NAME(convert(c1),convert(c2),convert(c3),convert(c4),convert(c5)));}
 
-Delaunay_triangulation_3():data(){}
+Delaunay_triangulation_3():Triangulation_3(){}
   
-MAP_FUNC(int, dimension)
+//MAP_FUNC(int, dimension)
 MAP_FUNC(int, number_of_vertices)
 MAP_FUNC(int, number_of_cells)
 MAP_FUNC(int, number_of_facets)
@@ -63,7 +74,7 @@ MAP_FUNC_WRAP_IN_ONE(DT3_Facet,mirror_facet,DT3_Facet)
 MAP_FUNC_WRAP_IN_TWO(EPIC_Point_3,point,Cell_handle,int)
 MAP_FUNC_WRAP_IN_ONE(EPIC_Point_3,point,Vertex_handle)
 void clear(){data.clear();}
-Delaunay_triangulation_3(const Delaunay_triangulation_3& dt):data(dt.get_data()){};
+Delaunay_triangulation_3(const Delaunay_triangulation_3& dt):Triangulation_3(static_cast<const Triangulation_3&>(dt)){};
 bool equal(const Delaunay_triangulation_3& dt) {return dt.get_data()==data;}
 bool equals(const Delaunay_triangulation_3& dt) {return equal(dt);}
 #ifdef SWIGPYTHON
