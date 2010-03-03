@@ -25,12 +25,12 @@ struct Get_value{
 typedef std::vector<EPIC_Kernel::Point_3*> Point_range;
 typedef Get_value<EPIC_Kernel::Point_3> Extract_point;
 
-#define MAP_FUNC(RET,NAME) RET NAME() {return RET(this->data.NAME());}
-#define MAP_FUNC_WRAP_IN_ONE(RET,NAME,IN_TYPE) RET NAME(const IN_TYPE& c){return RET(this->data.NAME(this->convert(c)));}
-#define MAP_FUNC_WRAP_IN_TWO(RET,NAME,IN_TYPE_1,IN_TYPE_2) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2){return RET(this->data.NAME(this->convert(c1),this->convert(c2)));}
-#define MAP_FUNC_WRAP_IN_THREE(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3){return RET(this->data.NAME(this->convert(c1),this->convert(c2),this->convert(c3)));}
-#define MAP_FUNC_WRAP_IN_FOUR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4){return RET(this->data.NAME(this->convert(c1),this->convert(c2),this->convert(c3),this->convert(c4)));}
-#define MAP_FUNC_WRAP_IN_FIVE(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5){return RET(this->data.NAME(this->convert(c1),this->convert(c2),this->convert(c3),this->convert(c4),this->convert(c5)));}
+#define FORWARD_CALL_0(RET,NAME) RET NAME() {return RET(this->data.NAME());}
+#define FORWARD_CALL_1(RET,NAME,IN_TYPE) RET NAME(const IN_TYPE& c){return RET(this->data.NAME(this->convert(c)));}
+#define FORWARD_CALL_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2){return RET(this->data.NAME(this->convert(c1),this->convert(c2)));}
+#define FORWARD_CALL_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3){return RET(this->data.NAME(this->convert(c1),this->convert(c2),this->convert(c3)));}
+#define FORWARD_CALL_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4){return RET(this->data.NAME(this->convert(c1),this->convert(c2),this->convert(c3),this->convert(c4)));}
+#define FORWARD_CALL_5(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5){return RET(this->data.NAME(this->convert(c1),this->convert(c2),this->convert(c3),this->convert(c4),this->convert(c5)));}
 
 
 template <class Triangulation,class Vertex_handle, class Cell_handle>
@@ -51,35 +51,35 @@ public:
   Triangulation_3_wrapper(){}
   const Triangulation& get_data() const {return this->data;} 
     
-  MAP_FUNC(int, dimension)
-  MAP_FUNC(int, number_of_vertices)
-  MAP_FUNC(int, number_of_cells)
-  MAP_FUNC(int, number_of_facets)
-  MAP_FUNC(int, number_of_edges)
-  MAP_FUNC(int, number_of_finite_cells)
-  MAP_FUNC(int, number_of_finite_facets)
-  MAP_FUNC(int, number_of_finite_edges)
-  MAP_FUNC(Vertex_handle,infinite_vertex)
-  MAP_FUNC(Cell_handle,infinite_cell)
-  MAP_FUNC_WRAP_IN_ONE(bool,is_infinite,Vertex_handle)
-  MAP_FUNC_WRAP_IN_ONE(bool,is_infinite,Cell_handle)
-  MAP_FUNC_WRAP_IN_ONE(bool,is_infinite,DT3_Facet)
-  MAP_FUNC_WRAP_IN_ONE(bool,is_infinite,DT3_Edge)
-  MAP_FUNC_WRAP_IN_TWO(bool,is_infinite,Cell_handle,int)
-  MAP_FUNC_WRAP_IN_THREE(bool,is_infinite,Cell_handle,int,int)
-  MAP_FUNC_WRAP_IN_ONE(bool,is_vertex,Vertex_handle)
-  MAP_FUNC_WRAP_IN_ONE(bool,is_cell,Cell_handle)
-  MAP_FUNC_WRAP_IN_ONE(Cell_handle,locate,Point_3)
-  MAP_FUNC_WRAP_IN_TWO(Cell_handle,locate,Point_3,Cell_handle)
-  MAP_FUNC_WRAP_IN_TWO(Cell_handle,locate,Point_3,Vertex_handle)
-  MAP_FUNC(bool,is_valid)
-  MAP_FUNC_WRAP_IN_ONE(bool,is_valid,bool)
-  MAP_FUNC_WRAP_IN_ONE(bool,is_valid,Cell_handle)
-  MAP_FUNC_WRAP_IN_TWO(bool,is_valid,Cell_handle,bool)
-  MAP_FUNC_WRAP_IN_ONE(DT3_Facet,mirror_facet,DT3_Facet)
-  MAP_FUNC_WRAP_IN_TWO(Point_3,point,Cell_handle,int)
-  MAP_FUNC_WRAP_IN_ONE(Point_3,point,Vertex_handle)
-  MAP_FUNC(void,clear)
+  FORWARD_CALL_0(int, dimension)
+  FORWARD_CALL_0(int, number_of_vertices)
+  FORWARD_CALL_0(int, number_of_cells)
+  FORWARD_CALL_0(int, number_of_facets)
+  FORWARD_CALL_0(int, number_of_edges)
+  FORWARD_CALL_0(int, number_of_finite_cells)
+  FORWARD_CALL_0(int, number_of_finite_facets)
+  FORWARD_CALL_0(int, number_of_finite_edges)
+  FORWARD_CALL_0(Vertex_handle,infinite_vertex)
+  FORWARD_CALL_0(Cell_handle,infinite_cell)
+  FORWARD_CALL_1(bool,is_infinite,Vertex_handle)
+  FORWARD_CALL_1(bool,is_infinite,Cell_handle)
+  FORWARD_CALL_1(bool,is_infinite,DT3_Facet)
+  FORWARD_CALL_1(bool,is_infinite,DT3_Edge)
+  FORWARD_CALL_2(bool,is_infinite,Cell_handle,int)
+  FORWARD_CALL_3(bool,is_infinite,Cell_handle,int,int)
+  FORWARD_CALL_1(bool,is_vertex,Vertex_handle)
+  FORWARD_CALL_1(bool,is_cell,Cell_handle)
+  FORWARD_CALL_1(Cell_handle,locate,Point_3)
+  FORWARD_CALL_2(Cell_handle,locate,Point_3,Cell_handle)
+  FORWARD_CALL_2(Cell_handle,locate,Point_3,Vertex_handle)
+  FORWARD_CALL_0(bool,is_valid)
+  FORWARD_CALL_1(bool,is_valid,bool)
+  FORWARD_CALL_1(bool,is_valid,Cell_handle)
+  FORWARD_CALL_2(bool,is_valid,Cell_handle,bool)
+  FORWARD_CALL_1(DT3_Facet,mirror_facet,DT3_Facet)
+  FORWARD_CALL_2(Point_3,point,Cell_handle,int)
+  FORWARD_CALL_1(Point_3,point,Vertex_handle)
+  FORWARD_CALL_0(void,clear)
   
   
   bool equal(const Triangulation_3_wrapper& t) {return t.get_data()==this->data;}
@@ -98,9 +98,9 @@ public:
   CGAL_All_cells_iterator<Triangulation> all_cells(){return CGAL_All_cells_iterator<Triangulation>(this->data.all_cells_begin(),this->data.all_cells_end());}
   CGAL_Point_iterator<Triangulation> points(){return CGAL_Point_iterator<Triangulation>(this->data.points_begin(),this->data.points_end());}
 
-  Vertex_handle insert(const Point_3& p){return  Vertex_handle(this->data.insert(p.get_data()));}
-  MAP_FUNC_WRAP_IN_TWO(Vertex_handle,insert,Point_3,Cell_handle) 
-  MAP_FUNC_WRAP_IN_TWO(Vertex_handle,insert,Point_3,Vertex_handle) 
+  FORWARD_CALL_1(Vertex_handle,insert,Point_3)
+  FORWARD_CALL_2(Vertex_handle,insert,Point_3,Cell_handle) 
+  FORWARD_CALL_2(Vertex_handle,insert,Point_3,Vertex_handle) 
 
   //----------------------------------
   //Triangulation_3 interface wrapping
@@ -135,26 +135,26 @@ public:
   //Bounded_side t.side_of_edge ( Point p, Edge e, Locate_type & lt, int & li) 
   //Bounded_side t.side_of_edge ( Point p, Cell_handle c, Locate_type & lt, int & li) 
 
-  MAP_FUNC_WRAP_IN_ONE(CGAL_Cell_circulator<Triangulation>,incident_cells,DT3_Edge)
-  MAP_FUNC_WRAP_IN_THREE(CGAL_Cell_circulator<Triangulation>,incident_cells,Cell_handle,int,int)
-  MAP_FUNC_WRAP_IN_TWO(CGAL_Cell_circulator<Triangulation>,incident_cells,DT3_Edge,Cell_handle)
-  MAP_FUNC_WRAP_IN_FOUR(CGAL_Cell_circulator<Triangulation>,incident_cells,Cell_handle,int,int,Cell_handle)
-  MAP_FUNC_WRAP_IN_ONE(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge)
-  MAP_FUNC_WRAP_IN_THREE(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int)
-  MAP_FUNC_WRAP_IN_TWO(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge,DT3_Facet)
-  MAP_FUNC_WRAP_IN_THREE(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge,Cell_handle,int)
-  MAP_FUNC_WRAP_IN_FOUR(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int,DT3_Facet)
-  MAP_FUNC_WRAP_IN_FIVE(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int,Cell_handle,int)
+  FORWARD_CALL_1(CGAL_Cell_circulator<Triangulation>,incident_cells,DT3_Edge)
+  FORWARD_CALL_3(CGAL_Cell_circulator<Triangulation>,incident_cells,Cell_handle,int,int)
+  FORWARD_CALL_2(CGAL_Cell_circulator<Triangulation>,incident_cells,DT3_Edge,Cell_handle)
+  FORWARD_CALL_4(CGAL_Cell_circulator<Triangulation>,incident_cells,Cell_handle,int,int,Cell_handle)
+  FORWARD_CALL_1(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge)
+  FORWARD_CALL_3(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int)
+  FORWARD_CALL_2(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge,DT3_Facet)
+  FORWARD_CALL_3(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge,Cell_handle,int)
+  FORWARD_CALL_4(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int,DT3_Facet)
+  FORWARD_CALL_5(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int,Cell_handle,int)
 
-  MAP_FUNC_WRAP_IN_TWO(bool,has_vertex,DT3_Facet,Vertex_handle)
-  MAP_FUNC_WRAP_IN_THREE(bool,has_vertex,Cell_handle,int,Vertex_handle)
-  MAP_FUNC_WRAP_IN_FOUR(bool,are_equal,Cell_handle,int,Cell_handle,int)
-  MAP_FUNC_WRAP_IN_TWO(bool,are_equal,DT3_Facet,DT3_Facet)
-  MAP_FUNC_WRAP_IN_THREE(bool,are_equal,DT3_Facet,Cell_handle,int)
+  FORWARD_CALL_2(bool,has_vertex,DT3_Facet,Vertex_handle)
+  FORWARD_CALL_3(bool,has_vertex,Cell_handle,int,Vertex_handle)
+  FORWARD_CALL_4(bool,are_equal,Cell_handle,int,Cell_handle,int)
+  FORWARD_CALL_2(bool,are_equal,DT3_Facet,DT3_Facet)
+  FORWARD_CALL_3(bool,are_equal,DT3_Facet,Cell_handle,int)
 
-  MAP_FUNC_WRAP_IN_ONE(int,degree,Vertex_handle)
-  MAP_FUNC_WRAP_IN_TWO(int,mirror_index,Cell_handle,int)
-  MAP_FUNC_WRAP_IN_TWO(Vertex_handle,mirror_vertex,Cell_handle,int)
+  FORWARD_CALL_1(int,degree,Vertex_handle)
+  FORWARD_CALL_2(int,mirror_index,Cell_handle,int)
+  FORWARD_CALL_2(Vertex_handle,mirror_vertex,Cell_handle,int)
 
 
   void incident_cells(const Vertex_handle& v,Output_iterator<Cell_handle>& out){ this->data.incident_cells(convert(v),std::back_inserter(out.get_data())); }

@@ -14,20 +14,20 @@ public:
   //---------------------------------
   //Delaunay_triangulation_3 wrapping
   //---------------------------------
-  MAP_FUNC_WRAP_IN_ONE(void,remove,Vertex_handle)
+  FORWARD_CALL_1(void,remove,Vertex_handle)
 
-  MAP_FUNC_WRAP_IN_TWO(Vertex_handle,move_point,Vertex_handle,Point_3);
-  MAP_FUNC_WRAP_IN_TWO(Bounded_side,side_of_sphere,Cell_handle,Point_3)
-  MAP_FUNC_WRAP_IN_TWO(Bounded_side,side_of_circle,DT3_Facet,Point_3)
-  MAP_FUNC_WRAP_IN_THREE(Bounded_side,side_of_circle,Cell_handle,int,Point_3)
+  FORWARD_CALL_2(Vertex_handle,move_point,Vertex_handle,Point_3);
+  FORWARD_CALL_2(Bounded_side,side_of_sphere,Cell_handle,Point_3)
+  FORWARD_CALL_2(Bounded_side,side_of_circle,DT3_Facet,Point_3)
+  FORWARD_CALL_3(Bounded_side,side_of_circle,Cell_handle,int,Point_3)
 
-  MAP_FUNC_WRAP_IN_ONE(Vertex_handle,nearest_vertex,Point_3)
-  MAP_FUNC_WRAP_IN_TWO(Vertex_handle,nearest_vertex,Point_3,Cell_handle)
+  FORWARD_CALL_1(Vertex_handle,nearest_vertex,Point_3)
+  FORWARD_CALL_2(Vertex_handle,nearest_vertex,Point_3,Cell_handle)
 
-  MAP_FUNC_WRAP_IN_TWO(bool,is_Gabriel,Cell_handle,int)
-  MAP_FUNC_WRAP_IN_THREE(bool,is_Gabriel,Cell_handle,int,int)
-  MAP_FUNC_WRAP_IN_ONE(bool,is_Gabriel,DT3_Facet)
-  MAP_FUNC_WRAP_IN_ONE(bool,is_Gabriel,DT3_Edge)
+  FORWARD_CALL_2(bool,is_Gabriel,Cell_handle,int)
+  FORWARD_CALL_3(bool,is_Gabriel,Cell_handle,int,int)
+  FORWARD_CALL_1(bool,is_Gabriel,DT3_Facet)
+  FORWARD_CALL_1(bool,is_Gabriel,DT3_Edge)
 
   //template < typename InputIterator > int 	dt.remove ( InputIterator first, InputIterator beyond)
   //template <class OutputIteratorBoundaryFacets, class OutputIteratorCells> std::pair<OutputIteratorBoundaryFacets, OutputIteratorCells>
