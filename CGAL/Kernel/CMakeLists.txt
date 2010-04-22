@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 SET (MODULENAME "Kernel")
 SET (INTERFACE_FILES  "Kernel.i")
-SET (OBJECT_FILES "Point_3.cpp")
+SET (OBJECT_FILES "Point_3.cpp" "Plane_3.cpp")
 SET (JAVA_OBJECT_FILES "")
 SET (PYTHON_OBJECT_FILES "")
 SET (JAVAPACKAGENAME "CGAL.Kernel")
