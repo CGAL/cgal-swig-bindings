@@ -1,8 +1,9 @@
 //macro function to define proper java iterators
 #ifdef SWIGJAVA
-%define Iterator_for_java(Iterator_type,Object_type)
+%define Iterator_for_java(Iterator_type,Object_type,Extra_import)
   %typemap(javaimports) Iterator_type
   %{
+  Extra_import
   import java.lang.Iterable;
   import java.lang.UnsupportedOperationException;
   import java.util.Iterator;
@@ -36,7 +37,7 @@
 %enddef
 
 #else
-%define Iterator_for_java(Iterator_type,Object_type)
+%define Iterator_for_java(Iterator_type,Object_type,Extra_import)
 %enddef
 #endif
 
