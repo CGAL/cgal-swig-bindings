@@ -2,6 +2,8 @@
 
 %include "../common.i"
 %import  "../Kernel/Point_3.h"
+%import  "../Common/Macros.h"
+%include "../Common/Input_iterator.h"
 
 
 //input iterator typemap
@@ -55,7 +57,7 @@
 %{
   #include "Delaunay_triangulation_3.h"
   #include "triangulation_handles.h"
-  #include "triple.h"
+  #include "../Common/triple.h"
   #include "triangulation_iterators.h"
 %}
 
@@ -67,7 +69,7 @@
 %include "Triangulation_3.h"
 %include "Delaunay_triangulation_3.h"
 %include "triangulation_handles.h"
-%include "triple.h"
+%include "../Common/triple.h"
 %include "triangulation_iterators.h"
 %include "../Common/Output_iterator.h"
 %include "../Common/Reference_wrapper.h"
