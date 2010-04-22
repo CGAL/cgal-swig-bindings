@@ -1,7 +1,9 @@
+#ifndef CGAL_SWIG_POLYHEDRON_3_POLYHEDRON_3_H
+#define CGAL_SWIG_POLYHEDRON_3_POLYHEDRON_3_H
+
 #include <CGAL/Simple_cartesian.h>
 #include <CGAL/Polyhedron_3.h>
 
-#include "../Kernel/Point_3.h"
 #include "../Kernel/typedefs.h"
 #include "../Common/Macros.h"
 #include "polyhedron_3_iterators.h"
@@ -46,9 +48,7 @@ public:
   CGAL_Facet_iterator<Polyhedron_base> facets(){return CGAL_Facet_iterator<Polyhedron_base>(data.facets_begin(),data.facets_end());}
   CGAL_Edge_iterator<Polyhedron_base> edges(){return CGAL_Edge_iterator<Polyhedron_base>(data.edges_begin(),data.edges_end());}
   CGAL_Point_iterator<Polyhedron_base> points(){return CGAL_Point_iterator<Polyhedron_base>(data.points_begin(),data.points_end());}
-
-  //~ Plane_iterator    P.planes_begin ()
-  //~ Plane_iterator    P.planes_end ()
+  CGAL_Plane_iterator<Polyhedron_base> planes(){return CGAL_Plane_iterator<Polyhedron_base>(data.planes_begin(),data.planes_end());}
 
   //Traits P.traits ()
 
@@ -99,12 +99,14 @@ public:
   CGAL_Edge_iterator<Polyhedron_base>   non_border_edges()  {return CGAL_Edge_iterator<Polyhedron_base>(data.edges_begin(),data.border_edges_begin());}
   
 //Miscellaneous
-  FORWARD_CALL_0(void,inside_out)  //bool P.normalized_border_is_valid ( bool verbose = false)
+  FORWARD_CALL_0(void,inside_out)
   FORWARD_CALL_0(bool,is_valid) //bool P.is_valid ( bool verbose = false, int level = 0)
-  FORWARD_CALL_0(bool,normalized_border_is_valid)
+  FORWARD_CALL_0(bool,normalized_border_is_valid)  //bool P.normalized_border_is_valid ( bool verbose = false)
   
   //~ FORWARD_CALL_1(void,delegate ( CGAL::Modifier_base<HDS>& m)
 
   
   
 };
+
+#endif //CGAL_SWIG_POLYHEDRON_3_POLYHEDRON_3_H

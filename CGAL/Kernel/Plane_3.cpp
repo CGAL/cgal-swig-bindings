@@ -1,7 +1,7 @@
 #include "Plane_3.h"
 #include <sstream>
 
-EPIC_Kernel::Plane_3 Plane_3::get_data() const {return data;}
+const EPIC_Kernel::Plane_3& Plane_3::get_data() const {return data;}
 EPIC_Kernel::Plane_3& Plane_3::get_data_ref() {return data;}
 Plane_3::Plane_3():data(){}
 Plane_3::Plane_3(double a,double b,double c,double d):data(a,b,c,d){}

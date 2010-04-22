@@ -8,7 +8,9 @@ template <class Triangulation>
 class CGAL_Vertex_handle{
   typename Triangulation::Vertex_handle data;
   
-  public:
+public:
+  typedef typename Triangulation::Vertex_handle cpp_base;
+  
   CGAL_Vertex_handle():data(NULL){}
   CGAL_Vertex_handle(typename Triangulation::Vertex_handle v):data(v){}
   typename Triangulation::Vertex_handle get_data() const {return data;}
@@ -34,7 +36,9 @@ template <class Triangulation>
 class CGAL_Cell_handle{
   typename Triangulation::Cell_handle data;
   
-  public:
+public:
+  typedef typename Triangulation::Cell_handle cpp_base;
+
   CGAL_Cell_handle():data(NULL){}
   CGAL_Cell_handle(typename Triangulation::Cell_handle v):data(v){}
   typename Triangulation::Cell_handle get_data() const {return data;}

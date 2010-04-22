@@ -1,7 +1,7 @@
 #include "Point_3.h"
 #include <sstream>
 
-EPIC_Kernel::Point_3 Point_3::get_data() const {return data;}
+const EPIC_Kernel::Point_3& Point_3::get_data() const {return data;}
 EPIC_Kernel::Point_3& Point_3::get_data_ref() {return data;}
 Point_3::Point_3():data(){}
 Point_3::Point_3(double x,double y,double z):data(x,y,z){}

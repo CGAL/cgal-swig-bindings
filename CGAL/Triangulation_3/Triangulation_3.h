@@ -35,10 +35,6 @@ protected:
   typename Triangulation::Cell_handle& convert (Cell_handle& c) {return c.get_data_ref();}
   typename Triangulation::Vertex_handle convert (const Vertex_handle& v) {return v.get_data();}
   typename Triangulation::Vertex_handle& convert (Vertex_handle& v) {return v.get_data_ref();}
-  typename Triangulation::Facet convert(const DT3_Facet& f){return std::make_pair(convert(f.first),f.second);}
-  typename Triangulation::Edge convert (const DT3_Edge& e){return CGAL::make_tuple(convert(e.first),e.second,e.third);}
-  typename Triangulation::Point convert (const Point_3& p){return p.get_data();}
-  const int& convert (const int& i){return i;}
   template <class T> const T& convert(const Reference_wrapper<T>& ref){return ref.object();}
   template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object_ref();}
 public:

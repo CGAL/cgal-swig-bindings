@@ -2,6 +2,8 @@
 #define CGAL_SWIG_INPUT_ITERATOR_H
 
 #include "triple.h"
+#include "../Kernel/Point_3.h"
+#include "../Kernel/Plane_3.h"
 
 template <class T>
 struct Iterator_helper{
@@ -47,6 +49,16 @@ struct Iterator_helper<Point_3>{
   default_value(){return Point_3();}
 };
 
+template <>
+struct Iterator_helper<Plane_3>{
+  template <class Ti>
+  static Plane_3 convert(const Ti& i){
+    return Plane_3(*i);
+  }
+  
+  static Plane_3
+  default_value(){return Plane_3();}
+};
 
 #ifdef SWIGPYTHON
 #define DECLARE_ITERATOR_CLASS(NAME,RETURN)                    \
@@ -99,5 +111,20 @@ public:                                                        \
   }                                                            \
 };
 #endif
+
+
+
+#define DECLARE_CIRCULATOR_CLASS(NAME,RETURN)                  \
+template<class T>                                              \
+class CGAL_##NAME{                                             \
+  typename T::NAME cur;                                        \
+public:                                                        \
+  CGAL_##NAME( typename T::NAME cur_):cur(cur_){}              \
+    CGAL_##NAME<T> __iter__(){return *this;}                   \
+  RETURN next() {                                              \
+    return Iterator_helper<RETURN>::convert ( (cur++) );       \
+  }                                                            \
+  bool hasNext(){return true; }                                \
+};
 
 #endif //CGAL_SWIG_INPUT_ITERATOR_H

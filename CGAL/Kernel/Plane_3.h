@@ -15,7 +15,9 @@
 class Plane_3{
   EPIC_Kernel::Plane_3 data;
 public:
-  EPIC_Kernel::Plane_3 get_data() const;
+  typedef EPIC_Kernel::Point_3 cpp_base;  
+
+  const EPIC_Kernel::Plane_3& get_data() const;
   EPIC_Kernel::Plane_3& get_data_ref();
   Plane_3();
   Plane_3(double a,double b,double c,double d);

@@ -1,35 +1,157 @@
 #ifndef CGAL_SWIG_MACROS_H
 #define CGAL_SWIG_MACROS_H
 
+#include "../Common/triple.h"
+
+//Functor for FORWARD_CALL_N
+
+template <class T> class CGAL_Cell_handle;
+
+namespace internal{
+
+#define SPECIALIZE_CONVERTER(T)                    \
+template <> struct Converter<T>{                   \
+  typedef T result_type;                           \
+  static const T& convert(const T& t){return t;}   \
+};
+  
+template <class T>
+struct Converter{
+  typedef typename T::cpp_base result_type;
+  static result_type  convert(const T& t){return t.get_data();}
+  static result_type& convert(T& t){return t.get_data_ref();}
+};
+
+SPECIALIZE_CONVERTER(int)
+SPECIALIZE_CONVERTER(unsigned)
+SPECIALIZE_CONVERTER(bool)
+SPECIALIZE_CONVERTER(double)
+SPECIALIZE_CONVERTER(float)
+
+template <class P1,class P2>
+struct Converter<std::pair<P1,P2> >{
+  typedef std::pair<typename Converter<P1>::result_type,
+                    typename Converter<P2>::result_type>           result_type;
+  
+  static result_type convert(const std::pair<P1,P2>& t)
+  {
+    return std::make_pair(Converter<P1>::convert(t.first),
+                          Converter<P2>::convert(t.second));
+  }
+};
+
+template <class T1,class T2,class T3>
+struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
+  typedef CGAL_SWIG::Triple<  typename Converter<T1>::result_type,
+                              typename Converter<T2>::result_type,    
+                              typename Converter<T3>::result_type    >   result_type;
+  
+  static result_type convert(const CGAL_SWIG::Triple<T1,T2,T3>& t){
+    return CGAL_SWIG::make_triple(Converter<T1>::convert(t.first),
+                                  Converter<T2>::convert(t.second),
+                                  Converter<T3>::convert(t.third));
+  }
+};
+
+//For triangulation_3 Facet
+template <class T>
+struct Converter<std::pair<CGAL_Cell_handle<T>,int> >{
+  typedef typename T::Facet result_type;
+  
+  static result_type convert(const std::pair<CGAL_Cell_handle<T>,int>& t)
+  {
+    return std::make_pair(Converter<CGAL_Cell_handle<T> >::convert(t.first),
+                          t.second);
+  }
+};
+
+//For triangulation_3 Edge
+template <class T>
+struct Converter<CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int> >{
+  typedef typename T::Edge result_type;
+  
+  static result_type convert(const ::CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int>& t){
+    return CGAL::make_tuple(Converter<CGAL_Cell_handle<T> >::convert(t.first),
+                            t.second,
+                            t.third);
+  }
+};
+
+
+
+  //~ typename Triangulation::Cell_handle convert (const Cell_handle& c) {return c.get_data();}
+  //~ typename Triangulation::Cell_handle& convert (Cell_handle& c) {return c.get_data_ref();}
+  //~ typename Triangulation::Vertex_handle convert (const Vertex_handle& v) {return v.get_data();}
+  //~ typename Triangulation::Vertex_handle& convert (Vertex_handle& v) {return v.get_data_ref();}
+  //~ typename Triangulation::Facet convert(const DT3_Facet& f){return std::make_pair(convert(f.first),f.second);}
+  //~ typename Triangulation::Edge convert (const DT3_Edge& e){return CGAL::make_tuple(convert(e.first),e.second,e.third);}
+  //~ typename Triangulation::Point convert (const Point_3& p){return p.get_data();}
+  //~ const int& convert (const int& i){return i;}
+  //~ template <class T> const T& convert(const Reference_wrapper<T>& ref){return ref.object();}
+  //~ template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object_ref();}  
+  
+
+
+}//namespace internal
 
 //Macro functions to ease the wrapping of member functions
+
+#define FORWARD_CALL_0_PTR(RET,NAME) \
+  RET NAME()\
+  {return RET(this->data->NAME());}
 
 #define FORWARD_CALL_0(RET,NAME) \
   RET NAME()\
   {return RET(this->data.NAME());}
   
 #define FORWARD_CALL_1(RET,NAME,IN_TYPE) \
-  RET NAME(const IN_TYPE& c)\
-    {return RET(this->data.NAME(this->convert(c)));}
-  
+  RET NAME(const IN_TYPE& c){\
+    return RET(this->data.NAME(internal::Converter<IN_TYPE>::convert(c)));\
+  }
+
+#define FORWARD_CALL_1_PTR(RET,NAME,IN_TYPE) \
+  RET NAME(const IN_TYPE& c){\
+    return RET(this->data->NAME(internal::Converter<IN_TYPE>::convert(c)));\
+  }
+
 #define FORWARD_CALL_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
-  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2)\
-    {return RET(this->data.NAME(this->convert(c1),this->convert(c2)));}
+  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2){\
+    return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
+                               internal::Converter<IN_TYPE_2>::convert(c2)));\
+  }
   
 #define FORWARD_CALL_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
-  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3)\
-    {return RET(this->data.NAME(this->convert(c1),this->convert(c2),this->convert(c3)));}
+  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3){\
+    return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
+                               internal::Converter<IN_TYPE_2>::convert(c2),\
+                               internal::Converter<IN_TYPE_3>::convert(c3)));\
+  }
   
 #define FORWARD_CALL_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
-  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4)\
-    {return RET(this->data.NAME(this->convert(c1),this->convert(c2),this->convert(c3),this->convert(c4)));}
+  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4){\
+    return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
+                               internal::Converter<IN_TYPE_2>::convert(c2),\
+                               internal::Converter<IN_TYPE_3>::convert(c3),\
+                               internal::Converter<IN_TYPE_4>::convert(c4)));\
+  }
   
 #define FORWARD_CALL_5(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) \
-  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5)\
-    {return RET(this->data.NAME(this->convert(c1),this->convert(c2),this->convert(c3),this->convert(c4),this->convert(c5)));}
+  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5){\
+    return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
+                               internal::Converter<IN_TYPE_2>::convert(c2),\
+                               internal::Converter<IN_TYPE_3>::convert(c3),\
+                               internal::Converter<IN_TYPE_4>::convert(c4),\
+                               internal::Converter<IN_TYPE_5>::convert(c5)));\
+  }
 
 #define FORWARD_CALL_6(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5,IN_TYPE_6) \
-  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5, const IN_TYPE_6& c6)\
-    {return RET(this->data.NAME(this->convert(c1),this->convert(c2),this->convert(c3),this->convert(c4),this->convert(c5),this->convert(c6)));}
+  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5, const IN_TYPE_6& c6){\
+    return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
+                               internal::Converter<IN_TYPE_2>::convert(c2),\
+                               internal::Converter<IN_TYPE_3>::convert(c3),\
+                               internal::Converter<IN_TYPE_4>::convert(c4),\
+                               internal::Converter<IN_TYPE_5>::convert(c5),\
+                               internal::Converter<IN_TYPE_6>::convert(c6)));\
+  }
 
 #endif //CGAL_SWIG_MACROS_H
