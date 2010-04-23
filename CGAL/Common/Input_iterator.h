@@ -61,8 +61,8 @@ struct Iterator_helper<Plane_3>{
 };
 
 #ifdef SWIGPYTHON
-#define DECLARE_ITERATOR_CLASS(NAME,RETURN)                    \
-template<class T>                                              \
+#define DECLARE_ITERATOR_CLASS(NAME)                           \
+template<class T,class R>                                      \
 class CGAL_##NAME{                                             \
   typename T::NAME cur;                                        \
   typename T::NAME end;                                        \
@@ -73,13 +73,13 @@ public:                                                        \
     typename T::NAME end_                                      \
   ):cur(cur_),end(end_){}                                      \
                                                                \
-  CGAL_##NAME<T> __iter__(){return *this;}                     \
-  RETURN next()                                                \
+  CGAL_##NAME<T,R> __iter__(){return *this;}                     \
+  R next()                                                     \
   {                                                            \
     if (cur!=end)                                              \
-      return Iterator_helper<RETURN>::convert ( (cur++) );     \
+      return Iterator_helper<R>::convert ( (cur++) );          \
     throw 1;                                                   \
-    return Iterator_helper<RETURN>::default_value();           \
+    return Iterator_helper<R>::default_value();                \
   }                                                            \
                                                                \
   bool hasNext(){                                              \
@@ -87,8 +87,8 @@ public:                                                        \
   }                                                            \
 };       
 #else
-#define DECLARE_ITERATOR_CLASS(NAME,RETURN)                    \
-template<class T>                                              \
+#define DECLARE_ITERATOR_CLASS(NAME)                           \
+template<class T,class R>                                      \
 class CGAL_##NAME{                                             \
   typename T::NAME cur;                                        \
   typename T::NAME end;                                        \
@@ -99,11 +99,11 @@ public:                                                        \
     typename T::NAME end_                                      \
   ):cur(cur_),end(end_){}                                      \
                                                                \
-  RETURN next()                                                \
+  R next()                                                     \
   {                                                            \
     if (cur!=end)                                              \
-      return Iterator_helper<RETURN>::convert ( (cur++) );     \
-    return Iterator_helper<RETURN>::default_value();           \
+      return Iterator_helper<R>::convert ( (cur++) );          \
+    return Iterator_helper<R>::default_value();                \
   }                                                            \
                                                                \
   bool hasNext(){                                              \
@@ -114,15 +114,15 @@ public:                                                        \
 
 
 
-#define DECLARE_CIRCULATOR_CLASS(NAME,RETURN)                  \
-template<class T>                                              \
+#define DECLARE_CIRCULATOR_CLASS(NAME)                         \
+template<class T,class R>                                      \
 class CGAL_##NAME{                                             \
   typename T::NAME cur;                                        \
 public:                                                        \
   CGAL_##NAME( typename T::NAME cur_):cur(cur_){}              \
-    CGAL_##NAME<T> __iter__(){return *this;}                   \
-  RETURN next() {                                              \
-    return Iterator_helper<RETURN>::convert ( (cur++) );       \
+    CGAL_##NAME<T,R> __iter__(){return *this;}                   \
+  R next() {                                                   \
+    return Iterator_helper<R>::convert ( (cur++) );            \
   }                                                            \
   bool hasNext(){return true; }                                \
 };

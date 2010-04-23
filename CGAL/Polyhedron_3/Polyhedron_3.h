@@ -13,13 +13,10 @@
 typedef CGAL::Polyhedron_3<EPIC_Kernel>         Polyhedron;
 
 
-template <class Polyhedron_base,class Halfedge_handle>
+template <class Polyhedron_base,class Vertex_handle,class Halfedge_handle,class Facet_handle>
 class Polyhedron_3{
   Polyhedron_base data;
-  typename Polyhedron_base::Halfedge_handle convert (Halfedge_handle h) {return h.get_data();}
-  typename Polyhedron_base::Traits::Point_3 convert (const Point_3& p){return p.get_data();}
-  const unsigned& convert (const unsigned& i){return i;}
-  
+ 
 public:  
 //Creation
   Polyhedron_3():data(){}
@@ -49,12 +46,12 @@ public:
 
   //allocator_type P.get_allocator ()
 
-  CGAL_Vertex_iterator<Polyhedron_base> vertices(){return CGAL_Vertex_iterator<Polyhedron_base>(data.vertices_begin(),data.vertices_end());}
-  CGAL_Halfedge_iterator<Polyhedron_base> halfedges(){return CGAL_Halfedge_iterator<Polyhedron_base>(data.halfedges_begin(),data.halfedges_end());}
-  CGAL_Facet_iterator<Polyhedron_base> facets(){return CGAL_Facet_iterator<Polyhedron_base>(data.facets_begin(),data.facets_end());}
-  CGAL_Edge_iterator<Polyhedron_base> edges(){return CGAL_Edge_iterator<Polyhedron_base>(data.edges_begin(),data.edges_end());}
-  CGAL_Point_iterator<Polyhedron_base> points(){return CGAL_Point_iterator<Polyhedron_base>(data.points_begin(),data.points_end());}
-  CGAL_Plane_iterator<Polyhedron_base> planes(){return CGAL_Plane_iterator<Polyhedron_base>(data.planes_begin(),data.planes_end());}
+  CGAL_Vertex_iterator<Polyhedron_base,Vertex_handle> vertices()     {return CGAL_Vertex_iterator<Polyhedron_base,Vertex_handle>(data.vertices_begin(),data.vertices_end());}
+  CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle> halfedges(){return CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>(data.halfedges_begin(),data.halfedges_end());}
+  CGAL_Facet_iterator<Polyhedron_base,Facet_handle> facets()         {return CGAL_Facet_iterator<Polyhedron_base,Facet_handle>(data.facets_begin(),data.facets_end());}
+  CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle> edges()        {return CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>(data.edges_begin(),data.edges_end());}
+  CGAL_Point_iterator<Polyhedron_base,Point_3> points()              {return CGAL_Point_iterator<Polyhedron_base,Point_3>(data.points_begin(),data.points_end());}
+  CGAL_Plane_iterator<Polyhedron_base,Plane_3> planes()              {return CGAL_Plane_iterator<Polyhedron_base,Plane_3>(data.planes_begin(),data.planes_end());}
 
   //Traits P.traits ()
 
@@ -99,10 +96,10 @@ public:
   FORWARD_CALL_0(void,normalize_border)
   FORWARD_CALL_0(unsigned,size_of_border_halfedges)
   FORWARD_CALL_0(unsigned,size_of_border_edges)
-  CGAL_Halfedge_iterator<Polyhedron_base>   border_halfedges()      {return CGAL_Halfedge_iterator<Polyhedron_base>(data.border_halfedges_begin(),data.halfedges_end());}
-  CGAL_Halfedge_iterator<Polyhedron_base>   non_border_halfedges()  {return CGAL_Halfedge_iterator<Polyhedron_base>(data.halfedges_begin(),data.border_halfedges_begin());}      
-  CGAL_Edge_iterator<Polyhedron_base>   border_edges()      {return CGAL_Edge_iterator<Polyhedron_base>(data.border_edges_begin(),data.edges_end());}
-  CGAL_Edge_iterator<Polyhedron_base>   non_border_edges()  {return CGAL_Edge_iterator<Polyhedron_base>(data.edges_begin(),data.border_edges_begin());}
+  CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>   border_halfedges()      {return CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>(data.border_halfedges_begin(),data.halfedges_end());}
+  CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>   non_border_halfedges()  {return CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>(data.halfedges_begin(),data.border_halfedges_begin());}      
+  CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>       border_edges()          {return CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>(data.border_edges_begin(),data.edges_end());}
+  CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>       non_border_edges()      {return CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>(data.edges_begin(),data.border_edges_begin());}
   
 //Miscellaneous
   FORWARD_CALL_0(void,inside_out)
@@ -110,9 +107,6 @@ public:
   FORWARD_CALL_0(bool,normalized_border_is_valid)  //bool P.normalized_border_is_valid ( bool verbose = false)
   
   //~ FORWARD_CALL_1(void,delegate ( CGAL::Modifier_base<HDS>& m)
-
-  
-  
 };
 
 #endif //CGAL_SWIG_POLYHEDRON_3_POLYHEDRON_3_H

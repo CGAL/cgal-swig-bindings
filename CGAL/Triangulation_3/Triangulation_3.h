@@ -18,29 +18,31 @@ enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};
 typedef std::pair<CGAL_Cell_handle<EPIC_DT3>,int> DT3_Facet;
 typedef CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int> DT3_Edge;
 
-//For triangulation_3 Facet
-template <class T>
-struct Converter<std::pair<CGAL_Cell_handle<T>,int> >{
-  typedef typename T::Facet result_type;
-  
-  static result_type convert(const std::pair<CGAL_Cell_handle<T>,int>& t)
-  {
-    return std::make_pair(Converter<CGAL_Cell_handle<T> >::convert(t.first),
-                          t.second);
-  }
-};
+namespace internal{
+  //For triangulation_3 Facet
+  template <class T>
+  struct Converter<std::pair<CGAL_Cell_handle<T>,int> >{
+    typedef typename T::Facet result_type;
+    
+    static result_type convert(const std::pair<CGAL_Cell_handle<T>,int>& t)
+    {
+      return std::make_pair(Converter<CGAL_Cell_handle<T> >::convert(t.first),
+                            t.second);
+    }
+  };
 
-//For triangulation_3 Edge
-template <class T>
-struct Converter<CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int> >{
-  typedef typename T::Edge result_type;
-  
-  static result_type convert(const ::CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int>& t){
-    return CGAL_SWIG::make_triple(Converter<CGAL_Cell_handle<T> >::convert(t.first),
-                            t.second,
-                            t.third);
-  }
-};
+  //For triangulation_3 Edge
+  template <class T>
+  struct Converter<CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int> >{
+    typedef typename T::Edge result_type;
+    
+    static result_type convert(const ::CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int>& t){
+      return CGAL::make_triple(Converter<CGAL_Cell_handle<T> >::convert(t.first),
+                              t.second,
+                              t.third);
+    }
+  };
+}//namespace internal
 
 template <class T>
 struct Get_value{
@@ -102,15 +104,15 @@ public:
   bool __ne__(const Triangulation_3_wrapper& dt) {return !equals(dt);}
   #endif
 
-  CGAL_Finite_vertices_iterator<Triangulation> finite_vertices(){return CGAL_Finite_vertices_iterator<Triangulation>(this->data.finite_vertices_begin(),this->data.finite_vertices_end());}
-  CGAL_Finite_edges_iterator<Triangulation> finite_edges(){return CGAL_Finite_edges_iterator<Triangulation>(this->data.finite_edges_begin(),this->data.finite_edges_end());}
-  CGAL_Finite_facets_iterator<Triangulation> finite_facets(){return CGAL_Finite_facets_iterator<Triangulation>(this->data.finite_facets_begin(),this->data.finite_facets_end());}
-  CGAL_Finite_cells_iterator<Triangulation> finite_cells(){return CGAL_Finite_cells_iterator<Triangulation>(this->data.finite_cells_begin(),this->data.finite_cells_end());}
-  CGAL_All_vertices_iterator<Triangulation> all_vertices(){return CGAL_All_vertices_iterator<Triangulation>(this->data.all_vertices_begin(),this->data.all_vertices_end());}
-  CGAL_All_edges_iterator<Triangulation> all_edges(){return CGAL_All_edges_iterator<Triangulation>(this->data.all_edges_begin(),this->data.all_edges_end());}
-  CGAL_All_facets_iterator<Triangulation> all_facets(){return CGAL_All_facets_iterator<Triangulation>(this->data.all_facets_begin(),this->data.all_facets_end());}
-  CGAL_All_cells_iterator<Triangulation> all_cells(){return CGAL_All_cells_iterator<Triangulation>(this->data.all_cells_begin(),this->data.all_cells_end());}
-  CGAL_Point_iterator<Triangulation> points(){return CGAL_Point_iterator<Triangulation>(this->data.points_begin(),this->data.points_end());}
+  CGAL_Finite_vertices_iterator<Triangulation,Vertex_handle> finite_vertices(){return CGAL_Finite_vertices_iterator<Triangulation,Vertex_handle>(this->data.finite_vertices_begin(),this->data.finite_vertices_end());}
+  CGAL_Finite_edges_iterator<Triangulation,DT3_Edge> finite_edges(){return CGAL_Finite_edges_iterator<Triangulation,DT3_Edge>(this->data.finite_edges_begin(),this->data.finite_edges_end());}
+  CGAL_Finite_facets_iterator<Triangulation,DT3_Facet> finite_facets(){return CGAL_Finite_facets_iterator<Triangulation,DT3_Facet>(this->data.finite_facets_begin(),this->data.finite_facets_end());}
+  CGAL_Finite_cells_iterator<Triangulation,Cell_handle> finite_cells(){return CGAL_Finite_cells_iterator<Triangulation,Cell_handle>(this->data.finite_cells_begin(),this->data.finite_cells_end());}
+  CGAL_All_vertices_iterator<Triangulation,Vertex_handle> all_vertices(){return CGAL_All_vertices_iterator<Triangulation,Vertex_handle>(this->data.all_vertices_begin(),this->data.all_vertices_end());}
+  CGAL_All_edges_iterator<Triangulation,DT3_Edge> all_edges(){return CGAL_All_edges_iterator<Triangulation,DT3_Edge>(this->data.all_edges_begin(),this->data.all_edges_end());}
+  CGAL_All_facets_iterator<Triangulation,DT3_Facet> all_facets(){return CGAL_All_facets_iterator<Triangulation,DT3_Facet>(this->data.all_facets_begin(),this->data.all_facets_end());}
+  CGAL_All_cells_iterator<Triangulation,Cell_handle> all_cells(){return CGAL_All_cells_iterator<Triangulation,Cell_handle>(this->data.all_cells_begin(),this->data.all_cells_end());}
+  CGAL_Point_iterator<Triangulation,Point_3> points(){return CGAL_Point_iterator<Triangulation,Point_3>(this->data.points_begin(),this->data.points_end());}
 
   FORWARD_CALL_1(Vertex_handle,insert,Point_3)
   FORWARD_CALL_2(Vertex_handle,insert,Point_3,Cell_handle) 
@@ -149,16 +151,19 @@ public:
   //Bounded_side t.side_of_edge ( Point p, Edge e, Locate_type & lt, int & li) 
   //Bounded_side t.side_of_edge ( Point p, Cell_handle c, Locate_type & lt, int & li) 
 
-  FORWARD_CALL_1(CGAL_Cell_circulator<Triangulation>,incident_cells,DT3_Edge)
-  FORWARD_CALL_3(CGAL_Cell_circulator<Triangulation>,incident_cells,Cell_handle,int,int)
-  FORWARD_CALL_2(CGAL_Cell_circulator<Triangulation>,incident_cells,DT3_Edge,Cell_handle)
-  FORWARD_CALL_4(CGAL_Cell_circulator<Triangulation>,incident_cells,Cell_handle,int,int,Cell_handle)
-  FORWARD_CALL_1(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge)
-  FORWARD_CALL_3(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int)
-  FORWARD_CALL_2(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge,DT3_Facet)
-  FORWARD_CALL_3(CGAL_Facet_circulator<Triangulation>,incident_facets,DT3_Edge,Cell_handle,int)
-  FORWARD_CALL_4(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int,DT3_Facet)
-  FORWARD_CALL_5(CGAL_Facet_circulator<Triangulation>,incident_facets,Cell_handle,int,int,Cell_handle,int)
+  typedef CGAL_Cell_circulator<Triangulation,Cell_handle> iCell_circulator;
+  typedef CGAL_Facet_circulator<Triangulation,DT3_Facet>  iFacet_circulator;
+  
+  FORWARD_CALL_1(iCell_circulator,incident_cells,DT3_Edge)
+  FORWARD_CALL_3(iCell_circulator,incident_cells,Cell_handle,int,int)
+  FORWARD_CALL_2(iCell_circulator,incident_cells,DT3_Edge,Cell_handle)
+  FORWARD_CALL_4(iCell_circulator,incident_cells,Cell_handle,int,int,Cell_handle)
+  FORWARD_CALL_1(iFacet_circulator,incident_facets,DT3_Edge)
+  FORWARD_CALL_3(iFacet_circulator,incident_facets,Cell_handle,int,int)
+  FORWARD_CALL_2(iFacet_circulator,incident_facets,DT3_Edge,DT3_Facet)
+  FORWARD_CALL_3(iFacet_circulator,incident_facets,DT3_Edge,Cell_handle,int)
+  FORWARD_CALL_4(iFacet_circulator,incident_facets,Cell_handle,int,int,DT3_Facet)
+  FORWARD_CALL_5(iFacet_circulator,incident_facets,Cell_handle,int,int,Cell_handle,int)
 
   FORWARD_CALL_2(bool,has_vertex,DT3_Facet,Vertex_handle)
   FORWARD_CALL_3(bool,has_vertex,Cell_handle,int,Vertex_handle)
