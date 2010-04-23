@@ -1,34 +1,11 @@
 %module Polyhedron_3
 
-//config.i
-//===============================
-%{#define CGAL_SWIG_FACET_WITH_SUPPORT_PLANE%}
-#define CGAL_SWIG_FACET_WITH_SUPPORT_PLANE
-
-%define Polyhedron_3_
-CGAL::Polyhedron_3<EPIC_Kernel>
-%enddef
-
-//~ %define Polyhedron_3_
-//~ CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_3>
-//~ %enddef
-
-%define Halfedge_handle_
-CGAL_Halfedge_handle<Polyhedron_3_> 
-%enddef
-
-%define Vertex_handle_
-CGAL_Vertex_handle<Polyhedron_3_> 
-%enddef
-
-%define Facet_handle_
-CGAL_Facet_handle<Polyhedron_3_>
-%enddef
-//===============================
+%include "config.i"
 
 %include "../common.i"
 %import  "../Kernel/Point_3.h"
 %import  "../Kernel/Plane_3.h"
+//%import  "../Kernel/Kernel.i" This is an alternative to the two previous import
 %import  "../Common/Macros.h"
 %import  "../Common/Input_iterator.h"
 
@@ -46,6 +23,7 @@ CGAL_Facet_handle<Polyhedron_3_>
 %include "Polyhedron_3.h"
 %include "polyhedron_3_handles.h"
 %include "polyhedron_3_iterators.h"
+%include "Modifier_base.h"
 
 
 //template instantiation
@@ -57,6 +35,8 @@ CGAL_Facet_handle<Polyhedron_3_>
 
 %typemap(javaimports)                     Polyhedron_3 %{import CGAL.Kernel.Point_3;%}
 %template(Polyhedron)                     Polyhedron_3< Polyhedron_3_,Vertex_handle_,Halfedge_handle_,Facet_handle_ >;
+
+%template(Polyhedron_3_Modifier_base)                  Modifier_base< Polyhedron_3_ >;
 
 //Iterators
 Iterator_for_java(CGAL_Halfedge_iterator,Polyhedron_3_Halfedge_handle,;)
@@ -74,7 +54,7 @@ Iterator_for_java(CGAL_Facet_iterator,Polyhedron_3_Facet_handle,;)
 Iterator_for_java(CGAL_Point_iterator,Point_3,import CGAL.Kernel.Point_3;)
 %template(Polyhedron_3_Point_iterator) CGAL_Point_iterator< Polyhedron_3_,Point_3>; 
 
-#ifdef CGAL_SWIG_FACET_WITH_SUPPORT_PLANE
+#ifdef CGAL_SWIG_FACET_SUPPORTS_PLANE
 Iterator_for_java(CGAL_Plane_iterator,Plane_3,import CGAL.Kernel.Plane_3;)
 %template(Polyhedron_3_Plane_iterator) CGAL_Plane_iterator< Polyhedron_3_,Plane_3>; 
 #endif

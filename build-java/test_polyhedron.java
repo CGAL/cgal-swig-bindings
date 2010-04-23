@@ -4,6 +4,8 @@ import CGAL.Polyhedron_3.Polyhedron;
 import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle;
 import CGAL.Polyhedron_3.Polyhedron_3_Vertex_handle;
 import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle;
+import CGAL.Polyhedron_3.Polyhedron_3_Modifier_1;
+import CGAL.Polyhedron_3.Polyhedron_3_Modifier_2;
   
 public class test_polyhedron {
   public static void main(String arg[]){
@@ -42,5 +44,14 @@ public class test_polyhedron {
     System.out.println(e);
     System.out.println(pt);
     System.out.println(pl);
+    
+    System.out.println("clear");
+    p.clear();
+    Polyhedron_3_Modifier_1 modif=new Polyhedron_3_Modifier_1();
+    p.delegate(modif.get_modifier());
+    System.out.println(p.size_of_vertices());
+    Polyhedron_3_Modifier_2 modif2=new Polyhedron_3_Modifier_2();
+    p.delegate(modif2.get_modifier());   
+    System.out.println(p.size_of_vertices());    
   }
 };

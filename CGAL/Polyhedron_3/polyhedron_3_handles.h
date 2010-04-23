@@ -113,7 +113,7 @@ public:
   typename Polyhedron_base::Facet_handle  get_data() const {return data;}
   typename Polyhedron_base::Facet_handle& get_data_ref() {return data;}
 //Operations available if Supports_facet_plane is CGAL::Tag_true
-  #ifdef CGAL_SWIG_FACET_WITH_SUPPORT_PLANE
+  #ifdef CGAL_SWIG_FACET_SUPPORTS_PLANE
   FORWARD_CALL_0_PTR(Plane_3,plane)
   #endif
 //Operations available if Supports_facet_halfedge ? CGAL::Tag_true

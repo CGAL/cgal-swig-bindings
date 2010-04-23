@@ -9,6 +9,7 @@
 #include "../Kernel/typedefs.h"
 #include "../Common/Macros.h"
 #include "polyhedron_3_iterators.h"
+#include "Modifier_base.h"
 
 template <class Polyhedron_base,class Vertex_handle,class Halfedge_handle,class Facet_handle>
 class Polyhedron_3{
@@ -48,7 +49,7 @@ public:
   CGAL_Facet_iterator<Polyhedron_base,Facet_handle> facets()         {return CGAL_Facet_iterator<Polyhedron_base,Facet_handle>(data.facets_begin(),data.facets_end());}
   CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle> edges()        {return CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>(data.edges_begin(),data.edges_end());}
   CGAL_Point_iterator<Polyhedron_base,Point_3> points()              {return CGAL_Point_iterator<Polyhedron_base,Point_3>(data.points_begin(),data.points_end());}
-  #ifdef CGAL_SWIG_FACET_WITH_SUPPORT_PLANE
+  #ifdef CGAL_SWIG_FACET_SUPPORTS_PLANE
   CGAL_Plane_iterator<Polyhedron_base,Plane_3> planes()              {return CGAL_Plane_iterator<Polyhedron_base,Plane_3>(data.planes_begin(),data.planes_end());}
   #endif
   
@@ -104,8 +105,7 @@ public:
   FORWARD_CALL_0(void,inside_out)
   FORWARD_CALL_0(bool,is_valid) //bool P.is_valid ( bool verbose = false, int level = 0)
   FORWARD_CALL_0(bool,normalized_border_is_valid)  //bool P.normalized_border_is_valid ( bool verbose = false)
-  
-  //~ FORWARD_CALL_1(void,delegate ( CGAL::Modifier_base<HDS>& m)
+  void delegate(Modifier_base<Polyhedron_base> modifier){data.delegate(modifier.get_data());}
 };
 
 #endif //CGAL_SWIG_POLYHEDRON_3_POLYHEDRON_3_H
