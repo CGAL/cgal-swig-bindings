@@ -53,31 +53,6 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
   }
 };
 
-//For triangulation_3 Facet
-template <class T>
-struct Converter<std::pair<CGAL_Cell_handle<T>,int> >{
-  typedef typename T::Facet result_type;
-  
-  static result_type convert(const std::pair<CGAL_Cell_handle<T>,int>& t)
-  {
-    return std::make_pair(Converter<CGAL_Cell_handle<T> >::convert(t.first),
-                          t.second);
-  }
-};
-
-//For triangulation_3 Edge
-template <class T>
-struct Converter<CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int> >{
-  typedef typename T::Edge result_type;
-  
-  static result_type convert(const ::CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int>& t){
-    return CGAL::make_tuple(Converter<CGAL_Cell_handle<T> >::convert(t.first),
-                            t.second,
-                            t.third);
-  }
-};
-
-
 
   //~ typename Triangulation::Cell_handle convert (const Cell_handle& c) {return c.get_data();}
   //~ typename Triangulation::Cell_handle& convert (Cell_handle& c) {return c.get_data_ref();}

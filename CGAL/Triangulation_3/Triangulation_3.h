@@ -18,6 +18,30 @@ enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};
 typedef std::pair<CGAL_Cell_handle<EPIC_DT3>,int> DT3_Facet;
 typedef CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int> DT3_Edge;
 
+//For triangulation_3 Facet
+template <class T>
+struct Converter<std::pair<CGAL_Cell_handle<T>,int> >{
+  typedef typename T::Facet result_type;
+  
+  static result_type convert(const std::pair<CGAL_Cell_handle<T>,int>& t)
+  {
+    return std::make_pair(Converter<CGAL_Cell_handle<T> >::convert(t.first),
+                          t.second);
+  }
+};
+
+//For triangulation_3 Edge
+template <class T>
+struct Converter<CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int> >{
+  typedef typename T::Edge result_type;
+  
+  static result_type convert(const ::CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int>& t){
+    return CGAL_SWIG::make_triple(Converter<CGAL_Cell_handle<T> >::convert(t.first),
+                            t.second,
+                            t.third);
+  }
+};
+
 template <class T>
 struct Get_value{
   typedef const T& result_type;

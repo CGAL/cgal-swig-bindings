@@ -3,6 +3,8 @@
 
 #include <CGAL/Simple_cartesian.h>
 #include <CGAL/Polyhedron_3.h>
+#include <CGAL/IO/Polyhedron_iostream.h>
+#include <fstream>
 
 #include "../Kernel/typedefs.h"
 #include "../Common/Macros.h"
@@ -21,9 +23,13 @@ class Polyhedron_3{
 public:  
 //Creation
   Polyhedron_3():data(){}
+  Polyhedron_3(const char* off_filename){
+    std::ifstream file(off_filename);
+    file >> data;
+    file.close();
+  }
   //Polyhedron_3<Traits> P ( Traits traits = Traits());
   //Polyhedron_3<Traits> P ( size_type v, size_type h, size_type f, Traits traits = Traits());
-  //~ IMPORT FROM OFF
   FORWARD_CALL_3(void,reserve,unsigned,unsigned,unsigned)
   FORWARD_CALL_0(Halfedge_handle,make_tetrahedron)
   FORWARD_CALL_4(Halfedge_handle,make_tetrahedron,Point_3,Point_3,Point_3,Point_3)

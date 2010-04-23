@@ -10,7 +10,7 @@ public class test_polyhedron {
     System.loadLibrary("Kernel");
     System.loadLibrary("Polyhedron_3");
 
-    Polyhedron p=new Polyhedron();
+    Polyhedron p=new Polyhedron("./elephant.off");
     p.make_triangle();
       
     System.out.println(p.size_of_vertices());
