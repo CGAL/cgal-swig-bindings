@@ -2,6 +2,29 @@
 #define CGAL_SWIG_POLYHEDRON_3_HANDLES_H
 
 #include "../Common/Macros.h"
+#include <CGAL/Polyhedron_3.h>
+#include <CGAL/Polyhedron_items_with_id_3.h>
+
+namespace internal{
+  
+  template <class Items>
+  struct Id{
+    template <class T>
+    static int get(T data){return -1;};
+    template <class T>
+    static void set(T,int){};
+  };
+
+  template <>
+  struct Id<CGAL::Polyhedron_items_with_id_3>{
+    template <class T>
+    static int get(T data){return data->id();};
+    template <class T>
+    static void set(T data,int i){data->id()=i;};
+  };  
+  
+  
+} //namespace internal
 
 template <class T,class R> class CGAL_Halfedge_around_vertex_circulator;
 template <class T,class R> class CGAL_Halfedge_around_facet_circulator;
@@ -47,6 +70,9 @@ public:
   FORWARD_CALL_0_PTR(CGAL_Vertex_handle<Polyhedron_base>,vertex)
 //Operations available if Supports_halfedge_facet is CGAL::Tag_true
   FORWARD_CALL_0_PTR(CGAL_Facet_handle<Polyhedron_base>,facet)
+  
+  int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
+  void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}
 };
 
 template <class Polyhedron_base>
@@ -70,7 +96,9 @@ public:
   FORWARD_CALL_0_PTR(unsigned,vertex_degree)
   FORWARD_CALL_0_PTR(bool,is_bivalent)
   FORWARD_CALL_0_PTR(bool,is_trivalent)
-    
+
+  int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
+  void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}  
 };
 
 template <class Polyhedron_base>
@@ -85,7 +113,9 @@ public:
   typename Polyhedron_base::Facet_handle  get_data() const {return data;}
   typename Polyhedron_base::Facet_handle& get_data_ref() {return data;}
 //Operations available if Supports_facet_plane is CGAL::Tag_true
+  #ifdef CGAL_SWIG_FACET_WITH_SUPPORT_PLANE
   FORWARD_CALL_0_PTR(Plane_3,plane)
+  #endif
 //Operations available if Supports_facet_halfedge ? CGAL::Tag_true
   FORWARD_CALL_0_PTR(CGAL_Halfedge_handle<Polyhedron_base>,halfedge)
   CGAL_Halfedge_around_facet_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> > facet_begin(){return CGAL_Halfedge_around_facet_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> >( data->facet_begin() );}
@@ -93,7 +123,9 @@ public:
   FORWARD_CALL_0_PTR(unsigned,facet_degree)
   FORWARD_CALL_0_PTR(bool,is_triangle)
   FORWARD_CALL_0_PTR(bool,is_quad)
-  
+
+  int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
+  void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}  
 };
 
 #endif //CGAL_SWIG_POLYHEDRON_3_HANDLES_H

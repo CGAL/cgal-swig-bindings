@@ -10,9 +10,6 @@
 #include "../Common/Macros.h"
 #include "polyhedron_3_iterators.h"
 
-typedef CGAL::Polyhedron_3<EPIC_Kernel>         Polyhedron;
-
-
 template <class Polyhedron_base,class Vertex_handle,class Halfedge_handle,class Facet_handle>
 class Polyhedron_3{
   Polyhedron_base data;
@@ -51,8 +48,10 @@ public:
   CGAL_Facet_iterator<Polyhedron_base,Facet_handle> facets()         {return CGAL_Facet_iterator<Polyhedron_base,Facet_handle>(data.facets_begin(),data.facets_end());}
   CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle> edges()        {return CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>(data.edges_begin(),data.edges_end());}
   CGAL_Point_iterator<Polyhedron_base,Point_3> points()              {return CGAL_Point_iterator<Polyhedron_base,Point_3>(data.points_begin(),data.points_end());}
+  #ifdef CGAL_SWIG_FACET_WITH_SUPPORT_PLANE
   CGAL_Plane_iterator<Polyhedron_base,Plane_3> planes()              {return CGAL_Plane_iterator<Polyhedron_base,Plane_3>(data.planes_begin(),data.planes_end());}
-
+  #endif
+  
   //Traits P.traits ()
 
 //Combinatorial Predicates
