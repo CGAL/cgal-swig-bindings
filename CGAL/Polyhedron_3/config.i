@@ -9,7 +9,7 @@
 // CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_3>
 // %enddef
 
-%include "../Java/JavaData.h"
+%import "../Java/JavaData.h"
 %{
 #include "../Java/JavaData.h"
 #include "Polyhedron_items_with_id_and_info_3.h"
@@ -31,13 +31,17 @@ CGAL_Vertex_handle<Polyhedron_3_>
 CGAL_Facet_handle<Polyhedron_3_>
 %enddef
 
+//modifiers examples
 %{ #include "modifier_example.h" %}
 %include "Modifier_base.h"
 %template(Polyhedron_3_Modifier_1)                     Modifier_wrapper< Polyhedron_3_,Build_triangle<Polyhedron_3_::HalfedgeDS> >;
 %template(Polyhedron_3_Modifier_2)                     Modifier_wrapper< Polyhedron_3_,Build_square<Polyhedron_3_::HalfedgeDS> >;
 
+
+//assign JavaData to handles
 %extend Halfedge_handle_ {
   JavaData& info(){
     return $self->get_data_ref()->info();
   }
 }
+%typemap(javaimports)                               Halfedge_handle_ %{import CGAL.Java.JavaData;%}
