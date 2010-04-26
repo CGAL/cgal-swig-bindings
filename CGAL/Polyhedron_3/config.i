@@ -39,9 +39,16 @@ CGAL_Facet_handle<Polyhedron_3_>
 
 
 //assign JavaData to handles
-%extend Halfedge_handle_ {
+%define add_JavaData_info_to_class(CNAME,EXTRA)
+%extend CNAME {
   JavaData& info(){
     return $self->get_data_ref()->info();
   }
 }
-%typemap(javaimports)                               Halfedge_handle_ %{import CGAL.Java.JavaData;%}
+%typemap(javaimports)                               CNAME %{import CGAL.Java.JavaData; EXTRA%}
+%enddef
+
+add_JavaData_info_to_class( Halfedge_handle_,; )
+add_JavaData_info_to_class( Vertex_handle_,import CGAL.Kernel.Point_3; )
+add_JavaData_info_to_class( Facet_handle_,;)
+
