@@ -1,4 +1,4 @@
-%module Triangulation_3
+%module CGAL_Triangulation_3
 
 %include "../common.i"
 %import  "../Kernel/Point_3.h"

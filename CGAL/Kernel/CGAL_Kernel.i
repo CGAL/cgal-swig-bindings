@@ -1,4 +1,4 @@
-%module Kernel
+%module CGAL_Kernel
 
 %include "../common.i"
 

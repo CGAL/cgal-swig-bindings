@@ -12,19 +12,19 @@
 #include "Modifier_base.h"
 
 template <class Polyhedron_base,class Vertex_handle,class Halfedge_handle,class Facet_handle>
-class Polyhedron_3{
+class Polyhedron_3_wrapper{
   Polyhedron_base data;
  
 public:  
 //Creation
-  Polyhedron_3():data(){}
-  Polyhedron_3(const char* off_filename){
+  Polyhedron_3_wrapper():data(){}
+  Polyhedron_3_wrapper(const char* off_filename){
     std::ifstream file(off_filename);
     file >> data;
     file.close();
   }
-  //Polyhedron_3<Traits> P ( Traits traits = Traits());
-  //Polyhedron_3<Traits> P ( size_type v, size_type h, size_type f, Traits traits = Traits());
+  //Polyhedron_3_wrapper<Traits> P ( Traits traits = Traits());
+  //Polyhedron_3_wrapper<Traits> P ( size_type v, size_type h, size_type f, Traits traits = Traits());
   FORWARD_CALL_3(void,reserve,unsigned,unsigned,unsigned)
   FORWARD_CALL_0(Halfedge_handle,make_tetrahedron)
   FORWARD_CALL_4(Halfedge_handle,make_tetrahedron,Point_3,Point_3,Point_3,Point_3)

@@ -1,4 +1,4 @@
-%module Polyhedron_3
+%module CGAL_Polyhedron_3
 
 %include "config.i"
 
@@ -36,8 +36,8 @@
 #endif
 %template(Polyhedron_3_Facet_handle)                Facet_handle_;
 
-%typemap(javaimports)                     Polyhedron_3 %{import CGAL.Kernel.Point_3;%}
-%template(Polyhedron)                     Polyhedron_3< Polyhedron_3_,Vertex_handle_,Halfedge_handle_,Facet_handle_ >;
+%typemap(javaimports)                     Polyhedron_3_wrapper %{import CGAL.Kernel.Point_3;%}
+%template(Polyhedron_3)                     Polyhedron_3_wrapper< Polyhedron_3_,Vertex_handle_,Halfedge_handle_,Facet_handle_ >;
 
 %template(Polyhedron_3_Modifier_base)                  Modifier_base< Polyhedron_3_ >;
 

@@ -10,8 +10,8 @@ import CGAL.Triangulation_3.Ref_int;
 
 public class test2 {
   public static void main(String arg[]){
-  System.loadLibrary("Triangulation_3");
-  System.loadLibrary("Kernel");
+  System.loadLibrary("CGAL_Triangulation_3");
+  System.loadLibrary("CGAL_Kernel");
   Delaunay_triangulation_3 t=new Delaunay_triangulation_3();
     
   Delaunay_triangulation_3_Vertex_handle v1=t.insert(new Point_3(1,1,1));

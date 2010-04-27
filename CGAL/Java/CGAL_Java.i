@@ -1,4 +1,4 @@
-%module CGAL_SWIG_Java
+%module CGAL_Java
 
 
 #ifdef SWIGJAVA

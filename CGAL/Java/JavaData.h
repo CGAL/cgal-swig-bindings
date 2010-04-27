@@ -15,7 +15,9 @@ public:
   JavaData (jobject ref = NULL);
   JavaData(const JavaData & d);
   ~JavaData();
+#ifndef SWIG
   JavaData& operator=(const JavaData& d);
+#endif
   jobject get_data();
   void set_data(jobject n);
 }; //end of class
