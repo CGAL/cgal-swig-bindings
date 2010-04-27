@@ -42,16 +42,16 @@
 %template(Polyhedron_3_Modifier_base)                  Modifier_base< Polyhedron_3_ >;
 
 //Iterators
-Iterator_for_java(CGAL_Halfedge_iterator,Polyhedron_3_Halfedge_handle,;)
+Iterator_for_java(CGAL_Halfedge_iterator,Polyhedron_3_Halfedge_handle,)
 %template(Polyhedron_3_Halfedge_iterator) CGAL_Halfedge_iterator< Polyhedron_3_,Halfedge_handle_ >;
 
-Iterator_for_java(CGAL_Edge_iterator,Polyhedron_3_Halfedge_handle,;)
+Iterator_for_java(CGAL_Edge_iterator,Polyhedron_3_Halfedge_handle,)
 %template(Polyhedron_3_Edge_iterator) CGAL_Edge_iterator< Polyhedron_3_,Halfedge_handle_ >;
 
-Iterator_for_java(CGAL_Vertex_iterator,Polyhedron_3_Vertex_handle,;)
+Iterator_for_java(CGAL_Vertex_iterator,Polyhedron_3_Vertex_handle,)
 %template(Polyhedron_3_Vertex_iterator) CGAL_Vertex_iterator< Polyhedron_3_,Vertex_handle_ >;
 
-Iterator_for_java(CGAL_Facet_iterator,Polyhedron_3_Facet_handle,;)
+Iterator_for_java(CGAL_Facet_iterator,Polyhedron_3_Facet_handle,)
 %template(Polyhedron_3_Facet_iterator) CGAL_Facet_iterator< Polyhedron_3_,Facet_handle_ >;
 
 Iterator_for_java(CGAL_Point_iterator,Point_3,import CGAL.Kernel.Point_3;)
@@ -62,9 +62,9 @@ Iterator_for_java(CGAL_Plane_iterator,Plane_3,import CGAL.Kernel.Plane_3;)
 %template(Polyhedron_3_Plane_iterator) CGAL_Plane_iterator< Polyhedron_3_,Plane_3>; 
 #endif
 
-Iterator_for_java(CGAL_Halfedge_around_vertex_circulator,Polyhedron_3_Halfedge_handle,;)
+Iterator_for_java(CGAL_Halfedge_around_vertex_circulator,Polyhedron_3_Halfedge_handle,)
 %template(Polyhedron_3_Halfedge_around_vertex_circulator) CGAL_Halfedge_around_vertex_circulator< Polyhedron_3_,Halfedge_handle_ >;
 
-Iterator_for_java(CGAL_Halfedge_around_facet_circulator,Polyhedron_3_Halfedge_handle,;)
+Iterator_for_java(CGAL_Halfedge_around_facet_circulator,Polyhedron_3_Halfedge_handle,)
 %template(Polyhedron_3_Halfedge_around_facet_circulator) CGAL_Halfedge_around_facet_circulator< Polyhedron_3_,Halfedge_handle_ >;
 
