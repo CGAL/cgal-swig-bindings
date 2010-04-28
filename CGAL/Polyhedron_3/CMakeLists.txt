@@ -43,5 +43,4 @@ else()
   message("JNI has not be found, ${PACKAGENAME} bindings for java will not be compiled.")
 endif()
 
-  
 
