@@ -5,7 +5,6 @@ import java.util.Iterator;
 
 public class test {
   public static void main(String arg[]){
-  System.loadLibrary("CGAL_Kernel");
   System.loadLibrary("CGAL_Triangulation_3");
 
   //~ Point_3 p=new Point_3(1,1,1);

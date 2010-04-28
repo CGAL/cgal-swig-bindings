@@ -72,7 +72,7 @@ if ( CGAL_FOUND )
     FIND_PACKAGE(JNI)
 
     if (PYTHONLIBS_FOUND)
-      SET (PYTHONBUILDPATH "${CMAKE_CURRENT_SOURCE_DIR}/../build-python/CGAL")
+      SET (PYTHONBUILDPATH "${CMAKE_CURRENT_SOURCE_DIR}/../build-python/CGAL/")
       configure_file(files/__init__.py ${PYTHONBUILDPATH}/__init__.py  COPYONLY)
       MESSAGE("Found Python libs.")
       MESSAGE("CGAL-SWIG Python libs will be written in ${CMAKE_CURRENT_SOURCE_DIR}/../build-python/CGAL.")
