@@ -56,8 +56,10 @@ void JavaData::clean(){
       get_cached_jvm()->GetEnv(&newEnv,JNI_VERSION_1_2);
       ((JNIEnv*)newEnv)->DeleteGlobalRef(data);
       delete cnt;
+      cnt=NULL;
     }
   }
+  data=NULL;
 }
 
 JavaData::JavaData (jobject obj) { 
@@ -73,8 +75,10 @@ JavaData::~JavaData() {
 }
 
 JavaData& JavaData::operator=(const JavaData& d){
-  clean();
-  copy(d);
+  if (this!=&d){
+    clean();
+    copy(d);
+  }
   return *this;
 }
 
