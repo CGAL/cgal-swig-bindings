@@ -3,12 +3,15 @@
 #include <cassert>
 #include "JavaData.h"
 
+
 static JavaVM* & get_cached_jvm(){
-  static JavaVM* cached_jvm = 0;
+  static JavaVM* cached_jvm = NULL;
   return cached_jvm;
 }
 
+//function called when library is loaded in Java
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved) {
+  std::cout << "coucou"<< std::endl;
   get_cached_jvm() = jvm;
   return JNI_VERSION_1_2;
 }
