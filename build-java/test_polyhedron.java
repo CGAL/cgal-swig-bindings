@@ -25,11 +25,13 @@ public class test_polyhedron {
     int h=0;
     for (Polyhedron_3_Halfedge_handle hh : p.halfedges()){
       hh.info().set_data(new Double(4));
+      hh.set_id(5);
       ++h;
     }
 
     for (Polyhedron_3_Halfedge_handle hh : p.halfedges()){
       System.out.println((Double) hh.info().get_data());
+      System.out.println(hh.id());
       ++h;
     }
     

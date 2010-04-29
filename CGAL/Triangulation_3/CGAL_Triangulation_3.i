@@ -29,22 +29,27 @@
 #endif
 
 #ifdef SWIGJAVA
-%typemap(jni) Point_range "jobjectArray"  //replace in jni class
-%typemap(jtype) Point_range "Point_3[]"   //replace in java wrapping class
-%typemap(jstype) Point_range "Point_3[]"  //replace in java function args
+%typemap(jni) Point_range "jobject"  //replace in jni class
+%typemap(jtype) Point_range "Iterator<Point_3>"   //replace in java wrapping class
+%typemap(jstype) Point_range "Iterator<Point_3>"  //replace in java function args
 %typemap(javain) Point_range "$javainput" //replace in java function call to wrapped function
 
-
 %typemap(in) Point_range {
-  int size = jenv->GetArrayLength($input);
-  $1.reserve(size);
-  for (int i = 0; i < size; ++i){
-    jobject j_obj = jenv->GetObjectArrayElement( $input, i);
-    jclass clazz = jenv->GetObjectClass(j_obj);
-    assert(clazz!=NULL);
-    jmethodID id=jenv->GetStaticMethodID(clazz, "getCPtr", "(LCGAL/Kernel/Point_3;)J");
-    assert(id!=NULL);
-    jlong jpt=(jlong) jenv->CallStaticObjectMethod(clazz,id,j_obj);
+  jobject jiterator=$input;
+  jclass it_class=jenv->GetObjectClass(jiterator);
+  assert(it_class!=NULL);
+  jmethodID hasnext_id=jenv->GetMethodID(it_class, "hasNext", "()Z");
+  assert(hasnext_id!=NULL);
+  jmethodID next_id=jenv->GetMethodID(it_class, "next", "()Ljava/lang/Object;");
+  jmethodID getCPtr_id=NULL;
+  assert(next_id!=NULL);
+  while (static_cast<bool> (jenv->CallBooleanMethod(jiterator,hasnext_id)) ){
+    jobject jpoint=jenv->CallObjectMethod(jiterator,next_id);
+    jclass pt_class = jenv->GetObjectClass(jpoint);
+    assert(pt_class!=NULL);
+    if (getCPtr_id==NULL)  getCPtr_id=jenv->GetStaticMethodID(pt_class, "getCPtr", "(LCGAL/Kernel/Point_3;)J");
+    assert(getCPtr_id!=NULL);
+    jlong jpt=(jlong) jenv->CallStaticObjectMethod(pt_class,getCPtr_id,jpoint);
     Point_3 *val = (Point_3 *)jpt;
     $1.push_back( &(val->get_data_ref()) );
   }
@@ -61,7 +66,7 @@
   #include "triangulation_iterators.h"
 %}
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import java.util.Iterator;%}
 
 
 
@@ -84,7 +89,7 @@
 %template(Delaunay_triangulation_3_Edge)  CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int>;
 
 //Triangulation
-%typemap(javaimports) Triangulation_3_wrapper%{import CGAL.Kernel.Point_3;%}
+%typemap(javaimports) Triangulation_3_wrapper%{import CGAL.Kernel.Point_3; import java.util.Iterator;%}
 %template(internal_T3_for_DT3)       Triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >;
 %typemap(javaimports) Delaunay_triangulation_3_wrapper%{import CGAL.Kernel.Point_3;%}
 %template(Delaunay_triangulation_3)      Delaunay_triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >;

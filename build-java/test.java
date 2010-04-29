@@ -2,6 +2,7 @@ import CGAL.Kernel.Point_3;
 import CGAL.Triangulation_3.Delaunay_triangulation_3;
 import CGAL.Triangulation_3.Delaunay_triangulation_3_Vertex_handle;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class test {
   public static void main(String arg[]){
@@ -17,8 +18,14 @@ public class test {
   array[1]=new Point_3(1,4,3);
   array[2]=new Point_3(22,3,3);
   array[3]=new Point_3(142,3,34);
-    
-  t.insert_range(array);
+  
+  LinkedList<Point_3> lst=new LinkedList<Point_3>();
+  lst.add( array[0] );
+  lst.add( array[1] );
+  lst.add( array[2] );
+  lst.add( array[3] );
+  
+  t.insert_range(lst.iterator());
     
   Iterator<Delaunay_triangulation_3_Vertex_handle> it=t.finite_vertices();
   //for (Point_3 pt : array){
