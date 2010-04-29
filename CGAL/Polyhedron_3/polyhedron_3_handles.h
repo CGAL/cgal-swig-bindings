@@ -20,7 +20,7 @@ namespace internal{
     template <class T>
     static int get(T data){return data->id();};
     template <class T>
-    static void set(T data,int i){data->id()=i;};
+    static void set(T& data,int i){data->id()=i;};
   };  
   
   
