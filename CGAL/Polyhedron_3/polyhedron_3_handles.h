@@ -18,7 +18,7 @@ namespace internal{
   template <>
   struct Id<CGAL::Polyhedron_items_with_id_3>{
     template <class T>
-    static int get(T data){return data->id();};
+    static int get(const& T data){return data->id();};
     template <class T>
     static void set(T& data,int i){data->id()=i;};
   };  
