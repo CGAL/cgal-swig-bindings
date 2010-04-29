@@ -4,15 +4,16 @@
 #include "../Common/Macros.h"
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/Polyhedron_items_with_id_3.h>
+#include "Polyhedron_items_with_id_and_info_3.h"
 
 namespace internal{
   
   template <class Items>
   struct Id{
     template <class T>
-    static int get(T data){return -1;};
+    static int get(const T&){return -1;};
     template <class T>
-    static void set(T,int){};
+    static void set(const T&,int){};
   };
 
   template <>
@@ -21,7 +22,15 @@ namespace internal{
     static int get(const T& data){return data->id();};
     template <class T>
     static void set(T& data,int i){data->id()=i;};
-  };  
+  };
+
+  template <class I>
+  struct Id<CGAL::Polyhedron_items_with_id_and_info_3<I> >{
+    template <class T>
+    static int get(const T& data){return data->id();};
+    template <class T>
+    static void set(T& data,int i){data->id()=i;};
+  };
   
   
 } //namespace internal
