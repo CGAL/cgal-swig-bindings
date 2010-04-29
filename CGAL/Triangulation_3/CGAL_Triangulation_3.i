@@ -35,24 +35,14 @@
 %typemap(javain) Point_range "$javainput" //replace in java function call to wrapped function
 
 %typemap(in) Point_range {
-  jobject jiterator=$input;
-  jclass it_class=jenv->GetObjectClass(jiterator);
-  assert(it_class!=NULL);
-  jmethodID hasnext_id=jenv->GetMethodID(it_class, "hasNext", "()Z");
-  assert(hasnext_id!=NULL);
-  jmethodID next_id=jenv->GetMethodID(it_class, "next", "()Ljava/lang/Object;");
-  jmethodID getCPtr_id=NULL;
-  assert(next_id!=NULL);
-  while (static_cast<bool> (jenv->CallBooleanMethod(jiterator,hasnext_id)) ){
-    jobject jpoint=jenv->CallObjectMethod(jiterator,next_id);
-    jclass pt_class = jenv->GetObjectClass(jpoint);
-    assert(pt_class!=NULL);
-    if (getCPtr_id==NULL)  getCPtr_id=jenv->GetStaticMethodID(pt_class, "getCPtr", "(LCGAL/Kernel/Point_3;)J");
-    assert(getCPtr_id!=NULL);
-    jlong jpt=(jlong) jenv->CallStaticObjectMethod(pt_class,getCPtr_id,jpoint);
-    Point_3 *val = (Point_3 *)jpt;
-    $1.push_back( &(val->get_data_ref()) );
+  Input_iterator_wrapper<Point_3,Point_3::cpp_base> it_end;
+  Input_iterator_wrapper<Point_3,Point_3::cpp_base> it_current($input,"(LCGAL/Kernel/Point_3;)J");
+  
+  while (it_current!=it_end){
+    $1.push_back( &(*it_current) );
+    ++it_current;
   }
+  #warning remove intermediate vector
 }
 #endif
 
@@ -64,6 +54,9 @@
   #include "triangulation_handles.h"
   #include "../Common/triple.h"
   #include "triangulation_iterators.h"
+  #ifdef SWIGJAVA
+  #include "../Java/Input_iterator_wrapper.h"
+  #endif
 %}
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import java.util.Iterator;%}

@@ -50,7 +50,7 @@ struct Get_value{
   result_type operator()(const T* t) const {return *t;}
 };
 
-typedef std::vector<EPIC_Kernel::Point_3*> Point_range;
+typedef std::vector<const EPIC_Kernel::Point_3*> Point_range;
 typedef Get_value<EPIC_Kernel::Point_3> Extract_point;
 
 template <class Triangulation,class Vertex_handle, class Cell_handle>
