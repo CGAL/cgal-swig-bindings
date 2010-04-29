@@ -112,6 +112,9 @@ public:
 
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}  
+
+  void set_point(const Point_3& p){ data->point() =  internal::Converter<Point_3>::convert(p);}  
+
 };
 
 template <class Polyhedron_base>

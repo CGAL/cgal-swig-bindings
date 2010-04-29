@@ -120,9 +120,12 @@ class CGAL_##NAME{                                             \
   typename T::NAME cur;                                        \
 public:                                                        \
   CGAL_##NAME( typename T::NAME cur_):cur(cur_){}              \
-    CGAL_##NAME<T,R> __iter__(){return *this;}                   \
+    CGAL_##NAME<T,R> __iter__(){return *this;}                 \
   R next() {                                                   \
     return Iterator_helper<R>::convert ( (cur++) );            \
+  }                                                            \
+  R prev() {                                                   \
+    return Iterator_helper<R>::convert ( (cur--) );            \
   }                                                            \
   bool hasNext(){return true; }                                \
 };
