@@ -71,6 +71,8 @@ public:
 //Operations available if Supports_halfedge_facet is CGAL::Tag_true
   FORWARD_CALL_0_PTR(CGAL_Facet_handle<Polyhedron_base>,facet)
   
+  bool equals(const CGAL_Halfedge_handle<Polyhedron_base>& he){ return get_data()==he.get_data(); }
+
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}
 };
@@ -96,6 +98,8 @@ public:
   FORWARD_CALL_0_PTR(unsigned,vertex_degree)
   FORWARD_CALL_0_PTR(bool,is_bivalent)
   FORWARD_CALL_0_PTR(bool,is_trivalent)
+
+  bool equals(const CGAL_Vertex_handle<Polyhedron_base>& v){ return get_data()==v.get_data(); }
 
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}  
@@ -123,6 +127,8 @@ public:
   FORWARD_CALL_0_PTR(unsigned,facet_degree)
   FORWARD_CALL_0_PTR(bool,is_triangle)
   FORWARD_CALL_0_PTR(bool,is_quad)
+
+  bool equals(const CGAL_Facet_handle<Polyhedron_base>& f){ return get_data()==f.get_data(); }
 
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}  
