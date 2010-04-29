@@ -6,6 +6,8 @@ PROJECT(CGAL-bindings)
 
 find_package(CGAL)
 find_package(SWIG REQUIRED)
+option( BUILD_PYTHON "Build python bindings" ON )
+option( BUILD_JAVA "Build java bindings" ON )
 
 if ( CGAL_FOUND )
   include( ${CGAL_USE_FILE} )
@@ -67,10 +69,13 @@ if ( CGAL_FOUND )
       ENDIF ("${swig_lowercase_language}" STREQUAL "python")
     ENDMACRO(SWIG_ADD_MODULE)
 
-        
-    FIND_PACKAGE(PythonLibs)
-    FIND_PACKAGE(JNI)
-
+    if (${BUILD_PYTHON})
+      FIND_PACKAGE(PythonLibs)
+    endif()
+    if (${BUILD_JAVA})
+      FIND_PACKAGE(JNI)
+    endif()
+    
     if (PYTHONLIBS_FOUND)
       SET (PYTHONBUILDPATH "${CMAKE_CURRENT_SOURCE_DIR}/../build-python/CGAL/")
       configure_file(files/__init__.py ${PYTHONBUILDPATH}/__init__.py  COPYONLY)
