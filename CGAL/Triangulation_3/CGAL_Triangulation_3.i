@@ -9,23 +9,34 @@
 //input iterator typemap
 #ifdef SWIGPYTHON
 %typemap(in) Point_range {
-    if (!PyList_Check($input)) {
-        PyErr_SetString(PyExc_TypeError, "Not a list.");
-        return NULL;
+  
+  try{
+    Input_iterator_wrapper<Point_3,Point_3::cpp_base> it_end;
+    Input_iterator_wrapper<Point_3,Point_3::cpp_base> it_begin($input,SWIGTYPE_p_Point_3);
+    $1=std::make_pair(it_begin,it_end);
+  }
+  catch(int){
+    //TODO: throw a specify exception
+    //TODO add a message to specify input is not a list or first element is not a point
+    SWIG_SetErrorObj(PyExc_TypeError, SWIG_Py_Void());
+    SWIG_fail;
+  }
+}
+
+%include exception.i
+%exception insert_range
+{
+  try{
+      $action
     }
-    int size = PyList_Size($input);
-    $1.reserve(size);
-    for (int i = 0; i < size; i++) {
-        PyObject *item = PyList_GetItem($input, i);
-        void* ret=0;
-        int res = SWIG_ConvertPtr(item, &ret, SWIGTYPE_p_Point_3,  0  | 0);
-        if (!SWIG_IsOK(res)) {
-          PyErr_SetString(PyExc_TypeError, "List item is not a Point_3.");
-          return NULL;
-        }        
-        $1.push_back( &((Point_3*)(ret))->get_data_ref() );
+    catch(int){
+      //TODO: throw a specify exception
+      //TODO add a message to specify that the list does not contains only points
+      SWIG_SetErrorObj(PyExc_TypeError, SWIG_Py_Void());
+      SWIG_fail;
     }
 }
+
 #endif
 
 #ifdef SWIGJAVA
@@ -36,13 +47,8 @@
 
 %typemap(in) Point_range {
   Input_iterator_wrapper<Point_3,Point_3::cpp_base> it_end;
-  Input_iterator_wrapper<Point_3,Point_3::cpp_base> it_current($input,"(LCGAL/Kernel/Point_3;)J");
-  
-  while (it_current!=it_end){
-    $1.push_back( &(*it_current) );
-    ++it_current;
-  }
-  #warning remove intermediate vector
+  Input_iterator_wrapper<Point_3,Point_3::cpp_base> it_begin($input,"(LCGAL/Kernel/Point_3;)J");
+  $1=std::make_pair(it_begin,it_end);
 }
 #endif
 
@@ -54,9 +60,6 @@
   #include "triangulation_handles.h"
   #include "../Common/triple.h"
   #include "triangulation_iterators.h"
-  #ifdef SWIGJAVA
-  #include "../Java/Input_iterator_wrapper.h"
-  #endif
 %}
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import java.util.Iterator;%}

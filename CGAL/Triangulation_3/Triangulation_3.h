@@ -1,7 +1,6 @@
 #ifndef SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_3_H
 #define SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_3_H
 
-#include <boost/iterator/transform_iterator.hpp>
 #include "../Kernel/Point_3.h"
 #include "typedefs.h"
 #include "triangulation_handles.h"
@@ -11,6 +10,13 @@
 #include "../Common/Reference_wrapper.h"
 #include "../Common/Macros.h"
 
+
+#ifdef SWIGPYTHON
+#include "../Python/Input_iterator_wrapper.h"
+#endif
+#ifdef SWIGJAVA
+#include "../Java/Input_iterator_wrapper.h"
+#endif
 
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
 enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};
@@ -44,14 +50,7 @@ namespace internal{
   };
 }//namespace internal
 
-template <class T>
-struct Get_value{
-  typedef const T& result_type;
-  result_type operator()(const T* t) const {return *t;}
-};
-
-typedef std::vector<const EPIC_Kernel::Point_3*> Point_range;
-typedef Get_value<EPIC_Kernel::Point_3> Extract_point;
+typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
 
 template <class Triangulation,class Vertex_handle, class Cell_handle>
 class Triangulation_3_wrapper{
@@ -127,9 +126,7 @@ public:
   //~ typedef std::vector<typename Triangulation::Point*> Point_range;
 
   int insert_range(Point_range range){
-    typedef boost::transform_iterator<Extract_point,Point_range::const_iterator> transform_iterator;
-    Extract_point func;
-    return this->data.insert(transform_iterator(range.begin(),func),transform_iterator(range.end(),func));
+    return this->data.insert(range.first,range.second);
   }
 
   //bool t.is_edge ( Vertex_handle u, Vertex_handle v, Cell_handle & c, int & i, int & j) 
