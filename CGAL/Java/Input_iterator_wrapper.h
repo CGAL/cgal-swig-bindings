@@ -9,7 +9,7 @@ class Input_iterator_wrapper:
 public boost::iterator_facade<
     Input_iterator_wrapper<Cpp_wrapper,Cpp_base>,
     const Cpp_base,
-    boost::forward_traversal_tag>
+    boost::single_pass_traversal_tag>
 {
   friend class boost::iterator_core_access;
   std::string signature;
@@ -58,7 +58,7 @@ public:
   }
 
   
-  void increment(){update_with_next_point();}
+  void increment(){assert(current_ptr!=NULL); update_with_next_point();}
   bool equal(const Input_iterator_wrapper & other) const{ return current_ptr==other.current_ptr; }
   const Cpp_base& dereference() const { current_ptr->get_data_ref(); }
 };
