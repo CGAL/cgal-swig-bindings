@@ -1,6 +1,8 @@
 #ifndef SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_3_H
 #define SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_3_H
 
+#include <boost/function_output_iterator.hpp>
+
 #include "../Kernel/Point_3.h"
 #include "typedefs.h"
 #include "triangulation_handles.h"
@@ -16,6 +18,7 @@
 #endif
 #ifdef SWIGJAVA
 #include "../Java/Input_iterator_wrapper.h"
+#include "../Java/Output_iterator_wrapper.h"
 #endif
 
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
@@ -51,6 +54,11 @@ namespace internal{
 }//namespace internal
 
 typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
+#ifdef SWIGJAVA
+typedef boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base> > Point_output_iterator;
+#endif
+
+
 
 template <class Triangulation,class Vertex_handle, class Cell_handle>
 class Triangulation_3_wrapper{
@@ -174,7 +182,11 @@ public:
 
 
   void incident_cells(const Vertex_handle& v,Output_iterator<Cell_handle>& out){ this->data.incident_cells(convert(v),std::back_inserter(out.get_data())); }
-
+  #ifdef SWIGJAVA
+  void test_outputit(Point_output_iterator out){*out++=typename Triangulation::Point(1,2,3);}
+  void test_outputit2(jobject container){ *boost::make_function_output_iterator( Container_writer<Point_3,Point_3::cpp_base>(container,"LCGAL/Kernel/Point_3;") )++=typename Triangulation::Point(1,2,3); }
+  #endif
+  
   //template <class OutputIterator> OutputIterator 	t.finite_incident_cells ( Vertex_handle v, OutputIterator cells)
   //template <class OutputIterator> OutputIterator 	t.incident_facets ( Vertex_handle v, OutputIterator facets)
   //template <class OutputIterator> OutputIterator 	t.finite_incident_facets ( Vertex_handle v, OutputIterator facets)
@@ -210,7 +222,7 @@ public:
   //Vertex_handle t.insert_outside_affine_hull ( Point p) 
   //template <class CellIt> Vertex_handle 	t.insert_in_hole ( Point p, CellIt cell_begin, CellIt cell_end, Cell_handle begin, int i) 
   //template <class CellIt> Vertex_handle 	t.insert_in_hole ( 	Point p,CellIt cell_begin,CellIt cell_end,Cell_handle begin,int i,Vertex_handle newv)
-  //TriangulationDataStructure_3 t.tds ()       
+  //TriangulationDataStructure_3 t.tds ()
 };
 
 

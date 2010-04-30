@@ -9,7 +9,6 @@
 //input iterator typemap
 #ifdef SWIGPYTHON
 %typemap(in) Point_range {
-  
   try{
     Input_iterator_wrapper<Point_3,Point_3::cpp_base> it_end;
     Input_iterator_wrapper<Point_3,Point_3::cpp_base> it_begin($input,SWIGTYPE_p_Point_3);
@@ -50,6 +49,18 @@
   Input_iterator_wrapper<Point_3,Point_3::cpp_base> it_begin($input,"(LCGAL/Kernel/Point_3;)J");
   $1=std::make_pair(it_begin,it_end);
 }
+
+
+%typemap(jni) Point_output_iterator "jobject"  //replace in jni class
+%typemap(jtype) Point_output_iterator "Collection<Point_3>"   //replace in java wrapping class
+%typemap(jstype) Point_output_iterator "Collection<Point_3>"  //replace in java function args
+%typemap(javain) Point_output_iterator "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) Point_output_iterator {
+  $1=boost::make_function_output_iterator( Container_writer<Point_3,Point_3::cpp_base>($input,"LCGAL/Kernel/Point_3;") );
+}
+
+
 #endif
 
 
@@ -62,7 +73,7 @@
   #include "triangulation_iterators.h"
 %}
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import java.util.Iterator;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 
 
 
@@ -85,7 +96,7 @@
 %template(Delaunay_triangulation_3_Edge)  CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int>;
 
 //Triangulation
-%typemap(javaimports) Triangulation_3_wrapper%{import CGAL.Kernel.Point_3; import java.util.Iterator;%}
+%typemap(javaimports) Triangulation_3_wrapper%{import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 %template(internal_T3_for_DT3)       Triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >;
 %typemap(javaimports) Delaunay_triangulation_3_wrapper%{import CGAL.Kernel.Point_3;%}
 %template(Delaunay_triangulation_3)      Delaunay_triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >;
