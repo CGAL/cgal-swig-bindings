@@ -18,7 +18,7 @@ class Segment_3;
 class Plane_3{
   EPIC_Kernel::Plane_3 data;
 public:
-  typedef EPIC_Kernel::Point_3 cpp_base;  
+  typedef EPIC_Kernel::Plane_3 cpp_base;  
 
   const EPIC_Kernel::Plane_3& get_data() const;
   EPIC_Kernel::Plane_3& get_data_ref();

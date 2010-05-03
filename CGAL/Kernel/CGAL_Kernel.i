@@ -19,7 +19,7 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
   #include "Plane_3.h"
   #include "Segment_3.h"
   #include "Line_3.h"
-  #include "Squared_distance_3.h"
+  #include "global_functions.h"
 %}
 
 //definitions
@@ -27,5 +27,5 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
 %include "Plane_3.h"
 %include "Segment_3.h"
 %include "Line_3.h"
-%include "Squared_distance_3.h"
+%include "global_functions.h"
 
