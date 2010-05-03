@@ -2,7 +2,8 @@
 #define SWIG_CGAL_KERNEL_PLANE_3_H
 
 #include "typedefs.h"
-
+#include "Point_3.h"
+#include "Segment_3.h"
 
 #ifndef SWIG
 #define NO_SWIG_OR_PYTHON
@@ -11,6 +12,8 @@
 #define NO_SWIG_OR_PYTHON
 #endif
 #endif
+
+class Segment_3;
 
 class Plane_3{
   EPIC_Kernel::Plane_3 data;
@@ -22,10 +25,15 @@ public:
   Plane_3();
   Plane_3(double a,double b,double c,double d);
   Plane_3(const EPIC_Kernel::Plane_3& p);
+  Plane_3(const Segment_3& s, const Point_3& p); 
+  Plane_3(const Point_3& p, const Point_3& q, const Point_3& r); 
   double a();
   double b();
   double c();
   double d();
+
+  Point_3 projection(const Point_3& p);
+
   bool equals(const Plane_3&);
   
   std::string toString();
