@@ -15,6 +15,7 @@
 
 #ifdef SWIGPYTHON
 #include "../Python/Input_iterator_wrapper.h"
+#include "../Python/Output_iterator_wrapper.h"
 #endif
 #ifdef SWIGJAVA
 #include "../Java/Input_iterator_wrapper.h"
@@ -57,7 +58,9 @@ typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterat
 #ifdef SWIGJAVA
 typedef boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base> > Point_output_iterator;
 #endif
-
+#ifdef SWIGPYTHON
+typedef boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base> > Point_output_iterator;
+#endif
 
 
 template <class Triangulation,class Vertex_handle, class Cell_handle>
@@ -186,6 +189,10 @@ public:
   void test_outputit(Point_output_iterator out){*out++=typename Triangulation::Point(1,2,3);}
   void test_outputit2(jobject container){ *boost::make_function_output_iterator( Container_writer<Point_3,Point_3::cpp_base>(container,"LCGAL/Kernel/Point_3;") )++=typename Triangulation::Point(1,2,3); }
   #endif
+  #ifdef SWIGPYTHON
+  void test_outputit(Point_output_iterator out){*out++=typename Triangulation::Point(1,2,3);}
+  #endif
+  
   
   //template <class OutputIterator> OutputIterator 	t.finite_incident_cells ( Vertex_handle v, OutputIterator cells)
   //template <class OutputIterator> OutputIterator 	t.incident_facets ( Vertex_handle v, OutputIterator facets)

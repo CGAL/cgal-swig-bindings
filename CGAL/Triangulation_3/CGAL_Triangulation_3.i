@@ -16,8 +16,6 @@
   }
   catch(int){
     //TODO: throw a specify exception
-    //TODO add a message to specify input is not a list or first element is not a point
-    SWIG_SetErrorObj(PyExc_TypeError, SWIG_Py_Void());
     SWIG_fail;
   }
 }
@@ -31,10 +29,14 @@
     catch(int){
       //TODO: throw a specify exception
       //TODO add a message to specify that the list does not contains only points
-      SWIG_SetErrorObj(PyExc_TypeError, SWIG_Py_Void());
       SWIG_fail;
     }
 }
+
+%typemap(in) Point_output_iterator {
+  $1=boost::make_function_output_iterator( Container_writer<Point_3,Point_3::cpp_base>($input,SWIGTYPE_p_Point_3) );
+}
+
 
 #endif
 
