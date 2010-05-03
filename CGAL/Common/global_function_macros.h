@@ -2,7 +2,7 @@
 
 #include "Macros.h"
 
-#ifndef CGAL_SWIG_GF_MACRO_DEFINITION
+#ifdef NO_CGAL_SWIG_GF_MACRO_DEFINITION
 //Macro used to ease the wrapping of global functions
 #define FORWARD_CALL_GF_1(RET,NAME,IN_TYPE) \
   RET NAME(const IN_TYPE& c){\

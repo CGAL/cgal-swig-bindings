@@ -27,5 +27,7 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
 %include "Plane_3.h"
 %include "Segment_3.h"
 %include "Line_3.h"
-%include "global_functions.h"
+%include "../Common/global_function_macros.h"
+%include "global_function_signatures.h"
+
 

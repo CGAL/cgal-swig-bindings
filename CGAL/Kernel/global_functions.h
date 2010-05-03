@@ -9,11 +9,7 @@
 #include "Segment_3.h"
 
 
-#define CGAL_SWIG_GF_MACRO_DEFINITION
 #include "../Common/global_function_macros.h"
-#undef CGAL_SWIG_GF_MACRO_DEFINITION
-
-
 #include "global_function_signatures.h"
 
 #undef FORWARD_CALL_GF_1
