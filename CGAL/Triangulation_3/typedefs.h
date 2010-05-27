@@ -1,5 +1,5 @@
-#ifndef CGAL_SWIG_TYPEDEFS_H
-#define CGAL_SWIG_TYPEDEFS_H
+#ifndef CGAL_SWIG_TRIANGULATION_3_TYPEDEFS_H
+#define CGAL_SWIG_TRIANGULATION_3_TYPEDEFS_H
 
 #include "../Kernel/typedefs.h"
 
@@ -10,4 +10,4 @@ typedef CGAL::Delaunay_triangulation_3<EPIC_Kernel> EPIC_DT3;
 
 
 
-#endif //CGAL_SWIG_TYPEDEFS_H
+#endif //CGAL_SWIG_TRIANGULATION_3_TYPEDEFS_H
