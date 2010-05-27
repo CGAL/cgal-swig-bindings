@@ -33,7 +33,7 @@ namespace internal{
   template <class T>
   struct Converter<std::pair<CGAL_Cell_handle<T>,int> >{
     typedef typename T::Facet result_type;
-    
+
     static result_type convert(const std::pair<CGAL_Cell_handle<T>,int>& t)
     {
       return std::make_pair(Converter<CGAL_Cell_handle<T> >::convert(t.first),
@@ -45,7 +45,7 @@ namespace internal{
   template <class T>
   struct Converter<CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int> >{
     typedef typename T::Edge result_type;
-    
+
     static result_type convert(const ::CGAL_SWIG::Triple<CGAL_Cell_handle<T>,int,int>& t){
       return CGAL::make_triple(Converter<CGAL_Cell_handle<T> >::convert(t.first),
                               t.second,
@@ -75,8 +75,8 @@ protected:
   template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object_ref();}
 public:
   Triangulation_3_wrapper(){}
-  const Triangulation& get_data() const {return this->data;} 
-    
+  const Triangulation& get_data() const {return this->data;}
+
   FORWARD_CALL_0(int, dimension)
   FORWARD_CALL_0(int, number_of_vertices)
   FORWARD_CALL_0(int, number_of_cells)
@@ -106,8 +106,8 @@ public:
   FORWARD_CALL_2(Point_3,point,Cell_handle,int)
   FORWARD_CALL_1(Point_3,point,Vertex_handle)
   FORWARD_CALL_0(void,clear)
-  
-  
+
+
   bool equal(const Triangulation_3_wrapper& t) {return t.get_data()==this->data;}
   bool equals(const Triangulation_3_wrapper& t) {return equal(t);}
   #ifdef SWIGPYTHON
@@ -125,22 +125,22 @@ public:
   CGAL_Point_iterator<Triangulation,Point_3> points(){return CGAL_Point_iterator<Triangulation,Point_3>(this->data.points_begin(),this->data.points_end());}
 
   FORWARD_CALL_1(Vertex_handle,insert,Point_3)
-  FORWARD_CALL_2(Vertex_handle,insert,Point_3,Cell_handle) 
-  FORWARD_CALL_2(Vertex_handle,insert,Point_3,Vertex_handle) 
+  FORWARD_CALL_2(Vertex_handle,insert,Point_3,Cell_handle)
+  FORWARD_CALL_2(Vertex_handle,insert,Point_3,Vertex_handle)
 
   //----------------------------------
   //Triangulation_3 interface wrapping
   //----------------------------------
   //template < class InputIterator> Triangulation_3<TriangulationTraits_3,TriangulationDataStructure_3> t (InputIterator first,InputIterator last,);
-  //Vertex_handle t.insert ( Point p, Locate_type lt, Cell_handle loc, int li, int lj) 
-  //template < class InputIterator >int 	t.insert ( InputIterator first, InputIterator last) 
+  //Vertex_handle t.insert ( Point p, Locate_type lt, Cell_handle loc, int li, int lj)
+  //template < class InputIterator >int 	t.insert ( InputIterator first, InputIterator last)
   //~ typedef std::vector<typename Triangulation::Point*> Point_range;
 
   int insert_range(Point_range range){
     return this->data.insert(range.first,range.second);
   }
 
-  //bool t.is_edge ( Vertex_handle u, Vertex_handle v, Cell_handle & c, int & i, int & j) 
+  //bool t.is_edge ( Vertex_handle u, Vertex_handle v, Cell_handle & c, int & i, int & j)
   //bool  	t.is_facet ( 	Vertex_handle u,Vertex_handle v,Vertex_handle w,Cell_handle & c,int & i,int & j,int & k)
   //bool  	t.is_cell ( 	Vertex_handle u,Vertex_handle v,Vertex_handle w,Vertex_handle x,Cell_handle & c,int & i,int & j,int & k,int & l)
 
@@ -148,20 +148,20 @@ public:
     return this->data.is_cell(convert(u),convert(v),convert(w),convert(x),convert(c),convert(i),convert(j),convert(k),convert(l));
   }
 
-  //bool t.is_cell ( Vertex_handle u, Vertex_handle v, Vertex_handle w, Vertex_handle x, Cell_handle & c) 
-  //bool t.has_vertex ( Facet f, Vertex_handle v, int & j) 
-  //bool t.has_vertex ( Cell_handle c, int i, Vertex_handle v, int & j) 
-  //Cell_handle t.locate ( Point query, Locate_type & lt, int & li, int & lj, Cell_handle start = Cell_handle()) 
-  //Cell_handle 	t.locate ( Point query, Locate_type & lt, int & li, int & lj, Vertex_handle hint) 
-  //Bounded_side 	t.side_of_cell ( Point p, Cell_handle c, Locate_type & lt, int & li, int & lj) 
-  //Bounded_side t.side_of_facet ( Point p, Facet f, Locate_type & lt, int & li, int & lj) 
-  //Bounded_side t.side_of_facet ( Point p, Cell_handle c, Locate_type & lt, int & li, int & lj) 
-  //Bounded_side t.side_of_edge ( Point p, Edge e, Locate_type & lt, int & li) 
-  //Bounded_side t.side_of_edge ( Point p, Cell_handle c, Locate_type & lt, int & li) 
+  //bool t.is_cell ( Vertex_handle u, Vertex_handle v, Vertex_handle w, Vertex_handle x, Cell_handle & c)
+  //bool t.has_vertex ( Facet f, Vertex_handle v, int & j)
+  //bool t.has_vertex ( Cell_handle c, int i, Vertex_handle v, int & j)
+  //Cell_handle t.locate ( Point query, Locate_type & lt, int & li, int & lj, Cell_handle start = Cell_handle())
+  //Cell_handle 	t.locate ( Point query, Locate_type & lt, int & li, int & lj, Vertex_handle hint)
+  //Bounded_side 	t.side_of_cell ( Point p, Cell_handle c, Locate_type & lt, int & li, int & lj)
+  //Bounded_side t.side_of_facet ( Point p, Facet f, Locate_type & lt, int & li, int & lj)
+  //Bounded_side t.side_of_facet ( Point p, Cell_handle c, Locate_type & lt, int & li, int & lj)
+  //Bounded_side t.side_of_edge ( Point p, Edge e, Locate_type & lt, int & li)
+  //Bounded_side t.side_of_edge ( Point p, Cell_handle c, Locate_type & lt, int & li)
 
   typedef CGAL_Cell_circulator<Triangulation,Cell_handle> iCell_circulator;
   typedef CGAL_Facet_circulator<Triangulation,DT3_Facet>  iFacet_circulator;
-  
+
   FORWARD_CALL_1(iCell_circulator,incident_cells,DT3_Edge)
   FORWARD_CALL_3(iCell_circulator,incident_cells,Cell_handle,int,int)
   FORWARD_CALL_2(iCell_circulator,incident_cells,DT3_Edge,Cell_handle)
@@ -192,8 +192,8 @@ public:
   #ifdef SWIGPYTHON
   void test_outputit(Point_output_iterator out){*out++=typename Triangulation::Point(1,2,3);}
   #endif
-  
-  
+
+
   //template <class OutputIterator> OutputIterator 	t.finite_incident_cells ( Vertex_handle v, OutputIterator cells)
   //template <class OutputIterator> OutputIterator 	t.incident_facets ( Vertex_handle v, OutputIterator facets)
   //template <class OutputIterator> OutputIterator 	t.finite_incident_facets ( Vertex_handle v, OutputIterator facets)
@@ -203,31 +203,31 @@ public:
   //template <class OutputIterator> OutputIterator 	t.finite_adjacent_vertices ( Vertex_handle v, OutputIterator vertices)
   //istream& 	istream& is >> Triangulation_3 &t
   //ostream& 	ostream& os << Triangulation_3 t
-  //bool t.is_vertex ( Point p, Vertex_handle & v) 
+  //bool t.is_vertex ( Point p, Vertex_handle & v)
 
-  //Tetrahedron t.tetrahedron ( Cell_handle c) 
-  //Triangle t.triangle ( Cell_handle c, int i) 
-  //Triangle t.triangle ( Facet f) 
-  //Segment t.segment ( Edge e) 
-  //Segment t.segment ( Cell_handle c, int i, int j) 
-  //void t.swap ( Triangulation_3 & tr) 
-  //bool t.flip ( Edge e) 
-  //bool t.flip ( Cell_handle c, int i, int j) 
-  //void t.flip_flippable ( Edge e) 
-  //void t.flip_flippable ( Cell_handle c, int i, int j) 
-  //bool t.flip ( Facet f) 
-  //bool t.flip ( Cell_handle c, int i) 
-  //void t.flip_flippable ( Facet f) 
-  //void t.flip_flippable ( Cell_handle c, int i) 
+  //Tetrahedron t.tetrahedron ( Cell_handle c)
+  //Triangle t.triangle ( Cell_handle c, int i)
+  //Triangle t.triangle ( Facet f)
+  //Segment t.segment ( Edge e)
+  //Segment t.segment ( Cell_handle c, int i, int j)
+  //void t.swap ( Triangulation_3 & tr)
+  //bool t.flip ( Edge e)
+  //bool t.flip ( Cell_handle c, int i, int j)
+  //void t.flip_flippable ( Edge e)
+  //void t.flip_flippable ( Cell_handle c, int i, int j)
+  //bool t.flip ( Facet f)
+  //bool t.flip ( Cell_handle c, int i)
+  //void t.flip_flippable ( Facet f)
+  //void t.flip_flippable ( Cell_handle c, int i)
   //TriangulationTraits_3  t.geom_traits ()
-  //Vertex_handle t.insert_in_cell ( Point p, Cell_handle c) 
-  //Vertex_handle t.insert_in_facet ( Point p, Facet f) 
-  //Vertex_handle t.insert_in_facet ( Point p, Cell_handle c, int i) 
-  //Vertex_handle 	t.insert_in_edge ( Point p, Edge e) 
-  //Vertex_handle t.insert_in_edge ( Point p, Cell_handle c, int i, int j) 
-  //Vertex_handle t.insert_outside_convex_hull ( Point p, Cell_handle c) 
-  //Vertex_handle t.insert_outside_affine_hull ( Point p) 
-  //template <class CellIt> Vertex_handle 	t.insert_in_hole ( Point p, CellIt cell_begin, CellIt cell_end, Cell_handle begin, int i) 
+  //Vertex_handle t.insert_in_cell ( Point p, Cell_handle c)
+  //Vertex_handle t.insert_in_facet ( Point p, Facet f)
+  //Vertex_handle t.insert_in_facet ( Point p, Cell_handle c, int i)
+  //Vertex_handle 	t.insert_in_edge ( Point p, Edge e)
+  //Vertex_handle t.insert_in_edge ( Point p, Cell_handle c, int i, int j)
+  //Vertex_handle t.insert_outside_convex_hull ( Point p, Cell_handle c)
+  //Vertex_handle t.insert_outside_affine_hull ( Point p)
+  //template <class CellIt> Vertex_handle 	t.insert_in_hole ( Point p, CellIt cell_begin, CellIt cell_end, Cell_handle begin, int i)
   //template <class CellIt> Vertex_handle 	t.insert_in_hole ( 	Point p,CellIt cell_begin,CellIt cell_end,Cell_handle begin,int i,Vertex_handle newv)
   //TriangulationDataStructure_3 t.tds ()
 };
