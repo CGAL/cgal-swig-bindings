@@ -1,0 +1,24 @@
+#ifndef SWIG_CGAL_TRIANGULATION_2_TRIANGULATION_ITERATORS_H
+#define SWIG_CGAL_TRIANGULATION_2_TRIANGULATION_ITERATORS_H
+
+#include "triangulation_handles.h"
+#include "../Common/Input_iterator.h"
+
+DECLARE_ITERATOR_CLASS(Finite_vertices_iterator)
+DECLARE_ITERATOR_CLASS(All_vertices_iterator)
+
+DECLARE_ITERATOR_CLASS(Finite_edges_iterator)
+DECLARE_ITERATOR_CLASS(All_edges_iterator)
+
+DECLARE_ITERATOR_CLASS(Finite_faces_iterator)
+DECLARE_ITERATOR_CLASS(All_faces_iterator)
+
+DECLARE_ITERATOR_CLASS(Point_iterator)
+
+
+
+DECLARE_CIRCULATOR_CLASS(Line_face_circulator)
+DECLARE_CIRCULATOR_CLASS(Face_circulator)
+DECLARE_CIRCULATOR_CLASS(Edge_circulator)
+DECLARE_CIRCULATOR_CLASS(Vertex_circulator)
+#endif //SWIG_CGAL_TRIANGULATION_2_TRIANGULATION_ITERATORS_H
