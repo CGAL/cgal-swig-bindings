@@ -7,6 +7,9 @@ template <class Triangulation,class Vertex_handle, class Cell_handle>
 class Delaunay_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Vertex_handle,Cell_handle>{
  
 public:
+  typedef typename Triangulation_3_wrapper<Triangulation,Vertex_handle,Cell_handle>::Edge Edge;
+  typedef typename Triangulation_3_wrapper<Triangulation,Vertex_handle,Cell_handle>::Facet Facet;
+
   Delaunay_triangulation_3_wrapper():Triangulation_3_wrapper<Triangulation,Vertex_handle,Cell_handle>(){}
   Delaunay_triangulation_3_wrapper(const Delaunay_triangulation_3_wrapper& dt):Triangulation_3_wrapper<Triangulation,Vertex_handle,Cell_handle>(static_cast<const Triangulation_3_wrapper<Triangulation,Vertex_handle,Cell_handle>&>(dt)){};
 
@@ -18,7 +21,7 @@ public:
 
   FORWARD_CALL_2(Vertex_handle,move_point,Vertex_handle,Point_3);
   FORWARD_CALL_2(Bounded_side,side_of_sphere,Cell_handle,Point_3)
-  FORWARD_CALL_2(Bounded_side,side_of_circle,DT3_Facet,Point_3)
+  FORWARD_CALL_2(Bounded_side,side_of_circle,Facet,Point_3)
   FORWARD_CALL_3(Bounded_side,side_of_circle,Cell_handle,int,Point_3)
 
   FORWARD_CALL_1(Vertex_handle,nearest_vertex,Point_3)
@@ -26,8 +29,8 @@ public:
 
   FORWARD_CALL_2(bool,is_Gabriel,Cell_handle,int)
   FORWARD_CALL_3(bool,is_Gabriel,Cell_handle,int,int)
-  FORWARD_CALL_1(bool,is_Gabriel,DT3_Facet)
-  FORWARD_CALL_1(bool,is_Gabriel,DT3_Edge)
+  FORWARD_CALL_1(bool,is_Gabriel,Facet)
+  FORWARD_CALL_1(bool,is_Gabriel,Edge)
 
   //template < typename InputIterator > int 	dt.remove ( InputIterator first, InputIterator beyond)
   //template <class OutputIteratorBoundaryFacets, class OutputIteratorCells> std::pair<OutputIteratorBoundaryFacets, OutputIteratorCells>
