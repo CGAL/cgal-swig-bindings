@@ -3,6 +3,7 @@
 
 #include "triple.h"
 #include "../Kernel/Point_3.h"
+#include "../Kernel/Point_2.h"
 #include "../Kernel/Plane_3.h"
 
 template <class T>
@@ -47,6 +48,17 @@ struct Iterator_helper<Point_3>{
   
   static Point_3
   default_value(){return Point_3();}
+};
+
+template <>
+struct Iterator_helper<Point_2>{
+  template <class Ti>
+  static Point_2 convert(const Ti& i){
+    return Point_2(*i);
+  }
+  
+  static Point_2
+  default_value(){return Point_2();}
 };
 
 template <>
@@ -119,6 +131,7 @@ template<class T,class R>                                      \
 class CGAL_##NAME{                                             \
   typename T::NAME cur;                                        \
 public:                                                        \
+  typedef typename T::NAME cpp_base;                           \
   CGAL_##NAME( typename T::NAME cur_):cur(cur_){}              \
     CGAL_##NAME<T,R> __iter__(){return *this;}                 \
   R next() {                                                   \
