@@ -2,7 +2,7 @@
 #define CGAL_SWIG_MACROS_H
 
 #include "../Common/triple.h"
-
+#include <CGAL/utility.h>
 //Functor for FORWARD_CALL_N
 
 template <class T> class CGAL_Cell_handle;
@@ -42,14 +42,14 @@ struct Converter<std::pair<P1,P2> >{
 
 template <class T1,class T2,class T3>
 struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
-  typedef CGAL_SWIG::Triple<  typename Converter<T1>::result_type,
-                              typename Converter<T2>::result_type,    
-                              typename Converter<T3>::result_type    >   result_type;
+  typedef CGAL::Triple<  typename Converter<T1>::result_type,
+                         typename Converter<T2>::result_type,    
+                         typename Converter<T3>::result_type    >   result_type;
   
   static result_type convert(const CGAL_SWIG::Triple<T1,T2,T3>& t){
-    return CGAL_SWIG::make_triple(Converter<T1>::convert(t.first),
-                                  Converter<T2>::convert(t.second),
-                                  Converter<T3>::convert(t.third));
+    return CGAL::make_triple(Converter<T1>::convert(t.first),
+                             Converter<T2>::convert(t.second),
+                             Converter<T3>::convert(t.third));
   }
 };
 
@@ -78,15 +78,21 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
 #define FORWARD_CALL_0(RET,NAME) \
   RET NAME()\
   {return RET(this->data.NAME());}
-  
+
+#define FORWARD_CALL_1_PTR(RET,NAME,IN_TYPE) \
+  RET NAME(const IN_TYPE& c){\
+    return RET(this->data->NAME(internal::Converter<IN_TYPE>::convert(c)));\
+  }
+
 #define FORWARD_CALL_1(RET,NAME,IN_TYPE) \
   RET NAME(const IN_TYPE& c){\
     return RET(this->data.NAME(internal::Converter<IN_TYPE>::convert(c)));\
   }
 
-#define FORWARD_CALL_1_PTR(RET,NAME,IN_TYPE) \
-  RET NAME(const IN_TYPE& c){\
-    return RET(this->data->NAME(internal::Converter<IN_TYPE>::convert(c)));\
+#define FORWARD_CALL_2_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
+  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2){\
+    return RET(this->data->NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
+                                internal::Converter<IN_TYPE_2>::convert(c2)));\
   }
 
 #define FORWARD_CALL_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
@@ -94,7 +100,14 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
     return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2)));\
   }
-  
+
+#define FORWARD_CALL_3_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
+  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3){\
+    return RET(this->data->NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
+                                internal::Converter<IN_TYPE_2>::convert(c2),\
+                                internal::Converter<IN_TYPE_3>::convert(c3)));\
+  }
+
 #define FORWARD_CALL_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3){\
     return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
