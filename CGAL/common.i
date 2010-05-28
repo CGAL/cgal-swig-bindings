@@ -41,6 +41,56 @@
 %enddef
 #endif
 
+//input iterator typemap
+//   Out_Object_      is the object wrapper by swig that is obtained when calling *
+//   Object_typemap_     is the object on which the typemap should be defined (used in the cpp code)
+//   SWIG_for_python_ python specific Out_Object_ class id
+//   SWIG_for_java_   java specific class name (should be a string)
+//   Function_name    python specific: name of the function using the input_iterator
+#ifdef SWIGPYTHON
+%define Typemap_for_Input_iterator(Object_typemap_,Out_Object_,SWIG_for_python_,SWIG_for_java_,Function_name_)
+  %typemap(in) Object_typemap_ {
+    try{
+      Input_iterator_wrapper<Out_Object_,Out_Object_::cpp_base> it_end;
+      Input_iterator_wrapper<Out_Object_,Out_Object_::cpp_base> it_begin($input,SWIG_for_python_);
+      $1=std::make_pair(it_begin,it_end);
+    }
+    catch(int){
+      //TODO: throw a specify exception
+      SWIG_fail;
+    }
+  }
+
+  %include exception.i
+  %exception Function_name_
+  {
+    try{
+        $action
+      }
+      catch(int){
+        //TODO: throw a specify exception
+        //TODO add a message to specify that the list does not contains only points
+        SWIG_fail;
+      }
+  }
+%enddef  
+#endif
+#ifdef SWIGJAVA
+%define Typemap_for_Input_iterator(Object_typemap_,Out_Object_,SWIG_for_python_,SWIG_for_java_,Function_name_)
+  %typemap(jni) Object_typemap_ "jobject"  //replace in jni class
+  %typemap(jtype) Object_typemap_ "Iterator<Out_Object_>"   //replace in java wrapping class
+  %typemap(jstype) Object_typemap_ "Iterator<Out_Object_>"  //replace in java function args
+  %typemap(javain) Object_typemap_ "$javainput" //replace in java function call to wrapped function
+
+  %typemap(in) Object_typemap_ {
+    Input_iterator_wrapper<Out_Object_,Out_Object_::cpp_base> it_end;
+    Input_iterator_wrapper<Out_Object_,Out_Object_::cpp_base> it_begin($input,SWIG_for_java_);
+    $1=std::make_pair(it_begin,it_end);
+  }
+%enddef
+#endif
+//-----
+
 //exception for iterators (for next fonctions)
 #ifdef SWIGPYTHON
 %include exception.i
