@@ -4,6 +4,8 @@
 #include "typedefs.h"
 #include <CGAL/squared_distance_3.h>
 #include "Point_2.h"
+#include "Segment_2.h"
+#include "Triangle_2.h"
 #include "Point_3.h"
 #include "Plane_3.h"
 #include "Line_3.h"
