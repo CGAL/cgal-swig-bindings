@@ -5,7 +5,7 @@
 
 template <class Triangulation,class Vertex_handle, class Face_handle>
 class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>
-{       
+{
   
 };
 
