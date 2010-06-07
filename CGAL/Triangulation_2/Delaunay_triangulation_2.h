@@ -25,10 +25,7 @@ class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangula
 //   Vertex_handle   dt.nearest_vertex ( Point p, Face_handle f=Face_handle())
 //   template <class OutputItFaces, class OutputItBoundaryEdges>
 //   std::pair<OutputItFaces,OutputItBoundaryEdges>
-//   dt.get_conflicts_and_boundary (   Point p,
-//   OutputItFaces fit,
-//   OutputItBoundaryEdges eit,
-//   Face_handle start)
+//   dt.get_conflicts_and_boundary (Point p,OutputItFaces fit,OutputItBoundaryEdges eit,Face_handle start)
 //   template <class OutputItFaces>
 //   OutputItFaces   dt.get_conflicts ( Point p, OutputItFaces fit, Face_handle start)
 //   template <class OutputItBoundaryEdges>

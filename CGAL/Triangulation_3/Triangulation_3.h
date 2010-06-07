@@ -26,13 +26,8 @@ enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFF
 enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};
 
 typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
-#ifdef SWIGJAVA
-typedef boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base> > Point_output_iterator;
-#endif
-#ifdef SWIGPYTHON
-typedef boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base> > Point_output_iterator;
-#endif
 
+typedef boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base> > Point_output_iterator;
 
 template <class Triangulation,class Vertex_handle, class Cell_handle>
 class Triangulation_3_wrapper{

@@ -6,11 +6,11 @@
 template <class Triangulation,class Vertex_handle, class Face_handle>
 class Constrained_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>
 {
-  typedef Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle> Base;
+  typedef Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>    Base;
 public:
-  typedef typename Base::Edge Edge;
-  typedef typename Base::Facet Facet;
-  typedef std::pair<Point_2,Point_2> Constraint;
+  typedef typename Base::Edge                                                 Edge;
+  typedef typename Base::Facet                                                Facet;
+  typedef std::pair<Point_2,Point_2>                                          Constraint;
 
 // Creation  
   Constrained_triangulation_2_wrapper():Base(){}

@@ -6,28 +6,8 @@
 %include "../Common/Input_iterator.h"
 
 
-
-#ifdef SWIGPYTHON
-%typemap(in) Point_output_iterator {
-  $1=boost::make_function_output_iterator( Container_writer<Point_3,Point_3::cpp_base>($input,SWIGTYPE_p_Point_3) );
-}
-
-
-#endif
-
-#ifdef SWIGJAVA
-%typemap(jni) Point_output_iterator "jobject"  //replace in jni class
-%typemap(jtype) Point_output_iterator "Collection<Point_3>"   //replace in java wrapping class
-%typemap(jstype) Point_output_iterator "Collection<Point_3>"  //replace in java function args
-%typemap(javain) Point_output_iterator "$javainput" //replace in java function call to wrapped function
-
-%typemap(in) Point_output_iterator {
-  $1=boost::make_function_output_iterator( Container_writer<Point_3,Point_3::cpp_base>($input,"LCGAL/Kernel/Point_3;") );
-}
-#endif
-
 Typemap_for_Input_iterator(Point_range,Point_3,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
-
+Typemap_for_Output_iterator(Point_output_iterator,Point_3,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
 
 //include files
 %{
