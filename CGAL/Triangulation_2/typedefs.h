@@ -13,6 +13,7 @@
 
 
 typedef CGAL::Triangulation_2<EPIC_Kernel> EPIC_T2;
+typedef CGAL::Constrained_triangulation_2<EPIC_Kernel> EPIC_CT2;
 
 
 

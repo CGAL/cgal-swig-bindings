@@ -42,8 +42,8 @@
 #endif
 
 //input iterator typemap
-//   Out_Object_      is the object wrapper by swig that is obtained when calling *
 //   Object_typemap_     is the object on which the typemap should be defined (used in the cpp code)
+//   Out_Object_      is the object wrapped by swig that is obtained when calling *
 //   SWIG_for_python_ python specific Out_Object_ class id
 //   SWIG_for_java_   java specific class name (should be a string)
 //   Function_name    python specific: name of the function using the input_iterator
@@ -92,29 +92,29 @@
 //-----
 
 //output iterator typemap
-//   Out_Object_      is the object wrapper by swig that is obtained when calling *
-//   Object_typemap_     is the object on which the typemap should be defined (used in the cpp code)
-//   SWIG_for_python_ python specific Out_Object_ class id
-//   SWIG_for_java_   java specific class name (should be a string)
-//   Function_name    python specific: name of the function using the input_iterator
+//   Object_typemap_       is the object on which the typemap should be defined (used in the cpp code)
+//   Out_Object_           is the object wrapped by swig that is obtained when calling *
+//   Out_Object_cpp_base_  is the internal object stored in Out_Object_
+//   SWIG_for_python_      python specific Out_Object_ class id
+//   SWIG_for_java_        java specific class name (should be a string)
+//   Function_name         python specific: name of the function using the input_iterator
 #ifdef SWIGPYTHON
-%define Typemap_for_Output_iterator(Object_typemap_,Out_Object_,SWIG_for_python_,SWIG_for_java_)
+%define Typemap_for_Output_iterator(Object_typemap_,Out_Object_,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
   %typemap(in) Object_typemap_ {
-    $1=boost::make_function_output_iterator( Container_writer<Out_Object_,Out_Object_::cpp_base>($input,SWIG_for_python_) );
+    $1=boost::make_function_output_iterator( Container_writer<Out_Object_,Out_Object_cpp_base_>($input,SWIG_for_python_) );
   }
 %enddef
 #endif
 #ifdef SWIGJAVA
-%define Typemap_for_Output_iterator(Object_typemap_,Out_Object_,SWIG_for_python_,SWIG_for_java_)
+%define Typemap_for_Output_iterator(Object_typemap_,Out_Object_,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
   %typemap(jni) Object_typemap_ "jobject"  //replace in jni class
   %typemap(jtype) Object_typemap_ "Collection<Out_Object_>"   //replace in java wrapping class
   %typemap(jstype) Object_typemap_ "Collection<Out_Object_>"  //replace in java function args
   %typemap(javain) Object_typemap_ "$javainput" //replace in java function call to wrapped function
 
   %typemap(in) Object_typemap_ {
-    $1=boost::make_function_output_iterator( Container_writer<Out_Object_,Out_Object_::cpp_base>($input,SWIG_for_java_) );
+    $1=boost::make_function_output_iterator( Container_writer<Out_Object_,Out_Object_cpp_base_>($input,SWIG_for_java_) );
   }
-
 %enddef
 #endif
 //-----
