@@ -19,6 +19,7 @@ class Constrained_triangulation_2_wrapper: public Triangulation_2_wrapper<Triang
   typedef Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>    Base;
 public:
   typedef typename Base::Edge                                                 Edge;
+  typedef Triangulation cpp_base;
 
 // Creation  
   Constrained_triangulation_2_wrapper():Base(){}

@@ -8,9 +8,25 @@
 
 template <class T>
 struct Iterator_helper{
+  //~ template <class Ti,bool is_const>
+  //~ static T convert(const CGAL::internal::CC_iterator<Ti,is_const>& i){
+    //~ return T(i);
+  //~ }
+
+  //~ template <class Iterator>
+  //~ static T convert(Iterator it){
+    //~ return T(*it);
+  //~ }
+
   template <class Ti>
   static T convert(const Ti& i){
     return T(i);
+  }
+  
+  //TODO: find another fix
+  template <class Ti>
+  static T convert(const typename std::_List_iterator<Ti> it){
+    return T(*it);
   }
 
   static T

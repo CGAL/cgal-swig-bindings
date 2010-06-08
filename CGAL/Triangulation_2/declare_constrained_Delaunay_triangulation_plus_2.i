@@ -11,8 +11,24 @@
 %define Declare_constrained_Delaunay_triangulation_plus_2_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE)
   Declare_constrained_Delaunay_triangulation_2_internal(Internal_Constrained_Delaunay_triangulation_2_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE)
 
+  //types
+  %include "std_pair.i"
+  %template(Constrained_Delaunay_triangulation_plus_Constraint) std::pair<CGAL_Vertex_handle <CPPTYPE>,CGAL_Vertex_handle<CPPTYPE> >;
+
+  //Iterators
+  Iterator_for_java(CGAL_Constraint_iterator,Constrained_Delaunay_triangulation_plus_Constraint,)
+  %template(CLASSNAME_PREFIX##_Constraint_iterator) CGAL_Constraint_iterator<CPPTYPE,std::pair<CGAL_Vertex_handle <CPPTYPE>,CGAL_Vertex_handle<CPPTYPE> > >;
+
+  Iterator_for_java(CGAL_Subconstraint_iterator,Constrained_Delaunay_triangulation_plus_Constraint,)
+  %template(CLASSNAME_PREFIX##_Subconstraint_iterator) CGAL_Subconstraint_iterator<CPPTYPE,std::pair<CGAL_Vertex_handle <CPPTYPE>,CGAL_Vertex_handle<CPPTYPE> > >;
+
+  Iterator_for_java(CGAL_Vertices_in_constraint_iterator,CLASSNAME_PREFIX##_Vertex_handle,import CGAL.Kernel.Point_2;)
+  %template(CLASSNAME_PREFIX##_Vertices_in_constraint_iterator) CGAL_Vertices_in_constraint_iterator<CPPTYPE,CGAL_Vertex_handle<CPPTYPE> >;
+
+  //Triangulation
   %typemap(javaimports)          Constrained_triangulation_plus_2_wrapper%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Segment_2; import CGAL.Kernel.Triangle_2; import java.util.Iterator; import java.util.Collection;%}
-  %template(EXPOSEDNAME)         Constrained_triangulation_plus_2_wrapper< Constrained_Delaunay_triangulation_2_wrapper< CPPTYPE,CGAL_Vertex_handle<CPPTYPE>,CGAL_Face_handle<CPPTYPE> > >;
+  %template(EXPOSEDNAME)         Constrained_triangulation_plus_2_wrapper< Constrained_Delaunay_triangulation_2_wrapper< CPPTYPE,CGAL_Vertex_handle<CPPTYPE>,CGAL_Face_handle<CPPTYPE> >,CGAL_Vertex_handle<CPPTYPE> >;
+  
 %enddef
 
 

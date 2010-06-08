@@ -8,6 +8,8 @@ class Constrained_Delaunay_triangulation_2_wrapper: public Constrained_triangula
 {
   typedef Constrained_triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle> Base;
 public:
+  typedef Triangulation cpp_base;  
+
   Constrained_Delaunay_triangulation_2_wrapper():Base(){}
 
 };

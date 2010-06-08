@@ -16,6 +16,8 @@ class Polyhedron_3_wrapper{
   Polyhedron_base data;
  
 public:  
+  typedef Polyhedron_base cpp_base;
+
 //Creation
   Polyhedron_3_wrapper():data(){}
   Polyhedron_3_wrapper(const char* off_filename){

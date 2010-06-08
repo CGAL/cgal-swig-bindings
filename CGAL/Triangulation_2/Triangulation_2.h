@@ -28,6 +28,8 @@ class Triangulation_2_wrapper
 protected :
   Triangulation data;
 public:
+  typedef Triangulation cpp_base;
+
   typedef std::pair<Face_handle,int>                                   Edge;
 //TODO: look at a way to avoid SWIG to exposed these types internally used. private?
   typedef CGAL_Finite_vertices_iterator<Triangulation,Vertex_handle>   Finite_vertices_iterator;

@@ -42,6 +42,7 @@ protected:
 public:
   typedef std::pair<Cell_handle,int>             Facet;
   typedef CGAL_SWIG::Triple<Cell_handle,int,int> Edge;  
+  typedef Triangulation cpp_base;
 
   Triangulation_3_wrapper(){}
   const Triangulation& get_data() const {return this->data;}

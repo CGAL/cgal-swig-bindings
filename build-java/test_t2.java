@@ -4,6 +4,7 @@ import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Vertex_handle;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Edge;
 import CGAL.Triangulation_2.Constraint;
+import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_Constraint;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -40,10 +41,25 @@ public class test_t2 {
     
     System.out.println("Nb edges "+edge_list.size());
     
+    int j=0;
+    for (Constrained_Delaunay_triangulation_plus_Constraint cdtp_sc : t.subconstraints()){
+      ++j;
+      int k=0;
+      for (Constrained_Delaunay_triangulation_plus_2_Vertex_handle vh : t.vertices_in_constraint(cdtp_sc.getFirst(),cdtp_sc.getSecond()) )
+        ++k;
+      System.out.println("Nb subvertices "+k);
+    }    
+    System.out.println("Nb subconstrained edges "+j);
     
+    
+    int i=0;
+    for (Constrained_Delaunay_triangulation_plus_Constraint cdtp_c : t.constraints()){
+      ++i;
+    }
+    System.out.println("Nb constrained edges "+i);
     
   }
 
 
 }
- 
+

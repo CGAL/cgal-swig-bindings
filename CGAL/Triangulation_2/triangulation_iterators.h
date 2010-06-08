@@ -4,6 +4,7 @@
 #include "triangulation_handles.h"
 #include "../Common/Input_iterator.h"
 
+//For Triangulation_2
 DECLARE_ITERATOR_CLASS(Finite_vertices_iterator)
 DECLARE_ITERATOR_CLASS(All_vertices_iterator)
 
@@ -15,10 +16,20 @@ DECLARE_ITERATOR_CLASS(All_faces_iterator)
 
 DECLARE_ITERATOR_CLASS(Point_iterator)
 
-
-
 DECLARE_CIRCULATOR_CLASS(Line_face_circulator)
 DECLARE_CIRCULATOR_CLASS(Face_circulator)
 DECLARE_CIRCULATOR_CLASS(Edge_circulator)
 DECLARE_CIRCULATOR_CLASS(Vertex_circulator)
+
+//For Constrained_triangulation_plus_2
+DECLARE_ITERATOR_CLASS(Constraint_iterator)
+DECLARE_ITERATOR_CLASS(Subconstraint_iterator)
+
+DECLARE_ITERATOR_CLASS(Vertices_in_constraint_iterator)
+DECLARE_ITERATOR_CLASS(Context_iterator)
+
+
+
+
+
 #endif //SWIG_CGAL_TRIANGULATION_2_TRIANGULATION_ITERATORS_H
