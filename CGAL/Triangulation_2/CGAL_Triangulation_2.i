@@ -42,6 +42,11 @@ Typemap_for_Input_iterator(Point_range,Point_2,SWIGTYPE_p_Point_2,"(LCGAL/Kernel
 //%import "declare_triangulation_2.i"
 //Declare_triangulation_2(Triangulation_2,EPIC_T2)
 
-%import "declare_constrained_triangulation_2.i"
-Declare_constrained_triangulation_2(Constrained_triangulation_2,EPIC_CT2)
+//%import "declare_constrained_triangulation_2.i"
+//Declare_constrained_triangulation_2(Constrained_triangulation_2,EPIC_CT2)
 
+//%import "declare_constrained_Delaunay_triangulation_2.i"
+//Declare_constrained_Delaunay_triangulation_2(Constrained_Delaunay_triangulation_2,EPIC_CDT2)
+
+%import "declare_constrained_Delaunay_triangulation_plus_2.i"
+Declare_constrained_Delaunay_triangulation_plus_2(Constrained_Delaunay_triangulation_plus_2,EPIC_CDTplus2)

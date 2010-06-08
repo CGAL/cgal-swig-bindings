@@ -68,7 +68,7 @@ public:
   //FORWARD_CALL_2(Oriented_side,oriented_side,Face_handle,Point)
   //FORWARD_CALL_2(Oriented_side,side_of_oriented_circle,Face_handle,Point)  
 // Modifiers
-  FORWARD_CALL_2(void,flip,Face_handle,int)
+//  FORWARD_CALL_2(void,flip,Face_handle,int) TODO: ambiguous call in CDT (their exist an overload with Face_handle&) 
   FORWARD_CALL_1(Vertex_handle,insert,Point_2)
   FORWARD_CALL_2(Vertex_handle,insert,Point_2,Face_handle)
   FORWARD_CALL_1(Vertex_handle,push_back,Point_2)

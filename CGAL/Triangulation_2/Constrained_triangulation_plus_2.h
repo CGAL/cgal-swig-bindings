@@ -2,11 +2,7 @@
 #define SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H
 
 
-template <  class Triangulation,
-            class Vertex_handle,
-            class Face_handle,
-            class Base_triangulation_wrapper
-          >
+template < class Base_triangulation_wrapper >
 class Constrained_triangulation_plus_2_wrapper: public Base_triangulation_wrapper
 {
   typedef Base_triangulation_wrapper Base;
