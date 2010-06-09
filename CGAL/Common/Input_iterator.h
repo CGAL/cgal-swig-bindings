@@ -6,28 +6,35 @@
 #include "../Kernel/Point_2.h"
 #include "../Kernel/Plane_3.h"
 
+#ifndef SWIG  
 template <class T>
 struct Iterator_helper{
-  //~ template <class Ti,bool is_const>
-  //~ static T convert(const CGAL::internal::CC_iterator<Ti,is_const>& i){
-    //~ return T(i);
-  //~ }
-
-  //~ template <class Iterator>
-  //~ static T convert(Iterator it){
-    //~ return T(*it);
-  //~ }
+  
+  template <class Iterator>
+  static T convert(const Iterator& it,typename boost::enable_if< 
+                                                      boost::is_same<
+                                                        typename T::cpp_base,
+                                                        typename std::iterator_traits<Iterator>::value_type
+                                                      >
+                                              >::type* =0)
+  {
+    return T(*it);
+  }
 
   template <class Ti>
-  static T convert(const Ti& i){
+  static T convert(const Ti& i,typename boost::enable_if< 
+                                    boost::is_same< 
+                                      boost::false_type,
+                                      typename boost::is_same<
+                                        typename T::cpp_base,
+                                        typename std::iterator_traits<Ti>::value_type
+                                      >::type
+                                    >
+                                  >::type* =0)
+  {
     return T(i);
   }
   
-  //TODO: find another fix
-  template <class Ti>
-  static T convert(const typename std::_List_iterator<Ti> it){
-    return T(*it);
-  }
 
   static T
   default_value(){return T();}
@@ -87,6 +94,7 @@ struct Iterator_helper<Plane_3>{
   static Plane_3
   default_value(){return Plane_3();}
 };
+#endif
 
 #ifdef SWIGPYTHON
 #define DECLARE_ITERATOR_CLASS(NAME)                           \

@@ -124,7 +124,7 @@ class CGAL_Facet_handle{
   typename Polyhedron_base::Facet_handle data;
   
 public:
-  typename Polyhedron_base::Facet_handle cpp_base;
+  typedef typename Polyhedron_base::Facet_handle cpp_base;
 
   CGAL_Facet_handle():data(NULL){}
   CGAL_Facet_handle(typename Polyhedron_base::Facet_handle h):data(h){}

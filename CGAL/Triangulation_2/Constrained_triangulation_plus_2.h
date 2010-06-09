@@ -1,6 +1,7 @@
 #ifndef SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H
 #define SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H
 
+#ifndef SWIG
 template<class T1,class T2>
 struct Iterator_helper<std::pair<T1,T2> >{
   template <class T>
@@ -11,7 +12,7 @@ struct Iterator_helper<std::pair<T1,T2> >{
   static std::pair<T1,T2>
   default_value(){return std::pair<T1,T2>(T1(NULL),T2(NULL));}
 };
-
+#endif
 
 template <class CDT_plus_2, class Vertex_handle>
 class CDTP_context{
