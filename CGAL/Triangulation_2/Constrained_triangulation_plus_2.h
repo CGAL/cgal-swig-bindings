@@ -12,6 +12,22 @@ struct Iterator_helper<std::pair<T1,T2> >{
   default_value(){return std::pair<T1,T2>(T1(NULL),T2(NULL));}
 };
 
+
+template <class CDT_plus_2, class Vertex_handle>
+class CDTP_context{
+  typename CDT_plus_2::Context data;
+public:
+  typedef typename CDT_plus_2::Context cpp_base;
+  typedef CGAL_Vertices_in_constraint_iterator<CDT_plus_2,Vertex_handle>  Vertices_in_constraint_iterator;
+
+  const cpp_base& get_data() const { return data; } 
+  cpp_base& get_data_ref() { return data; }
+  CDTP_context(){}
+  CDTP_context(const cpp_base& p):data(p){}
+  Vertices_in_constraint_iterator vertices() {return Vertices_in_constraint_iterator(data.vertices_begin(),data.vertices_end());}
+  Vertices_in_constraint_iterator current() {return Vertices_in_constraint_iterator(data.current(),data.vertices_end());}
+};
+
 template < class Base_triangulation_wrapper, class Vertex_handle >
 class Constrained_triangulation_plus_2_wrapper: public Base_triangulation_wrapper
 {
@@ -22,6 +38,8 @@ public:
   typedef CGAL_Constraint_iterator<cpp_base,Constraint_handle>          Constraint_iterator;
   typedef CGAL_Subconstraint_iterator<cpp_base,Constraint_handle>       Subconstraint_iterator;
   typedef CGAL_Vertices_in_constraint_iterator<cpp_base,Vertex_handle>  Vertices_in_constraint_iterator;
+  typedef CDTP_context<cpp_base,Vertex_handle>                          Context;
+  typedef CGAL_Context_iterator<cpp_base,Context>                       Context_iterator;
 
 
   Constrained_triangulation_plus_2_wrapper():Base(){}
@@ -31,6 +49,8 @@ public:
   Constraint_iterator constraints(){return Constraint_iterator( this->data.constraints_begin(),this->data.constraints_end() );}
   Subconstraint_iterator subconstraints(){return Subconstraint_iterator( this->data.subconstraints_begin(),this->data.subconstraints_end() );}
   Vertices_in_constraint_iterator vertices_in_constraint(const Vertex_handle& va,const Vertex_handle& vb){ return Vertices_in_constraint_iterator(this->data.vertices_in_constraint_begin(va.get_data(),vb.get_data()),this->data.vertices_in_constraint_end(va.get_data(),vb.get_data()));}
+  FORWARD_CALL_2(Context,context,Vertex_handle,Vertex_handle)
+  Context_iterator contexts(const Vertex_handle& va,Vertex_handle& vb) {return Context_iterator(this->data.contexts_begin(va.get_data(),vb.get_data()),this->data.contexts_end(va.get_data(),vb.get_data()));}
   
 };
 
@@ -44,9 +64,4 @@ public:
 //   Constrained_triangulation_plus_2<Tr> ctp ( InputIterator first, InputIterator last, Geom_traits gt= Geom_traits());
 // Assignment
 //   void   ctp.swap ( Constrained_triangulation_plus_2 tr)
-// Queries
-//   Context   ctp.context ( Vertex_handle va, Vertex_handle vb)
-//   Context_iterator   ctp.contexts_begin ( Vertex_handle va, Vertex_handle vb)
-//   Context_iterator   ctp.contexts_end ( Vertex_handle va, Vertex_handle vb)
-//   Vertices_in_constraint_iterator   ctp.vertices_in_constraint_begin ( Vertex_handle va, Vertex_handle vb)
-//   Vertices_in_constraint_iterator   ctp.vertices_in_constraint_end ( Vertex_handle va, Vertex_handle vb)
+

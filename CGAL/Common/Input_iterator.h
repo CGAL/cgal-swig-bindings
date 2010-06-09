@@ -30,7 +30,7 @@ struct Iterator_helper{
   }
 
   static T
-  default_value(){return T(NULL);}
+  default_value(){return T();}
 };
 
 template<class T1>

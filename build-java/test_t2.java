@@ -4,9 +4,11 @@ import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Vertex_handle;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Edge;
 import CGAL.Triangulation_2.Constraint;
-import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_Constraint;
+import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Constraint;
+import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Context;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 
 public class test_t2 {
   public static void main(String arg[]){
@@ -41,8 +43,33 @@ public class test_t2 {
     
     System.out.println("Nb edges "+edge_list.size());
     
+    
+    
+    Constrained_Delaunay_triangulation_plus_2_Context ctxt = 
+      t.context( edge_list.getFirst().getFirst().vertex((edge_list.getFirst().getSecond()+1)%3),
+                 edge_list.getFirst().getFirst().vertex((edge_list.getFirst().getSecond()+2)%3)
+               );
+    
+    int vic=0;
+    for (Constrained_Delaunay_triangulation_plus_2_Vertex_handle vh : ctxt.vertices())
+      ++vic;
+    System.out.println("Nb vertices in ctxt "+vic);
+    int vic2=0;
+    for (Constrained_Delaunay_triangulation_plus_2_Vertex_handle vh : ctxt.current())
+      ++vic2;
+    System.out.println("Nb vertices in current ctxt "+vic2);
+
+
+    int nb_ctxt=0;
+    for (Constrained_Delaunay_triangulation_plus_2_Context ictxt : 
+          t.contexts( edge_list.getFirst().getFirst().vertex((edge_list.getFirst().getSecond()+1)%3),
+                      edge_list.getFirst().getFirst().vertex((edge_list.getFirst().getSecond()+2)%3))
+        )
+      ++nb_ctxt;
+    System.out.println("Nb contexts "+nb_ctxt);    
+    
     int j=0;
-    for (Constrained_Delaunay_triangulation_plus_Constraint cdtp_sc : t.subconstraints()){
+    for (Constrained_Delaunay_triangulation_plus_2_Constraint cdtp_sc : t.subconstraints()){
       ++j;
       int k=0;
       for (Constrained_Delaunay_triangulation_plus_2_Vertex_handle vh : t.vertices_in_constraint(cdtp_sc.getFirst(),cdtp_sc.getSecond()) )
@@ -52,10 +79,12 @@ public class test_t2 {
     System.out.println("Nb subconstrained edges "+j);
 
     int i=0;
-    for (Constrained_Delaunay_triangulation_plus_Constraint cdtp_c : t.constraints()){
+    for (Constrained_Delaunay_triangulation_plus_2_Constraint cdtp_c : t.constraints()){
       ++i;
     }
     System.out.println("Nb constrained edges "+i);
+    
+
     
   }
 
