@@ -31,7 +31,6 @@ public:
   typedef Triangulation cpp_base;
 
   typedef std::pair<Face_handle,int>                                   Edge;
-//TODO: look at a way to avoid SWIG to exposed these types internally used. private?
   typedef CGAL_Finite_vertices_iterator<Triangulation,Vertex_handle>   Finite_vertices_iterator;
   typedef CGAL_Finite_edges_iterator<Triangulation,Edge>               Finite_edges_iterator;
   typedef CGAL_Finite_faces_iterator<Triangulation,Face_handle>        Finite_faces_iterator;
