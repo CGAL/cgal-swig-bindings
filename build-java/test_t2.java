@@ -50,8 +50,7 @@ public class test_t2 {
       System.out.println("Nb subvertices "+k);
     }    
     System.out.println("Nb subconstrained edges "+j);
-    
-    
+
     int i=0;
     for (Constrained_Delaunay_triangulation_plus_Constraint cdtp_c : t.constraints()){
       ++i;
