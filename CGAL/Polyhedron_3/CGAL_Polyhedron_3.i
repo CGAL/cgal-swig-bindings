@@ -28,8 +28,9 @@
 
 //template instantiation
 %template(Polyhedron_3_Halfedge_handle)             Halfedge_handle_;
-#warning SOL
-//~ %typemap(javaimports)                               Vertex_handle_%{import CGAL.Kernel.Point_3;%}
+#ifndef NO_VERTEX_HANDLE_IMPORTS
+%typemap(javaimports)                               Vertex_handle_%{import CGAL.Kernel.Point_3;%}
+#endif
 %template(Polyhedron_3_Vertex_handle)               Vertex_handle_;
 #ifdef CGAL_SWIG_FACET_SUPPORTS_PLANE
 %typemap(javaimports)                               Facet_handle_%{import CGAL.Kernel.Plane_3;%}
