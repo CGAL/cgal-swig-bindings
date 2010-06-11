@@ -2,6 +2,7 @@
 #define SWIG_CGAL_TRIANGULATION_2_DELAUNAY_TRIANGULATION_2_H
 
 #include "Triangulation_2.h"
+#include <CGAL/Delaunay_triangulation_2.h>
 
 template <class Triangulation,class Vertex_handle, class Face_handle>
 class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>

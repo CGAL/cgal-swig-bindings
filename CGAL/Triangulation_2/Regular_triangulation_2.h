@@ -3,6 +3,9 @@
 
 #include "Triangulation_2.h"
 
+#include <CGAL/Regular_triangulation_2.h>
+#include <CGAL/Regular_triangulation_euclidean_traits_2.h>
+
 template <class Triangulation,class Vertex_handle, class Face_handle>
 class Regular_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>
 {

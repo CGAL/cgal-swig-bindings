@@ -3,7 +3,10 @@
 
 //WARNING Point_2 vs Traits::Point (handle weighted points)
 
-#include "typedefs.h"
+#include <CGAL/config.h>
+#include <CGAL/Triangulation_2.h>
+
+#include "../Kernel/typedefs.h"
 #include "triangulation_iterators.h"
 #include "../Kernel/Point_2.h"
 #include "../Kernel/Segment_2.h"

@@ -2,6 +2,7 @@
 #define SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_2_H
 
 #include "Triangulation_2.h"
+#include <CGAL/Constrained_triangulation_2.h>
 
 #include <boost/function_output_iterator.hpp>
 #ifdef SWIGPYTHON

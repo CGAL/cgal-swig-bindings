@@ -2,6 +2,7 @@ import CGAL.Kernel.Point_2;
 import CGAL.Kernel.CGAL_Kernel;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Vertex_handle;
+import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Face_handle;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Edge;
 import CGAL.Triangulation_2.Constraint;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Constraint;
@@ -96,6 +97,25 @@ public class test_t2 {
     }
     System.out.println("Nb constrained edges "+i);
     
+    
+    System.out.println("Test setting a Integer to facets");
+    double dbl=0.;
+    for (Constrained_Delaunay_triangulation_plus_2_Face_handle fh : t.all_faces()){
+      fh.info().set_data(new Double(dbl));
+      dbl+=1.;
+    }
+    //check values are still the same
+    dbl=0.;
+    boolean ok=true;
+    for (Constrained_Delaunay_triangulation_plus_2_Face_handle fh : t.all_faces()){
+      Double stored=(Double) fh.info().get_data();
+      if (! stored.equals(new Double(dbl)) ) ok=false;
+      dbl+=1.;
+    }
+    
+    if (ok) System.out.println("all "+dbl+" are OK");
+    else    System.out.println("ERROR!!!!");
+
   }
 
 

@@ -2,6 +2,7 @@
 #define SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H
 
 #include "Constrained_triangulation_2.h"
+#include <CGAL/Constrained_triangulation_plus_2.h>
 
 #ifndef SWIG
 template<class T1,class T2>

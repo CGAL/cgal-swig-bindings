@@ -19,6 +19,8 @@
   #include "triangulation_iterators.h"
 %}
 
+%include "config.i"
+
 //definitions
 %include "Triangulation_2.h"
 %include "Delaunay_triangulation_2.h"
@@ -50,14 +52,27 @@ Typemap_for_Input_iterator_additional_function(Constrained_Delaunay_triangulatio
 Typemap_for_Input_iterator_additional_function(Constrained_triangulation_plus_2_wrapper::Constrained_triangulation_plus_2_wrapper)
 #endif
 
-//%import "declare_triangulation_2.i"
-//Declare_triangulation_2(Triangulation_2,EPIC_T2)
+#ifdef   SWIG_EXPOSE_TRIANGULATION_2
+%import "declare_triangulation_2.i"
+Declare_triangulation_2(Triangulation_2,CGAL_T2)
+#endif //SWIG_EXPOSE_TRIANGULATION_2
 
-//%import "declare_constrained_triangulation_2.i"
-//Declare_constrained_triangulation_2(Constrained_triangulation_2,EPIC_CT2)
+#ifdef   SWIG_EXPOSE_DELAUNAY_TRIANGULATION_2
+%import "declare_Delaunay_triangulation_2.i"
+Declare_Delaunay_triangulation_2(Delaunay_triangulation_2,CGAL_DT2)
+#endif //SWIG_EXPOSE_DELAUNAY_TRIANGULATION_2
 
-//%import "declare_constrained_Delaunay_triangulation_2.i"
-//Declare_constrained_Delaunay_triangulation_2(Constrained_Delaunay_triangulation_2,EPIC_CDT2)
+#ifdef   SWIG_EXPOSE_CONSTRAINED_TRIANGULATION_2
+%import "declare_constrained_triangulation_2.i"
+Declare_constrained_triangulation_2(Constrained_triangulation_2,CGAL_CT2)
+#endif //SWIG_EXPOSE_CONSTRAINED_TRIANGULATION_2
 
+#ifdef   SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_2
+%import "declare_constrained_Delaunay_triangulation_2.i"
+Declare_constrained_Delaunay_triangulation_2(Constrained_Delaunay_triangulation_2,CGAL_CDT2)
+#endif //SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_2
+
+#ifdef   SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_PLUS_2
 %import "declare_constrained_Delaunay_triangulation_plus_2.i"
-Declare_constrained_Delaunay_triangulation_plus_2(Constrained_Delaunay_triangulation_plus_2,EPIC_CDTplus2)
+Declare_constrained_Delaunay_triangulation_plus_2(Constrained_Delaunay_triangulation_plus_2,CGAL_CDTplus2)
+#endif //SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_PLUS_2
