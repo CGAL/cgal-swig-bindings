@@ -42,21 +42,21 @@
 #endif
 
 //input iterator typemap
-//   Object_typemap_     is the object on which the typemap should be defined (used in the cpp code)
-//   Out_Object_      is the object wrapped by swig that is obtained when calling *
-//   SWIG_for_python_ python specific Out_Object_ class id
-//   SWIG_for_java_   java specific class name (should be a string)
-//   Function_name    python specific: name of the function using the input_iterator
+//   Object_typemap_       is the object on which the typemap should be defined (used in the cpp code)
+//   Out_Object_           is the object wrapped by swig that is obtained when calling *
+//   Out_Object_cpp_base_  is the CGAL cpp type associated to Out_Object_
+//   SWIG_for_python_      python specific Out_Object_ class id
+//   SWIG_for_java_        java specific class name (should be a string)
+//   Function_name_        python specific: name of the function using the input_iterator
 #ifdef SWIGPYTHON
-%define Typemap_for_Input_iterator(Object_typemap_,Out_Object_,SWIG_for_python_,SWIG_for_java_,Function_name_)
+%define Typemap_for_Input_iterator(Object_typemap_,Out_Object_,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_,Function_name_)
   %typemap(in) Object_typemap_ {
     try{
-      Input_iterator_wrapper<Out_Object_,Out_Object_::cpp_base> it_end;
-      Input_iterator_wrapper<Out_Object_,Out_Object_::cpp_base> it_begin($input,SWIG_for_python_);
+      Input_iterator_wrapper<Out_Object_,Out_Object_cpp_base_> it_end;
+      Input_iterator_wrapper<Out_Object_,Out_Object_cpp_base_> it_begin($input,SWIG_for_python_);
       $1=std::make_pair(it_begin,it_end);
     }
-    catch(int){
-      //TODO: throw a specify exception
+    catch(Bad_list_element){
       SWIG_fail;
     }
   }
@@ -67,37 +67,58 @@
     try{
         $action
       }
-      catch(int){
+      catch(Bad_list_element){
         //TODO: throw a specify exception
         //TODO add a message to specify that the list does not contains only points
         SWIG_fail;
       }
   }
+  //check that the input is a list
+  %typemap(typecheck) Object_typemap_ {
+    $1 = PyList_Check($input) ? 1 : 0;
+  }
+  
 %enddef  
 #endif
 #ifdef SWIGJAVA
-%define Typemap_for_Input_iterator(Object_typemap_,Out_Object_,SWIG_for_python_,SWIG_for_java_,Function_name_)
+%define Typemap_for_Input_iterator(Object_typemap_,Out_Object_,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_,Function_name_)
   %typemap(jni) Object_typemap_ "jobject"  //replace in jni class
   %typemap(jtype) Object_typemap_ "Iterator<Out_Object_>"   //replace in java wrapping class
   %typemap(jstype) Object_typemap_ "Iterator<Out_Object_>"  //replace in java function args
   %typemap(javain) Object_typemap_ "$javainput" //replace in java function call to wrapped function
 
   %typemap(in) Object_typemap_ {
-    Input_iterator_wrapper<Out_Object_,Out_Object_::cpp_base> it_end;
-    Input_iterator_wrapper<Out_Object_,Out_Object_::cpp_base> it_begin($input,SWIG_for_java_);
+    Input_iterator_wrapper<Out_Object_,Out_Object_cpp_base_> it_end;
+    Input_iterator_wrapper<Out_Object_,Out_Object_cpp_base_> it_begin($input,SWIG_for_java_);
     $1=std::make_pair(it_begin,it_end);
   }
 %enddef
 #endif
 //-----
+#ifdef SWIGPYTHON
+//Add extra exception handling for function using an input_iterator as input
+//   Function_name_   :     python specific: name of the function
+%define Typemap_for_Input_iterator_additional_function(Function_name_)
+%include exception.i
+%exception Function_name_
+{
+  try{
+      $action
+    }
+    catch(Bad_list_element){
+      SWIG_fail;
+    }
+}
+%enddef
+#endif  
 
 //output iterator typemap
 //   Object_typemap_       is the object on which the typemap should be defined (used in the cpp code)
 //   Out_Object_           is the object wrapped by swig that is obtained when calling *
-//   Out_Object_cpp_base_  is the internal object stored in Out_Object_
+//   Out_Object_cpp_base_  is the CGAL cpp type associated to Out_Object_
 //   SWIG_for_python_      python specific Out_Object_ class id
 //   SWIG_for_java_        java specific class name (should be a string)
-//   Function_name         python specific: name of the function using the input_iterator
+//   Function_name_        python specific: name of the function using the input_iterator
 #ifdef SWIGPYTHON
 %define Typemap_for_Output_iterator(Object_typemap_,Out_Object_,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
   %typemap(in) Object_typemap_ {
@@ -127,7 +148,7 @@
   try{
       $action
     }
-    catch(int){//TODO: throw a specify exception
+    catch(Stop_iteration){//TODO: throw a specify exception
       SWIG_SetErrorObj(PyExc_StopIteration, SWIG_Py_Void());
       SWIG_fail;
     }

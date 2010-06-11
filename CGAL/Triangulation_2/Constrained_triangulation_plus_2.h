@@ -1,6 +1,8 @@
 #ifndef SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H
 #define SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H
 
+#include "Constrained_triangulation_2.h"
+
 #ifndef SWIG
 template<class T1,class T2>
 struct Iterator_helper<std::pair<T1,T2> >{
@@ -44,6 +46,10 @@ public:
 
 
   Constrained_triangulation_plus_2_wrapper():Base(){}
+  Constrained_triangulation_plus_2_wrapper(Constraint_range range):Base(){
+    for (Input_constraint_iterator it=range.first;it!=range.second;++it)
+      this->data.push_back(*it);
+  }
   
 // Queries
   FORWARD_CALL_2(int,number_of_enclosing_constraints,Vertex_handle,Vertex_handle)
@@ -61,8 +67,6 @@ public:
 // Creation
 //   Constrained_triangulation_plus_2<Tr> ctp ( Geom_traits gt=Geom_traits());
 //   Constrained_triangulation_plus_2<Tr> ctp ( Constrained_triangulation_plus_2 ct);
-//   template<class InputIterator>
-//   Constrained_triangulation_plus_2<Tr> ctp ( InputIterator first, InputIterator last, Geom_traits gt= Geom_traits());
 // Assignment
 //   void   ctp.swap ( Constrained_triangulation_plus_2 tr)
 

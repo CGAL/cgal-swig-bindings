@@ -8,8 +8,13 @@ template <class Cpp_wrapper,class Cpp_base>
 class Input_iterator_wrapper:
 public boost::iterator_facade<
     Input_iterator_wrapper<Cpp_wrapper,Cpp_base>,
-    const Cpp_base,
-    boost::single_pass_traversal_tag>
+    Cpp_base,
+    boost::single_pass_traversal_tag,
+    typename boost::mpl::if_<
+          boost::mpl::bool_<internal::Converter<Cpp_wrapper>::is_reference>, 
+          const Cpp_base&, Cpp_base
+        >::type //this allows to use a reference for dereference when possible
+    >
 {
   friend class boost::iterator_core_access;
   std::string signature;
@@ -60,7 +65,12 @@ public:
   
   void increment(){assert(current_ptr!=NULL); update_with_next_point();}
   bool equal(const Input_iterator_wrapper & other) const{ return current_ptr==other.current_ptr; }
-  const Cpp_base& dereference() const { current_ptr->get_data_ref(); }
+  
+  typename boost::mpl::if_<
+        boost::mpl::bool_<internal::Converter<Cpp_wrapper>::is_reference>, 
+        const Cpp_base&, Cpp_base
+      >::type
+    dereference() const { return internal::Converter<Cpp_wrapper>::convert(*current_ptr); }
 };
 
 

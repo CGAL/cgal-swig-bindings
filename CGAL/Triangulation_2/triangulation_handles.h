@@ -13,7 +13,7 @@ class CGAL_Vertex_handle{
   
 public:
   typedef typename Triangulation::Vertex_handle cpp_base;
-  typename Triangulation::Vertex_handle get_data() const {return data;}
+  const typename Triangulation::Vertex_handle& get_data() const {return data;}
   typename Triangulation::Vertex_handle& get_data_ref() {return data;}
 //Creation
   CGAL_Vertex_handle():data(NULL){}
@@ -44,7 +44,7 @@ public:
 
   CGAL_Face_handle():data(NULL){}
   CGAL_Face_handle(typename Triangulation::Face_handle v):data(v){}
-  typename Triangulation::Face_handle get_data() const {return data;}
+  const typename Triangulation::Face_handle& get_data() const {return data;}
   typename Triangulation::Face_handle& get_data_ref() {return data;}
 
 //Access Functions    

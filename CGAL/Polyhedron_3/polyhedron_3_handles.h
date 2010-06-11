@@ -53,7 +53,7 @@ public:
 
   CGAL_Halfedge_handle():data(NULL){}
   CGAL_Halfedge_handle(typename Polyhedron_base::Halfedge_handle h):data(h){}
-  typename Polyhedron_base::Halfedge_handle  get_data() const {return data;}
+  const typename Polyhedron_base::Halfedge_handle&  get_data() const {return data;}
   typename Polyhedron_base::Halfedge_handle& get_data_ref() {return data;}
 //Operations
   FORWARD_CALL_0_PTR(CGAL_Halfedge_handle,opposite)
@@ -97,7 +97,7 @@ public:
   CGAL_Vertex_handle():data(NULL){}
   CGAL_Vertex_handle(typename Polyhedron_base::Vertex_handle h):data(h){}
 
-  typename Polyhedron_base::Vertex_handle  get_data() const {return data;}
+  const typename Polyhedron_base::Vertex_handle&  get_data() const {return data;}
   typename Polyhedron_base::Vertex_handle& get_data_ref() {return data;}
 //Operations available if Supports_vertex_point is CGAL::Tag_true
   FORWARD_CALL_0_PTR(Point_3,point)
@@ -128,7 +128,7 @@ public:
 
   CGAL_Facet_handle():data(NULL){}
   CGAL_Facet_handle(typename Polyhedron_base::Facet_handle h):data(h){}
-  typename Polyhedron_base::Facet_handle  get_data() const {return data;}
+  const typename Polyhedron_base::Facet_handle&  get_data() const {return data;}
   typename Polyhedron_base::Facet_handle& get_data_ref() {return data;}
 //Operations available if Supports_facet_plane is CGAL::Tag_true
   #ifdef CGAL_SWIG_FACET_SUPPORTS_PLANE

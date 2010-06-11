@@ -33,9 +33,9 @@ template <class Triangulation,class Vertex_handle, class Cell_handle>
 class Triangulation_3_wrapper{
 protected:
   Triangulation data;
-  typename Triangulation::Cell_handle convert (const Cell_handle& c) {return c.get_data();}
+  const typename Triangulation::Cell_handle& convert (const Cell_handle& c) {return c.get_data();}
   typename Triangulation::Cell_handle& convert (Cell_handle& c) {return c.get_data_ref();}
-  typename Triangulation::Vertex_handle convert (const Vertex_handle& v) {return v.get_data();}
+  const typename Triangulation::Vertex_handle& convert (const Vertex_handle& v) {return v.get_data();}
   typename Triangulation::Vertex_handle& convert (Vertex_handle& v) {return v.get_data_ref();}
   template <class T> const T& convert(const Reference_wrapper<T>& ref){return ref.object();}
   template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object_ref();}

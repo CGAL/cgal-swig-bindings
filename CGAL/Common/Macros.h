@@ -3,6 +3,10 @@
 
 #include "../Common/triple.h"
 #include <CGAL/utility.h>
+
+#include <boost/mpl/if.hpp>
+
+
 //Functor for FORWARD_CALL_N
 
 template <class T> class CGAL_Cell_handle;
@@ -11,14 +15,18 @@ namespace internal{
 
 #define SPECIALIZE_CONVERTER(T)                    \
 template <> struct Converter<T>{                   \
+  static const bool is_reference=true;             \
   typedef T result_type;                           \
   static const T& convert(const T& t){return t;}   \
 };
-  
+
+
 template <class T>
 struct Converter{
-  typedef typename T::cpp_base result_type;
-  static result_type  convert(const T& t){return t.get_data();}
+  typedef typename T::cpp_base  result_type;
+  static const bool is_reference=true;
+  
+  static const result_type&  convert(const T& t){return t.get_data();}
   static result_type& convert(T& t){return t.get_data_ref();}
 };
 
@@ -28,10 +36,13 @@ SPECIALIZE_CONVERTER(bool)
 SPECIALIZE_CONVERTER(double)
 SPECIALIZE_CONVERTER(float)
 
+//TODO if need performance think about pointers
 template <class P1,class P2>
 struct Converter<std::pair<P1,P2> >{
   typedef std::pair<typename Converter<P1>::result_type,
                     typename Converter<P2>::result_type>           result_type;
+  
+  static const bool is_reference=false;
   
   static result_type convert(const std::pair<P1,P2>& t)
   {
@@ -45,6 +56,8 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
   typedef CGAL::Triple<  typename Converter<T1>::result_type,
                          typename Converter<T2>::result_type,    
                          typename Converter<T3>::result_type    >   result_type;
+  
+  static const bool is_reference=false;
   
   static result_type convert(const CGAL_SWIG::Triple<T1,T2,T3>& t){
     return CGAL::make_triple(Converter<T1>::convert(t.first),

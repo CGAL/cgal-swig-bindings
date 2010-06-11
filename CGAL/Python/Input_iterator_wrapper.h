@@ -4,6 +4,8 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <stdexcept>
 
+#include "exceptions.h"
+
 #ifdef SWIG
 %include exception.i
 #endif
@@ -12,8 +14,13 @@ template <class Cpp_wrapper,class Cpp_base>
 class Input_iterator_wrapper:
 public boost::iterator_facade<
     Input_iterator_wrapper<Cpp_wrapper,Cpp_base>,
-    const Cpp_base,
-    boost::forward_traversal_tag>
+    Cpp_base,
+    boost::forward_traversal_tag,
+    typename boost::mpl::if_<
+          boost::mpl::bool_<internal::Converter<Cpp_wrapper>::is_reference>, 
+          const Cpp_base&, Cpp_base
+        >::type //this allows to use a reference for dereference when possible
+    >
 {
   friend class boost::iterator_core_access;
 
@@ -23,12 +30,12 @@ public boost::iterator_facade<
       void* ret=0;
       int res = SWIG_ConvertPtr(item, &ret, type,  0  | 0);
       if (!SWIG_IsOK(res)) {// object in list is not of correct type
-        SWIG_SetErrorMsg(PyExc_TypeError, "List contains a least one object with incorrect type.");
-        throw 1;
+        SWIG_SetErrorMsg(PyExc_TypeError, "List contains at least one object with incorrect type.");
+        throw Bad_list_element();
         current_ptr=NULL;
         return;
       }
-      current_ptr=(Cpp_wrapper*) ret;
+      current_ptr=reinterpret_cast<Cpp_wrapper*> (ret); 
       ++current;
     }
     else
@@ -47,21 +54,21 @@ public:
   Input_iterator_wrapper():current_ptr(NULL){}
   Input_iterator_wrapper(PyObject * list_,swig_type_info* tinfo):list(list_),type(tinfo)
   {
-    if (!PyList_Check(list)) { //not a list
-      current_ptr=NULL;
-      SWIG_SetErrorMsg(PyExc_TypeError, "Not a list.");
-      throw 1;
-      return;
-    }
+    CGAL_assertion (PyList_Check(list));
     size=PyList_Size(list);
-    update_with_next_point();
     current=0;
+    update_with_next_point();
   }
 
   
   void increment(){update_with_next_point();}
   bool equal(const Input_iterator_wrapper & other) const{ return current_ptr==other.current_ptr; }
-  const Cpp_base& dereference() const { current_ptr->get_data_ref(); }
+
+  typename boost::mpl::if_<
+        boost::mpl::bool_<internal::Converter<Cpp_wrapper>::is_reference>, 
+        const Cpp_base&, Cpp_base
+      >::type
+    dereference() const { return internal::Converter<Cpp_wrapper>::convert(*current_ptr); }
 };
 
 

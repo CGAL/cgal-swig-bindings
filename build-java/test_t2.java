@@ -14,7 +14,14 @@ public class test_t2 {
   public static void main(String arg[]){
     System.loadLibrary("CGAL_Triangulation_2");
 
-    Constrained_Delaunay_triangulation_plus_2 t=new Constrained_Delaunay_triangulation_plus_2();
+    LinkedList<Constraint> cst_list=new LinkedList<Constraint>();
+    cst_list.add(new Constraint(new Point_2(10,10),new Point_2(15,15)));
+    cst_list.add(new Constraint(new Point_2(100,100),new Point_2(155,151)));
+    cst_list.add(new Constraint(new Point_2(104,410),new Point_2(154,1514)));
+    
+    Constrained_Delaunay_triangulation_plus_2 t=new Constrained_Delaunay_triangulation_plus_2(cst_list.iterator());
+    
+    System.out.println("Nb vertices after insert_constraint_range "+t.number_of_vertices());    
       
     Point_2 [] array=new Point_2[4];
     array[0]=new Point_2(1,1);
@@ -29,12 +36,16 @@ public class test_t2 {
     lst.add( array[3] );
     
     t.insert_range(lst.iterator());
-      
+    
+    System.out.println("Nb vertices after insert_range "+t.number_of_vertices());
+    
     LinkedList<Constrained_Delaunay_triangulation_plus_2_Edge> edge_list=new LinkedList<Constrained_Delaunay_triangulation_plus_2_Edge>();
     
     Constraint c=new Constraint(new Point_2(44,12),new Point_2(77,41));
     
     t.push_back(c);
+    
+    System.out.println("Nb vertices after push_back "+t.number_of_vertices());
     
     for (Constrained_Delaunay_triangulation_plus_2_Vertex_handle v : t.finite_vertices()){
       System.out.println(v.point());
@@ -78,13 +89,12 @@ public class test_t2 {
     }    
     System.out.println("Nb subconstrained edges "+j);
 
+   
     int i=0;
     for (Constrained_Delaunay_triangulation_plus_2_Constraint cdtp_c : t.constraints()){
       ++i;
     }
     System.out.println("Nb constrained edges "+i);
-    
-
     
   }
 

@@ -12,6 +12,8 @@
 #endif
 
 typedef std::pair<Point_2,Point_2>                                          Constraint;
+typedef Input_iterator_wrapper<Constraint,std::pair<Point_2::cpp_base,Point_2::cpp_base> > Input_constraint_iterator;
+typedef std::pair<Input_constraint_iterator,Input_constraint_iterator > Constraint_range;
 
 template <class Triangulation,class Vertex_handle, class Face_handle>
 class Constrained_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>
@@ -23,6 +25,10 @@ public:
 
 // Creation  
   Constrained_triangulation_2_wrapper():Base(){}
+  Constrained_triangulation_2_wrapper(Constraint_range range):Base(){
+    for (Input_constraint_iterator it=range.first;it!=range.second;++it)
+      this->data.push_back(*it);
+  }        
 // Queries
   FORWARD_CALL_1(bool,is_constrained,Edge)
   FORWARD_CALL_1(bool,are_there_incident_constraints,Vertex_handle)
@@ -38,6 +44,11 @@ public:
   FORWARD_CALL_1(void,remove,Vertex_handle)
   FORWARD_CALL_1(void,remove_incident_constraints,Vertex_handle)
   FORWARD_CALL_2(void,remove_constrained_edge,Face_handle, int)
+  
+  void insert_constraint_range(Constraint_range range){
+    for (Input_constraint_iterator it=range.first;it!=range.second;++it)
+      this->data.push_back(*it);
+  }
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_2_H

@@ -11,7 +11,10 @@ public:
   typedef Triangulation cpp_base;  
 
   Constrained_Delaunay_triangulation_2_wrapper():Base(){}
-
+  Constrained_Delaunay_triangulation_2_wrapper(Constraint_range range):Base(){
+    for (Input_constraint_iterator it=range.first;it!=range.second;++it)
+      this->data.push_back(*it);
+  }
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_DELAUNAY_TRIANGULATION_2_H
@@ -19,8 +22,6 @@ public:
 
 // Creation
 //   Constrained_Delaunay_triangulation_2<Traits,Tds,Itag> cdt ( Constrained_Delaunay_triangulation_2 cdt1)
-//   template<class InputIterator>
-//   Constrained_Delaunay_triangulation_2<Traits,Tds,Itag> cdt ( InputIterator first, InputIterator last, Traits t=Traits());
 // Queries
 //   template <class OutputItFaces, class OutputItBoundaryEdges>
 //   std::pair<OutputItFaces,OutputItBoundaryEdges>

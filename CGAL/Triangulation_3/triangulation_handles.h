@@ -13,7 +13,7 @@ public:
   
   CGAL_Vertex_handle():data(NULL){}
   CGAL_Vertex_handle(typename Triangulation::Vertex_handle v):data(v){}
-  typename Triangulation::Vertex_handle get_data() const {return data;}
+  const typename Triangulation::Vertex_handle& get_data() const {return data;}
   typename Triangulation::Vertex_handle& get_data_ref() {return data;}
   Point_3 point(){return Point_3(data->point());}
   CGAL_Cell_handle<Triangulation> cell(){return CGAL_Cell_handle<Triangulation>(data->cell());}
@@ -41,7 +41,7 @@ public:
 
   CGAL_Cell_handle():data(NULL){}
   CGAL_Cell_handle(typename Triangulation::Cell_handle v):data(v){}
-  typename Triangulation::Cell_handle get_data() const {return data;}
+  const typename Triangulation::Cell_handle& get_data() const {return data;}
   typename Triangulation::Cell_handle& get_data_ref() {return data;}
   
   

@@ -1,6 +1,8 @@
 #ifndef CGAL_SWIG_PYTHON_OUTPUT_ITERATOR_WRAPPER_H
 #define CGAL_SWIG_PYTHON_OUTPUT_ITERATOR_WRAPPER_H
 
+#include "exceptions.h"
+
 template<class Cpp_wrapper,class Cpp_base>
 class Container_writer{
   PyObject* list;
@@ -11,11 +13,7 @@ public:
   Container_writer(){}
   Container_writer(PyObject * list_,swig_type_info* type_):list(list_),type(type_)
   {
-    if (!PyList_Check(list)) { //not a list
-      PyErr_SetString(PyExc_TypeError, "Not a list.");
-      throw 1;
-      return;
-    }
+    CGAL_assertion(PyList_Check(list));
   }
  
   void operator()(const Cpp_base& new_base) {

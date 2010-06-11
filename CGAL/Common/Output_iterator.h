@@ -23,7 +23,9 @@ public:
   {
     if (cur!=end)
       return *cur++;
-    throw 1;
+    #ifdef SWIGPYTHON
+    throw Stop_iteration();
+    #endif
     return value_type();
   }
   

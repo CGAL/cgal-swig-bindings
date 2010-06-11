@@ -6,22 +6,21 @@
 template <class Triangulation,class Vertex_handle, class Face_handle>
 class Regular_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>
 {
+  typedef Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle> Base;
+public:  
   typedef Triangulation cpp_base;
+  Regular_triangulation_2_wrapper() : Base() {}
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_REGULAR_TRIANGULATION_2_H
 
 
-// Creation
-//   Regular_triangulation_2<Traits,Tds> rt ( Traits gt = Traits());
-//   Regular_triangulation_2<Traits,Tds> rt ( Regular_triangulation_2 rt);
 // Insertion and Removal
 //   Vertex_handle   rt.insert ( Weighted_point p, Face_handle f=Face_handle())
 //   Vertex_handle   rt.insert ( Weighted_point p, Locate_type lt, Face_handle loc, int li)
 //   Vertex_handle   rt.push_back ( Point p)
 //   template < class InputIterator >
 //   int   rt.insert ( InputIterator first, InputIterator last)
-//   void   rt.remove ( Vertex_handle v)
 // Queries
 //   template <class OutputItFaces, class OutputItBoundaryEdges, class OutputItHiddenVertices>
 //   CGAL::Triple<OutputItFaces,OutputItBoundaryEdges,OutputItHiddenVertices>

@@ -6,7 +6,7 @@
 %include "../Common/Input_iterator.h"
 
 
-Typemap_for_Input_iterator(Point_range,Point_3,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
+Typemap_for_Input_iterator(Point_range,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
 Typemap_for_Output_iterator(Point_output_iterator,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
 
 //include files

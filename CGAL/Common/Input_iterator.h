@@ -97,6 +97,9 @@ struct Iterator_helper<Plane_3>{
 #endif
 
 #ifdef SWIGPYTHON
+
+#include "../Python/exceptions.h"
+
 #define DECLARE_ITERATOR_CLASS(NAME)                           \
 template<class T,class R>                                      \
 class CGAL_##NAME{                                             \
@@ -109,12 +112,12 @@ public:                                                        \
     typename T::NAME end_                                      \
   ):cur(cur_),end(end_){}                                      \
                                                                \
-  CGAL_##NAME<T,R> __iter__(){return *this;}                     \
+  CGAL_##NAME<T,R> __iter__(){return *this;}                   \
   R next()                                                     \
   {                                                            \
     if (cur!=end)                                              \
       return Iterator_helper<R>::convert ( (cur++) );          \
-    throw 1;                                                   \
+    throw Stop_iteration();                                    \
     return Iterator_helper<R>::default_value();                \
   }                                                            \
                                                                \

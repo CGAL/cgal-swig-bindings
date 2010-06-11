@@ -2,6 +2,9 @@
 #define SWIG_CGAL_KERNEL_OUTPUT_ITERATOR_H
 
 #include <vector>
+#ifdef SWIGPYTHON
+#include "../Python/exceptions.h"
+#endif
 
 
 template<class Container,class Object>
@@ -23,7 +26,9 @@ public:
   {
     if (cur!=end)
       return *cur++;
-    throw 1;
+    #ifdef SWIGPYTHON
+    throw Stop_iteration();
+    #endif
     return value_type();
   }
   

@@ -6,21 +6,14 @@
 template <class Triangulation,class Vertex_handle, class Face_handle>
 class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>
 {
+  typedef Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle> Base;
+public:  
   typedef Triangulation cpp_base;
+  Delaunay_triangulation_2_wrapper() : Base() {}
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_DELAUNAY_TRIANGULATION_2_H
 
-// Creation
-//   Delaunay_triangulation_2<Traits,Tds> dt ( Traits gt = Traits());
-//   Delaunay_triangulation_2<Traits,Tds> dt ( tr);
-// Insertion and Removal
-//   Vertex_handle   dt.insert ( Point p, Face_handle f=Face_handle())
-//   Vertex_handle   dt.insert ( Point p, Locate_type& lt, Face_handle loc, int li)
-//   Vertex_handle   dt.push_back ( Point p)
-//   template < class InputIterator >
-//   int   dt.insert ( InputIterator first, InputIterator last)
-//   void   dt.remove ( Vertex_handle v)
 // Queries
 //   Vertex_handle   dt.nearest_vertex ( Point p, Face_handle f=Face_handle())
 //   template <class OutputItFaces, class OutputItBoundaryEdges>
@@ -37,7 +30,5 @@ class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangula
 //   Object   dt.dual ( Edge_iterator ei)
 //   template < class Stream>
 //   Stream&   dt.draw_dual ( Stream & ps)
-// Predicates
-//   Oriented_side   dt.side_of_oriented_circle ( Face_handle f, Point p)
-// Miscellaneous
-//   bool   dt.is_valid ( bool verbose = false, int level = 0)
+
+
