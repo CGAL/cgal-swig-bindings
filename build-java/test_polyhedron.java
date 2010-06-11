@@ -7,7 +7,10 @@ import CGAL.Polyhedron_3.Polyhedron_3_Vertex_handle;
 import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle;
 import CGAL.Polyhedron_3.Polyhedron_3_Modifier_1;
 import CGAL.Polyhedron_3.Polyhedron_3_Modifier_2;
-  
+import CGAL.Polyhedron_3.Polyhedron_3_Modifier_triangular_facets;
+import CGAL.Polyhedron_3.Integer_triple;
+import java.util.LinkedList;
+
 public class test_polyhedron {
   public static void main(String arg[]){
     //System.loadLibrary("CGAL_Kernel");
@@ -73,5 +76,22 @@ public class test_polyhedron {
     Polyhedron_3_Modifier_2 modif2=new Polyhedron_3_Modifier_2();
     p.delegate(modif2.get_modifier());   
     System.out.println(p.size_of_vertices());    
+    
+    //test with iterators
+    LinkedList<Point_3> pt_list=new LinkedList<Point_3>();
+    pt_list.add(new Point_3(10,10,10));
+    pt_list.add(new Point_3(11,11,11));
+    pt_list.add(new Point_3(11,11,54));
+    pt_list.add(new Point_3(11,11,-54));
+    LinkedList<Integer_triple> int_list=new LinkedList<Integer_triple>();
+    int_list.add(new Integer_triple(0,1,2));
+    int_list.add(new Integer_triple(1,0,3));
+    
+    Polyhedron_3_Modifier_triangular_facets modif3=new Polyhedron_3_Modifier_triangular_facets();
+    modif3.set_modifier_data(pt_list.iterator(),int_list.iterator());
+    p.delegate(modif3.get_modifier());   
+    System.out.println(p.size_of_vertices()); 
+    for (Polyhedron_3_Vertex_handle hh : p.vertices())
+      System.out.println(hh.point()); 
   }
 };

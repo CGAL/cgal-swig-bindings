@@ -22,6 +22,7 @@ public:
   Modifier_base<Polyhedron_base> get_modifier(){
     return Modifier_base<Polyhedron_base>( static_cast<void*>(&modifier) );
   }
+  Cpp_modifier& get_modifier_cpp_base() {return modifier;}
 };
 
 

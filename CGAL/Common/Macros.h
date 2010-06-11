@@ -35,6 +35,9 @@ SPECIALIZE_CONVERTER(unsigned)
 SPECIALIZE_CONVERTER(bool)
 SPECIALIZE_CONVERTER(double)
 SPECIALIZE_CONVERTER(float)
+typedef  CGAL_SWIG::Triple<int,int,int> TRIPLE_INT;
+SPECIALIZE_CONVERTER( TRIPLE_INT )
+
 
 //TODO if need performance think about pointers
 template <class P1,class P2>

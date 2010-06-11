@@ -16,8 +16,7 @@
   #include "polyhedron_3_iterators.h"
 %}
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3;%}
-
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 
 //definitions
 %include "Polyhedron_3.h"
