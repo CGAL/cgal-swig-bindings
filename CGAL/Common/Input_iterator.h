@@ -2,9 +2,6 @@
 #define CGAL_SWIG_INPUT_ITERATOR_H
 
 #include "triple.h"
-#include "../Kernel/Point_3.h"
-#include "../Kernel/Point_2.h"
-#include "../Kernel/Plane_3.h"
 
 #ifndef SWIG  
 template <class T>
@@ -62,38 +59,6 @@ struct Iterator_helper<CGAL_SWIG::Triple<T1,int,int> >{
   default_value(){return CGAL_SWIG::Triple<T1,int,int>(T1(NULL),-1,-1);}
 };
 
-template <>
-struct Iterator_helper<Point_3>{
-  template <class Ti>
-  static Point_3 convert(const Ti& i){
-    return Point_3(*i);
-  }
-  
-  static Point_3
-  default_value(){return Point_3();}
-};
-
-template <>
-struct Iterator_helper<Point_2>{
-  template <class Ti>
-  static Point_2 convert(const Ti& i){
-    return Point_2(*i);
-  }
-  
-  static Point_2
-  default_value(){return Point_2();}
-};
-
-template <>
-struct Iterator_helper<Plane_3>{
-  template <class Ti>
-  static Plane_3 convert(const Ti& i){
-    return Plane_3(*i);
-  }
-  
-  static Plane_3
-  default_value(){return Plane_3();}
-};
 #endif
 
 #ifdef SWIGPYTHON
