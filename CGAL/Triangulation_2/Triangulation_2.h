@@ -40,7 +40,7 @@ public:
   typedef CGAL_All_vertices_iterator<Triangulation,Vertex_handle>      All_vertices_iterator;
   typedef CGAL_All_edges_iterator<Triangulation,Edge>                  All_edges_iterator;
   typedef CGAL_All_faces_iterator<Triangulation,Face_handle>           All_faces_iterator;
-  typedef CGAL_Point_iterator<Triangulation,Point_3>                   Point_iterator;
+  typedef CGAL_Point_iterator<Triangulation,Point_2>                   Point_iterator;
   typedef CGAL_Line_face_circulator<Triangulation,Face_handle>         Line_face_circulator;
   typedef CGAL_Face_circulator<Triangulation,Face_handle>              Face_circulator;
   typedef CGAL_Edge_circulator<Triangulation,Edge>                     Edge_circulator;
