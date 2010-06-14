@@ -17,9 +17,9 @@ typedef Input_iterator_wrapper<Constraint,std::pair<Point_2::cpp_base,Point_2::c
 typedef std::pair<Input_constraint_iterator,Input_constraint_iterator > Constraint_range;
 
 template <class Triangulation,class Vertex_handle, class Face_handle>
-class Constrained_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>
+class Constrained_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false>
 {
-  typedef Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>    Base;
+  typedef Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false>    Base;
 public:
   typedef typename Base::Edge                                                 Edge;
   typedef Triangulation cpp_base;

@@ -22,8 +22,8 @@ public:
   Point_2();
   Point_2(double x,double y);
   Point_2(const EPIC_Kernel::Point_2& p);
-  double x();
-  double y();
+  double x() const;
+  double y() const;
   bool equals(const Point_2&);
   
   std::string toString();

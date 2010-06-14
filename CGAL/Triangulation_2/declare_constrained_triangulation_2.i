@@ -9,17 +9,17 @@
 // --CLASSNAME_PREFIX is the prefixed of the final class exposed by SWIG (different from EXPOSEDNAME if used for a base class instantiation)
 // --CPPTYPE is the c++ type of the triangulation
 %define Declare_constrained_triangulation_2_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE)
-  Declare_triangulation_2_internal(Internal_Triangulation_2_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE)
+  Declare_triangulation_2_internal(Internal_Triangulation_2_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,Point_2,CGAL::Tag_false)
 
   //typemaps for Edge_output_iterator
-  %define EXPOSEDNAME##_Edge_output_iterator Constrained_triangulation_2_wrapper< CPPTYPE,CGAL_Vertex_handle< CPPTYPE >,CGAL_Face_handle< CPPTYPE > >::Edge_output_iterator %enddef
+  %define EXPOSEDNAME##_Edge_output_iterator Constrained_triangulation_2_wrapper< CPPTYPE,CGAL_Vertex_handle< CPPTYPE,Point_2 >,CGAL_Face_handle< CPPTYPE,Point_2 > >::Edge_output_iterator %enddef
   %{
-  typedef std::pair<CGAL_Face_handle< CPPTYPE >,int> CLASSNAME_PREFIX##_Edge;
+  typedef std::pair<CGAL_Face_handle< CPPTYPE,Point_2 >,int> CLASSNAME_PREFIX##_Edge;
   %}
-  Typemap_for_Output_iterator(EXPOSEDNAME##_Edge_output_iterator,CLASSNAME_PREFIX##_Edge,CPPTYPE::Edge,SWIGTYPE_p_std__pairT_CGAL_Face_handleT_##CPPTYPE##_t_int_t,"LCGAL/Triangulation_2/" #CLASSNAME_PREFIX "_Edge;")
+  Typemap_for_Output_iterator(EXPOSEDNAME##_Edge_output_iterator,CLASSNAME_PREFIX##_Edge,CPPTYPE::Edge,SWIGTYPE_p_std__pairT_CGAL_Face_handleT_##CPPTYPE##_Point_2_t_int_t,"LCGAL/Triangulation_2/" #CLASSNAME_PREFIX "_Edge;")
 
   %typemap(javaimports)          Constrained_triangulation_2_wrapper%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Segment_2; import CGAL.Kernel.Triangle_2; import java.util.Iterator; import java.util.Collection;%}
-  %template(EXPOSEDNAME)         Constrained_triangulation_2_wrapper<CPPTYPE,CGAL_Vertex_handle<CPPTYPE>,CGAL_Face_handle<CPPTYPE> >;  
+  %template(EXPOSEDNAME)         Constrained_triangulation_2_wrapper<CPPTYPE,CGAL_Vertex_handle<CPPTYPE,Point_2>,CGAL_Face_handle<CPPTYPE,Point_2> >;  
 %enddef
 
 

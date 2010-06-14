@@ -5,12 +5,14 @@
 #include <CGAL/Delaunay_triangulation_2.h>
 
 template <class Triangulation,class Vertex_handle, class Face_handle>
-class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>
+class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false>
 {
-  typedef Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle> Base;
+  typedef Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false> Base;
 public:  
   typedef Triangulation cpp_base;
   Delaunay_triangulation_2_wrapper() : Base() {}
+// Voronoi diagram
+  FORWARD_CALL_1(Point_2,dual,Face_handle)
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_DELAUNAY_TRIANGULATION_2_H
@@ -25,7 +27,6 @@ public:
 //   template <class OutputItBoundaryEdges>
 //   OutputItBoundaryEdges   dt.get_boundary_of_conflicts ( Point p, OutputItBoundaryEdges eit, Face_handle start)
 // Voronoi diagram
-//   Point   dt.dual ( Face_handle f)
 //   Object   dt.dual ( Edge e)
 //   Object   dt.dual ( Edge_circulator ec)
 //   Object   dt.dual ( Edge_iterator ei)

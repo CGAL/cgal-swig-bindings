@@ -1,6 +1,9 @@
 import CGAL.Kernel.Point_2;
+import CGAL.Kernel.Weighted_point_2;
 import CGAL.Kernel.CGAL_Kernel;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2;
+import CGAL.Triangulation_2.Regular_triangulation_2;
+import CGAL.Triangulation_2.Regular_triangulation_2_Vertex_handle;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Vertex_handle;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Face_handle;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Edge;
@@ -116,6 +119,22 @@ public class test_t2 {
     if (ok) System.out.println("all "+dbl+" are OK");
     else    System.out.println("ERROR!!!!");
 
+    System.out.println("Test regular triangulation");
+    LinkedList<Weighted_point_2> wlst=new LinkedList<Weighted_point_2>();
+    wlst.add( new Weighted_point_2(array[0],34.) );
+    wlst.add( new Weighted_point_2(array[1],35.) );
+    wlst.add( new Weighted_point_2(array[2],31.) );
+    wlst.add( new Weighted_point_2(array[3],30.) );
+    wlst.add( new Weighted_point_2(new Point_2(21.9,3),0) );
+    System.out.println("List size "+wlst.size());
+    Regular_triangulation_2 rt=new Regular_triangulation_2();
+    rt.insert_range(wlst.iterator());
+    System.out.println("Nb vertices "+rt.number_of_vertices());
+    int shv=0;
+    for (Regular_triangulation_2_Vertex_handle rtvh : rt.hidden_vertices())
+      ++shv;
+    System.out.println("Nb hidden vertices: "+shv);
+    
   }
 
 

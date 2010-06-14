@@ -4,10 +4,7 @@
 #include "../Common/Macros.h"
 #include "../Kernel/Point_2.h"
 
-template <class Triangulation>
-class CGAL_Face_handle;
-
-template <class Triangulation>
+template <class Triangulation,class Point>
 class CGAL_Vertex_handle{
   typename Triangulation::Vertex_handle data;
   
@@ -19,28 +16,29 @@ public:
   CGAL_Vertex_handle():data(NULL){}
   CGAL_Vertex_handle(typename Triangulation::Vertex_handle v):data(v){}
 //Access Functions  
-  FORWARD_CALL_0_PTR(Point_2,point)
+  FORWARD_CALL_0_PTR(Point,point)
 //Setting
-  FORWARD_CALL_1_PTR(void,set_point,Point_2)
+  FORWARD_CALL_1_PTR(void,set_point,Point)
   
-  bool equals(const CGAL_Vertex_handle<Triangulation>& v){
+  bool equals(const CGAL_Vertex_handle<Triangulation,Point>& v){
     return data==v.get_data();
   }
   
   #ifdef SWIGPYTHON
-  bool __ne__(const CGAL_Vertex_handle<Triangulation>& v){return !equals(v);}
+  bool __ne__(const CGAL_Vertex_handle<Triangulation,Point>& v){return !equals(v);}
   #endif
 };
 
 
 
 
-template <class Triangulation>
+template <class Triangulation,class Point>
 class CGAL_Face_handle{
   typename Triangulation::Face_handle data;
   
 public:
   typedef typename Triangulation::Face_handle cpp_base;
+  typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
 
   CGAL_Face_handle():data(NULL){}
   CGAL_Face_handle(typename Triangulation::Face_handle v):data(v){}
@@ -49,16 +47,16 @@ public:
 
 //Access Functions    
   FORWARD_CALL_0_PTR(int,dimension)
-  FORWARD_CALL_1_PTR(CGAL_Vertex_handle<Triangulation>,vertex,int)
-  FORWARD_CALL_1_PTR(bool,has_vertex,CGAL_Vertex_handle<Triangulation>)
-  FORWARD_CALL_1_PTR(int,index,CGAL_Vertex_handle<Triangulation>)
+  FORWARD_CALL_1_PTR(Vertex_handle,vertex,int)
+  FORWARD_CALL_1_PTR(bool,has_vertex,Vertex_handle)
+  FORWARD_CALL_1_PTR(int,index,Vertex_handle)
   FORWARD_CALL_1_PTR(CGAL_Face_handle,neighbor,int)
   FORWARD_CALL_1_PTR(bool,has_neighbor,CGAL_Face_handle)
-  FORWARD_CALL_1_PTR(int,index,CGAL_Face_handle<Triangulation>)
+  FORWARD_CALL_1_PTR(int,index,CGAL_Face_handle)
 //Setting
-  FORWARD_CALL_2_PTR(void,set_vertex,int,CGAL_Vertex_handle<Triangulation>)
+  FORWARD_CALL_2_PTR(void,set_vertex,int,Vertex_handle)
   FORWARD_CALL_0_PTR(void,set_vertices)
-  FORWARD_CALL_3_PTR(void,set_vertices,CGAL_Vertex_handle<Triangulation>,CGAL_Vertex_handle<Triangulation>,CGAL_Vertex_handle<Triangulation>)
+  FORWARD_CALL_3_PTR(void,set_vertices,Vertex_handle,Vertex_handle,Vertex_handle)
   FORWARD_CALL_2_PTR(void,set_neighbor,int,CGAL_Face_handle)
   FORWARD_CALL_0_PTR(void,set_neighbors)
   FORWARD_CALL_3_PTR(void,set_neighbors,CGAL_Face_handle,CGAL_Face_handle,CGAL_Face_handle)
@@ -70,12 +68,12 @@ public:
   FORWARD_CALL_0_PTR(bool,is_valid)
   FORWARD_CALL_1_PTR(bool,is_valid,bool)
   
-  bool equals(const CGAL_Face_handle<Triangulation>& c){
+  bool equals(const CGAL_Face_handle<Triangulation,Point>& c){
     return data==c.get_data();
   }  
 
   #ifdef SWIGPYTHON
-  bool __ne__(const CGAL_Face_handle<Triangulation>& c){return !equals(c);}
+  bool __ne__(const CGAL_Face_handle<Triangulation,Point>& c){return !equals(c);}
   #endif  
 };
 

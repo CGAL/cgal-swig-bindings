@@ -3,6 +3,7 @@
 %include "../common.i"
 %import  "../Common/Macros.h"
 %import  "../Kernel/Point_2.h"
+%import  "../Kernel/Weighted_point_2.h"
 %import  "../Kernel/Segment_2.h"
 %import  "../Kernel/Triangle_2.h"
 %include "../Common/Input_iterator.h"
@@ -31,7 +32,7 @@
 %include "triangulation_handles.h"
 %include "triangulation_iterators.h"
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import java.util.Iterator; import java.util.Collection;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Weighted_point_2;  import java.util.Iterator; import java.util.Collection;%}
 
 //Constraint
 %typemap(javaimports) std::pair<Point_2,Point_2> %{ import CGAL.Kernel.Point_2;%}
@@ -39,7 +40,9 @@
 %template(Constraint) std::pair<Point_2,Point_2>;
 
 //typemap for point input iterator
-Typemap_for_Input_iterator(Point_range,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert_range)
+Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert_range)
+//typemap for weighted point input iterator
+Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_true>::Point_range,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",insert_range)
 
 //typemap for Constaints input iterator
 %{
@@ -54,13 +57,18 @@ Typemap_for_Input_iterator_additional_function(Constrained_triangulation_plus_2_
 
 #ifdef   SWIG_EXPOSE_TRIANGULATION_2
 %import "declare_triangulation_2.i"
-Declare_triangulation_2(Triangulation_2,CGAL_T2)
+Declare_triangulation_2(Triangulation_2,CGAL_T2,Point_2,CGAL::Tag_false)
 #endif //SWIG_EXPOSE_TRIANGULATION_2
 
 #ifdef   SWIG_EXPOSE_DELAUNAY_TRIANGULATION_2
 %import "declare_Delaunay_triangulation_2.i"
 Declare_Delaunay_triangulation_2(Delaunay_triangulation_2,CGAL_DT2)
 #endif //SWIG_EXPOSE_DELAUNAY_TRIANGULATION_2
+
+#ifdef   SWIG_EXPOSE_REGULAR_TRIANGULATION_2
+%import "declare_regular_triangulation_2.i"
+Declare_regular_triangulation_2(Regular_triangulation_2,CGAL_RT2)
+#endif //SWIG_EXPOSE_REGULAR_TRIANGULATION_2
 
 #ifdef   SWIG_EXPOSE_CONSTRAINED_TRIANGULATION_2
 %import "declare_constrained_triangulation_2.i"

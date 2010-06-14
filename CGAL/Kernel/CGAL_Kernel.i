@@ -9,6 +9,7 @@
 //method getCPtr and constructor from (long,bool) should be public
 //to be used in other packages cf. file java.swg
 SWIG_JAVABODY_METHODS(public,public,Point_2)
+SWIG_JAVABODY_METHODS(public,public,Weighted_point_2)
 SWIG_JAVABODY_METHODS(public,public,Segment_2)
 SWIG_JAVABODY_METHODS(public,public,Triangle_2)
 SWIG_JAVABODY_METHODS(public,public,Point_3)
@@ -20,6 +21,7 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
 //include files
 %{
   #include "Point_2.h"
+  #include "Weighted_point_2.h"
   #include "Segment_2.h"
   #include "Triangle_2.h"
   #include "Point_3.h"
@@ -31,6 +33,7 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
 
 //definitions
 %include "Point_2.h"
+%include "Weighted_point_2.h"
 %include "Segment_2.h"
 %include "Triangle_2.h"
 %include "Point_3.h"

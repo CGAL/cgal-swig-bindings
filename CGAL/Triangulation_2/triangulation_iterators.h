@@ -15,6 +15,7 @@ DECLARE_ITERATOR_CLASS(Finite_faces_iterator)
 DECLARE_ITERATOR_CLASS(All_faces_iterator)
 
 DECLARE_ITERATOR_CLASS(Point_iterator)
+DECLARE_ITERATOR_CLASS(Hidden_vertices_iterator)
 
 DECLARE_CIRCULATOR_CLASS(Line_face_circulator)
 DECLARE_CIRCULATOR_CLASS(Face_circulator)

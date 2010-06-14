@@ -12,13 +12,16 @@
 #include "../Java/JavaData.h"
 %}
 //assign JavaData to Face_handle of CGAL_CDTplus2
-add_JavaData_info_to_class( CGAL_Face_handle<CGAL_CDTplus2>,)
+#define i_Face_handle CGAL_Face_handle<CGAL_CDTplus2,Point_2>
+add_JavaData_info_to_class(i_Face_handle,)
 #endif
 
 //macros defining the underlying types used
 %{
 typedef CGAL::Triangulation_2<EPIC_Kernel>                                  CGAL_T2;
 typedef CGAL::Delaunay_triangulation_2<EPIC_Kernel>                         CGAL_DT2;
+typedef CGAL::Regular_triangulation_euclidean_traits_2<EPIC_Kernel>         CGAL_regular_traits;
+typedef CGAL::Regular_triangulation_2<CGAL_regular_traits>                  CGAL_RT2;
 typedef CGAL::Constrained_triangulation_2<EPIC_Kernel>                      CGAL_CT2;
 typedef CGAL::Constrained_Delaunay_triangulation_2<EPIC_Kernel>             CGAL_CDT2;
 #ifndef ADD_JAVA_DATA_IN_FACET
@@ -38,6 +41,7 @@ typedef CGAL::Constrained_triangulation_plus_2<CDT>                         CGAL
 //macro to decide which class to expose
 #define SWIG_EXPOSE_TRIANGULATION_2
 #define SWIG_EXPOSE_DELAUNAY_TRIANGULATION_2
+#define SWIG_EXPOSE_REGULAR_TRIANGULATION_2
 #define SWIG_EXPOSE_CONSTRAINED_TRIANGULATION_2
 #define SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_2
 #define SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_PLUS_2

@@ -22,9 +22,9 @@ public:
   Point_3();
   Point_3(double x,double y,double z);
   Point_3(const EPIC_Kernel::Point_3& p);
-  double x();
-  double y();
-  double z();
+  double x() const;
+  double y() const;
+  double z() const;
   bool equals(const Point_3&);
   
   std::string toString();

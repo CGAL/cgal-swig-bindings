@@ -7,23 +7,25 @@
 #include <CGAL/Regular_triangulation_euclidean_traits_2.h>
 
 template <class Triangulation,class Vertex_handle, class Face_handle>
-class Regular_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>
+class Regular_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Weighted_point_2,Vertex_handle,Face_handle,CGAL::Tag_true>
 {
-  typedef Triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle> Base;
+  typedef Triangulation_2_wrapper<Triangulation,Weighted_point_2,Vertex_handle,Face_handle,CGAL::Tag_true> Base;
 public:  
   typedef Triangulation cpp_base;
+  typedef CGAL_Hidden_vertices_iterator<Triangulation,Vertex_handle> Hidden_vertices_iterator;
   Regular_triangulation_2_wrapper() : Base() {}
+// Access functions
+  FORWARD_CALL_0(int,number_of_hidden_vertices)
+  Hidden_vertices_iterator hidden_vertices() {return Hidden_vertices_iterator(this->data.hidden_vertices_begin(),this->data.hidden_vertices_end());}
+// Dual power diagram    
+  FORWARD_CALL_1(Weighted_point_2,weighted_circumcenter,Face_handle)
+  FORWARD_CALL_1(Weighted_point_2,dual,Face_handle)
+// Predicates
+  FORWARD_CALL_2(Oriented_side,power_test,Face_handle,Weighted_point_2)
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_REGULAR_TRIANGULATION_2_H
 
-
-// Insertion and Removal
-//   Vertex_handle   rt.insert ( Weighted_point p, Face_handle f=Face_handle())
-//   Vertex_handle   rt.insert ( Weighted_point p, Locate_type lt, Face_handle loc, int li)
-//   Vertex_handle   rt.push_back ( Point p)
-//   template < class InputIterator >
-//   int   rt.insert ( InputIterator first, InputIterator last)
 // Queries
 //   template <class OutputItFaces, class OutputItBoundaryEdges, class OutputItHiddenVertices>
 //   CGAL::Triple<OutputItFaces,OutputItBoundaryEdges,OutputItHiddenVertices>
@@ -44,24 +46,10 @@ public:
 //   template <class OutputItHiddenVertices>
 //   OutputItHiddenVertices   rt.get_hidden_vertices ( Point p, OutputItHiddenVertices vit, Face_handle start)
 //   Vertex_handle   rt.nearest_power_vertex ( Bare_point p)
-// Access functions
-//   int   rt.number_of_vertices ()
-//   int   rt.number_of_hidden_vertices ()
-//   Hidden_vertices_iterator   rt.hidden_vertices_begin ()
-//   Hidden_vertices_iterator   rt.hidden_vertices_end ()
-//   Finite_vertices_iterator   rt.finite_vertices_begin ()
-//   Finite_vertices_iterator   rt.finite_vertices_end ()
-//   All_vertices_iterator   rt.all_vertices_end ()
-//   All_vertices_iterator   rt.all_vertices_begin ()
 // Dual power diagram
-//   Point   rt.weighted_circumcenter ( Face_handle f)
-//   Point   rt.dual ( Face_handle f)
 //   Object   rt.dual ( Edge e)
 //   Object   rt.dual ( Edge_circulator ec)
 //   Object   rt.dual ( Edge_iterator ei)
 //   template < class Stream>
 //   Stream&   rt.draw_dual ( Stream & ps)
-// Predicates
-//   Oriented_side   rt.power_test ( Face_handle f, Weighted_point p)
-// Miscellaneous
-//   bool   rt.is_valid ( bool verbose = false, int level = 0)
+
