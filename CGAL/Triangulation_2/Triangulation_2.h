@@ -126,12 +126,12 @@ public:
   Line_face_circulator line_walk(const Point& p,const Point& q){return Line_face_circulator(this->data.line_walk(p.get_data(),q.get_data()));}
   Line_face_circulator line_walk(const Point& p,const Point& q,const Face_handle& f){return Line_face_circulator(this->data.line_walk(p.get_data(),q.get_data(),f.get_data()));}
 // Face, Edge and Vertex Circulators
-  Face_circulator incident_faces(const Vertex_handle& v){return Face_circulator(this->data.incident_faces(v.get_data()));}
-  Face_circulator incident_faces(const Vertex_handle& v,const Face_handle& f){return Face_circulator(this->data.incident_faces(v.get_data(),f.get_data()));}
-  Edge_circulator incident_edges(const Vertex_handle& v){return Edge_circulator(this->data.incident_edges(v.get_data()));}
-  Edge_circulator incident_edges(const Vertex_handle& v,const Face_handle& f){return Edge_circulator(this->data.incident_edges(v.get_data(),f.get_data()));}  
-  Vertex_circulator incident_vertices(const Vertex_handle& v){return Vertex_circulator(this->data.incident_vertices(v.get_data()));}
-  Vertex_circulator incident_vertices(const Vertex_handle& v,const Face_handle& f){return Vertex_circulator(this->data.incident_vertices(v.get_data(),f.get_data()));}    
+  FORWARD_CALL_1(Face_circulator,incident_faces,Vertex_handle)
+  FORWARD_CALL_2(Face_circulator,incident_faces,Vertex_handle,Face_handle)
+  FORWARD_CALL_1(Edge_circulator,incident_edges,Vertex_handle)
+  FORWARD_CALL_2(Edge_circulator,incident_edges,Vertex_handle,Face_handle)
+  FORWARD_CALL_1(Vertex_circulator,incident_vertices,Vertex_handle)
+  FORWARD_CALL_2(Vertex_circulator,incident_vertices,Vertex_handle,Face_handle)
 // Traversal between adjacent faces
   FORWARD_CALL_2(Vertex_handle,mirror_vertex,Face_handle,int)
   FORWARD_CALL_2(int,mirror_index,Face_handle,int)
