@@ -1,6 +1,8 @@
 #ifndef CGAL_SWIG_TRIPLE_H
 #define CGAL_SWIG_TRIPLE_H
 
+#include <CGAL/utility.h>
+
 namespace CGAL_SWIG{
   template <class T1, class T2, class T3>
   class Triple
@@ -28,6 +30,11 @@ namespace CGAL_SWIG{
     : first(a), second(b), third(c)
     {}
 
+    template <class U, class V, class W>
+    Triple(const CGAL::Triple<U,V,W>& t)
+    : first(t.first), second(t.second), third(t.third)
+    {}      
+      
     #ifndef SWIGPYTHON
     template <class U, class V, class W>
     Triple& operator=(const Triple<U, V, W> &t) {

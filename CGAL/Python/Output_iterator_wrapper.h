@@ -13,10 +13,7 @@ public:
   Container_writer(){}
   Container_writer(PyObject * list_,swig_type_info* type_):list(list_),type(type_)
   {
-    if (!PyList_Check(list)){
-      SWIG_SetErrorMsg(PyExc_TypeError, "Not a List.");
-      throw Not_a_list();
-    }
+    CGAL_precondition(PyList_Check(list));//properly handle by a typecheck in SWIG macro
   }
  
   void operator()(const Cpp_base& new_base) {

@@ -7,6 +7,7 @@ import CGAL.Triangulation_3.Delaunay_triangulation_3_Cell_handle;
 import CGAL.Triangulation_3.Bounded_side;
 import CGAL.Triangulation_3.Cell_handle_output_iterator;
 import CGAL.Triangulation_3.Ref_int;
+import java.util.LinkedList;
 
 public class test2 {
   public static void main(String arg[]){
@@ -106,10 +107,11 @@ public class test2 {
   Delaunay_triangulation_3 t2=new Delaunay_triangulation_3(t);
   if (!t.equals(t2))
     System.out.println("Pb copy or equal");
+
+  LinkedList<Delaunay_triangulation_3_Cell_handle> lst=new LinkedList<Delaunay_triangulation_3_Cell_handle>();
+  t.incident_cells(v1,lst);
   
-  Cell_handle_output_iterator out=new Cell_handle_output_iterator();
-  t.incident_cells(v1,out);
-  for (Delaunay_triangulation_3_Cell_handle ch : out.objects()){
+  for (Delaunay_triangulation_3_Cell_handle ch : lst){
     Delaunay_triangulation_3_Cell_handle ch_tmp=new Delaunay_triangulation_3_Cell_handle();
     Ref_int ri=new Ref_int(-1);
     Ref_int rj=new Ref_int(-1);
@@ -124,11 +126,9 @@ public class test2 {
     else{
       System.out.println("Pb is cell");
     }
-      
-    
-
   }
-  
+    
+  System.out.println("Nb incident_cells "+lst.size());
   
   t.clear();
   

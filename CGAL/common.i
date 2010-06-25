@@ -59,9 +59,6 @@
     catch(Bad_list_element){
       SWIG_fail;
     }
-    catch(Not_a_list){
-      SWIG_fail;
-    }
   }
 
   %include exception.i
@@ -125,12 +122,11 @@
 #ifdef SWIGPYTHON
 %define Typemap_for_Output_iterator(Object_typemap_,Out_Object_,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
   %typemap(in) Object_typemap_ {
-    try{
       $1=boost::make_function_output_iterator( Container_writer<Out_Object_,Out_Object_cpp_base_>($input,SWIG_for_python_) );
-    }
-    catch(Not_a_list){
-      SWIG_fail;
-    }    
+  }
+  //check that the input is a list
+  %typemap(typecheck) Object_typemap_ {
+    $1 = PyList_Check($input) ? 1 : 0;
   }
 %enddef
 #endif
