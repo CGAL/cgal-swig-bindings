@@ -23,6 +23,7 @@ public:
     Cpp_base* result = new Cpp_base(new_base);
     PyObject* py_object= SWIG_NewPointerObj(SWIG_as_voidptr(result), type, 1);
     assert(py_object!=NULL);
+    Py_DECREF(py_object);
     PyList_Append(list,py_object);
   }
 };

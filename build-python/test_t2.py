@@ -40,8 +40,15 @@ print "Try point range insertion"
 t.insert_range(lst)
 
 
+edges=[]
 
-#~ print t.number_of_vertices()
+for v in t.finite_vertices():
+  t.incident_constraints(v,edges);
+
+
+print "Nb incident constraints ", len(edges)
+
+print t.number_of_vertices()
 
 
 

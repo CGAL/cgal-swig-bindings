@@ -21,3 +21,21 @@ except:
 for p in t.finite_vertices():
   print p.point()
 
+print "length of l ",len(l)
+t.test_outputit(l)
+print len(l)
+
+for e in l:
+  print e
+
+print "END"
+try:
+  t.test_outputit(3)
+except:
+  print "Not a list"
+
+#test for memory leak: infinite loop
+while 1:
+  t.test_outputit(l)
+  rr=l.pop()
+
