@@ -49,7 +49,7 @@ public:
   
 
   Input_iterator_wrapper():current_ptr(NULL){}
-  Input_iterator_wrapper(const jobject& jiterator_,const char* sign):jiterator(&jiterator_),signature(sign)
+  Input_iterator_wrapper(const jobject& jiterator_,const char* sign):signature(sign),jiterator(&jiterator_)
   {
     it_class=JNU_GetEnv()->GetObjectClass(*jiterator);
     assert(it_class!=NULL);
