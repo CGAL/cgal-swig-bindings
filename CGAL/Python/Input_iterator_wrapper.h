@@ -54,7 +54,13 @@ public:
   Input_iterator_wrapper():current_ptr(NULL){}
   Input_iterator_wrapper(PyObject * list_,swig_type_info* tinfo):list(list_),type(tinfo)
   {
-    CGAL_precondition(PyList_Check(list)); //properly handle by a typecheck in SWIG macro
+    
+    // CGAL_precondition(PyList_Check(list)); //properly handle by a typecheck in SWIG macro
+    //only for function with overload !!!
+    if (!PyList_Check(list)){
+      SWIG_SetErrorMsg(PyExc_TypeError, "Not a List.");
+      throw Not_a_list();
+    }
     size=PyList_Size(list);
     current=0;
     update_with_next_point();
