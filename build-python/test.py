@@ -21,18 +21,22 @@ except:
 all_adjacent_vertices=[]
 v=0
 for p in t.finite_vertices():
-  t.adjacent_vertices(p,all_adjacent_vertices)
+  t.finite_adjacent_vertices(p,all_adjacent_vertices)
   v=p
   print p.point()
 
 print "length of all_adjacent_vertices ",len(all_adjacent_vertices)
-#~ try:
-  #~ t.adjacent_vertices(v,3)  
-#~ except:
-  #~ print "Not a list"
+try:
+  t.adjacent_vertices(v,3)  
+except:
+  print "Not a list"
 
-#~ #test for memory leak: infinite loop
-#~ while 1:
-  #~ t.adjacent_vertices(v,all_adjacent_vertices)
-  #~ rr=all_adjacent_vertices.pop()
+#test for memory leak: infinite loop
+mylist=[]
+while 1:
+  t.adjacent_vertices(v,mylist)
+  t.incident_edges(v,mylist)
+  t.incident_facets(v,mylist)
+  print len(mylist)
+  mylist=[]
 

@@ -40,7 +40,7 @@ if (JAVA_INCLUDE_PATH)
   SWIG_ADD_MODULE(${MODULENAME} java ${INTERFACE_FILES} ${OBJECT_FILES} ${JAVA_OBJECT_FILES})
   SWIG_LINK_LIBRARIES(${MODULENAME} ${LIBSTOLINKWITH} ${JAVALIBSTOLINKWITH})
 else()
-  message("JNI has not be found, ${PACKAGENAME} bindings for java will not be compiled.")
+  message("JNI has not been found, ${PACKAGENAME} bindings for java will not be compiled.")
 endif()
 
 
