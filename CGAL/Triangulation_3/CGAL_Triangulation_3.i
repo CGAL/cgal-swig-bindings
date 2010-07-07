@@ -6,9 +6,6 @@
 %include "../Common/Input_iterator.h"
 
 
-Typemap_for_Input_iterator(Point_range,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
-Typemap_for_Output_iterator(Point_output_iterator,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
-
 //include files
 %{
   #include "Delaunay_triangulation_3.h"
@@ -31,37 +28,41 @@ Typemap_for_Output_iterator(Point_output_iterator,Point_3,Point_3::cpp_base,SWIG
 %include "../Common/Reference_wrapper.h"
 
 //Handles
-%template(Delaunay_triangulation_3_Cell_handle)        CGAL_Cell_handle<EPIC_DT3>;
+%template(Delaunay_triangulation_3_Cell_handle)        CGAL_Cell_handle<EPIC_DT3,Point_3>;
 %typemap(javaimports) CGAL_Vertex_handle %{import CGAL.Kernel.Point_3;%}
-%template(Delaunay_triangulation_3_Vertex_handle)      CGAL_Vertex_handle<EPIC_DT3>;
+%template(Delaunay_triangulation_3_Vertex_handle)      CGAL_Vertex_handle<EPIC_DT3,Point_3>;
 
 %include "std_pair.i"
-%template(Delaunay_triangulation_3_Facet) std::pair<CGAL_Cell_handle<EPIC_DT3>,int>;
-%template(Delaunay_triangulation_3_Edge)  CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int>;
+%template(Delaunay_triangulation_3_Facet) std::pair<CGAL_Cell_handle<EPIC_DT3,Point_3>,int>;
+%template(Delaunay_triangulation_3_Edge)  CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3,Point_3>,int,int>;
+
+//typemaps for Input iterator(s)
+Typemap_for_Input_iterator(Weighting_helper_3<CGAL::Tag_false>::Point_range,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
+//~ Typemap_for_Input_iterator(Weighting_helper_3<CGAL::Tag_true>::Point_range,Weighted_point_3,Weighted_point_3::cpp_base,SWIGTYPE_p_Weighted_point_3,"(LCGAL/Kernel/Weighted_point_3;)J",insert_range)
 
 
 //typemaps for Output iterators
-%define Delaunay_triangulation_3_Cell_handle_output_iterator  Triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >::Cell_handle_output_iterator %enddef
-%define Delaunay_triangulation_3_Vertex_handle_output_iterator  Triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >::Vertex_handle_output_iterator %enddef
-%define Delaunay_triangulation_3_Facet_output_iterator  Triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >::Facet_output_iterator %enddef
-%define Delaunay_triangulation_3_Edge_output_iterator  Triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >::Edge_output_iterator %enddef
+%define Delaunay_triangulation_3_Cell_handle_output_iterator  Triangulation_3_wrapper<EPIC_DT3,Point_3,CGAL_Vertex_handle<EPIC_DT3,Point_3>,CGAL_Cell_handle<EPIC_DT3,Point_3>,CGAL::Tag_false >::Cell_handle_output_iterator %enddef
+%define Delaunay_triangulation_3_Vertex_handle_output_iterator  Triangulation_3_wrapper<EPIC_DT3,Point_3,CGAL_Vertex_handle<EPIC_DT3,Point_3>,CGAL_Cell_handle<EPIC_DT3,Point_3>,CGAL::Tag_false >::Vertex_handle_output_iterator %enddef
+%define Delaunay_triangulation_3_Facet_output_iterator  Triangulation_3_wrapper<EPIC_DT3,Point_3,CGAL_Vertex_handle<EPIC_DT3,Point_3>,CGAL_Cell_handle<EPIC_DT3,Point_3>,CGAL::Tag_false >::Facet_output_iterator %enddef
+%define Delaunay_triangulation_3_Edge_output_iterator  Triangulation_3_wrapper<EPIC_DT3,Point_3,CGAL_Vertex_handle<EPIC_DT3,Point_3>,CGAL_Cell_handle<EPIC_DT3,Point_3>,CGAL::Tag_false >::Edge_output_iterator %enddef
 %{
-typedef CGAL_Cell_handle<EPIC_DT3>                              Delaunay_triangulation_3_Cell_handle;
-typedef CGAL_Vertex_handle<EPIC_DT3>                            Delaunay_triangulation_3_Vertex_handle;
-typedef std::pair<CGAL_Cell_handle<EPIC_DT3>,int>               Delaunay_triangulation_3_Facet;
-typedef CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int>   Delaunay_triangulation_3_Edge;  
+typedef CGAL_Cell_handle<EPIC_DT3,Point_3>                              Delaunay_triangulation_3_Cell_handle;
+typedef CGAL_Vertex_handle<EPIC_DT3,Point_3>                            Delaunay_triangulation_3_Vertex_handle;
+typedef std::pair<CGAL_Cell_handle<EPIC_DT3,Point_3>,int>               Delaunay_triangulation_3_Facet;
+typedef CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3,Point_3>,int,int>   Delaunay_triangulation_3_Edge;  
 %}
-Typemap_for_Output_iterator(Delaunay_triangulation_3_Cell_handle_output_iterator,Delaunay_triangulation_3_Cell_handle,EPIC_DT3::Cell_handle,SWIGTYPE_p_CGAL_Cell_handleT_EPIC_DT3_t,"LCGAL/Triangulation_3/Delaunay_triangulation_3_Cell_handle;")
-Typemap_for_Output_iterator(Delaunay_triangulation_3_Vertex_handle_output_iterator,Delaunay_triangulation_3_Vertex_handle,EPIC_DT3::Vertex_handle,SWIGTYPE_p_CGAL_Vertex_handleT_EPIC_DT3_t,"LCGAL/Triangulation_3/Delaunay_triangulation_3_Vertex_handle;")
-Typemap_for_Output_iterator(Delaunay_triangulation_3_Facet_output_iterator,Delaunay_triangulation_3_Facet,EPIC_DT3::Facet,SWIGTYPE_p_std__pairT_CGAL_Cell_handleT_EPIC_DT3_t_int_t,"LCGAL/Triangulation_3/Delaunay_triangulation_3_Facet;")
-Typemap_for_Output_iterator(Delaunay_triangulation_3_Edge_output_iterator,Delaunay_triangulation_3_Edge,EPIC_DT3::Edge,SWIGTYPE_p_CGAL_SWIG__TripleT_CGAL_Cell_handleT_EPIC_DT3_t_int_int_t,"LCGAL/Triangulation_3/Delaunay_triangulation_3_Edge;")
+Typemap_for_Output_iterator(Delaunay_triangulation_3_Cell_handle_output_iterator,Delaunay_triangulation_3_Cell_handle,EPIC_DT3::Cell_handle,SWIGTYPE_p_CGAL_Cell_handleT_EPIC_DT3_Point_3_t,"LCGAL/Triangulation_3/Delaunay_triangulation_3_Cell_handle;")
+Typemap_for_Output_iterator(Delaunay_triangulation_3_Vertex_handle_output_iterator,Delaunay_triangulation_3_Vertex_handle,EPIC_DT3::Vertex_handle,SWIGTYPE_p_CGAL_Vertex_handleT_EPIC_DT3_Point_3_t,"LCGAL/Triangulation_3/Delaunay_triangulation_3_Vertex_handle;")
+Typemap_for_Output_iterator(Delaunay_triangulation_3_Facet_output_iterator,Delaunay_triangulation_3_Facet,EPIC_DT3::Facet,SWIGTYPE_p_std__pairT_CGAL_Cell_handleT_EPIC_DT3_Point_3_t_int_t,"LCGAL/Triangulation_3/Delaunay_triangulation_3_Facet;")
+Typemap_for_Output_iterator(Delaunay_triangulation_3_Edge_output_iterator,Delaunay_triangulation_3_Edge,EPIC_DT3::Edge,SWIGTYPE_p_CGAL_SWIG__TripleT_CGAL_Cell_handleT_EPIC_DT3_Point_3_t_int_int_t,"LCGAL/Triangulation_3/Delaunay_triangulation_3_Edge;")
 
 
 //Triangulation
 %typemap(javaimports) Triangulation_3_wrapper%{import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
-%template(internal_T3_for_DT3)       Triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >;
+%template(internal_T3_for_DT3)       Triangulation_3_wrapper<EPIC_DT3,Point_3,CGAL_Vertex_handle<EPIC_DT3,Point_3>,CGAL_Cell_handle<EPIC_DT3,Point_3>,CGAL::Tag_false >;
 %typemap(javaimports) Delaunay_triangulation_3_wrapper%{import CGAL.Kernel.Point_3;%}
-%template(Delaunay_triangulation_3)      Delaunay_triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3>,CGAL_Cell_handle<EPIC_DT3> >;
+%template(Delaunay_triangulation_3)      Delaunay_triangulation_3_wrapper<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3,Point_3>,CGAL_Cell_handle<EPIC_DT3,Point_3> >;
 
 
 //References
@@ -69,39 +70,39 @@ Typemap_for_Output_iterator(Delaunay_triangulation_3_Edge_output_iterator,Delaun
 
 //Iterators and circulators
 Iterator_for_java(CGAL_All_vertices_iterator,Delaunay_triangulation_3_Vertex_handle,import CGAL.Kernel.Point_3;)
-%template(Delaunay_triangulation_3_All_vertices_iterator) CGAL_All_vertices_iterator<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3> >;
+%template(Delaunay_triangulation_3_All_vertices_iterator) CGAL_All_vertices_iterator<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3,Point_3> >;
 
 Iterator_for_java(CGAL_Finite_vertices_iterator,Delaunay_triangulation_3_Vertex_handle,import CGAL.Kernel.Point_3;)
-%template(Delaunay_triangulation_3_Finite_vertices_iterator) CGAL_Finite_vertices_iterator<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3> >;
+%template(Delaunay_triangulation_3_Finite_vertices_iterator) CGAL_Finite_vertices_iterator<EPIC_DT3,CGAL_Vertex_handle<EPIC_DT3,Point_3> >;
 
 Iterator_for_java(CGAL_All_cells_iterator,Delaunay_triangulation_3_Cell_handle,)
-%template(Delaunay_triangulation_3_All_cells_iterator) CGAL_All_cells_iterator<EPIC_DT3,CGAL_Cell_handle<EPIC_DT3> >;
+%template(Delaunay_triangulation_3_All_cells_iterator) CGAL_All_cells_iterator<EPIC_DT3,CGAL_Cell_handle<EPIC_DT3,Point_3> >;
 
 Iterator_for_java(CGAL_Finite_cells_iterator,Delaunay_triangulation_3_Cell_handle,)
-%template(Delaunay_triangulation_3_Finite_cells_iterator) CGAL_Finite_cells_iterator<EPIC_DT3,CGAL_Cell_handle<EPIC_DT3> >;
+%template(Delaunay_triangulation_3_Finite_cells_iterator) CGAL_Finite_cells_iterator<EPIC_DT3,CGAL_Cell_handle<EPIC_DT3,Point_3> >;
 
 Iterator_for_java(CGAL_All_facets_iterator,Delaunay_triangulation_3_Facet,)
-%template(Delaunay_triangulation_3_All_facets_iterator) CGAL_All_facets_iterator<EPIC_DT3,std::pair<CGAL_Cell_handle<EPIC_DT3>,int> >;
+%template(Delaunay_triangulation_3_All_facets_iterator) CGAL_All_facets_iterator<EPIC_DT3,std::pair<CGAL_Cell_handle<EPIC_DT3,Point_3>,int> >;
 
 Iterator_for_java(CGAL_Finite_facets_iterator,Delaunay_triangulation_3_Facet,)
-%template(Delaunay_triangulation_3_Finite_facets_iterator) CGAL_Finite_facets_iterator<EPIC_DT3,std::pair<CGAL_Cell_handle<EPIC_DT3>,int> >;
+%template(Delaunay_triangulation_3_Finite_facets_iterator) CGAL_Finite_facets_iterator<EPIC_DT3,std::pair<CGAL_Cell_handle<EPIC_DT3,Point_3>,int> >;
 
 Iterator_for_java(CGAL_All_edges_iterator,Delaunay_triangulation_3_Edge,)
-%template(Delaunay_triangulation_3_All_edges_iterator) CGAL_All_edges_iterator<EPIC_DT3,CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int> >;
+%template(Delaunay_triangulation_3_All_edges_iterator) CGAL_All_edges_iterator<EPIC_DT3,CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3,Point_3>,int,int> >;
 
 Iterator_for_java(CGAL_Finite_edges_iterator,Delaunay_triangulation_3_Edge,)
-%template(Delaunay_triangulation_3_Finite_edges_iterator) CGAL_Finite_edges_iterator<EPIC_DT3,CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3>,int,int> >;
+%template(Delaunay_triangulation_3_Finite_edges_iterator) CGAL_Finite_edges_iterator<EPIC_DT3,CGAL_SWIG::Triple<CGAL_Cell_handle<EPIC_DT3,Point_3>,int,int> >;
 
 Iterator_for_java(CGAL_Point_iterator,Point_3,import CGAL.Kernel.Point_3;)
 %template(Delaunay_triangulation_3_Point_iterator) CGAL_Point_iterator<EPIC_DT3,Point_3>;
 
 Iterator_for_java(CGAL_Cell_circulator,Delaunay_triangulation_3_Cell_handle,)
-%template(Delaunay_triangulation_3_Cell_circulator) CGAL_Cell_circulator<EPIC_DT3,CGAL_Cell_handle<EPIC_DT3> >;
+%template(Delaunay_triangulation_3_Cell_circulator) CGAL_Cell_circulator<EPIC_DT3,CGAL_Cell_handle<EPIC_DT3,Point_3> >;
 
 Iterator_for_java(CGAL_Facet_circulator,Delaunay_triangulation_3_Facet,)
-%template(Delaunay_triangulation_3_Facet_circulator) CGAL_Facet_circulator<EPIC_DT3,std::pair<CGAL_Cell_handle<EPIC_DT3>,int> >;
+%template(Delaunay_triangulation_3_Facet_circulator) CGAL_Facet_circulator<EPIC_DT3,std::pair<CGAL_Cell_handle<EPIC_DT3,Point_3>,int> >;
 
 //output iterator
-%template(Cell_handle_output_iterator) Output_iterator<CGAL_Cell_handle<EPIC_DT3> >;
+%template(Cell_handle_output_iterator) Output_iterator<CGAL_Cell_handle<EPIC_DT3,Point_3> >;
 Iterator_for_java(General_iterator,Delaunay_triangulation_3_Cell_handle,)
-%template(Iterator_of_cell_handle) General_iterator< Output_iterator<CGAL_Cell_handle<EPIC_DT3> >,CGAL_Cell_handle<EPIC_DT3> >;
+%template(Iterator_of_cell_handle) General_iterator< Output_iterator<CGAL_Cell_handle<EPIC_DT3,Point_3> >,CGAL_Cell_handle<EPIC_DT3,Point_3> >;

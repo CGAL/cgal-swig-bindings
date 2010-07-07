@@ -9,8 +9,6 @@
 
 //Functor for FORWARD_CALL_N
 
-template <class T> class CGAL_Cell_handle;
-
 namespace internal{
 
 #define SPECIALIZE_CONVERTER(T)                    \

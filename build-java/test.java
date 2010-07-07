@@ -36,16 +36,16 @@ public class test {
     for (Delaunay_triangulation_3_Vertex_handle v : t.finite_vertices())
       System.out.println(v.point());
     
-    t.test_outputit(lst);
-    System.out.println("test_outputit OK");
-    t.test_outputit2(lst);
-    System.out.println("test_outputit2 OK");
-    
     System.out.println(lst.size());
 
     for (Point_3 pti : lst)
       System.out.println(pti);
   
+    
+    LinkedList<Delaunay_triangulation_3_Vertex_handle> adj_vertices=new LinkedList<Delaunay_triangulation_3_Vertex_handle>();
+    for (Delaunay_triangulation_3_Vertex_handle v : t.finite_vertices())
+      t.adjacent_vertices(v,adj_vertices);
+    System.out.println("Nb adjacent vertices "+adj_vertices.size());
     
     System.out.println("Squared distance");
     System.out.println(CGAL_Kernel.squared_distance(array[0],array[1]));

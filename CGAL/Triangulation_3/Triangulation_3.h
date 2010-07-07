@@ -2,8 +2,8 @@
 #define SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_3_H
 
 #include <boost/function_output_iterator.hpp>
+#include <boost/static_assert.hpp>
 
-#include "../Kernel/Point_3.h"
 #include "typedefs.h"
 #include "triangulation_handles.h"
 #include "triangulation_iterators.h"
@@ -25,12 +25,24 @@
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
 enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};
 
-typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
 
-typedef boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base> > Point_output_iterator;
+template <class Weighted_tag>
+struct Weighting_helper_3{
+  typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
+};
 
-template <class Triangulation,class Vertex_handle, class Cell_handle>
+//~ template <>
+//~ struct Weighting_helper_3<CGAL::Tag_true>{
+  //~ typedef std::pair<Input_iterator_wrapper<Weighted_point_3,Weighted_point_3::cpp_base>,Input_iterator_wrapper<Weighted_point_3,Weighted_point_3::cpp_base> > Point_range;
+//~ };
+
+template <class Triangulation,class Point,class Vertex_handle, class Cell_handle, class Weighted_tag>
 class Triangulation_3_wrapper{
+  
+  #ifndef SWIG
+  BOOST_STATIC_ASSERT( (boost::is_same<Weighted_tag,typename Triangulation::Weighted_tag>::value) );
+  #endif  
+  
 protected:
   Triangulation data;
   const typename Triangulation::Cell_handle& convert (const Cell_handle& c) {return c.get_data();}
@@ -53,7 +65,7 @@ public:
   typedef CGAL_All_edges_iterator<Triangulation,Edge>                           All_edges_iterator;
   typedef CGAL_All_facets_iterator<Triangulation,Facet>                         All_facets_iterator;
   typedef CGAL_All_cells_iterator<Triangulation,Cell_handle>                    All_cells_iterator;
-  typedef CGAL_Point_iterator<Triangulation,Point_3>                            Point_iterator;
+  typedef CGAL_Point_iterator<Triangulation,Point>                              Point_iterator;
   typedef CGAL_Cell_circulator<Triangulation,Cell_handle>                       Cell_circulator;
   typedef CGAL_Facet_circulator<Triangulation,Facet>                            Facet_circulator;
 //Output iterator typedefs  
@@ -103,9 +115,9 @@ public:
   FORWARD_CALL_2(bool,are_equal,Facet,Facet)
   FORWARD_CALL_3(bool,are_equal,Facet,Cell_handle,int)
 //Point location
-  FORWARD_CALL_1(Cell_handle,locate,Point_3)
-  FORWARD_CALL_2(Cell_handle,locate,Point_3,Cell_handle)
-  FORWARD_CALL_2(Cell_handle,locate,Point_3,Vertex_handle)
+  FORWARD_CALL_1(Cell_handle,locate,Point)
+  FORWARD_CALL_2(Cell_handle,locate,Point,Cell_handle)
+  FORWARD_CALL_2(Cell_handle,locate,Point,Vertex_handle)
 //Flips
   FORWARD_CALL_1(bool,flip,Edge)
   FORWARD_CALL_3(bool,flip,Cell_handle,int,int)
@@ -116,17 +128,17 @@ public:
   FORWARD_CALL_1(void,flip_flippable,Facet)
   FORWARD_CALL_2(void,flip_flippable,Cell_handle,int)
 //Insertions
-  FORWARD_CALL_1(Vertex_handle,insert,Point_3)
-  FORWARD_CALL_2(Vertex_handle,insert,Point_3,Cell_handle)
-  FORWARD_CALL_2(Vertex_handle,insert,Point_3,Vertex_handle)
-  int insert_range(Point_range range){ return this->data.insert(range.first,range.second); }
-  FORWARD_CALL_2(Vertex_handle,insert_in_cell,Point_3,Cell_handle)
-  FORWARD_CALL_2(Vertex_handle,insert_in_facet,Point_3,Facet)
-  FORWARD_CALL_3(Vertex_handle,insert_in_facet,Point_3,Cell_handle,int)
-  FORWARD_CALL_2(Vertex_handle,insert_in_edge,Point_3,Edge)
-  FORWARD_CALL_4(Vertex_handle,insert_in_edge,Point_3,Cell_handle,int,int)
-  FORWARD_CALL_2(Vertex_handle,insert_outside_convex_hull,Point_3,Cell_handle)
-  FORWARD_CALL_1(Vertex_handle,insert_outside_affine_hull,Point_3)
+  FORWARD_CALL_1(Vertex_handle,insert,Point)
+  FORWARD_CALL_2(Vertex_handle,insert,Point,Cell_handle)
+  FORWARD_CALL_2(Vertex_handle,insert,Point,Vertex_handle)
+  int insert_range(typename Weighting_helper_3<Weighted_tag>::Point_range range){ return this->data.insert(range.first,range.second); }
+  FORWARD_CALL_2(Vertex_handle,insert_in_cell,Point,Cell_handle)
+  FORWARD_CALL_2(Vertex_handle,insert_in_facet,Point,Facet)
+  FORWARD_CALL_3(Vertex_handle,insert_in_facet,Point,Cell_handle,int)
+  FORWARD_CALL_2(Vertex_handle,insert_in_edge,Point,Edge)
+  FORWARD_CALL_4(Vertex_handle,insert_in_edge,Point,Cell_handle,int,int)
+  FORWARD_CALL_2(Vertex_handle,insert_outside_convex_hull,Point,Cell_handle)
+  FORWARD_CALL_1(Vertex_handle,insert_outside_affine_hull,Point)
 //Traversal of the Triangulation
   Finite_vertices_iterator      finite_vertices(){return Finite_vertices_iterator(this->data.finite_vertices_begin(),this->data.finite_vertices_end());}
   Finite_edges_iterator         finite_edges(){return Finite_edges_iterator(this->data.finite_edges_begin(),this->data.finite_edges_end());}
@@ -170,8 +182,8 @@ public:
 //I/O  
 
 
-  FORWARD_CALL_2(Point_3,point,Cell_handle,int)
-  FORWARD_CALL_1(Point_3,point,Vertex_handle)
+  FORWARD_CALL_2(Point,point,Cell_handle,int)
+  FORWARD_CALL_1(Point,point,Vertex_handle)
 
 
 
@@ -183,8 +195,6 @@ public:
 };
 
 //Creation
-// Triangulation_3<TriangulationTraits_3,TriangulationDataStructure_3> t ( TriangulationTraits_3 traits = TriangulationTraits_3());
-// Triangulation_3<TriangulationTraits_3,TriangulationDataStructure_3> t ( Triangulation_3 tr);
 // template < class InputIterator> Triangulation_3<TriangulationTraits_3,TriangulationDataStructure_3> t ( InputIterator first,InputIterator last,TriangulationTraits_3 traits = TriangulationTraits_3());
 //Assignment
 //  Triangulation_3 & t = Triangulation_3 tr

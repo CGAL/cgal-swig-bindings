@@ -1,10 +1,10 @@
 #ifndef SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_HANDLES_H
 #define SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_HANDLES_H
 
-template <class Triangulation>
+template <class Triangulation,class Point>
 class CGAL_Cell_handle;
 
-template <class Triangulation>
+template <class Triangulation,class Point>
 class CGAL_Vertex_handle{
   typename Triangulation::Vertex_handle data;
   
@@ -15,15 +15,15 @@ public:
   CGAL_Vertex_handle(typename Triangulation::Vertex_handle v):data(v){}
   const typename Triangulation::Vertex_handle& get_data() const {return data;}
   typename Triangulation::Vertex_handle& get_data_ref() {return data;}
-  Point_3 point(){return Point_3(data->point());}
-  CGAL_Cell_handle<Triangulation> cell(){return CGAL_Cell_handle<Triangulation>(data->cell());}
+  Point point(){return Point(data->point());}
+  CGAL_Cell_handle<Triangulation,Point> cell(){return CGAL_Cell_handle<Triangulation,Point>(data->cell());}
   
-  bool equals(const CGAL_Vertex_handle<Triangulation>& v){
+  bool equals(const CGAL_Vertex_handle<Triangulation,Point>& v){
     return data==v.get_data();
   }
   
   #ifdef SWIGPYTHON
-  bool __ne__(const CGAL_Vertex_handle<Triangulation>& v){return !equals(v);}
+  bool __ne__(const CGAL_Vertex_handle<Triangulation,Point>& v){return !equals(v);}
   #endif
   //void set_cell(Cell_handle c)
   //void set_point(Point p)
@@ -32,7 +32,7 @@ public:
 };
 
 
-template <class Triangulation>
+template <class Triangulation,class Point>
 class CGAL_Cell_handle{
   typename Triangulation::Cell_handle data;
   
@@ -45,15 +45,15 @@ public:
   typename Triangulation::Cell_handle& get_data_ref() {return data;}
   
   
-  CGAL_Vertex_handle<Triangulation> vertex (int i){return CGAL_Vertex_handle<Triangulation>(data->vertex(i));}
-  int index (const CGAL_Vertex_handle<Triangulation>& v){return data->index(v.get_data());}
+  CGAL_Vertex_handle<Triangulation,Point> vertex (int i){return CGAL_Vertex_handle<Triangulation,Point>(data->vertex(i));}
+  int index (const CGAL_Vertex_handle<Triangulation,Point>& v){return data->index(v.get_data());}
 
-  bool equals(const CGAL_Cell_handle<Triangulation>& c){
+  bool equals(const CGAL_Cell_handle<Triangulation,Point>& c){
     return data==c.get_data();
   }  
 
   #ifdef SWIGPYTHON
-  bool __ne__(const CGAL_Cell_handle<Triangulation>& c){return !equals(c);}
+  bool __ne__(const CGAL_Cell_handle<Triangulation,Point>& c){return !equals(c);}
   #endif  
   
   //bool has_vertex ( Vertex_handle v)
