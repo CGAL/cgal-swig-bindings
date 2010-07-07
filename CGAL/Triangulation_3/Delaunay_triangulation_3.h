@@ -3,6 +3,7 @@
 
 #include "../Kernel/Point_3.h"
 #include "Triangulation_3.h"
+#include <CGAL/Delaunay_triangulation_3.h>
 
 template <class Triangulation,class Vertex_handle, class Cell_handle>
 class Delaunay_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle,Cell_handle,CGAL::Tag_false>{

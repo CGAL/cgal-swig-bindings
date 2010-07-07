@@ -3,8 +3,8 @@
 
 #include <boost/function_output_iterator.hpp>
 #include <boost/static_assert.hpp>
+#include <CGAL/Triangulation_3.h>
 
-#include "typedefs.h"
 #include "triangulation_handles.h"
 #include "triangulation_iterators.h"
 #include "../Common/triple.h"

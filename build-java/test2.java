@@ -5,7 +5,6 @@ import CGAL.Triangulation_3.Delaunay_triangulation_3_Facet;
 import CGAL.Triangulation_3.Delaunay_triangulation_3_Edge;
 import CGAL.Triangulation_3.Delaunay_triangulation_3_Cell_handle;
 import CGAL.Triangulation_3.Bounded_side;
-import CGAL.Triangulation_3.Cell_handle_output_iterator;
 import CGAL.Triangulation_3.Ref_int;
 import java.util.LinkedList;
 
