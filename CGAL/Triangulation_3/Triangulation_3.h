@@ -11,7 +11,8 @@
 #include "../Common/Output_iterator.h"
 #include "../Common/Reference_wrapper.h"
 #include "../Common/Macros.h"
-
+#include "../Kernel/Point_3.h"
+#include "../Kernel/Weighted_point_3.h"
 
 #ifdef SWIGPYTHON
 #include "../Python/Input_iterator_wrapper.h"
@@ -31,10 +32,10 @@ struct Weighting_helper_3{
   typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
 };
 
-//~ template <>
-//~ struct Weighting_helper_3<CGAL::Tag_true>{
-  //~ typedef std::pair<Input_iterator_wrapper<Weighted_point_3,Weighted_point_3::cpp_base>,Input_iterator_wrapper<Weighted_point_3,Weighted_point_3::cpp_base> > Point_range;
-//~ };
+template <>
+struct Weighting_helper_3<CGAL::Tag_true>{
+  typedef std::pair<Input_iterator_wrapper<Weighted_point_3,Weighted_point_3::cpp_base>,Input_iterator_wrapper<Weighted_point_3,Weighted_point_3::cpp_base> > Point_range;
+};
 
 template <class Triangulation,class Point,class Vertex_handle, class Cell_handle, class Weighted_tag>
 class Triangulation_3_wrapper{
@@ -178,7 +179,7 @@ public:
   FORWARD_CALL_0(bool,is_valid)
   FORWARD_CALL_1(bool,is_valid,bool)
   FORWARD_CALL_1(bool,is_valid,Cell_handle)
-  FORWARD_CALL_2(bool,is_valid,Cell_handle,bool)  
+  FORWARD_CALL_2(bool,is_valid,Cell_handle,bool)
 //I/O  
 
 

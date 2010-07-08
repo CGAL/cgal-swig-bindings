@@ -1,4 +1,5 @@
 import CGAL.Kernel.Point_3;
+import CGAL.Kernel.CGAL_Kernel;
 import CGAL.Triangulation_3.Delaunay_triangulation_3;
 import CGAL.Triangulation_3.Delaunay_triangulation_3_Vertex_handle;
 import CGAL.Triangulation_3.Delaunay_triangulation_3_Facet;
@@ -7,8 +8,10 @@ import CGAL.Triangulation_3.Delaunay_triangulation_3_Cell_handle;
 import CGAL.Triangulation_3.Bounded_side;
 import CGAL.Triangulation_3.Ref_int;
 import java.util.LinkedList;
+import java.util.Iterator;
 
-public class test2 {
+
+public class test_dt3 {
   public static void main(String arg[]){
   System.loadLibrary("CGAL_Triangulation_3");
   Delaunay_triangulation_3 t=new Delaunay_triangulation_3();
@@ -16,7 +19,33 @@ public class test2 {
   Delaunay_triangulation_3_Vertex_handle v1=t.insert(new Point_3(1,1,1));
   Delaunay_triangulation_3_Vertex_handle v2=t.insert(new Point_3(1,1,15),v1);
   Delaunay_triangulation_3_Vertex_handle v3=t.insert(new Point_3(154,11,5),v2.cell());
-  Delaunay_triangulation_3_Vertex_handle v4=t.insert(new Point_3(14,0,45));
+  Delaunay_triangulation_3_Vertex_handle v4=t.insert(new Point_3(14,0,45)); 
+  
+  t.clear();
+    
+  LinkedList<Point_3> lsti=new LinkedList<Point_3>();
+  lsti.add(new Point_3(1,1,1));
+  lsti.add(new Point_3(1,1,15));
+  lsti.add(new Point_3(154,11,5));
+  lsti.add(new Point_3(14,0,45));     
+  t.insert_range(lsti.iterator());
+  System.out.println("insert range OK");   
+    
+    
+  Iterator<Delaunay_triangulation_3_Vertex_handle> it=t.finite_vertices();
+  for (Delaunay_triangulation_3_Vertex_handle v : t.finite_vertices())
+    System.out.println(v.point());
+  
+  System.out.println(lsti.size());
+  
+  LinkedList<Delaunay_triangulation_3_Vertex_handle> adj_vertices=new LinkedList<Delaunay_triangulation_3_Vertex_handle>();
+  for (Delaunay_triangulation_3_Vertex_handle v : t.finite_vertices())
+    t.adjacent_vertices(v,adj_vertices);
+  System.out.println("Nb adjacent vertices "+adj_vertices.size());
+  
+  System.out.println("Squared distance");
+  System.out.println(CGAL_Kernel.squared_distance(lsti.get(0),lsti.get(1)));
+
     
   Object o1=new Object();
   o1=(Object) new Double(4);

@@ -77,9 +77,8 @@
 // --CLASSNAME  is the name of the class exposed by SWIG
 // --CPPTYPE is the c++ type of the triangulation
 // --POINT_TYPE the name of the class wrapping Point or Weighted_point type
-// --WTAG is CGAL::Tag_false if the cpp triangulation is not weighted and CGAL::Tag_true otherwise
-%define Declare_triangulation_3(CLASSNAME,CPPTYPE,POINT_TYPE,WTAG)
-  Declare_triangulation_3_internal(CLASSNAME,CLASSNAME,CPPTYPE,POINT_TYPE,WTAG)
+%define Declare_triangulation_3(CLASSNAME,CPPTYPE)
+  Declare_triangulation_3_internal(CLASSNAME,CLASSNAME,CPPTYPE,Point_3,CGAL::Tag_false)
 %enddef
 
 #endif // SWIG_CGAL_TRIANGULATION_3_DECLARE_TRIANGULATION_3_I

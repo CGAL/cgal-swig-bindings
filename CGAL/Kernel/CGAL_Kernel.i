@@ -13,6 +13,7 @@ SWIG_JAVABODY_METHODS(public,public,Weighted_point_2)
 SWIG_JAVABODY_METHODS(public,public,Segment_2)
 SWIG_JAVABODY_METHODS(public,public,Triangle_2)
 SWIG_JAVABODY_METHODS(public,public,Point_3)
+SWIG_JAVABODY_METHODS(public,public,Weighted_point_3)
 SWIG_JAVABODY_METHODS(public,public,Plane_3)
 SWIG_JAVABODY_METHODS(public,public,Segment_3)
 SWIG_JAVABODY_METHODS(public,public,Line_3)
@@ -25,6 +26,7 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
   #include "Segment_2.h"
   #include "Triangle_2.h"
   #include "Point_3.h"
+  #include "Weighted_point_3.h"
   #include "Plane_3.h"
   #include "Segment_3.h"
   #include "Line_3.h"
@@ -37,6 +39,7 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
 %include "Segment_2.h"
 %include "Triangle_2.h"
 %include "Point_3.h"
+%include "Weighted_point_3.h"
 %include "Plane_3.h"
 %include "Segment_3.h"
 %include "Line_3.h"
