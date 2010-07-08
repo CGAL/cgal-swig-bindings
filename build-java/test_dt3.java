@@ -1,4 +1,7 @@
 import CGAL.Kernel.Point_3;
+import CGAL.Kernel.Segment_3;
+import CGAL.Kernel.Triangle_3;
+import CGAL.Kernel.Tetrahedron_3;
 import CGAL.Kernel.CGAL_Kernel;
 import CGAL.Triangulation_3.Delaunay_triangulation_3;
 import CGAL.Triangulation_3.Delaunay_triangulation_3_Vertex_handle;
@@ -21,6 +24,8 @@ public class test_dt3 {
   Delaunay_triangulation_3_Vertex_handle v3=t.insert(new Point_3(154,11,5),v2.cell());
   Delaunay_triangulation_3_Vertex_handle v4=t.insert(new Point_3(14,0,45)); 
   
+  Point_3 a_point= t.point(v1);
+    
   t.clear();
     
   LinkedList<Point_3> lsti=new LinkedList<Point_3>();
@@ -64,6 +69,13 @@ public class test_dt3 {
   Delaunay_triangulation_3_Cell_handle ci=t.infinite_cell();
   
   if (!t.is_infinite(vi) || !t.is_infinite(ci)) System.out.println("Pb 1");
+  
+  for (Delaunay_triangulation_3_Cell_handle ch : t.finite_cells()){
+    Tetrahedron_3 tetra=t.tetrahedron(ch);
+    Segment_3 seg=t.segment(ch,0,1);
+    Triangle_3 tri=t.triangle(ch,0);
+  }
+  
   
   System.out.println(t.dimension());
   System.out.println(t.number_of_vertices());

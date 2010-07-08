@@ -13,6 +13,9 @@
 #include "../Common/Macros.h"
 #include "../Kernel/Point_3.h"
 #include "../Kernel/Weighted_point_3.h"
+#include "../Kernel/Segment_3.h"
+#include "../Kernel/Triangle_3.h"
+#include "../Kernel/Tetrahedron_3.h"
 
 #ifdef SWIGPYTHON
 #include "../Python/Input_iterator_wrapper.h"
@@ -175,16 +178,20 @@ public:
   FORWARD_CALL_2(int,mirror_index,Cell_handle,int)
   FORWARD_CALL_2(Vertex_handle,mirror_vertex,Cell_handle,int)  
   FORWARD_CALL_1(Facet,mirror_facet,Facet)
+//Geometric access functions
+  FORWARD_CALL_1(Tetrahedron_3,tetrahedron,Cell_handle)
+  FORWARD_CALL_2(Triangle_3,triangle,Cell_handle,int)
+  FORWARD_CALL_1(Triangle_3,triangle,Facet)
+  FORWARD_CALL_1(Segment_3,segment,Edge)
+  FORWARD_CALL_3(Segment_3,segment,Cell_handle,int,int)
+  FORWARD_CALL_2(Point,point,Cell_handle,int)
+  FORWARD_CALL_1(Point,point,Vertex_handle)
 //Checking
   FORWARD_CALL_0(bool,is_valid)
   FORWARD_CALL_1(bool,is_valid,bool)
   FORWARD_CALL_1(bool,is_valid,Cell_handle)
   FORWARD_CALL_2(bool,is_valid,Cell_handle,bool)
 //I/O  
-
-
-  FORWARD_CALL_2(Point,point,Cell_handle,int)
-  FORWARD_CALL_1(Point,point,Vertex_handle)
 
 
 
@@ -205,14 +212,6 @@ public:
 //  TriangulationDataStructure_3 t.tds ()
 //Non const access
 //  TriangulationDataStructure_3 & t.tds()
-//Geometric access functions
-//  Tetrahedron t.tetrahedron ( Cell_handle c)
-//  Triangle t.triangle ( Cell_handle c, int i)
-//  Triangle t.triangle ( Facet f)
-//  Segment t.segment ( Edge e)
-//  Segment t.segment ( Cell_handle c, int i, int j)
-//  Point t.point ( Cell_handle c, int i)
-//  Point t.point ( Vertex_handle v)
 //Queries
 //  bool t.is_vertex ( Point p, Vertex_handle & v)  
 //  bool t.is_edge ( Vertex_handle u, Vertex_handle v, Cell_handle & c, int & i, int & j)

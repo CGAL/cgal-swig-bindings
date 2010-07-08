@@ -16,6 +16,8 @@ SWIG_JAVABODY_METHODS(public,public,Point_3)
 SWIG_JAVABODY_METHODS(public,public,Weighted_point_3)
 SWIG_JAVABODY_METHODS(public,public,Plane_3)
 SWIG_JAVABODY_METHODS(public,public,Segment_3)
+SWIG_JAVABODY_METHODS(public,public,Triangle_3)
+SWIG_JAVABODY_METHODS(public,public,Tetrahedron_3)
 SWIG_JAVABODY_METHODS(public,public,Line_3)
 #endif
 
@@ -29,6 +31,8 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
   #include "Weighted_point_3.h"
   #include "Plane_3.h"
   #include "Segment_3.h"
+  #include "Triangle_3.h"
+  #include "Tetrahedron_3.h"
   #include "Line_3.h"
   #include "global_functions.h"
 %}
@@ -43,6 +47,8 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
 %include "Plane_3.h"
 %include "Segment_3.h"
 %include "Line_3.h"
+%include "Triangle_3.h"
+%include "Tetrahedron_3.h"
 %include "../Common/global_function_macros.h"
 %include "global_function_signatures.h"
 

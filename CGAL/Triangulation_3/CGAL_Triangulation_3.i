@@ -1,9 +1,12 @@
 %module CGAL_Triangulation_3
 
 %include "../common.i"
+%import  "../Common/Macros.h"
 %import  "../Kernel/Point_3.h"
 %import  "../Kernel/Weighted_point_3.h"
-%import  "../Common/Macros.h"
+%import  "../Kernel/Segment_3.h"
+%import  "../Kernel/Tetrahedron_3.h"
+%import  "../Kernel/Triangle_3.h"
 %include "../Common/Input_iterator.h"
 
 //include files
