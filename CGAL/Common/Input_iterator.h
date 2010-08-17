@@ -59,6 +59,14 @@ struct Iterator_helper<CGAL_SWIG::Triple<T1,int,int> >{
   default_value(){return CGAL_SWIG::Triple<T1,int,int>(T1(NULL),-1,-1);}
 };
 
+template<>
+struct Iterator_helper<double>{
+  template <class T>
+  static double convert(const T& i){  return *i; }
+  static double default_value(){return 0.;}
+};
+
+
 #endif
 
 #ifdef SWIGPYTHON
