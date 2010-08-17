@@ -29,7 +29,7 @@
   %template(CLASSNAME_PREFIX##_Context_iterator) CGAL_Context_iterator<CPPTYPE,CDTP_context<CPPTYPE,CGAL_Vertex_handle<CPPTYPE,Point_2> > >;
 
   //Triangulation
-  %typemap(javaimports)          Constrained_triangulation_plus_2_wrapper%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Segment_2; import CGAL.Kernel.Triangle_2; import java.util.Iterator; import java.util.Collection;%}
+  %typemap(javaimports)          Constrained_triangulation_plus_2_wrapper%{import CGAL.Kernel.Point_2; import java.util.Iterator; import java.util.Collection;%}
   %template(EXPOSEDNAME)         Constrained_triangulation_plus_2_wrapper< Constrained_Delaunay_triangulation_2_wrapper< CPPTYPE,CGAL_Vertex_handle<CPPTYPE,Point_2>,CGAL_Face_handle<CPPTYPE,Point_2> >,CGAL_Vertex_handle<CPPTYPE,Point_2> >;
   %template (CLASSNAME_PREFIX##_Context) CDTP_context<CPPTYPE, CGAL_Vertex_handle<CPPTYPE,Point_2> >;
   

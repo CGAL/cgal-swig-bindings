@@ -1,7 +1,6 @@
 #ifndef SWIG_CGAL_TRIANGULATION_2_TRIANGULATION_ITERATORS_H
 #define SWIG_CGAL_TRIANGULATION_2_TRIANGULATION_ITERATORS_H
 
-#include "triangulation_handles.h"
 #include "../Common/Input_iterator.h"
 
 //For Triangulation_2

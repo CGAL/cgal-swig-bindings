@@ -6,6 +6,7 @@
 %import  "../Kernel/Weighted_point_2.h"
 %import  "../Kernel/Segment_2.h"
 %import  "../Kernel/Triangle_2.h"
+%import  "../Kernel/enum.h"
 %include "../Common/Input_iterator.h"
 
 //include files

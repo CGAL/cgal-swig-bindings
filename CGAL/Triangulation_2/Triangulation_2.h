@@ -10,6 +10,7 @@
 #include "../Kernel/Weighted_point_2.h"
 #include "../Kernel/Segment_2.h"
 #include "../Kernel/Triangle_2.h"
+#include "../Kernel/enum.h"
 #include "../Common/Macros.h"
 
 #ifdef SWIGPYTHON
@@ -22,7 +23,7 @@
 #include <boost/static_assert.hpp>
 
 enum Locate_type { VERTEX=0, EDGE, FACE, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
-enum Oriented_side { ON_NEGATIVE_SIDE=-1, ON_ORIENTED_BOUNDARY=0, ON_POSITIVE_SIDE=1};
+
 
 namespace internal{
 
@@ -97,6 +98,7 @@ public:
   FORWARD_CALL_2(Oriented_side,side_of_oriented_circle,Face_handle,Point)  
 // Modifiers
 //  FORWARD_CALL_2(void,flip,Face_handle,int) TODO: ambiguous call in CDT (their exist an overload with Face_handle&) 
+#ifndef CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
   FORWARD_CALL_1(Vertex_handle,insert,Point)
   FORWARD_CALL_2(Vertex_handle,insert,Point,Face_handle)
   FORWARD_CALL_1(Vertex_handle,push_back,Point)
@@ -113,7 +115,8 @@ public:
   Vertex_handle insert(const Point& p,Locate_type l,const Face_handle& f,int i) {return data.insert(p.get_data(),CGAL::enum_cast<typename Triangulation::Locate_type>(l),f.get_data(),i);}
   int insert_range(typename Weighting_helper<Weighted_tag>::Point_range range){
     return this->data.insert(range.first,range.second);
-  }  
+  }
+#endif  
 // Traversal of the Triangulation
   Finite_vertices_iterator finite_vertices(){return Finite_vertices_iterator(this->data.finite_vertices_begin(),this->data.finite_vertices_end());}
   Finite_edges_iterator finite_edges(){return Finite_edges_iterator(this->data.finite_edges_begin(),this->data.finite_edges_end());}

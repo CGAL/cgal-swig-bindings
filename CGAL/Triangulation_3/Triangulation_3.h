@@ -16,6 +16,7 @@
 #include "../Kernel/Segment_3.h"
 #include "../Kernel/Triangle_3.h"
 #include "../Kernel/Tetrahedron_3.h"
+#include "../Kernel/enum.h"
 
 #ifdef SWIGPYTHON
 #include "../Python/Input_iterator_wrapper.h"
@@ -27,8 +28,6 @@
 #endif
 
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
-enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};
-
 
 template <class Weighted_tag>
 struct Weighting_helper_3{

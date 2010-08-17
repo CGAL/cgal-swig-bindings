@@ -1,5 +1,11 @@
 %module CGAL_Kernel
 
+//Special treatment for enum in java
+#ifdef SWIGJAVA
+%include "enums.swg"
+%javaconst(1);
+#endif
+
 %import  "../Common/Macros.h"
 %include "../common.i"
 
@@ -35,6 +41,7 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
   #include "Tetrahedron_3.h"
   #include "Line_3.h"
   #include "global_functions.h"
+  #include "enum.h"
 %}
 
 //definitions
@@ -49,6 +56,7 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
 %include "Line_3.h"
 %include "Triangle_3.h"
 %include "Tetrahedron_3.h"
+%include "enum.h"
 %include "../Common/global_function_macros.h"
 %include "global_function_signatures.h"
 

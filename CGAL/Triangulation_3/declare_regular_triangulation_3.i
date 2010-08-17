@@ -12,7 +12,7 @@
   Declare_triangulation_3_internal(Internal_Triangulation_3_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,Weighted_point_3,CGAL::Tag_true)
 
 
-  %typemap(javaimports)          Regular_triangulation_3_wrapper%{import CGAL.Kernel.Weighted_point_3;import CGAL.Kernel.Segment_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Iterator; import java.util.Collection;%}  
+  %typemap(javaimports)          Regular_triangulation_3_wrapper%{import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Bounded_side; import java.util.Iterator; import java.util.Collection;%}  
   %template(EXPOSEDNAME)         Regular_triangulation_3_wrapper<CPPTYPE,CGAL_Vertex_handle<CPPTYPE,Weighted_point_3>,CGAL_Cell_handle<CPPTYPE,Weighted_point_3> >;  
 %enddef
 
