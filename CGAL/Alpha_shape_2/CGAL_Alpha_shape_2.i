@@ -19,6 +19,7 @@
 
 //include files
 %{
+  #include "../Kernel/typedefs.h"
   #include "Alpha_shape_2.h"
   #include "alpha_shape_handles.h"
   #include "../Triangulation_2/triangulation_iterators.h"
@@ -32,6 +33,7 @@
 %import "../Triangulation_2/triangulation_iterators.h"
 %import "../Triangulation_2/Triangulation_2.h"
 %import "../Triangulation_2/Delaunay_triangulation_2.h"
+%import "../Triangulation_2/Regular_triangulation_2.h"
 
 
 //vertex range
@@ -49,8 +51,12 @@ Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_false>::Point_range,Point_
 //typemap for weighted point input iterator
 Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_true>::Point_range,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",make_alpha_shape)
 
-#ifdef   SWIG_EXPOSE_ALPHA_SHAPE_2
 %import "declare_alpha_shape_2.i"
-Declare_alpha_shape_2(Alpha_shape_2,CGAL_AS2,Point_2,CGAL::Tag_false)
+
+#ifdef   SWIG_EXPOSE_ALPHA_SHAPE_2
+Declare_alpha_shape_2(Alpha_shape_2,CGAL_AS2)
 #endif //SWIG_EXPOSE_ALPHA_SHAPE_2
+#ifdef   SWIG_EXPOSE_WEIGHTED_ALPHA_SHAPE_2
+Declare_weighted_alpha_shape_2(Weighted_alpha_shape_2,CGAL_WAS2)
+#endif //SWIG_EXPOSE_WEIGHTED_ALPHA_SHAPE_2
 

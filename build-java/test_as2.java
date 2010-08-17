@@ -1,6 +1,8 @@
 import CGAL.Kernel.Point_2;
+import CGAL.Kernel.Weighted_point_2;
 import CGAL.Kernel.CGAL_Kernel;
 import CGAL.Alpha_shape_2.Alpha_shape_2;
+import CGAL.Alpha_shape_2.Weighted_alpha_shape_2;
 import CGAL.Alpha_shape_2.Mode;
 import CGAL.Alpha_shape_2.Classification_type;
 import CGAL.Alpha_shape_2.Alpha_shape_2_Alpha_iterator;
@@ -53,5 +55,15 @@ public class test_as2 {
       System.out.println(i.getThird());
     }
     
+    Weighted_alpha_shape_2 was=new Weighted_alpha_shape_2();
+    LinkedList<Weighted_point_2> lst_wp=new LinkedList<Weighted_point_2>();
+    lst_wp.add( new Weighted_point_2( new Point_2(0,0) ,1 ) );
+    lst_wp.add( new Weighted_point_2( new Point_2(0,4) ,1 ) );
+    lst_wp.add( new Weighted_point_2( new Point_2(44,0) ,1 ) );
+    lst_wp.add( new Weighted_point_2( new Point_2(44,5) ,1 ) );
+    lst_wp.add( new Weighted_point_2( new Point_2(444,51) ,1 ) );
+    lst_wp.add( new Weighted_point_2( new Point_2(14,1) ,1 ) );
+    
+    was.make_alpha_shape(lst_wp.iterator());
   }
 }

@@ -2,7 +2,12 @@
 #define SWIG_CGAL_ALPHA_SHAPE_2_ALPHA_SHAPE_2_H
 
 #include <CGAL/Alpha_shape_2.h>
+#include <CGAL/Weighted_point.h>
+#include <CGAL/Weighted_alpha_shape_euclidean_traits_2.h>
+#include <CGAL/Regular_triangulation_2.h>
+
 #include "../Triangulation_2/Delaunay_triangulation_2.h"
+#include "../Triangulation_2/Regular_triangulation_2.h"
 
 enum Classification_type { EXTERIOR, SINGULAR, REGULAR, INTERIOR};
 enum Mode { GENERAL, REGULARIZED};
@@ -29,8 +34,8 @@ DECLARE_ITERATOR_CLASS(Alpha_iterator)
 DECLARE_ITERATOR_CLASS(Alpha_shape_vertices_iterator)
 DECLARE_ITERATOR_CLASS(Alpha_shape_edges_iterator)
 
-template <class Alpha_shape,class Point, class Vertex_handle, class Face_handle,class Weighted_tag>
-class Alpha_shape_2_wrapper : public Delaunay_triangulation_2_wrapper<Alpha_shape,Vertex_handle,Face_handle>
+template <class Alpha_shape,class Point, class Vertex_handle, class Face_handle,class Weighted_tag,class Base>
+class Alpha_shape_2_wrapper : public Base
 {
 public:
   typedef std::pair<Face_handle,int> Edge;
