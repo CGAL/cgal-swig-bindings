@@ -1,7 +1,6 @@
 #ifndef SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_3_H
 #define SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_3_H
 
-#include <boost/function_output_iterator.hpp>
 #include <boost/static_assert.hpp>
 #include <CGAL/Triangulation_3.h>
 

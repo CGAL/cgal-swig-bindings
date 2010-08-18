@@ -45,7 +45,18 @@ struct Iterator_helper<std::pair<T1,int> >{
   }
   
   static std::pair<T1,int>
-  default_value(){return std::pair<T1,int>(T1(NULL),-1);}
+  default_value(){return std::pair<T1,int>(T1(),-1);}
+};
+
+template<class T1>
+struct Iterator_helper<std::pair<T1,double> >{
+  template <class T>
+  static std::pair<T1,double> convert(const T& i){
+    return std::pair<T1,double>(T1(i->first),i->second);
+  }
+  
+  static std::pair<T1,double>
+  default_value(){return std::pair<T1,double>(T1(),-1);}
 };
 
 template<class T1>
@@ -56,7 +67,7 @@ struct Iterator_helper<CGAL_SWIG::Triple<T1,int,int> >{
   }
   
   static CGAL_SWIG::Triple<T1,int,int>
-  default_value(){return CGAL_SWIG::Triple<T1,int,int>(T1(NULL),-1,-1);}
+  default_value(){return CGAL_SWIG::Triple<T1,int,int>(T1(),-1,-1);}
 };
 
 template<>
@@ -73,19 +84,19 @@ struct Iterator_helper<double>{
 
 #include "../Python/exceptions.h"
 
-#define DECLARE_ITERATOR_CLASS(NAME)                           \
+#define DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)             \
 template<class T,class R>                                      \
-class CGAL_##NAME{                                             \
+class EXPOSEDNAME{                                             \
   typename T::NAME cur;                                        \
   typename T::NAME end;                                        \
 public:                                                        \
                                                                \
-  CGAL_##NAME(                                                 \
+  EXPOSEDNAME(                                                 \
     typename T::NAME cur_,                                     \
     typename T::NAME end_                                      \
   ):cur(cur_),end(end_){}                                      \
                                                                \
-  CGAL_##NAME<T,R> __iter__(){return *this;}                   \
+  EXPOSEDNAME<T,R> __iter__(){return *this;}                   \
   R next()                                                     \
   {                                                            \
     if (cur!=end)                                              \
@@ -99,14 +110,14 @@ public:                                                        \
   }                                                            \
 };       
 #else
-#define DECLARE_ITERATOR_CLASS(NAME)                           \
+#define DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)             \
 template<class T,class R>                                      \
-class CGAL_##NAME{                                             \
+class EXPOSEDNAME{                                             \
   typename T::NAME cur;                                        \
   typename T::NAME end;                                        \
 public:                                                        \
                                                                \
-  CGAL_##NAME(                                                 \
+  EXPOSEDNAME(                                                 \
     typename T::NAME cur_,                                     \
     typename T::NAME end_                                      \
   ):cur(cur_),end(end_){}                                      \
@@ -126,14 +137,14 @@ public:                                                        \
 
 
 
-#define DECLARE_CIRCULATOR_CLASS(NAME)                         \
+#define DECLARE_CIRCULATOR_CLASS_2(NAME,EXPOSEDNAME)           \
 template<class T,class R>                                      \
-class CGAL_##NAME{                                             \
+class EXPOSEDNAME{                                             \
   typename T::NAME cur;                                        \
 public:                                                        \
   typedef typename T::NAME cpp_base;                           \
-  CGAL_##NAME( typename T::NAME cur_):cur(cur_){}              \
-    CGAL_##NAME<T,R> __iter__(){return *this;}                 \
+  EXPOSEDNAME( typename T::NAME cur_):cur(cur_){}              \
+    EXPOSEDNAME<T,R> __iter__(){return *this;}                 \
   R next() {                                                   \
     return Iterator_helper<R>::convert ( (cur++) );            \
   }                                                            \
@@ -142,5 +153,8 @@ public:                                                        \
   }                                                            \
   bool hasNext(){return true; }                                \
 };
+
+#define DECLARE_ITERATOR_CLASS(NAME)            DECLARE_ITERATOR_CLASS_2(NAME,CGAL_##NAME)
+#define DECLARE_CIRCULATOR_CLASS(NAME)          DECLARE_CIRCULATOR_CLASS_2(NAME,CGAL_##NAME)
 
 #endif //CGAL_SWIG_INPUT_ITERATOR_H

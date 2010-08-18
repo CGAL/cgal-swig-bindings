@@ -1,6 +1,7 @@
 #ifndef CGAL_SWIG_PYTHON_OUTPUT_ITERATOR_WRAPPER_H
 #define CGAL_SWIG_PYTHON_OUTPUT_ITERATOR_WRAPPER_H
 
+#include <boost/function_output_iterator.hpp>
 #include "exceptions.h"
 
 template<class Cpp_wrapper,class Cpp_base>
