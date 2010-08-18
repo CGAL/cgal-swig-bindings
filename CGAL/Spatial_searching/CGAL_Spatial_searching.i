@@ -32,13 +32,15 @@
 //==================
 
 //typemap for point input iterator
-Typemap_for_Input_iterator(SWIG_OI_T_2::Point_range,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert_range)
+Typemap_for_Input_iterator(Point_range_helper<Point_2>::type,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert_range)
+Typemap_for_Input_iterator(Point_range_helper<Point_3>::type,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
 
 %typemap(javaimports)       Fuzzy_sphere_wrapper%{import CGAL.Kernel.Point_2;%}
 %template(Fuzzy_sphere_2)   Fuzzy_sphere_wrapper <CGAL_FS_2,Point_2>;
 %typemap(javaimports)       Fuzzy_iso_box_wrapper%{import CGAL.Kernel.Point_2;%}
 %template(Fuzzy_iso_box_2)  Fuzzy_iso_box_wrapper<CGAL_FB_2,Point_2>;
-%typemap(javaimports)       Kd_tree_wrapper%{import CGAL.Kernel.Point_2;%}
+//~ %typemap(javaimports)       Kd_tree_wrapper%{import CGAL.Kernel.Point_2;import java.util.Iterator; import java.util.Collection;%}
+%typemap(javaimports)       Kd_tree_wrapper%{import CGAL.Kernel.Point_2;import java.util.Iterator;%}
 %template(Orthogonal_incremental_neighbor_search_tree_2) Kd_tree_wrapper<CGAL_OI_T_2,Point_2,SWIG_FS_2,SWIG_FB_2>;
 %typemap(javaimports)       NN_search_wrapper%{import CGAL.Kernel.Point_2;%}
 %template(Orthogonal_incremental_neighbor_search_2) NN_search_wrapper<CGAL_OI_S_2,Point_2,SWIG_OI_T_2>;

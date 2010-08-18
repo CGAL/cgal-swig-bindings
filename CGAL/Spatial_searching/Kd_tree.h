@@ -17,6 +17,11 @@
 
 DECLARE_ITERATOR_CLASS_2(iterator,Kd_tree_iterator)
 
+template <class Query>
+struct Point_range_helper{
+  typedef std::pair<Input_iterator_wrapper<Query,typename Query::cpp_base>,Input_iterator_wrapper<Query,typename Query::cpp_base> > type;
+};
+
 template<class Cpp_base, class Query, class Fuzzy_sphere, class Fuzzy_iso_box>
 class Kd_tree_wrapper{
   Cpp_base data;
@@ -25,7 +30,7 @@ public:
   typedef Kd_tree_iterator<Cpp_base,Query> Iterator;
   typedef Query Point_d;
 //Input iterator
-  typedef std::pair<Input_iterator_wrapper<Point_d,typename Point_d::cpp_base>,Input_iterator_wrapper<Point_d,typename Point_d::cpp_base> > Point_range; 
+  typedef typename Point_range_helper<Query>::type Point_range; 
 //Output iterator
   typedef boost::function_output_iterator< Container_writer<Point_d,typename Point_d::cpp_base> >                         Point_d_Output_iterator;
 
