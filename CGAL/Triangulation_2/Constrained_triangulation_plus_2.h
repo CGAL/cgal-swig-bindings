@@ -5,15 +5,17 @@
 #include <CGAL/Constrained_triangulation_plus_2.h>
 
 #ifndef SWIG
-template<class T1,class T2>
-struct Iterator_helper<std::pair<T1,T2> >{
+#include "triangulation_handles.h"
+template <class Triangulation,class Point>
+struct Iterator_helper<std::pair<CGAL_Vertex_handle<Triangulation,Point>,CGAL_Vertex_handle<Triangulation,Point> > >{
+  typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
   template <class T>
-  static std::pair<T1,T2> convert(const T& i){
-    return std::pair<T1,T2>(T1(i->first.first),T2(i->first.second));
+  static std::pair<Vertex_handle,Vertex_handle> convert(const T& i){
+    return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(i->first.first),Vertex_handle(i->first.second));
   }
   
-  static std::pair<T1,T2>
-  default_value(){return std::pair<T1,T2>(T1(NULL),T2(NULL));}
+  static std::pair<Vertex_handle,Vertex_handle>
+  default_value(){return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(NULL),Vertex_handle(NULL));}
 };
 #endif
 
