@@ -18,8 +18,9 @@
 DECLARE_ITERATOR_CLASS_2(iterator,Kd_tree_iterator)
 
 template <class Query>
-struct Point_range_helper{
-  typedef std::pair<Input_iterator_wrapper<Query,typename Query::cpp_base>,Input_iterator_wrapper<Query,typename Query::cpp_base> > type;
+struct Query_iterator_helper{
+  typedef std::pair<Input_iterator_wrapper<Query,typename Query::cpp_base>,Input_iterator_wrapper<Query,typename Query::cpp_base> > input;
+  typedef boost::function_output_iterator< Container_writer<Query,typename Query::cpp_base> >                                       output;
 };
 
 template<class Cpp_base, class Query, class Fuzzy_sphere, class Fuzzy_iso_box>
@@ -30,9 +31,9 @@ public:
   typedef Kd_tree_iterator<Cpp_base,Query> Iterator;
   typedef Query Point_d;
 //Input iterator
-  typedef typename Point_range_helper<Query>::type Point_range; 
+  typedef typename Query_iterator_helper<Query>::input       Point_range; 
 //Output iterator
-  typedef boost::function_output_iterator< Container_writer<Point_d,typename Point_d::cpp_base> >                         Point_d_Output_iterator;
+  typedef typename Query_iterator_helper<Query>::output      Point_d_Output_iterator;
 
 
   const cpp_base& get_data() const {return data;}
@@ -44,8 +45,8 @@ public:
   Iterator iterator(){return Iterator(data.begin(),data.end());}
   FORWARD_CALL_0(void,clear)
   FORWARD_CALL_0(int,size)
-  //~ void search(Point_d_Output_iterator out, const Fuzzy_sphere& fsphere) { data.search(out,fsphere.get_data());}
-  //~ void search(Point_d_Output_iterator out, const Fuzzy_iso_box& fbox)   { data.search(out,fbox.get_data());}
+  void search_sphere(Point_d_Output_iterator out, const Fuzzy_sphere& fsphere) { data.search(out,fsphere.get_data());}
+  void search_box(Point_d_Output_iterator out, const Fuzzy_iso_box& fbox)   { data.search(out,fbox.get_data());}
 };
 
 

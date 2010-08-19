@@ -41,11 +41,3 @@ typedef CGAL_K_S_3 ::Tree                                         CGAL_K_T_3;
 typedef CGAL_OK_S_3::Tree                                         CGAL_OK_T_3;
 %}
 
-//macro to decide which classes to expose
-#define SWIG_EXPOSE_SPATIAL_SEARCH_2
-#define SWIG_EXPOSE_SPATIAL_SEARCH_3
-
-
-
-
-

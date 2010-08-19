@@ -1,7 +1,11 @@
 import CGAL.Kernel.Point_2;
 import CGAL.Spatial_searching.Orthogonal_incremental_neighbor_search_tree_2;
 import CGAL.Spatial_searching.Orthogonal_incremental_neighbor_search_2;
+import CGAL.Spatial_searching.K_neighbor_search_tree_2;
+import CGAL.Spatial_searching.K_neighbor_search_2;
 import CGAL.Spatial_searching.Point_with_transformed_distance_2;
+import CGAL.Spatial_searching.Fuzzy_sphere_2;
+import CGAL.Spatial_searching.Fuzzy_iso_box_2;
 import java.util.LinkedList;
 
 public class test_sp {
@@ -25,6 +29,20 @@ public class test_sp {
     
     for (Point_with_transformed_distance_2 p : search.iterator())
       System.out.println(p.getFirst()+" "+p.getSecond());
+  
+    LinkedList<Point_2> lst_search = new LinkedList<Point_2>();
+    Fuzzy_sphere_2 fs = new Fuzzy_sphere_2(new Point_2(0,0),8);
+    Fuzzy_iso_box_2 fb = new Fuzzy_iso_box_2(new Point_2(-4,-4),new Point_2(4,4.1));
+    tree.search_sphere(lst_search,fs);
+    System.out.println(lst_search.size());
+    tree.search_box(lst_search,fb);
+    System.out.println(lst_search.size());
+    
+    K_neighbor_search_tree_2 tree2= new K_neighbor_search_tree_2();
+    tree2.insert_range(lst.iterator());
+    K_neighbor_search_2 search2 = new K_neighbor_search_2(tree2,new Point_2(0,0),3);
+    for (Point_with_transformed_distance_2 p : search2.iterator())
+      System.out.println(p.getFirst()+" "+p.getSecond());    
   }
   
 }
