@@ -14,7 +14,7 @@
 %import "../common.i"
 %{
 #include "../Java/JavaData.h"
-#include "Polyhedron_items_with_id_and_info_3.h"
+#include "../Polyhedron_3/Polyhedron_items_with_id_and_info_3.h"
 %}
 
 %define Polyhedron_3_
@@ -35,7 +35,7 @@ CGAL_Facet_handle<Polyhedron_3_>
 
 //modifiers examples
 %{ 
-  #include "modifier_example.h" 
+  #include "../Polyhedron_3/modifier_example.h" 
 %}
 %include "Modifier_base.h"
 
@@ -52,7 +52,7 @@ Typemap_for_Input_iterator(Triple_integer_range,Integer_triple,iInteger_triple,S
   #include "../Common/triple.h"
   typedef CGAL_SWIG::Triple<int,int,int> iInteger_triple;
   
-  #include "Modifier_base.h"
+  #include "../Polyhedron_3/Modifier_base.h"
   #include <CGAL/Polyhedron_3.h>
 %}
 %typemap(javaimports) Modifier_wrapper %{import CGAL.Kernel.Point_3; import java.util.Iterator;%} //need some imports for that modifier
