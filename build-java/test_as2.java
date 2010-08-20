@@ -16,8 +16,7 @@ import java.util.Iterator;
 public class test_as2 {
   public static void main(String arg[]){
     System.loadLibrary("CGAL_Alpha_shape_2");
-    Alpha_shape_2 t=new Alpha_shape_2(0,Mode.GENERAL);
-    
+        
     LinkedList<Point_2> lst=new LinkedList<Point_2>();
     lst.add( new Point_2(0,0) );
     lst.add( new Point_2(0,4) );
@@ -26,6 +25,9 @@ public class test_as2 {
     lst.add( new Point_2(444,51) );
     lst.add( new Point_2(14,1) );
     
+    Alpha_shape_2 t=new Alpha_shape_2(lst.iterator(),0,Mode.GENERAL);
+    Alpha_shape_2 t2=new Alpha_shape_2(lst.iterator(),0);
+    t.clear();
     t.make_alpha_shape(lst.iterator());
     
     for (Double d : t.alpha())

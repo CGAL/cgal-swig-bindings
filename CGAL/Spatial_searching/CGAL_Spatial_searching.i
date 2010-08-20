@@ -40,6 +40,9 @@
 //typemap for point input iterator
 Typemap_for_Input_iterator(Query_iterator_helper<Point_2>::input,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert_range)
 Typemap_for_Input_iterator(Query_iterator_helper<Point_3>::input,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
+#ifdef SWIGPYTHON
+Typemap_for_Input_iterator_additional_function(Kd_tree_wrapper::Kd_tree_wrapper)
+#endif
 
 //Fuzzy objects
 %typemap(javaimports)       Fuzzy_sphere_wrapper%{import CGAL.Kernel.Point_2;%}

@@ -38,7 +38,10 @@ public:
 
   const cpp_base& get_data() const {return data;}
   cpp_base& get_data_ref() {return data;}
-
+//Creation
+  Kd_tree_wrapper(){}
+  Kd_tree_wrapper(Point_range range):data(range.first,range.second){}
+  
 //Operations
   FORWARD_CALL_1(void,insert,Point_d)
   void insert_range(Point_range range){ data.insert(range.first,range.second);}

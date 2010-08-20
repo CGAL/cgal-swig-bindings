@@ -44,7 +44,14 @@ public:
   typedef CGAL_Alpha_shape_edges_iterator<Alpha_shape,Edge>                    Alpha_shape_edges_iterator;
 //Creation
   Alpha_shape_2_wrapper(){}
-  Alpha_shape_2_wrapper(double alpha,Mode m){this->data.set_alpha(alpha);this->data.set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );}
+  Alpha_shape_2_wrapper(double alpha){this->data.set_alpha(alpha);}
+  Alpha_shape_2_wrapper(typename Weighting_helper<Weighted_tag>::Point_range range,double alpha){this->data.set_alpha(alpha); this->data.make_alpha_shape(range.first,range.second);}
+  Alpha_shape_2_wrapper(double alpha,Mode m){this->data.set_alpha(alpha);this->data.set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );}    
+  Alpha_shape_2_wrapper(typename Weighting_helper<Weighted_tag>::Point_range range,double alpha,Mode m){
+    this->data.set_alpha(alpha);
+    this->data.set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );
+    this->data.make_alpha_shape(range.first,range.second);  
+  }
 //Operations
   FORWARD_CALL_0(Mode,set_mode)
   Mode set_mode(Mode m){return CGAL::enum_cast<Mode>( this->data.set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) ) );}
