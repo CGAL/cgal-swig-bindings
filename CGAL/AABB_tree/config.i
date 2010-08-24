@@ -9,8 +9,9 @@
 //TEMPORAIRE
 #include "../Java/JavaData.h"
 #include "../Polyhedron_3/Polyhedron_items_with_id_and_info_3.h"
-typedef CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_and_info_3<JavaData> > Polyhedron_3_;
+typedef CGAL::Polyhedron_3<EPIC_Kernel> Polyhedron_3_;
 typedef CGAL_Facet_handle<Polyhedron_3_> Polyhedron_3_Facet_handle;
+typedef CGAL_Halfedge_handle<Polyhedron_3_> Polyhedron_3_Halfedge_handle;
   
 // Polyhedron Triangle Primitive
 typedef CGAL::AABB_polyhedron_triangle_primitive<EPIC_Kernel,Polyhedron_3_>     CGAL_PTP;
