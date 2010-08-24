@@ -10,6 +10,7 @@
 #include "Plane_3.h"
 #include "Line_3.h"
 #include "Segment_3.h"
+#include "Object.h"
 
 
 #include "../Common/global_function_macros.h"

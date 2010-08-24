@@ -25,6 +25,7 @@ SWIG_JAVABODY_METHODS(public,public,Segment_3)
 SWIG_JAVABODY_METHODS(public,public,Triangle_3)
 SWIG_JAVABODY_METHODS(public,public,Tetrahedron_3)
 SWIG_JAVABODY_METHODS(public,public,Line_3)
+SWIG_JAVABODY_METHODS(public,public,Object)
 #endif
 
 //include files
@@ -40,6 +41,7 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
   #include "Triangle_3.h"
   #include "Tetrahedron_3.h"
   #include "Line_3.h"
+  #include "Object.h"
   #include "global_functions.h"
   #include "enum.h"
 %}
@@ -56,6 +58,7 @@ SWIG_JAVABODY_METHODS(public,public,Line_3)
 %include "Line_3.h"
 %include "Triangle_3.h"
 %include "Tetrahedron_3.h"
+%include "Object.h"
 %include "enum.h"
 %include "../Common/global_function_macros.h"
 %include "global_function_signatures.h"
