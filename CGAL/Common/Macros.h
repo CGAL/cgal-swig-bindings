@@ -33,8 +33,10 @@ SPECIALIZE_CONVERTER(unsigned)
 SPECIALIZE_CONVERTER(bool)
 SPECIALIZE_CONVERTER(double)
 SPECIALIZE_CONVERTER(float)
+#ifndef SWIG
 typedef  CGAL_SWIG::Triple<int,int,int> TRIPLE_INT;
 SPECIALIZE_CONVERTER( TRIPLE_INT )
+#endif
 
 
 //TODO if need performance think about pointers
