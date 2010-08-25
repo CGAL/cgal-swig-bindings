@@ -6,7 +6,7 @@
 #include "../Common/Optional.h"
 #include "../Kernel/Point_3.h"
 #include "../Kernel/Plane_3.h"
-#include "../Kernel/Object.h"
+#include "../Kernel/CGAL_Object.h"
 #include "../Kernel/Segment_3.h"
 #include "../Kernel/Triangle_3.h"
 
@@ -26,7 +26,10 @@ struct Primitive_iterator_helper
   typedef std::pair<Input_iterator_wrapper<Primitive_object,typename Primitive_object::cpp_base>,
                     Input_iterator_wrapper<Primitive_object,typename Primitive_object::cpp_base> >                      input;
   typedef boost::function_output_iterator< Container_writer<Primitive_object,typename Primitive_object::cpp_base> >     output;
+  typedef boost::function_output_iterator< Container_writer<std::pair<CGAL_Object,Primitive_object>,std::pair<CGAL::Object,typename Primitive_object::cpp_base> > >     output2;
 };
+
+typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
 
 template <class Tree,class Primitive_object,class Primitive_id>
 class AABB_tree_wrapper
@@ -36,8 +39,9 @@ public:
   typedef Tree cpp_base;
   typedef typename Primitive_iterator_helper<Primitive_object>::input Primitive_range;
   typedef std::pair<Point_3,Primitive_id> Point_and_primitive_id;
+  typedef std::pair<CGAL_Object,Primitive_id>  Object_and_primitive_id;
   typedef Optional<Primitive_id> Optional_primitive_id;
-
+  typedef Optional<Object_and_primitive_id> Optional_object_and_primitive_id;
   const cpp_base& get_data() const {return data;}
   cpp_base& get_data_ref() {return data;}
 
@@ -82,6 +86,34 @@ public:
     return Optional_primitive_id();
   }
 //Intersections
+  //any_intersection
+  Optional_object_and_primitive_id any_intersection(const Segment_3& query)
+  {
+    boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> > res=data.any_intersection(query.get_data());
+    if (res)
+      return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
+    return Optional_object_and_primitive_id();
+  }
+  Optional_object_and_primitive_id any_intersection(const Plane_3& query)
+  {
+    boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> > res=data.any_intersection(query.get_data());
+    if (res)
+      return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
+    return Optional_object_and_primitive_id();
+  }
+#warning CGAL this
+//Optional_object_and_primitive_id any_intersection(const Triangle_3& query)
+//{
+//  boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> > res=data.any_intersection(query.get_data());
+//  if (res)
+//    return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
+//  return Optional_object_and_primitive_id();
+//}
+  //all_intersections
+  void all_intersections (const Segment_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
+  void all_intersections (const Plane_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
+#warning CGAL this  
+//void all_intersections (const Triangle_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   
 //Distance Queries
   FORWARD_CALL_1(double,squared_distance,Point_3)
@@ -92,18 +124,12 @@ public:
   FORWARD_CALL_2(double,squared_distance,Point_3,Point_3)
   FORWARD_CALL_2(Point_3,closest_point,Point_3,Point_3)
   FORWARD_CALL_2(Point_and_primitive_id,closest_point_and_primitive,Point_3,Point_and_primitive_id)  
+  void accelerate_distance_queries (Point_range range) {data.accelerate_distance_queries(range.first,range.second);}  
 };
 
 
 #endif //SWIG_CGAL_AABB_TREE_AABB_TREE_H
 
-//Types
-//  typedef std::pair<CGAL::Object, Primitive::Id> Object_and_primitive_id;
-//Intersections
-//  template <class Query, class OutputIterator> OutputIterator  tree.all_intersections ( Query query, OutputIterator out)
-//  template <class Query> boost::optional<Object_and_primitive_id>  tree.any_intersection ( Query query)
-//Accelerating the Distance Queries
-//  template <class InputIterator, class PointAndIdBuilder> bool  tree.accelerate_distance_queries (  InputIterator begin, InputIterator beyond, PointAndIdBuilder idb = PointAndIdBuilder())
 
 
 
