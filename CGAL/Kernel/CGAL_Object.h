@@ -18,7 +18,7 @@
   TYPE get_##TYPE() { return TYPE ( CGAL::object_cast<TYPE::cpp_base>(data) ); }
   
 
-class Object
+class CGAL_Object
 {
   CGAL::Object data;
 public:
@@ -26,8 +26,8 @@ public:
   const cpp_base& get_data(){return data;}
   cpp_base& get_data_ref(){return data;}
   
-  Object(){}
-  Object(const cpp_base& base):data(base){}
+  CGAL_Object(){}
+  CGAL_Object(const cpp_base& base):data(base){}
     
   DECLARE_FCT_IS_AND_GET(Point_2)
   DECLARE_FCT_IS_AND_GET(Point_3)

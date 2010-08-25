@@ -56,21 +56,21 @@ FORWARD_CALL_GF_2(bool,do_intersect,Triangle_2,Segment_2)
 
 //intersection
 //dimension 3
-FORWARD_CALL_GF_2(Object,intersection,Plane_3,Segment_3)
-FORWARD_CALL_GF_2(Object,intersection,Plane_3,Line_3)
-FORWARD_CALL_GF_2(Object,intersection,Plane_3,Plane_3)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Plane_3,Segment_3)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Plane_3,Line_3)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Plane_3,Plane_3)
 
-FORWARD_CALL_GF_2(Object,intersection,Segment_3,Plane_3)
-FORWARD_CALL_GF_2(Object,intersection,Segment_3,Segment_3)
-FORWARD_CALL_GF_2(Object,intersection,Segment_3,Line_3)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Segment_3,Plane_3)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Segment_3,Segment_3)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Segment_3,Line_3)
 
-FORWARD_CALL_GF_2(Object,intersection,Line_3,Plane_3)
-FORWARD_CALL_GF_2(Object,intersection,Line_3,Segment_3)
-FORWARD_CALL_GF_2(Object,intersection,Line_3,Line_3)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Line_3,Plane_3)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Line_3,Segment_3)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Line_3,Line_3)
 
 //dimension 2
-FORWARD_CALL_GF_2(Object,intersection,Segment_2,Segment_2)
-FORWARD_CALL_GF_2(Object,intersection,Segment_2,Triangle_2)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Segment_2,Segment_2)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Segment_2,Triangle_2)
 
-FORWARD_CALL_GF_2(Object,intersection,Triangle_2,Triangle_2)
-FORWARD_CALL_GF_2(Object,intersection,Triangle_2,Segment_2)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Triangle_2,Triangle_2)
+FORWARD_CALL_GF_2(CGAL_Object,intersection,Triangle_2,Segment_2)
