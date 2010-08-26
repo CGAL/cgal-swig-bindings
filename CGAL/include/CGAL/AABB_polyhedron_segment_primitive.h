@@ -48,8 +48,15 @@ namespace CGAL {
         AABB_polyhedron_segment_primitive(const Id& handle)
             : m_halfedge_handle(handle)  { };
         template <class Iterator>
-        AABB_polyhedron_segment_primitive(Iterator it)
-            : m_halfedge_handle(*it)  { };
+        AABB_polyhedron_segment_primitive(Iterator it,
+                                          typename boost::enable_if< 
+                                                boost::mpl::or_<
+                                                  boost::is_same<Id,typename Iterator::value_type>,
+                                                  boost::is_same<Id,Iterator*> 
+                                                >
+                                          >::type* =0            
+            
+        ) : m_halfedge_handle(*it)  { };
 
         AABB_polyhedron_segment_primitive(const Self& primitive)
             : m_halfedge_handle(primitive.m_halfedge_handle) {}

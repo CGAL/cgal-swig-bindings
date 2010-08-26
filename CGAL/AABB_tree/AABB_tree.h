@@ -101,19 +101,17 @@ public:
       return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
     return Optional_object_and_primitive_id();
   }
-#warning CGAL this
-//Optional_object_and_primitive_id any_intersection(const Triangle_3& query)
-//{
-//  boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> > res=data.any_intersection(query.get_data());
-//  if (res)
-//    return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
-//  return Optional_object_and_primitive_id();
-//}
+  Optional_object_and_primitive_id any_intersection(const Triangle_3& query)
+  {
+    boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> > res=data.any_intersection(query.get_data());
+    if (res)
+      return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
+    return Optional_object_and_primitive_id();
+  }
   //all_intersections
   void all_intersections (const Segment_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   void all_intersections (const Plane_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
-#warning CGAL this  
-//void all_intersections (const Triangle_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
+  void all_intersections (const Triangle_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   
 //Distance Queries
   FORWARD_CALL_1(double,squared_distance,Point_3)
