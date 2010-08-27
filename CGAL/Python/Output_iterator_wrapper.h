@@ -31,7 +31,31 @@ public:
   }
 };
 
+template<>
+class Container_writer<int,int>{
+  PyObject* list;
+  
+public:
 
+  Container_writer(){}
+  Container_writer(PyObject * list_,swig_type_info*):list(list_)
+  {
+    // CGAL_precondition(PyList_Check(list)); //properly handle by a typecheck in SWIG macro
+    //only for function with overload !!!
+    if (!PyList_Check(list)){
+      SWIG_SetErrorMsg(PyExc_TypeError, "Not a List.");
+      throw Not_a_list();
+    }    
+  }
+ 
+  void operator()(int new_base) {
+    
+    PyObject* py_object=PyInt_FromLong(new_base);
+    assert(py_object!=NULL);
+    PyList_Append(list,py_object);
+    Py_DECREF(py_object);
+  }
+};
 
 #endif// CGAL_SWIG_PYTHON_OUTPUT_ITERATOR_WRAPPER_H
 

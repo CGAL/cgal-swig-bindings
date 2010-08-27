@@ -23,10 +23,10 @@
 template <class Primitive_object>
 struct Primitive_iterator_helper
 {
-  typedef std::pair<Input_iterator_wrapper<Primitive_object,typename Primitive_object::cpp_base>,
-                    Input_iterator_wrapper<Primitive_object,typename Primitive_object::cpp_base> >                      input;
-  typedef boost::function_output_iterator< Container_writer<Primitive_object,typename Primitive_object::cpp_base> >     output;
-  typedef boost::function_output_iterator< Container_writer<std::pair<CGAL_Object,Primitive_object>,std::pair<CGAL::Object,typename Primitive_object::cpp_base> > >     output2;
+  typedef std::pair<Input_iterator_wrapper<Primitive_object,typename internal::Converter<Primitive_object>::result_type>,
+                    Input_iterator_wrapper<Primitive_object,typename internal::Converter<Primitive_object>::result_type> >                      input;
+  typedef boost::function_output_iterator< Container_writer<Primitive_object,typename internal::Converter<Primitive_object>::result_type > >     output;
+  typedef boost::function_output_iterator< Container_writer<std::pair<CGAL_Object,Primitive_object>,std::pair<CGAL::Object,typename internal::Converter<Primitive_object>::result_type > > >     output2;
 };
 
 typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;

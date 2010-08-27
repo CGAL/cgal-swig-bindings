@@ -1,20 +1,25 @@
 import CGAL.Kernel.Point_3;
 import CGAL.Kernel.Plane_3;
 import CGAL.Kernel.Segment_3;
+import CGAL.Kernel.Triangle_3;
 import CGAL.Polyhedron_3.Polyhedron_3;
 import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle;
 import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle;
 import CGAL.AABB_tree.AABB_tree_Polyhedron_3_Facet;
 import CGAL.AABB_tree.AABB_tree_Polyhedron_3_Halfedge;
+import CGAL.AABB_tree.AABB_tree_Triangle_3_soup;
 import CGAL.AABB_tree.Point_and_Polyhedron_3_Halfedge_handle;
 import CGAL.AABB_tree.Optional_Polyhedron_3_Facet_handle;
 import CGAL.AABB_tree.Optional_Object_and_Polyhedron_3_Facet_handle;
+import CGAL.AABB_tree.Optional_Integer;
+import CGAL.AABB_tree.Object_and_Integer;
 import CGAL.AABB_tree.Object_and_Polyhedron_3_Facet_handle;
 import CGAL.AABB_tree.Object_and_Polyhedron_3_Halfedge_handle;
 import CGAL.Kernel.CGAL_Object;
 import CGAL.Kernel.CGAL_Kernel;
 
 import java.util.LinkedList;
+import java.util.Vector;
 
 public class test_aabb {
   public static void main(String arg[]){
@@ -98,6 +103,26 @@ public class test_aabb {
     lst_pt.add(new Point_3(0,0,0));
     lst_pt.add(new Point_3(0,1,0));
     tree.accelerate_distance_queries(lst_pt.iterator());
+    
+    Vector<Triangle_3> triangles=new Vector<Triangle_3>();
+    for (Polyhedron_3_Facet_handle pfh : poly.facets())
+      triangles.add(new Triangle_3(pfh.halfedge().vertex().point(),pfh.halfedge().next().vertex().point(),pfh.halfedge().opposite().vertex().point()));
+    AABB_tree_Triangle_3_soup tree3=new AABB_tree_Triangle_3_soup(triangles.iterator());
+    Optional_Integer opt_int=tree3.any_intersected_primitive(s);
+    if (!opt_int.empty())
+      System.out.println("OK "+opt_int.value());
+    else
+      System.out.println("oops");
+    
+    LinkedList<Integer> lst_int=new LinkedList<Integer>();
+    tree3.all_intersected_primitives(s,lst_int);
+    System.out.println(lst_int.size());
+    for (Integer i : lst_int)
+      System.out.println("index "+i);
+    
+    LinkedList<Object_and_Integer> lst_obj_int=new LinkedList<Object_and_Integer>();
+    tree3.all_intersections(s,lst_obj_int);
+    System.out.println(lst_obj_int.size());
     
   }
   
