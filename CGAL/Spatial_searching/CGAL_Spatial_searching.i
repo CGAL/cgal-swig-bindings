@@ -38,8 +38,8 @@
 %template(Point_with_transformed_distance_3) std::pair<Point_3,double>;
 
 //typemap for point input iterator
-Typemap_for_Input_iterator(Query_iterator_helper<Point_2>::input,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert_range)
-Typemap_for_Input_iterator(Query_iterator_helper<Point_3>::input,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
+Typemap_for_Input_iterator(Query_iterator_helper<Point_2>::input,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert_range)
+Typemap_for_Input_iterator(Query_iterator_helper<Point_3>::input,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
 #ifdef SWIGPYTHON
 Typemap_for_Input_iterator_additional_function(Kd_tree_wrapper::Kd_tree_wrapper)
 #endif
@@ -56,9 +56,9 @@ Typemap_for_Input_iterator_additional_function(Kd_tree_wrapper::Kd_tree_wrapper)
 
 //typemaps for output iterator
 %define Kd_tree_output_iterator_2 Query_iterator_helper<Point_2>::output %enddef
-Typemap_for_Output_iterator(Kd_tree_output_iterator_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"LCGAL/Kernel/Point_2;")
+Typemap_for_Output_iterator(Kd_tree_output_iterator_2,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"LCGAL/Kernel/Point_2;")
 %define Kd_tree_output_iterator_3 Query_iterator_helper<Point_3>::output %enddef
-Typemap_for_Output_iterator(Kd_tree_output_iterator_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
+Typemap_for_Output_iterator(Kd_tree_output_iterator_3,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
 
 %include "declare_spatial_searching_objects.i"
 Declare_spatial_searching_objects(Orthogonal_incremental,OI,Point_2,2)

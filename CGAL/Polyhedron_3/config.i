@@ -1,13 +1,21 @@
-//~ %{#define CGAL_SWIG_FACET_SUPPORTS_PLANE%}
-//~ #define CGAL_SWIG_FACET_SUPPORTS_PLANE
+#ifdef SWIGPYTHON
 
-//~ %define Polyhedron_3_
-//~ CGAL::Polyhedron_3<EPIC_Kernel>
-//~ %enddef
+#ifndef IMPORT_ONLY_POLYHEDRON_TYPES
+  %{#define CGAL_SWIG_FACET_SUPPORTS_PLANE%}
+  #define CGAL_SWIG_FACET_SUPPORTS_PLANE
+#endif //IMPORT_ONLY_POLYHEDRON_TYPES
 
-// %define Polyhedron_3_
-// CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_3>
-// %enddef
+%{
+typedef CGAL::Polyhedron_3<EPIC_Kernel>     Polyhedron_3_;
+%}
+
+#endif //SWIGPYTHON
+
+//typedef  CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_3> Polyhedron_3_;
+
+
+#ifdef SWIGJAVA
+
 
 %import "../Java/JavaData.h"
 %import "../Java/Macro.i"
@@ -17,21 +25,12 @@
 #include "../Polyhedron_3/Polyhedron_items_with_id_and_info_3.h"
 %}
 
-%define Polyhedron_3_
-CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_and_info_3<JavaData> >
-%enddef
 
-%define Halfedge_handle_
-CGAL_Halfedge_handle<Polyhedron_3_> 
-%enddef
+%{
+typedef CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_and_info_3<JavaData> > Polyhedron_3_;
+%}
 
-%define Vertex_handle_
-CGAL_Vertex_handle<Polyhedron_3_> 
-%enddef
-
-%define Facet_handle_
-CGAL_Facet_handle<Polyhedron_3_>
-%enddef
+#ifndef IMPORT_ONLY_POLYHEDRON_TYPES
 
 //modifiers examples
 %{ 
@@ -45,8 +44,8 @@ CGAL_Facet_handle<Polyhedron_3_>
 %include "../Common/triple.h"
 %template(Integer_triple)  CGAL_SWIG::Triple<int,int,int>;
 //typemap for input iterators
-Typemap_for_Input_iterator(Point_range,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",set_modifier_data)
-Typemap_for_Input_iterator(Triple_integer_range,Integer_triple,iInteger_triple,SWIGTYPE_p_CGAL_SWIG__TripleT_int_int_int_t,"(LCGAL/Polyhedron_3/Integer_triple;)J",set_modifier_data)
+Typemap_for_Input_iterator(Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",set_modifier_data)
+Typemap_for_Input_iterator(Triple_integer_range,Integer_triple,Integer_triple,iInteger_triple,SWIGTYPE_p_CGAL_SWIG__TripleT_int_int_int_t,"(LCGAL/Polyhedron_3/Integer_triple;)J",set_modifier_data)
 
 %{
   #include "../Common/triple.h"
@@ -73,8 +72,12 @@ Typemap_for_Input_iterator(Triple_integer_range,Integer_triple,iInteger_triple,S
 %template(Polyhedron_3_Modifier_2)                     Modifier_wrapper< Polyhedron_3_,Build_square<Polyhedron_3_::HalfedgeDS> >;
 
 //assign JavaData to handles
-add_JavaData_info_to_class( Halfedge_handle_,)
-add_JavaData_info_to_class( Vertex_handle_,import CGAL.Kernel.Point_3;)
-add_JavaData_info_to_class( Facet_handle_,)
+add_JavaData_info_to_class( CGAL_Halfedge_handle<Polyhedron_3_>,)
+add_JavaData_info_to_class( CGAL_Vertex_handle<Polyhedron_3_>,import CGAL.Kernel.Point_3;)
+add_JavaData_info_to_class( CGAL_Facet_handle<Polyhedron_3_>,)
 
 #define NO_VERTEX_HANDLE_IMPORTS //prevents add_JavaData_info_to_class to be overwritten
+
+#endif //IMPORT_ONLY_POLYHEDRON_TYPES
+
+#endif //SWIGJAVA

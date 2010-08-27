@@ -41,15 +41,15 @@
 %template(Constraint) std::pair<Point_2,Point_2>;
 
 //typemap for point input iterator
-Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert_range)
+Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert_range)
 //typemap for weighted point input iterator
-Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_true>::Point_range,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",insert_range)
+Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_true>::Point_range,Weighted_point_2,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",insert_range)
 
 //typemap for Constaints input iterator
 %{
 typedef std::pair<Point_2::cpp_base,Point_2::cpp_base> iConstraint;
 %}
-Typemap_for_Input_iterator(Constraint_range,Constraint,iConstraint,SWIGTYPE_p_std__pairT_Point_2_Point_2_t,"(LCGAL/Triangulation_2/Constraint;)J",insert_constraint_range)
+Typemap_for_Input_iterator(Constraint_range,Constraint,Constraint,iConstraint,SWIGTYPE_p_std__pairT_Point_2_Point_2_t,"(LCGAL/Triangulation_2/Constraint;)J",insert_constraint_range)
 #ifdef SWIGPYTHON
 Typemap_for_Input_iterator_additional_function(Constrained_triangulation_2_wrapper::Constrained_triangulation_2_wrapper)
 Typemap_for_Input_iterator_additional_function(Constrained_Delaunay_triangulation_2_wrapper::Constrained_Delaunay_triangulation_2_wrapper)
