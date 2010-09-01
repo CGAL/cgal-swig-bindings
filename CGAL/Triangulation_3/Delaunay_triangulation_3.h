@@ -5,16 +5,20 @@
 #include "Triangulation_3.h"
 #include <CGAL/Delaunay_triangulation_3.h>
 
-template <class Triangulation,class Vertex_handle, class Cell_handle>
-class Delaunay_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle,Cell_handle,CGAL::Tag_false>{
+template <class Triangulation,class Vertex_handle_, class Cell_handle_>
+class Delaunay_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_false>{
  
 public:
-  typedef Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle,Cell_handle,CGAL::Tag_false> Base;
+  typedef Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_false> Base;
+  typedef typename Base::cpp_base cpp_base;
   typedef typename Base::Edge Edge;
   typedef typename Base::Facet Facet;
+  typedef Vertex_handle_ Vertex_handle;
+  typedef Cell_handle_ Cell_handle;
 
 //Creation
   Delaunay_triangulation_3_wrapper():Base(){}
+  Delaunay_triangulation_3_wrapper(const cpp_base& base):Base(base){}
   Delaunay_triangulation_3_wrapper(const Delaunay_triangulation_3_wrapper& dt):Base(static_cast<const Base&>(dt)){};
 //Point moving
   FORWARD_CALL_2(Vertex_handle,move_point,Vertex_handle,Point_3);

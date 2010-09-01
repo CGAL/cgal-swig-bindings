@@ -17,7 +17,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 //
 // $URL: svn+ssh://sloriot@scm.gforge.inria.fr/svn/cgal/trunk/Intersections_3/include/CGAL/Intersections_3/intersection_3_1_impl.h $
-// $Id: intersection_3_1_impl.h 58253 2010-08-24 13:33:07Z sloriot $
+// $Id: intersection_3_1_impl.h 58408 2010-09-01 08:49:24Z sloriot $
 // 
 //
 // Author(s)     : Geert-Jan Giezeman <geert@cs.uu.nl>
@@ -653,9 +653,12 @@ intersection(const typename K::Plane_3 &plane,
 	     const typename K::Triangle_3 &tri, 
 	     const K& k)
 {
-  Oriented_side or0=plane.oriented_side(tri.vertex(0));
-  Oriented_side or1=plane.oriented_side(tri.vertex(1));
-  Oriented_side or2=plane.oriented_side(tri.vertex(2));
+  typename K::Construct_vertex_3 vertex_on =
+    k.construct_vertex_3_object();
+  
+  Oriented_side or0=plane.oriented_side(vertex_on(tri,0));
+  Oriented_side or1=plane.oriented_side(vertex_on(tri,1));
+  Oriented_side or2=plane.oriented_side(vertex_on(tri,2));
   
   if (or0==ON_ORIENTED_BOUNDARY){
     if (or1==ON_ORIENTED_BOUNDARY){
@@ -731,7 +734,15 @@ intersection(const typename K::Plane_3 &plane,
   return make_object( k.construct_segment_3_object()(*pts.begin(),*boost::prior(pts.end())) );
 }
 
-
+template <class K>
+inline
+Object
+intersection(const typename K::Triangle_3 &triangle,
+	     const typename K::Plane_3  &plane,
+	     const K& k)
+{
+  return intersection(plane, triangle, k);
+}
 
 template <class K>
 Object

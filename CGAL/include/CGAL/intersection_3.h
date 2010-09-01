@@ -16,7 +16,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 //
 // $URL: svn+ssh://sloriot@scm.gforge.inria.fr/svn/cgal/trunk/Intersections_3/include/CGAL/intersection_3.h $
-// $Id: intersection_3.h 53496 2009-12-18 15:12:59Z stayeb $
+// $Id: intersection_3.h 58408 2010-09-01 08:49:24Z sloriot $
 // 
 //
 // Author(s)     : Geert-Jan Giezeman <geert@cs.uu.nl>
@@ -38,6 +38,9 @@
 #include <CGAL/internal/Intersections_3/Bbox_3_Line_3_do_intersect.h>
 #include <CGAL/internal/Intersections_3/Bbox_3_Ray_3_do_intersect.h>
 #include <CGAL/internal/Intersections_3/Bbox_3_Segment_3_do_intersect.h>
+#include <CGAL/internal/Intersections_3/Bbox_3_Plane_3_do_intersect.h>
+#include <CGAL/internal/Intersections_3/Bbox_3_Sphere_3_do_intersect.h>
+#include <CGAL/internal/Intersections_3/Bbox_3_Triangle_3_do_intersect.h>
 
 #include <CGAL/internal/Intersections_3/Triangle_3_Line_3_intersection.h>
 #include <CGAL/internal/Intersections_3/Triangle_3_Ray_3_intersection.h>
