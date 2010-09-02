@@ -5,21 +5,6 @@
 #include "../Common/Input_iterator.h"
 
 
-DECLARE_ITERATOR_CLASS(All_vertices_iterator)
-DECLARE_ITERATOR_CLASS(Finite_vertices_iterator)
-
-DECLARE_ITERATOR_CLASS(All_cells_iterator)
-DECLARE_ITERATOR_CLASS(Finite_cells_iterator)
-
-DECLARE_ITERATOR_CLASS(All_facets_iterator)
-DECLARE_ITERATOR_CLASS(Finite_facets_iterator)
-
-DECLARE_ITERATOR_CLASS(All_edges_iterator)
-DECLARE_ITERATOR_CLASS(Finite_edges_iterator)
-
-DECLARE_ITERATOR_CLASS(Point_iterator)
-
-
 DECLARE_CIRCULATOR_CLASS(Cell_circulator)
 DECLARE_CIRCULATOR_CLASS(Facet_circulator)
 

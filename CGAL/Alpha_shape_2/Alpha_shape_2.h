@@ -30,9 +30,6 @@ namespace internal{
 } //namespace internal
 
 #include "../Common/Input_iterator.h"
-DECLARE_ITERATOR_CLASS(Alpha_iterator)
-DECLARE_ITERATOR_CLASS(Alpha_shape_vertices_iterator)
-DECLARE_ITERATOR_CLASS(Alpha_shape_edges_iterator)
 
 template <class Alpha_shape,class Point, class Vertex_handle, class Face_handle,class Weighted_tag,class Base>
 class Alpha_shape_2_wrapper : public Base

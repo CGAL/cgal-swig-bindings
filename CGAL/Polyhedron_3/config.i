@@ -72,9 +72,9 @@ Typemap_for_Input_iterator(Triple_integer_range,Integer_triple,Integer_triple,iI
 %template(Polyhedron_3_Modifier_2)                     Modifier_wrapper< Polyhedron_3_,Build_square<Polyhedron_3_::HalfedgeDS> >;
 
 //assign JavaData to handles
-add_JavaData_info_to_class( CGAL_Halfedge_handle<Polyhedron_3_>,)
-add_JavaData_info_to_class( CGAL_Vertex_handle<Polyhedron_3_>,import CGAL.Kernel.Point_3;)
-add_JavaData_info_to_class( CGAL_Facet_handle<Polyhedron_3_>,)
+add_JavaData_info_to_class( SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,)
+add_JavaData_info_to_class( SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,import CGAL.Kernel.Point_3;)
+add_JavaData_info_to_class( SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>,)
 
 #define NO_VERTEX_HANDLE_IMPORTS //prevents add_JavaData_info_to_class to be overwritten
 

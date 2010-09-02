@@ -38,6 +38,9 @@ namespace internal{
 template <class T,class R> class CGAL_Halfedge_around_vertex_circulator;
 template <class T,class R> class CGAL_Halfedge_around_facet_circulator;
 
+namespace SWIG_Polyhedron_3
+{
+
 template <class Polyhedron_base>
 class CGAL_Vertex_handle;
 
@@ -148,5 +151,7 @@ public:
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}  
 };
+
+} //namespace SWIG_Polyhedron_3
 
 #endif //CGAL_SWIG_POLYHEDRON_3_HANDLES_H

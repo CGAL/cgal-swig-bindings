@@ -1,7 +1,7 @@
 
-//#define IMPORT_ONLY_POLYHEDRON_TYPES
-//%include "../Polyhedron_3/config.i"
-//#undef IMPORT_ONLY_POLYHEDRON_TYPES
+#define IMPORT_ONLY_POLYHEDRON_TYPES
+%include "../Polyhedron_3/config.i"
+#undef IMPORT_ONLY_POLYHEDRON_TYPES
 
 //macros defining the underlying types used
 %{

@@ -157,4 +157,35 @@ public:                                                        \
 #define DECLARE_ITERATOR_CLASS(NAME)            DECLARE_ITERATOR_CLASS_2(NAME,CGAL_##NAME)
 #define DECLARE_CIRCULATOR_CLASS(NAME)          DECLARE_CIRCULATOR_CLASS_2(NAME,CGAL_##NAME)
 
+
+//place here iterator wrapper classes to be defined. There are template classes that
+//can be reused between class. The idea is data store is that 
+//DECLARE_ITERATOR_CLASS(foo) declares template <class T,class R> storing iterator T::foo.
+DECLARE_ITERATOR_CLASS(All_cells_iterator)
+DECLARE_ITERATOR_CLASS(Finite_cells_iterator)
+DECLARE_ITERATOR_CLASS(All_facets_iterator)
+DECLARE_ITERATOR_CLASS(Finite_facets_iterator)
+DECLARE_ITERATOR_CLASS(Finite_edges_iterator)
+DECLARE_ITERATOR_CLASS(Point_iterator)
+DECLARE_ITERATOR_CLASS(Halfedge_iterator)
+DECLARE_ITERATOR_CLASS(Edge_iterator)
+DECLARE_ITERATOR_CLASS(Vertex_iterator)
+DECLARE_ITERATOR_CLASS(Facet_iterator)
+DECLARE_ITERATOR_CLASS(Plane_iterator)
+DECLARE_ITERATOR_CLASS(Finite_vertices_iterator)
+DECLARE_ITERATOR_CLASS(All_vertices_iterator)
+DECLARE_ITERATOR_CLASS(All_edges_iterator)
+DECLARE_ITERATOR_CLASS(Finite_faces_iterator)
+DECLARE_ITERATOR_CLASS(All_faces_iterator)
+DECLARE_ITERATOR_CLASS(Hidden_vertices_iterator)
+DECLARE_ITERATOR_CLASS(Constraint_iterator)
+DECLARE_ITERATOR_CLASS(Subconstraint_iterator)
+DECLARE_ITERATOR_CLASS(Vertices_in_constraint_iterator)
+DECLARE_ITERATOR_CLASS(Context_iterator)
+DECLARE_ITERATOR_CLASS(Alpha_iterator)
+DECLARE_ITERATOR_CLASS(Alpha_shape_vertices_iterator)
+DECLARE_ITERATOR_CLASS(Alpha_shape_edges_iterator)
+DECLARE_ITERATOR_CLASS(Boundary_edges_iterator)
+
+
 #endif //CGAL_SWIG_INPUT_ITERATOR_H

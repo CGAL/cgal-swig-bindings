@@ -10,6 +10,7 @@ import CGAL.Surface_mesher.Gray_level_image_3;
 import CGAL.Surface_mesher.Implicit_surface_Gray_level_image_3;
 import CGAL.Surface_mesher.Surface_mesh_default_criteria_3;
 import CGAL.Surface_mesher.Surface_mesher_tag;
+import CGAL.Polyhedron_3.Polyhedron_3;
 import java.util.LinkedList;
 
 public class test_surface_mesher {
@@ -48,6 +49,8 @@ public class test_surface_mesher {
     
     CGAL_Surface_mesher.output_surface_facets_to_off("/tmp/test_out.off",c2t3);    
     
+    Polyhedron_3 poly=new Polyhedron_3();
     
+    CGAL_Surface_mesher.output_surface_facets_to_polyhedron(c2t3,poly);
   }
 };

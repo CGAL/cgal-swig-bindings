@@ -12,12 +12,6 @@
 
 #include "../Common/Input_iterator.h"
 
-DECLARE_ITERATOR_CLASS(Vertex_iterator)
-DECLARE_ITERATOR_CLASS(Edge_iterator)
-DECLARE_ITERATOR_CLASS(Facet_iterator)
-DECLARE_ITERATOR_CLASS(Boundary_edges_iterator)
-
-
 namespace C2T3_internal{
 
 template <class Triangulation>

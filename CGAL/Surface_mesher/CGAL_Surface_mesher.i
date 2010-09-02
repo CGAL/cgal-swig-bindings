@@ -10,15 +10,13 @@
 %import  "../Kernel/Triangle_3.h"
 %import  "../Kernel/enum.h"
 %include "../Common/Input_iterator.h"
-//%import  "../Polyhedron_3/Polyhedron_3.h"
-//%import  "../Polyhedron_3/polyhedron_3_handles.h"
-
-%include "config.i"
+%import  "../Polyhedron_3/Polyhedron_3.h"
+%import  "../Polyhedron_3/polyhedron_3_handles.h"
 
 //include files
 %{
-//  #include  "../Polyhedron_3/Polyhedron_3.h"
-//  #include  "../Polyhedron_3/polyhedron_3_handles.h"  
+  #include  "../Polyhedron_3/Polyhedron_3.h"
+  #include  "../Polyhedron_3/polyhedron_3_handles.h"  
   #include "../Triangulation_3/Delaunay_triangulation_3.h"
   #include "../Triangulation_3/Triangulation_3.h"
   #include "../Triangulation_3/triangulation_handles.h"
@@ -28,6 +26,7 @@
   #include "C2T3.h"
 %}
 
+%include "config.i"
 
 
 //definitions
@@ -82,20 +81,21 @@ typedef C2T3_wrapper<C2T3,Delaunay_triangulation_3_wrapper<C2T3_DT,CGAL_Vertex_h
 %typemap(javaimports)      Implicit_surface_3_wrapper%{import CGAL.Kernel.Sphere_3;%}
 %template (Implicit_surface_Gray_level_image_3) Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >;
 
-//%define Polyhedron_3_type Polyhedron_3_wrapper< Polyhedron_3_,CGAL_Vertex_handle<Polyhedron_3_>,CGAL_Halfedge_handle<Polyhedron_3_>,CGAL_Facet_handle<Polyhedron_3_> >; %enddef
-//%{
-//typedef Polyhedron_3_wrapper< Polyhedron_3_,CGAL_Vertex_handle<Polyhedron_3_>,CGAL_Halfedge_handle<Polyhedron_3_>,CGAL_Facet_handle<Polyhedron_3_> > Polyhedron_3_type;
-//%}
+%define Polyhedron_3_type Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> > %enddef
+%{
+typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> > Polyhedron_3_type;
+%}
 
 //global functions
 
 %include "std_string.i"
 void output_surface_facets_to_off(const std::string& s,const T_C2T2_wrapper&);
-//void output_surface_facets_to_polyhedron(const T_C2T2_wrapper&,Polyhedron_3_type&); //this one is not working yet: I need to introduce namespace to have collision with Polyhedron and Triangulation CGAL_Vertex_handle
+void output_surface_facets_to_polyhedron(const T_C2T2_wrapper&,Polyhedron_3_type&);
 
 //general
 //void  make_surface_mesh(T_C2T2_wrapper& c2t3,Surface surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag Tag,int initial_number_of_points = 20)
 void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag Tag);
+void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag Tag,int);
 
 %{
   #include <fstream>
@@ -107,24 +107,28 @@ void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS
     else  CGAL::output_surface_facets_to_off(outfile,c2t3.get_data());
   }
   
-  //void output_surface_facets_to_polyhedron(const T_C2T2_wrapper& c2t3,Polyhedron_3_type& poly)
-  //{
-  //  CGAL::output_surface_facets_to_polyhedron( c2t3.get_data(),poly.get_data_ref() );
-  //}
-
-  void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag Tag)
+  void output_surface_facets_to_polyhedron(const T_C2T2_wrapper& c2t3,Polyhedron_3_type& poly)
   {
-    switch(Tag){
+    CGAL::output_surface_facets_to_polyhedron( c2t3.get_data(),poly.get_data_ref() );
+  }
+
+  void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag tag,int nb)
+  {
+    switch(tag){
       case MANIFOLD_TAG:
-        CGAL::make_surface_mesh(c2t3.get_data_ref(),surface.get_data(),criteria.get_data(),CGAL::Manifold_tag());
+        CGAL::make_surface_mesh(c2t3.get_data_ref(),surface.get_data(),criteria.get_data(),CGAL::Manifold_tag(),nb);
       break;
       case MANIFOLD_WITH_BOUNDARY_TAG:
-        CGAL::make_surface_mesh(c2t3.get_data_ref(),surface.get_data(),criteria.get_data(),CGAL::Manifold_with_boundary_tag());
+        CGAL::make_surface_mesh(c2t3.get_data_ref(),surface.get_data(),criteria.get_data(),CGAL::Manifold_with_boundary_tag(),nb);
       break;
       case NON_MANIFOLD_TAG:
-        CGAL::make_surface_mesh(c2t3.get_data_ref(),surface.get_data(),criteria.get_data(),CGAL::Non_manifold_tag());
+        CGAL::make_surface_mesh(c2t3.get_data_ref(),surface.get_data(),criteria.get_data(),CGAL::Non_manifold_tag(),nb);
       break;
     }
+  }
+  void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag tag)
+  {
+    make_surface_mesh(c2t3,surface,criteria,tag,20);
   }
   
 %}

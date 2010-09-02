@@ -56,6 +56,7 @@ public class test_aabb {
     System.out.println(lst_hh.size());
     
     Point_and_Polyhedron_3_Halfedge_handle pair_phh=tree2.closest_point_and_primitive(new Point_3(5,0,0.5));
+    Polyhedron_3_Halfedge_handle hh=pair_phh.getSecond();
     
     Optional_Polyhedron_3_Facet_handle opt=tree.any_intersected_primitive(s);
     if (!opt.empty())
@@ -80,6 +81,7 @@ public class test_aabb {
         System.out.println("OK");
       else
         System.out.println("oops");
+      Polyhedron_3_Facet_handle fh=opfh.getSecond();
     }
     else
       System.out.println("oops");
