@@ -16,6 +16,7 @@ import java.util.LinkedList;
 public class test_surface_mesher {
   public static void main(String arg[]){
     System.loadLibrary("CGAL_Surface_mesher");
+    System.loadLibrary("CGAL_Polyhedron_3");
     
     Surface_mesh_default_triangulation_3 tri=new Surface_mesh_default_triangulation_3();
     
@@ -52,5 +53,6 @@ public class test_surface_mesher {
     Polyhedron_3 poly=new Polyhedron_3();
     
     CGAL_Surface_mesher.output_surface_facets_to_polyhedron(c2t3,poly);
+    System.out.println(poly.size_of_vertices()+" "+poly.size_of_halfedges()+" "+poly.size_of_facets());
   }
 };

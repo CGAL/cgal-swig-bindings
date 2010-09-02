@@ -5,6 +5,7 @@
 %import  "../Kernel/Point_3.h"
 %import  "../Kernel/Triangle_3.h"
 %import  "../Kernel/Segment_3.h"
+%import  "../Kernel/Plane_3.h"
 %import  "../Kernel/CGAL_Object.h"
 %import  "../Polyhedron_3/Polyhedron_3.h"
 %import  "../Polyhedron_3/polyhedron_3_handles.h"
@@ -26,6 +27,9 @@
 
 
 %include "config.i"
+
+//import definitions of Polyhedron objects
+%import "../Polyhedron_3/CGAL_Polyhedron_3.i"
 
 //definitions
 %include "AABB_tree.h"

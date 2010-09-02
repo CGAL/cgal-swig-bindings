@@ -1,3 +1,12 @@
+//this is the default with SWIG2
+//The intermediary JNI class modifiers are now public by default meaning these
+//intermediary low level functions are now accessible by default from outside any package
+//used. The proxy class pointer constructor and getCPtr() methods are also now public.
+//These are needed in order for the nspace option to work without any other mods.
+#ifdef SWIGJAVA
+SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
+#endif
+
 //macro function to define proper java iterators
 #ifdef SWIGJAVA
 %define Iterator_for_java(Iterator_type,Object_type,Extra_import)

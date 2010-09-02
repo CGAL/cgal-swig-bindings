@@ -36,10 +36,12 @@
 #endif
 %template(Polyhedron_3_Facet_handle)                SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>;
 
-%typemap(javaimports)                     Polyhedron_3_wrapper %{import CGAL.Kernel.Point_3;%}
+%typemap(javaimports)                       Polyhedron_3_wrapper %{import CGAL.Kernel.Point_3;%}
 %template(Polyhedron_3)                     Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> >;
 
 %template(Polyhedron_3_Modifier_base)                  Modifier_base< Polyhedron_3_ >;
+
+
 
 //Iterators
 Iterator_for_java(CGAL_Halfedge_iterator,Polyhedron_3_Halfedge_handle,)

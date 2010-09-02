@@ -28,6 +28,8 @@
 
 %include "config.i"
 
+//import definitions of Polyhedron objects
+%import "../Polyhedron_3/CGAL_Polyhedron_3.i"
 
 //definitions
 %include "../Triangulation_3/triangulation_handles.h"
@@ -38,8 +40,8 @@
 %include "C2T3.h"
 %include "Surface_mesh_details.h"
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Sphere_3; import java.util.Iterator; import java.util.Collection;%}
-
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Sphere_3; import java.util.Iterator; import java.util.Collection; import CGAL.Polyhedron_3.Polyhedron_3;%}
+%pragma(java) moduleimports  =%{import CGAL.Polyhedron_3.Polyhedron_3;%}
 
 %import "../Triangulation_3/declare_Delaunay_triangulation_3.i"
 Declare_Delaunay_triangulation_3(Surface_mesh_default_triangulation_3,C2T3_DT)
