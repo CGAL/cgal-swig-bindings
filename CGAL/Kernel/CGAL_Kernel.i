@@ -25,6 +25,7 @@ SWIG_JAVABODY_METHODS(public,public,Segment_3)
 SWIG_JAVABODY_METHODS(public,public,Triangle_3)
 SWIG_JAVABODY_METHODS(public,public,Tetrahedron_3)
 SWIG_JAVABODY_METHODS(public,public,Line_3)
+SWIG_JAVABODY_METHODS(public,public,Sphere_3)
 SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
 #endif
 
@@ -41,6 +42,7 @@ SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
   #include "Triangle_3.h"
   #include "Tetrahedron_3.h"
   #include "Line_3.h"
+  #include "Sphere_3.h"
   #include "CGAL_Object.h"
   #include "global_functions.h"
   #include "enum.h"
@@ -56,6 +58,7 @@ SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
 %include "Plane_3.h"
 %include "Segment_3.h"
 %include "Line_3.h"
+%include "Sphere_3.h"
 %include "Triangle_3.h"
 %include "Tetrahedron_3.h"
 %include "CGAL_Object.h"

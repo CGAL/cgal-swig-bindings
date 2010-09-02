@@ -3,6 +3,7 @@
 
 #include "typedefs.h"
 #include "Point_2.h"
+#include "enum.h"
 #include "../Common/Macros.h"
 
 
@@ -34,6 +35,9 @@ public:
   FORWARD_CALL_1(bool,has_on_boundary,Point_2)
   FORWARD_CALL_1(bool,has_on_bounded_side,Point_2)
   FORWARD_CALL_1(bool,has_on_unbounded_side,Point_2)
+  FORWARD_CALL_0(Orientation,orientation)
+  FORWARD_CALL_1(Oriented_side,oriented_side,Point_2)
+  FORWARD_CALL_1(Bounded_side,bounded_side,Point_2)
 //Miscellaneous
   FORWARD_CALL_0(Triangle_2,opposite)
   FORWARD_CALL_0(double,area)
@@ -52,10 +56,6 @@ public:
 #endif //SWIG_CGAL_KERNEL_TRIANGLE_2_H
 
 
-//Predicates
-//  Orientation   t.orientation ()   returns the orientation of t.
-//  Oriented_side   t.oriented_side ( Point_2<Kernel> p)
-//  Bounded_side   t.bounded_side ( Point_2<Kernel> p)
 //Miscellaneous
 // Bbox_2   t.bbox ()   returns a bounding box containing t.
 // Triangle_2<Kernel>   t.transform ( Aff_transformation_2<Kernel> at)

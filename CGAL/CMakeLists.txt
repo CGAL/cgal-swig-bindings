@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 PROJECT(CGAL-bindings)
 
 
-find_package(CGAL)
+find_package(CGAL QUIET COMPONENTS ImageIO)
 find_package(SWIG REQUIRED)
 option( BUILD_PYTHON "Build python bindings" ON )
 option( BUILD_JAVA "Build java bindings" ON )

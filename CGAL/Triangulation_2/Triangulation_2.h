@@ -24,17 +24,6 @@
 
 enum Locate_type { VERTEX=0, EDGE, FACE, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
 
-
-namespace internal{
-
-template <> struct Converter<Oriented_side>{
-  static const bool is_reference=false;
-  typedef ::CGAL::Oriented_side result_type;
-  static result_type convert(Oriented_side t){return CGAL::enum_cast<CGAL::Oriented_side>(t);}
-};
-
-}//namespace internal
-
 template <class Weighted_tag>
 struct Weighting_helper{
   typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > Point_range;

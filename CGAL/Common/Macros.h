@@ -28,11 +28,27 @@ struct Converter{
   static result_type& convert(T& t){return t.get_data_ref();}
 };
 
+template <class T>
+typename Converter<T>::result_type
+make_conversion(const T& t){return Converter<T>::convert(t);}
+
+
 SPECIALIZE_CONVERTER(int)
 SPECIALIZE_CONVERTER(unsigned)
 SPECIALIZE_CONVERTER(bool)
 SPECIALIZE_CONVERTER(double)
 SPECIALIZE_CONVERTER(float)
+
+
+#define SPECIALIZE_CONVERTER_ENUM(ENUM)     \
+template <> struct Converter<ENUM>{         \
+  static const bool is_reference=false;     \
+  typedef ::CGAL:: ENUM result_type;        \
+  static result_type convert(ENUM t)        \
+  {return CGAL::enum_cast<CGAL:: ENUM>(t);} \
+};
+
+
 #ifndef SWIG
 typedef  CGAL_SWIG::Triple<int,int,int> TRIPLE_INT;
 SPECIALIZE_CONVERTER( TRIPLE_INT )

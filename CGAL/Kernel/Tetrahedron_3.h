@@ -3,6 +3,7 @@
 
 #include "typedefs.h"
 #include "Point_3.h"
+#include "enum.h"
 #include "../Common/Macros.h"
 
 
@@ -35,6 +36,9 @@ public:
   FORWARD_CALL_1(bool,has_on_boundary,Point_3)
   FORWARD_CALL_1(bool,has_on_bounded_side,Point_3)
   FORWARD_CALL_1(bool,has_on_unbounded_side,Point_3)
+  FORWARD_CALL_0(Orientation,orientation)
+  FORWARD_CALL_1(Oriented_side,oriented_side,Point_3)
+  FORWARD_CALL_1(Bounded_side,bounded_side,Point_3)
 //Miscellaneous
   FORWARD_CALL_0(double,volume)
 
@@ -52,11 +56,6 @@ public:
 #endif //SWIG_CGAL_KERNEL_TETRAHEDRON_3_H
 
 
-
-//Predicates
-//  Orientation  t.orientation ()
-//  Oriented_side  t.oriented_side ( Point_3<Kernel> p)
-//  Bounded_side  t.bounded_side ( Point_3<Kernel> p)
 //Miscellaneous
 //  Bbox_3  t.bbox ()  returns a bounding box containing t.
 //  Tetrahedron_3<Kernel>  t.transform ( Aff_transformation_3<Kernel> at)

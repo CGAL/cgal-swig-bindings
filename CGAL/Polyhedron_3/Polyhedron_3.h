@@ -17,6 +17,8 @@ class Polyhedron_3_wrapper{
  
 public:  
   typedef Polyhedron_base cpp_base;
+  const cpp_base& get_data() const {return data;}
+  cpp_base& get_data_ref(){return data;}
 
 //Creation
   Polyhedron_3_wrapper():data(){}
