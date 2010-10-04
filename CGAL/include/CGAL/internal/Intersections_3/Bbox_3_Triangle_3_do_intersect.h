@@ -28,8 +28,7 @@
 // a minimal cost (and we use C++ ;).
 
 #include <CGAL/number_utils.h>
-// ST: is this include really needed ?
-#include <CGAL/internal/AABB_Intersections_3/Bbox_3_Plane_3_do_intersect.h>
+
 
 namespace CGAL {
 

@@ -61,12 +61,12 @@ Typemap_for_Output_iterator(Kd_tree_output_iterator_2,Point_2,Point_2,Point_2::c
 Typemap_for_Output_iterator(Kd_tree_output_iterator_3,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
 
 %include "declare_spatial_searching_objects.i"
-Declare_spatial_searching_objects(Orthogonal_incremental,OI,Point_2,2)
-Declare_spatial_searching_objects(Incremental,I,Point_2,2)
+Declare_spatial_searching_objects_incremental(Orthogonal_incremental,OI,Point_2,2)
+Declare_spatial_searching_objects_incremental(Incremental,I,Point_2,2)
 Declare_spatial_searching_objects(K,K,Point_2,2)
 Declare_spatial_searching_objects(Orthogonal,OK,Point_2,2)
 
-Declare_spatial_searching_objects(Orthogonal_incremental,OI,Point_3,3)
-Declare_spatial_searching_objects(Incremental,I,Point_3,3)
+Declare_spatial_searching_objects_incremental(Orthogonal_incremental,OI,Point_3,3)
+Declare_spatial_searching_objects_incremental(Incremental,I,Point_3,3)
 Declare_spatial_searching_objects(K,K,Point_3,3)
 Declare_spatial_searching_objects(Orthogonal,OK,Point_3,3)
