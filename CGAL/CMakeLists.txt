@@ -72,6 +72,10 @@ if ( CGAL_FOUND )
       ENDIF ("${swig_lowercase_language}" STREQUAL "python")
     ENDMACRO(SWIG_ADD_MODULE)
 
+
+    SET(CMAKE_SWIG_FLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/..")
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
+
     if (${BUILD_PYTHON})
       FIND_PACKAGE(PythonLibs)
     endif()
