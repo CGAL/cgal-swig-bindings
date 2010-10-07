@@ -22,6 +22,7 @@ public:
 
 //Creation
   Polyhedron_3_wrapper():data(){}
+  Polyhedron_3_wrapper(const cpp_base& base):data(base){}
   Polyhedron_3_wrapper(const char* off_filename){
     std::ifstream file(off_filename);
     file >> data;
@@ -110,6 +111,12 @@ public:
   FORWARD_CALL_0(bool,is_valid) //bool P.is_valid ( bool verbose = false, int level = 0)
   FORWARD_CALL_0(bool,normalized_border_is_valid)  //bool P.normalized_border_is_valid ( bool verbose = false)
   void delegate(Modifier_base<Polyhedron_base> modifier){data.delegate(modifier.get_data());}
+  void write_to_file(const char* off_filename) const
+  {
+    std::ofstream file(off_filename);
+    file << data;
+    file.close();    
+  }
 };
 
 #endif //CGAL_SWIG_POLYHEDRON_3_POLYHEDRON_3_H
