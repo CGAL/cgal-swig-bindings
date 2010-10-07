@@ -1,7 +1,7 @@
 #ifndef SWIG_CGAL_TRIANGULATION_3_REGULAR_TRIANGULATION_3_H
 #define SWIG_CGAL_TRIANGULATION_3_REGULAR_TRIANGULATION_3_H
 
-#include "Triangulation_3.h"
+#include <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
 #include <CGAL/Regular_triangulation_3.h>
 #include <CGAL/Regular_triangulation_euclidean_traits_3.h>
 

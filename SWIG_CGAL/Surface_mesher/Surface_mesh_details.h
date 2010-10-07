@@ -1,7 +1,7 @@
 #ifndef SWIG_CGAL_SURFACE_MESH_DETAILS_H
 #define SWIG_CGAL_SURFACE_MESH_DETAILS_H
 
-#include "../Kernel/Sphere_3.h"
+#include <SWIG_CGAL/Kernel/Sphere_3.h>
 
 enum Surface_mesher_tag {MANIFOLD_TAG,MANIFOLD_WITH_BOUNDARY_TAG,NON_MANIFOLD_TAG};
 

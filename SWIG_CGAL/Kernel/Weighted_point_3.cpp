@@ -1,4 +1,4 @@
-#include "Weighted_point_3.h"
+#include <SWIG_CGAL/Kernel/Weighted_point_3.h>
 #include <sstream>
 
 Weighted_point_3::Weighted_point_3():data(){}

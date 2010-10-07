@@ -1,1 +1,1 @@
-#include "Sphere_3.h"
+#include <SWIG_CGAL/Kernel/Sphere_3.h>

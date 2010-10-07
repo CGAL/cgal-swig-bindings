@@ -4,7 +4,7 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <stdexcept>
 
-#include "exceptions.h"
+#include <SWIG_CGAL/Python/exceptions.h>
 
 #ifdef SWIG
 %include exception.i

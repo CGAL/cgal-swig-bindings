@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cassert>
-#include "JavaData.h"
-#include "global_functions.h"
+#include <SWIG_CGAL/Java/JavaData.h>
+#include <SWIG_CGAL/Java/global_functions.h>
 
 void JavaData::init(jobject obj){
   if (obj!=NULL){

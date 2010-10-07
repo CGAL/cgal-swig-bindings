@@ -4,26 +4,26 @@
 #include <boost/static_assert.hpp>
 #include <CGAL/Triangulation_3.h>
 
-#include "triangulation_handles.h"
-#include "triangulation_iterators.h"
-#include "../Common/triple.h"
-#include "../Common/Output_iterator.h"
-#include "../Common/Reference_wrapper.h"
-#include "../Common/Macros.h"
-#include "../Kernel/Point_3.h"
-#include "../Kernel/Weighted_point_3.h"
-#include "../Kernel/Segment_3.h"
-#include "../Kernel/Triangle_3.h"
-#include "../Kernel/Tetrahedron_3.h"
-#include "../Kernel/enum.h"
+#include <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
+#include <SWIG_CGAL/Triangulation_3/triangulation_iterators.h>
+#include <SWIG_CGAL/Common/triple.h>
+#include <SWIG_CGAL/Common/Output_iterator.h>
+#include <SWIG_CGAL/Common/Reference_wrapper.h>
+#include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Weighted_point_3.h>
+#include <SWIG_CGAL/Kernel/Segment_3.h>
+#include <SWIG_CGAL/Kernel/Triangle_3.h>
+#include <SWIG_CGAL/Kernel/Tetrahedron_3.h>
+#include <SWIG_CGAL/Kernel/enum.h>
 
 #ifdef SWIGPYTHON
-#include "../Python/Input_iterator_wrapper.h"
-#include "../Python/Output_iterator_wrapper.h"
+#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Python/Output_iterator_wrapper.h>
 #endif
 #ifdef SWIGJAVA
-#include "../Java/Input_iterator_wrapper.h"
-#include "../Java/Output_iterator_wrapper.h"
+#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Java/Output_iterator_wrapper.h>
 #endif
 
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};

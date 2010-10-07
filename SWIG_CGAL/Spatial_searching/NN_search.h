@@ -1,8 +1,8 @@
 #ifndef SWIG_CGAL_SPATIAL_SEARCHING_NN_SEARCH_H
 #define SWIG_CGAL_SPATIAL_SEARCHING_NN_SEARCH_H
 
-#include "../Common/Macros.h"
-#include "../Common/Input_iterator.h"
+#include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Common/Input_iterator.h>
 
 
 DECLARE_ITERATOR_CLASS_2(iterator,NN_search_iterator)

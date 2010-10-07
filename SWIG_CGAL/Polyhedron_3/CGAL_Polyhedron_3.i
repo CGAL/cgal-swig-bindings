@@ -1,29 +1,29 @@
 %module CGAL_Polyhedron_3
 
 
-%include "../common.i"
-%import  "../Kernel/Point_3.h"
-%import  "../Kernel/Plane_3.h"
-//%import  "../Kernel/Kernel.i" This is an alternative to the two previous import
-%import  "../Common/Macros.h"
-%import  "../Common/Input_iterator.h"
+%include "SWIG_CGAL/common.i"
+%import  "SWIG_CGAL/Kernel/Point_3.h"
+%import  "SWIG_CGAL/Kernel/Plane_3.h"
+//%import  "SWIG_CGAL/Kernel/Kernel.i" This is an alternative to the two previous import
+%import  "SWIG_CGAL/Common/Macros.h"
+%import  "SWIG_CGAL/Common/Input_iterator.h"
 
 //include files
 %{
-  #include "Polyhedron_3.h"
-  #include "polyhedron_3_handles.h"
-  #include "polyhedron_3_iterators.h"
+  #include <SWIG_CGAL/Polyhedron_3/Polyhedron_3.h>
+  #include <SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h>
+  #include <SWIG_CGAL/Polyhedron_3/polyhedron_3_iterators.h>
 %}
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 
 //definitions
-%include "Polyhedron_3.h"
-%include "polyhedron_3_handles.h"
-%include "polyhedron_3_iterators.h"
-%include "Modifier_base.h"
+%include "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
+%include "SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h"
+%include "SWIG_CGAL/Polyhedron_3/polyhedron_3_iterators.h"
+%include "SWIG_CGAL/Polyhedron_3/Modifier_base.h"
 
-%include "../Polyhedron_3/config.i"
+%include "SWIG_CGAL/Polyhedron_3/config.i"
 
 //template instantiation
 %template(Polyhedron_3_Halfedge_handle)             SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>;

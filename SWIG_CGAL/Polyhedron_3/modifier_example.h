@@ -4,7 +4,7 @@
 #include <CGAL/config.h>
 #include <CGAL/Modifier_base.h>
 #include <CGAL/Polyhedron_incremental_builder_3.h>
-#include "../Kernel/Point_3.h"
+#include <SWIG_CGAL/Kernel/Point_3.h>
 
 template <class HDS>
 class Build_triangle : public CGAL::Modifier_base<HDS>{
@@ -52,15 +52,15 @@ public:
     }
 };
 
-#include "../Common/Macros.h"
+#include <SWIG_CGAL/Common/Macros.h>
 #ifdef SWIGPYTHON
-#include "../Python/Input_iterator_wrapper.h"
+#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
 #endif
 #ifdef SWIGJAVA
-#include "../Java/Input_iterator_wrapper.h"
+#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
 #endif
 
-#include "../Common/triple.h"
+#include <SWIG_CGAL/Common/triple.h>
 
 typedef CGAL_SWIG::Triple<int,int,int> Integer_triple;
 typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;

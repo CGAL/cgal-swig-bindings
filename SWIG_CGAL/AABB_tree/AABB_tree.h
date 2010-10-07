@@ -1,22 +1,22 @@
 #ifndef SWIG_CGAL_AABB_TREE_AABB_TREE_H
 #define SWIG_CGAL_AABB_TREE_AABB_TREE_H
 
-#include "../Common/Macros.h"
-#include "../Common/Input_iterator.h"
-#include "../Common/Optional.h"
-#include "../Kernel/Point_3.h"
-#include "../Kernel/Plane_3.h"
-#include "../Kernel/CGAL_Object.h"
-#include "../Kernel/Segment_3.h"
-#include "../Kernel/Triangle_3.h"
+#include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Common/Input_iterator.h>
+#include <SWIG_CGAL/Common/Optional.h>
+#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Plane_3.h>
+#include <SWIG_CGAL/Kernel/CGAL_Object.h>
+#include <SWIG_CGAL/Kernel/Segment_3.h>
+#include <SWIG_CGAL/Kernel/Triangle_3.h>
 
 #ifdef SWIGPYTHON
-#include "../Python/Input_iterator_wrapper.h"
-#include "../Python/Output_iterator_wrapper.h"
+#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Python/Output_iterator_wrapper.h>
 #endif
 #ifdef SWIGJAVA
-#include "../Java/Input_iterator_wrapper.h"
-#include "../Java/Output_iterator_wrapper.h"
+#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Java/Output_iterator_wrapper.h>
 #endif
 
 

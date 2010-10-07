@@ -1,8 +1,8 @@
 #ifndef SWIG_CGAL_ALPHA_SHAPE_2_DECLARE_ALPHA_SHAPE_2_I
 #define SWIG_CGAL_ALPHA_SHAPE_2_DECLARE_ALPHA_SHAPE_2_I
 
-%include "../Triangulation_2/declare_Delaunay_triangulation_2.i"
-%include "../Triangulation_2/declare_regular_triangulation_2.i"
+%include "SWIG_CGAL/Triangulation_2/declare_Delaunay_triangulation_2.i"
+%include "SWIG_CGAL/Triangulation_2/declare_regular_triangulation_2.i"
 
 //Expose a alpha_shape_2
 // --CLASSNAME  is the name of the class exposed by SWIG

@@ -1,15 +1,15 @@
 #ifndef SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_2_H
 #define SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_2_H
 
-#include "Triangulation_2.h"
+#include <SWIG_CGAL/Triangulation_2/Triangulation_2.h>
 #include <CGAL/Constrained_triangulation_2.h>
 
 #include <boost/function_output_iterator.hpp>
 #ifdef SWIGPYTHON
-#include "../Python/Output_iterator_wrapper.h"
+#include <SWIG_CGAL/Python/Output_iterator_wrapper.h>
 #endif
 #ifdef SWIGJAVA
-#include "../Java/Output_iterator_wrapper.h"
+#include <SWIG_CGAL/Java/Output_iterator_wrapper.h>
 #endif
 
 typedef std::pair<Point_2,Point_2>                                          Constraint;

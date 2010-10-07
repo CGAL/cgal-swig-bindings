@@ -1,4 +1,4 @@
-#include "Point_2.h"
+#include <SWIG_CGAL/Kernel/Point_2.h>
 #include <sstream>
 
 const EPIC_Kernel::Point_2& Point_2::get_data() const {return data;}

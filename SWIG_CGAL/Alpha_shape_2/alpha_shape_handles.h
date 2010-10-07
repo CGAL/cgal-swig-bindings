@@ -1,9 +1,9 @@
 #ifndef SWIG_CGAL_ALPHA_SHAPE_2_ALPHA_SHAPE_HANDLES_H
 #define SWIG_CGAL_ALPHA_SHAPE_2_ALPHA_SHAPE_HANDLES_H
 
-#include "../Common/Macros.h"
-#include "../Kernel/Point_2.h"
-#include "../Common/triple.h"
+#include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Kernel/Point_2.h>
+#include <SWIG_CGAL/Common/triple.h>
 
 template <class Triangulation,class Point>
 class CGAL_Vertex_handle{

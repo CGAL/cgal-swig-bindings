@@ -1,38 +1,38 @@
 %module CGAL_AABB_tree
 
-%include "../common.i"
-%import  "../Common/Macros.h"
-%import  "../Kernel/Point_3.h"
-%import  "../Kernel/Triangle_3.h"
-%import  "../Kernel/Segment_3.h"
-%import  "../Kernel/Plane_3.h"
-%import  "../Kernel/CGAL_Object.h"
-%import  "../Polyhedron_3/Polyhedron_3.h"
-%import  "../Polyhedron_3/polyhedron_3_handles.h"
-%include "../Common/Input_iterator.h"
-%include "../Common/Optional.h"
+%include "SWIG_CGAL/common.i"
+%import  "SWIG_CGAL/Common/Macros.h"
+%import  "SWIG_CGAL/Kernel/Point_3.h"
+%import  "SWIG_CGAL/Kernel/Triangle_3.h"
+%import  "SWIG_CGAL/Kernel/Segment_3.h"
+%import  "SWIG_CGAL/Kernel/Plane_3.h"
+%import  "SWIG_CGAL/Kernel/CGAL_Object.h"
+%import  "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
+%import  "SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h"
+%include "SWIG_CGAL/Common/Input_iterator.h"
+%include "SWIG_CGAL/Common/Optional.h"
 
 //include files
 %{
-  #include <CGAL/AABB_tree.h>
-  #include <CGAL/AABB_traits.h>
-  #include  "../Kernel/typedefs.h"
-  #include  "../Kernel/Point_3.h"
-  #include  "../Kernel/Triangle_3.h"
-  #include  "../Kernel/Segment_3.h"
-  #include  "../Polyhedron_3/Polyhedron_3.h"
-  #include  "../Polyhedron_3/polyhedron_3_handles.h"
-  #include "AABB_tree.h"
+  #include  <CGAL/AABB_tree.h>
+  #include  <CGAL/AABB_traits.h>
+  #include  <SWIG_CGAL/Kernel/typedefs.h>
+  #include  <SWIG_CGAL/Kernel/Point_3.h>
+  #include  <SWIG_CGAL/Kernel/Triangle_3.h>
+  #include  <SWIG_CGAL/Kernel/Segment_3.h>
+  #include  <SWIG_CGAL/Polyhedron_3/Polyhedron_3.h>
+  #include  <SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h>
+  #include  <SWIG_CGAL/AABB_tree/AABB_tree.h>
 %}
 
 
-%include "config.i"
+%include "SWIG_CGAL/AABB_tree/config.i"
 
 //import definitions of Polyhedron objects
-%import "../Polyhedron_3/CGAL_Polyhedron_3.i"
+%import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
 
 //definitions
-%include "AABB_tree.h"
+%include "SWIG_CGAL/AABB_tree/AABB_tree.h"
 
 %pragma(java) jniclassimports=%{
   import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Point_3; import CGAL.Kernel.CGAL_Object;

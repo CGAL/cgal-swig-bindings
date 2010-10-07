@@ -1,15 +1,15 @@
 #ifndef SWIG_CGAL_KERNEL_OBJECT_H
 #define SWIG_CGAL_KERNEL_OBJECT_H
 
-#include "../Common/Macros.h"
-#include "Plane_3.h"
-#include "Point_3.h"
-#include "Segment_3.h"
-#include "Triangle_2.h"
-#include "Line_3.h"
-#include "Point_2.h"
-#include "Segment_2.h"
-#include "Triangle_3.h"
+#include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Kernel/Plane_3.h>
+#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Segment_3.h>
+#include <SWIG_CGAL/Kernel/Triangle_2.h>
+#include <SWIG_CGAL/Kernel/Line_3.h>
+#include <SWIG_CGAL/Kernel/Point_2.h>
+#include <SWIG_CGAL/Kernel/Segment_2.h>
+#include <SWIG_CGAL/Kernel/Triangle_3.h>
 
 #include <CGAL/Object.h>
 

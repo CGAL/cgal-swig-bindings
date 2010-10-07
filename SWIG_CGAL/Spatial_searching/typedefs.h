@@ -1,7 +1,7 @@
 #ifndef SWIG_CGAL_SPATIAL_SEARCHING_TYPEDEFS_H
 #define SWIG_CGAL_SPATIAL_SEARCHING_TYPEDEFS_H
  
-#include "../Kernel/Point_2.h"
+#include <SWIG_CGAL/Kernel/Point_2.h>
 
 typedef Fuzzy_sphere_wrapper <CGAL_FS_2,Point_2>  SWIG_FS_2;
 typedef Fuzzy_iso_box_wrapper<CGAL_FB_2,Point_2>  SWIG_FB_2;

@@ -1,8 +1,8 @@
 #ifndef SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_ITERATORS_H
 #define SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_ITERATORS_H
 
-#include "triangulation_handles.h"
-#include "../Common/Input_iterator.h"
+#include <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
+#include <SWIG_CGAL/Common/Input_iterator.h>
 
 
 DECLARE_CIRCULATOR_CLASS(Cell_circulator)

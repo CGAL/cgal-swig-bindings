@@ -1,7 +1,7 @@
 #ifndef SWIG_CGAL_TRIANGULATION_2_DELAUNAY_TRIANGULATION_2_H
 #define SWIG_CGAL_TRIANGULATION_2_DELAUNAY_TRIANGULATION_2_H
 
-#include "Triangulation_2.h"
+#include <SWIG_CGAL/Triangulation_2/Triangulation_2.h>
 #include <CGAL/Delaunay_triangulation_2.h>
 
 template <class Triangulation,class Vertex_handle, class Face_handle>

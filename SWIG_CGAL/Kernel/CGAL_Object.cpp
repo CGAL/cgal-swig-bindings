@@ -1,1 +1,1 @@
-#include "CGAL_Object.h"
+#include <SWIG_CGAL/Kernel/CGAL_Object.h>

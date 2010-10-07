@@ -2,7 +2,7 @@
 #define CGAL_SWIG_PYTHON_OUTPUT_ITERATOR_WRAPPER_H
 
 #include <boost/function_output_iterator.hpp>
-#include "exceptions.h"
+#include <SWIG_CGAL/Python/exceptions.h>
 
 template<class Cpp_wrapper,class Cpp_base>
 class Container_writer{

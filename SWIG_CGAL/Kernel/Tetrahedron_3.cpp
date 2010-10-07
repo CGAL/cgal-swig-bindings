@@ -1,4 +1,4 @@
-#include "Tetrahedron_3.h"
+#include <SWIG_CGAL/Kernel/Tetrahedron_3.h>
 #include <sstream>
 
 const EPIC_Kernel::Tetrahedron_3& Tetrahedron_3::get_data() const {return data;}

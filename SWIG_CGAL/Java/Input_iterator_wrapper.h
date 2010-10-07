@@ -2,7 +2,7 @@
 #define CGAL_SWIG_JAVA_INPUT_ITERATOR_WRAPPER_H
 
 #include <boost/iterator/iterator_facade.hpp>
-#include "global_functions.h"
+#include <SWIG_CGAL/Java/global_functions.h>
 
 template <class Cpp_wrapper,class Cpp_base>
 class Input_iterator_wrapper:

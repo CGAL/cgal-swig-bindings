@@ -1,10 +1,10 @@
 #ifndef SWIG_CGAL_KERNEL_TRIANGLE_2_H
 #define SWIG_CGAL_KERNEL_TRIANGLE_2_H
 
-#include "typedefs.h"
-#include "Point_2.h"
-#include "enum.h"
-#include "../Common/Macros.h"
+#include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Kernel/Point_2.h>
+#include <SWIG_CGAL/Kernel/enum.h>
+#include <SWIG_CGAL/Common/Macros.h>
 
 
 #ifndef SWIG

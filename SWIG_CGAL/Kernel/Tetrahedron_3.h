@@ -1,10 +1,10 @@
 #ifndef SWIG_CGAL_KERNEL_TETRAHEDRON_3_H
 #define SWIG_CGAL_KERNEL_TETRAHEDRON_3_H
 
-#include "typedefs.h"
-#include "Point_3.h"
-#include "enum.h"
-#include "../Common/Macros.h"
+#include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/enum.h>
+#include <SWIG_CGAL/Common/Macros.h>
 
 
 #ifndef SWIG

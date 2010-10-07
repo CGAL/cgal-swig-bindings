@@ -3,7 +3,7 @@
 
 #include <vector>
 #ifdef SWIGPYTHON
-#include "../Python/exceptions.h"
+#include <SWIG_CGAL/Python/exceptions.h>
 #endif
 
 

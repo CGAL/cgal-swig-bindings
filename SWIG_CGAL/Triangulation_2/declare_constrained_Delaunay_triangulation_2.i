@@ -1,7 +1,7 @@
 #ifndef SWIG_CGAL_TRIANGULATION_2_DECLARE_CONSTRAINED_DELAUNAY_TRIANGULATION_2_I
 #define SWIG_CGAL_TRIANGULATION_2_DECLARE_CONSTRAINED_DELAUNAY_TRIANGULATION_2_I
 
-%import "declare_constrained_triangulation_2.i"
+%import "SWIG_CGAL/Triangulation_2/declare_constrained_triangulation_2.i"
 
 
 //Expose a constrained Delaunay triangulation 2

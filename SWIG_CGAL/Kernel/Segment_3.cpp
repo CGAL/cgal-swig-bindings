@@ -1,4 +1,4 @@
-#include "Segment_3.h"
+#include <SWIG_CGAL/Kernel/Segment_3.h>
 #include <sstream>
 
 const EPIC_Kernel::Segment_3& Segment_3::get_data() const {return data;}

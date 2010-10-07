@@ -1,7 +1,7 @@
 #ifndef SWIG_CGAL_SPATIAL_SEARCHING_FUZZY_OBJECTS_H
 #define SWIG_CGAL_SPATIAL_SEARCHING_FUZZY_OBJECTS_H
 
-#include "../Common/Macros.h"
+#include <SWIG_CGAL/Common/Macros.h>
 
 
 template <class Cpp_base,class Point_d>

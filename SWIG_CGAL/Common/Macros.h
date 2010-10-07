@@ -1,7 +1,7 @@
 #ifndef CGAL_SWIG_MACROS_H
 #define CGAL_SWIG_MACROS_H
 
-#include "../Common/triple.h"
+#include <SWIG_CGAL/Common/triple.h>
 #include <CGAL/utility.h>
 
 #include <boost/mpl/if.hpp>

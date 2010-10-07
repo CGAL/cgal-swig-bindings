@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include "global_functions.h"
+#include <SWIG_CGAL/Java/global_functions.h>
 
 //function called when library is loaded in Java
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved) {

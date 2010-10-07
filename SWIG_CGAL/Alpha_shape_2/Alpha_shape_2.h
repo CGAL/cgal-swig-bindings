@@ -6,8 +6,8 @@
 #include <CGAL/Weighted_alpha_shape_euclidean_traits_2.h>
 #include <CGAL/Regular_triangulation_2.h>
 
-#include "../Triangulation_2/Delaunay_triangulation_2.h"
-#include "../Triangulation_2/Regular_triangulation_2.h"
+#include <SWIG_CGAL/Triangulation_2/Delaunay_triangulation_2.h>
+#include <SWIG_CGAL/Triangulation_2/Regular_triangulation_2.h>
 
 enum Classification_type { EXTERIOR, SINGULAR, REGULAR, INTERIOR};
 enum Mode { GENERAL, REGULARIZED};
@@ -29,7 +29,7 @@ namespace internal{
   
 } //namespace internal
 
-#include "../Common/Input_iterator.h"
+#include <SWIG_CGAL/Common/Input_iterator.h>
 
 template <class Alpha_shape,class Point, class Vertex_handle, class Face_handle,class Weighted_tag,class Base>
 class Alpha_shape_2_wrapper : public Base

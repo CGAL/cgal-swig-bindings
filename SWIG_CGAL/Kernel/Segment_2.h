@@ -1,9 +1,9 @@
 #ifndef SWIG_CGAL_KERNEL_SEGMENT_2_H
 #define SWIG_CGAL_KERNEL_SEGMENT_2_H
 
-#include "typedefs.h"
-#include "Point_2.h"
-#include "../Common/Macros.h"
+#include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Kernel/Point_2.h>
+#include <SWIG_CGAL/Common/Macros.h>
 
 #ifndef SWIG
 #define NO_SWIG_OR_PYTHON

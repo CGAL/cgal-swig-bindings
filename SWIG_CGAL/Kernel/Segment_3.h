@@ -1,9 +1,9 @@
 #ifndef SWIG_CGAL_KERNEL_SEGMENT_3_H
 #define SWIG_CGAL_KERNEL_SEGMENT_3_H
 
-#include "typedefs.h"
-#include "Point_3.h"
-#include "Line_3.h"
+#include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Line_3.h>
 
 
 #ifndef SWIG

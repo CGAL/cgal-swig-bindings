@@ -6,8 +6,8 @@
 %javaconst(1);
 #endif
 
-%import  "../Common/Macros.h"
-%include "../common.i"
+%import  "SWIG_CGAL/Common/Macros.h"
+%include "SWIG_CGAL/common.i"
 
 //%typemap(javapackage) Point_3 "CGAL.Kernel"
 
@@ -31,39 +31,39 @@ SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
 
 //include files
 %{
-  #include "Point_2.h"
-  #include "Weighted_point_2.h"
-  #include "Segment_2.h"
-  #include "Triangle_2.h"
-  #include "Point_3.h"
-  #include "Weighted_point_3.h"
-  #include "Plane_3.h"
-  #include "Segment_3.h"
-  #include "Triangle_3.h"
-  #include "Tetrahedron_3.h"
-  #include "Line_3.h"
-  #include "Sphere_3.h"
-  #include "CGAL_Object.h"
-  #include "global_functions.h"
-  #include "enum.h"
+  #include <SWIG_CGAL/Kernel/Point_2.h>
+  #include <SWIG_CGAL/Kernel/Weighted_point_2.h>
+  #include <SWIG_CGAL/Kernel/Segment_2.h>
+  #include <SWIG_CGAL/Kernel/Triangle_2.h>
+  #include <SWIG_CGAL/Kernel/Point_3.h>
+  #include <SWIG_CGAL/Kernel/Weighted_point_3.h>
+  #include <SWIG_CGAL/Kernel/Plane_3.h>
+  #include <SWIG_CGAL/Kernel/Segment_3.h>
+  #include <SWIG_CGAL/Kernel/Triangle_3.h>
+  #include <SWIG_CGAL/Kernel/Tetrahedron_3.h>
+  #include <SWIG_CGAL/Kernel/Line_3.h>
+  #include <SWIG_CGAL/Kernel/Sphere_3.h>
+  #include <SWIG_CGAL/Kernel/CGAL_Object.h>
+  #include <SWIG_CGAL/Kernel/global_functions.h>
+  #include <SWIG_CGAL/Kernel/enum.h>
 %}
 
 //definitions
-%include "Point_2.h"
-%include "Weighted_point_2.h"
-%include "Segment_2.h"
-%include "Triangle_2.h"
-%include "Point_3.h"
-%include "Weighted_point_3.h"
-%include "Plane_3.h"
-%include "Segment_3.h"
-%include "Line_3.h"
-%include "Sphere_3.h"
-%include "Triangle_3.h"
-%include "Tetrahedron_3.h"
-%include "CGAL_Object.h"
-%include "enum.h"
-%include "../Common/global_function_macros.h"
-%include "global_function_signatures.h"
+%include "SWIG_CGAL/Kernel/Point_2.h"
+%include "SWIG_CGAL/Kernel/Weighted_point_2.h"
+%include "SWIG_CGAL/Kernel/Segment_2.h"
+%include "SWIG_CGAL/Kernel/Triangle_2.h"
+%include "SWIG_CGAL/Kernel/Point_3.h"
+%include "SWIG_CGAL/Kernel/Weighted_point_3.h"
+%include "SWIG_CGAL/Kernel/Plane_3.h"
+%include "SWIG_CGAL/Kernel/Segment_3.h"
+%include "SWIG_CGAL/Kernel/Line_3.h"
+%include "SWIG_CGAL/Kernel/Sphere_3.h"
+%include "SWIG_CGAL/Kernel/Triangle_3.h"
+%include "SWIG_CGAL/Kernel/Tetrahedron_3.h"
+%include "SWIG_CGAL/Kernel/CGAL_Object.h"
+%include "SWIG_CGAL/Kernel/enum.h"
+%include "SWIG_CGAL/Common/global_function_macros.h"
+%include "SWIG_CGAL/Kernel/global_function_signatures.h"
 
 

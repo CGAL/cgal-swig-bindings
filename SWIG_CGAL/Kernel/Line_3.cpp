@@ -1,4 +1,4 @@
-#include "Line_3.h"
+#include <SWIG_CGAL/Kernel/Line_3.h>
 #include <sstream>
 
 const EPIC_Kernel::Line_3& Line_3::get_data() const {return data;}

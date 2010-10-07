@@ -1,6 +1,6 @@
 
 #define IMPORT_ONLY_POLYHEDRON_TYPES
-%include "../Polyhedron_3/config.i"
+%include "SWIG_CGAL/Polyhedron_3/config.i"
 #undef IMPORT_ONLY_POLYHEDRON_TYPES
 
 %{

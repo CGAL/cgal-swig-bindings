@@ -1,9 +1,9 @@
 #ifndef SWIG_CGAL_KERNEL_PLANE_3_H
 #define SWIG_CGAL_KERNEL_PLANE_3_H
 
-#include "typedefs.h"
-#include "Point_3.h"
-#include "Segment_3.h"
+#include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Segment_3.h>
 
 #ifndef SWIG
 #define NO_SWIG_OR_PYTHON

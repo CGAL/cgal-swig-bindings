@@ -1,10 +1,10 @@
 #ifndef CGAL_SWIG_POLYHEDRON_3_HANDLES_H
 #define CGAL_SWIG_POLYHEDRON_3_HANDLES_H
 
-#include "../Common/Macros.h"
+#include <SWIG_CGAL/Common/Macros.h>
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/Polyhedron_items_with_id_3.h>
-#include "Polyhedron_items_with_id_and_info_3.h"
+#include <SWIG_CGAL/Polyhedron_3/Polyhedron_items_with_id_and_info_3.h>
 
 namespace internal{
   

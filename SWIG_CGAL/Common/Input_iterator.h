@@ -1,7 +1,7 @@
 #ifndef CGAL_SWIG_INPUT_ITERATOR_H
 #define CGAL_SWIG_INPUT_ITERATOR_H
 
-#include "triple.h"
+#include <SWIG_CGAL/Common/triple.h>
 
 #ifndef SWIG  
 template <class T>
@@ -82,7 +82,7 @@ struct Iterator_helper<double>{
 
 #ifdef SWIGPYTHON
 
-#include "../Python/exceptions.h"
+#include <SWIG_CGAL/Python/exceptions.h>
 
 #define DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)             \
 template<class T,class R>                                      \

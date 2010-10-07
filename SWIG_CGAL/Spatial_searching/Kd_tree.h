@@ -2,16 +2,16 @@
 #define SWIG_CGAL_SPATIAL_SEARCHING_KD_TREE_H
 
 
-#include "../Common/Macros.h"
-#include "../Common/Input_iterator.h"
+#include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Common/Input_iterator.h>
 
 #ifdef SWIGPYTHON
-#include "../Python/Input_iterator_wrapper.h"
-#include "../Python/Output_iterator_wrapper.h"
+#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Python/Output_iterator_wrapper.h>
 #endif
 #ifdef SWIGJAVA
-#include "../Java/Input_iterator_wrapper.h"
-#include "../Java/Output_iterator_wrapper.h"
+#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Java/Output_iterator_wrapper.h>
 #endif
 
 

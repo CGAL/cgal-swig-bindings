@@ -9,9 +9,9 @@ SWIG_JAVABODY_METHODS(public,public,JavaData)
 
 //include files
 %{
-  #include "JavaData.h"
+  #include <SWIG_CGAL/Java/JavaData.h>
 %}
 
 //definitions
-%include "JavaData.h"
+%include "SWIG_CGAL/Java/JavaData.h"
 

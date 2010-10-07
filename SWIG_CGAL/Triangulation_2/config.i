@@ -6,10 +6,10 @@
 
 
 #ifdef ADD_JAVA_DATA_IN_FACET
-%import "../Java/JavaData.h"
-%import "../Java/Macro.i"
+%import "SWIG_CGAL/Java/JavaData.h"
+%import "SWIG_CGAL/Java/Macro.i"
 %{
-#include "../Java/JavaData.h"
+#include <SWIG_CGAL/Java/JavaData.h>
 %}
 //assign JavaData to Face_handle of CGAL_CDTplus2
 #define i_Face_handle CGAL_Face_handle<CGAL_CDTplus2,Point_2>

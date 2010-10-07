@@ -1,33 +1,33 @@
 %module CGAL_Spatial_searching
 
-%include "../common.i"
-%import  "../Common/Macros.h"
-%import  "../Kernel/Point_2.h"
-%import  "../Kernel/Point_3.h"
-%include "../Common/Input_iterator.h"
+%include "SWIG_CGAL/common.i"
+%import  "SWIG_CGAL/Common/Macros.h"
+%import  "SWIG_CGAL/Kernel/Point_2.h"
+%import  "SWIG_CGAL/Kernel/Point_3.h"
+%include "SWIG_CGAL/Common/Input_iterator.h"
 
 //include files
 %{
-  #include "../Kernel/typedefs.h"
-  #include "../Kernel/Point_2.h"
-  #include "../Kernel/Point_3.h"
-  #include "Kd_tree.h"
-  #include "NN_search.h"
-  #include "Fuzzy_objects.h"
+  #include <SWIG_CGAL/Kernel/typedefs.h>
+  #include <SWIG_CGAL/Kernel/Point_2.h>
+  #include <SWIG_CGAL/Kernel/Point_3.h>
+  #include <SWIG_CGAL/Spatial_searching/Kd_tree.h>
+  #include <SWIG_CGAL/Spatial_searching/NN_search.h>
+  #include <SWIG_CGAL/Spatial_searching/Fuzzy_objects.h>
 %}
 
-%include "config.i"
+%include "SWIG_CGAL/Spatial_searching/config.i"
 
 //definitions
-%include "Kd_tree.h"
-%include "NN_search.h"
-%include "Fuzzy_objects.h"
+%include "SWIG_CGAL/Spatial_searching/Kd_tree.h"
+%include "SWIG_CGAL/Spatial_searching/NN_search.h"
+%include "SWIG_CGAL/Spatial_searching/Fuzzy_objects.h"
 
 
 %{
-  #include "typedefs.h"
+  #include <SWIG_CGAL/Spatial_searching/typedefs.h>
 %}
-%include "typedefs.h"
+%include "SWIG_CGAL/Spatial_searching/typedefs.h"
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Point_3;  import java.util.Iterator; import java.util.Collection;%}
 
@@ -60,7 +60,7 @@ Typemap_for_Output_iterator(Kd_tree_output_iterator_2,Point_2,Point_2,Point_2::c
 %define Kd_tree_output_iterator_3 Query_iterator_helper<Point_3>::output %enddef
 Typemap_for_Output_iterator(Kd_tree_output_iterator_3,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
 
-%include "declare_spatial_searching_objects.i"
+%include "SWIG_CGAL/Spatial_searching/declare_spatial_searching_objects.i"
 Declare_spatial_searching_objects_incremental(Orthogonal_incremental,OI,Point_2,2)
 Declare_spatial_searching_objects_incremental(Incremental,I,Point_2,2)
 Declare_spatial_searching_objects(K,K,Point_2,2)

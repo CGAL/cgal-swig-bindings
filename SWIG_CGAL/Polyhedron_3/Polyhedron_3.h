@@ -6,10 +6,10 @@
 #include <CGAL/IO/Polyhedron_iostream.h>
 #include <fstream>
 
-#include "../Kernel/typedefs.h"
-#include "../Common/Macros.h"
-#include "polyhedron_3_iterators.h"
-#include "Modifier_base.h"
+#include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Polyhedron_3/polyhedron_3_iterators.h>
+#include <SWIG_CGAL/Polyhedron_3/Modifier_base.h>
 
 template <class Polyhedron_base,class Vertex_handle,class Halfedge_handle,class Facet_handle>
 class Polyhedron_3_wrapper{

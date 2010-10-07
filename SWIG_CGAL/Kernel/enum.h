@@ -1,7 +1,7 @@
 #ifndef SWIG_CGAL_KERNEL_ENUM_H
 #define SWIG_CGAL_KERNEL_ENUM_H
 
-#include "../Common/Macros.h"
+#include <SWIG_CGAL/Common/Macros.h>
 
 enum Oriented_side { ON_NEGATIVE_SIDE=-1, ON_ORIENTED_BOUNDARY=0, ON_POSITIVE_SIDE=1};
 enum Bounded_side{ ON_UNBOUNDED_SIDE = -1,ON_BOUNDARY,ON_BOUNDED_SIDE};

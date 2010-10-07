@@ -1,6 +1,6 @@
 //no inclusion protection, use with caution
 
-#include "Macros.h"
+#include <SWIG_CGAL/Common/Macros.h>
 
 #ifdef NO_CGAL_SWIG_GF_MACRO_DEFINITION
 //Macro used to ease the wrapping of global functions

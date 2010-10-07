@@ -3,8 +3,8 @@
 
 #include <CGAL/Weighted_point.h>
 
-#include "typedefs.h"
-#include "Point_2.h"
+#include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Kernel/Point_2.h>
 
 #ifndef SWIG
 #define NO_SWIG_OR_PYTHON

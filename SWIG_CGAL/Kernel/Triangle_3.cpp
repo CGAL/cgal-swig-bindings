@@ -1,4 +1,4 @@
-#include "Triangle_3.h"
+#include <SWIG_CGAL/Kernel/Triangle_3.h>
 #include <sstream>
 
 const EPIC_Kernel::Triangle_3& Triangle_3::get_data() const {return data;}

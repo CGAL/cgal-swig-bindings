@@ -1,49 +1,49 @@
 %module CGAL_Surface_mesher
 
 
-%include "../common.i"
-%import  "../Common/Macros.h"
-%import  "../Kernel/Point_3.h"
-%import  "../Kernel/Sphere_3.h"
-%import  "../Kernel/Segment_3.h"
-%import  "../Kernel/Tetrahedron_3.h"
-%import  "../Kernel/Triangle_3.h"
-%import  "../Kernel/enum.h"
-%include "../Common/Input_iterator.h"
-%import  "../Polyhedron_3/Polyhedron_3.h"
-%import  "../Polyhedron_3/polyhedron_3_handles.h"
+%include "SWIG_CGAL/common.i"
+%import  "SWIG_CGAL/Common/Macros.h"
+%import  "SWIG_CGAL/Kernel/Point_3.h"
+%import  "SWIG_CGAL/Kernel/Sphere_3.h"
+%import  "SWIG_CGAL/Kernel/Segment_3.h"
+%import  "SWIG_CGAL/Kernel/Tetrahedron_3.h"
+%import  "SWIG_CGAL/Kernel/Triangle_3.h"
+%import  "SWIG_CGAL/Kernel/enum.h"
+%include "SWIG_CGAL/Common/Input_iterator.h"
+%import  "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
+%import  "SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h"
 
 //include files
 %{
-  #include  "../Polyhedron_3/Polyhedron_3.h"
-  #include  "../Polyhedron_3/polyhedron_3_handles.h"  
-  #include "../Triangulation_3/Delaunay_triangulation_3.h"
-  #include "../Triangulation_3/Triangulation_3.h"
-  #include "../Triangulation_3/triangulation_handles.h"
-  #include "../Common/triple.h"
-  #include "../Triangulation_3/triangulation_iterators.h"
-  #include "Surface_mesh_details.h"
-  #include "C2T3.h"
+  #include  <SWIG_CGAL/Polyhedron_3/Polyhedron_3.h>
+  #include  <SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h>  
+  #include  <SWIG_CGAL/Triangulation_3/Delaunay_triangulation_3.h>
+  #include  <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
+  #include  <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
+  #include  <SWIG_CGAL/Common/triple.h>
+  #include  <SWIG_CGAL/Triangulation_3/triangulation_iterators.h>
+  #include  <SWIG_CGAL/Surface_mesher/Surface_mesh_details.h>
+  #include  <SWIG_CGAL/Surface_mesher/C2T3.h>
 %}
 
-%include "config.i"
+%include "SWIG_CGAL/Surface_mesher/config.i"
 
 //import definitions of Polyhedron objects
-%import "../Polyhedron_3/CGAL_Polyhedron_3.i"
+%import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
 
 //definitions
-%include "../Triangulation_3/triangulation_handles.h"
-%include "../Triangulation_3/Triangulation_3.h"
-%include "../Triangulation_3/Delaunay_triangulation_3.h"
-%include "../Triangulation_3/triangulation_iterators.h"
-%include "../Common/triple.h"
-%include "C2T3.h"
-%include "Surface_mesh_details.h"
+%include "SWIG_CGAL/Triangulation_3/triangulation_handles.h"
+%include "SWIG_CGAL/Triangulation_3/Triangulation_3.h"
+%include "SWIG_CGAL/Triangulation_3/Delaunay_triangulation_3.h"
+%include "SWIG_CGAL/Triangulation_3/triangulation_iterators.h"
+%include "SWIG_CGAL/Common/triple.h"
+%include "SWIG_CGAL/Surface_mesher/C2T3.h"
+%include "SWIG_CGAL/Surface_mesher/Surface_mesh_details.h"
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Sphere_3; import java.util.Iterator; import java.util.Collection; import CGAL.Polyhedron_3.Polyhedron_3;%}
 %pragma(java) moduleimports  =%{import CGAL.Polyhedron_3.Polyhedron_3;%} //for global functions
 
-%import "../Triangulation_3/declare_Delaunay_triangulation_3.i"
+%import "SWIG_CGAL/Triangulation_3/declare_Delaunay_triangulation_3.i"
 Declare_Delaunay_triangulation_3(Surface_mesh_default_triangulation_3,C2T3_DT)
 
 //typemap for output iterator

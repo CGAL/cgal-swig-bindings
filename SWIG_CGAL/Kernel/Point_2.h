@@ -1,7 +1,7 @@
 #ifndef SWIG_CGAL_KERNEL_POINT_2_H
 #define SWIG_CGAL_KERNEL_POINT_2_H
 
-#include "typedefs.h"
+#include <SWIG_CGAL/Kernel/typedefs.h>
 
 
 #ifndef SWIG

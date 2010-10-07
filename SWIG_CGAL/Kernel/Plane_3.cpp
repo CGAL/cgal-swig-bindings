@@ -1,4 +1,4 @@
-#include "Plane_3.h"
+#include <SWIG_CGAL/Kernel/Plane_3.h>
 #include <sstream>
 
 const EPIC_Kernel::Plane_3& Plane_3::get_data() const {return data;}

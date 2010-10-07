@@ -17,12 +17,12 @@ typedef CGAL::Polyhedron_3<EPIC_Kernel>     Polyhedron_3_;
 #ifdef SWIGJAVA
 
 
-%import "../Java/JavaData.h"
-%import "../Java/Macro.i"
-%import "../common.i"
+%import "SWIG_CGAL/Java/JavaData.h"
+%import "SWIG_CGAL/Java/Macro.i"
+%import "SWIG_CGAL/common.i"
 %{
-#include "../Java/JavaData.h"
-#include "../Polyhedron_3/Polyhedron_items_with_id_and_info_3.h"
+#include "SWIG_CGAL/Java/JavaData.h"
+#include "SWIG_CGAL/Polyhedron_3/Polyhedron_items_with_id_and_info_3.h"
 %}
 
 
@@ -34,24 +34,24 @@ typedef CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_and_info_3
 
 //modifiers examples
 %{ 
-  #include "../Polyhedron_3/modifier_example.h" 
+  #include "SWIG_CGAL/Polyhedron_3/modifier_example.h" 
 %}
-%include "Modifier_base.h"
+%include "SWIG_CGAL/Polyhedron_3/Modifier_base.h"
 
 
 //Advanced modifier that read points and triple of integer to add points 
 //and facets to the polyhedron
-%include "../Common/triple.h"
+%include "SWIG_CGAL//Common/triple.h"
 %template(Integer_triple)  CGAL_SWIG::Triple<int,int,int>;
 //typemap for input iterators
 Typemap_for_Input_iterator(Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",set_modifier_data)
 Typemap_for_Input_iterator(Triple_integer_range,Integer_triple,Integer_triple,iInteger_triple,SWIGTYPE_p_CGAL_SWIG__TripleT_int_int_int_t,"(LCGAL/Polyhedron_3/Integer_triple;)J",set_modifier_data)
 
 %{
-  #include "../Common/triple.h"
+  #include <SWIG_CGAL/Common/triple.h>
   typedef CGAL_SWIG::Triple<int,int,int> iInteger_triple;
   
-  #include "../Polyhedron_3/Modifier_base.h"
+  #include <SWIG_CGAL/Polyhedron_3/Modifier_base.h>
   #include <CGAL/Polyhedron_3.h>
 %}
 %typemap(javaimports) Modifier_wrapper %{import CGAL.Kernel.Point_3; import java.util.Iterator;%} //need some imports for that modifier

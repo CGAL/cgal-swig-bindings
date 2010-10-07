@@ -1,10 +1,10 @@
 #ifndef SWIG_CGAL_KERNEL_TRIANGLE_3_H
 #define SWIG_CGAL_KERNEL_TRIANGLE_3_H
 
-#include "typedefs.h"
-#include "Point_3.h"
-#include "Plane_3.h"
-#include "../Common/Macros.h"
+#include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Plane_3.h>
+#include <SWIG_CGAL/Common/Macros.h>
 
 
 #ifndef SWIG

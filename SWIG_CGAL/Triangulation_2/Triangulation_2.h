@@ -4,20 +4,20 @@
 #include <CGAL/config.h>
 #include <CGAL/Triangulation_2.h>
 
-#include "../Kernel/typedefs.h"
-#include "triangulation_iterators.h"
-#include "../Kernel/Point_2.h"
-#include "../Kernel/Weighted_point_2.h"
-#include "../Kernel/Segment_2.h"
-#include "../Kernel/Triangle_2.h"
-#include "../Kernel/enum.h"
-#include "../Common/Macros.h"
+#include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Triangulation_2/triangulation_iterators.h>
+#include <SWIG_CGAL/Kernel/Point_2.h>
+#include <SWIG_CGAL/Kernel/Weighted_point_2.h>
+#include <SWIG_CGAL/Kernel/Segment_2.h>
+#include <SWIG_CGAL/Kernel/Triangle_2.h>
+#include <SWIG_CGAL/Kernel/enum.h>
+#include <SWIG_CGAL/Common/Macros.h>
 
 #ifdef SWIGPYTHON
-#include "../Python/Input_iterator_wrapper.h"
+#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
 #endif
 #ifdef SWIGJAVA
-#include "../Java/Input_iterator_wrapper.h"
+#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
 #endif
 
 #include <boost/static_assert.hpp>

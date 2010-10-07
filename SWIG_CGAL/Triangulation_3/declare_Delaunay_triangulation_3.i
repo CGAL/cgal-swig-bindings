@@ -1,7 +1,7 @@
 #ifndef SWIG_CGAL_TRIANGULATION_3_DECLARE_DELAUNAY_TRIANGULATION_3_I
 #define SWIG_CGAL_TRIANGULATION_3_DECLARE_DELAUNAY_TRIANGULATION_3_I
 
-%import "declare_triangulation_3.i"
+%import "SWIG_CGAL/Triangulation_3/declare_triangulation_3.i"
 
 
 //Expose a Delaunay triangulation_3
