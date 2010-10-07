@@ -21,7 +21,7 @@ public:
   Delaunay_triangulation_3_wrapper(const cpp_base& base):Base(base){}
   Delaunay_triangulation_3_wrapper(const Delaunay_triangulation_3_wrapper& dt):Base(static_cast<const Base&>(dt)){};
 //Point moving
-  FORWARD_CALL_2(Vertex_handle,move_point,Vertex_handle,Point_3);
+  FORWARD_CALL_2(Vertex_handle,move,Vertex_handle,Point_3);
 //Removal
   FORWARD_CALL_1(void,remove,Vertex_handle)
 //Queries
