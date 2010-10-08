@@ -5,12 +5,17 @@
 #include <CGAL/Regular_triangulation_3.h>
 #include <CGAL/Regular_triangulation_euclidean_traits_3.h>
 
-template <class Triangulation,class Vertex_handle, class Cell_handle>
-class Regular_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Weighted_point_3,Vertex_handle,Cell_handle,CGAL::Tag_true>{
+template <class Triangulation,class Vertex_handle_, class Cell_handle_>
+class Regular_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Weighted_point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_true>{
 public:
-  typedef Triangulation_3_wrapper<Triangulation,Weighted_point_3,Vertex_handle,Cell_handle,CGAL::Tag_true> Base;
+  typedef Triangulation_3_wrapper<Triangulation,Weighted_point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_true> Base;
   typedef typename Base::Facet Facet;
   typedef typename Base::Edge Edge;
+  typedef Vertex_handle_ Vertex_handle;
+  typedef Cell_handle_ Cell_handle;
+//Creation
+  Regular_triangulation_3_wrapper(){}
+  Regular_triangulation_3_wrapper(const Triangulation& base):Base(base){}
 //Removal
   FORWARD_CALL_1(void,remove,Vertex_handle)  
 //Queries

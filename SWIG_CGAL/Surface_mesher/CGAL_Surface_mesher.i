@@ -55,7 +55,7 @@ Typemap_for_Output_iterator(Complex_2_in_triangulation_3_Facet_output_iterator,S
 
 //iterators
 Iterator_for_java(CGAL_Vertex_iterator,Surface_mesh_default_triangulation_3_Vertex_handle,import CGAL.Kernel.Point_3;)
-%template(Surface_mesher_Complex_2_in_triangulation_3_CGAL_Vertex_iterator) CGAL_Vertex_iterator<C2T3,CGAL_Vertex_handle<C2T3_DT,Point_3> >;
+%template(Surface_mesher_Complex_2_in_triangulation_3_Vertex_iterator) CGAL_Vertex_iterator<C2T3,CGAL_Vertex_handle<C2T3_DT,Point_3> >;
 
 Iterator_for_java(CGAL_Facet_iterator,Surface_mesh_default_triangulation_3_Facet,)
 %template(Surface_mesh_default_triangulation_3_Facet_iterator) CGAL_Facet_iterator<C2T3,std::pair<CGAL_Cell_handle<C2T3_DT,Point_3>,int> >;
