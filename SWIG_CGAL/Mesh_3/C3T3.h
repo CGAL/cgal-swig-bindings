@@ -92,7 +92,7 @@ public:
   FORWARD_CALL_2(void,set_subdomain_index,Cell_handle,Subdomain_index)
   FORWARD_CALL_2(void,set_surface_index,Facet,Surface_index)
   FORWARD_CALL_3(void,set_surface_index,Cell_handle,int,Surface_index)
-//  FORWARD_CALL_2(void,set_index,Vertex_handle,Index)
+  FORWARD_CALL_2(void,set_index,Vertex_handle,Index)
   FORWARD_CALL_2(void,set_dimension,Vertex_handle,int)
 //Queries
   FORWARD_CALL_0(int,number_of_cells)
@@ -104,7 +104,7 @@ public:
   FORWARD_CALL_1(Surface_index,surface_index,Facet)
   FORWARD_CALL_2(Surface_index,surface_index,Cell_handle,int)
   FORWARD_CALL_1(int,in_dimension,Vertex_handle)
-//  FORWARD_CALL_1(Index,index,Vertex_handle)
+  FORWARD_CALL_1(Index,index,Vertex_handle)
 //Traversal of the complex
   Cell_iterator  cells() {return Cell_iterator(data.cells_begin(),data.cells_end());}
   Facet_iterator facets(){return Facet_iterator(data.facets_begin(),data.facets_end());}

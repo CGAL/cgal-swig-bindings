@@ -320,12 +320,13 @@ public:
    */
   class Iterator_not_in_complex
   {
-    const Self& r_self_;
+    const Self* r_self_;
   public:
-    Iterator_not_in_complex(const Self& self) : r_self_(self) { }
+    Iterator_not_in_complex() : r_self_(NULL) { } //added for SWIG wrapping
+    Iterator_not_in_complex(const Self& self) : r_self_(&self) { }
 
     template <typename Iterator>
-    bool operator()(Iterator it) const { return ! r_self_.is_in_complex(*it); }
+    bool operator()(Iterator it) const { return ! r_self_->is_in_complex(*it); }
   }; // end class Iterator_not_in_complex
 
 
@@ -361,7 +362,7 @@ public:
     const Self* r_self_;
   public:
     Cell_not_in_complex() : r_self_(NULL) { } //added for SWIG wrapping
-    Cell_not_in_complex(const Self* self) : r_self_(self) { }
+    Cell_not_in_complex(const Self& self) : r_self_(&self) { }
     bool operator()(Cell_handle ch) const { return !r_self_->is_in_complex(ch); }
   }; // end class Cell_not_in_complex
 
@@ -392,7 +393,7 @@ public:
     Self operator++(int) { Self tmp(*this); ++(*this); return tmp; }
     Self operator--(int) { Self tmp(*this); --(*this); return tmp; }
 
-    operator Cell_handle() { return Cell_handle(this->base()); }
+    operator Cell_handle() const { return Cell_handle(this->base()); }
   }; // end class Cell_iterator
 
 

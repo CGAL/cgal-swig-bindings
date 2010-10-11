@@ -13,6 +13,7 @@
   #include  <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
   #include  <SWIG_CGAL/Common/triple.h>
+  #include  <SWIG_CGAL/Common/Variant.h>
   #include  <SWIG_CGAL/Mesh_3/C3T3.h>
 %}
 
@@ -26,6 +27,7 @@
 
 %include "SWIG_CGAL/Common/Input_iterator.h"
 %include "SWIG_CGAL/Common/triple.h"
+%include "SWIG_CGAL/Common/Variant.h"
 %include "SWIG_CGAL/Triangulation_3/triangulation_handles.h"
 %include "SWIG_CGAL/Triangulation_3/Triangulation_3.h"
 %include "SWIG_CGAL/Triangulation_3/triangulation_iterators.h"
@@ -51,15 +53,29 @@ Declare_regular_triangulation_3(Mesh_3_regular_triangulation_3,MT_PMD)
 Iterator_for_java(CGAL_Cell_iterator,Mesh_3_Complex_3_in_triangulation_3_Cell_handle,)
 %template(Mesh_3_Complex_3_in_triangulation_3_Cell_iterator) CGAL_Cell_iterator<C3T3_PMD,CGAL_Cell_handle<C3T3_PMD,Weighted_point_3> >;
 
-//~ Iterator_for_java(CGAL_Facet_iterator,Mesh_3_Complex_3_in_triangulation_3_Facet,)
-//~ %template(Mesh_3_Complex_3_in_triangulation_3_Facet_iterator) CGAL_Facet_iterator<C3T3_PMD,std::pair<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int> >;
+Iterator_for_java(CGAL_Facet_iterator,Mesh_3_Complex_3_in_triangulation_3_Facet,)
+%template(Mesh_3_Complex_3_in_triangulation_3_Facet_iterator) CGAL_Facet_iterator<C3T3_PMD,std::pair<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int> >;
+
+//Types of Index
+%template(Mesh_3_Surface_index) std::pair<int,int>;
+%template(Mesh_3_Index) Variant<int,std::pair<int,int> >;
 
 
-
-%define T_C3T3_wrapper C3T3_wrapper<C3T3_PMD,Regular_triangulation_3_wrapper<MT_PMD,CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,CGAL_Cell_handle<MT_PMD,Weighted_point_3> >,PMD::Index,PMD::Surface_index,PMD::Subdomain_index > %enddef
+%define T_C3T3_wrapper C3T3_wrapper<  C3T3_PMD,
+                                      Regular_triangulation_3_wrapper<MT_PMD,CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,CGAL_Cell_handle<MT_PMD,Weighted_point_3> >,
+                                      Variant< int, std::pair<int,int> >,
+                                      std::pair<int,int>,
+                                      int > 
+%enddef
 %template (Mesh_3_Complex_3_in_triangulation_3) T_C3T3_wrapper;
+
 %{
-  typedef C3T3_wrapper<C3T3_PMD,Regular_triangulation_3_wrapper<MT_PMD,CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,CGAL_Cell_handle<MT_PMD,Weighted_point_3> >,PMD::Index,PMD::Surface_index,PMD::Subdomain_index > T_C3T3_wrapper;
+  typedef C3T3_wrapper <  C3T3_PMD,
+                          Regular_triangulation_3_wrapper<MT_PMD,CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,CGAL_Cell_handle<MT_PMD,Weighted_point_3> >,
+                          Variant< int, std::pair<int,int> >,
+                          std::pair<int,int>,
+                          int  >
+  T_C3T3_wrapper;
 %}
 
 
