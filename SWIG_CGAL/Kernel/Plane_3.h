@@ -18,13 +18,16 @@ class Segment_3;
 class Plane_3{
   EPIC_Kernel::Plane_3 data;
 public:
+  #ifndef SWIG
   typedef EPIC_Kernel::Plane_3 cpp_base;  
-
   const EPIC_Kernel::Plane_3& get_data() const;
   EPIC_Kernel::Plane_3& get_data_ref();
+  Plane_3(const cpp_base& p);
+  #endif
+
   Plane_3();
   Plane_3(double a,double b,double c,double d);
-  Plane_3(const EPIC_Kernel::Plane_3& p);
+  
   Plane_3(const Segment_3& s, const Point_3& p); 
   Plane_3(const Point_3& p, const Point_3& q, const Point_3& r); 
   double a();

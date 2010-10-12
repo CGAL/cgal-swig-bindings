@@ -18,15 +18,16 @@
 class Tetrahedron_3{
   EPIC_Kernel::Tetrahedron_3 data;
 public:
+  #ifndef SWIG
   typedef EPIC_Kernel::Tetrahedron_3 cpp_base;
+  const cpp_base& get_data() const;
+  cpp_base& get_data_ref();
+  Tetrahedron_3(const cpp_base& p);
+  #endif
 
-  const EPIC_Kernel::Tetrahedron_3& get_data() const;
-  EPIC_Kernel::Tetrahedron_3& get_data_ref();
 //Creation
   Tetrahedron_3();
   Tetrahedron_3(const Point_3& p,const Point_3& q,const Point_3& r,const Point_3& s);
-  Tetrahedron_3(const EPIC_Kernel::Tetrahedron_3& p);
-
 //Operations
   FORWARD_CALL_1(Point_3,vertex,int)
 //Predicates

@@ -19,12 +19,14 @@ class Line_3;
 class Segment_3{
   EPIC_Kernel::Segment_3 data;
 public:
+  #ifndef SWIG
   typedef EPIC_Kernel::Segment_3 cpp_base;
+  const cpp_base& get_data() const;
+  cpp_base& get_data_ref();
+  Segment_3(const cpp_base& s);
+  #endif
 
-  const EPIC_Kernel::Segment_3& get_data() const;
-  EPIC_Kernel::Segment_3& get_data_ref();
   Segment_3();
-  Segment_3(const EPIC_Kernel::Segment_3& s);
   Segment_3(const Point_3& p1, const Point_3& p2);
 
   Point_3 source();

@@ -16,13 +16,16 @@
 class Segment_2{
   EPIC_Kernel::Segment_2 data;
 public:
+  #ifndef SWIG
   typedef EPIC_Kernel::Segment_2 cpp_base;
-  const EPIC_Kernel::Segment_2& get_data() const;
-  EPIC_Kernel::Segment_2& get_data_ref();
+  const cpp_base& get_data() const;
+  cpp_base& get_data_ref();
+  Segment_2(const cpp_base& p);
+  #endif
+
   Segment_2();
 //Creation
   Segment_2(const Point_2& p,const Point_2& q);
-  Segment_2(const EPIC_Kernel::Segment_2& p);
 //Operations
   FORWARD_CALL_0(Point_2,source)
   FORWARD_CALL_0(Point_2,target)

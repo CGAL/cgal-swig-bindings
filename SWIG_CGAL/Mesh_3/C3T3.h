@@ -58,11 +58,15 @@ class C3T3_wrapper{
   C3T3 data;
   Triangulation triangulation_wrapper_ref;
 public:
+  #ifndef SWIG
   typedef C3T3 cpp_base;
-  typedef C3T3_wrapper<C3T3,Triangulation,Index,Surface_index,Subdomain_index> Self;
   const cpp_base& get_data() const {return data;}
   cpp_base& get_data_ref() {return data;}
+  C3T3_wrapper(const cpp_base& data_):data(data_){}
+  #endif
   
+  typedef C3T3_wrapper<C3T3,Triangulation,Index,Surface_index,Subdomain_index> Self;    
+    
   typedef typename Triangulation::Edge Edge;
   typedef typename Triangulation::Facet Facet;
   typedef typename Triangulation::Vertex_handle Vertex_handle;
@@ -73,7 +77,6 @@ public:
   
 //Creation  
   C3T3_wrapper(){}
-  C3T3_wrapper(const C3T3& data_):data(data_){}
   void swap(Self& other){data.swap(other.get_data_ref());}
 //Access Functions
   FORWARD_CALL_0(Triangulation,triangulation)

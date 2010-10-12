@@ -11,12 +11,14 @@ class CGAL_Vertex_handle{
   
 public:
   typedef std::pair<double,double> Range;
+  #ifndef SWIG
   typedef typename Triangulation::Vertex_handle cpp_base;
   const typename Triangulation::Vertex_handle& get_data() const {return data;}
   typename Triangulation::Vertex_handle& get_data_ref() {return data;}
+  CGAL_Vertex_handle(cpp_base v):data(v){}
+  #endif
 //Creation
   CGAL_Vertex_handle():data(NULL){}
-  CGAL_Vertex_handle(typename Triangulation::Vertex_handle v):data(v){}
 //Access Functions  
   FORWARD_CALL_0_PTR(Point,point)
   FORWARD_CALL_0_PTR(Range,get_range)
@@ -41,14 +43,17 @@ class CGAL_Face_handle{
   typename Triangulation::Face_handle data;
   
 public:
+  #ifndef SWIG
   typedef typename Triangulation::Face_handle cpp_base;
-  typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
-  typedef CGAL_SWIG::Triple<double,double,double> Interval_3;
-
-  CGAL_Face_handle():data(NULL){}
-  CGAL_Face_handle(typename Triangulation::Face_handle v):data(v){}
   const typename Triangulation::Face_handle& get_data() const {return data;}
   typename Triangulation::Face_handle& get_data_ref() {return data;}
+  CGAL_Face_handle(cpp_base v):data(v){}
+  #endif
+  typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
+  typedef CGAL_SWIG::Triple<double,double,double> Interval_3;
+    
+  CGAL_Face_handle():data(NULL){}
+
 
 //Access Functions    
   FORWARD_CALL_0_PTR(int,dimension)

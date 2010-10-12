@@ -15,6 +15,7 @@
 %import  "SWIG_CGAL/Kernel/Segment_2.h"
 %import  "SWIG_CGAL/Kernel/Triangle_2.h"
 %import  "SWIG_CGAL/Kernel/Weighted_point_2.h"
+%import  "SWIG_CGAL/Kernel/enum.h"
 %include "SWIG_CGAL/Common/Input_iterator.h"
 
 //include files

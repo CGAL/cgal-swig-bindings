@@ -17,14 +17,16 @@
 class Weighted_point_3{
   CGAL::Weighted_point<EPIC_Kernel::Point_3,double> data;
 public:
+  #ifndef SWIG
   typedef CGAL::Weighted_point<EPIC_Kernel::Point_3,double> cpp_base;
-
   const cpp_base& get_data() const;
   cpp_base& get_data_ref();
+  Weighted_point_3(const cpp_base& p);
+  #endif
+
   Weighted_point_3();
   Weighted_point_3(double x,double y,double z);
   Weighted_point_3(const Point_3&,double);
-  Weighted_point_3(const cpp_base& p);
   Point_3 point() const;
   double weight() const;
   double x() const;

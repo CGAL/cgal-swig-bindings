@@ -20,12 +20,14 @@ class Plane_3;
 class Line_3{
   EPIC_Kernel::Line_3 data;
 public:
+  #ifndef SWIG
   typedef EPIC_Kernel::Line_3 cpp_base;
-
   const EPIC_Kernel::Line_3& get_data() const;
   EPIC_Kernel::Line_3& get_data_ref();
+  Line_3(const cpp_base& l);
+  #endif
+
   Line_3();
-  Line_3(const EPIC_Kernel::Line_3& l);
   Line_3(const Point_3& p1, const Point_3& p2);
 
   Point_3 projection(const Point_3& p);

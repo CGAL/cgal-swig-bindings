@@ -9,10 +9,11 @@ class Fuzzy_sphere_wrapper
 {
   Cpp_base data;
 public:
+  #ifndef SWIG
   typedef Cpp_base cpp_base;
-
   const cpp_base& get_data() const {return data;}
   cpp_base& get_data_ref() {return data;}
+  #endif
   
 //Creation
   Fuzzy_sphere_wrapper(const Point_d& center, double radius, double epsilon):data(center.get_data(),radius,epsilon){}
@@ -32,10 +33,11 @@ class Fuzzy_iso_box_wrapper
 {
   Cpp_base data;
 public:
+  #ifndef SWIG
   typedef Cpp_base cpp_base;
-
   const cpp_base& get_data() const {return data;}
   cpp_base& get_data_ref() {return data;}
+  #endif
   
 //Creation
   Fuzzy_iso_box_wrapper (const Point_d& p,const Point_d& q, double epsilon):data(p.get_data(),q.get_data(),epsilon){}

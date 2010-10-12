@@ -8,14 +8,15 @@ class Optional
 {
   boost::optional<T> data;
 public:
+  #ifndef SWIG
   typedef boost::optional<T> cpp_base;
   const cpp_base& get_data() const {return data;}
   cpp_base& get_data_ref() {return data;}
-  
+  Optional(const cpp_base& base):data(base){}
+  #endif
 
   Optional():data(){}
   Optional(const T& t):data(t){}
-  Optional(const cpp_base& base):data(base){}
   
   bool empty() const {return data?true:false;}
   const T& value() const {return *data;}  

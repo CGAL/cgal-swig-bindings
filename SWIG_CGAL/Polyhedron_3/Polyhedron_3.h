@@ -15,14 +15,16 @@ template <class Polyhedron_base,class Vertex_handle,class Halfedge_handle,class 
 class Polyhedron_3_wrapper{
   Polyhedron_base data;
  
-public:  
+public:
+  #ifndef SWIG
   typedef Polyhedron_base cpp_base;
   const cpp_base& get_data() const {return data;}
   cpp_base& get_data_ref(){return data;}
-
+  Polyhedron_3_wrapper(const cpp_base& base):data(base){}
+  #endif
+  
 //Creation
   Polyhedron_3_wrapper():data(){}
-  Polyhedron_3_wrapper(const cpp_base& base):data(base){}
   Polyhedron_3_wrapper(const char* off_filename){
     std::ifstream file(off_filename);
     file >> data;

@@ -15,13 +15,15 @@
 class Point_2{
   EPIC_Kernel::Point_2 data;
 public:
+  #ifndef SWIG
   typedef EPIC_Kernel::Point_2 cpp_base;
+  const cpp_base& get_data() const;
+  cpp_base& get_data_ref();
+  Point_2(const cpp_base& p);
+  #endif
 
-  const EPIC_Kernel::Point_2& get_data() const;
-  EPIC_Kernel::Point_2& get_data_ref();
   Point_2();
   Point_2(double x,double y);
-  Point_2(const EPIC_Kernel::Point_2& p);
   double x() const;
   double y() const;
   bool equals(const Point_2&);

@@ -36,14 +36,17 @@ class AABB_tree_wrapper
 {
   Tree data;
 public:
+  #ifndef SWIG
   typedef Tree cpp_base;
+  const cpp_base& get_data() const {return data;}
+  cpp_base& get_data_ref() {return data;}
+  #endif
   typedef typename Primitive_iterator_helper<Primitive_object>::input Primitive_range;
   typedef std::pair<Point_3,Primitive_id> Point_and_primitive_id;
   typedef std::pair<CGAL_Object,Primitive_id>  Object_and_primitive_id;
   typedef Optional<Primitive_id> Optional_primitive_id;
   typedef Optional<Object_and_primitive_id> Optional_object_and_primitive_id;
-  const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+
 
 //Creation
   AABB_tree_wrapper(){}

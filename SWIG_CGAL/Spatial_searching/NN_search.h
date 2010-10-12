@@ -12,10 +12,13 @@ class NN_search_wrapper
 {
   Cpp_base data;
 public:
+  #ifndef SWIG
   typedef Cpp_base cpp_base;
+  #endif
+
   typedef Query Point_d;
   typedef std::pair<Point_d,double>  Point_with_transformed_distance;
-  typedef NN_search_iterator<cpp_base,Point_with_transformed_distance> Iterator;
+  typedef NN_search_iterator<Cpp_base,Point_with_transformed_distance> Iterator;
 //Creation
   NN_search_wrapper(Tree& tree,const Point_d& query):data(tree.get_data_ref(),query.get_data()){}
   NN_search_wrapper(Tree& tree,const Point_d& query,int k):data(tree.get_data_ref(),query.get_data(),k){}
@@ -32,10 +35,12 @@ class NN_search_wrapper_incremental
 {
   Cpp_base data;
 public:
+  #ifndef SWIG
   typedef Cpp_base cpp_base;
+  #endif
   typedef Query Point_d;
   typedef std::pair<Point_d,double>  Point_with_transformed_distance;
-  typedef NN_search_iterator<cpp_base,Point_with_transformed_distance> Iterator;
+  typedef NN_search_iterator<Cpp_base,Point_with_transformed_distance> Iterator;
 //Creation
   NN_search_wrapper_incremental(Tree& tree,const Point_d& query):data(tree.get_data_ref(),query.get_data()){}
   NN_search_wrapper_incremental(Tree& tree,const Point_d& query,double eps):data(tree.get_data_ref(),query.get_data(),eps){}

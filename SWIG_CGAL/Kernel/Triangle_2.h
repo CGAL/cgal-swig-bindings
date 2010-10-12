@@ -18,13 +18,15 @@
 class Triangle_2{
   EPIC_Kernel::Triangle_2 data;
 public:
+  #ifndef SWIG
   typedef EPIC_Kernel::Triangle_2 cpp_base;
+  const cpp_base& get_data() const;
+  cpp_base& get_data_ref();
+  Triangle_2(const cpp_base& p);
+  #endif
 
-  const EPIC_Kernel::Triangle_2& get_data() const;
-  EPIC_Kernel::Triangle_2& get_data_ref();
   Triangle_2();
   Triangle_2(const Point_2& p,const Point_2& q,const Point_2& r);
-  Triangle_2(const EPIC_Kernel::Triangle_2& p);
 
 //Operations
   FORWARD_CALL_1(Point_2,vertex,int)

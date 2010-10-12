@@ -10,14 +10,16 @@ template <class Triangulation,class Point>
 class CGAL_Vertex_handle{
   typename Triangulation::Vertex_handle data;
 public:
+  #ifndef SWIG
   typedef typename Triangulation::Vertex_handle cpp_base;
+  const cpp_base& get_data() const {return data;}
+  cpp_base& get_data_ref() {return data;}
+  CGAL_Vertex_handle(cpp_base v):data(v){}
+  #endif
   typedef CGAL_Cell_handle<Triangulation,Point> Cell_handle;
   
-  const typename Triangulation::Vertex_handle& get_data() const {return data;}
-  typename Triangulation::Vertex_handle& get_data_ref() {return data;}
 
   CGAL_Vertex_handle():data(NULL){}
-  CGAL_Vertex_handle(typename Triangulation::Vertex_handle v):data(v){}
   
   FORWARD_CALL_0_PTR(Point,point)
   FORWARD_CALL_0_PTR(Cell_handle,cell)
@@ -42,14 +44,17 @@ class CGAL_Cell_handle{
   typename Triangulation::Cell_handle data;
   
 public:
+  #ifndef SWIG
   typedef typename Triangulation::Cell_handle cpp_base;
+  CGAL_Cell_handle(cpp_base v):data(v){}
+  const cpp_base& get_data() const {return data;}
+  cpp_base& get_data_ref() {return data;}
+  #endif
+  
   typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
   typedef CGAL_Cell_handle<Triangulation,Point> Cell_handle;
 
   CGAL_Cell_handle():data(NULL){}
-  CGAL_Cell_handle(typename Triangulation::Cell_handle v):data(v){}
-  const typename Triangulation::Cell_handle& get_data() const {return data;}
-  typename Triangulation::Cell_handle& get_data_ref() {return data;}
   
   
   FORWARD_CALL_1_PTR(Vertex_handle,vertex,int)

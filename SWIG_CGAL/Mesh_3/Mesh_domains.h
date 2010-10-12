@@ -6,10 +6,12 @@ class Polyhedral_mesh_domain_3_wrapper
 {
   Base data;
 public:
+  #ifndef SWIG
   typedef Base cpp_base;
   const cpp_base& get_data() const {return data;}
   cpp_base& get_data_ref() {return data;}
-
+  #endif
+  
 //Polyhedral_mesh_domain_3_wrapper(const cpp_base& base):data(base){} commented because requires copy cstr which is private
   Polyhedral_mesh_domain_3_wrapper(const Polyhedron_base& poly):data(poly.get_data()){}
 

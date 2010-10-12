@@ -54,9 +54,12 @@ protected:
   template <class T> const T& convert(const Reference_wrapper<T>& ref){return ref.object();}
   template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object_ref();}
 public:
+  #ifndef SWIG
   typedef Triangulation cpp_base;
   const cpp_base& get_data() const {return data;}
   cpp_base& get_data_ref(){return data;}
+  Triangulation_3_wrapper(const cpp_base& base):data(base){}
+  #endif
 
   typedef std::pair<Cell_handle,int>             Facet;
   typedef CGAL_SWIG::Triple<Cell_handle,int,int> Edge;  
@@ -79,7 +82,6 @@ public:
   typedef boost::function_output_iterator< Container_writer<Edge,typename Triangulation::Edge> >                        Edge_output_iterator;
 
   Triangulation_3_wrapper(){}
-  Triangulation_3_wrapper(const cpp_base& base):data(base){}
 
 //Creation
 //Assignment

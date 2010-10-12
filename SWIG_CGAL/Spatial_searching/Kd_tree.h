@@ -27,14 +27,16 @@ template<class Cpp_base, class Query, class Fuzzy_sphere, class Fuzzy_iso_box>
 class Kd_tree_wrapper{
   Cpp_base data;
 public:
+  #ifndef SWIG
   typedef Cpp_base cpp_base;
+  const cpp_base& get_data() const {return data;}
+  cpp_base& get_data_ref() {return data;}
+  #endif
   typedef Kd_tree_iterator<Cpp_base,Query> Iterator;
   typedef Query Point_d;
 //Input iterator
   typedef typename Query_iterator_helper<Query>::input       Point_range; 
 
-  const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
 //Creation
   Kd_tree_wrapper(){}
   Kd_tree_wrapper(Point_range range):data(range.first,range.second){}

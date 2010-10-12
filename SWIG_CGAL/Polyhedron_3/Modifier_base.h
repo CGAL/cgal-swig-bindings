@@ -8,10 +8,12 @@ class Modifier_base{
   typedef typename Polyhedron_base::HalfedgeDS HDS;  
   CGAL::Modifier_base<HDS>* data;
 public:
+  #ifndef SWIG
   typedef CGAL::Modifier_base<HDS> cpp_base;
-
-  Modifier_base(void* ptr):data(static_cast<cpp_base*>(ptr)){}
   cpp_base&  get_data(){return *data;}
+  #endif
+  
+  Modifier_base(void* ptr):data(static_cast<cpp_base*>(ptr)){}
   //the storage of modifier is handled by this class
 };
 

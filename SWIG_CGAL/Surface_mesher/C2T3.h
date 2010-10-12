@@ -29,7 +29,11 @@ class C2T3_wrapper
 {
   C2T3 data;
 public:
+  #ifndef SWIG
   typedef C2T3 cpp_base;
+  const cpp_base& get_data() const {return data;}
+  cpp_base& get_data_ref() {return data;}    
+  #endif
   typedef typename Triangulation::Edge Edge;
   typedef typename Triangulation::Facet Facet;
   typedef typename Triangulation::Vertex_handle Vertex_handle;
@@ -41,10 +45,7 @@ public:
   typedef CGAL_Boundary_edges_iterator<C2T3,Edge>                Boundary_edges_iterator;
 
   typedef typename C2T3_internal::Iterator_helper<Triangulation>::output Output_iterator;
-  
 
-  const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}    
 //Creation
   C2T3_wrapper(Triangulation& t3):data(t3.get_data_ref()){}
 //Member access

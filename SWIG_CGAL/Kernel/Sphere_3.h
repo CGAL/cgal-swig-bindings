@@ -18,11 +18,13 @@
 class Sphere_3{
   EPIC_Kernel::Sphere_3 data;
 public:
+  #ifndef SWIG
   typedef EPIC_Kernel::Sphere_3 cpp_base;  
-
   const cpp_base& get_data() const{return data;}
   cpp_base& get_data_ref() {return data;}
-
+  Sphere_3(const cpp_base& base):data(base){}
+  #endif
+  
   bool equals(const Sphere_3& s){return data==s.get_data();}
   
   std::string toString(){
@@ -36,8 +38,6 @@ public:
   #ifdef NO_SWIG_OR_PYTHON
   bool __ne__(const Sphere_3& s){return !equals(s);}
   #endif  
-  
-  Sphere_3(const cpp_base& base):data(base){}
   
 //Creation
   Sphere_3(const Point_3& center, double squared_radius, Orientation o):data(center.get_data(),squared_radius,internal::make_conversion(o)){}

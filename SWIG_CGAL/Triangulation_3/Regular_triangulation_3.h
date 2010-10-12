@@ -15,7 +15,9 @@ public:
   typedef Cell_handle_ Cell_handle;
 //Creation
   Regular_triangulation_3_wrapper(){}
+  #ifndef SWIG
   Regular_triangulation_3_wrapper(const Triangulation& base):Base(base){}
+  #endif
 //Removal
   FORWARD_CALL_1(void,remove,Vertex_handle)  
 //Queries

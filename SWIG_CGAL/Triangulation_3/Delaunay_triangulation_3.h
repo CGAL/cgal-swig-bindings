@@ -10,7 +10,12 @@ class Delaunay_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulat
  
 public:
   typedef Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_false> Base;
+
+  #ifndef SWIG
   typedef typename Base::cpp_base cpp_base;
+  Delaunay_triangulation_3_wrapper(const cpp_base& base):Base(base){}
+  #endif
+
   typedef typename Base::Edge Edge;
   typedef typename Base::Facet Facet;
   typedef Vertex_handle_ Vertex_handle;
@@ -18,7 +23,6 @@ public:
 
 //Creation
   Delaunay_triangulation_3_wrapper():Base(){}
-  Delaunay_triangulation_3_wrapper(const cpp_base& base):Base(base){}
   Delaunay_triangulation_3_wrapper(const Delaunay_triangulation_3_wrapper& dt):Base(static_cast<const Base&>(dt)){};
 //Point moving
   FORWARD_CALL_2(Vertex_handle,move,Vertex_handle,Point_3);

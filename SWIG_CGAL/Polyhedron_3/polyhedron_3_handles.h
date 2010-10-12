@@ -52,12 +52,14 @@ class CGAL_Halfedge_handle{
   typename Polyhedron_base::Halfedge_handle data;
   
 public:
+  #ifndef SWIG
   typedef typename Polyhedron_base::Halfedge_handle cpp_base;
-
-  CGAL_Halfedge_handle():data(NULL){}
-  CGAL_Halfedge_handle(typename Polyhedron_base::Halfedge_handle h):data(h){}
+  CGAL_Halfedge_handle(cpp_base h):data(h){}
   const typename Polyhedron_base::Halfedge_handle&  get_data() const {return data;}
   typename Polyhedron_base::Halfedge_handle& get_data_ref() {return data;}
+  #endif
+
+  CGAL_Halfedge_handle():data(NULL){}
 //Operations
   FORWARD_CALL_0_PTR(CGAL_Halfedge_handle,opposite)
   FORWARD_CALL_0_PTR(CGAL_Halfedge_handle,next)
@@ -95,13 +97,15 @@ class CGAL_Vertex_handle{
   typename Polyhedron_base::Vertex_handle data;
   
 public:
+  #ifndef SWIG
   typedef typename Polyhedron_base::Vertex_handle cpp_base;
-
+  CGAL_Vertex_handle(cpp_base h):data(h){}
+  const cpp_base&  get_data() const {return data;}
+  cpp_base& get_data_ref() {return data;}
+  #endif
+  
   CGAL_Vertex_handle():data(NULL){}
-  CGAL_Vertex_handle(typename Polyhedron_base::Vertex_handle h):data(h){}
 
-  const typename Polyhedron_base::Vertex_handle&  get_data() const {return data;}
-  typename Polyhedron_base::Vertex_handle& get_data_ref() {return data;}
 //Operations available if Supports_vertex_point is CGAL::Tag_true
   FORWARD_CALL_0_PTR(Point_3,point)
 //Operations available if Supports_vertex_halfedge is CGAL::Tag_true
@@ -127,12 +131,14 @@ class CGAL_Facet_handle{
   typename Polyhedron_base::Facet_handle data;
   
 public:
+  #ifndef SWIG  
   typedef typename Polyhedron_base::Facet_handle cpp_base;
-
+  CGAL_Facet_handle(cpp_base h):data(h){}
+  const cpp_base&  get_data() const {return data;}
+  cpp_base& get_data_ref() {return data;}
+  #endif
+  
   CGAL_Facet_handle():data(NULL){}
-  CGAL_Facet_handle(typename Polyhedron_base::Facet_handle h):data(h){}
-  const typename Polyhedron_base::Facet_handle&  get_data() const {return data;}
-  typename Polyhedron_base::Facet_handle& get_data_ref() {return data;}
 //Operations available if Supports_facet_plane is CGAL::Tag_true
   #ifdef CGAL_SWIG_FACET_SUPPORTS_PLANE
   FORWARD_CALL_0_PTR(Plane_3,plane)
