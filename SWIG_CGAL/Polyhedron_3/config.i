@@ -1,3 +1,7 @@
+%{
+    #include <CGAL/Polyhedron_3.h>
+%}
+
 #ifdef SWIGPYTHON
 
 #ifndef IMPORT_ONLY_POLYHEDRON_TYPES
