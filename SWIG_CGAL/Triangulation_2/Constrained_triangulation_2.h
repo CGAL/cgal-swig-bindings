@@ -22,7 +22,9 @@ class Constrained_triangulation_2_wrapper: public Triangulation_2_wrapper<Triang
   typedef Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false>    Base;
 public:
   typedef typename Base::Edge                                                 Edge;
+  #ifndef SWIG
   typedef Triangulation cpp_base;
+  #endif
 
 // Creation  
   Constrained_triangulation_2_wrapper():Base(){}

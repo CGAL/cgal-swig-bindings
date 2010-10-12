@@ -10,8 +10,10 @@ template <class Triangulation,class Vertex_handle, class Face_handle>
 class Regular_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Weighted_point_2,Vertex_handle,Face_handle,CGAL::Tag_true>
 {
   typedef Triangulation_2_wrapper<Triangulation,Weighted_point_2,Vertex_handle,Face_handle,CGAL::Tag_true> Base;
-public:  
+public:
+  #ifndef SWIG  
   typedef Triangulation cpp_base;
+  #endif
   typedef CGAL_Hidden_vertices_iterator<Triangulation,Vertex_handle> Hidden_vertices_iterator;
   Regular_triangulation_2_wrapper() : Base() {}
 // Access functions

@@ -9,13 +9,17 @@ class Variant
   typedef typename internal::Converter<T1>::result_type T1_base;
   typedef typename internal::Converter<T2>::result_type T2_base;
 public:
+#ifndef SWIG
   typedef boost::variant< T1_base,T2_base > cpp_base;
+#endif
 private:
   cpp_base data;
 public:
+#ifndef SWIG
   const cpp_base& get_data() const {return data;}
   cpp_base& get_data_ref() {return data;}
   Variant(const cpp_base& base):data(base){}
+#endif
 
   Variant():data(){}
   Variant(const T1& t1):data(internal::Converter<T1>::convert(t1)){}

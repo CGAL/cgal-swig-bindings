@@ -45,7 +45,9 @@ class Triangulation_2_wrapper
 protected :
   Triangulation data;
 public:
+  #ifndef SWIG
   typedef Triangulation cpp_base;
+  #endif
 
   typedef std::pair<Face_handle,int>                                   Edge;
   typedef CGAL_Finite_vertices_iterator<Triangulation,Vertex_handle>   Finite_vertices_iterator;
@@ -62,7 +64,9 @@ public:
 
 
   Triangulation_2_wrapper(){}
+  #ifndef SWIG
   const Triangulation& get_data() const {return this->data;}
+  #endif
 
 // Creation 
   FORWARD_CALL_0(void, clear)

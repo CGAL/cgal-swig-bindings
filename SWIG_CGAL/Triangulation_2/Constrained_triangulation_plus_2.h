@@ -23,13 +23,17 @@ template <class CDT_plus_2, class Vertex_handle>
 class CDTP_context{
   typename CDT_plus_2::Context data;
 public:
+  #ifndef SWIG
   typedef typename CDT_plus_2::Context cpp_base;
+  #endif
   typedef CGAL_Vertices_in_constraint_iterator<CDT_plus_2,Vertex_handle>  Vertices_in_constraint_iterator;
 
+  #ifndef SWIG
   const cpp_base& get_data() const { return data; } 
   cpp_base& get_data_ref() { return data; }
-  CDTP_context(){}
   CDTP_context(const cpp_base& p):data(p){}
+  #endif
+  CDTP_context(){}
   Vertices_in_constraint_iterator vertices() {return Vertices_in_constraint_iterator(data.vertices_begin(),data.vertices_end());}
   Vertices_in_constraint_iterator current() {return Vertices_in_constraint_iterator(data.current(),data.vertices_end());}
 };
@@ -39,7 +43,9 @@ class Constrained_triangulation_plus_2_wrapper: public Base_triangulation_wrappe
 {
   typedef Base_triangulation_wrapper Base;
 public:
+  #ifndef SWIG  
   typedef typename Base_triangulation_wrapper::cpp_base                 cpp_base;
+  #endif
   typedef std::pair<Vertex_handle,Vertex_handle>                        Constraint_handle;
   typedef CGAL_Constraint_iterator<cpp_base,Constraint_handle>          Constraint_iterator;
   typedef CGAL_Subconstraint_iterator<cpp_base,Constraint_handle>       Subconstraint_iterator;

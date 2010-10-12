@@ -78,8 +78,6 @@ struct Iterator_helper<double>{
 };
 
 
-#endif
-
 #ifdef SWIGPYTHON
 
 #include <SWIG_CGAL/Python/exceptions.h>
@@ -90,6 +88,8 @@ class EXPOSEDNAME{                                             \
   typename T::NAME cur;                                        \
   typename T::NAME end;                                        \
 public:                                                        \
+                                                               \
+  EXPOSEDNAME(){}                                              \
                                                                \
   EXPOSEDNAME(                                                 \
     typename T::NAME cur_,                                     \
@@ -117,6 +117,8 @@ class EXPOSEDNAME{                                             \
   typename T::NAME end;                                        \
 public:                                                        \
                                                                \
+  EXPOSEDNAME(){}                                              \
+                                                               \
   EXPOSEDNAME(                                                 \
     typename T::NAME cur_,                                     \
     typename T::NAME end_                                      \
@@ -133,9 +135,7 @@ public:                                                        \
     return cur!=end;                                           \
   }                                                            \
 };
-#endif
-
-
+#endif //SWIGPYTHON
 
 #define DECLARE_CIRCULATOR_CLASS_2(NAME,EXPOSEDNAME)           \
 template<class T,class R>                                      \
@@ -143,6 +143,7 @@ class EXPOSEDNAME{                                             \
   typename T::NAME cur;                                        \
 public:                                                        \
   typedef typename T::NAME cpp_base;                           \
+  EXPOSEDNAME(){}                                              \
   EXPOSEDNAME( typename T::NAME cur_):cur(cur_){}              \
     EXPOSEDNAME<T,R> __iter__(){return *this;}                 \
   R next() {                                                   \
@@ -154,13 +155,48 @@ public:                                                        \
   bool hasNext(){return true; }                                \
 };
 
+
+#else //!SWIG
+  #ifdef SWIGPYTHON
+  #include <SWIG_CGAL/Python/exceptions.h>
+
+  #define DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)  \
+  template<class T,class R>                           \
+  class EXPOSEDNAME{                                  \
+  public:                                             \
+    EXPOSEDNAME<T,R> __iter__();                      \
+    R next();                                         \
+    bool hasNext();                                   \
+  };
+  #else
+  #define DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)  \
+  template<class T,class R>                           \
+  class EXPOSEDNAME{                                  \
+  public:                                             \
+    R next();                                         \
+    bool hasNext();                                   \
+  };
+  #endif //SWIGPYTHON
+
+  #define DECLARE_CIRCULATOR_CLASS_2(NAME,EXPOSEDNAME)           \
+  template<class T,class R>                                      \
+  class EXPOSEDNAME{                                             \
+  public:                                                        \
+    R next();                                                    \
+    R prev();                                                    \
+    bool hasNext();                                              \
+  };
+
+#endif//SWIG
+
+
 #define DECLARE_ITERATOR_CLASS(NAME)            DECLARE_ITERATOR_CLASS_2(NAME,CGAL_##NAME)
 #define DECLARE_CIRCULATOR_CLASS(NAME)          DECLARE_CIRCULATOR_CLASS_2(NAME,CGAL_##NAME)
 
 
 //place here iterator wrapper classes to be defined. There are template classes that
 //can be reused between class. The idea is data store is that 
-//DECLARE_ITERATOR_CLASS(foo) declares template <class T,class R> storing iterator T::foo.
+//DECLARE_ITERATOR_CLASS(foo) declares template <class T,class R> CGAL_foo storing iterator T::foo.
 DECLARE_ITERATOR_CLASS(All_cells_iterator)
 DECLARE_ITERATOR_CLASS(Finite_cells_iterator)
 DECLARE_ITERATOR_CLASS(All_facets_iterator)

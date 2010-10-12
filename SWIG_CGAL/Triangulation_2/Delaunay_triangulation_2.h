@@ -8,8 +8,10 @@ template <class Triangulation,class Vertex_handle, class Face_handle>
 class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false>
 {
   typedef Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false> Base;
-public:  
+public:
+  #ifndef SWIG
   typedef Triangulation cpp_base;
+  #endif
   Delaunay_triangulation_2_wrapper() : Base() {}
 // Voronoi diagram
   FORWARD_CALL_1(Point_2,dual,Face_handle)
