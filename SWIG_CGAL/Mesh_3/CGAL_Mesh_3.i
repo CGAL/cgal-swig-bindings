@@ -129,7 +129,7 @@ T_C3T3_wrapper make_mesh_3(const Polyhedral_mesh_domain_3_type& domain, const De
   ));
 }
 
-void  refine_mesh_3 ( T_C3T3_wrapper& c3t3, const Polyhedral_mesh_domain_3_type& mesh_domain,const Default_mesh_criteria_wrapper<DMC>& criteria,const Mesh_3_parameters& parameters)
+void  refine_mesh_3 ( T_C3T3_wrapper& c3t3, const Polyhedral_mesh_domain_3_type& domain,const Default_mesh_criteria_wrapper<DMC>& criteria,const Mesh_3_parameters& parameters)
 {
   CGAL::refine_mesh_3(c3t3.get_data_ref(),domain.get_data(),criteria.get_data(),
                       parameters.get_lloyd_parameters(),
