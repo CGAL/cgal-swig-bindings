@@ -12,16 +12,14 @@
   #include  <SWIG_CGAL/Triangulation_3/Regular_triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
+  #include  <SWIG_CGAL/Polyhedron_3/Polyhedron_3.h>
+  #include  <SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h>  
   #include  <SWIG_CGAL/Common/triple.h>
   #include  <SWIG_CGAL/Common/Variant.h>
   #include  <SWIG_CGAL/Mesh_3/C3T3.h>
+  #include  <SWIG_CGAL/Mesh_3/Mesh_domains.h>
+  #include  <SWIG_CGAL/Mesh_3/Mesh_criteria.h>
 %}
-
-
-//~ %include "SWIG_CGAL/Surface_mesher/config.i"
-
-//~ //import definitions of Polyhedron objects
-//~ %import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
 
 //definitions
 
@@ -33,14 +31,17 @@
 %include "SWIG_CGAL/Triangulation_3/triangulation_iterators.h"
 %include "SWIG_CGAL/Triangulation_3/Regular_triangulation_3.h"
 %include "SWIG_CGAL/Mesh_3/C3T3.h"
+%include "SWIG_CGAL/Mesh_3/Mesh_domains.h"
+%include "SWIG_CGAL/Mesh_3/Mesh_criteria.h"
 
 %import "SWIG_CGAL/Triangulation_3/declare_regular_triangulation_3.i"
 
 %include "std_pair.i"
 
 %include "SWIG_CGAL/Mesh_3/config.i"
-
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Weighted_point_3; import java.util.Iterator;%}
+%import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
+      
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Weighted_point_3; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
 
 //Regular triangulation
 Declare_regular_triangulation_3(Mesh_3_regular_triangulation_3,MT_PMD)
@@ -78,6 +79,18 @@ Iterator_for_java(CGAL_Facet_iterator,Mesh_3_Complex_3_in_triangulation_3_Facet,
   T_C3T3_wrapper;
 %}
 
+
+//Polyhedral mesh domain
+%define Polyhedron_3_type Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> > %enddef
+%{
+typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> > Polyhedron_3_type;
+%}
+
+%template (Polyhedral_mesh_domain_3) Polyhedral_mesh_domain_3_wrapper<PMD,Polyhedron_3_type,Variant< int, std::pair<int,int> >,std::pair<int,int>,int >;
+
+
+//Default criteria
+%template(Default_mesh_criteria) Default_mesh_criteria_wrapper<DMC>;
 
 //~ %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Sphere_3; import java.util.Iterator; import java.util.Collection; import CGAL.Polyhedron_3.Polyhedron_3;%}
 //~ %pragma(java) moduleimports  =%{import CGAL.Polyhedron_3.Polyhedron_3;%} //for global functions
