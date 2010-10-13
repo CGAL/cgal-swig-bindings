@@ -8,6 +8,8 @@
 #include <CGAL/odt_optimize_mesh_3.h>
 #include <CGAL/refine_mesh_3.h>
 
+enum Mesh_optimization_return_code { BOUND_REACHED = 0,TIME_LIMIT_REACHED,CANT_IMPROVE_ANYMORE,CONVERGENCE_REACHED,MAX_ITERATION_NUMBER_REACHED};
+
 class Mesh_3_parameters
 {
   bool lloyd_set,odt_set,perturb_set,exude_set;

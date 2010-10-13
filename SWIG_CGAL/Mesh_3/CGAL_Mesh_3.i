@@ -107,10 +107,6 @@ typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handl
 %javaconst(1);
 #endif
 
-%{
-enum Mesh_optimization_return_code { BOUND_REACHED = 0,TIME_LIMIT_REACHED,CANT_IMPROVE_ANYMORE,CONVERGENCE_REACHED,MAX_ITERATION_NUMBER_REACHED};  
-%}
-
 //global functions
 T_C3T3_wrapper make_mesh_3(const Polyhedral_mesh_domain_3_type& domain, const Default_mesh_criteria_wrapper<DMC>& criteria,Mesh_3_parameters parameters);
 void  refine_mesh_3 ( T_C3T3_wrapper& c3t3, const Polyhedral_mesh_domain_3_type& mesh_domain,const Default_mesh_criteria_wrapper<DMC>& criteria,const Mesh_3_parameters& parameters);
