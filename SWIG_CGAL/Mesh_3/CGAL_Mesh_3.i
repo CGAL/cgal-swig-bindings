@@ -107,51 +107,7 @@ typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handl
 %javaconst(1);
 #endif
 
-//global functions
-T_C3T3_wrapper make_mesh_3(const Polyhedral_mesh_domain_3_type& domain, const Default_mesh_criteria_wrapper<DMC>& criteria,Mesh_3_parameters parameters);
-void  refine_mesh_3 ( T_C3T3_wrapper& c3t3, const Polyhedral_mesh_domain_3_type& mesh_domain,const Default_mesh_criteria_wrapper<DMC>& criteria,const Mesh_3_parameters& parameters);
-Mesh_optimization_return_code  exude_mesh_3( T_C3T3_wrapper& c3t3, double time_limit, double sliver_bound);
-Mesh_optimization_return_code perturb_mesh_3 (  T_C3T3_wrapper& c3t3,const Polyhedral_mesh_domain_3_type& domain,double time_limit,double sliver_bound);
-Mesh_optimization_return_code lloyd_optimize_mesh_3 ( T_C3T3_wrapper& c3t3,const Polyhedral_mesh_domain_3_type& domain,double time_limit,int max_iteration_number,double convergence,double freeze_bound);
-Mesh_optimization_return_code odt_optimize_mesh_3 (T_C3T3_wrapper& c3t3,const Polyhedral_mesh_domain_3_type& domain,double time_limit,std::size_t max_iteration_number,double convergence,double freeze_bound);
+%import "SWIG_CGAL/Mesh_3/declare_global_functions.i"
 
-%{
-T_C3T3_wrapper make_mesh_3(const Polyhedral_mesh_domain_3_type& domain, const Default_mesh_criteria_wrapper<DMC>& criteria,const Mesh_3_parameters& parameters)
-{
-  return T_C3T3_wrapper( CGAL::make_mesh_3<T_C3T3_wrapper::cpp_base>( domain.get_data(),criteria.get_data(),
-                                                                      parameters.get_lloyd_parameters(),
-                                                                      parameters.get_odt_parameters(),
-                                                                      parameters.get_perturb_parameters(),
-                                                                      parameters.get_exude_parameters()
-  ));
-}
+declare_global_functions(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,Default_mesh_criteria_wrapper<DMC>,Mesh_3_parameters)
 
-void  refine_mesh_3 ( T_C3T3_wrapper& c3t3, const Polyhedral_mesh_domain_3_type& domain,const Default_mesh_criteria_wrapper<DMC>& criteria,const Mesh_3_parameters& parameters)
-{
-  CGAL::refine_mesh_3(c3t3.get_data_ref(),domain.get_data(),criteria.get_data(),
-                      parameters.get_lloyd_parameters(),
-                      parameters.get_odt_parameters(),
-                      parameters.get_perturb_parameters(),
-                      parameters.get_exude_parameters());
-}
-
-Mesh_optimization_return_code  exude_mesh_3( T_C3T3_wrapper& c3t3, double time_limit, double sliver_bound)
-{
-  return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::exude_mesh_3(c3t3.get_data_ref(),time_limit,sliver_bound) );
-}
-
-Mesh_optimization_return_code perturb_mesh_3 (  T_C3T3_wrapper& c3t3,const Polyhedral_mesh_domain_3_type& domain,double time_limit,double sliver_bound)
-{
-  return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::perturb_mesh_3(c3t3.get_data_ref(),domain.get_data(),time_limit,sliver_bound) );
-} 
-  
-Mesh_optimization_return_code lloyd_optimize_mesh_3 ( T_C3T3_wrapper& c3t3,const Polyhedral_mesh_domain_3_type& domain,double time_limit,int max_iteration_number,double convergence,double freeze_bound)
-{
-  return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::lloyd_optimize_mesh_3(c3t3.get_data_ref(),domain.get_data(),time_limit,max_iteration_number,convergence,freeze_bound) );
-}
-
-Mesh_optimization_return_code odt_optimize_mesh_3 (T_C3T3_wrapper& c3t3,const Polyhedral_mesh_domain_3_type& domain,double time_limit,std::size_t max_iteration_number,double convergence,double freeze_bound)
-{
-  return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::odt_optimize_mesh_3(c3t3.get_data_ref(),domain.get_data(),time_limit,max_iteration_number,convergence,freeze_bound) );
-}
-%}
