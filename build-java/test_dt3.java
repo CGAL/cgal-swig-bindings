@@ -58,7 +58,7 @@ public class test_dt3 {
   //System.out.println( ((Double) v4.get_info()) );
     
   
-  v4=t.move_point(v4,new Point_3(14,0,46));
+  v4=t.move(v4,new Point_3(14,0,46));
   t.remove(v4);
   
   v4=t.insert(new Point_3(14,0,45));

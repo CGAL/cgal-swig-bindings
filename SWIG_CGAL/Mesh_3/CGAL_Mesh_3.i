@@ -47,7 +47,7 @@
 %include "SWIG_CGAL/Mesh_3/config.i"
 %import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
       
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Weighted_point_3; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Weighted_point_3; import java.util.Collection; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
 
 //Regular triangulation
 Typemap_for_Input_iterator(Weighting_helper_3<CGAL::Tag_true>::Point_range,Weighted_point_3,Weighted_point_3,Weighted_point_3::cpp_base,SWIGTYPE_p_Weighted_point_3,"(LCGAL/Kernel/Weighted_point_3;)J",insert_range)
@@ -93,6 +93,7 @@ typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handl
 %{
   typedef Polyhedral_mesh_domain_3_wrapper<PMD,Polyhedron_3_type,Variant< int, std::pair<int,int> >,std::pair<int,int>,int > Polyhedral_mesh_domain_3_type; 
 %}
+%typemap(javaimports)      Polyhedral_mesh_domain_3_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3;%}
 %template (Polyhedral_mesh_domain_3) Polyhedral_mesh_domain_3_type;
 
 

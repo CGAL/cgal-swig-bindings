@@ -23,6 +23,8 @@ import java.util.Vector;
 
 public class test_aabb {
   public static void main(String arg[]){
+    System.out.println("Testing");
+    
     System.loadLibrary("CGAL_AABB_tree");
     System.loadLibrary("CGAL_Polyhedron_3");
     Polyhedron_3 poly=new Polyhedron_3();

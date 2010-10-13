@@ -16,7 +16,6 @@ import java.util.LinkedList;
 public class test_surface_mesher {
   public static void main(String arg[]){
     System.loadLibrary("CGAL_Surface_mesher");
-    System.loadLibrary("CGAL_Polyhedron_3");
     
     Surface_mesh_default_triangulation_3 tri=new Surface_mesh_default_triangulation_3();
     
