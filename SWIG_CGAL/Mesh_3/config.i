@@ -23,14 +23,16 @@ typedef CGAL::Polyhedral_mesh_domain_3<Polyhedron_3_, EPIC_Kernel>   PMD;
 typedef CGAL::Mesh_triangulation_3<PMD>::type                        MT_PMD;
 typedef CGAL::Mesh_complex_3_in_triangulation_3<MT_PMD>              C3T3_PMD;
 
-#ifndef SWIGJAVA
 // Criteria
 typedef CGAL::Mesh_criteria_3<MT_PMD>                                DMC;
-#else
+
+
+#ifdef SWIGJAVA
+//user criteria
 #include <SWIG_CGAL/Mesh_3/Mesh_criteria.h>
 #include <SWIG_CGAL/Java/Java_caller_code.h>
 #include  <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
-typedef Mesh_criteria_wrapper<MT_PMD,Java_caller_code<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > > > DMC;
+typedef Mesh_criteria_wrapper<MT_PMD,Java_caller_code<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > > > UMC;
 #endif
 
 %}

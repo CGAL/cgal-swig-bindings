@@ -5,6 +5,7 @@ import CGAL.Mesh_3.Mesh_optimization_return_code;
 import CGAL.Mesh_3.Polyhedral_mesh_domain_3;
 import CGAL.Mesh_3.Mesh_3_parameters;
 import CGAL.Mesh_3.Default_mesh_criteria;
+import CGAL.Mesh_3.User_mesh_criteria;
 import CGAL.Mesh_3.Cell_predicate; //TEST
 import java.util.LinkedList;
 
@@ -18,7 +19,7 @@ public class test_mesh_3 {
     //Default_mesh_criteria criteria = new  Default_mesh_criteria(25,0.15,0.008,3);
     Mesh3CellCriteria pred=new Mesh3CellCriteria();//TEST
     Cell_predicate caller =new Cell_predicate(pred,"evaluate","LCGAL/Mesh_3/Mesh_3_regular_triangulation_3_Cell_handle;","LCGAL/Mesh_3/Mesh_3_Badness;");//TEST
-    Default_mesh_criteria criteria = new  Default_mesh_criteria(caller);//TEST
+    User_mesh_criteria criteria = new  User_mesh_criteria(caller);//TEST
     
     System.out.println("Make initial mesh...");
     
@@ -27,13 +28,13 @@ public class test_mesh_3 {
     System.out.println("Done");
     res.output_to_medit("/tmp/medit_out.mesh");    
 
-    //~ System.out.println("Refining mesh...");
-    //~ Default_mesh_criteria new_criteria = new Default_mesh_criteria(0,0,0,3,0.03);
+    System.out.println("Refining mesh...");
+    Default_mesh_criteria new_criteria = new Default_mesh_criteria(0,0,0,3,0.03);
 
     // Mesh refinement
-    //~ CGAL_Mesh_3.refine_mesh_3(res, domain, new_criteria,params);
+    CGAL_Mesh_3.refine_mesh_3(res, domain, new_criteria,params);
     
-    //~ System.out.println("Done");
-    //~ res.output_to_medit("/tmp/medit_out_ref.mesh");
+    System.out.println("Done");
+    res.output_to_medit("/tmp/medit_out_ref.mesh");
   }
 };

@@ -28,7 +28,7 @@ public:
 //User defined test
 template <class Triangulation,class Caller>
 class Java_cell_criteria{
-  Caller& caller;
+  Caller caller;
 public:
   typedef typename Triangulation::Cell_handle Cell_handle;
   typedef std::pair<int,double> Cell_quality;
