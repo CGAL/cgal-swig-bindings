@@ -4,6 +4,59 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <SWIG_CGAL/Java/global_functions.h>
 
+#ifndef SWIG
+struct Ref_counted_jdata{
+  jobject jiterator; 
+  jclass it_class,pt_class;
+  int* counter;
+  
+  Ref_counted_jdata():jiterator(NULL),counter(new int(1)){}
+  
+  Ref_counted_jdata(jobject jit):counter(new int(1))
+  {
+    jiterator=JNU_GetEnv()->NewGlobalRef(jit);
+    it_class=(jclass) JNU_GetEnv()->NewGlobalRef( JNU_GetEnv()->GetObjectClass(jiterator) );
+  }
+  
+  void cleanup()
+  {
+    if (--(*counter) == 0)
+    {
+      delete counter;
+      if (jiterator!=NULL){
+        JNU_GetEnv()->DeleteGlobalRef(jiterator);
+        JNU_GetEnv()->DeleteGlobalRef(it_class);
+        JNU_GetEnv()->DeleteGlobalRef(pt_class);
+      }
+    }
+  }
+  
+  void copy(const Ref_counted_jdata& source)
+  {
+    jiterator=source.jiterator;
+    it_class=source.it_class;
+    pt_class=source.pt_class;
+    counter=source.counter;
+    ++(*counter);
+  }
+  
+  Ref_counted_jdata(const Ref_counted_jdata& source)
+  {
+    copy(source);
+  }
+  
+  ~Ref_counted_jdata(){cleanup();}
+  
+  Ref_counted_jdata& operator=(const Ref_counted_jdata& source)
+  {
+    cleanup();
+    copy(source);
+    return *this;
+  }
+  
+};
+#endif
+
 template <class Cpp_wrapper,class Cpp_base>
 class Input_iterator_wrapper:
 public boost::iterator_facade<
@@ -18,25 +71,22 @@ public boost::iterator_facade<
 {
   friend class boost::iterator_core_access;
   std::string signature;
-  const jobject* jiterator; //we suppose that it is not garbaged collected:
-                            //the original must stay valid while iterator used.
-                            //Usually ok because used within the same function
   Cpp_wrapper* current_ptr;
   jmethodID getCPtr_id, next_id, hasnext_id;
-  jclass it_class,pt_class;
+  Ref_counted_jdata rc;
   
   void update_with_next_point(bool first=false){
-    if (static_cast<bool> (JNU_GetEnv()->CallBooleanMethod(*jiterator,hasnext_id)) )
+    if (static_cast<bool> (JNU_GetEnv()->CallBooleanMethod(rc.jiterator,hasnext_id)) )
     {
-      jobject jpoint=JNU_GetEnv()->CallObjectMethod(*jiterator,next_id);
+      jobject jpoint=JNU_GetEnv()->CallObjectMethod(rc.jiterator,next_id);
       if (first){
-        pt_class = JNU_GetEnv()->GetObjectClass(jpoint);
-        assert(pt_class!=NULL);
-        getCPtr_id=JNU_GetEnv()->GetStaticMethodID(pt_class, "getCPtr",signature.c_str());
+        rc.pt_class = (jclass) JNU_GetEnv()->NewGlobalRef( JNU_GetEnv()->GetObjectClass(jpoint) );
+        assert(rc.pt_class!=NULL);
+        getCPtr_id=JNU_GetEnv()->GetStaticMethodID(rc.pt_class, "getCPtr",signature.c_str());
       }
       assert(getCPtr_id!=NULL);
-      assert(pt_class!=NULL);
-      jlong jpt=(jlong) JNU_GetEnv()->CallStaticObjectMethod(pt_class,getCPtr_id,jpoint);
+      assert(rc.pt_class!=NULL);
+      jlong jpt=(jlong) JNU_GetEnv()->CallStaticObjectMethod(rc.pt_class,getCPtr_id,jpoint);
       current_ptr = (Cpp_wrapper*) jpt;
       
     }
@@ -49,15 +99,14 @@ public:
   
 
   Input_iterator_wrapper():current_ptr(NULL){}
-  Input_iterator_wrapper(const jobject& jiterator_,const char* sign):signature(sign),jiterator(&jiterator_)
+  Input_iterator_wrapper(const jobject& jiterator_,const char* sign):signature(sign),rc(jiterator_)
   {
-    it_class=JNU_GetEnv()->GetObjectClass(*jiterator);
-    assert(it_class!=NULL);
-    hasnext_id=JNU_GetEnv()->GetMethodID(it_class, "hasNext", "()Z");
+    assert(rc.it_class!=NULL);
+    hasnext_id=JNU_GetEnv()->GetMethodID(rc.it_class, "hasNext", "()Z");
     assert(hasnext_id!=NULL);
-    next_id=JNU_GetEnv()->GetMethodID(it_class, "next","()Ljava/lang/Object;");
+    next_id=JNU_GetEnv()->GetMethodID(rc.it_class, "next","()Ljava/lang/Object;");
     getCPtr_id=NULL;
-    pt_class=NULL;
+    rc.pt_class=NULL;
     assert(next_id!=NULL);
     update_with_next_point(true);
   }
