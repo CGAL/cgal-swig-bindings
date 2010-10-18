@@ -26,13 +26,9 @@ typedef CGAL::Mesh_complex_3_in_triangulation_3<MT_PMD>              C3T3_PMD;
 // Criteria
 typedef CGAL::Mesh_criteria_3<MT_PMD>                                DMC;
 
-
 #ifdef SWIGJAVA
-//user criteria
-#include <SWIG_CGAL/Mesh_3/Mesh_criteria.h>
+//for java criteria
 #include <SWIG_CGAL/Java/Java_caller_code.h>
-#include  <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
-typedef Mesh_criteria_wrapper<MT_PMD,Java_caller_code<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > > > UMC;
 #endif
 
 %}

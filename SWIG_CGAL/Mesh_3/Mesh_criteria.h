@@ -40,53 +40,39 @@ public:
   }
 };
 
-
-template <class Triangulation>
-class My_cell_criteria{
-  CGAL::Mesh_cell_criteria_3<Triangulation> criteria;
-public:
-  typedef typename Triangulation::Cell_handle Cell_handle;
-  typedef std::pair<int,double> Cell_quality;
-  typedef boost::optional<Cell_quality> Cell_badness;
-  
-  My_cell_criteria():criteria(3,0){}
-  Cell_badness operator()(Cell_handle c) const {return criteria(c);}
-};
-
-template <class Triangulation>
-class My_facet_criteria{
-  CGAL::Mesh_facet_criteria_3<Triangulation> criteria;
+template <class Triangulation,class Caller>
+class Java_facet_criteria{
+  Caller caller;
 public:
   typedef typename Triangulation::Facet Facet;
   typedef typename Triangulation::Cell_handle Cell_handle;
   typedef std::pair<int,double> Facet_quality;
   typedef boost::optional<Facet_quality> Facet_badness;
 
-  My_facet_criteria():criteria(0,0,0){}
-  Facet_badness operator()(const Facet& f) const { return criteria(f);}
-  Facet_badness operator()(Cell_handle c,int i) const { return criteria(c,i);}
+  Java_facet_criteria(Caller& call):caller(call){}
+  Facet_badness operator()(const Facet& f) const {return caller.run(f);}
+  Facet_badness operator()(Cell_handle c,int i) const { return (*this)(f(c,i));}
 };
 
 //for user defined criteria
-template <class Triangulation,class Caller>
-class Mesh_criteria_wrapper
+template <class Triangulation,class Cell_caller,class Facet_caller>
+class Java_criteria_wrapper
 {
 public:
-  typedef My_facet_criteria<Triangulation>              Facet_criteria;
-  typedef Java_cell_criteria<Triangulation,Caller>      Cell_criteria;
+  typedef Java_facet_criteria<Triangulation,Facet_caller>       Facet_criteria;
+  typedef Java_cell_criteria <Triangulation,Cell_caller>        Cell_criteria;
 private:
-  Facet_criteria fc;
   Cell_criteria  cc;
+  Facet_criteria fc;
 public:
   #ifndef SWIG
-  typedef Mesh_criteria_wrapper<Triangulation,Caller> cpp_base;
+  typedef Java_criteria_wrapper<Triangulation,Cell_caller,Facet_caller> cpp_base;
   const cpp_base& get_data() const {return *this;}
   cpp_base& get_data() {return *this;}
   #endif
 
-  Mesh_criteria_wrapper(Caller& call):cc(call){}
+  Java_criteria_wrapper(Cell_caller& ccall,Facet_caller& fcall):cc(ccall),fc(fcall){}
   #ifndef SWIG
-  Mesh_criteria_wrapper(const Cell_criteria& cell_criteria,const Facet_criteria& facet_criteria):cc(cell_criteria),fc(facet_criteria){}
   const Cell_criteria&   cell_criteria() const {return cc;}
   const Facet_criteria&  facet_criteria() const {return fc;}
   #endif

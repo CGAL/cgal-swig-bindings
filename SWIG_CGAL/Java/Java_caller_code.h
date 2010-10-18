@@ -2,6 +2,7 @@
 #define SWIG_CGAL_JAVA_JAVA_CALLER_CODE_H
 
 #include <SWIG_CGAL/Java/global_functions.h>
+#include <SWIG_CGAL/Common/Macros.h>
 #include <cassert>
 #include <iostream>
 #include <string>
@@ -96,7 +97,7 @@ public:
   jobject run(jobject data)
   {return JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id,data);}
   
-  typename Output_wrapper::cpp_base run(const typename Input_wrapper::cpp_base& input) const
+  typename Output_wrapper::cpp_base run(const typename internal::Converter<Input_wrapper>::result_type& input) const
   {
     //create the wrapper object
     Input_wrapper*  cpp_wrapper=new Input_wrapper(input);
