@@ -20,6 +20,7 @@
   #include  <SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h>  
   #include  <SWIG_CGAL/Common/triple.h>
   #include  <SWIG_CGAL/Common/Variant.h>
+  #include  <SWIG_CGAL/Common/Optional.h>
   #include  <SWIG_CGAL/Mesh_3/C3T3.h>
   #include  <SWIG_CGAL/Mesh_3/Mesh_domains.h>
   #include  <SWIG_CGAL/Mesh_3/Mesh_criteria.h>
@@ -29,6 +30,7 @@
 //definitions
 
 %include "SWIG_CGAL/Common/Input_iterator.h"
+%include "SWIG_CGAL/Common/Optional.h"
 %include "SWIG_CGAL/Common/triple.h"
 %include "SWIG_CGAL/Common/Variant.h"
 %include "SWIG_CGAL/Triangulation_3/triangulation_handles.h"
@@ -43,6 +45,8 @@
 %import "SWIG_CGAL/Triangulation_3/declare_regular_triangulation_3.i"
 
 %include "std_pair.i"
+%template(Mesh_3_Quality) std::pair<int,double>;
+%template(Mesh_3_Badness) Optional< std::pair<int,double> >;
 
 %include "SWIG_CGAL/Mesh_3/config.i"
 %import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
@@ -98,7 +102,17 @@ typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handl
 
 
 //Default criteria
-%template(Default_mesh_criteria) Default_mesh_criteria_wrapper<DMC>;
+#ifndef SWIGJAVA
+%define T_Mesh_criteria Default_mesh_criteria_wrapper<DMC> %enddef
+%{typedef Default_mesh_criteria_wrapper<DMC> T_Mesh_criteria;%}
+#else
+%include "SWIG_CGAL/Java/Java_caller_code.h"
+%template(Cell_predicate) Java_caller_code<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >;
+
+%define T_Mesh_criteria Mesh_criteria_wrapper<MT_PMD,Java_caller_code<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > > > %enddef
+%{typedef Mesh_criteria_wrapper<MT_PMD,Java_caller_code<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > > > T_Mesh_criteria;%}
+#endif
+%template(Default_mesh_criteria) T_Mesh_criteria;
 
 
 //Special treatment for enum in java
@@ -109,5 +123,5 @@ typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handl
 
 %import "SWIG_CGAL/Mesh_3/declare_global_functions.i"
 
-declare_global_functions(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,Default_mesh_criteria_wrapper<DMC>,Mesh_3_parameters)
+declare_global_functions(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,T_Mesh_criteria,Mesh_3_parameters)
 
