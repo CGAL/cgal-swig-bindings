@@ -22,6 +22,32 @@ class Java_caller_code
   jclass output_class;
   jmethodID get_output_id;
   int* ref_counter;
+  
+  void cleanup()
+  {
+    if (--(*ref_counter)==0){
+      delete ref_counter;
+      JNU_GetEnv()->DeleteGlobalRef(java_predicate);
+      JNU_GetEnv()->DeleteGlobalRef(input_class);
+      JNU_GetEnv()->DeleteGlobalRef(output_class);
+      JNU_GetEnv()->DeleteGlobalRef(predicate_class);
+    }    
+  }
+  
+  void copy(const Java_caller_code& original)
+  {
+    java_predicate=original.java_predicate;
+    predicate_class=original.predicate_class;
+    predicate_id=original.predicate_id;
+    input_type_=original.input_type_;
+    output_type_=original.output_type_;
+    input_class=original.input_class;
+    input_cst_id=original.input_cst_id;
+    output_class=original.output_class;
+    get_output_id=original.get_output_id;
+    ref_counter=original.ref_counter;    
+    ++(*ref_counter);
+  }
 public:
 
   Java_caller_code(jobject jobj,const char* fname, const char* input_type,const char* output_type)
@@ -48,34 +74,19 @@ public:
   
   ~Java_caller_code()
   {
-    if (--(*ref_counter)==0){
-      delete ref_counter;
-      JNU_GetEnv()->DeleteGlobalRef(java_predicate);
-      JNU_GetEnv()->DeleteGlobalRef(input_class);
-      JNU_GetEnv()->DeleteGlobalRef(output_class);
-      JNU_GetEnv()->DeleteGlobalRef(predicate_class);
-    }
+    cleanup();
   }
   
   Java_caller_code& operator=(const Java_caller_code &original)
   {
-    java_predicate=original.java_predicate;
-    predicate_class=original.predicate_class;
-    predicate_id=original.predicate_id;
-    input_type_=original.input_type_;
-    output_type_=original.output_type_;
-    input_class=original.input_class;
-    input_cst_id=original.input_cst_id;
-    output_class=original.output_class;
-    get_output_id=original.get_output_id;
-    ref_counter=original.ref_counter;    
-    ++(*ref_counter);
+    cleanup();
+    copy(original);
     return *this;
   }
 
   Java_caller_code(const Java_caller_code& original)
   {
-    *this=original;
+    copy(original);
   }
   
   #ifndef SWIG
