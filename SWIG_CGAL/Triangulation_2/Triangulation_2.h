@@ -2,7 +2,6 @@
 #define SWIG_CGAL_TRIANGULATION_2_TRIANGULATION_2_H
 
 #include <CGAL/config.h>
-#include <CGAL/Triangulation_2.h>
 
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Triangulation_2/triangulation_iterators.h>
@@ -66,6 +65,7 @@ public:
   Triangulation_2_wrapper(){}
   #ifndef SWIG
   const Triangulation& get_data() const {return this->data;}
+  Triangulation& get_data_ref() {return this->data;}
   #endif
 
 // Creation 

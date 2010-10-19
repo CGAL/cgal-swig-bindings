@@ -9,6 +9,8 @@
 %import  "SWIG_CGAL/Kernel/enum.h"
 %include "SWIG_CGAL/Common/Input_iterator.h"
 
+%include "SWIG_CGAL/Triangulation_2/config.i"
+
 //include files
 %{
   #include <SWIG_CGAL/Triangulation_2/Triangulation_2.h>
@@ -21,7 +23,6 @@
   #include <SWIG_CGAL/Triangulation_2/triangulation_iterators.h>
 %}
 
-%include "SWIG_CGAL/Triangulation_2/config.i"
 
 //definitions
 %include "SWIG_CGAL/Triangulation_2/Triangulation_2.h"
@@ -46,9 +47,6 @@ Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_false>::Point_range,Point_
 Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_true>::Point_range,Weighted_point_2,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",insert_range)
 
 //typemap for Constaints input iterator
-%{
-typedef std::pair<Point_2::cpp_base,Point_2::cpp_base> iConstraint;
-%}
 Typemap_for_Input_iterator(Constraint_range,Constraint,Constraint,iConstraint,SWIGTYPE_p_std__pairT_Point_2_Point_2_t,"(LCGAL/Triangulation_2/Constraint;)J",insert_constraint_range)
 #ifdef SWIGPYTHON
 Typemap_for_Input_iterator_additional_function(Constrained_triangulation_2_wrapper::Constrained_triangulation_2_wrapper)
