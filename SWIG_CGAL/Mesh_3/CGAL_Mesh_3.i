@@ -53,6 +53,27 @@
       
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Weighted_point_3; import java.util.Collection; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
 
+//extends Cell and vertex handles of Regular triangulation
+%extend CGAL_Cell_handle<MT_PMD,Weighted_point_3>{
+  int subdomain_index(){return $self->get_data()->subdomain_index();}
+  void set_subdomain_index(int i){$self->get_data_ref()->set_subdomain_index(i);}
+  bool is_facet_on_surface (int i) {return $self->get_data()->is_facet_on_surface(i);}
+  void set_facet_on_surface(int i,std::pair<int,int> p){$self->get_data_ref()->set_surface_index(i,p);}
+  bool is_facet_visited(int i){return $self->get_data()->is_facet_visited(i);}
+  void set_facet_visited(int i){$self->get_data_ref()->set_facet_visited(i);}
+  Point_3 get_facet_surface_center(int i){return Point_3($self->get_data()->get_facet_surface_center(i));}
+  void set_facet_surface_center(int i,const Point_3& p) {return $self->get_data_ref()->set_facet_surface_center(i,p.get_data());}
+}
+%extend CGAL_Vertex_handle<MT_PMD,Weighted_point_3>{
+  int in_dimension() {return $self->get_data()->in_dimension();}
+  void set_dimension(int d){$self->get_data_ref()->set_dimension(d);}
+  Variant< int, std::pair<int,int> > index(){return $self->get_data()->index();}
+  void set_index(const Variant< int, std::pair<int,int> >& v){$self->get_data_ref()->set_index(v.get_data());}
+//Internal
+  double meshing_info(){return $self->get_data()->meshing_info();}
+  void set_meshing_info (double d) {$self->get_data()->set_meshing_info(d);}
+}
+
 //Regular triangulation
 Typemap_for_Input_iterator(Weighting_helper_3<CGAL::Tag_true>::Point_range,Weighted_point_3,Weighted_point_3,Weighted_point_3::cpp_base,SWIGTYPE_p_Weighted_point_3,"(LCGAL/Kernel/Weighted_point_3;)J",insert_range)
 Declare_regular_triangulation_3(Mesh_3_regular_triangulation_3,MT_PMD)

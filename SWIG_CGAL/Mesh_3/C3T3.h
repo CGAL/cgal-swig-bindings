@@ -5,54 +5,6 @@
 #include <SWIG_CGAL/Common/Input_iterator.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 
-template <class Vertex_wrapper_base,class Index,class Surface_index,class Subdomain_index>
-class Mesh_vertex_wrapper;
-
-template <class Cell_wrapper_base,class Index,class Surface_index,class Subdomain_index>
-class Mesh_cell_wrapper: public Cell_wrapper_base
-{
-public:
-  typedef Mesh_vertex_wrapper<typename Cell_wrapper_base::Vertex_handle,Index,Surface_index,Subdomain_index>    Vertex_handle;
-  typedef Mesh_cell_wrapper<Cell_wrapper_base,Index,Surface_index,Subdomain_index>                              Cell_handle;
-
-  Mesh_cell_wrapper():Cell_wrapper_base(){}
-  Mesh_cell_wrapper(const typename Cell_wrapper_base::cpp_base base):Cell_wrapper_base(base){}
-
-  FORWARD_CALL_0(Subdomain_index,subdomain_index)
-  FORWARD_CALL_1(void,set_subdomain_index,Subdomain_index)
-  FORWARD_CALL_1(bool,is_facet_on_surface,int)
-  FORWARD_CALL_2(void,set_facet_on_surface,int,Surface_index)
-  FORWARD_CALL_1(bool,is_facet_visited,int)
-  FORWARD_CALL_2(void,set_facet_visited,int,bool)
-  FORWARD_CALL_1(Point_3,facet_surface_center,int)
-  FORWARD_CALL_2(void,set_facet_surface_center,int,Point_3)
-//Overloaded method to get correct type
-  FORWARD_CALL_1_PTR(Cell_handle,neighbor,int)
-  FORWARD_CALL_1_PTR(Vertex_handle,vertex,int)
-};
-
-template <class Vertex_wrapper_base,class Index,class Surface_index,class Subdomain_index>
-class Mesh_vertex_wrapper : public Vertex_wrapper_base
-{
-public:
-  typedef Mesh_cell_wrapper<typename Vertex_wrapper_base::Cell_handle,Index,Surface_index,Subdomain_index> Cell_handle;
-
-  Mesh_vertex_wrapper():Vertex_wrapper_base(){}
-  Mesh_vertex_wrapper(const typename Vertex_wrapper_base::cpp_base base):Vertex_wrapper_base(base){}
-
-  FORWARD_CALL_0(int,in_dimension)
-  FORWARD_CALL_1(void,set_dimension,int)
-  FORWARD_CALL_0(Index,index)
-  FORWARD_CALL_1(void,set_index,Index)
-//Internal
-  FORWARD_CALL_0(double,meshing_info)
-  FORWARD_CALL_1(void,set_meshing_info,double) 
-//Overloaded method to get correct type
-  FORWARD_CALL_0_PTR(Cell_handle,cell)
-};
-
-
-
 template <class C3T3,class Triangulation,class Index,class Surface_index,class Subdomain_index>
 class C3T3_wrapper{
   C3T3 data;
