@@ -77,11 +77,26 @@ Iterator_for_java(CGAL_Seeds_const_iterator,Point_2,import CGAL.Kernel.Point_2;)
 %typemap(javaimports)                       Triangulation_conformer_2_wrapper %{import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_2;%}
 %template(Constrained_Delaunay_triangulation_conformer_2) Triangulation_conformer_2_wrapper<CGAL_CDT2,T2_CDT_wrapper>;
 
+
+
+
+
 //global functions
 %include "SWIG_CGAL/Mesh_2/declare_macros.i"
 declare_conforming_global_functions(T2_CDT_wrapper)
 declare_conforming_global_functions(M2_CDT_wrapper)
 
 declare_refine_global_functions(Criteria_wrapper<DM2_C>)
+
+#ifdef SWIGJAVA
+%define T_User_crit_simple Java_criteria_wrapper< Java_Is_bad_wrapper<int,CGAL_Face_handle<M2_CDT,Point_2>,Quality_simple<double> >,int > %enddef
+%{
+  typedef Java_criteria_wrapper< Java_Is_bad_wrapper<int,CGAL_Face_handle<M2_CDT,Point_2>,Quality_simple<double> >,int > T_User_crit_simple;
+%}
+%template (User_mesh_criteria_simple_2) T_User_crit_simple;
+
+declare_refine_global_functions(T_User_crit_simple)
+#endif
+
 
 
