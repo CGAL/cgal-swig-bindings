@@ -7,6 +7,7 @@ template <class T>
 class Optional
 {
   boost::optional<T> data;
+  bool empty_;
 public:
   #ifndef SWIG
   typedef boost::optional<T> cpp_base;
@@ -18,7 +19,7 @@ public:
   Optional():data(){}
   Optional(const T& t):data(t){}
   
-  bool empty() const {return data?true:false;}
+  bool empty() const {return data?false:true;}
   const T& value() const {return *data;}  
 };
 
