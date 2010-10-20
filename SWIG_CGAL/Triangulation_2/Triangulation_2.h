@@ -21,6 +21,9 @@
 
 #include <boost/static_assert.hpp>
 
+#include <CGAL/Triangulation_2.h>
+
+
 enum Locate_type { VERTEX=0, EDGE, FACE, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
 
 template <class Weighted_tag>

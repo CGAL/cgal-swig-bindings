@@ -3,6 +3,8 @@
 
 #include <SWIG_CGAL/Triangulation_2/Constrained_triangulation_2.h>
 
+#include <CGAL/Constrained_Delaunay_triangulation_2.h>
+
 template <class Triangulation,class Vertex_handle, class Face_handle>
 class Constrained_Delaunay_triangulation_2_wrapper: public Constrained_triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle>
 {

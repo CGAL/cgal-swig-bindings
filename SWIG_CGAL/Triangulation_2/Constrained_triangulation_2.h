@@ -11,6 +11,8 @@
 #include <SWIG_CGAL/Java/Output_iterator_wrapper.h>
 #endif
 
+#include <CGAL/Constrained_triangulation_2.h>
+
 typedef std::pair<Point_2,Point_2>                                          Constraint;
 typedef Input_iterator_wrapper<Constraint,std::pair<Point_2::cpp_base,Point_2::cpp_base> > Input_constraint_iterator;
 typedef std::pair<Input_constraint_iterator,Input_constraint_iterator > Constraint_range;

@@ -3,6 +3,8 @@
 
 #include <SWIG_CGAL/Triangulation_2/Constrained_triangulation_2.h>
 
+#include <CGAL/Constrained_triangulation_plus_2.h>  
+
 #ifndef SWIG
 #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
 template <class Triangulation,class Point>
