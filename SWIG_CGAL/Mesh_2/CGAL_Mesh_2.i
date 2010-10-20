@@ -1,5 +1,9 @@
 %module CGAL_Mesh_2
 
+#ifdef SWIGJAVA
+%include "enums.swg"
+%javaconst(1);
+#endif
 
 %include "SWIG_CGAL/common.i"
 %import  "SWIG_CGAL/Common/Macros.h"
@@ -28,8 +32,8 @@
 %import "SWIG_CGAL/Triangulation_2/CGAL_Triangulation_2.i"
 
 
-%pragma(java) jniclassimports=%{import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_2;%}
-%pragma(java) moduleimports  =%{import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_2;%}
+%pragma(java) jniclassimports=%{import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_2; import CGAL.Kernel.Point_2; import java.util.Iterator; import CGAL.Triangulation_2.Constraint; import java.util.Collection;%}
+%pragma(java) moduleimports  =%{import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_2; import java.util.Iterator;import CGAL.Kernel.Point_2;%}
 
 
 //Constrained triangulation for Mesh_2
@@ -64,7 +68,8 @@ Iterator_for_java(CGAL_Seeds_const_iterator,Point_2,import CGAL.Kernel.Point_2;)
 
 
 
-%template(Default_criteria) Criteria_wrapper<DM2_C>;
+%template(Delaunay_mesh_size_criteria_2) Criteria_wrapper<DM2_C>;
+%typemap(javaimports)  Delaunay_mesher_2_wrapper %{import CGAL.Kernel.Point_2; import java.util.Iterator; import CGAL.Triangulation_2.Constraint;%}
 %template(Default_Delaunay_mesher_2) Delaunay_mesher_2_wrapper<DM2_M,M2_CDT_wrapper,Criteria_wrapper<DM2_C> >;
 
 
@@ -76,3 +81,7 @@ Iterator_for_java(CGAL_Seeds_const_iterator,Point_2,import CGAL.Kernel.Point_2;)
 %include "SWIG_CGAL/Mesh_2/declare_macros.i"
 declare_conforming_global_functions(T2_CDT_wrapper)
 declare_conforming_global_functions(M2_CDT_wrapper)
+
+declare_refine_global_functions(Criteria_wrapper<DM2_C>)
+
+

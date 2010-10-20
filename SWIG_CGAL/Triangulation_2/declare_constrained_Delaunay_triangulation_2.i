@@ -11,7 +11,7 @@
 %define Declare_constrained_Delaunay_triangulation_2_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE)
   Declare_constrained_triangulation_2_internal(Internal_Contrained_triangulation_2_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE)
 
-  %typemap(javaimports)          Constrained_Delaunay_triangulation_2_wrapper%{import CGAL.Kernel.Point_2; import java.util.Iterator; import java.util.Collection;%}
+  %typemap(javaimports)          Constrained_Delaunay_triangulation_2_wrapper%{import CGAL.Kernel.Point_2; import java.util.Iterator; import java.util.Collection;  import CGAL.Triangulation_2.Constraint;%}
   %template(EXPOSEDNAME)         Constrained_Delaunay_triangulation_2_wrapper<CPPTYPE,CGAL_Vertex_handle<CPPTYPE,Point_2>,CGAL_Face_handle<CPPTYPE,Point_2> >;  
 %enddef
 

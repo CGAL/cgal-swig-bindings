@@ -17,4 +17,25 @@
   %}
 %enddef
 
+%define declare_refine_global_functions(CRITERIA)
+  void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t, CRITERIA criteria);
+  void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t,Point_range range,CRITERIA criteria,bool mark);
+  void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t,Point_range range,CRITERIA criteria);
+
+  %{
+    void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t, CRITERIA criteria)
+    {
+      CGAL::refine_Delaunay_mesh_2(t.get_data_ref(),criteria.get_data());
+    }
+    void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t,Point_range range,CRITERIA criteria,bool mark)
+    {
+      CGAL::refine_Delaunay_mesh_2(t.get_data_ref(),range.first,range.second,criteria.get_data(),mark);
+    }    
+    void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t,Point_range range,CRITERIA criteria)
+    {
+      CGAL::refine_Delaunay_mesh_2(t.get_data_ref(),range.first,range.second,criteria.get_data());
+    }
+  %} 
+%enddef  
+
 #endif //SWIG_CGAL_MESH_2_DECLARE_MACROS_I

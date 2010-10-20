@@ -117,7 +117,7 @@ public class test_t2 {
     }
     
     if (ok) System.out.println("all "+dbl+" are OK");
-    else    System.out.println("ERROR!!!!");
+    else    throw new AssertionError("ERROR!!!!");
 
     System.out.println("Test regular triangulation");
     LinkedList<Weighted_point_2> wlst=new LinkedList<Weighted_point_2>();

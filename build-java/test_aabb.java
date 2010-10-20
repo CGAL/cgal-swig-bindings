@@ -41,14 +41,14 @@ public class test_aabb {
     if (tree.do_intersect(s))
       System.out.println("OK");
     else
-      System.out.println("oops");
+      throw new AssertionError("oops 0");
     
     Segment_3 s2=new Segment_3(new Point_3(5,0,0.5),new Point_3(-5,0,0.5));
 
     if (tree2.do_intersect(s))
       System.out.println("OK");
     else
-      System.out.println("oops");
+      throw new AssertionError("oops 1");
     
     LinkedList<Polyhedron_3_Facet_handle> lst_fh = new LinkedList<Polyhedron_3_Facet_handle>();
     LinkedList<Polyhedron_3_Halfedge_handle> lst_hh = new LinkedList<Polyhedron_3_Halfedge_handle>();
@@ -64,7 +64,7 @@ public class test_aabb {
     if (!opt.empty())
       System.out.println("OK");
     else
-      System.out.println("oops");
+      throw new AssertionError("oops 2");
     
     Segment_3 seg1=new Segment_3(new Point_3(-1,0,0),new Point_3(1,0,0));
     Segment_3 seg2=new Segment_3(new Point_3(0,1,0),new Point_3(0,-1,0));
@@ -72,7 +72,7 @@ public class test_aabb {
     if (obj.is_Point_3())
       System.out.println(obj.get_Point_3());
     else
-      System.out.println("oops");      
+      throw new AssertionError("oops 3");      
     
     Optional_Object_and_Polyhedron_3_Facet_handle opt_obj_fh=tree.any_intersection(s);
     if (!opt_obj_fh.empty())
@@ -82,11 +82,11 @@ public class test_aabb {
       if ( obj1.is_Point_3() )
         System.out.println("OK");
       else
-        System.out.println("oops");
+        throw new AssertionError("oops 4");
       Polyhedron_3_Facet_handle fh=opfh.getSecond();
     }
     else
-      System.out.println("oops");
+      throw new AssertionError("oops 5");
     
     LinkedList<Object_and_Polyhedron_3_Facet_handle> lst_ofh = new LinkedList<Object_and_Polyhedron_3_Facet_handle>();
     LinkedList<Object_and_Polyhedron_3_Halfedge_handle> lst_ohh = new LinkedList<Object_and_Polyhedron_3_Halfedge_handle>();
@@ -97,12 +97,12 @@ public class test_aabb {
     if (lst_fh.size()==lst_ofh.size())
       System.out.println("OK");
     else
-      System.out.println("oops");
+      throw new AssertionError("oops 6");
 
     if (lst_hh.size()==lst_ohh.size())
       System.out.println("OK");
     else
-      System.out.println("oops");
+      throw new AssertionError("oops 7");
     LinkedList<Point_3> lst_pt=new LinkedList<Point_3>();
     lst_pt.add(new Point_3(0,0,0));
     lst_pt.add(new Point_3(0,1,0));
@@ -116,7 +116,7 @@ public class test_aabb {
     if (!opt_int.empty())
       System.out.println("OK "+opt_int.value());
     else
-      System.out.println("oops");
+      throw new AssertionError("oops 8");
     
     LinkedList<Integer> lst_int=new LinkedList<Integer>();
     tree3.all_intersected_primitives(s,lst_int);

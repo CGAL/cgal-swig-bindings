@@ -64,11 +64,11 @@ public class test_dt3 {
   v4=t.insert(new Point_3(14,0,45));
 
   if ( v1.cell().index(v1) != v1.cell().vertex(v1.cell().index(v1)).cell().index(v1.cell().vertex(v1.cell().index(v1))) )
-    System.out.println("Pb 0");
+    throw new AssertionError("Pb 0");
   Delaunay_triangulation_3_Vertex_handle vi=t.infinite_vertex();
   Delaunay_triangulation_3_Cell_handle ci=t.infinite_cell();
   
-  if (!t.is_infinite(vi) || !t.is_infinite(ci)) System.out.println("Pb 1");
+  if (!t.is_infinite(vi) || !t.is_infinite(ci)) throw new AssertionError("Pb 1");
   
   for (Delaunay_triangulation_3_Cell_handle ch : t.finite_cells()){
     Tetrahedron_3 tetra=t.tetrahedron(ch);
@@ -86,38 +86,38 @@ public class test_dt3 {
   System.out.println(t.number_of_finite_facets());
   System.out.println(t.number_of_finite_edges());  
 
-  if (!t.nearest_vertex(new Point_3(1,1,1)).equals(t.nearest_vertex(new Point_3(1,1,1),t.infinite_cell()))) System.out.println("Pb in nearest neighbor");
+  if (!t.nearest_vertex(new Point_3(1,1,1)).equals(t.nearest_vertex(new Point_3(1,1,1),t.infinite_cell()))) throw new AssertionError("Pb in nearest neighbor");
   
   int i=0;
   for (Delaunay_triangulation_3_Vertex_handle vh: t.finite_vertices()){
     if (!t.is_infinite(vh)) ++i;
   }
   for (Delaunay_triangulation_3_Vertex_handle vh: t.all_vertices())  --i;
-  if (i!=-1) System.out.println("Pb 1");
+  if (i!=-1) throw new AssertionError("Pb 1");
 
   i=0;
   for (Delaunay_triangulation_3_Cell_handle ch: t.finite_cells()){
     if (!t.is_infinite(ch)) --i;
-    if (t.side_of_sphere(ch,v1.point()) != Bounded_side.ON_BOUNDARY) System.out.println("Pb side_of_sphere");
-    if (t.side_of_circle(ch,0,ch.vertex(1).point())  != Bounded_side.ON_BOUNDARY) System.out.println("Pb side_of_circle");
-    if (t.side_of_circle(new Delaunay_triangulation_3_Facet(ch,0),ch.vertex(1).point())  != Bounded_side.ON_BOUNDARY) System.out.println("Pb side_of_circle");
+    if (t.side_of_sphere(ch,v1.point()) != Bounded_side.ON_BOUNDARY) throw new AssertionError("Pb side_of_sphere");
+    if (t.side_of_circle(ch,0,ch.vertex(1).point())  != Bounded_side.ON_BOUNDARY) throw new AssertionError("Pb side_of_circle");
+    if (t.side_of_circle(new Delaunay_triangulation_3_Facet(ch,0),ch.vertex(1).point())  != Bounded_side.ON_BOUNDARY) throw new AssertionError("Pb side_of_circle");
   }
   for (Delaunay_triangulation_3_Cell_handle ch: t.all_cells())  ++i;
   System.out.println(i+" infinite cells");
 
   i=0;
-  for (Delaunay_triangulation_3_Edge e: t.finite_edges())  if (!t.is_infinite(e)) {--i; if (t.is_Gabriel(e)!=t.is_Gabriel(e.getFirst(),e.getSecond(),e.getThird())) System.out.println("Pb 7");}
-  for (Delaunay_triangulation_3_Edge e: t.all_edges()){ ++i; if (t.is_infinite(e)!=t.is_infinite(e.getFirst(),e.getSecond(),e.getThird())) System.out.println("Pb 2");}
+  for (Delaunay_triangulation_3_Edge e: t.finite_edges())  if (!t.is_infinite(e)) {--i; if (t.is_Gabriel(e)!=t.is_Gabriel(e.getFirst(),e.getSecond(),e.getThird())) throw new AssertionError("Pb 7");}
+  for (Delaunay_triangulation_3_Edge e: t.all_edges()){ ++i; if (t.is_infinite(e)!=t.is_infinite(e.getFirst(),e.getSecond(),e.getThird())) throw new AssertionError("Pb 2");}
   System.out.println(i+" infinite edges");
   
   i=0;
   for (Delaunay_triangulation_3_Facet f: t.finite_facets())  if (!t.is_infinite(f)) {
     --i;
-    if (t.is_Gabriel(f)!=t.is_Gabriel(f.getFirst(),f.getSecond())) System.out.println("Pb 6");
+    if (t.is_Gabriel(f)!=t.is_Gabriel(f.getFirst(),f.getSecond())) throw new AssertionError("Pb 6");
     if (! t.are_equal(f,t.mirror_facet(t.mirror_facet(f))) )
       System.out.println("Pn mirror facet");
   }
-  for (Delaunay_triangulation_3_Facet f: t.all_facets()) { ++i; if (t.is_infinite(f)!=t.is_infinite(f.getFirst(),f.getSecond())) System.out.println("Pb 3");}
+  for (Delaunay_triangulation_3_Facet f: t.all_facets()) { ++i; if (t.is_infinite(f)!=t.is_infinite(f.getFirst(),f.getSecond())) throw new AssertionError("Pb 3");}
 
   System.out.println(i+" infinite facets");
   
@@ -125,28 +125,28 @@ public class test_dt3 {
   for(Point_3 p:t.points())  System.out.println(p.x()+","+p.y()+","+p.z());
 
   if (!t.is_vertex(v1) || !t.is_cell(v2.cell()))
-    System.out.println("Pb 4");
+    throw new AssertionError("Pb 4");
   
-  if (! ci.equals(t.infinite_cell())) System.out.println("Pb cell equality test");
+  if (! ci.equals(t.infinite_cell())) throw new AssertionError("Pb cell equality test");
   
   if (!(
         t.locate(new Point_3(1,1,1)).equals(t.locate(new Point_3(1,1,1),t.infinite_cell())) &&
         t.locate(new Point_3(1,1,1)).equals(t.locate(new Point_3(1,1,1),v1)) 
        )
-     ){ System.out.println("Pb 5"); }
+     ){ throw new AssertionError("Pb 5"); }
      
   boolean bool=true;
   if (! ( t.is_valid() && t.is_valid(bool) && t.is_valid(ci) && t.is_valid(ci,bool)) )
-    System.out.println("Pb is_valid");
+    throw new AssertionError("Pb is_valid");
   if (!v1.point().equals(t.point(v1.cell(),v1.cell().index(v1))))
-    System.out.println("Pb point1");
+    throw new AssertionError("Pb point1");
   if (!v1.point().equals(t.point(v1)) )
-    System.out.println("Pb point2");
+    throw new AssertionError("Pb point2");
   
   
   Delaunay_triangulation_3 t2=new Delaunay_triangulation_3(t);
   if (!t.equals(t2))
-    System.out.println("Pb copy or equal");
+    throw new AssertionError("Pb copy or equal");
 
   LinkedList<Delaunay_triangulation_3_Cell_handle> lst=new LinkedList<Delaunay_triangulation_3_Cell_handle>();
   t.incident_cells(v1,lst);
@@ -159,12 +159,12 @@ public class test_dt3 {
     Ref_int rl=new Ref_int(-1);
     if (t.is_cell (ch.vertex(0),ch.vertex(1),ch.vertex(2),ch.vertex(3),ch_tmp,ri,rj,rk,rl)){
       if (ri.object()!=0 || rj.object()!=1 || rk.object()!=2 || rl.object()!=3)
-        System.out.println("Pb Ref_int");
+        throw new AssertionError("Pb Ref_int");
       if (!ch_tmp.equals(ch))
-        System.out.println("Pb equality cell_handle");
+        throw new AssertionError("Pb equality cell_handle");
     }
     else{
-      System.out.println("Pb is cell");
+      throw new AssertionError("Pb is cell");
     }
   }
     
