@@ -61,8 +61,8 @@
   void set_facet_on_surface(int i,std::pair<int,int> p){$self->get_data_ref()->set_surface_index(i,p);}
   bool is_facet_visited(int i){return $self->get_data()->is_facet_visited(i);}
   void set_facet_visited(int i){$self->get_data_ref()->set_facet_visited(i);}
-  Point_3 get_facet_surface_center(int i){return Point_3($self->get_data()->get_facet_surface_center(i));}
-  void set_facet_surface_center(int i,const Point_3& p) {return $self->get_data_ref()->set_facet_surface_center(i,p.get_data());}
+  Weighted_point_3 get_facet_surface_center(int i){return Weighted_point_3($self->get_data()->get_facet_surface_center(i));}
+  void set_facet_surface_center(int i,const Weighted_point_3& p) {return $self->get_data_ref()->set_facet_surface_center(i,p.get_data());}
 }
 %extend CGAL_Vertex_handle<MT_PMD,Weighted_point_3>{
   int in_dimension() {return $self->get_data()->in_dimension();}
@@ -75,6 +75,7 @@
 }
 
 //Regular triangulation
+%typemap(javaimports) CGAL_Cell_handle %{import CGAL.Kernel.Weighted_point_3;%}
 Typemap_for_Input_iterator(Weighting_helper_3<CGAL::Tag_true>::Point_range,Weighted_point_3,Weighted_point_3,Weighted_point_3::cpp_base,SWIGTYPE_p_Weighted_point_3,"(LCGAL/Kernel/Weighted_point_3;)J",insert_range)
 Declare_regular_triangulation_3(Mesh_3_regular_triangulation_3,MT_PMD)
 
