@@ -49,6 +49,14 @@ public:
   Iterator iterator() {
     return Iterator(data.begin(),data.end());
   }
+  
+  Point_d value(){
+    typename Cpp_base::iterator it=data.begin();
+    Point_d ret (( it )->first);
+    ++it;
+    return ret;
+    
+  }
 };
 
 

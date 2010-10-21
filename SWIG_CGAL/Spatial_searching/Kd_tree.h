@@ -49,6 +49,8 @@ public:
   FORWARD_CALL_0(int,size)
   void search(typename Query_iterator_helper<Query>::output out, const Fuzzy_sphere& fsphere) { data.search(out,fsphere.get_data());}
   void search(typename Query_iterator_helper<Query>::output out, const Fuzzy_iso_box& fbox)   { data.search(out,fbox.get_data());}
+  
+  FORWARD_CALL_0(void,build)
 };
 
 
