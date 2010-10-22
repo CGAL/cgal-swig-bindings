@@ -59,8 +59,10 @@ public:
   
   Container_writer& operator=(const Container_writer& source)
   {
-    cleanup();
-    copy(source);
+    if (this!=&source){
+      cleanup();
+      copy(source);
+    }
     return *this;
   }
   
@@ -128,8 +130,10 @@ public:
   
   Container_writer& operator=(const Container_writer& source)
   {
-    cleanup();
-    copy(source);
+    if (this!=&source){
+      cleanup();
+      copy(source);
+    }
     return *this;
   }
   

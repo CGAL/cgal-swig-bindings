@@ -49,8 +49,10 @@ struct Ref_counted_jdata{
   
   Ref_counted_jdata& operator=(const Ref_counted_jdata& source)
   {
-    cleanup();
-    copy(source);
+    if (this!=&source){
+      cleanup();
+      copy(source);
+    }
     return *this;
   }
   

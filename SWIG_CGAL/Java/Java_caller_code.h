@@ -80,8 +80,10 @@ public:
   
   Java_caller_code& operator=(const Java_caller_code &original)
   {
-    cleanup();
-    copy(original);
+    if (this!=&original){
+      cleanup();
+      copy(original);
+    }
     return *this;
   }
 
