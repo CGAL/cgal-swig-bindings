@@ -17,6 +17,7 @@ public:
   ~JavaData();
 #ifndef SWIG
   JavaData& operator=(const JavaData& d);
+  bool operator<(const JavaData& d) const;
 #endif
   jobject get_data();
   void set_data(jobject n);

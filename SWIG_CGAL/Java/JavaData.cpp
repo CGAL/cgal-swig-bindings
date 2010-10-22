@@ -58,6 +58,10 @@ JavaData& JavaData::operator=(const JavaData& d){
   return *this;
 }
 
+bool JavaData::operator<(const JavaData& d) const {
+  return data < d.data;
+}
+
 jobject JavaData::get_data(){return data;}
 
 void JavaData::set_data(jobject n){

@@ -40,13 +40,16 @@ SPECIALIZE_CONVERTER(double)
 SPECIALIZE_CONVERTER(float)
 
 
-#define SPECIALIZE_CONVERTER_ENUM(ENUM)     \
-template <> struct Converter<ENUM>{         \
-  static const bool is_reference=false;     \
-  typedef ::CGAL:: ENUM result_type;        \
-  static result_type convert(ENUM t)        \
-  {return CGAL::enum_cast<CGAL:: ENUM>(t);} \
+#define SPECIALIZE_CONVERTER_ENUM_2(ENUM,NSPACE)     \
+template <> struct Converter<ENUM>{                  \
+  static const bool is_reference=false;              \
+  typedef NSPACE ENUM result_type;                   \
+  static result_type convert(ENUM t)                 \
+  {return CGAL::enum_cast< NSPACE ENUM>(t);}         \
 };
+
+#define SPECIALIZE_CONVERTER_ENUM(ENUM)     \
+  SPECIALIZE_CONVERTER_ENUM_2(ENUM,::CGAL::)
 
 
 #ifndef SWIG

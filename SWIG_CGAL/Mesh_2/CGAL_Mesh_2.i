@@ -89,9 +89,9 @@ declare_conforming_global_functions(M2_CDT_wrapper)
 declare_refine_global_functions(Criteria_wrapper<DM2_C>)
 
 #ifdef SWIGJAVA
-%define T_User_crit_simple Java_criteria_wrapper< Java_Is_bad_wrapper<int,CGAL_Face_handle<M2_CDT,Point_2>,Quality_simple<double> >,int > %enddef
+%define T_User_crit_simple Java_criteria_wrapper< Java_Is_bad_wrapper<int,CGAL_Face_handle<M2_CDT,Point_2> >,int > %enddef
 %{
-  typedef Java_criteria_wrapper< Java_Is_bad_wrapper<int,CGAL_Face_handle<M2_CDT,Point_2>,Quality_simple<double> >,int > T_User_crit_simple;
+  typedef Java_criteria_wrapper< Java_Is_bad_wrapper<int,CGAL_Face_handle<M2_CDT,Point_2> >,int > T_User_crit_simple;
 %}
 %template (User_mesh_criteria_simple_2) T_User_crit_simple;
 

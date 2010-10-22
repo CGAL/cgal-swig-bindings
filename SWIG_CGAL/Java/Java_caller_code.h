@@ -93,13 +93,8 @@ public:
   }
   
   #ifndef SWIG
-  void run0(jobject data)
-  {JNU_GetEnv()->CallVoidMethod(java_predicate,predicate_id,data);}
-  
-  jobject run(jobject data)
-  {return JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id,data);}
-  
-  typename Output_wrapper::cpp_base run(const typename internal::Converter<Input_wrapper>::result_type& input) const
+  typename internal::Converter<Output_wrapper>::result_type
+  run(const typename internal::Converter<Input_wrapper>::result_type& input) const
   {
     //create the wrapper object
     Input_wrapper*  cpp_wrapper=new Input_wrapper(input);
@@ -116,7 +111,7 @@ public:
     assert(get_output_id!=NULL);
     jlong jcpp=(jlong) JNU_GetEnv()->CallStaticObjectMethod(output_class,get_output_id,res);
     assert( (void*) jcpp != NULL );
-    return reinterpret_cast<Output_wrapper*>(jcpp)->get_data();
+    return internal::Converter<Output_wrapper>::convert( *reinterpret_cast<Output_wrapper*>(jcpp) );
   }
   #endif
 };

@@ -3,6 +3,11 @@
 
 enum Face_badness { NOT_BAD, BAD, IMPERATIVELY_BAD };
 
+namespace internal{
+  SPECIALIZE_CONVERTER_ENUM_2(Face_badness,::CGAL::Mesh_2::)
+}//namespace internal
+
+
 template <class Cpp>
 class Criteria_wrapper{
   Cpp data;
@@ -19,38 +24,15 @@ public:
 };
 
 #ifdef SWIGJAVA
+#include <SWIG_CGAL/Java/JavaData.h>
 
-template <class FT>
-class Quality_simple{
-  FT data;
-public:
-  #ifndef SWIG
-  typedef FT cpp_base;
-  const cpp_base& get_data() const {return data;}
-        cpp_base& get_data_ref()   {return data;}
-  #endif
-  Quality_simple(FT v):data(v){}
-};
-
-template <class FT>
-class Quality_pair{
-  std::pair<FT,FT> data;
-public:
-  #ifndef SWIG
-  typedef FT cpp_base;
-  const cpp_base& get_data() const {return data;}
-        cpp_base& get_data_ref()   {return data;}
-  #endif
-  Quality_pair(std::pair<FT,FT> p):data(p){}
-};
-
-template <class Caller,class Face_handle_,class Quality_>
+template <class Caller,class Face_handle_>
 class Java_Is_bad_wrapper
 {
   Caller caller;
 public:
   typedef typename Face_handle_::cpp_base  Face_handle;
-  typedef typename Quality_::cpp_base      Quality;
+  typedef  JavaData                        Quality;
 
   Java_Is_bad_wrapper(Caller& call):caller(call){}
   Java_Is_bad_wrapper(){}
