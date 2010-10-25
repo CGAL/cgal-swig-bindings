@@ -4,11 +4,7 @@
 void JavaData::init(jobject obj){
   if (obj!=NULL){
     cnt=new int(1);
-    assert(get_cached_jvm() != NULL);
-    JNIEnv* env=JNU_GetEnv();
-    //jint ret = env->GetJavaVM(&get_cached_jvm());
-    env->GetJavaVM(&get_cached_jvm());
-    data = env->NewGlobalRef(obj);
+    data = JNU_GetEnv()->NewGlobalRef(obj);
   }
   else
     data = NULL;
@@ -25,10 +21,7 @@ void JavaData::clean(){
   if (data != NULL){
     --(*cnt);
     if ((*cnt) == 0) {
-      assert(get_cached_jvm() != NULL);
-      void* newEnv = NULL;
-      get_cached_jvm()->GetEnv(&newEnv,JNI_VERSION_1_2);
-      ((JNIEnv*)newEnv)->DeleteGlobalRef(data);
+      JNU_GetEnv()->DeleteGlobalRef(data);
       delete cnt;
       cnt=NULL;
     }
