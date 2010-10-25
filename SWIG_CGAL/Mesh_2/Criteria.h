@@ -35,6 +35,7 @@ public:
   typedef JavaData                         Quality;
 
   Java_Is_bad_wrapper(Caller& call):caller(call){}
+  //We need the default constructor because of a bug in Keonig lookup in SWIG cxx generated file
   Java_Is_bad_wrapper(){}
     
   CGAL::Mesh_2::Face_badness operator()(const Face_handle& f,Quality& q) const {
@@ -59,6 +60,7 @@ public:
   const Is_bad& is_bad_object() const {return is_bad;}
   #endif
   
+  //We need the default constructor because of a bug in Keonig lookup in SWIG cxx generated file
   Java_criteria_wrapper(){}
   Java_criteria_wrapper(Caller& call):is_bad(call){}
 };
