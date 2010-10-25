@@ -7,6 +7,8 @@ import CGAL.Mesh_2.Mesh_2_Constrained_Delaunay_triangulation_2_Face_handle;
 import CGAL.Mesh_2.Constrained_Delaunay_triangulation_conformer_2;
 import CGAL.Mesh_2.Delaunay_mesh_size_criteria_2;
 import CGAL.Mesh_2.Default_Delaunay_mesher_2;
+import CGAL.Mesh_2.User_mesh_criteria_simple_2;
+import CGAL.Mesh_2.Mesh_2_predicate;
 import java.util.LinkedList;
 import CGAL.Kernel.Point_2;
 
@@ -92,9 +94,12 @@ public class test_mesh_2 {
     {
       if(f.is_in_domain()) ++mesh_faces_counter;
     }
-    System.out.println("Number of faces in the mesh domain: " + mesh_faces_counter );        
+    System.out.println("Number of faces in the mesh domain: " + mesh_faces_counter );
+
+    Mesh2Criteria mpred_base= new Mesh2Criteria();
+    Mesh_2_predicate mpred=new Mesh_2_predicate(mpred_base,"evaluate","LCGAL/Mesh_2/Mesh_2_Constrained_Delaunay_triangulation_2_Face_handle;","LCGAL/Mesh_2/Face_badness;");
+    CGAL_Mesh_2.refine_Delaunay_mesh_2(cdt, list_of_seeds.iterator(),new User_mesh_criteria_simple_2(mpred));
   }
-  
   public static void test_mesh_class()
   {
     Mesh_2_Constrained_Delaunay_triangulation_2 cdt=new Mesh_2_Constrained_Delaunay_triangulation_2();

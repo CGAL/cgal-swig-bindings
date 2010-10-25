@@ -32,13 +32,16 @@ class Java_Is_bad_wrapper
   Caller caller;
 public:
   typedef typename Face_handle_::cpp_base  Face_handle;
-  typedef  JavaData                        Quality;
+  typedef JavaData                         Quality;
 
   Java_Is_bad_wrapper(Caller& call):caller(call){}
   Java_Is_bad_wrapper(){}
     
-  CGAL::Mesh_2::Face_badness operator()(const Face_handle& f,Quality& q) const {return CGAL::Mesh_2::NOT_BAD;}
-  CGAL::Mesh_2::Face_badness operator()(const Quality& q) const {return CGAL::Mesh_2::NOT_BAD;}
+  CGAL::Mesh_2::Face_badness operator()(const Face_handle& f,Quality& q) const {
+    q.init_empty_object();
+    return caller.run_2(f,q.get_data());
+  }
+  CGAL::Mesh_2::Face_badness operator()(Quality& q) const {return caller.run_1(q.get_data());}
 };
 
 template <class Is_bad_wrapper,class Caller>
