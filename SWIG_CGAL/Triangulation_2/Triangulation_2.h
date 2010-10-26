@@ -12,12 +12,7 @@
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Common/Macros.h>
 
-#ifdef SWIGPYTHON
-#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
-#endif
-#ifdef SWIGJAVA
-#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
-#endif
+#include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 
 #include <boost/static_assert.hpp>
 

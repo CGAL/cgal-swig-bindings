@@ -9,15 +9,8 @@
 #include <SWIG_CGAL/Kernel/CGAL_Object.h>
 #include <SWIG_CGAL/Kernel/Segment_3.h>
 #include <SWIG_CGAL/Kernel/Triangle_3.h>
-
-#ifdef SWIGPYTHON
-#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Python/Output_iterator_wrapper.h>
-#endif
-#ifdef SWIGJAVA
-#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Java/Output_iterator_wrapper.h>
-#endif
+#include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 
 
 template <class Primitive_object>

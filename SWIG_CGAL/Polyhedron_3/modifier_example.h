@@ -53,13 +53,7 @@ public:
 };
 
 #include <SWIG_CGAL/Common/Macros.h>
-#ifdef SWIGPYTHON
-#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
-#endif
-#ifdef SWIGJAVA
-#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
-#endif
-
+#include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/triple.h>
 
 typedef CGAL_SWIG::Triple<int,int,int> Integer_triple;

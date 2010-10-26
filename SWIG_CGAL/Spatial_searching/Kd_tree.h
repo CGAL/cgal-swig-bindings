@@ -4,15 +4,8 @@
 
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/Input_iterator.h>
-
-#ifdef SWIGPYTHON
-#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Python/Output_iterator_wrapper.h>
-#endif
-#ifdef SWIGJAVA
-#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Java/Output_iterator_wrapper.h>
-#endif
+#include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 
 
 DECLARE_ITERATOR_CLASS_2(iterator,Kd_tree_iterator)

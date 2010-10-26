@@ -16,15 +16,8 @@
 #include <SWIG_CGAL/Kernel/Triangle_3.h>
 #include <SWIG_CGAL/Kernel/Tetrahedron_3.h>
 #include <SWIG_CGAL/Kernel/enum.h>
-
-#ifdef SWIGPYTHON
-#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Python/Output_iterator_wrapper.h>
-#endif
-#ifdef SWIGJAVA
-#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Java/Output_iterator_wrapper.h>
-#endif
+#include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
 
