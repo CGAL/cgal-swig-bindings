@@ -1,15 +1,8 @@
 #ifndef SWIG_CGAL_SURFACE_MESHER_C2T3_H
 #define SWIG_CGAL_SURFACE_MESHER_C2T3_H
 
-#ifdef SWIGPYTHON
-#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Python/Output_iterator_wrapper.h>
-#endif
-#ifdef SWIGJAVA
-#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Java/Output_iterator_wrapper.h>
-#endif
-
+#include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Input_iterator.h>
 
 namespace C2T3_internal{

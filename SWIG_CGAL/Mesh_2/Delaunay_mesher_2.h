@@ -1,13 +1,7 @@
 #ifndef SWIG_CGAL_MESH_2_DELAUNAY_MESHER_2_H
 #define SWIG_CGAL_MESH_2_DELAUNAY_MESHER_2_H
 
-#ifdef SWIGPYTHON
-#include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
-#endif
-#ifdef SWIGJAVA
-#include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
-#endif
-
+#include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
 
 
