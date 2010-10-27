@@ -30,6 +30,9 @@ SWIG_JAVABODY_METHODS(public,public,Triangle_3)
 SWIG_JAVABODY_METHODS(public,public,Tetrahedron_3)
 SWIG_JAVABODY_METHODS(public,public,Line_3)
 SWIG_JAVABODY_METHODS(public,public,Sphere_3)
+SWIG_JAVABODY_METHODS(public,public,Ray_3)
+SWIG_JAVABODY_METHODS(public,public,Direction_3)
+SWIG_JAVABODY_METHODS(public,public,Vector_3)
 SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
 #endif
 
@@ -51,6 +54,9 @@ SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
   #include <SWIG_CGAL/Kernel/Tetrahedron_3.h>
   #include <SWIG_CGAL/Kernel/Line_3.h>
   #include <SWIG_CGAL/Kernel/Sphere_3.h>
+  #include <SWIG_CGAL/Kernel/Ray_3.h>
+  #include <SWIG_CGAL/Kernel/Direction_3.h>
+  #include <SWIG_CGAL/Kernel/Vector_3.h>
   #include <SWIG_CGAL/Kernel/CGAL_Object.h>
   #include <SWIG_CGAL/Kernel/global_functions.h>
   #include <SWIG_CGAL/Kernel/enum.h>
@@ -72,7 +78,10 @@ SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
 %include "SWIG_CGAL/Kernel/Line_3.h"
 %include "SWIG_CGAL/Kernel/Sphere_3.h"
 %include "SWIG_CGAL/Kernel/Triangle_3.h"
+%include "SWIG_CGAL/Kernel/Ray_3.h"
+%include "SWIG_CGAL/Kernel/Direction_3.h"
 %include "SWIG_CGAL/Kernel/Tetrahedron_3.h"
+%include "SWIG_CGAL/Kernel/Vector_3.h"
 %include "SWIG_CGAL/Kernel/CGAL_Object.h"
 %include "SWIG_CGAL/Kernel/enum.h"
 %include "SWIG_CGAL/Common/global_function_macros.h"

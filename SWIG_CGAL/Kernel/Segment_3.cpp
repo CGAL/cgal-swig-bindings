@@ -1,16 +1,12 @@
 #include <SWIG_CGAL/Kernel/Segment_3.h>
 #include <sstream>
 
-const EPIC_Kernel::Segment_3& Segment_3::get_data() const {return data;}
-EPIC_Kernel::Segment_3& Segment_3::get_data_ref() {return data;}
 Segment_3::Segment_3():data(){}
-Segment_3::Segment_3(const EPIC_Kernel::Segment_3& s):data(s){}
 Segment_3::Segment_3(const Point_3& p1, const Point_3& p2):data(p1.get_data(), p2.get_data()){}
 
-Point_3 Segment_3::source() {return data.source();}
-Point_3 Segment_3::target() {return data.target();}
-Line_3 Segment_3::supporting_line(){return data.supporting_line();}
-
+FORWARD_CALL_0(Vector_3,Segment_3::to_vector)
+FORWARD_CALL_0(Direction_3,Segment_3::direction)
+FORWARD_CALL_0(Line_3,Segment_3::supporting_line)
 
 bool Segment_3::equals(const Segment_3& p){
   return data==p.get_data();
