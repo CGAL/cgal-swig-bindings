@@ -2,10 +2,10 @@
 
 
 %include "SWIG_CGAL/common.i"
+%import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/Point_3.h"
 %import  "SWIG_CGAL/Kernel/Plane_3.h"
 //%import  "SWIG_CGAL/Kernel/Kernel.i" This is an alternative to the two previous import
-%import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Common/Input_iterator.h"
 
 //include files

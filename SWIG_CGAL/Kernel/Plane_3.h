@@ -1,6 +1,8 @@
 #ifndef SWIG_CGAL_KERNEL_PLANE_3_H
 #define SWIG_CGAL_KERNEL_PLANE_3_H
 
+#include <SWIG_CGAL/Kernel/include_conflicts_3.h>
+
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/enum.h>
@@ -8,6 +10,8 @@
 #include <SWIG_CGAL/Kernel/Point_2.h>
 #include <SWIG_CGAL/Kernel/Segment_3.h>
 #include <SWIG_CGAL/Kernel/Line_3.h>
+#include <SWIG_CGAL/Kernel/Vector_3.h>
+#include <SWIG_CGAL/Kernel/Direction_3.h>
 
 #ifndef SWIG
 #define NO_SWIG_OR_PYTHON
@@ -17,16 +21,14 @@
 #endif
 #endif
 
-class Segment_3;
-
 class Plane_3{
   EPIC_Kernel::Plane_3 data;
 public:
   #ifndef SWIG
   typedef EPIC_Kernel::Plane_3 cpp_base;  
-  const EPIC_Kernel::Plane_3& get_data() const;
-  EPIC_Kernel::Plane_3& get_data_ref();
-  Plane_3(const cpp_base& p);
+  const EPIC_Kernel::Plane_3& get_data() const {return data;}
+  EPIC_Kernel::Plane_3& get_data_ref() {return data;}
+  Plane_3(const cpp_base& p):data(p){}
   #endif
 //Creation
   Plane_3();
@@ -42,7 +44,7 @@ public:
   FORWARD_CALL_0(double,b)
   FORWARD_CALL_0(double,c)
   FORWARD_CALL_0(double,d)
-  FORWARD_CALL_1(Point_3,projection,Point_3);
+  FORWARD_CALL_1(Point_3,projection,Point_3)
   FORWARD_CALL_0(Plane_3,opposite)
   FORWARD_CALL_0(Point_3,point)
   Vector_3 orthogonal_vector();

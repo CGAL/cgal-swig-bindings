@@ -25,7 +25,7 @@ public:
   Sphere_3(const cpp_base& base):data(base){}
   #endif
   
-  bool equals(const Sphere_3& s){return data==s.get_data();}
+  bool equals(const Sphere_3& s);
   
   std::string toString(){
     std::stringstream sstr;

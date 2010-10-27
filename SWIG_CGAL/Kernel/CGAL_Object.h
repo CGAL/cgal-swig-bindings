@@ -33,7 +33,7 @@ public:
   CGAL_Object(const cpp_base& base):data(base){}
   #endif
 
-  CGAL_Object(){}
+  CGAL_Object();
     
   DECLARE_FCT_IS_AND_GET(Point_2)
   DECLARE_FCT_IS_AND_GET(Point_3)
