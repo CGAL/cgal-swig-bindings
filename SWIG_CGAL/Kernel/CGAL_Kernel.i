@@ -18,6 +18,10 @@ SWIG_JAVABODY_METHODS(public,public,Point_2)
 SWIG_JAVABODY_METHODS(public,public,Weighted_point_2)
 SWIG_JAVABODY_METHODS(public,public,Segment_2)
 SWIG_JAVABODY_METHODS(public,public,Triangle_2)
+SWIG_JAVABODY_METHODS(public,public,Ray_2)
+SWIG_JAVABODY_METHODS(public,public,Direction_2)
+SWIG_JAVABODY_METHODS(public,public,Line_2)
+SWIG_JAVABODY_METHODS(public,public,Vector_2)
 SWIG_JAVABODY_METHODS(public,public,Point_3)
 SWIG_JAVABODY_METHODS(public,public,Weighted_point_3)
 SWIG_JAVABODY_METHODS(public,public,Plane_3)
@@ -35,6 +39,10 @@ SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
   #include <SWIG_CGAL/Kernel/Weighted_point_2.h>
   #include <SWIG_CGAL/Kernel/Segment_2.h>
   #include <SWIG_CGAL/Kernel/Triangle_2.h>
+  #include <SWIG_CGAL/Kernel/Ray_2.h>
+  #include <SWIG_CGAL/Kernel/Direction_2.h>
+  #include <SWIG_CGAL/Kernel/Line_2.h>
+  #include <SWIG_CGAL/Kernel/Vector_2.h>
   #include <SWIG_CGAL/Kernel/Point_3.h>
   #include <SWIG_CGAL/Kernel/Weighted_point_3.h>
   #include <SWIG_CGAL/Kernel/Plane_3.h>
@@ -53,6 +61,10 @@ SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
 %include "SWIG_CGAL/Kernel/Weighted_point_2.h"
 %include "SWIG_CGAL/Kernel/Segment_2.h"
 %include "SWIG_CGAL/Kernel/Triangle_2.h"
+%include "SWIG_CGAL/Kernel/Ray_2.h"
+%include "SWIG_CGAL/Kernel/Direction_2.h"
+%include "SWIG_CGAL/Kernel/Line_2.h"
+%include "SWIG_CGAL/Kernel/Vector_2.h"
 %include "SWIG_CGAL/Kernel/Point_3.h"
 %include "SWIG_CGAL/Kernel/Weighted_point_3.h"
 %include "SWIG_CGAL/Kernel/Plane_3.h"

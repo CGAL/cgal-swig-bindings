@@ -1,8 +1,13 @@
 #ifndef SWIG_CGAL_KERNEL_SEGMENT_2_H
 #define SWIG_CGAL_KERNEL_SEGMENT_2_H
 
+#include <SWIG_CGAL/Kernel/include_conflicts_2.h>
+
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
+#include <SWIG_CGAL/Kernel/Vector_2.h>
+#include <SWIG_CGAL/Kernel/Line_2.h>
+#include <SWIG_CGAL/Kernel/Direction_2.h>
 #include <SWIG_CGAL/Common/Macros.h>
 
 #ifndef SWIG
@@ -35,6 +40,10 @@ public:
   FORWARD_CALL_1(Point_2,point,int)
   FORWARD_CALL_0(double,squared_length)
   FORWARD_CALL_0(Segment_2,opposite)
+  Direction_2 direction();
+  Vector_2 to_vector();
+  Line_2 supporting_line();
+
 //Predicates
   FORWARD_CALL_0(bool,is_degenerate)
   FORWARD_CALL_0(bool,is_horizontal)
@@ -55,10 +64,6 @@ public:
 
 #endif //SWIG_CGAL_KERNEL_SEGMENT_2_H
 
-//Operations
-//  Direction_2<Kernel>   s.direction ()
-//  Vector_2<Kernel>   s.to_vector ()
-//  Line_2<Kernel>   s.supporting_line ()
 //Miscellaneous
 //  Bbox_2   s.bbox ()   returns a bounding box containing s.
 //  Segment_2<Kernel>   s.transform ( Aff_transformation_2<Kernel> t)

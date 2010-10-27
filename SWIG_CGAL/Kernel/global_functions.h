@@ -6,6 +6,8 @@
 #include <SWIG_CGAL/Kernel/Point_2.h>
 #include <SWIG_CGAL/Kernel/Segment_2.h>
 #include <SWIG_CGAL/Kernel/Triangle_2.h>
+#include <SWIG_CGAL/Kernel/Ray_2.h>
+#include <SWIG_CGAL/Kernel/Direction_2.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <SWIG_CGAL/Kernel/Plane_3.h>
 #include <SWIG_CGAL/Kernel/Line_3.h>
