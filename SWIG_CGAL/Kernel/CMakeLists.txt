@@ -1,38 +1,5 @@
-cmake_minimum_required(VERSION 2.8)
-
-SET (PACKAGENAME "Kernel")
-SET (MODULENAME "CGAL_${PACKAGENAME}")
-SET (INTERFACE_FILES  "${MODULENAME}.i")
 SET (OBJECT_FILES "Point_2.cpp" "Weighted_point_2.cpp" "Segment_2.cpp" "Triangle_2.cpp" "Ray_2.cpp" "Direction_2.cpp" "Line_2.cpp" "Vector_2.cpp")
 SET (OBJECT_FILES ${OBJECT_FILES} "Point_3.cpp" "Weighted_point_3.cpp" "Sphere_3.cpp" "Plane_3.cpp" "Segment_3.cpp" "Line_3.cpp" "Triangle_3.cpp" "Tetrahedron_3.cpp" "Direction_3.cpp" "Ray_3.cpp" "Vector_3.cpp")
 SET (OBJECT_FILES ${OBJECT_FILES} "CGAL_Object.cpp" "global_functions.cpp")
-SET (JAVA_OBJECT_FILES "")
-SET (PYTHON_OBJECT_FILES "")
-SET (JAVAPACKAGENAME "CGAL.${PACKAGENAME}")
-SET (JAVABUILDPATH "${JAVABUILDPATHPREFIX}/CGAL/${PACKAGENAME}")
-   
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
-INCLUDE_DIRECTORIES(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-
-SET_SOURCE_FILES_PROPERTIES(${INTERFACE_FILES} PROPERTIES CPLUSPLUS ON)
-
-#Build bindings for python
-if(PYTHONLIBS_FOUND)
-  INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_DIRS})
-  SET (CMAKE_SWIG_OUTDIR "${PYTHONBUILDPATH}/CGAL")
-  SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PYTHONBUILDPATH}/CGAL")
-  SWIG_ADD_MODULE(${MODULENAME} python ${INTERFACE_FILES} ${OBJECT_FILES} ${PYTHON_OBJECT_FILES})
-else()
-  message("Python has not been found, ${PACKAGENAME} bindings for python will not be compiled.")
-endif()
-
-#Build bindings for java
-if (JAVA_INCLUDE_PATH)
-  INCLUDE_DIRECTORIES(BEFORE ${JAVA_INCLUDE_PATH} ${JAVA_INCLUDE_PATH2})
-  SET (CMAKE_SWIG_OUTDIR ${JAVABUILDPATH})
-  SET(CMAKE_SWIG_FLAGS -package ${JAVAPACKAGENAME})
-  SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${JAVALIBPATH})
-  SWIG_ADD_MODULE(${MODULENAME} java ${INTERFACE_FILES} ${OBJECT_FILES} ${JAVA_OBJECT_FILES})
-else()
-  message("JNI has not been found, ${PACKAGENAME} bindings for java will not be compiled.")
-endif()    
+ADD_SWIG_CGAL_JAVA_MODULE  (Kernel ${OBJECT_FILES})
+ADD_SWIG_CGAL_PYTHON_MODULE(Kernel ${OBJECT_FILES})
