@@ -6,6 +6,7 @@
 %import  "SWIG_CGAL/Kernel/Triangle_3.h"
 %import  "SWIG_CGAL/Kernel/Segment_3.h"
 %import  "SWIG_CGAL/Kernel/Plane_3.h"
+%import  "SWIG_CGAL/Kernel/Ray_3.h"
 %import  "SWIG_CGAL/Kernel/CGAL_Object.h"
 %import  "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
 %import  "SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h"
@@ -35,7 +36,7 @@
 %include "SWIG_CGAL/AABB_tree/AABB_tree.h"
 
 %pragma(java) jniclassimports=%{
-  import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Point_3; import CGAL.Kernel.CGAL_Object;
+  import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import CGAL.Kernel.CGAL_Object;
   import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle; import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle; import java.util.Iterator; import java.util.Collection;
 %}
 
@@ -103,11 +104,11 @@ Typemap_for_Output_iterator(Soup_output_iterator_2,Object_and_Integer,Object_and
 
 
 //Declaration of the main classes
-%typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
+%typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 %template (AABB_tree_Polyhedron_3_Facet) AABB_tree_wrapper<CGAL_PTP_Tree,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> >;
-  %typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
+  %typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 %template (AABB_tree_Polyhedron_3_Halfedge) AABB_tree_wrapper<CGAL_PSP_Tree,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
-%typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
+%typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 %template (AABB_tree_Segment_3_soup) AABB_tree_wrapper<CGAL_SSP_Tree,Segment_3,int >;
 %template (AABB_tree_Triangle_3_soup) AABB_tree_wrapper<CGAL_TSP_Tree,Triangle_3,int >;
 

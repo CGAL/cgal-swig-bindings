@@ -9,6 +9,7 @@
 #include <SWIG_CGAL/Kernel/CGAL_Object.h>
 #include <SWIG_CGAL/Kernel/Segment_3.h>
 #include <SWIG_CGAL/Kernel/Triangle_3.h>
+#include <SWIG_CGAL/Kernel/Ray_3.h>
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 
@@ -54,14 +55,17 @@ public:
   FORWARD_CALL_1(bool,do_intersect,Segment_3)
   FORWARD_CALL_1(bool,do_intersect,Triangle_3)
   FORWARD_CALL_1(bool,do_intersect,Plane_3)
+  FORWARD_CALL_1(bool,do_intersect,Ray_3)
   //number_of_intersected_primitives
   FORWARD_CALL_1(int,number_of_intersected_primitives,Segment_3)
   FORWARD_CALL_1(int,number_of_intersected_primitives,Triangle_3)
   FORWARD_CALL_1(int,number_of_intersected_primitives,Plane_3)
+  FORWARD_CALL_1(int,number_of_intersected_primitives,Ray_3)
   //all_intersected_primitives
   void all_intersected_primitives (const Segment_3 & query, typename Primitive_iterator_helper<Primitive_id>::output out) {data.all_intersected_primitives(query.get_data(),out);}
   void all_intersected_primitives (const Triangle_3& query, typename Primitive_iterator_helper<Primitive_id>::output out) {data.all_intersected_primitives(query.get_data(),out);}
   void all_intersected_primitives (const Plane_3   & query, typename Primitive_iterator_helper<Primitive_id>::output out) {data.all_intersected_primitives(query.get_data(),out);}
+  void all_intersected_primitives (const Ray_3     & query, typename Primitive_iterator_helper<Primitive_id>::output out) {data.all_intersected_primitives(query.get_data(),out);}
   //any_intersected_primitive
   Optional_primitive_id any_intersected_primitive(const Segment_3 & query) {
     boost::optional<typename Tree::Primitive::Id> res=data.any_intersected_primitive(query.get_data());
@@ -76,6 +80,13 @@ public:
     return Optional_primitive_id();
   }
   Optional_primitive_id any_intersected_primitive(const Plane_3 & query) {
+    boost::optional<typename Tree::Primitive::Id> res=data.any_intersected_primitive(query.get_data());
+    if (res)
+      return Optional_primitive_id(Primitive_id(*res));
+    return Optional_primitive_id();
+  }
+
+  Optional_primitive_id any_intersected_primitive(const Ray_3    & query) {
     boost::optional<typename Tree::Primitive::Id> res=data.any_intersected_primitive(query.get_data());
     if (res)
       return Optional_primitive_id(Primitive_id(*res));
@@ -104,10 +115,18 @@ public:
       return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
     return Optional_object_and_primitive_id();
   }
+  Optional_object_and_primitive_id any_intersection(const Ray_3& query)
+  {
+    boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> > res=data.any_intersection(query.get_data());
+    if (res)
+      return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
+    return Optional_object_and_primitive_id();
+  }
   //all_intersections
-  void all_intersections (const Segment_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
-  void all_intersections (const Plane_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
+  void all_intersections (const Segment_3  & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
+  void all_intersections (const Plane_3    & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   void all_intersections (const Triangle_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
+  void all_intersections (const Ray_3      & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   
 //Distance Queries
   FORWARD_CALL_1(double,squared_distance,Point_3)
