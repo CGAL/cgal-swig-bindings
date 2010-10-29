@@ -12,7 +12,7 @@ typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterat
 template <class CDT_wrapper>
 struct DM2_Input_iterator_helper
 {
-  typedef CGAL_Face_handle<typename CDT_wrapper::cpp_base,Point_2> Face_handle;
+  typedef SWIG_Triangulation_2::CGAL_Face_handle<typename CDT_wrapper::cpp_base,Point_2> Face_handle;
   typedef std::pair<Input_iterator_wrapper<Face_handle,typename Face_handle::cpp_base>,Input_iterator_wrapper<Face_handle,typename Face_handle::cpp_base> > range;  
 };
 

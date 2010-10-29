@@ -37,7 +37,7 @@
 
 
 //Constrained triangulation for Mesh_2
-%extend CGAL_Face_handle<M2_CDT,Point_2> {
+%extend SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT,Point_2> {
   bool is_in_domain(){
     return $self->get_data()->is_in_domain();
   }
@@ -49,19 +49,19 @@
 Declare_constrained_Delaunay_triangulation_2(Mesh_2_Constrained_Delaunay_triangulation_2,M2_CDT)
 
 
-%define T2_CDT_wrapper Constrained_Delaunay_triangulation_2_wrapper<CGAL_CDT2,CGAL_Vertex_handle<CGAL_CDT2,Point_2>,CGAL_Face_handle<CGAL_CDT2,Point_2> > %enddef
-%define M2_CDT_wrapper Constrained_Delaunay_triangulation_2_wrapper<M2_CDT,CGAL_Vertex_handle<M2_CDT,Point_2>,CGAL_Face_handle<M2_CDT,Point_2> > %enddef
+%define T2_CDT_wrapper Constrained_Delaunay_triangulation_2_wrapper<CGAL_CDT2,SWIG_Triangulation_2::CGAL_Vertex_handle<CGAL_CDT2,Point_2>,SWIG_Triangulation_2::CGAL_Face_handle<CGAL_CDT2,Point_2> > %enddef
+%define M2_CDT_wrapper Constrained_Delaunay_triangulation_2_wrapper<M2_CDT,SWIG_Triangulation_2::CGAL_Vertex_handle<M2_CDT,Point_2>,SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT,Point_2> > %enddef
 %{
-  typedef Constrained_Delaunay_triangulation_2_wrapper<CGAL_CDT2,CGAL_Vertex_handle<CGAL_CDT2,Point_2>,CGAL_Face_handle<CGAL_CDT2,Point_2> > T2_CDT_wrapper;
-  typedef Constrained_Delaunay_triangulation_2_wrapper<M2_CDT,CGAL_Vertex_handle<M2_CDT,Point_2>,CGAL_Face_handle<M2_CDT,Point_2> > M2_CDT_wrapper;
+  typedef Constrained_Delaunay_triangulation_2_wrapper<CGAL_CDT2,SWIG_Triangulation_2::CGAL_Vertex_handle<CGAL_CDT2,Point_2>,SWIG_Triangulation_2::CGAL_Face_handle<CGAL_CDT2,Point_2> > T2_CDT_wrapper;
+  typedef Constrained_Delaunay_triangulation_2_wrapper<M2_CDT,SWIG_Triangulation_2::CGAL_Vertex_handle<M2_CDT,Point_2>,SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT,Point_2> > M2_CDT_wrapper;
 %}
 
 //typemap for point input iterator
 #define  P2_RANGE std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > 
 Typemap_for_Input_iterator(P2_RANGE,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",set_seeds)
 //typemap for facet input range
-#define M2_CDT_FH CGAL_Face_handle<M2_CDT_wrapper::cpp_base,Point_2>
-Typemap_for_Input_iterator(DM2_Input_iterator_helper<M2_CDT_wrapper>::range,M2_CDT_FH,Mesh_2_Constrained_Delaunay_triangulation_2_Face_handle,M2_CDT_FH ::cpp_base,SWIGTYPE_p_CGAL_Face_handleT_M2_CDT_Point_2_t,"(LCGAL/Mesh_2/Mesh_2_Constrained_Delaunay_triangulation_2_Face_handle;)J",set_bad_faces)
+#define M2_CDT_FH SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT_wrapper::cpp_base,Point_2>
+Typemap_for_Input_iterator(DM2_Input_iterator_helper<M2_CDT_wrapper>::range,M2_CDT_FH,Mesh_2_Constrained_Delaunay_triangulation_2_Face_handle,M2_CDT_FH ::cpp_base,SWIGTYPE_p_SWIG_Triangulation_2__CGAL_Face_handleT_M2_CDT_Point_2_t,"(LCGAL/Mesh_2/Mesh_2_Constrained_Delaunay_triangulation_2_Face_handle;)J",set_bad_faces)
 
 Iterator_for_java(CGAL_Seeds_const_iterator,Point_2,import CGAL.Kernel.Point_2;)
 %template(Delaunay_mesher_2_Seeds_const_iterator) CGAL_Seeds_const_iterator<DM2_M,Point_2>;
@@ -90,11 +90,11 @@ declare_refine_global_functions(Criteria_wrapper<DM2_C>)
 
 #ifdef SWIGJAVA
 %include "SWIG_CGAL/Java/Java_caller_code.h"
-%template(Mesh_2_predicate) Java_caller_code_2<CGAL_Face_handle<M2_CDT,Point_2>,Face_badness>;
-%define T_User_crit_simple Java_criteria_wrapper< Java_Is_bad_wrapper<Java_caller_code_2<CGAL_Face_handle<M2_CDT,Point_2>,Face_badness>,CGAL_Face_handle<M2_CDT,Point_2> >,Java_caller_code_2<CGAL_Face_handle<M2_CDT,Point_2>,Face_badness> > %enddef
+%template(Mesh_2_predicate) Java_caller_code_2<SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT,Point_2>,Face_badness>;
+%define T_User_crit_simple Java_criteria_wrapper< Java_Is_bad_wrapper<Java_caller_code_2<SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT,Point_2>,Face_badness>,SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT,Point_2> >,Java_caller_code_2<SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT,Point_2>,Face_badness> > %enddef
 %{
   #include <SWIG_CGAL/Java/Java_caller_code.h>
-  typedef Java_criteria_wrapper< Java_Is_bad_wrapper< Java_caller_code_2<CGAL_Face_handle<M2_CDT,Point_2>,Face_badness>,CGAL_Face_handle<M2_CDT,Point_2> >,Java_caller_code_2<CGAL_Face_handle<M2_CDT,Point_2>,Face_badness> > T_User_crit_simple;
+  typedef Java_criteria_wrapper< Java_Is_bad_wrapper< Java_caller_code_2<SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT,Point_2>,Face_badness>,SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT,Point_2> >,Java_caller_code_2<SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT,Point_2>,Face_badness> > T_User_crit_simple;
 %}
 %template (User_mesh_criteria_simple_2) T_User_crit_simple;
 

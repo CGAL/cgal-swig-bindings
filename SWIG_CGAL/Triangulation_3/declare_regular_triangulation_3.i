@@ -13,7 +13,7 @@
 
 
   %typemap(javaimports)          Regular_triangulation_3_wrapper%{import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Bounded_side; import java.util.Iterator; import java.util.Collection;%}  
-  %template(EXPOSEDNAME)         Regular_triangulation_3_wrapper<CPPTYPE,CGAL_Vertex_handle<CPPTYPE,Weighted_point_3>,CGAL_Cell_handle<CPPTYPE,Weighted_point_3> >;  
+  %template(EXPOSEDNAME)         Regular_triangulation_3_wrapper<CPPTYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,Weighted_point_3> >;  
 %enddef
 
 

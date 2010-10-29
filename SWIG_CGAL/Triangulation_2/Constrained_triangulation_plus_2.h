@@ -8,8 +8,8 @@
 #ifndef SWIG
 #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
 template <class Triangulation,class Point>
-struct Iterator_helper<std::pair<CGAL_Vertex_handle<Triangulation,Point>,CGAL_Vertex_handle<Triangulation,Point> > >{
-  typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
+struct Iterator_helper<std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle<Triangulation,Point>,SWIG_Triangulation_2::CGAL_Vertex_handle<Triangulation,Point> > >{
+  typedef SWIG_Triangulation_2::CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
   template <class T>
   static std::pair<Vertex_handle,Vertex_handle> convert(const T& i){
     return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(i->first.first),Vertex_handle(i->first.second));

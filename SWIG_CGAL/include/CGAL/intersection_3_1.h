@@ -17,7 +17,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 //
 // $URL: svn+ssh://sloriot@scm.gforge.inria.fr/svn/cgal/trunk/Intersections_3/include/CGAL/intersection_3_1.h $
-// $Id: intersection_3_1.h 58253 2010-08-24 13:33:07Z sloriot $
+// $Id: intersection_3_1.h 59401 2010-10-28 15:13:53Z sloriot $
 // 
 //
 // Author(s)     : Geert-Jan Giezeman <geert@cs.uu.nl>
@@ -260,7 +260,34 @@ template <class R>
 Object
 intersection(const Segment_3<R> &s,
              const Line_3<R> &l)
-{return intersection(l,s);};
+{return intersection(l,s);}
+
+template <class R>
+Object
+intersection(const Line_3<R> &,
+             const Ray_3<R> &);
+             
+template <class R>
+Object
+intersection(const Ray_3<R> &r,
+             const Line_3<R> &l)
+{return intersection(l,r);}
+
+template <class R>
+Object
+intersection(const Ray_3<R> &,
+             const Segment_3<R> &);
+             
+template <class R>
+Object
+intersection(const Segment_3<R> &s,
+             const Ray_3<R> &r)
+{return intersection(r,s);}
+
+template <class R>
+Object
+intersection(const Ray_3<R> &,
+             const Ray_3<R> &);
 
 template <class R>
 Object
@@ -299,7 +326,34 @@ template <class R>
 bool
 do_intersect(const Segment_3<R> &s,
              const Line_3<R> &l)
-{return do_intersect(l,s);};
+{return do_intersect(l,s);}
+
+template <class R>
+bool
+do_intersect(const Line_3<R> &,
+             const Ray_3<R> &);
+             
+template <class R>
+bool
+do_intersect(const Ray_3<R> &r,
+             const Line_3<R> &l)
+{return do_intersect(l,r);}
+
+template <class R>
+bool
+do_intersect(const Ray_3<R> &,
+             const Segment_3<R> &);
+             
+template <class R>
+bool
+do_intersect(const Segment_3<R> &s,
+             const Ray_3<R> &r)
+{return do_intersect(r,s);}
+
+template <class R>
+bool
+do_intersect(const Ray_3<R> &r1,
+             const Ray_3<R> &r2);
 
 template <class R>
 bool

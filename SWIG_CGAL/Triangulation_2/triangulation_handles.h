@@ -4,6 +4,8 @@
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
 
+namespace SWIG_Triangulation_2{
+
 template <class Triangulation,class Point>
 class CGAL_Vertex_handle{
   typename Triangulation::Vertex_handle data;
@@ -84,6 +86,8 @@ public:
   bool __ne__(const CGAL_Face_handle<Triangulation,Point>& c){return !equals(c);}
   #endif  
 };
+
+} //namespace SWIG_Triangulation_2
 
 //Access Functions
 //  bool   f.has_neigbor ( Face_handle n, int& i)

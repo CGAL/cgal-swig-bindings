@@ -12,10 +12,10 @@
   Declare_triangulation_2_internal(Internal_Triangulation_2_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,Weighted_point_2,CGAL::Tag_true)
 
   Iterator_for_java(CGAL_Hidden_vertices_iterator,CLASSNAME_PREFIX##_Vertex_handle,import CGAL.Kernel.Weighted_point_2;)
-  %template(CLASSNAME_PREFIX##_Hidden_vertices_iterator) CGAL_Hidden_vertices_iterator<CPPTYPE,CGAL_Vertex_handle<CPPTYPE,Weighted_point_2> >;
+  %template(CLASSNAME_PREFIX##_Hidden_vertices_iterator) CGAL_Hidden_vertices_iterator<CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Weighted_point_2> >;
 
   %typemap(javaimports)          Regular_triangulation_2_wrapper%{import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Oriented_side; import java.util.Iterator; import java.util.Collection;%}
-  %template(EXPOSEDNAME)         Regular_triangulation_2_wrapper<CPPTYPE,CGAL_Vertex_handle<CPPTYPE,Weighted_point_2>,CGAL_Face_handle<CPPTYPE,Weighted_point_2> >;  
+  %template(EXPOSEDNAME)         Regular_triangulation_2_wrapper<CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Weighted_point_2>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,Weighted_point_2> >;  
 %enddef
 
 

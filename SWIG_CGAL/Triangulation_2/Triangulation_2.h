@@ -18,8 +18,9 @@
 
 #include <CGAL/Triangulation_2.h>
 
-
+namespace SWIG_Triangulation_2{
 enum Locate_type { VERTEX=0, EDGE, FACE, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
+} //namespace SWIG_Triangulation_2
 
 template <class Weighted_tag>
 struct Weighting_helper{
@@ -103,7 +104,7 @@ public:
   FORWARD_CALL_1(void,remove_degree_3,Vertex_handle)
   FORWARD_CALL_1(void,remove_second,Vertex_handle)
   FORWARD_CALL_1(void,remove_first,Vertex_handle)
-  Vertex_handle insert(const Point& p,Locate_type l,const Face_handle& f,int i) {return data.insert(p.get_data(),CGAL::enum_cast<typename Triangulation::Locate_type>(l),f.get_data(),i);}
+  Vertex_handle insert(const Point& p,SWIG_Triangulation_2::Locate_type l,const Face_handle& f,int i) {return data.insert(p.get_data(),CGAL::enum_cast<typename Triangulation::Locate_type>(l),f.get_data(),i);}
   int insert_range(typename Weighting_helper<Weighted_tag>::Point_range range){
     return this->data.insert(range.first,range.second);
   }

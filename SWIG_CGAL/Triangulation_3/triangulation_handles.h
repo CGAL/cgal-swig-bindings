@@ -3,6 +3,8 @@
 
 #include <SWIG_CGAL/Common/Macros.h>
 
+namespace SWIG_Triangulation_3{
+
 template <class Triangulation,class Point>
 class CGAL_Cell_handle;
 
@@ -82,5 +84,7 @@ public:
   //FORWARD_CALL_2(bool has_vertex,Vertex_handle, int & i)  
   //bool has_neighbor ( Cell_handle n, int & i)  
 };
+
+} //namespace SWIG_Triangulation_3
 
 #endif //SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_HANDLES_H

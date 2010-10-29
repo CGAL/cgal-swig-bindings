@@ -12,17 +12,31 @@
 // --REG_OR_DEL is either regular in the weighted case and Delaunay otherwise
 // --BASE_WRAPPER is the triangulation base wrapper class
 %define Declare_alpha_shape_2_internal(CLASSNAME,CPPTYPE,POINT_TYPE,WTAG,REG_OR_DEL,BASE_WRAPPER)
+  //extending handle classes
+  %extend SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> {
+    std::pair<double,double> get_range() const {return $self->get_data()->get_range();}
+    void set_range(std::pair<double,double> range) {$self->get_data_ref()->set_range(range);}
+  }
+
+  %extend SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE> {
+    double get_alpha() const {return $self->get_data()->get_alpha();}
+    CGAL_SWIG::Triple<double,double,double> get_ranges(int i) const { return $self->get_data()->get_ranges(i); }
+    void set_ranges(int i,CGAL_SWIG::Triple<double,double,double> r){$self->get_data_ref()->set_ranges(i,internal::make_conversion(r));}
+    void set_alpha (double d) {$self->get_data_ref()->set_alpha(d);}
+  }
+
+
   Declare_##REG_OR_DEL##_triangulation_2_internal(Internal_##REG_OR_DEL##_##CLASSNAME,CLASSNAME,CPPTYPE)
 
   //Alpha shape
   %typemap(javaimports)          Alpha_shape_2_wrapper%{import CGAL.Kernel.POINT_TYPE; import java.util.Iterator; import java.util.Collection;%}
-  %template(CLASSNAME)           Alpha_shape_2_wrapper<CPPTYPE,POINT_TYPE,CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,CGAL_Face_handle<CPPTYPE,POINT_TYPE>,WTAG,BASE_WRAPPER <CPPTYPE,CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,CGAL_Face_handle<CPPTYPE,POINT_TYPE> > >;  
+  %template(CLASSNAME)           Alpha_shape_2_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE>,WTAG,BASE_WRAPPER <CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE> > >;  
   
   //typemaps for iterators
   Iterator_for_java(CGAL_Alpha_shape_vertices_iterator,CLASSNAME##_Vertex_handle,import CGAL.Kernel.POINT_TYPE;)
-  %template(CLASSNAME##_Alpha_shape_vertices_iterator) CGAL_Alpha_shape_vertices_iterator<CPPTYPE,CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> >;
+  %template(CLASSNAME##_Alpha_shape_vertices_iterator) CGAL_Alpha_shape_vertices_iterator<CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> >;
   Iterator_for_java(CGAL_Alpha_shape_edges_iterator,CLASSNAME##_Edge,)
-  %template(CLASSNAME##_Alpha_shape_edges_iterator) CGAL_Alpha_shape_edges_iterator<CPPTYPE,std::pair<CGAL_Face_handle<CPPTYPE,POINT_TYPE>,int> >;  
+  %template(CLASSNAME##_Alpha_shape_edges_iterator) CGAL_Alpha_shape_edges_iterator<CPPTYPE,std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE>,int> >;  
   %typemap(jstype) double "Double"  //next() return type must be Double
   Iterator_for_java(CGAL_Alpha_iterator,Double,)
   %template(CLASSNAME##_Alpha_iterator) CGAL_Alpha_iterator<CPPTYPE,double>;

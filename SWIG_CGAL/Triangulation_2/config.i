@@ -12,7 +12,7 @@
 #include <SWIG_CGAL/Java/JavaData.h>
 %}
 //assign JavaData to Face_handle of CGAL_CDTplus2
-#define i_Face_handle CGAL_Face_handle<CGAL_CDTplus2,Point_2>
+#define i_Face_handle SWIG_Triangulation_2::CGAL_Face_handle<CGAL_CDTplus2,Point_2>
 add_JavaData_info_to_class(i_Face_handle,)
 #endif
 

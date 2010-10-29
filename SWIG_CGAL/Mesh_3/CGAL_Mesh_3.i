@@ -54,7 +54,7 @@
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Weighted_point_3; import java.util.Collection; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
 
 //extends Cell and vertex handles of Regular triangulation
-%extend CGAL_Cell_handle<MT_PMD,Weighted_point_3>{
+%extend SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>{
   int subdomain_index(){return $self->get_data()->subdomain_index();}
   void set_subdomain_index(int i){$self->get_data_ref()->set_subdomain_index(i);}
   bool is_facet_on_surface (int i) {return $self->get_data()->is_facet_on_surface(i);}
@@ -64,7 +64,7 @@
   Weighted_point_3 get_facet_surface_center(int i){return Weighted_point_3($self->get_data()->get_facet_surface_center(i));}
   void set_facet_surface_center(int i,const Weighted_point_3& p) {return $self->get_data_ref()->set_facet_surface_center(i,p.get_data());}
 }
-%extend CGAL_Vertex_handle<MT_PMD,Weighted_point_3>{
+%extend SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>{
   int in_dimension() {return $self->get_data()->in_dimension();}
   void set_dimension(int d){$self->get_data_ref()->set_dimension(d);}
   Variant< int, std::pair<int,int> > index(){return $self->get_data()->index();}
@@ -75,16 +75,16 @@
 }
 
 //Regular triangulation
-%typemap(javaimports) CGAL_Cell_handle %{import CGAL.Kernel.Weighted_point_3;%}
+%typemap(javaimports) SWIG_Triangulation_3::CGAL_Cell_handle %{import CGAL.Kernel.Weighted_point_3;%}
 Typemap_for_Input_iterator(Weighting_helper_3<CGAL::Tag_true>::Point_range,Weighted_point_3,Weighted_point_3,Weighted_point_3::cpp_base,SWIGTYPE_p_Weighted_point_3,"(LCGAL/Kernel/Weighted_point_3;)J",insert_range)
 Declare_regular_triangulation_3(Mesh_3_regular_triangulation_3,MT_PMD)
 
 //iterators
 Iterator_for_java(CGAL_Cell_iterator,Mesh_3_regular_triangulation_3_Cell_handle,)
-%template(Mesh_3_Complex_3_in_triangulation_3_Cell_iterator) CGAL_Cell_iterator<C3T3_PMD,CGAL_Cell_handle<MT_PMD,Weighted_point_3> >;
+%template(Mesh_3_Complex_3_in_triangulation_3_Cell_iterator) CGAL_Cell_iterator<C3T3_PMD,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3> >;
 
 Iterator_for_java(CGAL_Facet_iterator,Mesh_3_regular_triangulation_3_Facet,)
-%template(Mesh_3_Complex_3_in_triangulation_3_Facet_iterator) CGAL_Facet_iterator<C3T3_PMD,std::pair<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int> >;
+%template(Mesh_3_Complex_3_in_triangulation_3_Facet_iterator) CGAL_Facet_iterator<C3T3_PMD,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int> >;
 
 //Types of Index
 %template(Mesh_3_Surface_index) std::pair<int,int>;
@@ -92,7 +92,7 @@ Iterator_for_java(CGAL_Facet_iterator,Mesh_3_regular_triangulation_3_Facet,)
 
 
 %define T_C3T3_wrapper C3T3_wrapper<  C3T3_PMD,
-                                      Regular_triangulation_3_wrapper<MT_PMD,CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,CGAL_Cell_handle<MT_PMD,Weighted_point_3> >,
+                                      Regular_triangulation_3_wrapper<MT_PMD,SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3> >,
                                       Variant< int, std::pair<int,int> >,
                                       std::pair<int,int>,
                                       int > 
@@ -101,7 +101,7 @@ Iterator_for_java(CGAL_Facet_iterator,Mesh_3_regular_triangulation_3_Facet,)
 
 %{
   typedef C3T3_wrapper <  C3T3_PMD,
-                          Regular_triangulation_3_wrapper<MT_PMD,CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,CGAL_Cell_handle<MT_PMD,Weighted_point_3> >,
+                          Regular_triangulation_3_wrapper<MT_PMD,SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3> >,
                           Variant< int, std::pair<int,int> >,
                           std::pair<int,int>,
                           int  >
@@ -142,16 +142,16 @@ declare_global_functions(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,T_Mesh_cri
 
 #ifdef SWIGJAVA
 %include "SWIG_CGAL/Java/Java_caller_code.h"
-%template(Cell_predicate) Java_caller_code<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >;
-%template(Facet_predicate) Java_caller_code<std::pair<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > >;
+%template(Cell_predicate) Java_caller_code<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >;
+%template(Facet_predicate) Java_caller_code<std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > >;
 
 %define JavaMeshCriteria Java_criteria_wrapper<MT_PMD,
-                                               Java_caller_code<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >,
-                                               Java_caller_code<std::pair<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > > > 
+                                               Java_caller_code<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >,
+                                               Java_caller_code<std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > > > 
 %enddef
 %{typedef Java_criteria_wrapper<MT_PMD,
-                                Java_caller_code<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >,
-                                Java_caller_code<std::pair<CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > > > JavaMeshCriteria;%}
+                                Java_caller_code<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >,
+                                Java_caller_code<std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > > > JavaMeshCriteria;%}
 %template(User_mesh_criteria) JavaMeshCriteria;
 declare_global_functions_with_criteria(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,JavaMeshCriteria,Mesh_3_parameters)
 #endif

@@ -12,7 +12,7 @@
   Declare_triangulation_3_internal(Internal_Triangulation_3_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,Point_3,CGAL::Tag_false)
   
   %typemap(javaimports)          Delaunay_triangulation_3_wrapper%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Bounded_side; import java.util.Iterator; import java.util.Collection;%}  
-  %template(EXPOSEDNAME)         Delaunay_triangulation_3_wrapper<CPPTYPE,CGAL_Vertex_handle<CPPTYPE,Point_3>,CGAL_Cell_handle<CPPTYPE,Point_3> >;  
+  %template(EXPOSEDNAME)         Delaunay_triangulation_3_wrapper<CPPTYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,Point_3> >;  
 %enddef
 
 
