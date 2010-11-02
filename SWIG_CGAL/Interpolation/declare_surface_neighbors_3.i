@@ -17,6 +17,8 @@ Typemap_for_Input_iterator(Point_range_3,Point_3,Point_3,Point_3::cpp_base,SWIGT
 Typemap_for_Input_iterator_additional_function(surface_neighbors_certified_3)
 #endif
 
+Typemap_for_Output_iterator(Point_3_output_iterator,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
+
 void surface_neighbors_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,Point_3_output_iterator out);
 bool surface_neighbors_certified_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,Point_3_output_iterator out);
 bool surface_neighbors_certified_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,double max_distance,Point_3_output_iterator out);
