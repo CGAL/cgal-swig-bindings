@@ -66,7 +66,7 @@
 %typemap(javaimports)  Data_access_wrapper<I_DA_PD,Point_2,double>  %{import CGAL.Kernel.Point_2;%}
 %template(Data_access_double_2) Data_access_wrapper<I_DA_PD,Point_2,double>;
 %typemap(javaimports)  Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>  %{import CGAL.Kernel.Point_2; import CGAL.Kernel.Vector_2;%}
-%template(Data_access_vectors_2) Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>;
+%template(Data_access_vector_2) Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>;
 
 %{
   #ifndef SWIG

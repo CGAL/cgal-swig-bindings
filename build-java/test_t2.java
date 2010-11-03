@@ -10,6 +10,7 @@ import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Edge;
 import CGAL.Triangulation_2.Constraint;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Constraint;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Context;
+import CGAL.Triangulation_2.Locate_type;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -18,6 +19,8 @@ public class test_t2 {
   public static void main(String arg[]){
     System.loadLibrary("CGAL_Triangulation_2");
 
+    Locate_type lc=Locate_type.VERTEX;
+    
     LinkedList<Constraint> cst_list=new LinkedList<Constraint>();
     cst_list.add(new Constraint(new Point_2(10,10),new Point_2(15,15)));
     cst_list.add(new Constraint(new Point_2(100,100),new Point_2(155,151)));

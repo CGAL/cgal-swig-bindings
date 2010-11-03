@@ -29,7 +29,7 @@ std::pair<double,bool> sibson_c1_interpolation_square(Point_2_and_double_range r
 std::pair<double,bool> farin_c1_interpolation(Point_2_and_double_range range,double norm,const Point_2& p,const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values,const Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>& gradients);
 Vector_2 sibson_gradient_fitting(Point_2_and_double_range range,double norm,const Point_2& p,const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values);
 void sibson_gradient_fitting_nn_2(const DT2_wrapper& dt, Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>& gradients, const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values);
-//void sibson_gradient_fitting_rn_2(const RT2_wrapper& rt, Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>& gradients, const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values);
+void sibson_gradient_fitting_rn_2(const RT2_wrapper& rt, Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>& gradients, const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values);
 
 %{
   double linear_interpolation(Point_2_and_double_range range,double norm,const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values){
@@ -62,9 +62,9 @@ void sibson_gradient_fitting_nn_2(const DT2_wrapper& dt, Data_access_wrapper<I_D
     CGAL::sibson_gradient_fitting_nn_2(dt.get_data(),std::inserter(gradients.get_map(),gradients.get_map().begin()),function_values.get_data(),CGAL::Interpolation_gradient_fitting_traits_2<EPIC_Kernel>());
   }
   
-//  void sibson_gradient_fitting_rn_2(const RT2_wrapper& rt, Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>& gradients, const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values){
-//    CGAL::sibson_gradient_fitting_nn_2(rt.get_data(),std::inserter(gradients.get_map(),gradients.get_map().begin()),function_values.get_data(),CGAL::Interpolation_gradient_fitting_traits_2<EPIC_Kernel>());
-//  }
+  void sibson_gradient_fitting_rn_2(const RT2_wrapper& rt, Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>& gradients, const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values){
+    CGAL::sibson_gradient_fitting_nn_2(rt.get_data(),std::inserter(gradients.get_map(),gradients.get_map().begin()),function_values.get_data(),CGAL::Interpolation_gradient_fitting_traits_2<EPIC_Kernel>());
+  }
   
 %}
 
