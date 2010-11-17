@@ -165,3 +165,6 @@ FORWARD_CALL_GF_2(CGAL_Object,intersection,Ray_2,Triangle_2)
 FORWARD_CALL_GF_2(CGAL_Object,intersection,Ray_2,Segment_2)
 FORWARD_CALL_GF_2(CGAL_Object,intersection,Ray_2,Ray_2)
 FORWARD_CALL_GF_2(CGAL_Object,intersection,Ray_2,Line_2)
+
+//area
+FORWARD_CALL_GF_3(double,area,Point_2,Point_2,Point_2)
