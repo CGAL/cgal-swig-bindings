@@ -7,6 +7,7 @@
 #endif
 
 %import  "SWIG_CGAL/Common/Macros.h"
+%import  "SWIG_CGAL/Common/Input_iterator.h"
 %include "SWIG_CGAL/common.i"
 
 //%typemap(javapackage) Point_3 "CGAL.Kernel"
@@ -34,11 +35,18 @@ SWIG_JAVABODY_METHODS(public,public,Ray_3)
 SWIG_JAVABODY_METHODS(public,public,Direction_3)
 SWIG_JAVABODY_METHODS(public,public,Vector_3)
 SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
+SWIG_JAVABODY_METHODS(public,public,Polygon_2)
 #endif
 
+%pragma(java)          jniclassimports=%{import java.util.Iterator; import java.util.Collection;%}
+%typemap(javaimports)  Polygon_2%{import java.util.Iterator;%}
 //include files
 %{
   #include <SWIG_CGAL/Kernel/Point_2.h>
+  
+  #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
+  typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > Point_range_2;  
+  
   #include <SWIG_CGAL/Kernel/Weighted_point_2.h>
   #include <SWIG_CGAL/Kernel/Segment_2.h>
   #include <SWIG_CGAL/Kernel/Triangle_2.h>
@@ -60,7 +68,14 @@ SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
   #include <SWIG_CGAL/Kernel/CGAL_Object.h>
   #include <SWIG_CGAL/Kernel/global_functions.h>
   #include <SWIG_CGAL/Kernel/enum.h>
+  #include <SWIG_CGAL/Kernel/Polygon_2.h>
 %}
+
+//typemaps for Polygon_2
+Typemap_for_Input_iterator(Point_range_2,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
+#ifdef SWIGPYTHON
+Typemap_for_Input_iterator_additional_function(Polygon_2::Polygon_2)
+#endif
 
 //definitions
 %include "SWIG_CGAL/Kernel/Point_2.h"
@@ -84,7 +99,29 @@ SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
 %include "SWIG_CGAL/Kernel/Vector_3.h"
 %include "SWIG_CGAL/Kernel/CGAL_Object.h"
 %include "SWIG_CGAL/Kernel/enum.h"
+%include "SWIG_CGAL/Kernel/Polygon_2.h"
 %include "SWIG_CGAL/Common/global_function_macros.h"
 %include "SWIG_CGAL/Kernel/global_function_signatures.h"
 
+
+
+%extend Polygon_2{
+  void insert( int i, Point_range_2 range){
+    $self->get_data_ref().insert(boost::next($self->get_data().vertices_begin(),i),range.first,range.second);
+  }
+  Polygon_2(Point_range_2 range){return new Polygon_2(Polygon_2::cpp_base(range.first,range.second));}
+}
+
+//Iterators
+Iterator_for_java(CGAL_Vertex_iterator,Point_2,)
+%template(Polygon_2_Vertex_iterator) CGAL_Vertex_iterator< Polygon_2::cpp_base,Point_2 >;
+
+Iterator_for_java(CGAL_Edge_const_iterator,Segment_2,)
+%template(Polygon_2_Edge_const_iterator) CGAL_Edge_const_iterator< Polygon_2::cpp_base,Segment_2 >;
+
+Iterator_for_java(CGAL_Vertex_circulator,Point_2,)
+%template(Polygon_2_Vertex_circulator) CGAL_Vertex_circulator< Polygon_2::cpp_base,Point_2 >;
+
+Iterator_for_java(CGAL_Edge_const_circulator,Segment_2,)
+%template(Polygon_2_Edge_const_circulator) CGAL_Edge_const_circulator< Polygon_2::cpp_base,Segment_2 >;
 

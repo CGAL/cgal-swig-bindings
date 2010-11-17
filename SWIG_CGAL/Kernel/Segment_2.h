@@ -10,14 +10,6 @@
 #include <SWIG_CGAL/Kernel/Direction_2.h>
 #include <SWIG_CGAL/Common/Macros.h>
 
-#ifndef SWIG
-#define NO_SWIG_OR_PYTHON
-#else
-#ifdef SWIGPYTHON
-#define NO_SWIG_OR_PYTHON
-#endif
-#endif
-
 class Segment_2{
   EPIC_Kernel::Segment_2 data;
 public:

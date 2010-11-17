@@ -6,14 +6,6 @@
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 
-#ifndef SWIG
-#define NO_SWIG_OR_PYTHON
-#else
-#ifdef SWIGPYTHON
-#define NO_SWIG_OR_PYTHON
-#endif
-#endif
-
 class Weighted_point_3{
   CGAL::Weighted_point<EPIC_Kernel::Point_3,double> data;
 public:

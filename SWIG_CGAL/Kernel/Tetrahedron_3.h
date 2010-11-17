@@ -7,14 +7,6 @@
 #include <SWIG_CGAL/Common/Macros.h>
 
 
-#ifndef SWIG
-#define NO_SWIG_OR_PYTHON
-#else
-#ifdef SWIGPYTHON
-#define NO_SWIG_OR_PYTHON
-#endif
-#endif
-
 class Tetrahedron_3{
   EPIC_Kernel::Tetrahedron_3 data;
 public:

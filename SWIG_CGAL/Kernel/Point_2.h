@@ -3,15 +3,6 @@
 
 #include <SWIG_CGAL/Kernel/typedefs.h>
 
-
-#ifndef SWIG
-#define NO_SWIG_OR_PYTHON
-#else
-#ifdef SWIGPYTHON
-#define NO_SWIG_OR_PYTHON
-#endif
-#endif
-
 class Point_2{
   EPIC_Kernel::Point_2 data;
 public:

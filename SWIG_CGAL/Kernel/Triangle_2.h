@@ -7,14 +7,6 @@
 #include <SWIG_CGAL/Common/Macros.h>
 
 
-#ifndef SWIG
-#define NO_SWIG_OR_PYTHON
-#else
-#ifdef SWIGPYTHON
-#define NO_SWIG_OR_PYTHON
-#endif
-#endif
-
 class Triangle_2{
   EPIC_Kernel::Triangle_2 data;
 public:
