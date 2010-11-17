@@ -125,3 +125,13 @@ Iterator_for_java(CGAL_Vertex_circulator,Point_2,)
 Iterator_for_java(CGAL_Edge_const_circulator,Segment_2,)
 %template(Polygon_2_Edge_const_circulator) CGAL_Edge_const_circulator< Polygon_2::cpp_base,Segment_2 >;
 
+
+//global function that needs to know about Point_range_2
+Bounded_side bounded_side_2(Point_range_2 range,const Point_2& p);
+%{
+  #include <CGAL/Polygon_2_algorithms.h>
+  Bounded_side bounded_side_2(Point_range_2 range,const Point_2& p){
+    return Bounded_side(CGAL::bounded_side_2(range.first,range.second,p.get_data(),EPIC_Kernel()));
+  }
+%}
+
