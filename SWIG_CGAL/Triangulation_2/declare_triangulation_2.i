@@ -18,7 +18,7 @@
   %template(CLASSNAME_PREFIX##_Edge) std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE>,int>;
 
   //Triangulations
-  %typemap(javaimports)          Triangulation_2_wrapper%{import CGAL.Kernel.POINT_TYPE; import CGAL.Kernel.Segment_2; import CGAL.Kernel.Triangle_2; import CGAL.Kernel.Oriented_side; import java.util.Iterator; import java.util.Collection;%}
+  %typemap(javaimports)          Triangulation_2_wrapper%{import CGAL.Kernel.POINT_TYPE; import CGAL.Kernel.Segment_2; import CGAL.Kernel.Triangle_2; import CGAL.Kernel.Oriented_side; import CGAL.Triangulation_2.Locate_type; import java.util.Iterator; import java.util.Collection;%}
   %template(EXPOSEDNAME)         Triangulation_2_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE>,WTAG>;
 
   //Iterators and circulators

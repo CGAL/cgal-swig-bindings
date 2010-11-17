@@ -97,7 +97,7 @@ public class test_mesh_2 {
     System.out.println("Number of faces in the mesh domain: " + mesh_faces_counter );
 
     Mesh2Criteria mpred_base= new Mesh2Criteria();
-    Mesh_2_predicate mpred=new Mesh_2_predicate(mpred_base,"evaluate","LCGAL/Mesh_2/Mesh_2_Constrained_Delaunay_triangulation_2_Face_handle;","LCGAL/Mesh_2/Face_badness;");
+    Mesh_2_predicate mpred=new Mesh_2_predicate(mpred_base,"evaluate","LCGAL/Mesh_2/Mesh_2_Constrained_Delaunay_triangulation_2_Face_handle;","LCGAL/Mesh_2/Quality_pair;","LCGAL/Mesh_2/Face_badness;");
     CGAL_Mesh_2.refine_Delaunay_mesh_2(cdt, list_of_seeds.iterator(),new User_mesh_criteria_simple_2(mpred));
   }
   public static void test_mesh_class()

@@ -26,23 +26,22 @@ public:
 #ifdef SWIGJAVA
 #include <SWIG_CGAL/Java/JavaData.h>
 
-template <class Caller,class Face_handle_>
+template <class Caller,class Face_handle_,class Quality_>
 class Java_Is_bad_wrapper
 {
   Caller caller;
 public:
   typedef typename Face_handle_::cpp_base  Face_handle;
-  typedef JavaData                         Quality;
+  typedef typename Quality_::cpp_base      Quality;
 
   Java_Is_bad_wrapper(Caller& call):caller(call){}
   //We need the default constructor because of a bug in Keonig lookup in SWIG cxx generated file
   Java_Is_bad_wrapper(){}
     
   CGAL::Mesh_2::Face_badness operator()(const Face_handle& f,Quality& q) const {
-    q.init_empty_object();
-    return caller.run_2(f,q.get_data());
+    return caller.run_2(f,q);
   }
-  CGAL::Mesh_2::Face_badness operator()(Quality& q) const {return caller.run_1(q.get_data());}
+  CGAL::Mesh_2::Face_badness operator()(Quality& q) const {return caller.run_1(q);}
 };
 
 template <class Is_bad_wrapper,class Caller>

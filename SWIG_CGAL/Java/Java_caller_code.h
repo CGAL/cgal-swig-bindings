@@ -112,7 +112,7 @@ public:
   #endif
 };
 
-template <class Input_wrapper,class Output_wrapper>
+template <class Input_wrapper_1,class Input_wrapper_2,class Output_wrapper>
 class Java_caller_code_2
 {
   //info for calling the java predicate
@@ -120,9 +120,12 @@ class Java_caller_code_2
   jclass predicate_class;
   jmethodID predicate_id_1;
   jmethodID predicate_id_2;
-  //info for input
-  jclass input_class;
-  jmethodID input_cst_id;
+  //info for input_1
+  jclass input_class_1;
+  jmethodID input_cst_id_1;
+  //info for input_2
+  jclass input_class_2;
+  jmethodID input_cst_id_2;
   //info for output
   jclass output_class;
   jmethodID get_output_id;
@@ -133,7 +136,8 @@ class Java_caller_code_2
     if (ref_counter!=NULL && --(*ref_counter)==0){
       delete ref_counter;
       JNU_GetEnv()->DeleteGlobalRef(java_predicate);
-      JNU_GetEnv()->DeleteGlobalRef(input_class);
+      JNU_GetEnv()->DeleteGlobalRef(input_class_1);
+      JNU_GetEnv()->DeleteGlobalRef(input_class_2);
       JNU_GetEnv()->DeleteGlobalRef(output_class);
       JNU_GetEnv()->DeleteGlobalRef(predicate_class);
     }    
@@ -145,8 +149,10 @@ class Java_caller_code_2
     predicate_class=original.predicate_class;
     predicate_id_1=original.predicate_id_1;
     predicate_id_2=original.predicate_id_2;
-    input_class=original.input_class;
-    input_cst_id=original.input_cst_id;
+    input_class_1=original.input_class_1;
+    input_cst_id_1=original.input_cst_id_1;
+    input_class_2=original.input_class_2;
+    input_cst_id_2=original.input_cst_id_2;
     output_class=original.output_class;
     get_output_id=original.get_output_id;
     ref_counter=original.ref_counter;    
@@ -155,7 +161,7 @@ class Java_caller_code_2
 public:
   Java_caller_code_2():ref_counter(NULL){}
 
-  Java_caller_code_2(jobject jobj,const char* fname, const char* input_type,const char* output_type)
+  Java_caller_code_2(jobject jobj,const char* fname, const char* input_type_1, const char* input_type_2,const char* output_type)
   :ref_counter(new int(1))
   {
     //set info for calling predicates
@@ -164,17 +170,21 @@ public:
     predicate_class=(jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
     assert(predicate_class!=NULL);
     //set info for java predicate jobject
-    std::string fsign_1=std::string("(Ljava/lang/Object;)")+std::string(output_type);
+    std::string fsign_1=std::string("(")+input_type_2+std::string(")")+std::string(output_type);
     predicate_id_1=JNU_GetEnv()->GetMethodID(predicate_class, fname, fsign_1.c_str());
     assert(predicate_id_1!=NULL);    
     //set info for java predicate 2
-    std::string fsign_2=std::string("(")+input_type+std::string("Ljava/lang/Object;)")+output_type;
+    std::string fsign_2=std::string("(")+input_type_1+input_type_2+std::string(")")+output_type;
     predicate_id_2=JNU_GetEnv()->GetMethodID(predicate_class, fname, fsign_2.c_str());
     assert(predicate_id_2!=NULL);
-    //set info for input
-    local_jclass = JNU_GetEnv()->FindClass(input_type);
-    input_class = (jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
-    input_cst_id=JNU_GetEnv()->GetMethodID(input_class,"<init>", "(JZ)V");
+    //set info for input_1
+    local_jclass = JNU_GetEnv()->FindClass(input_type_1);
+    input_class_1 = (jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
+    input_cst_id_1=JNU_GetEnv()->GetMethodID(input_class_1,"<init>", "(JZ)V");
+    //set info for input_2
+    local_jclass = JNU_GetEnv()->FindClass(input_type_2);
+    input_class_2 = (jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
+    input_cst_id_2=JNU_GetEnv()->GetMethodID(input_class_2,"<init>", "(JZ)V");
     //set info for output
     local_jclass=JNU_GetEnv()->FindClass(output_type);
     output_class=(jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
@@ -204,10 +214,17 @@ public:
   
   #ifndef SWIG
   typename internal::Converter<Output_wrapper>::result_type
-  run_1(jobject input) const
+  run_1(const typename internal::Converter<Input_wrapper_2>::result_type& input) const
   {
+    //create the wrapper object 2
+    Input_wrapper_2*  cpp_wrapper_2=new Input_wrapper_2(input);
+    //create the java corresponding object
+    assert( input_class_2 !=NULL );
+    assert( input_cst_id_2 !=NULL );
+    jobject input_in_java = JNU_GetEnv()->NewObject(input_class_2,input_cst_id_2, (jlong) cpp_wrapper_2,true);
+    assert(input_in_java!=NULL);    
     //call java method
-    jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_1,input);
+    jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_1,input_in_java);
     //convert the result back to c++
     assert(output_class!=NULL);
     assert(get_output_id!=NULL);
@@ -216,18 +233,27 @@ public:
   }  
   
   typename internal::Converter<Output_wrapper>::result_type
-  run_2(const typename internal::Converter<Input_wrapper>::result_type& input_1,jobject input_2) const
+  run_2(const typename internal::Converter<Input_wrapper_1>::result_type& input_1,
+        const typename internal::Converter<Input_wrapper_2>::result_type& input_2) const
   {
-    //create the wrapper object
-    Input_wrapper*  cpp_wrapper=new Input_wrapper(input_1);
+    //create the wrapper object 1
+    Input_wrapper_1*  cpp_wrapper_1=new Input_wrapper_1(input_1);
     //create the java corresponding object
-    assert( input_class !=NULL );
-    assert( input_cst_id !=NULL );
-    jobject input_in_java = JNU_GetEnv()->NewObject(input_class,input_cst_id, (jlong) cpp_wrapper,true);
-    assert(input_in_java!=NULL);
+    assert( input_class_1 !=NULL );
+    assert( input_cst_id_1 !=NULL );
+    jobject input_in_java_1 = JNU_GetEnv()->NewObject(input_class_1,input_cst_id_1, (jlong) cpp_wrapper_1,true);
+    assert(input_in_java_1!=NULL);
+
+    //create the wrapper object 2
+    Input_wrapper_2*  cpp_wrapper_2=new Input_wrapper_2(input_2);
+    //create the java corresponding object
+    assert( input_class_2 !=NULL );
+    assert( input_cst_id_2 !=NULL );
+    jobject input_in_java_2 = JNU_GetEnv()->NewObject(input_class_2,input_cst_id_2, (jlong) cpp_wrapper_2,true);
+    assert(input_in_java_2!=NULL);
     
     //call java method
-    jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_2,input_in_java,input_2);
+    jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_2,input_in_java_1,input_in_java_2);
     //convert the result back to c++
     assert(output_class!=NULL);
     assert(get_output_id!=NULL);
