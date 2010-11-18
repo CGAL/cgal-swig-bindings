@@ -170,11 +170,14 @@ public:
     predicate_class=(jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
     assert(predicate_class!=NULL);
     //set info for java predicate jobject
-    std::string fsign_1=std::string("(")+input_type_2+std::string(")")+std::string(output_type);
+    #warning TEMPORARY FIX: we return directly an int; see TAG SL_WERT
+    //~ std::string fsign_1=std::string("(")+input_type_2+std::string(")")+std::string(output_type);  //SL_WERT
+    std::string fsign_1=std::string("(")+input_type_2+std::string(")I");    //SL_WERT
     predicate_id_1=JNU_GetEnv()->GetMethodID(predicate_class, fname, fsign_1.c_str());
     assert(predicate_id_1!=NULL);    
     //set info for java predicate 2
-    std::string fsign_2=std::string("(")+input_type_1+input_type_2+std::string(")")+output_type;
+    //std::string fsign_2=std::string("(")+input_type_1+input_type_2+std::string(")")+output_type; //SL_WERT
+    std::string fsign_2=std::string("(")+input_type_1+input_type_2+std::string(")I");//SL_WERT
     predicate_id_2=JNU_GetEnv()->GetMethodID(predicate_class, fname, fsign_2.c_str());
     assert(predicate_id_2!=NULL);
     //set info for input_1
@@ -224,17 +227,18 @@ public:
     jobject input_in_java = JNU_GetEnv()->NewObject(input_class_2,input_cst_id_2, (jlong) cpp_wrapper_2,true);
     assert(input_in_java!=NULL);    
     //call java method
-    jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_1,input_in_java);
-    //convert the result back to c++
-    assert(output_class!=NULL);
-    assert(get_output_id!=NULL);
-    int val=(jlong) JNU_GetEnv()->CallIntMethod(output_class,get_output_id,res);
+    //~ jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_1,input_in_java); //SL_WERT
+    //~ //convert the result back to c++ //SL_WERT
+    //~ assert(output_class!=NULL); //SL_WERT
+    //~ assert(get_output_id!=NULL); //SL_WERT
+    //~ int val=(int) JNU_GetEnv()->CallIntMethod(output_class,get_output_id,res); //SL_WERT
+    int val = (int) JNU_GetEnv()->CallIntMethod(java_predicate,predicate_id_1,input_in_java); //SL_WERT
     return CGAL::enum_cast<typename internal::Converter<Output_wrapper>::result_type>( val );
   }  
   
   typename internal::Converter<Output_wrapper>::result_type
   run_2(const typename internal::Converter<Input_wrapper_1>::result_type& input_1,
-        const typename internal::Converter<Input_wrapper_2>::result_type& input_2) const
+              typename internal::Converter<Input_wrapper_2>::result_type& input_2) const
   {
     //create the wrapper object 1
     Input_wrapper_1*  cpp_wrapper_1=new Input_wrapper_1(input_1);
@@ -251,13 +255,14 @@ public:
     assert( input_cst_id_2 !=NULL );
     jobject input_in_java_2 = JNU_GetEnv()->NewObject(input_class_2,input_cst_id_2, (jlong) cpp_wrapper_2,true);
     assert(input_in_java_2!=NULL);
-    
     //call java method
-    jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_2,input_in_java_1,input_in_java_2);
-    //convert the result back to c++
-    assert(output_class!=NULL);
-    assert(get_output_id!=NULL);
-    int val=(jlong) JNU_GetEnv()->CallIntMethod(output_class,get_output_id,res);
+    //~ jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_2,input_in_java_1,input_in_java_2);////SL_WERT
+    //~ //convert the result back to c++ //SL_WERT
+    //~ assert(output_class!=NULL); //SL_WERT
+    //~ assert(get_output_id!=NULL); //SL_WERT
+    //~ int val=(int) JNU_GetEnv()->CallIntMethod(output_class,get_output_id,res);//SL_WERT
+    int val = (int) JNU_GetEnv()->CallIntMethod(java_predicate,predicate_id_2,input_in_java_1,input_in_java_2);   //SL_WERT
+    input_2=cpp_wrapper_2->get_data();
     return CGAL::enum_cast<typename internal::Converter<Output_wrapper>::result_type>( val );
   }
   #endif
