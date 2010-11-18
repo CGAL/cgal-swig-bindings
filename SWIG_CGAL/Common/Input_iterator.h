@@ -205,6 +205,7 @@ DECLARE_ITERATOR_CLASS(Finite_edges_iterator)
 DECLARE_ITERATOR_CLASS(Point_iterator)
 DECLARE_ITERATOR_CLASS(Halfedge_iterator)
 DECLARE_ITERATOR_CLASS(Edge_iterator)
+DECLARE_ITERATOR_CLASS(Edge_const_iterator)
 DECLARE_ITERATOR_CLASS(Vertex_iterator)
 DECLARE_ITERATOR_CLASS(Facet_iterator)
 DECLARE_ITERATOR_CLASS(Plane_iterator)
@@ -223,6 +224,6 @@ DECLARE_ITERATOR_CLASS(Alpha_iterator)
 DECLARE_ITERATOR_CLASS(Alpha_shape_vertices_iterator)
 DECLARE_ITERATOR_CLASS(Alpha_shape_edges_iterator)
 DECLARE_ITERATOR_CLASS(Boundary_edges_iterator)
-
+DECLARE_CIRCULATOR_CLASS(Vertex_circulator)
 
 #endif //CGAL_SWIG_INPUT_ITERATOR_H

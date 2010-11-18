@@ -1,6 +1,8 @@
 #ifndef SWIG_CGAL_COMMON_INPUT_ITERATOR_WRAPPER_H
 #define SWIG_CGAL_COMMON_INPUT_ITERATOR_WRAPPER_H
 
+#include <SWIG_CGAL/Common/Macros.h>
+
 #ifdef SWIGPYTHON
 #include <SWIG_CGAL/Python/Input_iterator_wrapper.h>
 #endif
