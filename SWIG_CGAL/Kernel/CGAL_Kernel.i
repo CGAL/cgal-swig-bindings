@@ -39,7 +39,8 @@ SWIG_JAVABODY_METHODS(public,public,Polygon_2)
 #endif
 
 %pragma(java)          jniclassimports=%{import java.util.Iterator; import java.util.Collection;%}
-%typemap(javaimports)  Polygon_2%{import java.util.Iterator;%}
+%typemap(javaimports)  Polygon_2 %{import java.util.Iterator;%}
+%pragma(java) moduleimports    =%{import java.util.Iterator;%}
 //include files
 %{
   #include <SWIG_CGAL/Kernel/Point_2.h>
