@@ -107,5 +107,5 @@ declare_refine_global_functions(Criteria_wrapper<DM2_C>)
 declare_refine_global_functions(T_User_crit_simple)
 #endif
 
-
+%include "SWIG_CGAL/Mesh_2/user_config.i"
 
