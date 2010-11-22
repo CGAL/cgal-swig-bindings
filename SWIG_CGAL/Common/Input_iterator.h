@@ -104,6 +104,12 @@ public:                                                        \
     throw Stop_iteration();                                    \
     return Iterator_helper<R>::default_value();                \
   }                                                            \
+  void next(R& r)                                              \
+  {                                                            \
+    if (cur!=end)                                              \
+      r=Iterator_helper<R>::convert ( (cur++) );               \
+    throw Stop_iteration();                                    \
+  }                                                            \
                                                                \
   bool hasNext(){                                              \
     return cur!=end;                                           \
@@ -130,6 +136,11 @@ public:                                                        \
       return Iterator_helper<R>::convert ( (cur++) );          \
     return Iterator_helper<R>::default_value();                \
   }                                                            \
+  void next(R& r)                                              \
+  {                                                            \
+    if (cur!=end)                                              \
+      r = Iterator_helper<R>::convert ( (cur++) );             \
+  }                                                            \
                                                                \
   bool hasNext(){                                              \
     return cur!=end;                                           \
@@ -149,6 +160,10 @@ public:                                                        \
   R next() {                                                   \
     return Iterator_helper<R>::convert ( (cur++) );            \
   }                                                            \
+  void next(R& r)                                              \
+  {                                                            \
+    r = Iterator_helper<R>::convert ( (cur++) );               \
+  }                                                            \
   R prev() {                                                   \
     return Iterator_helper<R>::convert ( (cur--) );            \
   }                                                            \
@@ -166,6 +181,7 @@ public:                                                        \
   public:                                             \
     EXPOSEDNAME<T,R> __iter__();                      \
     R next();                                         \
+    void next(R&);                                    \
     bool hasNext();                                   \
   };
   #else
@@ -174,6 +190,7 @@ public:                                                        \
   class EXPOSEDNAME{                                  \
   public:                                             \
     R next();                                         \
+    void next(R& r);                                  \
     bool hasNext();                                   \
   };
   #endif //SWIGPYTHON
@@ -183,10 +200,10 @@ public:                                                        \
   class EXPOSEDNAME{                                             \
   public:                                                        \
     R next();                                                    \
+    void next(R& r);                                             \
     R prev();                                                    \
     bool hasNext();                                              \
   };
-
 #endif//SWIG
 
 
