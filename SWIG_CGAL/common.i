@@ -107,6 +107,25 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
   }
 %enddef
 #endif
+  
+#ifdef SWIGJAVA
+%{
+  #include <SWIG_CGAL/Java/exception.h>
+%}
+%include exception.i
+%exception
+{
+  try{
+      $action
+  }
+  catch(...){
+    if ( !throwJavaException("Error in SWIG_CGAL code") )
+      throw; //rethrow exception that could not be thrown in java
+  }
+}
+#endif
+  
+  
 //-----
 #ifdef SWIGPYTHON
 //Add extra exception handling for function using an input_iterator as input
