@@ -1,8 +1,6 @@
 #include <SWIG_CGAL/Kernel/Polygon_2.h>
 
 Polygon_2::Polygon_2():data(){}
-//~ Polygon_2::Polygon_2(Point_range_2 range):data(range.first,range.second){}
-
 
 bool Polygon_2::equals(const Polygon_2& r){return data==r.get_data();}
 

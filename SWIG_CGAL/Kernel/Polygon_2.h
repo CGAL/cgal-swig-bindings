@@ -22,14 +22,9 @@ public:
   #endif //SWIG  
 //Creation
   Polygon_2();
-  Polygon_2(int pipop,int jojo,int lll){}
-  //~ Polygon_2(Point_range_2);  
 //Modifiers
   void set( int pos, Point_2 x){data.set(boost::next(data.vertices_begin(),pos),x.get_data());}
   int insert( int i, Point_2 q){return std::distance(data.vertices_begin(),data.insert(boost::next(data.vertices_begin(),i),q.get_data()));}
-  //~ void insert( int i, Point_range_2 range){
-    //~ data.insert(boost::next(data.vertices_begin(),i),range.first,range.second);
-  //~ }
   FORWARD_CALL_1(void,push_back,Point_2)
   FORWARD_CALL_0(void,clear)
   FORWARD_CALL_0(void,reverse_orientation)
