@@ -135,8 +135,8 @@ public:
 //Accelerating the Distance Queries
   FORWARD_CALL_0(bool,accelerate_distance_queries)
   FORWARD_CALL_2(double,squared_distance,Point_3,Point_3)
-  FORWARD_CALL_2(Point_3,closest_point,Point_3,Point_3)
-  FORWARD_CALL_2(Point_and_primitive_id,closest_point_and_primitive,Point_3,Point_and_primitive_id)  
+  FORWARD_CALL_AND_REF_2(Point_3,closest_point,Point_3,Point_3)
+  FORWARD_CALL_AND_REF_2(Point_and_primitive_id,closest_point_and_primitive,Point_3,Point_and_primitive_id)  
   void accelerate_distance_queries (Point_range range) {data.accelerate_distance_queries(range.first,range.second);}  
 };
 

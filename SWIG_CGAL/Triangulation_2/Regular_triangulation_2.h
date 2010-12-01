@@ -21,8 +21,8 @@ public:
   FORWARD_CALL_0(int,number_of_hidden_vertices)
   Hidden_vertices_iterator hidden_vertices() {return Hidden_vertices_iterator(this->data.hidden_vertices_begin(),this->data.hidden_vertices_end());}
 // Dual power diagram    
-  FORWARD_CALL_1(Weighted_point_2,weighted_circumcenter,Face_handle)
-  FORWARD_CALL_1(Weighted_point_2,dual,Face_handle)
+  FORWARD_CALL_AND_REF_1(Weighted_point_2,weighted_circumcenter,Face_handle)
+  FORWARD_CALL_AND_REF_1(Weighted_point_2,dual,Face_handle)
 // Predicates
   FORWARD_CALL_2(Oriented_side,power_test,Face_handle,Weighted_point_2)
 };

@@ -33,8 +33,8 @@ public:
   FORWARD_CALL_0(double,y)
   FORWARD_CALL_1(double,cartesian,int)
   FORWARD_CALL_0(int,dimension)
-  Direction_2 direction();
-  FORWARD_CALL_1(Vector_2,perpendicular,Orientation)
+  DECLARE_CALL_AND_REF_0(Direction_2,direction)
+  FORWARD_CALL_AND_REF_1(Vector_2,perpendicular,Orientation)
   FORWARD_CALL_0(double,squared_length)
 //
   bool equals(const Vector_2&);

@@ -23,8 +23,8 @@ public:
 
   CGAL_Vertex_handle():data(NULL){}
   
-  FORWARD_CALL_0_PTR(Point,point)
-  FORWARD_CALL_0_PTR(Cell_handle,cell)
+  FORWARD_CALL_AND_REF_0_PTR(Point,point)
+  FORWARD_CALL_AND_REF_0_PTR(Cell_handle,cell)
   FORWARD_CALL_1_PTR(void,set_cell,Cell_handle)
   FORWARD_CALL_1_PTR(void,set_point,Point)
   FORWARD_CALL_0_PTR(bool,is_valid)
@@ -59,10 +59,10 @@ public:
   CGAL_Cell_handle():data(NULL){}
   
   
-  FORWARD_CALL_1_PTR(Vertex_handle,vertex,int)
+  FORWARD_CALL_AND_REF_1_PTR(Vertex_handle,vertex,int)
   FORWARD_CALL_1_PTR(int,index,Vertex_handle)
   FORWARD_CALL_1_PTR(bool,has_vertex,Vertex_handle)
-  FORWARD_CALL_1_PTR(Cell_handle,neighbor,int)
+  FORWARD_CALL_AND_REF_1_PTR(Cell_handle,neighbor,int)
   FORWARD_CALL_1_PTR(int,index,Cell_handle)
   FORWARD_CALL_1_PTR(bool,has_neighbor,Cell_handle)
   FORWARD_CALL_2_PTR(void,set_vertex,int,Vertex_handle)

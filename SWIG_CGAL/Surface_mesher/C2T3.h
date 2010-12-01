@@ -42,7 +42,7 @@ public:
 //Creation
   C2T3_wrapper(Triangulation& t3):data(t3.get_data_ref()){}
 //Member access
-  FORWARD_CALL_0(Triangulation,triangulation)
+  FORWARD_CALL_AND_REF_0(Triangulation,triangulation)
 //Modifications
   FORWARD_CALL_1(void,add_to_complex,Facet)
   FORWARD_CALL_2(void ,add_to_complex,Cell_handle,int)
@@ -68,8 +68,8 @@ public:
   Vertex_iterator  vertices() {return Vertex_iterator(data.vertices_begin(),data.vertices_end());}
   //
   void incident_facets ( Vertex_handle v, Output_iterator out){data.incident_facets(v.get_data(),out);}
-  FORWARD_CALL_2(Facet,neighbor,Facet,int)
-  FORWARD_CALL_3(Facet,neighbor,Cell_handle,int,int)  
+  FORWARD_CALL_AND_REF_2(Facet,neighbor,Facet,int)
+  FORWARD_CALL_AND_REF_3(Facet,neighbor,Cell_handle,int,int)  
 };
 
 

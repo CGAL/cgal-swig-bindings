@@ -33,10 +33,10 @@ public:
   //Polyhedron_3_wrapper<Traits> P ( Traits traits = Traits());
   //Polyhedron_3_wrapper<Traits> P ( size_type v, size_type h, size_type f, Traits traits = Traits());
   FORWARD_CALL_3(void,reserve,unsigned,unsigned,unsigned)
-  FORWARD_CALL_0(Halfedge_handle,make_tetrahedron)
-  FORWARD_CALL_4(Halfedge_handle,make_tetrahedron,Point_3,Point_3,Point_3,Point_3)
-  FORWARD_CALL_0(Halfedge_handle,make_triangle)
-  FORWARD_CALL_3(Halfedge_handle,make_triangle,Point_3,Point_3,Point_3)
+  FORWARD_CALL_AND_REF_0(Halfedge_handle,make_tetrahedron)
+  FORWARD_CALL_AND_REF_4(Halfedge_handle,make_tetrahedron,Point_3,Point_3,Point_3,Point_3)
+  FORWARD_CALL_AND_REF_0(Halfedge_handle,make_triangle)
+  FORWARD_CALL_AND_REF_3(Halfedge_handle,make_triangle,Point_3,Point_3,Point_3)
     
 //Access Member Functions
   FORWARD_CALL_0(bool,empty)
@@ -71,28 +71,28 @@ public:
   FORWARD_CALL_1(bool,is_triangle,Halfedge_handle)
   FORWARD_CALL_1(bool,is_tetrahedron,Halfedge_handle)
 
-  FORWARD_CALL_2(Halfedge_handle,split_facet,Halfedge_handle,Halfedge_handle)
-  FORWARD_CALL_1(Halfedge_handle,join_facet,Halfedge_handle)
+  FORWARD_CALL_AND_REF_2(Halfedge_handle,split_facet,Halfedge_handle,Halfedge_handle)
+  FORWARD_CALL_AND_REF_1(Halfedge_handle,join_facet,Halfedge_handle)
 
-  FORWARD_CALL_2(Halfedge_handle,split_vertex,Halfedge_handle,Halfedge_handle)
-  FORWARD_CALL_1(Halfedge_handle,join_vertex,Halfedge_handle)
-  FORWARD_CALL_1(Halfedge_handle,split_edge,Halfedge_handle)
-  FORWARD_CALL_1(Halfedge_handle,flip_edge,Halfedge_handle)
-
-
-  FORWARD_CALL_1(Halfedge_handle,create_center_vertex,Halfedge_handle)
-  FORWARD_CALL_1(Halfedge_handle,erase_center_vertex,Halfedge_handle)
-
-  FORWARD_CALL_3(Halfedge_handle,split_loop,Halfedge_handle,Halfedge_handle,Halfedge_handle)
-  FORWARD_CALL_2(Halfedge_handle,join_loop,Halfedge_handle,Halfedge_handle)
+  FORWARD_CALL_AND_REF_2(Halfedge_handle,split_vertex,Halfedge_handle,Halfedge_handle)
+  FORWARD_CALL_AND_REF_1(Halfedge_handle,join_vertex,Halfedge_handle)
+  FORWARD_CALL_AND_REF_1(Halfedge_handle,split_edge,Halfedge_handle)
+  FORWARD_CALL_AND_REF_1(Halfedge_handle,flip_edge,Halfedge_handle)
 
 
-  FORWARD_CALL_1(Halfedge_handle,make_hole,Halfedge_handle)
-  FORWARD_CALL_1(Halfedge_handle,fill_hole,Halfedge_handle)
+  FORWARD_CALL_AND_REF_1(Halfedge_handle,create_center_vertex,Halfedge_handle)
+  FORWARD_CALL_AND_REF_1(Halfedge_handle,erase_center_vertex,Halfedge_handle)
+
+  FORWARD_CALL_AND_REF_3(Halfedge_handle,split_loop,Halfedge_handle,Halfedge_handle,Halfedge_handle)
+  FORWARD_CALL_AND_REF_2(Halfedge_handle,join_loop,Halfedge_handle,Halfedge_handle)
 
 
-  FORWARD_CALL_2(Halfedge_handle,add_vertex_and_facet_to_border,Halfedge_handle,Halfedge_handle)
-  FORWARD_CALL_2(Halfedge_handle,add_facet_to_border,Halfedge_handle,Halfedge_handle)
+  FORWARD_CALL_AND_REF_1(Halfedge_handle,make_hole,Halfedge_handle)
+  FORWARD_CALL_AND_REF_1(Halfedge_handle,fill_hole,Halfedge_handle)
+
+
+  FORWARD_CALL_AND_REF_2(Halfedge_handle,add_vertex_and_facet_to_border,Halfedge_handle,Halfedge_handle)
+  FORWARD_CALL_AND_REF_2(Halfedge_handle,add_facet_to_border,Halfedge_handle,Halfedge_handle)
 
   FORWARD_CALL_1(void,erase_facet,Halfedge_handle)
   FORWARD_CALL_1(void,erase_connected_component,Halfedge_handle)

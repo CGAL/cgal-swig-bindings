@@ -91,8 +91,8 @@ public:
   FORWARD_CALL_0(int, dimension)
   FORWARD_CALL_0(int, number_of_vertices)
   FORWARD_CALL_0(int, number_of_cells)
-  FORWARD_CALL_0(Vertex_handle,infinite_vertex)
-  FORWARD_CALL_0(Cell_handle,infinite_cell)  
+  FORWARD_CALL_AND_REF_0(Vertex_handle,infinite_vertex)
+  FORWARD_CALL_AND_REF_0(Cell_handle,infinite_cell)  
 //Non-constant-time access functions
   FORWARD_CALL_0(int, number_of_facets)
   FORWARD_CALL_0(int, number_of_edges)
@@ -117,8 +117,8 @@ public:
   FORWARD_CALL_3(bool,are_equal,Facet,Cell_handle,int)
 //Point location
   FORWARD_CALL_1(Cell_handle,locate,Point)
-  FORWARD_CALL_2(Cell_handle,locate,Point,Cell_handle)
-  FORWARD_CALL_2(Cell_handle,locate,Point,Vertex_handle)
+  FORWARD_CALL_AND_REF_2(Cell_handle,locate,Point,Cell_handle)
+  FORWARD_CALL_AND_REF_2(Cell_handle,locate,Point,Vertex_handle)
 //Flips
   FORWARD_CALL_1(bool,flip,Edge)
   FORWARD_CALL_3(bool,flip,Cell_handle,int,int)
@@ -130,16 +130,16 @@ public:
   FORWARD_CALL_2(void,flip_flippable,Cell_handle,int)
 //Insertions
   FORWARD_CALL_1(Vertex_handle,insert,Point)
-  FORWARD_CALL_2(Vertex_handle,insert,Point,Cell_handle)
-  FORWARD_CALL_2(Vertex_handle,insert,Point,Vertex_handle)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Cell_handle)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Vertex_handle)
   int insert_range(typename Weighting_helper_3<Weighted_tag>::Point_range range){ return this->data.insert(range.first,range.second); }
-  FORWARD_CALL_2(Vertex_handle,insert_in_cell,Point,Cell_handle)
-  FORWARD_CALL_2(Vertex_handle,insert_in_facet,Point,Facet)
-  FORWARD_CALL_3(Vertex_handle,insert_in_facet,Point,Cell_handle,int)
-  FORWARD_CALL_2(Vertex_handle,insert_in_edge,Point,Edge)
-  FORWARD_CALL_4(Vertex_handle,insert_in_edge,Point,Cell_handle,int,int)
-  FORWARD_CALL_2(Vertex_handle,insert_outside_convex_hull,Point,Cell_handle)
-  FORWARD_CALL_1(Vertex_handle,insert_outside_affine_hull,Point)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_cell,Point,Cell_handle)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_facet,Point,Facet)
+  FORWARD_CALL_AND_REF_3(Vertex_handle,insert_in_facet,Point,Cell_handle,int)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_edge,Point,Edge)
+  FORWARD_CALL_AND_REF_4(Vertex_handle,insert_in_edge,Point,Cell_handle,int,int)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,insert_outside_convex_hull,Point,Cell_handle)
+  FORWARD_CALL_AND_REF_1(Vertex_handle,insert_outside_affine_hull,Point)
 //Traversal of the Triangulation
   Finite_vertices_iterator      finite_vertices(){return Finite_vertices_iterator(this->data.finite_vertices_begin(),this->data.finite_vertices_end());}
   Finite_edges_iterator         finite_edges(){return Finite_edges_iterator(this->data.finite_edges_begin(),this->data.finite_edges_end());}
@@ -151,15 +151,15 @@ public:
   All_cells_iterator            all_cells(){return All_cells_iterator(this->data.all_cells_begin(),this->data.all_cells_end());}
   Point_iterator                points(){return Point_iterator(this->data.points_begin(),this->data.points_end());}
 //Cell and Facet Circulators
-  FORWARD_CALL_1(Cell_circulator,incident_cells,Edge)
-  FORWARD_CALL_3(Cell_circulator,incident_cells,Cell_handle,int,int)
-  FORWARD_CALL_2(Cell_circulator,incident_cells,Edge,Cell_handle)
-  FORWARD_CALL_4(Cell_circulator,incident_cells,Cell_handle,int,int,Cell_handle)
-  FORWARD_CALL_1(Facet_circulator,incident_facets,Edge)
-  FORWARD_CALL_3(Facet_circulator,incident_facets,Cell_handle,int,int)
-  FORWARD_CALL_2(Facet_circulator,incident_facets,Edge,Facet)
-  FORWARD_CALL_3(Facet_circulator,incident_facets,Edge,Cell_handle,int)
-  FORWARD_CALL_4(Facet_circulator,incident_facets,Cell_handle,int,int,Facet)
+  FORWARD_CALL_AND_REF_1(Cell_circulator,incident_cells,Edge)
+  FORWARD_CALL_AND_REF_3(Cell_circulator,incident_cells,Cell_handle,int,int)
+  FORWARD_CALL_AND_REF_2(Cell_circulator,incident_cells,Edge,Cell_handle)
+  FORWARD_CALL_AND_REF_4(Cell_circulator,incident_cells,Cell_handle,int,int,Cell_handle)
+  FORWARD_CALL_AND_REF_1(Facet_circulator,incident_facets,Edge)
+  FORWARD_CALL_AND_REF_3(Facet_circulator,incident_facets,Cell_handle,int,int)
+  FORWARD_CALL_AND_REF_2(Facet_circulator,incident_facets,Edge,Facet)
+  FORWARD_CALL_AND_REF_3(Facet_circulator,incident_facets,Edge,Cell_handle,int)
+  FORWARD_CALL_AND_REF_4(Facet_circulator,incident_facets,Cell_handle,int,int,Facet)
   FORWARD_CALL_5(Facet_circulator,incident_facets,Cell_handle,int,int,Cell_handle,int)  
 //Traversal of the incident cells, facets and edges, and the adjacent vertices of a given vertex
   void incident_cells(const Vertex_handle& v, Cell_handle_output_iterator out){this->data.incident_cells(v.get_data(),out);}
@@ -173,16 +173,16 @@ public:
   FORWARD_CALL_1(int,degree,Vertex_handle)  
 //Traversal between adjacent cells
   FORWARD_CALL_2(int,mirror_index,Cell_handle,int)
-  FORWARD_CALL_2(Vertex_handle,mirror_vertex,Cell_handle,int)  
-  FORWARD_CALL_1(Facet,mirror_facet,Facet)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,mirror_vertex,Cell_handle,int)  
+  FORWARD_CALL_AND_REF_1(Facet,mirror_facet,Facet)
 //Geometric access functions
-  FORWARD_CALL_1(Tetrahedron_3,tetrahedron,Cell_handle)
-  FORWARD_CALL_2(Triangle_3,triangle,Cell_handle,int)
-  FORWARD_CALL_1(Triangle_3,triangle,Facet)
-  FORWARD_CALL_1(Segment_3,segment,Edge)
-  FORWARD_CALL_3(Segment_3,segment,Cell_handle,int,int)
-  FORWARD_CALL_2(Point,point,Cell_handle,int)
-  FORWARD_CALL_1(Point,point,Vertex_handle)
+  FORWARD_CALL_AND_REF_1(Tetrahedron_3,tetrahedron,Cell_handle)
+  FORWARD_CALL_AND_REF_2(Triangle_3,triangle,Cell_handle,int)
+  FORWARD_CALL_AND_REF_1(Triangle_3,triangle,Facet)
+  FORWARD_CALL_AND_REF_1(Segment_3,segment,Edge)
+  FORWARD_CALL_AND_REF_3(Segment_3,segment,Cell_handle,int,int)
+  FORWARD_CALL_AND_REF_2(Point,point,Cell_handle,int)
+  FORWARD_CALL_AND_REF_1(Point,point,Vertex_handle)
 //Checking
   FORWARD_CALL_0(bool,is_valid)
   FORWARD_CALL_1(bool,is_valid,bool)

@@ -25,12 +25,12 @@ public:
   Ray_3(const Point_3& p,const Vector_3& v);
   Ray_3(const Point_3& p,const Line_3& l);
 //Operations
-  FORWARD_CALL_0(Point_3,source)
-  FORWARD_CALL_1(Point_3,point,int)
-  Direction_3 direction();
-  Vector_3 to_vector();
-  Line_3 supporting_line();
-  FORWARD_CALL_0(Ray_3,opposite)
+  FORWARD_CALL_AND_REF_0(Point_3,source)
+  FORWARD_CALL_AND_REF_1(Point_3,point,int)
+  DECLARE_CALL_AND_REF_0(Direction_3,direction)
+  DECLARE_CALL_AND_REF_0(Vector_3,to_vector)
+  DECLARE_CALL_AND_REF_0(Line_3,supporting_line)
+  FORWARD_CALL_AND_REF_0(Ray_3,opposite)
   FORWARD_CALL_0(bool,is_degenerate)
   FORWARD_CALL_1(bool,has_on,Point_3)
 //

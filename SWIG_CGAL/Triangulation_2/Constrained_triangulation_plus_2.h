@@ -66,7 +66,7 @@ public:
   Constraint_iterator constraints(){return Constraint_iterator( this->data.constraints_begin(),this->data.constraints_end() );}
   Subconstraint_iterator subconstraints(){return Subconstraint_iterator( this->data.subconstraints_begin(),this->data.subconstraints_end() );}
   Vertices_in_constraint_iterator vertices_in_constraint(const Vertex_handle& va,const Vertex_handle& vb){ return Vertices_in_constraint_iterator(this->data.vertices_in_constraint_begin(va.get_data(),vb.get_data()),this->data.vertices_in_constraint_end(va.get_data(),vb.get_data()));}
-  FORWARD_CALL_2(Context,context,Vertex_handle,Vertex_handle)
+  FORWARD_CALL_AND_REF_2(Context,context,Vertex_handle,Vertex_handle)
   Context_iterator contexts(const Vertex_handle& va,Vertex_handle& vb) {return Context_iterator(this->data.contexts_begin(va.get_data(),vb.get_data()),this->data.contexts_end(va.get_data(),vb.get_data()));}
   
 };

@@ -9,7 +9,7 @@ Vector_3::Vector_3(const Line_3& l):data(l.get_data()){}
 Vector_3::Vector_3(int x, int y, int z):data(x,y,z){}
 Vector_3::Vector_3(double x, double y, double z):data(x,y,z){}
   
-FORWARD_CALL_0(Direction_3,Vector_3::direction)
+FORWARD_CALL_AND_REF_0(Direction_3,Vector_3::direction)
 
 bool Vector_3::equals(const Vector_3& r){return data==r.get_data();}
 

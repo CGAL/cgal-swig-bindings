@@ -36,17 +36,17 @@ public:
   FORWARD_CALL_0(double,b)
   FORWARD_CALL_0(double,c)
   FORWARD_CALL_0(double,d)
-  FORWARD_CALL_1(Point_3,projection,Point_3)
-  FORWARD_CALL_0(Plane_3,opposite)
-  FORWARD_CALL_0(Point_3,point)
-  Vector_3 orthogonal_vector();
-  Line_3 perpendicular_line(const Point_3& p);
-  Direction_3 orthogonal_direction();
-  Vector_3 base1();
-  Vector_3 base2();
+  FORWARD_CALL_AND_REF_1(Point_3,projection,Point_3)
+  FORWARD_CALL_AND_REF_0(Plane_3,opposite)
+  FORWARD_CALL_AND_REF_0(Point_3,point)
+  DECLARE_CALL_AND_REF_0(Vector_3,orthogonal_vector)
+  DECLARE_CALL_AND_REF_1(Line_3,perpendicular_line,Point_3)
+  DECLARE_CALL_AND_REF_0(Direction_3,orthogonal_direction)
+  DECLARE_CALL_AND_REF_0(Vector_3,base1)
+  DECLARE_CALL_AND_REF_0(Vector_3,base2)
 //2D Conversion
-  FORWARD_CALL_1(Point_2,to_2d,Point_3)
-  FORWARD_CALL_1(Point_3,to_3d,Point_2)
+  FORWARD_CALL_AND_REF_1(Point_2,to_2d,Point_3)
+  FORWARD_CALL_AND_REF_1(Point_3,to_3d,Point_2)
 //Predicates
   FORWARD_CALL_1(Oriented_side,oriented_side,Point_3)
   FORWARD_CALL_1(bool,has_on,Point_3)

@@ -22,7 +22,7 @@ public:
   CGAL_Vertex_handle(typename Triangulation::Vertex_handle v):data(v){}
   #endif
 //Access Functions  
-  FORWARD_CALL_0_PTR(Point,point)
+  FORWARD_CALL_AND_REF_0_PTR(Point,point)
 //Setting
   FORWARD_CALL_1_PTR(void,set_point,Point)
   
@@ -57,10 +57,10 @@ public:
 
 //Access Functions    
   FORWARD_CALL_0_PTR(int,dimension)
-  FORWARD_CALL_1_PTR(Vertex_handle,vertex,int)
+  FORWARD_CALL_AND_REF_1_PTR(Vertex_handle,vertex,int)
   FORWARD_CALL_1_PTR(bool,has_vertex,Vertex_handle)
   FORWARD_CALL_1_PTR(int,index,Vertex_handle)
-  FORWARD_CALL_1_PTR(CGAL_Face_handle,neighbor,int)
+  FORWARD_CALL_AND_REF_1_PTR(CGAL_Face_handle,neighbor,int)
   FORWARD_CALL_1_PTR(bool,has_neighbor,CGAL_Face_handle)
   FORWARD_CALL_1_PTR(int,index,CGAL_Face_handle)
 //Setting

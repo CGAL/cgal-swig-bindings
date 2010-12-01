@@ -9,7 +9,7 @@ Direction_2::Direction_2(double x,double y):data(x,y){}
 
 bool Direction_2::equals(const Direction_2& r){return data==r.get_data();}
 
-FORWARD_CALL_0(Vector_2,Direction_2::vector)
+FORWARD_CALL_AND_REF_0(Vector_2,Direction_2::vector)
 
 std::string Direction_2::toString(){
   std::stringstream sstr;

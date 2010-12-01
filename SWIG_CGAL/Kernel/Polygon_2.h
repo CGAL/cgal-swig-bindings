@@ -55,8 +55,8 @@ public:
   FORWARD_CALL_1(bool,has_on_bounded_side,Point_2)
   FORWARD_CALL_1(bool,has_on_unbounded_side,Point_2)
 //Random access methods
-  FORWARD_CALL_1(Point_2,vertex,int)
-  FORWARD_CALL_1(Segment_2,edge,int)
+  FORWARD_CALL_AND_REF_1(Point_2,vertex,int)
+  FORWARD_CALL_AND_REF_1(Segment_2,edge,int)
 //Miscellaneous
   FORWARD_CALL_0(int,size)
   FORWARD_CALL_0(bool,is_empty)

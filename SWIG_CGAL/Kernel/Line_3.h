@@ -28,16 +28,16 @@ public:
   Line_3(const Segment_3& s);
   Line_3(const Ray_3& r);
 //Operations
-  FORWARD_CALL_1(Point_3,projection,Point_3)
-  FORWARD_CALL_1(Point_3,point,int)
+  FORWARD_CALL_AND_REF_1(Point_3,projection,Point_3)
+  FORWARD_CALL_AND_REF_1(Point_3,point,int)
 //Predicates
   FORWARD_CALL_0(bool,is_degenerate)
   FORWARD_CALL_1(bool,has_on,Point_3)
 //Miscellaneous
-  Plane_3 perpendicular_plane(const Point_3& p);
-  Line_3 opposite();
-  Vector_3 to_vector();
-  Direction_3 direction();
+  DECLARE_CALL_AND_REF_1(Plane_3,perpendicular_plane,Point_3)
+  DECLARE_CALL_AND_REF_0(Line_3,opposite)
+  DECLARE_CALL_AND_REF_0(Vector_3,to_vector)
+  DECLARE_CALL_AND_REF_0(Direction_3,direction)
 //
   bool equals(const Line_3&);
   std::string toString();

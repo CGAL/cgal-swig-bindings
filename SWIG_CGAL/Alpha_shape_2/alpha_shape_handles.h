@@ -20,8 +20,8 @@ public:
 //Creation
   CGAL_Vertex_handle():data(NULL){}
 //Access Functions  
-  FORWARD_CALL_0_PTR(Point,point)
-  FORWARD_CALL_0_PTR(Range,get_range)
+  FORWARD_CALL_AND_REF_0_PTR(Point,point)
+  FORWARD_CALL_AND_REF_0_PTR(Range,get_range)
 //Setting
   FORWARD_CALL_1_PTR(void,set_point,Point)
 //Modifiers
@@ -57,14 +57,14 @@ public:
 
 //Access Functions    
   FORWARD_CALL_0_PTR(int,dimension)
-  FORWARD_CALL_1_PTR(Vertex_handle,vertex,int)
+  FORWARD_CALL_AND_REF_1_PTR(Vertex_handle,vertex,int)
   FORWARD_CALL_1_PTR(bool,has_vertex,Vertex_handle)
   FORWARD_CALL_1_PTR(int,index,Vertex_handle)
-  FORWARD_CALL_1_PTR(CGAL_Face_handle,neighbor,int)
+  FORWARD_CALL_AND_REF_1_PTR(CGAL_Face_handle,neighbor,int)
   FORWARD_CALL_1_PTR(bool,has_neighbor,CGAL_Face_handle)
   FORWARD_CALL_1_PTR(int,index,CGAL_Face_handle)
   FORWARD_CALL_0_PTR(double,get_alpha)
-  FORWARD_CALL_1_PTR(Interval_3,get_ranges,int)
+  FORWARD_CALL_AND_REF_1_PTR(Interval_3,get_ranges,int)
 //Setting
   FORWARD_CALL_2_PTR(void,set_vertex,int,Vertex_handle)
   FORWARD_CALL_0_PTR(void,set_vertices)

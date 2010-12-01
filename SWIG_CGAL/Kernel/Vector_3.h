@@ -32,7 +32,7 @@ public:
   FORWARD_CALL_0(double,y)
   FORWARD_CALL_0(double,z)
   FORWARD_CALL_1(double,cartesian,int)
-  Direction_3 direction();
+  DECLARE_CALL_AND_REF_0(Direction_3,direction)
   FORWARD_CALL_0(double,squared_length)
   FORWARD_CALL_0(int,dimension)
 //

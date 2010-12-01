@@ -7,9 +7,9 @@ Segment_2::Segment_2():data(){}
 Segment_2::Segment_2(const Point_2& p,const Point_2& q):data(p.get_data(),q.get_data()){}
 Segment_2::Segment_2(const EPIC_Kernel::Segment_2& s):data(s){}
 
-FORWARD_CALL_0(Direction_2,Segment_2::direction)
-FORWARD_CALL_0(Vector_2,Segment_2::to_vector)
-FORWARD_CALL_0(Line_2,Segment_2::supporting_line)
+FORWARD_CALL_AND_REF_0(Direction_2,Segment_2::direction)
+FORWARD_CALL_AND_REF_0(Vector_2,Segment_2::to_vector)
+FORWARD_CALL_AND_REF_0(Line_2,Segment_2::supporting_line)
   
 bool Segment_2::equals(const Segment_2& s){
   return data==s.get_data();

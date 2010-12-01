@@ -30,8 +30,8 @@ public:
   FORWARD_CALL_0(double,a)
   FORWARD_CALL_0(double,b)
   FORWARD_CALL_0(double,c)
-  FORWARD_CALL_1(Point_2,point,int)
-  FORWARD_CALL_1(Point_2,projection,Point_2)
+  FORWARD_CALL_AND_REF_1(Point_2,point,int)
+  FORWARD_CALL_AND_REF_1(Point_2,projection,Point_2)
   FORWARD_CALL_1(double,x_at_y,double)
   FORWARD_CALL_1(double,y_at_x,double)
 //Predicates
@@ -43,10 +43,10 @@ public:
   FORWARD_CALL_1(bool,has_on_positive_side,Point_2)
   FORWARD_CALL_1(bool,has_on_negative_side,Point_2)
 //Miscellaneous
-  Vector_2 to_vector();
-  Direction_2 direction();
-  FORWARD_CALL_0(Line_2,opposite)
-  FORWARD_CALL_1(Line_2,perpendicular,Point_2)
+  DECLARE_CALL_AND_REF_0(Vector_2,to_vector)
+  DECLARE_CALL_AND_REF_0(Direction_2,direction)
+  FORWARD_CALL_AND_REF_0(Line_2,opposite)
+  FORWARD_CALL_AND_REF_1(Line_2,perpendicular,Point_2)
 //
   bool equals(const Line_2&);
   std::string toString();

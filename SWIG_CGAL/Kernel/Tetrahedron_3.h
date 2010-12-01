@@ -21,7 +21,7 @@ public:
   Tetrahedron_3();
   Tetrahedron_3(const Point_3& p,const Point_3& q,const Point_3& r,const Point_3& s);
 //Operations
-  FORWARD_CALL_1(Point_3,vertex,int)
+  FORWARD_CALL_AND_REF_1(Point_3,vertex,int)
 //Predicates
   FORWARD_CALL_0(bool,is_degenerate)
   FORWARD_CALL_1(bool,has_on_positive_side,Point_3)

@@ -12,11 +12,11 @@ Plane_3::Plane_3(const Segment_3& s,const Point_3& p):data(s.get_data(),p.get_da
   
   
 
-FORWARD_CALL_0(Vector_3,Plane_3::orthogonal_vector)
-FORWARD_CALL_1(Line_3,Plane_3::perpendicular_line,Point_3)
-FORWARD_CALL_0(Direction_3,Plane_3::orthogonal_direction)
-FORWARD_CALL_0(Vector_3,Plane_3::base1)
-FORWARD_CALL_0(Vector_3,Plane_3::base2)  
+FORWARD_CALL_AND_REF_0(Vector_3,Plane_3::orthogonal_vector)
+FORWARD_CALL_AND_REF_1(Line_3,Plane_3::perpendicular_line,Point_3)
+FORWARD_CALL_AND_REF_0(Direction_3,Plane_3::orthogonal_direction)
+FORWARD_CALL_AND_REF_0(Vector_3,Plane_3::base1)
+FORWARD_CALL_AND_REF_0(Vector_3,Plane_3::base2)  
 FORWARD_CALL_1(bool,Plane_3::has_on,Line_3)
   
   

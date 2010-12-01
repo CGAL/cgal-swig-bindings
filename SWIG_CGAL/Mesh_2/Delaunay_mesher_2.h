@@ -41,7 +41,7 @@ public:
   Seeds_const_iterator seeds() const {return Seeds_const_iterator(data.seeds_begin(),data.seeds_end());}
 //Meshing methods
   FORWARD_CALL_0(void,refine_mesh)
-  FORWARD_CALL_0(Criteria_wrapper,get_criteria)
+  FORWARD_CALL_AND_REF_0(Criteria_wrapper,get_criteria)
   FORWARD_CALL_1(void,set_criteria,Criteria_wrapper)
   FORWARD_CALL_2(void,set_criteria,Criteria_wrapper,bool)
   void set_bad_faces(Facet_range range){data.set_bad_faces(range.first,range.second);}

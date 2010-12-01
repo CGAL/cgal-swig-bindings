@@ -31,7 +31,7 @@ public:
   C3T3_wrapper(){}
   void swap(Self& other){data.swap(other.get_data_ref());}
 //Access Functions
-  FORWARD_CALL_0(Triangulation,triangulation)
+  FORWARD_CALL_AND_REF_0(Triangulation,triangulation)
 //Non const access
   Triangulation&  triangulation_ref(){
     triangulation_wrapper_ref=Triangulation(data.triangulation());

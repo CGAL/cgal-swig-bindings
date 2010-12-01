@@ -31,7 +31,7 @@ public:
   FORWARD_CALL_0(double,dy)
   FORWARD_CALL_2(bool,counterclockwise_in_between,Direction_2,Direction_2)
 //Miscellaneous
-  Vector_2 vector();
+  DECLARE_CALL_AND_REF_0(Vector_2,vector)
 //
   bool equals(const Direction_2&);
   std::string toString();

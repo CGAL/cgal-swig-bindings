@@ -29,7 +29,7 @@ public:
   FORWARD_CALL_0(double,dx)
   FORWARD_CALL_0(double,dy)
   FORWARD_CALL_0(double,dz)
-  Vector_3 vector();
+  DECLARE_CALL_AND_REF_0(Vector_3,vector)
 //
   bool equals(const Direction_3&);
   std::string toString();

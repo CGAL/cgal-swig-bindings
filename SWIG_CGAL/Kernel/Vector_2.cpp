@@ -10,7 +10,7 @@ Vector_2::Vector_2(const Line_2& l):data(l.get_data()){}
 Vector_2::Vector_2(int x, int y):data(x,y){}
 Vector_2::Vector_2(double x, double y):data(x,y){}
   
-FORWARD_CALL_0(Direction_2,Vector_2::direction)
+FORWARD_CALL_AND_REF_0(Direction_2,Vector_2::direction)
 
 bool Vector_2::equals(const Vector_2& r){return data==r.get_data();}
 

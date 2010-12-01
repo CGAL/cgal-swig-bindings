@@ -73,9 +73,9 @@ public:
   FORWARD_CALL_0(int, number_of_vertices)
   FORWARD_CALL_0(int, number_of_faces)
 // Access Functions  
-  FORWARD_CALL_0(Face_handle,infinite_face)
-  FORWARD_CALL_0(Vertex_handle,infinite_vertex)
-  FORWARD_CALL_0(Vertex_handle,finite_vertex)
+  FORWARD_CALL_AND_REF_0(Face_handle,infinite_face)
+  FORWARD_CALL_AND_REF_0(Vertex_handle,infinite_vertex)
+  FORWARD_CALL_AND_REF_0(Vertex_handle,finite_vertex)
 // Predicates
   FORWARD_CALL_1(bool,is_infinite,Vertex_handle)
   FORWARD_CALL_1(bool,is_infinite,Face_handle)
@@ -85,22 +85,22 @@ public:
   FORWARD_CALL_1(bool,is_infinite,Edge)
 // Queries
   FORWARD_CALL_1(Face_handle,locate,Point)
-  FORWARD_CALL_2(Face_handle,locate,Point,Face_handle)
+  FORWARD_CALL_AND_REF_2(Face_handle,locate,Point,Face_handle)
   FORWARD_CALL_2(Oriented_side,oriented_side,Face_handle,Point)
   FORWARD_CALL_2(Oriented_side,side_of_oriented_circle,Face_handle,Point)  
 // Modifiers
 //  FORWARD_CALL_2(void,flip,Face_handle,int) TODO: ambiguous call in CDT (their exist an overload with Face_handle&) 
 #ifndef CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
-  FORWARD_CALL_1(Vertex_handle,insert,Point)
-  FORWARD_CALL_2(Vertex_handle,insert,Point,Face_handle)
-  FORWARD_CALL_1(Vertex_handle,push_back,Point)
+  FORWARD_CALL_AND_REF_1(Vertex_handle,insert,Point)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Face_handle)
+  FORWARD_CALL_AND_REF_1(Vertex_handle,push_back,Point)
   FORWARD_CALL_1(void,remove,Vertex_handle)
-  FORWARD_CALL_1(Vertex_handle,insert_first,Point)
-  FORWARD_CALL_1(Vertex_handle,insert_second,Point)
-  FORWARD_CALL_2(Vertex_handle,insert_in_face,Point,Face_handle)
-  FORWARD_CALL_3(Vertex_handle,insert_in_edge,Point,Face_handle,int)
-  FORWARD_CALL_2(Vertex_handle,insert_outside_convex_hull,Point,Face_handle)
-  FORWARD_CALL_1(Vertex_handle,insert_outside_affine_hull,Point)
+  FORWARD_CALL_AND_REF_1(Vertex_handle,insert_first,Point)
+  FORWARD_CALL_AND_REF_1(Vertex_handle,insert_second,Point)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_face,Point,Face_handle)
+  FORWARD_CALL_AND_REF_3(Vertex_handle,insert_in_edge,Point,Face_handle,int)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,insert_outside_convex_hull,Point,Face_handle)
+  FORWARD_CALL_AND_REF_1(Vertex_handle,insert_outside_affine_hull,Point)
   FORWARD_CALL_1(void,remove_degree_3,Vertex_handle)
   FORWARD_CALL_1(void,remove_second,Vertex_handle)
   FORWARD_CALL_1(void,remove_first,Vertex_handle)
@@ -121,18 +121,18 @@ public:
   Line_face_circulator line_walk(const Point& p,const Point& q){return Line_face_circulator(this->data.line_walk(p.get_data(),q.get_data()));}
   Line_face_circulator line_walk(const Point& p,const Point& q,const Face_handle& f){return Line_face_circulator(this->data.line_walk(p.get_data(),q.get_data(),f.get_data()));}
 // Face, Edge and Vertex Circulators
-  FORWARD_CALL_1(Face_circulator,incident_faces,Vertex_handle)
-  FORWARD_CALL_2(Face_circulator,incident_faces,Vertex_handle,Face_handle)
-  FORWARD_CALL_1(Edge_circulator,incident_edges,Vertex_handle)
-  FORWARD_CALL_2(Edge_circulator,incident_edges,Vertex_handle,Face_handle)
-  FORWARD_CALL_1(Vertex_circulator,incident_vertices,Vertex_handle)
-  FORWARD_CALL_2(Vertex_circulator,incident_vertices,Vertex_handle,Face_handle)
+  FORWARD_CALL_AND_REF_1(Face_circulator,incident_faces,Vertex_handle)
+  FORWARD_CALL_AND_REF_2(Face_circulator,incident_faces,Vertex_handle,Face_handle)
+  FORWARD_CALL_AND_REF_1(Edge_circulator,incident_edges,Vertex_handle)
+  FORWARD_CALL_AND_REF_2(Edge_circulator,incident_edges,Vertex_handle,Face_handle)
+  FORWARD_CALL_AND_REF_1(Vertex_circulator,incident_vertices,Vertex_handle)
+  FORWARD_CALL_AND_REF_2(Vertex_circulator,incident_vertices,Vertex_handle,Face_handle)
 // Traversal between adjacent faces
-  FORWARD_CALL_2(Vertex_handle,mirror_vertex,Face_handle,int)
+  FORWARD_CALL_AND_REF_2(Vertex_handle,mirror_vertex,Face_handle,int)
   FORWARD_CALL_2(int,mirror_index,Face_handle,int)
   FORWARD_CALL_1(int,ccw,int)
   FORWARD_CALL_1(int,cw,int)
-  FORWARD_CALL_1(Point,circumcenter,Face_handle)
+  FORWARD_CALL_AND_REF_1(Point,circumcenter,Face_handle)
 // Setting
   FORWARD_CALL_1(void,set_infinite_vertex,Vertex_handle)
 // Checking
@@ -140,9 +140,9 @@ public:
   FORWARD_CALL_1(bool,is_valid,bool)
   FORWARD_CALL_2(bool,is_valid,bool,int)
 // Miscellaneous
-  FORWARD_CALL_1(Triangle_2,triangle,Face_handle)
-  FORWARD_CALL_2(Segment_2,segment,Face_handle,int)
-  FORWARD_CALL_1(Segment_2,segment,Edge)
+  FORWARD_CALL_AND_REF_1(Triangle_2,triangle,Face_handle)
+  FORWARD_CALL_AND_REF_2(Segment_2,segment,Face_handle,int)
+  FORWARD_CALL_AND_REF_1(Segment_2,segment,Edge)
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_TRIANGULATION_2_H
