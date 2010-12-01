@@ -83,6 +83,11 @@ include_directories(BEFORE include)
 if ( CGAL_FOUND )
   include( ${CGAL_USE_FILE} )
   
+  if (${CMAKE_BUILD_TYPE} STREQUAL Release)
+    message ("Relase mode: using -fno-strict-aliasing flags")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing")
+  endif()
+  
   if (SWIG_FOUND)
     SET (UseSWIG ON)
     INCLUDE(${SWIG_USE_FILE})  
