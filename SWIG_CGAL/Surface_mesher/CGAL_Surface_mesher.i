@@ -40,7 +40,7 @@
 %include "SWIG_CGAL/Surface_mesher/C2T3.h"
 %include "SWIG_CGAL/Surface_mesher/Surface_mesh_details.h"
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Sphere_3; import java.util.Iterator; import java.util.Collection; import CGAL.Polyhedron_3.Polyhedron_3;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Sphere_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Iterator; import java.util.Collection; import CGAL.Polyhedron_3.Polyhedron_3;%}
 %pragma(java) moduleimports  =%{import CGAL.Polyhedron_3.Polyhedron_3;%} //for global functions
 
 Typemap_for_Input_iterator(Weighting_helper_3<CGAL::Tag_false>::Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)

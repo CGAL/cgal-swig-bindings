@@ -32,7 +32,7 @@
 %import "SWIG_CGAL/Triangulation_2/CGAL_Triangulation_2.i"
 
 
-%pragma(java) jniclassimports=%{import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_2; import CGAL.Kernel.Point_2; import java.util.Iterator; import CGAL.Triangulation_2.Constraint; import java.util.Collection;%}
+%pragma(java) jniclassimports=%{import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_2; import CGAL.Kernel.Point_2; import CGAL.Kernel.Segment_2;  import CGAL.Kernel.Triangle_2; import java.util.Iterator; import CGAL.Triangulation_2.Constraint; import java.util.Collection;%}
 %pragma(java) moduleimports  =%{import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_2; import java.util.Iterator;import CGAL.Kernel.Point_2;%}
 
 

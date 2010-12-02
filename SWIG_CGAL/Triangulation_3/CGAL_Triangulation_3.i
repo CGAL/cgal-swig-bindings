@@ -19,7 +19,7 @@
   #include <SWIG_CGAL/Triangulation_3/triangulation_iterators.h>
 %}
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Weighted_point_3; import java.util.Iterator; import java.util.Collection;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Iterator; import java.util.Collection;%}
 
 
 //definitions

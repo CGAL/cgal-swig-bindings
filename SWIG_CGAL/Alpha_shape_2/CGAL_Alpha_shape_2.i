@@ -45,7 +45,7 @@
 %include "SWIG_CGAL/Common/triple.h"
 %template(Face_Interval_3)  CGAL_SWIG::Triple<double,double,double>;
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Weighted_point_2;  import java.util.Iterator; import java.util.Collection;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Triangle_2; import CGAL.Kernel.Segment_2;  import java.util.Iterator; import java.util.Collection;%}
 
 //typemap for point input iterator
 Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",make_alpha_shape)
