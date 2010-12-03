@@ -22,7 +22,7 @@ public:
   bool operator<(const JavaData& d) const;
   void init_empty_object()
   {
-    jclass objclass=JNU_GetEnv()->FindClass("Ljava/lang/Object;");
+    jclass objclass=JNU_GetEnv()->FindClass("java/lang/Object");
     assert(objclass!=NULL);
     jmethodID init_id=JNU_GetEnv()->GetMethodID(objclass,"<init>","()V");
     assert(init_id!=NULL);

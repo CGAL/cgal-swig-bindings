@@ -20,8 +20,8 @@ public class test_mesh_3 {
     //Default_mesh_criteria criteria = new  Default_mesh_criteria(25,0.15,0.008,3);
     Mesh3CellCriteria cell_pred_base=new Mesh3CellCriteria();
     Mesh3FacetCriteria facet_pred_base=new Mesh3FacetCriteria();
-    Cell_predicate cell_pred =new Cell_predicate(cell_pred_base,"evaluate","LCGAL/Mesh_3/Mesh_3_regular_triangulation_3_Cell_handle;","LCGAL/Mesh_3/Mesh_3_Badness;");
-    Facet_predicate facet_pred =new Facet_predicate(facet_pred_base,"evaluate","LCGAL/Mesh_3/Mesh_3_regular_triangulation_3_Facet;","LCGAL/Mesh_3/Mesh_3_Badness;");
+    Cell_predicate cell_pred =new Cell_predicate(cell_pred_base,"evaluate","CGAL/Mesh_3/Mesh_3_regular_triangulation_3_Cell_handle","CGAL/Mesh_3/Mesh_3_Badness");
+    Facet_predicate facet_pred =new Facet_predicate(facet_pred_base,"evaluate","CGAL/Mesh_3/Mesh_3_regular_triangulation_3_Facet","CGAL/Mesh_3/Mesh_3_Badness");
     User_mesh_criteria criteria = new  User_mesh_criteria(cell_pred,facet_pred);
     
     System.out.println("Make initial mesh...");
