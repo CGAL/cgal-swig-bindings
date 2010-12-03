@@ -3,13 +3,65 @@
 
 #include <SWIG_CGAL/Java/global_functions.h>
 #include <SWIG_CGAL/Common/Macros.h>
+#include <boost/type_traits/is_enum.hpp>
 #include <cassert>
 #include <iostream>
 #include <string>
 
+#ifndef SWIG
+namespace internal{
+  
+  template <class Type,bool is_enum=false>
+  struct Java_caller_output_helper
+  {
+    static std::string output_function_signature(const char* output_type)
+    {
+      return std::string("(L")+output_type+std::string(";)J");
+    }
+    
+    static std::string output_function_name() {return "getCPtr";}
+    
+    static typename internal::Converter<Type>::result_type
+    convert_to_cpp(jclass output_class,jmethodID get_output_id,jobject res)
+    {
+      assert(output_class!=NULL);
+      assert(get_output_id!=NULL);
+      jlong jcpp=(jlong) JNU_GetEnv()->CallStaticObjectMethod(output_class,get_output_id,res);
+      assert( (void*) jcpp != NULL );
+      return internal::Converter<Type>::convert( *reinterpret_cast<Type*>(jcpp) );
+    }
+  };
+  
+  template <class Type>
+  struct Java_caller_output_helper<Type,true>
+  {  
+    
+    static std::string output_function_signature(const char*)
+    {
+      return std::string("()I"); 
+    }
+    
+    static std::string output_function_name() {return "swigValue";}
+    
+    static typename internal::Converter<Type>::result_type  
+    convert_to_cpp(jclass output_class,jmethodID get_output_id,jobject res)
+    {
+      //convert the result back to c++
+      assert(output_class!=NULL);
+      assert(get_output_id!=NULL);
+      int val=static_cast<int> ( JNU_GetEnv()->CallIntMethod(res,get_output_id) );
+      return CGAL::enum_cast<typename internal::Converter<Type>::result_type>( val );
+    }
+  };
+  
+}
+#endif
+
 template <class Input_wrapper,class Output_wrapper>
 class Java_caller_code
 {
+  typedef internal::Java_caller_output_helper<Output_wrapper,boost::is_enum<Output_wrapper>::value > Helper;
+  
   //info for calling the java predicate
   jobject java_predicate;
   jclass predicate_class;
@@ -65,8 +117,8 @@ public:
     //set info for output
     local_jclass=JNU_GetEnv()->FindClass(output_type);
     output_class=(jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
-    std::string output_signature=std::string("(L")+output_type+std::string(";)J");
-    get_output_id=JNU_GetEnv()->GetStaticMethodID(output_class, "getCPtr",output_signature.c_str());
+    std::string output_signature=Helper::output_function_signature(output_type);
+    get_output_id=JNU_GetEnv()->GetStaticMethodID(output_class, Helper::output_function_name().c_str(),output_signature.c_str());
   }
   
   ~Java_caller_code()
@@ -103,11 +155,7 @@ public:
     //call java method
     jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id,input_in_java);
     //convert the result back to c++
-    assert(output_class!=NULL);
-    assert(get_output_id!=NULL);
-    jlong jcpp=(jlong) JNU_GetEnv()->CallStaticObjectMethod(output_class,get_output_id,res);
-    assert( (void*) jcpp != NULL );
-    return internal::Converter<Output_wrapper>::convert( *reinterpret_cast<Output_wrapper*>(jcpp) );
+    return Helper::convert_to_cpp(output_class,get_output_id,res);
   }
   #endif
 };
@@ -115,6 +163,8 @@ public:
 template <class Input_wrapper_1,class Input_wrapper_2,class Output_wrapper>
 class Java_caller_code_2
 {
+  typedef internal::Java_caller_output_helper<Output_wrapper,boost::is_enum<Output_wrapper>::value > Helper;
+  
   //info for calling the java predicate
   jobject java_predicate;
   jclass predicate_class;
@@ -188,8 +238,8 @@ public:
     //set info for output
     local_jclass=JNU_GetEnv()->FindClass(output_type);
     output_class=(jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
-    std::string output_signature=std::string("()I"); 
-    get_output_id=JNU_GetEnv()->GetMethodID(output_class, "swigValue",output_signature.c_str());
+    std::string output_signature=Helper::output_function_signature(output_type); 
+    get_output_id=JNU_GetEnv()->GetMethodID(output_class, Helper::output_function_name().c_str(),output_signature.c_str());
   }
   
   ~Java_caller_code_2()
@@ -225,10 +275,7 @@ public:
     //call java method
     jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_1,input_in_java);
     //convert the result back to c++
-    assert(output_class!=NULL);
-    assert(get_output_id!=NULL);
-    int val=(int) JNU_GetEnv()->CallIntMethod(res,get_output_id);
-    return CGAL::enum_cast<typename internal::Converter<Output_wrapper>::result_type>( val );
+    return Helper::convert_to_cpp(output_class,get_output_id,res);
   }  
   
   typename internal::Converter<Output_wrapper>::result_type
@@ -253,12 +300,10 @@ public:
     
     //call java method
     jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_2,input_in_java_1,input_in_java_2);
-    //convert the result back to c++
-    assert(output_class!=NULL);
-    assert(get_output_id!=NULL);
-    int val=(int) JNU_GetEnv()->CallIntMethod(res,get_output_id);
+    //update input_2 after call to predicate
     input_2=cpp_wrapper_2->get_data();
-    return CGAL::enum_cast<typename internal::Converter<Output_wrapper>::result_type>( val );
+    //convert the result back to c++
+    return Helper::convert_to_cpp(output_class,get_output_id,res);
   }
   #endif
 };
