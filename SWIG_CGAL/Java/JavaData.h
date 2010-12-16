@@ -4,8 +4,9 @@
 #include <jni.h>
 #include <cassert>
 #include <SWIG_CGAL/Java/global_functions.h>
+#include <SWIG_CGAL/Java/decl.h>
 
-class JavaData {
+class SWIG_CGAL_JAVA_DECL JavaData {
   int* cnt;
   jobject data;
  

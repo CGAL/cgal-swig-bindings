@@ -7,7 +7,7 @@
 #include <SWIG_CGAL/Common/Macros.h>
 
 
-class Tetrahedron_3{
+class SWIG_CGAL_KERNEL_DECL Tetrahedron_3{
   EPIC_Kernel::Tetrahedron_3 data;
 public:
   #ifndef SWIG

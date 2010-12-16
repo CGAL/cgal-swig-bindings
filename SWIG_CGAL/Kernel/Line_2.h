@@ -10,7 +10,7 @@
 #include <SWIG_CGAL/Kernel/Direction_2.h>
 
 
-class Line_2{
+class SWIG_CGAL_KERNEL_DECL Line_2{
   EPIC_Kernel::Line_2 data;
 public:
   #ifndef SWIG

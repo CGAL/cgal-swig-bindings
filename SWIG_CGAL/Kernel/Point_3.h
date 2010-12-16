@@ -3,7 +3,8 @@
 
 #include <SWIG_CGAL/Kernel/typedefs.h>
 
-class Point_3{
+
+class SWIG_CGAL_KERNEL_DECL Point_3{
   EPIC_Kernel::Point_3 data;
 public:
   #ifndef SWIG
@@ -12,6 +13,9 @@ public:
   cpp_base& get_data_ref();
   Point_3(const cpp_base& p);
   #endif
+
+
+
 
   Point_3();
   Point_3(double x,double y,double z);

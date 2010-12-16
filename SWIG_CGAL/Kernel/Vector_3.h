@@ -10,7 +10,7 @@
 #include <SWIG_CGAL/Kernel/Direction_3.h>
 
 
-class Vector_3{
+class SWIG_CGAL_KERNEL_DECL Vector_3{
   EPIC_Kernel::Vector_3 data;
 public:
   #ifndef SWIG

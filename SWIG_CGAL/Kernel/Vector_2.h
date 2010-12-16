@@ -11,7 +11,7 @@
 #include <SWIG_CGAL/Kernel/Direction_2.h>
 
 
-class Vector_2{
+class SWIG_CGAL_KERNEL_DECL Vector_2{
   EPIC_Kernel::Vector_2 data;
 public:
   #ifndef SWIG

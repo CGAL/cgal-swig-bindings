@@ -1,3 +1,5 @@
+#define SWIG_CGAL_KERNEL_EXPORT
+
 #include <SWIG_CGAL/Kernel/Plane_3.h>
 #include <sstream>
 

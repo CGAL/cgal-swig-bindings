@@ -7,7 +7,7 @@
 #include <SWIG_CGAL/Common/Macros.h>
 
 
-class Triangle_3{
+class SWIG_CGAL_KERNEL_DECL Triangle_3{
   EPIC_Kernel::Triangle_3 data;
 public:
   #ifndef SWIG

@@ -13,7 +13,7 @@
 #include <SWIG_CGAL/Kernel/Vector_3.h>
 #include <SWIG_CGAL/Kernel/Direction_3.h>
 
-class Plane_3{
+class SWIG_CGAL_KERNEL_DECL Plane_3{
   EPIC_Kernel::Plane_3 data;
 public:
   #ifndef SWIG

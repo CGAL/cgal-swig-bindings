@@ -10,7 +10,7 @@
 #include <SWIG_CGAL/Kernel/Direction_3.h>
 
 
-class Ray_3{
+class SWIG_CGAL_KERNEL_DECL Ray_3{
   EPIC_Kernel::Ray_3 data;
 public:
   #ifndef SWIG

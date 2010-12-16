@@ -1,6 +1,8 @@
 #ifndef SWIG_CGAL_KERNEL_TYPEDEFS_H
 #define SWIG_CGAL_KERNEL_TYPEDEFS_H
 
+#include <SWIG_CGAL/Kernel/decl.h>
+
 #ifndef SWIG
 #define NO_SWIG_OR_PYTHON
 #else

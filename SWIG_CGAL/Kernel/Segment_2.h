@@ -10,7 +10,7 @@
 #include <SWIG_CGAL/Kernel/Direction_2.h>
 #include <SWIG_CGAL/Common/Macros.h>
 
-class Segment_2{
+class SWIG_CGAL_KERNEL_DECL Segment_2{
   EPIC_Kernel::Segment_2 data;
 public:
   #ifndef SWIG

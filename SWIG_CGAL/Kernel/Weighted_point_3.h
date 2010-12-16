@@ -6,7 +6,7 @@
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 
-class Weighted_point_3{
+class SWIG_CGAL_KERNEL_DECL Weighted_point_3{
   CGAL::Weighted_point<EPIC_Kernel::Point_3,double> data;
 public:
   #ifndef SWIG

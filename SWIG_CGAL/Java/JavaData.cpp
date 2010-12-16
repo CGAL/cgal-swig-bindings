@@ -1,3 +1,5 @@
+#define SWIG_CGAL_JAVA_EXPORT 
+
 #include <iostream>
 #include <SWIG_CGAL/Java/JavaData.h>
 

@@ -1,3 +1,5 @@
+#define SWIG_CGAL_KERNEL_EXPORT
+
 #include <SWIG_CGAL/Kernel/Ray_2.h>
 #include <sstream>
 

@@ -11,7 +11,7 @@ DECLARE_CIRCULATOR_CLASS(Edge_const_circulator)
 #include <CGAL/Polygon_2.h>
 #include <boost/next_prior.hpp>
 
-class Polygon_2{
+class SWIG_CGAL_KERNEL_DECL Polygon_2{
   CGAL::Polygon_2<EPIC_Kernel,std::vector<EPIC_Kernel::Point_2> > data;
 public:
   #ifndef SWIG

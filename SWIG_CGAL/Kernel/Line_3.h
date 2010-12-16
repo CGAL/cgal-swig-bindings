@@ -11,7 +11,7 @@
 
 class Plane_3;
 
-class Line_3{
+class SWIG_CGAL_KERNEL_DECL Line_3{
   EPIC_Kernel::Line_3 data;
 public:
   #ifndef SWIG

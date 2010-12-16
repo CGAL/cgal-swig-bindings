@@ -10,7 +10,7 @@
 #include <SWIG_CGAL/Kernel/Vector_3.h>
 #include <SWIG_CGAL/Kernel/Direction_3.h>
 
-class Segment_3{
+class SWIG_CGAL_KERNEL_DECL Segment_3{
   EPIC_Kernel::Segment_3 data;
 public:
   #ifndef SWIG

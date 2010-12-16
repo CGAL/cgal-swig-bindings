@@ -22,7 +22,7 @@
   TYPE get_##TYPE() { return TYPE ( CGAL::object_cast<TYPE::cpp_base>(data) ); }
   
 
-class CGAL_Object
+class SWIG_CGAL_KERNEL_DECL CGAL_Object
 {
   CGAL::Object data;
 public:

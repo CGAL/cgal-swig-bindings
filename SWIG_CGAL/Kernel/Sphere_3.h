@@ -6,7 +6,7 @@
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <SWIG_CGAL/Kernel/enum.h>
 
-class Sphere_3{
+class SWIG_CGAL_KERNEL_DECL Sphere_3{
   EPIC_Kernel::Sphere_3 data;
 public:
   #ifndef SWIG
