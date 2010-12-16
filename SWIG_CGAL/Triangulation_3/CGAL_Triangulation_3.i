@@ -1,6 +1,21 @@
 %module CGAL_Triangulation_3
 
 %include "SWIG_CGAL/common.i"
+Decl_void_type()
+
+%pragma(java) jniclasscode=%{
+  static {
+    try {
+        System.loadLibrary("CGAL_Triangulation_3");
+        System.loadLibrary("CGAL_Java");
+    } catch (UnsatisfiedLinkError e) {
+      System.err.println("Native code library CGAL_Triangulation_3 failed to load. \n" + e);
+      System.exit(1);
+    }
+  }
+%}
+
+
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/Point_3.h"
 %import  "SWIG_CGAL/Kernel/Weighted_point_3.h"

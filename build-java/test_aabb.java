@@ -25,8 +25,6 @@ public class test_aabb {
   public static void main(String arg[]){
     System.out.println("Testing");
     
-    System.loadLibrary("CGAL_AABB_tree");
-    System.loadLibrary("CGAL_Polyhedron_3");
     Polyhedron_3 poly=new Polyhedron_3();
     poly.make_tetrahedron(new Point_3(0,0,0),new Point_3(1,0,0),new Point_3(0,1,0),new Point_3(0,0,1));
     

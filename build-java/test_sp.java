@@ -69,7 +69,6 @@ public class test_sp {
   }
   
   public static void main(String arg[]){
-    System.loadLibrary("CGAL_Spatial_searching");
     test_2d();
     test_3d();
     

@@ -17,8 +17,6 @@ import java.util.LinkedList;
 
 public class test_t2 {
   public static void main(String arg[]){
-    System.loadLibrary("CGAL_Triangulation_2");
-
     Locate_type lc=Locate_type.VERTEX;
     
     LinkedList<Constraint> cst_list=new LinkedList<Constraint>();

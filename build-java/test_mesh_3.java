@@ -12,8 +12,6 @@ import java.util.LinkedList;
 
 public class test_mesh_3 {
   public static void main(String arg[]){
-    System.loadLibrary("CGAL_Mesh_3");
-    
     Polyhedron_3 poly=new Polyhedron_3("elephant.off");
     Mesh_3_parameters params=new Mesh_3_parameters();
     Polyhedral_mesh_domain_3 domain= new Polyhedral_mesh_domain_3(poly);

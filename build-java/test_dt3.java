@@ -16,7 +16,6 @@ import java.util.Iterator;
 
 public class test_dt3 {
   public static void main(String arg[]){
-  System.loadLibrary("CGAL_Triangulation_3");
   Delaunay_triangulation_3 t=new Delaunay_triangulation_3();
     
   Delaunay_triangulation_3_Vertex_handle v1=t.insert(new Point_3(1,1,1));

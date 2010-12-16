@@ -215,3 +215,9 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 %rename(__str__) toString; //print overloading in python using java
 %rename(__eq__)  equals;   //equalily overloading in python using java
 #endif
+
+//macro for defining void DECL macro for swig parsing
+%define Decl_void_type()
+#define SWIG_CGAL_JAVA_DECL
+#define SWIG_CGAL_KERNEL_DECL
+%enddef

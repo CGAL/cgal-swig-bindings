@@ -1,7 +1,21 @@
 %module CGAL_Mesh_3
 
-
 %include "SWIG_CGAL/common.i"
+Decl_void_type()
+
+%pragma(java) jniclasscode=%{
+  static {
+    try {
+        System.loadLibrary("CGAL_Mesh_3");
+        System.loadLibrary("CGAL_Java");
+    } catch (UnsatisfiedLinkError e) {
+      System.err.println("Native code library CGAL_Mesh_3 failed to load. \n" + e);
+      System.exit(1);
+    }
+  }
+%}
+
+
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/Weighted_point_3.h"
 %import  "SWIG_CGAL/Kernel/Segment_3.h"

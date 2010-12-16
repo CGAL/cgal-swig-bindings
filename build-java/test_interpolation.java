@@ -79,8 +79,6 @@ public class test_interpolation {
   
   public static void main(String arg[])
   {
-    System.loadLibrary("CGAL_Interpolation");
-    
     System.out.println("Testing interpolation");
     
     Delaunay_triangulation_2 dt= new Delaunay_triangulation_2();

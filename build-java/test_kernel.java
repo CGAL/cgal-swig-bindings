@@ -6,8 +6,6 @@ import java.util.LinkedList;
 
 public class test_kernel {
   public static void main(String arg[]){
-    System.loadLibrary("CGAL_Kernel");
-
     LinkedList<Point_2> ptlst=new LinkedList<Point_2>();
     ptlst.add( new Point_2(0,0) );
     ptlst.add( new Point_2(0,1) );

@@ -13,11 +13,6 @@ import java.util.LinkedList;
 
 public class test_polyhedron {
   public static void main(String arg[]){
-    //System.loadLibrary("CGAL_Kernel");
-    System.loadLibrary("CGAL_Polyhedron_3");
-    //System.loadLibrary("CGAL_Java");
-    
-    
     System.out.println("START");
     //~ Polyhedron_3 p=new Polyhedron_3("./elephant.off");
     Polyhedron_3 p=new Polyhedron_3();

@@ -8,7 +8,6 @@ import java.util.Iterator;
 
 public class test_rt3 {
   public static void main(String arg[]){
-  System.loadLibrary("CGAL_Triangulation_3");
   Regular_triangulation_3 t=new Regular_triangulation_3();
     
   Regular_triangulation_3_Vertex_handle v1=t.insert(new Weighted_point_3(new Point_3(1,1,1),1));

@@ -1,6 +1,20 @@
 %module CGAL_Spatial_searching
 
 %include "SWIG_CGAL/common.i"
+Decl_void_type()
+
+%pragma(java) jniclasscode=%{
+  static {
+    try {
+        System.loadLibrary("CGAL_Spatial_searching");
+    } catch (UnsatisfiedLinkError e) {
+      System.err.println("Native code library CGAL_Spatial_searching failed to load. \n" + e);
+      System.exit(1);
+    }
+  }
+%}
+
+
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/Point_2.h"
 %import  "SWIG_CGAL/Kernel/Point_3.h"

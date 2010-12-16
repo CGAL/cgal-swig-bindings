@@ -1,14 +1,30 @@
 %module CGAL_Kernel
 
+%include "SWIG_CGAL/common.i"
+Decl_void_type()
+
+%pragma(java) jniclasscode=%{
+  static {
+    try {
+        System.loadLibrary("CGAL_Kernel");
+        System.loadLibrary("CGAL_Java");
+    } catch (UnsatisfiedLinkError e) {
+      System.err.println("Native code library CGAL_Kernel failed to load. \n" + e);
+      System.exit(1);
+    }
+  }
+%}
+
+
 //Special treatment for enum in java
 #ifdef SWIGJAVA
 %include "enums.swg"
 %javaconst(1);
 #endif
 
+
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Common/Input_iterator.h"
-%include "SWIG_CGAL/common.i"
 
 //%typemap(javapackage) Point_3 "CGAL.Kernel"
 

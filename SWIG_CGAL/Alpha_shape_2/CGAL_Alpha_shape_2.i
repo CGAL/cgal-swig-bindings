@@ -1,5 +1,21 @@
 %module CGAL_Alpha_shape_2
 
+%include "SWIG_CGAL/common.i"
+Decl_void_type()
+
+%pragma(java) jniclasscode=%{
+  static {
+    try {
+        System.loadLibrary("CGAL_Alpha_shape_2");
+        System.loadLibrary("CGAL_Java");
+    } catch (UnsatisfiedLinkError e) {
+      System.err.println("Native code library CGAL_Alpha_shape_2 failed to load. \n" + e);
+      System.exit(1);
+    }
+  }
+%}
+
+
 #define CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
 
 //Special treatment for enum in java
@@ -9,7 +25,6 @@
 #endif
 
 
-%include "SWIG_CGAL/common.i"
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/Point_2.h"
 %import  "SWIG_CGAL/Kernel/Segment_2.h"

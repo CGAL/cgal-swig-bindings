@@ -1,11 +1,26 @@
 %module CGAL_Mesh_2
 
+%include "SWIG_CGAL/common.i"
+Decl_void_type()
+
+%pragma(java) jniclasscode=%{
+  static {
+    try {
+        System.loadLibrary("CGAL_Mesh_2");
+        System.loadLibrary("CGAL_Java");
+    } catch (UnsatisfiedLinkError e) {
+      System.err.println("Native code library CGAL_Mesh_2 failed to load. \n" + e);
+      System.exit(1);
+    }
+  }
+%}
+
+
 #ifdef SWIGJAVA
 %include "enums.swg"
 %javaconst(1);
 #endif
 
-%include "SWIG_CGAL/common.i"
 %import  "SWIG_CGAL/Common/Macros.h"
 
 %include "SWIG_CGAL/Mesh_2/config.i"
@@ -30,7 +45,6 @@
 
 %include "SWIG_CGAL/Triangulation_2/config.i"
 %import "SWIG_CGAL/Triangulation_2/CGAL_Triangulation_2.i"
-
 
 %pragma(java) jniclassimports=%{import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_2; import CGAL.Kernel.Point_2; import CGAL.Kernel.Segment_2;  import CGAL.Kernel.Triangle_2; import java.util.Iterator; import CGAL.Triangulation_2.Constraint; import java.util.Collection;%}
 %pragma(java) moduleimports  =%{import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_2; import java.util.Iterator;import CGAL.Kernel.Point_2;%}

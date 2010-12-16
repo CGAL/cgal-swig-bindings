@@ -136,8 +136,6 @@ public class test_mesh_2 {
   }
   
   public static void main(String arg[]){
-    System.loadLibrary("CGAL_Mesh_2");
-    
     test_conforming();
     test_meshing();
     test_mesh_class();

@@ -1,6 +1,20 @@
 %module CGAL_Interpolation
 
 %include "SWIG_CGAL/common.i"
+Decl_void_type()
+
+%pragma(java) jniclasscode=%{
+  static {
+    try {
+        System.loadLibrary("CGAL_Interpolation");
+    } catch (UnsatisfiedLinkError e) {
+      System.err.println("Native code library CGAL_Interpolation failed to load. \n" + e);
+      System.exit(1);
+    }
+  }
+%}
+
+
 %import  "SWIG_CGAL/Common/Macros.h"
 
 //include files
@@ -48,6 +62,8 @@
 %import "SWIG_CGAL/Kernel/Vector_3.h"
 %import "SWIG_CGAL/Kernel/Vector_2.h"
 %import "SWIG_CGAL/Kernel/Weighted_point_3.h"
+
+
 
 %pragma(java) jniclassimports  =%{import CGAL.Triangulation_2.Delaunay_triangulation_2; import CGAL.Triangulation_3.Delaunay_triangulation_3; import CGAL.Triangulation_2.Regular_triangulation_2; import CGAL.Kernel.Point_2; import CGAL.Kernel.Point_3; import CGAL.Kernel.Vector_3; import CGAL.Kernel.Vector_2; import CGAL.Kernel.Weighted_point_2; import java.util.Collection; import CGAL.Triangulation_2.Delaunay_triangulation_2_Face_handle; import CGAL.Triangulation_2.Delaunay_triangulation_2_Vertex_handle; import CGAL.Triangulation_2.Regular_triangulation_2_Face_handle; import CGAL.Triangulation_2.Regular_triangulation_2_Vertex_handle; import java.util.Iterator; import CGAL.Triangulation_2.Delaunay_triangulation_2_Edge; import CGAL.Triangulation_2.Regular_triangulation_2_Edge; import CGAL.Triangulation_3.Delaunay_triangulation_3_Cell_handle;%}
 %pragma(java) moduleimports    =%{import CGAL.Triangulation_2.Delaunay_triangulation_2; import CGAL.Triangulation_3.Delaunay_triangulation_3; import CGAL.Triangulation_2.Regular_triangulation_2; import CGAL.Kernel.Point_2; import CGAL.Kernel.Point_3; import CGAL.Kernel.Vector_3; import CGAL.Kernel.Vector_2; import CGAL.Kernel.Weighted_point_2; import java.util.Collection; import CGAL.Triangulation_2.Delaunay_triangulation_2_Face_handle; import CGAL.Triangulation_2.Delaunay_triangulation_2_Vertex_handle; import CGAL.Triangulation_2.Regular_triangulation_2_Face_handle; import CGAL.Triangulation_2.Regular_triangulation_2_Vertex_handle; import java.util.Iterator; import CGAL.Triangulation_2.Delaunay_triangulation_2_Edge; import CGAL.Triangulation_2.Regular_triangulation_2_Edge; import CGAL.Triangulation_3.Delaunay_triangulation_3_Cell_handle;%}
