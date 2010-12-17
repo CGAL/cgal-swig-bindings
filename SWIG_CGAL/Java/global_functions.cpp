@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <cassert>
 #include <SWIG_CGAL/Java/global_functions.h>
 
 //function called when library is loaded in Java
@@ -14,7 +15,7 @@ JavaVM* & get_cached_jvm(){
 
 JNIEnv * JNU_GetEnv() {
   JNIEnv *env;
-  CGAL_precondition(get_cached_jvm()!=NULL);
+  assert(get_cached_jvm()!=NULL);
   jint rc = get_cached_jvm()->GetEnv((void **)&env, JNI_VERSION_1_2);
   if (rc == JNI_EDETACHED)
     throw std::runtime_error("current thread not attached");
