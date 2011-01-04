@@ -15,6 +15,8 @@ import CGAL.AABB_tree.Optional_Integer;
 import CGAL.AABB_tree.Object_and_Integer;
 import CGAL.AABB_tree.Object_and_Polyhedron_3_Facet_handle;
 import CGAL.AABB_tree.Object_and_Polyhedron_3_Halfedge_handle;
+import CGAL.AABB_tree.AABB_tree_Segment_3_soup;
+
 import CGAL.Kernel.CGAL_Object;
 import CGAL.Kernel.CGAL_Kernel;
 
@@ -25,6 +27,14 @@ public class test_aabb {
   public static void main(String arg[]){
     System.out.println("Testing");
     
+    LinkedList<Segment_3> segments = new LinkedList<Segment_3>();
+    segments.add(new Segment_3(new Point_3(1,2,3),new Point_3(6,4,5)));
+    segments.add(new Segment_3(new Point_3(1,2,3),new Point_3(16,41,51)));
+    segments.add(new Segment_3(new Point_3(1,2,3),new Point_3(65,45,5)));
+    segments.add(new Segment_3(new Point_3(1,2,3),new Point_3(64,44,5)));
+    
+    AABB_tree_Segment_3_soup tree_seg = new AABB_tree_Segment_3_soup(segments.iterator());
+
     Polyhedron_3 poly=new Polyhedron_3();
     poly.make_tetrahedron(new Point_3(0,0,0),new Point_3(1,0,0),new Point_3(0,1,0),new Point_3(0,0,1));
     

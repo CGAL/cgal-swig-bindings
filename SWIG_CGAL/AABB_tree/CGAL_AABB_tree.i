@@ -84,7 +84,7 @@ Decl_void_type()
 Typemap_for_Input_iterator(Primitive_iterator_helper< SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> >::input,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>,Polyhedron_3_Facet_handle,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>::cpp_base,SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t,"(LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;)J",rebuild)
 Typemap_for_Input_iterator(Primitive_iterator_helper< SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >::input,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,Polyhedron_3_Halfedge_handle,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>::cpp_base,SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t,"(LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;)J",rebuild)
 Typemap_for_Input_iterator(Primitive_iterator_helper< Triangle_3 >::input,Triangle_3,Triangle_3,Triangle_3::cpp_base,SWIGTYPE_p_Triangle_3,"(LCGAL/Kernel/Triangle_3;)J",rebuild)
-Typemap_for_Input_iterator(Primitive_iterator_helper< Segment_3 >::input,Segment_3,Segment_3,Segment_3::cpp_base,SWIGTYPE_p_Segment_3,"(LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;)J",rebuild)
+Typemap_for_Input_iterator(Primitive_iterator_helper< Segment_3 >::input,Segment_3,Segment_3,Segment_3::cpp_base,SWIGTYPE_p_Segment_3,"(LCGAL/Kernel/Segment_3;)J",rebuild)
 #ifdef SWIGPYTHON
 Typemap_for_Input_iterator_additional_function(AABB_tree_wrapper::AABB_tree_wrapper)
 #endif
