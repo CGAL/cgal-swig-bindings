@@ -3,6 +3,9 @@ import CGAL.Kernel.Weighted_point_2;
 import CGAL.Kernel.CGAL_Kernel;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2;
 import CGAL.Triangulation_2.Regular_triangulation_2;
+import CGAL.Triangulation_2.Delaunay_triangulation_2;
+import CGAL.Triangulation_2.Delaunay_triangulation_2_Vertex_handle;
+import CGAL.Triangulation_2.Delaunay_triangulation_2_Face_handle;
 import CGAL.Triangulation_2.Regular_triangulation_2_Vertex_handle;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Vertex_handle;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Face_handle;
@@ -11,9 +14,9 @@ import CGAL.Triangulation_2.Constraint;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Constraint;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Context;
 import CGAL.Triangulation_2.Locate_type;
+import CGAL.Java.JavaData;
 import java.util.Iterator;
 import java.util.LinkedList;
-
 
 public class test_t2 {
   public static void main(String arg[]){
@@ -135,6 +138,23 @@ public class test_t2 {
     for (Regular_triangulation_2_Vertex_handle rtvh : rt.hidden_vertices())
       ++shv;
     System.out.println("Nb hidden vertices: "+shv);
+    
+    
+    System.out.println("Testing Delaunay triangulation 2 with info in vertices and faces");
+    Delaunay_triangulation_2 dt2 = new Delaunay_triangulation_2();
+    dt2.insert_range(lst.iterator());
+    int k=0;
+    for (Delaunay_triangulation_2_Vertex_handle vh : dt2.finite_vertices())
+      vh.info().set_data(new Double(++k));
+    for (Delaunay_triangulation_2_Vertex_handle vh : dt2.finite_vertices())
+      System.out.println( vh.info().get_data() );
+
+    for (Delaunay_triangulation_2_Face_handle fh : dt2.finite_faces())
+      fh.info().set_data(new Double(++k));
+    for (Delaunay_triangulation_2_Face_handle fh : dt2.finite_faces())
+      System.out.println( fh.info().get_data() );
+    
+    
     
   }
 

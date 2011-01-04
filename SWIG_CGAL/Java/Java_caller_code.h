@@ -54,7 +54,7 @@ namespace internal{
     }
   };
   
-}
+} //namespace internal
 #endif
 
 template <class Input_wrapper,class Output_wrapper>
