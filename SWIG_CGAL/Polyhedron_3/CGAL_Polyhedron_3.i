@@ -29,7 +29,7 @@ Decl_void_type()
   #include <SWIG_CGAL/Polyhedron_3/polyhedron_3_iterators.h>
 %}
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
 
 //definitions
 %include "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
