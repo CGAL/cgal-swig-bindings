@@ -7,6 +7,9 @@
   JavaData& info(){
     return $self->get_data_ref()->info();
   }
+  void get_info(JavaData& jd){
+    jd=$self->get_data_ref()->info();
+  }
 }
 %typemap(javaimports)                               CNAME %{import CGAL.Java.JavaData; EXTRA%}
 %enddef

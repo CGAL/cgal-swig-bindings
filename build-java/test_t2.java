@@ -151,9 +151,11 @@ public class test_t2 {
 
     for (Delaunay_triangulation_2_Face_handle fh : dt2.finite_faces())
       fh.info().set_data(new Double(++k));
-    for (Delaunay_triangulation_2_Face_handle fh : dt2.finite_faces())
-      System.out.println( fh.info().get_data() );
-    
+    for (Delaunay_triangulation_2_Face_handle fh : dt2.finite_faces()){
+      JavaData jd = new JavaData();
+      fh.get_info(jd);
+      System.out.println( jd.get_data() );
+    }
     
     
   }
