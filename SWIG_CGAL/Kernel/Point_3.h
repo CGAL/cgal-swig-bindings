@@ -23,6 +23,9 @@ public:
   double y() const;
   double z() const;
   bool equals(const Point_3&);
+  void set_coordinates(double x,double y,double z){
+    data=cpp_base(x,y,z);
+  };
   
   std::string toString();
 

@@ -18,7 +18,10 @@ public:
   double x() const;
   double y() const;
   bool equals(const Point_2&);
-  
+  void set_coordinates(double x,double y){
+    data=cpp_base(x,y);
+  };
+
   std::string toString();
 
   //the C++ object is shared between target languages
