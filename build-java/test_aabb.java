@@ -17,6 +17,7 @@ import CGAL.AABB_tree.Object_and_Polyhedron_3_Facet_handle;
 import CGAL.AABB_tree.Object_and_Polyhedron_3_Halfedge_handle;
 import CGAL.AABB_tree.AABB_tree_Segment_3_soup;
 
+import CGAL.AABB_tree.Object;
 import CGAL.Kernel.CGAL_Object;
 import CGAL.Kernel.CGAL_Kernel;
 
@@ -26,7 +27,7 @@ import java.util.Vector;
 public class test_aabb {
   public static void main(String arg[]){
     System.out.println("Testing");
-    
+
     LinkedList<Segment_3> segments = new LinkedList<Segment_3>();
     segments.add(new Segment_3(new Point_3(1,2,3),new Point_3(6,4,5)));
     segments.add(new Segment_3(new Point_3(1,2,3),new Point_3(16,41,51)));
@@ -86,7 +87,7 @@ public class test_aabb {
     if (!opt_obj_fh.empty())
     {
       Object_and_Polyhedron_3_Facet_handle opfh=opt_obj_fh.value();
-      CGAL_Object obj1=opfh.getFirst();
+      Object obj1=opfh.getFirst();
       if ( obj1.is_Point_3() )
         System.out.println("OK");
       else

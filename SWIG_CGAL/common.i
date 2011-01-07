@@ -220,4 +220,5 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 %define Decl_void_type()
 #define SWIG_CGAL_JAVA_DECL
 #define SWIG_CGAL_KERNEL_DECL
+#define SWIG_CGAL_AABB_TREE_DECL
 %enddef

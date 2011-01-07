@@ -6,7 +6,7 @@
 #include <SWIG_CGAL/Common/Optional.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <SWIG_CGAL/Kernel/Plane_3.h>
-#include <SWIG_CGAL/Kernel/CGAL_Object.h>
+#include <SWIG_CGAL/AABB_tree/Object.h>
 #include <SWIG_CGAL/Kernel/Segment_3.h>
 #include <SWIG_CGAL/Kernel/Triangle_3.h>
 #include <SWIG_CGAL/Kernel/Ray_3.h>
@@ -20,7 +20,7 @@ struct Primitive_iterator_helper
   typedef std::pair<Input_iterator_wrapper<Primitive_object,typename internal::Converter<Primitive_object>::result_type>,
                     Input_iterator_wrapper<Primitive_object,typename internal::Converter<Primitive_object>::result_type> >                      input;
   typedef boost::function_output_iterator< Container_writer<Primitive_object,typename internal::Converter<Primitive_object>::result_type > >     output;
-  typedef boost::function_output_iterator< Container_writer<std::pair<CGAL_Object,Primitive_object>,std::pair<CGAL::Object,typename internal::Converter<Primitive_object>::result_type > > >     output2;
+  typedef boost::function_output_iterator< Container_writer<std::pair<Object,Primitive_object>,std::pair<CGAL::Object,typename internal::Converter<Primitive_object>::result_type > > >     output2;
 };
 
 typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
@@ -37,7 +37,7 @@ public:
   #endif
   typedef typename Primitive_iterator_helper<Primitive_object>::input Primitive_range;
   typedef std::pair<Point_3,Primitive_id> Point_and_primitive_id;
-  typedef std::pair<CGAL_Object,Primitive_id>  Object_and_primitive_id;
+  typedef std::pair<Object,Primitive_id>  Object_and_primitive_id;
   typedef Optional<Primitive_id> Optional_primitive_id;
   typedef Optional<Object_and_primitive_id> Optional_object_and_primitive_id;
 
