@@ -31,8 +31,10 @@
 
 #ifdef ADD_JAVA_DATA_IN_FACET_CDT_PLUS_2
 //assign JavaData to Face_handle of CGAL_CDTplus2
-#define i_Face_handle_CDT2_plus SWIG_Triangulation_2::CGAL_Face_handle<CGAL_CDTplus2,Point_2>
+#define i_Face_handle_CDT2_plus   SWIG_Triangulation_2::CGAL_Face_handle<CGAL_CDTplus2,Point_2>
+#define i_Vertex_handle_CDT2_plus SWIG_Triangulation_2::CGAL_Vertex_handle<CGAL_CDTplus2,Point_2>
 add_JavaData_info_to_class(i_Face_handle_CDT2_plus,)
+add_JavaData_info_to_class(i_Vertex_handle_CDT2_plus,import CGAL.Kernel.Point_2;)
 #endif
 
 
