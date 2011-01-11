@@ -75,10 +75,10 @@ typedef CGAL::Constrained_Delaunay_triangulation_2<EPIC_Kernel>             CGAL
 typedef CGAL::Constrained_triangulation_plus_2<CGAL_CDT2>                   CGAL_CDTplus2;
 #else
 #include  <CGAL/Triangulation_face_base_with_info_2.h>  
-typedef CGAL::Triangulation_vertex_base_2<EPIC_Kernel>                      Vb;
+typedef CGAL::Triangulation_vertex_base_with_info_2<JavaData,EPIC_Kernel>   Vbase_CDT2_plus;
 typedef CGAL::Triangulation_face_base_with_info_2<JavaData,EPIC_Kernel>     Fbi;
 typedef CGAL::Constrained_triangulation_face_base_2<EPIC_Kernel, Fbi>       Fb;
-typedef CGAL::Triangulation_data_structure_2<Vb,Fb>                         TDS;
+typedef CGAL::Triangulation_data_structure_2<Vbase_CDT2_plus,Fb>            TDS;
 typedef CGAL::Exact_intersections_tag                                       Itag;
 typedef CGAL::Constrained_Delaunay_triangulation_2<EPIC_Kernel, TDS, Itag>  CDT;
 typedef CGAL::Constrained_triangulation_plus_2<CDT>                         CGAL_CDTplus2;  
