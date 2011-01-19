@@ -36,6 +36,11 @@ public:
   FORWARD_CALL_0(double,squared_length)
   FORWARD_CALL_0(int,dimension)
 //
+
+  void set_coordinates(double x,double y,double z){
+    data=cpp_base(x,y,z);
+  };
+
   bool equals(const Vector_3&);
   std::string toString();
   #ifdef NO_SWIG_OR_PYTHON
