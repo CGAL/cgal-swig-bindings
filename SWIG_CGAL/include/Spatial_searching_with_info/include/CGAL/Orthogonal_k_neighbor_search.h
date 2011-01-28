@@ -11,8 +11,8 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 //
-// $URL: svn+ssh://sloriot@scm.gforge.inria.fr/svn/cgal/trunk/Spatial_searching/include/CGAL/Orthogonal_k_neighbor_search.h $
-// $Id: Orthogonal_k_neighbor_search.h 58162 2010-08-19 12:24:38Z sloriot $
+// $URL: svn+ssh://sloriot@scm.gforge.inria.fr/svn/cgal/branches/experimental-packages/Spatial_searching_with_info/Spatial_searching/include/CGAL/Orthogonal_k_neighbor_search.h $
+// $Id: Orthogonal_k_neighbor_search.h 60975 2011-01-28 13:09:56Z sloriot $
 // 
 //
 // Author(s)     : Gael Guennebaud (gael.guennebaud@inria.fr), Hans Tangelder (<hanst@cs.uu.nl>)
@@ -25,7 +25,7 @@
 namespace CGAL {
 
 template <class SearchTraits, 
-          class Distance= Euclidean_distance<SearchTraits>,
+          class Distance= typename internal::Spatial_searching_default_distance<SearchTraits>::type,
           class Splitter= Sliding_midpoint<SearchTraits> ,
           class Tree= Kd_tree<SearchTraits, Splitter, Tag_true> >
 class Orthogonal_k_neighbor_search: public internal::K_neighbor_search<SearchTraits,Distance,Splitter,Tree> {
@@ -49,7 +49,7 @@ public:
       distance_to_root = this->distance_instance.max_distance_to_rectangle(q, tree.bounding_box());
 
 
-    typename SearchTraits::Construct_cartesian_const_iterator_d construct_it;
+    typename SearchTraits::Construct_cartesian_const_iterator_d construct_it=tree.traits().construct_cartesian_const_iterator_d_object();
     query_object_it = construct_it(this->query_object);
       
     compute_neighbors_orthogonally(tree.root(), distance_to_root);      

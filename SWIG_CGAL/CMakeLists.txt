@@ -82,7 +82,7 @@ find_package(SWIG REQUIRED)
 option( BUILD_PYTHON "Build python bindings" ON )
 option( BUILD_JAVA "Build java bindings" ON )
 
-include_directories(BEFORE include)
+include_directories(BEFORE include include/Spatial_searching_with_info/include)
 
 if ( CGAL_FOUND )
   include( ${CGAL_USE_FILE} )

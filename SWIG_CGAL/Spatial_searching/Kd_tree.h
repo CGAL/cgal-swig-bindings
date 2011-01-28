@@ -12,8 +12,9 @@ DECLARE_ITERATOR_CLASS_2(iterator,Kd_tree_iterator)
 
 template <class Query>
 struct Query_iterator_helper{
-  typedef std::pair<Input_iterator_wrapper<Query,typename Query::cpp_base>,Input_iterator_wrapper<Query,typename Query::cpp_base> > input;
-  typedef boost::function_output_iterator< Container_writer<Query,typename Query::cpp_base> >                                       output;
+  typedef typename internal::Converter<Query>::result_type Base;
+  typedef std::pair<Input_iterator_wrapper<Query,Base>,Input_iterator_wrapper<Query,Base> > input;
+  typedef boost::function_output_iterator< Container_writer<Query,Base> >                                       output;
 };
 
 template<class Cpp_base, class Query, class Fuzzy_sphere, class Fuzzy_iso_box>

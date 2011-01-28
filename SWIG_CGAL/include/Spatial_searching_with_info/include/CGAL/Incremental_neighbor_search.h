@@ -11,8 +11,8 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 //
-// $URL: svn+ssh://sloriot@scm.gforge.inria.fr/svn/cgal/trunk/Spatial_searching/include/CGAL/Incremental_neighbor_search.h $
-// $Id: Incremental_neighbor_search.h 59329 2010-10-22 13:17:52Z sloriot $
+// $URL: svn+ssh://sloriot@scm.gforge.inria.fr/svn/cgal/branches/experimental-packages/Spatial_searching_with_info/Spatial_searching/include/CGAL/Incremental_neighbor_search.h $
+// $Id: Incremental_neighbor_search.h 60975 2011-01-28 13:09:56Z sloriot $
 // 
 //
 // Author(s)     : Hans Tangelder (<hanst@cs.uu.nl>)
@@ -31,7 +31,7 @@
 namespace CGAL {
 
   template <class SearchTraits, 
-            class Distance_=Euclidean_distance<SearchTraits>,
+            class Distance_=typename internal::Spatial_searching_default_distance<SearchTraits>::type,
             class Splitter_ = Sliding_midpoint<SearchTraits>,
             class Tree_=Kd_tree<SearchTraits, Splitter_, Tag_false> >
   class Incremental_neighbor_search { 
@@ -45,7 +45,7 @@ namespace CGAL {
     typedef typename Tree::Point_d_iterator Point_d_iterator;
     typedef typename Tree::Node_handle Node_handle;
     typedef typename Tree::Splitter Splitter;
-    typedef Kd_tree_rectangle<SearchTraits> Node_box;
+    typedef Kd_tree_rectangle<FT> Node_box;
     typedef typename Distance::Query_item Query_item;
 
     class Cell {

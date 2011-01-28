@@ -1,6 +1,7 @@
 #ifndef CGAL_SWIG_INPUT_ITERATOR_H
 #define CGAL_SWIG_INPUT_ITERATOR_H
 
+#include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/triple.h>
 
 #ifndef SWIG  
@@ -10,7 +11,7 @@ struct Iterator_helper{
   template <class Iterator>
   static T convert(const Iterator& it,typename boost::enable_if< 
                                                       boost::is_same<
-                                                        typename T::cpp_base,
+                                                        typename internal::Converter<T>::result_type,
                                                         typename std::iterator_traits<Iterator>::value_type
                                                       >
                                               >::type* =0)
@@ -23,7 +24,7 @@ struct Iterator_helper{
                                     boost::is_same< 
                                       boost::false_type,
                                       typename boost::is_same<
-                                        typename T::cpp_base,
+                                        typename internal::Converter<T>::result_type,
                                         typename std::iterator_traits<Ti>::value_type
                                       >::type
                                     >

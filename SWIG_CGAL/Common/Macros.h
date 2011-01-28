@@ -1,6 +1,10 @@
 #ifndef CGAL_SWIG_MACROS_H
 #define CGAL_SWIG_MACROS_H
 
+#ifdef SWIGJAVA
+#include <SWIG_CGAL/Java/JavaData.h>
+#endif
+
 #include <SWIG_CGAL/Common/triple.h>
 #include <CGAL/utility.h>
 
@@ -38,6 +42,9 @@ SPECIALIZE_CONVERTER(unsigned)
 SPECIALIZE_CONVERTER(bool)
 SPECIALIZE_CONVERTER(double)
 SPECIALIZE_CONVERTER(float)
+#ifdef SWIGJAVA
+SPECIALIZE_CONVERTER(JavaData)
+#endif
 
 
 #define SPECIALIZE_CONVERTER_ENUM_2(ENUM,NSPACE)     \

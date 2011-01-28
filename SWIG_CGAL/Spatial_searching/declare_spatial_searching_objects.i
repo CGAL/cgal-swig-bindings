@@ -36,4 +36,33 @@ Iterator_for_java(NN_search_iterator,Point_with_transformed_distance_##DIM,impor
 %template(EXPOSEDNAMEPREFIX##_neighbor_search_iterator_##DIM) NN_search_iterator<CGAL_##OTAG##_S_##DIM,SWIG_PTD_##DIM >;
 %enddef
 
+
+%define Declare_spatial_searching_objects_with_info(EXPOSEDNAMEPREFIX,OTAG,POINT,DIM)
+%typemap(javaimports)       Kd_tree_wrapper%{import CGAL.Kernel.POINT; import CGAL.Java.JavaData; import java.util.Iterator; import java.util.Collection;%}
+%template(EXPOSEDNAMEPREFIX##_neighbor_search_tree_with_info_##DIM) Kd_tree_wrapper<CGAL_##OTAG##_T_WI_##DIM,std::pair<POINT,JavaData>,SWIG_FS_WI_##DIM,SWIG_FB_WI_##DIM>;
+%typemap(javaimports)       NN_search_wrapper%{import CGAL.Kernel.POINT; import CGAL.Java.JavaData;%}
+%template(EXPOSEDNAMEPREFIX##_neighbor_search_with_info_##DIM) NN_search_wrapper<CGAL_##OTAG##_S_WI_##DIM,POINT,SWIG_##OTAG##_T_WI_##DIM>;
+
+//typemaps for iterators
+Iterator_for_java(Kd_tree_iterator,Point_with_info_##DIM,)
+%template(EXPOSEDNAMEPREFIX##_neighbor_search_tree_iterator_with_info_##DIM) Kd_tree_iterator<CGAL_##OTAG##_T_WI_##DIM,std::pair<POINT,JavaData> >;
+
+Iterator_for_java(NN_search_iterator,Point_with_info_with_transformed_distance_##DIM,)
+%template(EXPOSEDNAMEPREFIX##_neighbor_search_iterator_with_info_##DIM) NN_search_iterator<CGAL_##OTAG##_S_WI_##DIM,SWIG_PTD_WI_##DIM >;
+%enddef
+
+%define Declare_spatial_searching_objects_incremental_with_info(EXPOSEDNAMEPREFIX,OTAG,POINT,DIM)
+%typemap(javaimports)       Kd_tree_wrapper%{import CGAL.Kernel.POINT; import CGAL.Java.JavaData; import java.util.Iterator; import java.util.Collection;%}
+%template(EXPOSEDNAMEPREFIX##_neighbor_search_tree_with_info_##DIM) Kd_tree_wrapper<CGAL_##OTAG##_T_WI_##DIM,std::pair<POINT,JavaData>,SWIG_FS_WI_##DIM,SWIG_FB_WI_##DIM>;
+%typemap(javaimports)       NN_search_wrapper_incremental%{import CGAL.Kernel.POINT; import CGAL.Java.JavaData;%}
+%template(EXPOSEDNAMEPREFIX##_neighbor_search_with_info_##DIM) NN_search_wrapper_incremental<CGAL_##OTAG##_S_WI_##DIM,POINT,SWIG_##OTAG##_T_WI_##DIM>;
+
+//typemaps for iterators
+Iterator_for_java(Kd_tree_iterator,Point_with_info_##DIM,)
+%template(EXPOSEDNAMEPREFIX##_neighbor_search_tree_iterator_with_info_##DIM) Kd_tree_iterator<CGAL_##OTAG##_T_WI_##DIM,std::pair<POINT,JavaData> >;
+
+Iterator_for_java(NN_search_iterator,Point_with_info_with_transformed_distance_##DIM,)
+%template(EXPOSEDNAMEPREFIX##_neighbor_search_iterator_with_info_##DIM) NN_search_iterator<CGAL_##OTAG##_S_WI_##DIM,SWIG_PTD_WI_##DIM >;
+%enddef
+
 #endif
