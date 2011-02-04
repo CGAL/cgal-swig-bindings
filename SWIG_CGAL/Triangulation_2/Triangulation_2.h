@@ -11,6 +11,7 @@
 #include <SWIG_CGAL/Kernel/Triangle_2.h>
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Common/Reference_wrapper.h>
 
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 
@@ -88,6 +89,12 @@ public:
   FORWARD_CALL_AND_REF_2(Face_handle,locate,Point,Face_handle)
   FORWARD_CALL_2(Oriented_side,oriented_side,Face_handle,Point)
   FORWARD_CALL_2(Oriented_side,side_of_oriented_circle,Face_handle,Point)  
+  Face_handle locate(const Point& query, Reference_wrapper<SWIG_Triangulation_2::Locate_type>& lt, Reference_wrapper<int>& li,Face_handle hint=Face_handle()) const {
+    typename cpp_base::Locate_type cgal_lt;
+    typename Face_handle::cpp_base res = get_data().locate(query.get_data(),cgal_lt,li.object_ref(),hint.get_data());
+    lt.set(CGAL::enum_cast<SWIG_Triangulation_2::Locate_type>(cgal_lt));
+    return Face_handle(res);
+  }
 // Modifiers
 //  FORWARD_CALL_2(void,flip,Face_handle,int) TODO: ambiguous call in CDT (their exist an overload with Face_handle&) 
 #ifndef CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
@@ -159,8 +166,6 @@ public:
 //   bool  t.is_edge ( Vertex_handle va, Vertex_handle vb, Face_handle& fr, int & i)
 //   bool  t.includes_edge ( Vertex_handle va, Vertex_handle & vb, Face_handle& fr, int & i)
 //   bool  t.is_face ( Vertex_handle v1, Vertex_handle v2, Vertex_handle v3, Face_handle &fr)
-// Queries
-//   Face_handle  t.locate ( Point query, Locate_type& lt, int& li, Face_handle h =Face_handle())
 //I/O
 // ostream&  ostream& os << T  Inserts the triangulation t into the stream os.
 // istream&  istream& is >> T  Reads a triangulation from stream is and assigns it to t.

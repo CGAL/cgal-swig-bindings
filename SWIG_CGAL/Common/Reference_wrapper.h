@@ -8,8 +8,11 @@ public:
   Reference_wrapper(){}
   Reference_wrapper(const Object& k):i(k){}
 
+  #ifndef SWIG
   Object& object_ref(){return i;}
-  const Object& object() const {return i;}
+  #endif
+  void set(Object t){i=t;}
+  Object object() const {return i;}
 };
 
 #endif //SWIG_CGAL_COMMON_REFERENCE_WRAPPER_H

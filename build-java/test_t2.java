@@ -14,6 +14,8 @@ import CGAL.Triangulation_2.Constraint;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Constraint;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Context;
 import CGAL.Triangulation_2.Locate_type;
+import CGAL.Triangulation_2.Ref_int;
+import CGAL.Triangulation_2.Ref_Locate_type;
 import CGAL.Java.JavaData;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -161,7 +163,11 @@ public class test_t2 {
     for (Delaunay_triangulation_2_Face_handle fh : dt2.finite_faces())
       System.out.println( fh.info().get_data() );
 
-    
+    Ref_Locate_type loc = new Ref_Locate_type();
+    Ref_int rint = new Ref_int();
+    Delaunay_triangulation_2_Face_handle res =dt2.locate(array[0],loc,rint);
+    if (loc.object()==Locate_type.VERTEX && res.vertex(rint.object()).point().equals(array[0])) System.out.println("Locate OK");
+    else    throw new AssertionError("ERROR!!!!");
     
   }
 
