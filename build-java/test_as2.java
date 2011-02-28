@@ -3,6 +3,7 @@ import CGAL.Kernel.Weighted_point_2;
 import CGAL.Kernel.CGAL_Kernel;
 import CGAL.Alpha_shape_2.Alpha_shape_2;
 import CGAL.Alpha_shape_2.Weighted_alpha_shape_2;
+import CGAL.Alpha_shape_2.Weighted_alpha_shape_2_Face_handle;
 import CGAL.Alpha_shape_2.Mode;
 import CGAL.Alpha_shape_2.Classification_type;
 import CGAL.Alpha_shape_2.Alpha_shape_2_Alpha_iterator;
@@ -65,5 +66,13 @@ public class test_as2 {
     lst_wp.add( new Weighted_point_2( new Point_2(14,1) ,1 ) );
     
     was.make_alpha_shape(lst_wp.iterator());
+    
+    System.out.println("Test info");
+    int k=0;
+    for (Weighted_alpha_shape_2_Face_handle fh : was.finite_faces())
+      fh.info().set_data(new Double(++k));
+    for (Weighted_alpha_shape_2_Face_handle fh : was.finite_faces())
+      System.out.println( fh.info().get_data() );
+    
   }
 }
