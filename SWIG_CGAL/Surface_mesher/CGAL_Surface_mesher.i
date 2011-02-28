@@ -9,7 +9,7 @@ Decl_void_type()
         System.loadLibrary("CGAL_Surface_mesher");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library CGAL_Surface_mesher failed to load. \n" + e);
-      System.exit(1);
+      throw e;
     }
   }
 %}

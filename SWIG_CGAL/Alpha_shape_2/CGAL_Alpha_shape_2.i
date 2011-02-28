@@ -10,7 +10,7 @@ Decl_void_type()
         System.loadLibrary("CGAL_Java");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library CGAL_Alpha_shape_2 failed to load. \n" + e);
-      System.exit(1);
+      throw e;
     }
   }
 %}

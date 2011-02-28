@@ -10,7 +10,7 @@ Decl_void_type()
         System.loadLibrary("CGAL_Java");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library CGAL_AABB_tree failed to load. \n" + e);
-      System.exit(1);
+      throw e;
     }
   }
 %}

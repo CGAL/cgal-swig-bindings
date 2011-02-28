@@ -9,7 +9,7 @@ Decl_void_type()
         System.loadLibrary("CGAL_Interpolation");
     } catch (UnsatisfiedLinkError e) {
       System.err.println("Native code library CGAL_Interpolation failed to load. \n" + e);
-      System.exit(1);
+      throw e;
     }
   }
 %}
