@@ -10,6 +10,7 @@ template <class HDS>
 class Build_triangle : public CGAL::Modifier_base<HDS>{
 public:
     Build_triangle() {}
+#ifndef SWIG
     void operator()( HDS& hds) {
         // Postcondition: `hds' is a valid polyhedral surface.
         CGAL::Polyhedron_incremental_builder_3<HDS> B( hds, true);
@@ -26,12 +27,14 @@ public:
         B.end_facet();
         B.end_surface();
     }
+#endif    
 };
 
 template <class HDS>
 class Build_square : public CGAL::Modifier_base<HDS>{
 public:
     Build_square() {}
+#ifndef SWIG
     void operator()( HDS& hds) {
         // Postcondition: `hds' is a valid polyhedral surface.
         CGAL::Polyhedron_incremental_builder_3<HDS> B( hds, true);
@@ -50,6 +53,7 @@ public:
         B.end_facet();
         B.end_surface();
     }
+#endif
 };
 
 #include <SWIG_CGAL/Common/Macros.h>
@@ -73,7 +77,7 @@ public:
     std::back_insert_iterator< Point_container >   point_writer() {return std::back_inserter(points);}
     std::back_insert_iterator< Triple_container >  integer_triple_writer() {return std::back_inserter(triples);}
       
-      
+#ifndef SWIG      
     void operator()(HDS& hds) {
         // Postcondition: `hds' is a valid polyhedral surface.
         CGAL::Polyhedron_incremental_builder_3<HDS> B( hds, true);
@@ -95,6 +99,7 @@ public:
         
         B.end_surface();
     }
+#endif
 };
 
 #endif //CGAL_SWIG_POLYHEDRON_3_EXAMPLE_MODIFIER_H

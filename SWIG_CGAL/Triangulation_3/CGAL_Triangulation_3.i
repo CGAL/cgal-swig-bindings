@@ -23,6 +23,7 @@ Decl_void_type()
 %import  "SWIG_CGAL/Kernel/Tetrahedron_3.h"
 %import  "SWIG_CGAL/Kernel/Triangle_3.h"
 %import  "SWIG_CGAL/Kernel/enum.h"
+%import  "SWIG_CGAL/Kernel/Reference_wrappers.i"
 %include "SWIG_CGAL/Common/Input_iterator.h"
 
 //include files
@@ -34,7 +35,7 @@ Decl_void_type()
   #include <SWIG_CGAL/Triangulation_3/triangulation_iterators.h>
 %}
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Iterator; import java.util.Collection;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import CGAL.Kernel.Ref_int; import java.util.Iterator; import java.util.Collection;%}
 
 
 //definitions
@@ -45,7 +46,6 @@ Decl_void_type()
 %include "SWIG_CGAL/Common/triple.h"
 %include "SWIG_CGAL/Triangulation_3/triangulation_iterators.h"
 %include "SWIG_CGAL/Common/Output_iterator.h"
-%include "SWIG_CGAL/Common/Reference_wrapper.h"
 
 %include "SWIG_CGAL/Triangulation_3/config.i"
 
@@ -71,6 +71,5 @@ Declare_Delaunay_triangulation_3(Delaunay_triangulation_3,CGAL_DT3)
 //Declare_regular_triangulation_3(Regular_triangulation_3,CGAL_RT3)
 //#endif //SWIG_EXPOSE_REGULAR_TRIANGULATION_3
 
-//References
-%template(Ref_int) Reference_wrapper<int>;
+
 

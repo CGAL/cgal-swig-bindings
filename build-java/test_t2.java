@@ -14,7 +14,7 @@ import CGAL.Triangulation_2.Constraint;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Constraint;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Context;
 import CGAL.Triangulation_2.Locate_type;
-import CGAL.Triangulation_2.Ref_int;
+import CGAL.Kernel.Ref_int;
 import CGAL.Triangulation_2.Ref_Locate_type;
 import CGAL.Java.JavaData;
 import java.util.Iterator;

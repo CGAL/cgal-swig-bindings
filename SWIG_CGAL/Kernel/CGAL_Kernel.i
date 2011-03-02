@@ -120,7 +120,8 @@ Typemap_for_Input_iterator_additional_function(Polygon_2::Polygon_2)
 %include "SWIG_CGAL/Common/global_function_macros.h"
 %include "SWIG_CGAL/Kernel/global_function_signatures.h"
 
-
+//simple types
+%include "SWIG_CGAL/Kernel/Reference_wrappers.i"
 
 %extend Polygon_2{
   void insert( int i, Point_range_2 range){

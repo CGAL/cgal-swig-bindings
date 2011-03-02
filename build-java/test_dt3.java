@@ -9,7 +9,7 @@ import CGAL.Triangulation_3.Delaunay_triangulation_3_Facet;
 import CGAL.Triangulation_3.Delaunay_triangulation_3_Edge;
 import CGAL.Triangulation_3.Delaunay_triangulation_3_Cell_handle;
 import CGAL.Kernel.Bounded_side;
-import CGAL.Triangulation_3.Ref_int;
+import CGAL.Kernel.Ref_int;
 import java.util.LinkedList;
 import java.util.Iterator;
 

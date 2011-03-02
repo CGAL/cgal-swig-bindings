@@ -11,10 +11,11 @@ public:
   #ifndef SWIG
   typedef CGAL::Modifier_base<HDS> cpp_base;
   cpp_base&  get_data(){return *data;}
-  #endif
   
   Modifier_base(void* ptr):data(static_cast<cpp_base*>(ptr)){}
   //the storage of modifier is handled by this class
+  #endif    
+  Modifier_base():data(NULL){} //should not be used (only to not exposed void* to SWIG)
 };
 
 template <class Polyhedron_base,class Cpp_modifier>
@@ -24,7 +25,9 @@ public:
   Modifier_base<Polyhedron_base> get_modifier(){
     return Modifier_base<Polyhedron_base>( static_cast<void*>(&modifier) );
   }
+  #ifndef SWIG
   Cpp_modifier& get_modifier_cpp_base() {return modifier;}
+  #endif
 };
 
 

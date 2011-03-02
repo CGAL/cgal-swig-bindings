@@ -28,9 +28,8 @@ Decl_void_type()
 %import  "SWIG_CGAL/Kernel/Segment_2.h"
 %import  "SWIG_CGAL/Kernel/Triangle_2.h"
 %import  "SWIG_CGAL/Kernel/enum.h"
+%import  "SWIG_CGAL/Kernel/Reference_wrappers.i"
 %include "SWIG_CGAL/Common/Input_iterator.h"
-%include "SWIG_CGAL/Common/Reference_wrapper.h"
-
 
 %include "SWIG_CGAL/Triangulation_2/config.i"
 
@@ -44,7 +43,6 @@ Decl_void_type()
   #include <SWIG_CGAL/Triangulation_2/Constrained_triangulation_plus_2.h>
   #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
   #include <SWIG_CGAL/Triangulation_2/triangulation_iterators.h>
-  #include <SWIG_CGAL/Common/Reference_wrapper.h>
 %}
 
 
@@ -58,11 +56,10 @@ Decl_void_type()
 %include "SWIG_CGAL/Triangulation_2/triangulation_handles.h"
 %include "SWIG_CGAL/Triangulation_2/triangulation_iterators.h"
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Segment_2;  import CGAL.Kernel.Triangle_2;  import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Segment_2;  import CGAL.Kernel.Triangle_2;  import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
 
 //References
-%template(Ref_int) Reference_wrapper<int>;
-%template(Ref_Locate_type) Reference_wrapper<SWIG_Triangulation_2::Locate_type>;
+%include "SWIG_CGAL/Triangulation_2/Reference_wrappers.i"
 
 //Constraint
 %typemap(javaimports) std::pair<Point_2,Point_2> %{ import CGAL.Kernel.Point_2;%}

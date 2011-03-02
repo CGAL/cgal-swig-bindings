@@ -22,6 +22,7 @@ Decl_void_type()
 %import  "SWIG_CGAL/Kernel/Triangle_3.h"
 %import  "SWIG_CGAL/Kernel/Tetrahedron_3.h"
 %import  "SWIG_CGAL/Kernel/enum.h"
+%import  "SWIG_CGAL/Kernel/Reference_wrappers.i"
 
 
 //include files
@@ -65,7 +66,7 @@ Decl_void_type()
 %include "SWIG_CGAL/Mesh_3/config.i"
 %import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
       
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Weighted_point_3; import CGAL.Triangulation_3.Ref_int; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Collection; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Collection; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
 
 //extends Cell and vertex handles of Regular triangulation
 %extend SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>{

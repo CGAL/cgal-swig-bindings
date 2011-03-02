@@ -230,15 +230,18 @@ public:
     //set info for input_1
     local_jclass = JNU_GetEnv()->FindClass(input_type_1);
     input_class_1 = (jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
+    assert(input_class_1!=NULL);
     input_cst_id_1=JNU_GetEnv()->GetMethodID(input_class_1,"<init>", "(JZ)V");
     //set info for input_2
     local_jclass = JNU_GetEnv()->FindClass(input_type_2);
     input_class_2 = (jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
+    assert(input_class_2!=NULL);
     input_cst_id_2=JNU_GetEnv()->GetMethodID(input_class_2,"<init>", "(JZ)V");
     //set info for output
     local_jclass=JNU_GetEnv()->FindClass(output_type);
     output_class=(jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
     std::string output_signature=Helper::output_function_signature(output_type); 
+    assert(output_class!=NULL);
     get_output_id=JNU_GetEnv()->GetMethodID(output_class, Helper::output_function_name().c_str(),output_signature.c_str());
   }
   
