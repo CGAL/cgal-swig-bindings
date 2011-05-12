@@ -43,7 +43,7 @@ public:
   FORWARD_CALL_3(void,add_to_complex,Cell_handle,int,Surface_index)
   FORWARD_CALL_1(void,remove_from_complex,Cell_handle)
   FORWARD_CALL_1(void,remove_from_complex,Facet)
-  FORWARD_CALL_2(void,remove_from_complex,Cell_handle,int)
+  //~ FORWARD_CALL_2(void,remove_from_complex,Cell_handle,int)
   FORWARD_CALL_2(void,set_subdomain_index,Cell_handle,Subdomain_index)
   FORWARD_CALL_2(void,set_surface_index,Facet,Surface_index)
   FORWARD_CALL_3(void,set_surface_index,Cell_handle,int,Surface_index)
