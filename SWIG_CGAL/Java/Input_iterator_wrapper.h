@@ -57,6 +57,30 @@ struct Ref_counted_jdata{
   }
   
 };
+
+
+template <class Cpp_wrapper,class Cpp_base>
+struct Dereference_input_iterator{
+  typedef typename boost::mpl::if_<
+        boost::mpl::bool_<internal::Converter<Cpp_wrapper>::is_reference>, 
+        const Cpp_base&, Cpp_base
+      >::type result_type;
+  
+  static result_type dereference(Cpp_wrapper* current_ptr) {
+    return internal::Converter<Cpp_wrapper>::convert(*current_ptr); 
+  }
+};
+
+template <class Cpp_wrapper>
+struct Dereference_input_iterator<Cpp_wrapper,Cpp_wrapper>{
+  typedef Cpp_wrapper& result_type;
+  
+  static result_type dereference(Cpp_wrapper* current_ptr) {
+    return *current_ptr;
+  }
+};
+
+
 #endif
 
 template <class Cpp_wrapper,class Cpp_base>
@@ -65,12 +89,10 @@ public boost::iterator_facade<
     Input_iterator_wrapper<Cpp_wrapper,Cpp_base>,
     Cpp_base,
     boost::single_pass_traversal_tag,
-    typename boost::mpl::if_<
-          boost::mpl::bool_<internal::Converter<Cpp_wrapper>::is_reference>, 
-          const Cpp_base&, Cpp_base
-        >::type //this allows to use a reference for dereference when possible
+    typename Dereference_input_iterator<Cpp_wrapper,Cpp_base>::result_type//this allows to use a reference for dereference when possible
     >
 {
+  typedef Dereference_input_iterator<Cpp_wrapper,Cpp_base> Deref;
   friend class boost::iterator_core_access;
   std::string signature;
   Cpp_wrapper* current_ptr;
@@ -117,11 +139,7 @@ public:
   void increment(){assert(current_ptr!=NULL); update_with_next_point();}
   bool equal(const Input_iterator_wrapper & other) const{ return current_ptr==other.current_ptr; }
   
-  typename boost::mpl::if_<
-        boost::mpl::bool_<internal::Converter<Cpp_wrapper>::is_reference>, 
-        const Cpp_base&, Cpp_base
-      >::type
-    dereference() const { return internal::Converter<Cpp_wrapper>::convert(*current_ptr); }
+  typename Deref::result_type dereference() const { return Deref::dereference(current_ptr); }
 };
 
 

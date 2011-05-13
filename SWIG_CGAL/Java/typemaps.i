@@ -22,7 +22,7 @@
 }
 %enddef
 
-//IN typemap for reading points from an array of double
+//IN typemap for reading a vector of triple of int from an array of int
 %define Typemap_in_int_Array_to_Triple_int_Vector
 %typemap(jni) boost::shared_ptr<std::vector<boost::tuple<int,int,int> > > "jintArray"  //replace in jni class
 %typemap(jtype) boost::shared_ptr<std::vector<boost::tuple<int,int,int> > > "int[]"   //replace in java wrapping class
@@ -37,6 +37,27 @@
   jint* indices = jenv->GetIntArrayElements($input, &is_copy);
   for (int i = 0 ; i < size ; i++){
     res->push_back(boost::tuple<int,int,int>(indices[i*3],indices[i*3+1],indices[i*3+2]));
+  }
+  jenv->ReleaseIntArrayElements($input, indices, JNI_ABORT);
+  $1=res;
+}
+%enddef
+
+//IN typemap for a vector of int from an array of int
+%define Typemap_in_int_Array_to_int_Vector
+%typemap(jni) boost::shared_ptr<std::vector<int> > "jintArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr<std::vector<int> > "int[]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr<std::vector<int> > "int[]"  //replace in java function args
+%typemap(javain) boost::shared_ptr<std::vector<int> > "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) boost::shared_ptr<std::vector<int> > {
+  boost::shared_ptr<std::vector<int> > res(new std::vector<int>());
+  const jsize size = jenv->GetArrayLength($input);
+  res->reserve((const std::size_t) size);
+  jboolean is_copy;
+  jint* indices = jenv->GetIntArrayElements($input, &is_copy);
+  for (int i = 0 ; i < size ; i++){
+    res->push_back(indices[i]);
   }
   jenv->ReleaseIntArrayElements($input, indices, JNI_ABORT);
   $1=res;
