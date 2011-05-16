@@ -1,15 +1,15 @@
 #ifdef SWIGJAVA
-#define ADD_JAVA_DATA_IN_FACET_CDT_PLUS_2 //define this variable to add a jobject in faces of CDT_plus_2
+#define ADD_JAVA_DATA_IN_FACET_CDT_2 //define this variable to add a jobject in faces of CDT_plus_2 and CDT_2
 #define ADD_JAVA_DATA_IN_SIMPLICES_DT2 //define this variable to add a jobject in faces and vertices of DT2
 %{
-#define ADD_JAVA_DATA_IN_FACET_CDT_PLUS_2 
+#define ADD_JAVA_DATA_IN_FACET_CDT_2 
 #define  ADD_JAVA_DATA_IN_SIMPLICES_DT2
 %}
 #endif
 
 
 
-#ifdef ADD_JAVA_DATA_IN_FACET_CDT_PLUS_2
+#ifdef ADD_JAVA_DATA_IN_FACET_CDT_2
 #define NEED_JAVA_DATA_IMPORT
 #else
   #ifdef ADD_JAVA_DATA_IN_SIMPLICES_DT2
@@ -29,12 +29,16 @@
 #endif
 
 
-#ifdef ADD_JAVA_DATA_IN_FACET_CDT_PLUS_2
+#ifdef ADD_JAVA_DATA_IN_FACET_CDT_2
 //assign JavaData to Face_handle of CGAL_CDTplus2
 #define i_Face_handle_CDT2_plus   SWIG_Triangulation_2::CGAL_Face_handle<CGAL_CDTplus2,Point_2>
 #define i_Vertex_handle_CDT2_plus SWIG_Triangulation_2::CGAL_Vertex_handle<CGAL_CDTplus2,Point_2>
 add_JavaData_info_to_class(i_Face_handle_CDT2_plus,)
 add_JavaData_info_to_class(i_Vertex_handle_CDT2_plus,import CGAL.Kernel.Point_2;)
+#define i_Face_handle_CDT2 SWIG_Triangulation_2::CGAL_Face_handle<CGAL_CDT2,Point_2>
+#define i_Vertex_handle_CDT2 SWIG_Triangulation_2::CGAL_Vertex_handle<CGAL_CDT2,Point_2>
+add_JavaData_info_to_class(i_Face_handle_CDT2,)
+add_JavaData_info_to_class(i_Vertex_handle_CDT2,import CGAL.Kernel.Point_2;)
 #endif
 
 
@@ -70,8 +74,8 @@ typedef CGAL::Delaunay_triangulation_2<EPIC_Kernel>                         CGAL
 typedef CGAL::Regular_triangulation_euclidean_traits_2<EPIC_Kernel>         CGAL_regular_traits;
 typedef CGAL::Regular_triangulation_2<CGAL_regular_traits>                  CGAL_RT2;
 typedef CGAL::Constrained_triangulation_2<EPIC_Kernel>                      CGAL_CT2;
+#ifndef ADD_JAVA_DATA_IN_FACET_CDT_2
 typedef CGAL::Constrained_Delaunay_triangulation_2<EPIC_Kernel>             CGAL_CDT2;
-#ifndef ADD_JAVA_DATA_IN_FACET_CDT_PLUS_2
 typedef CGAL::Constrained_triangulation_plus_2<CGAL_CDT2>                   CGAL_CDTplus2;
 #else
 #include  <CGAL/Triangulation_face_base_with_info_2.h>  
@@ -80,8 +84,8 @@ typedef CGAL::Triangulation_face_base_with_info_2<JavaData,EPIC_Kernel>     Fbi;
 typedef CGAL::Constrained_triangulation_face_base_2<EPIC_Kernel, Fbi>       Fb;
 typedef CGAL::Triangulation_data_structure_2<Vbase_CDT2_plus,Fb>            TDS;
 typedef CGAL::Exact_intersections_tag                                       Itag;
-typedef CGAL::Constrained_Delaunay_triangulation_2<EPIC_Kernel, TDS, Itag>  CDT;
-typedef CGAL::Constrained_triangulation_plus_2<CDT>                         CGAL_CDTplus2;  
+typedef CGAL::Constrained_Delaunay_triangulation_2<EPIC_Kernel, TDS, Itag>  CGAL_CDT2;
+typedef CGAL::Constrained_triangulation_plus_2<CGAL_CDT2>                   CGAL_CDTplus2;  
 #endif
 typedef std::pair<Point_2::cpp_base,Point_2::cpp_base>                      iConstraint;
 %}
