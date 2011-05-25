@@ -2,8 +2,10 @@ cmake_minimum_required(VERSION 2.8)
 
 PROJECT(CGAL-bindings)
 
-cmake_policy(SET CMP0015 NEW) #do not use relative path (use the directory directly)
-cmake_policy(SET CMP0003 NEW) #do not copy full path of library to link library path
+if(POLICY CMP0017)
+# New policy in cmake-2.8.3
+  cmake_policy(SET CMP0017 NEW)
+endif()
 
 MACRO(EXTRACT_CPP_AND_LIB_FILES)
   #recover cpp files to be compiled
