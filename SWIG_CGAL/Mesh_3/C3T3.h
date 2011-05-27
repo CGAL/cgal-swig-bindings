@@ -29,7 +29,7 @@ public:
   typedef CGAL_Facet_iterator<C3T3,Facet>                    Facet_iterator;  
   
 //Creation  
-  C3T3_wrapper(){std::cout << "Creating C3T3... ptr is " << &data << std::endl;}
+  C3T3_wrapper(){}
   void swap(Self& other){data.swap(other.get_data_ref());}
 //Access Functions
   FORWARD_CALL_AND_REF_0(Triangulation,triangulation)
