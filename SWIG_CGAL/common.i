@@ -118,8 +118,14 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
   try{
       $action
   }
+  catch(std::exception& e){
+    std::string error_msg("Error in SWIG_CGAL code. Here is the text of the C++ exception:\n");
+    error_msg += e.what();
+    if ( !throwJavaException(error_msg.c_str()) )
+      throw; //rethrow exception that could not be thrown in java
+  }
   catch(...){
-    if ( !throwJavaException("Error in SWIG_CGAL code") )
+    if ( !throwJavaException("Unknown error in SWIG_CGAL code") )
       throw; //rethrow exception that could not be thrown in java
   }
 }
