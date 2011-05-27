@@ -2,6 +2,7 @@
 #define SWIG_CGAL_MESH_3_C3T3_H
 
 #include <fstream>
+#include <iostream>
 #include <SWIG_CGAL/Common/Input_iterator.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 
@@ -28,7 +29,7 @@ public:
   typedef CGAL_Facet_iterator<C3T3,Facet>                    Facet_iterator;  
   
 //Creation  
-  C3T3_wrapper(){}
+  C3T3_wrapper(){std::cout << "Creating C3T3... ptr is " << &data << std::endl;}
   void swap(Self& other){data.swap(other.get_data_ref());}
 //Access Functions
   FORWARD_CALL_AND_REF_0(Triangulation,triangulation)
