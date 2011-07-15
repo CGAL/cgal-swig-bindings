@@ -22,6 +22,36 @@
 }
 %enddef
 
+//IN typemap for reading vector of points from an array of array of double
+%define Typemap_in_Array_of_Array_of_double_to_Vector_of_Vector_of_Point_2
+%typemap(jni) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "jobjectArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "double[][]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "double[][]"  //replace in java function args
+%typemap(javain) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > {
+  boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > res(new std::vector< std::vector<EPIC_Kernel::Point_2> >());
+  
+  const jsize size_of_lines = jenv->GetArrayLength($input);
+  res->resize(size_of_lines);
+  
+  jboolean is_copy;
+  
+  for (jsize l=0;l<size_of_lines;++l){
+    jdoubleArray line = (jdoubleArray) jenv->GetObjectArrayElement($input,l);
+    
+    const jsize size = jenv->GetArrayLength(line) / 2;
+    (*res)[l].reserve((const std::size_t) size);
+    jdouble* points = jenv->GetDoubleArrayElements(line, &is_copy);
+    for (int i = 0 ; i < size ; i++){
+      (*res)[l].push_back(EPIC_Kernel::Point_2(points[i*2],points[i*2+1]));
+    }
+    jenv->ReleaseDoubleArrayElements(line, points, JNI_ABORT);
+  }
+  $1=res;
+}
+%enddef
+
 //IN typemap for reading a vector of triple of int from an array of int
 %define Typemap_in_int_Array_to_Triple_int_Vector
 %typemap(jni) boost::shared_ptr<std::vector<boost::tuple<int,int,int> > > "jintArray"  //replace in jni class

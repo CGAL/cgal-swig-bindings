@@ -3,6 +3,7 @@
 
 #include <boost/function_output_iterator.hpp>
 #include <SWIG_CGAL/Java/global_functions.h>
+#include <cassert>
 
 template<class Cpp_wrapper,class Cpp_base>
 class Container_writer{
