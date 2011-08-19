@@ -260,6 +260,14 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
                                internal::Converter<IN_TYPE_4>::convert(c4),\
                                internal::Converter<IN_TYPE_5>::convert(c5)));\
   }
+#define FORWARD_CALL_5_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) \
+  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5){\
+    return RET(this->data->NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
+                                internal::Converter<IN_TYPE_2>::convert(c2),\
+                                internal::Converter<IN_TYPE_3>::convert(c3),\
+                                internal::Converter<IN_TYPE_4>::convert(c4),\
+                                internal::Converter<IN_TYPE_5>::convert(c5)));\
+  }
 //---------------------------------------------------------------------------
 #define FORWARD_CALL_6(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5,IN_TYPE_6) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5, const IN_TYPE_6& c6){\

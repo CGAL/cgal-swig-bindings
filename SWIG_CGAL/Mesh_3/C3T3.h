@@ -9,7 +9,7 @@
 template <class C3T3,class Triangulation,class Index,class Surface_index,class Subdomain_index>
 class C3T3_wrapper{
   C3T3 data;
-  Triangulation triangulation_wrapper_ref;
+//  Triangulation triangulation_wrapper_ref;
 public:
   #ifndef SWIG
   typedef C3T3 cpp_base;
@@ -32,12 +32,19 @@ public:
   C3T3_wrapper(){}
   void swap(Self& other){data.swap(other.get_data_ref());}
 //Access Functions
-  FORWARD_CALL_AND_REF_0(Triangulation,triangulation)
-//Non const access
-  Triangulation&  triangulation_ref(){
-    triangulation_wrapper_ref=Triangulation(data.triangulation());
-    return triangulation_wrapper_ref;
-  }
+  Triangulation triangulation()
+  {return Triangulation(&(this->data.triangulation()));}
+
+  void triangulation(Triangulation& ref)
+  {ref = Triangulation(&(this->data.triangulation()));}
+  
+//Why did I write this????
+////Non const access
+//  Triangulation&  triangulation_ref(){
+//    triangulation_wrapper_ref=Triangulation(data.triangulation());
+//    return triangulation_wrapper_ref;
+//  }
+
 //Modifiers
   FORWARD_CALL_2(void,add_to_complex,Cell_handle,Subdomain_index)
   FORWARD_CALL_2(void,add_to_complex,Facet,Surface_index)
