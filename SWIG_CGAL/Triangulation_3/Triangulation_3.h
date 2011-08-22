@@ -42,6 +42,7 @@ class Triangulation_3_wrapper{
   
 protected:
   Triangulation* data;
+  bool own_triangulation;
   const typename Triangulation::Cell_handle& convert (const Cell_handle& c) {return c.get_data();}
   typename Triangulation::Cell_handle& convert (Cell_handle& c) {return c.get_data_ref();}
   const typename Triangulation::Vertex_handle& convert (const Vertex_handle& v) {return v.get_data();}
@@ -53,11 +54,11 @@ public:
   typedef Triangulation cpp_base;
   const cpp_base& get_data() const {return *data;}
   cpp_base& get_data_ref(){return *data;}
-  Triangulation_3_wrapper(const cpp_base& base):data(new cpp_base(base)){}
-  Triangulation_3_wrapper(cpp_base* base):data(base){} //constructor using a triangulation stored outside the wrapper class (introduced for C3T3::triangulation()
+  Triangulation_3_wrapper(const cpp_base& base):data(new cpp_base(base)),own_triangulation(true){}
+  Triangulation_3_wrapper(cpp_base* base):data(base),own_triangulation(false){} //constructor using a triangulation stored outside the wrapper class (introduced for C3T3::triangulation()
   #endif
-  Triangulation_3_wrapper():data(new cpp_base()){}
-  ~Triangulation_3_wrapper(){delete data;}
+  Triangulation_3_wrapper():data(new cpp_base()),own_triangulation(true){}
+  ~Triangulation_3_wrapper(){if (own_triangulation) delete data;}
   
   typedef std::pair<Cell_handle,int>             Facet;
   typedef CGAL_SWIG::Triple<Cell_handle,int,int> Edge;  
