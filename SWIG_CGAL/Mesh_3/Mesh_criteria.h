@@ -73,8 +73,8 @@ public:
 
   Java_criteria_wrapper(Cell_caller& ccall,Facet_caller& fcall):cc(ccall),fc(fcall){}
   #ifndef SWIG
-  const Cell_criteria&   cell_criteria() const {return cc;}
-  const Facet_criteria&  facet_criteria() const {return fc;}
+  const Cell_criteria&   cell_criteria_object() const {return cc;}
+  const Facet_criteria&  facet_criteria_object() const {return fc;}
   #endif
 };
 #endif
