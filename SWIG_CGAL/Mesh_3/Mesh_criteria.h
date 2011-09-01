@@ -23,6 +23,44 @@ public:
   :data(facet_angle,facet_size,facet_distance,cell_radius_edge,cell_size){}
 };
 
+template <class Base, class Field1, class Field2, class Field3, class Field4>
+class Mesh_criteria_with_fields_wrapper
+{
+  Base data;
+public:
+#ifndef SWIG
+  typedef Base cpp_base;
+  const cpp_base& get_data() const {return data;}
+  cpp_base& get_data_ref(){return data;}
+#endif
+  
+  Mesh_criteria_with_fields_wrapper(  double facet_angle=0,
+                                      double facet_size=0,
+                                      double facet_distance=0,
+                                      double cell_radius_edge=0,
+                                      double cell_size=0)
+  :data(facet_angle,facet_size,facet_distance,cell_radius_edge,cell_size){}
+    
+    
+  Mesh_criteria_with_fields_wrapper(  Field1 edge_size,
+                                      double facet_angle,
+                                      Field2 facet_size,
+                                      //Field3 facet_distance,
+                                      double facet_distance,
+                                      double cell_radius_edge_ratio,
+                                      Field4 cell_size
+//                                    ,Mesh_facet_topology parameters::facet_topology
+  ) :data(  CGAL::parameters::edge_sizing_field = edge_size.get_data(),
+            CGAL::parameters::facet_angle = facet_angle,
+            CGAL::parameters::facet_sizing_field = facet_size.get_data(),
+            CGAL::parameters::facet_distance = facet_distance,
+            //Mesh_facet_topology parameters::facet_topology = CGAL::FACET_VERTICES_ON_SURFACE,
+            CGAL::parameters::cell_radius_edge_ratio = cell_radius_edge_ratio,
+            CGAL::parameters::cell_sizing_field = cell_size.get_data()
+    ){}
+};
+
+
 
 #ifdef SWIGJAVA
 //User defined test

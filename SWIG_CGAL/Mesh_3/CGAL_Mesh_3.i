@@ -152,8 +152,11 @@ typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handl
 
 %import "SWIG_CGAL/Mesh_3/declare_global_functions.i"
 
-declare_global_functions_with_criteria(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,T_Mesh_criteria,Mesh_3_parameters)
-declare_global_functions(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,T_Mesh_criteria,Mesh_3_parameters)
+declare_global_functions(T_C3T3_wrapper)
+declare_global_functions_domain(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type)
+declare_global_functions_domain_criteria(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,T_Mesh_criteria,Mesh_3_parameters)
+
+
 
 #ifdef SWIGJAVA
 %include "SWIG_CGAL/Java/Java_caller_code.h"
@@ -168,5 +171,5 @@ declare_global_functions(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,T_Mesh_cri
                                 Java_caller_code<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >,
                                 Java_caller_code<std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > > > JavaMeshCriteria;%}
 %template(User_mesh_criteria) JavaMeshCriteria;
-declare_global_functions_with_criteria(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,JavaMeshCriteria,Mesh_3_parameters)
+declare_global_functions_domain_criteria(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,JavaMeshCriteria,Mesh_3_parameters)
 #endif
