@@ -94,6 +94,50 @@
 }
 %enddef
 
+//IN typemap for a vector of double from an array of double
+%define Typemap_in_float_Array_to_float_Vector
+%typemap(jni) boost::shared_ptr<std::vector<float> > "jfloatArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr<std::vector<float> > "float[]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr<std::vector<float> > "float[]"  //replace in java function args
+%typemap(javain) boost::shared_ptr<std::vector<float> > "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) boost::shared_ptr<std::vector<float> > {
+  boost::shared_ptr<std::vector<float> > res(new std::vector<float>());
+  const jsize size = jenv->GetArrayLength($input);
+  res->reserve((const std::size_t) size);
+  jboolean is_copy;
+  jfloat* indices = jenv->GetFloatArrayElements($input, &is_copy);
+  for (float i = 0 ; i < size ; i++){
+    res->push_back(indices[(const std::size_t) i]);
+  }
+  jenv->ReleaseFloatArrayElements($input, indices, JNI_ABORT);
+  $1=res;
+}
+%enddef
+
+//IN typemap for a vector of double from an array of double
+%define Typemap_in_double_Array_to_double_Vector
+%typemap(jni) boost::shared_ptr<std::vector<double> > "jdoubleArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr<std::vector<double> > "double[]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr<std::vector<double> > "double[]"  //replace in java function args
+%typemap(javain) boost::shared_ptr<std::vector<double> > "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) boost::shared_ptr<std::vector<double> > {
+  boost::shared_ptr<std::vector<double> > res(new std::vector<double>());
+  const jsize size = jenv->GetArrayLength($input);
+  res->reserve((const std::size_t) size);
+  jboolean is_copy;
+  jdouble* indices = jenv->GetDoubleArrayElements($input, &is_copy);
+  for (double i = 0 ; i < size ; i++){
+    res->push_back(indices[i]);
+  }
+  jenv->ReleaseDoubleArrayElements($input, indices, JNI_ABORT);
+  $1=res;
+}
+%enddef
+
+
+
 //OUT typemap for writting segments into a java array
 %define Typemap_out_Segment_3_Vector_to_double_Array
 %typemap(jni) boost::shared_ptr<std::vector<EPIC_Kernel::Segment_3> > "jdoubleArray"  //replace in jni class
