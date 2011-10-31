@@ -44,13 +44,13 @@ typedef CGAL_OK_S_3::Tree                                         CGAL_OK_T_3;
 
 #ifdef SWIGJAVA
 %{
-#include <CGAL/Search_traits_with_info.h>
+#include <CGAL/Search_traits_adapter.h>
 #include <SWIG_CGAL/Spatial_searching/First_of_pair.h>
 #include <SWIG_CGAL/Java/JavaData.h>
 
 typedef First_of_pair<EPIC_Kernel::Point_2>                          PPmap_2;
 typedef std::pair<EPIC_Kernel::Point_2,JavaData>                     Point_WI_2;
-typedef CGAL::Search_traits_with_info<Point_WI_2,PPmap_2,CGAL_ST_2>  CGAL_ST_WI_2;
+typedef CGAL::Search_traits_adapter<Point_WI_2,PPmap_2,CGAL_ST_2>  CGAL_ST_WI_2;
 typedef CGAL::Fuzzy_sphere <CGAL_ST_WI_2>                            CGAL_FS_WI_2;
 typedef CGAL::Fuzzy_iso_box<CGAL_ST_WI_2>                            CGAL_FB_WI_2;
 //2D search methods
@@ -66,7 +66,7 @@ typedef CGAL_OK_S_WI_2::Tree                                         CGAL_OK_T_W
   
 typedef First_of_pair<EPIC_Kernel::Point_3>                          PPmap_3;
 typedef std::pair<EPIC_Kernel::Point_3,JavaData>                     Point_WI_3;
-typedef CGAL::Search_traits_with_info<Point_WI_3,PPmap_3,CGAL_ST_3>  CGAL_ST_WI_3;
+typedef CGAL::Search_traits_adapter<Point_WI_3,PPmap_3,CGAL_ST_3>  CGAL_ST_WI_3;
 typedef CGAL::Fuzzy_sphere <CGAL_ST_WI_3>                            CGAL_FS_WI_3;
 typedef CGAL::Fuzzy_iso_box<CGAL_ST_WI_3>                            CGAL_FB_WI_3;
 //3D search methods
