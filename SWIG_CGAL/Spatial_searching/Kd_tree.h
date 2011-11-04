@@ -8,7 +8,7 @@
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 
 
-DECLARE_ITERATOR_CLASS_2(iterator,Kd_tree_iterator)
+SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(iterator,Kd_tree_iterator)
 
 template <class Query>
 struct Query_iterator_helper{
@@ -36,15 +36,15 @@ public:
   Kd_tree_wrapper(Point_range range):data(range.first,range.second){}
   
 //Operations
-  FORWARD_CALL_1(void,insert,Point_d)
+  SWIG_CGAL_FORWARD_CALL_1(void,insert,Point_d)
   void insert_range(Point_range range){ data.insert(range.first,range.second);}
   Iterator iterator(){return Iterator(data.begin(),data.end());}
-  FORWARD_CALL_0(void,clear)
-  FORWARD_CALL_0(int,size)
+  SWIG_CGAL_FORWARD_CALL_0(void,clear)
+  SWIG_CGAL_FORWARD_CALL_0(int,size)
   void search(typename Query_iterator_helper<Query>::output out, const Fuzzy_sphere& fsphere) { data.search(out,fsphere.get_data());}
   void search(typename Query_iterator_helper<Query>::output out, const Fuzzy_iso_box& fbox)   { data.search(out,fbox.get_data());}
   
-  FORWARD_CALL_0(void,build)
+  SWIG_CGAL_FORWARD_CALL_0(void,build)
 };
 
 
@@ -54,6 +54,6 @@ public:
 // Kd_tree<Traits, Splitter, UseExtendedNode> tree ( Splitter s=Splitter());
 // template <class InputIterator> Kd_tree<Traits, Splitter, UseExtendedNode> tree ( InputIterator first, InputIterator beyond, Splitter s=Splitter());
 //Operations
-//  FORWARD_CALL_0(Node_handle,root)
+//  SWIG_CGAL_FORWARD_CALL_0(Node_handle,root)
 // Kd_tree_rectangle<Traits>  tree.bounding_box ()  
 // std::ostream&  tree.statistics ( std::ostream& s)

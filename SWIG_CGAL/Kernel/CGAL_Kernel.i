@@ -89,9 +89,9 @@ SWIG_JAVABODY_METHODS(public,public,Polygon_2)
 %}
 
 //typemaps for Polygon_2
-Typemap_for_Input_iterator(Point_range_2,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
+SWIG_CGAL_input_iterator_typemap_in(Point_range_2,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
 #ifdef SWIGPYTHON
-Typemap_for_Input_iterator_additional_function(Polygon_2::Polygon_2)
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
 #endif
 
 //definitions
@@ -131,16 +131,16 @@ Typemap_for_Input_iterator_additional_function(Polygon_2::Polygon_2)
 }
 
 //Iterators
-Iterator_for_java(CGAL_Vertex_iterator,Point_2,)
+SWIG_CGAL_set_as_java_iterator(CGAL_Vertex_iterator,Point_2,)
 %template(Polygon_2_Vertex_iterator) CGAL_Vertex_iterator< Polygon_2::cpp_base,Point_2 >;
 
-Iterator_for_java(CGAL_Edge_const_iterator,Segment_2,)
+SWIG_CGAL_set_as_java_iterator(CGAL_Edge_const_iterator,Segment_2,)
 %template(Polygon_2_Edge_const_iterator) CGAL_Edge_const_iterator< Polygon_2::cpp_base,Segment_2 >;
 
-Iterator_for_java(CGAL_Vertex_circulator,Point_2,)
+SWIG_CGAL_set_as_java_iterator(CGAL_Vertex_circulator,Point_2,)
 %template(Polygon_2_Vertex_circulator) CGAL_Vertex_circulator< Polygon_2::cpp_base,Point_2 >;
 
-Iterator_for_java(CGAL_Edge_const_circulator,Segment_2,)
+SWIG_CGAL_set_as_java_iterator(CGAL_Edge_const_circulator,Segment_2,)
 %template(Polygon_2_Edge_const_circulator) CGAL_Edge_const_circulator< Polygon_2::cpp_base,Segment_2 >;
 
 

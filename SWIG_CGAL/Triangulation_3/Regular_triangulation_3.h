@@ -20,20 +20,20 @@ public:
   Regular_triangulation_3_wrapper(typename Base::cpp_base* base):Base(base){} //constructor using a triangulation stored outside the wrapper class (introduced for C3T3::triangulation()
   #endif
 //Removal
-  FORWARD_CALL_1_PTR(void,remove,Vertex_handle)  
+  SWIG_CGAL_FORWARD_CALL_1_PTR(void,remove,Vertex_handle)  
 //Queries
-  FORWARD_CALL_2_PTR(Bounded_side,side_of_power_sphere,Cell_handle,Weighted_point_3)
-  FORWARD_CALL_2_PTR(Bounded_side,side_of_power_circle,Facet,Weighted_point_3)
-  FORWARD_CALL_3_PTR(Bounded_side,side_of_power_circle,Cell_handle,int,Weighted_point_3)
-  FORWARD_CALL_2_PTR(Bounded_side,side_of_power_segment,Cell_handle,Weighted_point_3)
-  FORWARD_CALL_AND_REF_1_PTR(Vertex_handle,nearest_power_vertex,Weighted_point_3)
-  FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,nearest_power_vertex,Weighted_point_3,Cell_handle)
-  FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,nearest_power_vertex_in_cell,Weighted_point_3,Cell_handle)
-  FORWARD_CALL_2_PTR(bool,is_Gabriel,Cell_handle,int)
-  FORWARD_CALL_3_PTR(bool,is_Gabriel,Cell_handle,int,int)
-  FORWARD_CALL_1_PTR(bool,is_Gabriel,Facet)
-  FORWARD_CALL_1_PTR(bool,is_Gabriel,Edge)
-  FORWARD_CALL_1_PTR(bool,is_Gabriel,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_2_PTR(Bounded_side,side_of_power_sphere,Cell_handle,Weighted_point_3)
+  SWIG_CGAL_FORWARD_CALL_2_PTR(Bounded_side,side_of_power_circle,Facet,Weighted_point_3)
+  SWIG_CGAL_FORWARD_CALL_3_PTR(Bounded_side,side_of_power_circle,Cell_handle,int,Weighted_point_3)
+  SWIG_CGAL_FORWARD_CALL_2_PTR(Bounded_side,side_of_power_segment,Cell_handle,Weighted_point_3)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Vertex_handle,nearest_power_vertex,Weighted_point_3)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,nearest_power_vertex,Weighted_point_3,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,nearest_power_vertex_in_cell,Weighted_point_3,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_2_PTR(bool,is_Gabriel,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_3_PTR(bool,is_Gabriel,Cell_handle,int,int)
+  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_Gabriel,Facet)
+  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_Gabriel,Edge)
+  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_Gabriel,Vertex_handle)
 };
 
 //Creation

@@ -17,17 +17,17 @@ public:
 //Creation
   Triangulation_conformer_2_wrapper( CDT_wrapper& cdt):data(cdt.get_data_ref()){}
 //Conforming methods
-  FORWARD_CALL_0(void,make_conforming_Delaunay)
-  FORWARD_CALL_0(void,make_conforming_Gabriel)
+  SWIG_CGAL_FORWARD_CALL_0(void,make_conforming_Delaunay)
+  SWIG_CGAL_FORWARD_CALL_0(void,make_conforming_Gabriel)
 //Checking
-  FORWARD_CALL_0(bool,is_conforming_Delaunay)
-  FORWARD_CALL_0(bool,is_conforming_Gabriel)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_conforming_Delaunay)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_conforming_Gabriel)
 //Step by step operations
-  FORWARD_CALL_0(void,init_Delaunay)
-  FORWARD_CALL_0(bool,step_by_step_conforming_Delaunay)
-  FORWARD_CALL_0(void,init_Gabriel)
-  FORWARD_CALL_0(bool,step_by_step_conforming_Gabriel)
-  FORWARD_CALL_0(bool,is_conforming_done)
+  SWIG_CGAL_FORWARD_CALL_0(void,init_Delaunay)
+  SWIG_CGAL_FORWARD_CALL_0(bool,step_by_step_conforming_Delaunay)
+  SWIG_CGAL_FORWARD_CALL_0(void,init_Gabriel)
+  SWIG_CGAL_FORWARD_CALL_0(bool,step_by_step_conforming_Gabriel)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_conforming_done)
 };
 
 #endif //SWIG_CGAL_MESH_2_TRIANGULATION_CONFORMER_2_H

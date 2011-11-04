@@ -23,20 +23,20 @@ public:
   Segment_3();
   Segment_3(const Point_3& p1, const Point_3& p2);
 
-  FORWARD_CALL_AND_REF_0(Point_3,source)
-  FORWARD_CALL_AND_REF_0(Point_3,target)
-  FORWARD_CALL_AND_REF_0(Point_3,min)
-  FORWARD_CALL_AND_REF_0(Point_3,max)
-  FORWARD_CALL_AND_REF_1(Point_3,vertex,int)
-  FORWARD_CALL_AND_REF_1(Point_3,point,int)
-  FORWARD_CALL_0(double,squared_length)
-  FORWARD_CALL_AND_REF_0(Segment_3,opposite)
-  FORWARD_CALL_0(bool,is_degenerate)
-  FORWARD_CALL_1(bool,has_on,Point_3)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_3,source)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_3,target)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_3,min)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_3,max)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,vertex,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,point,int)
+  SWIG_CGAL_FORWARD_CALL_0(double,squared_length)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Segment_3,opposite)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
 
-  DECLARE_CALL_AND_REF_0(Vector_3,to_vector)
-  DECLARE_CALL_AND_REF_0(Direction_3,direction)
-  DECLARE_CALL_AND_REF_0(Line_3,supporting_line)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,to_vector)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_3,direction)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Line_3,supporting_line)
   
   bool equals(const Segment_3&);
   

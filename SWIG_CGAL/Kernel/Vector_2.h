@@ -29,13 +29,13 @@ public:
   Vector_2(int x, int y);
   Vector_2(double x, double y);
 //Operations
-  FORWARD_CALL_0(double,x)
-  FORWARD_CALL_0(double,y)
-  FORWARD_CALL_1(double,cartesian,int)
-  FORWARD_CALL_0(int,dimension)
-  DECLARE_CALL_AND_REF_0(Direction_2,direction)
-  FORWARD_CALL_AND_REF_1(Vector_2,perpendicular,Orientation)
-  FORWARD_CALL_0(double,squared_length)
+  SWIG_CGAL_FORWARD_CALL_0(double,x)
+  SWIG_CGAL_FORWARD_CALL_0(double,y)
+  SWIG_CGAL_FORWARD_CALL_1(double,cartesian,int)
+  SWIG_CGAL_FORWARD_CALL_0(int,dimension)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_2,direction)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vector_2,perpendicular,Orientation)
+  SWIG_CGAL_FORWARD_CALL_0(double,squared_length)
 //
   bool equals(const Vector_2&);
   std::string toString();
@@ -48,7 +48,7 @@ public:
 
 //  Vector_2(Null_vector NULL_VECTOR);
 //  double v.operator[] ( int i) returns cartesian(i).
-//  FORWARD_CALL_0(Vector_2,transform,Aff_transformation_2)
+//  SWIG_CGAL_FORWARD_CALL_0(Vector_2,transform,Aff_transformation_2)
 //  Cartesian_const_iterator v.cartesian_begin () returns an iterator to the Cartesian coordinates of v, starting with the 0th coordinate.
 //  Cartesian_const_iterator v.cartesian_end () returns an off the end iterator to the Cartesian coordinates of v.
 //Operators

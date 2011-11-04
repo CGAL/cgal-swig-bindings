@@ -1,10 +1,12 @@
 #ifndef SWIG_CGAL_MESH_2_CRITERIA_H
 #define SWIG_CGAL_MESH_2_CRITERIA_H
 
+#include <SWIG_CGAL/Common/Macros.h>
+
 enum Face_badness { NOT_BAD, BAD, IMPERATIVELY_BAD };
 
 namespace internal{
-  SPECIALIZE_CONVERTER_ENUM_2(Face_badness,::CGAL::Mesh_2::)
+  SWIG_CGAL_SPECIALIZE_CONVERTER_ENUM_2(Face_badness,::CGAL::Mesh_2::)
 }//namespace internal
 
 

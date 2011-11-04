@@ -47,20 +47,20 @@ public:
   AABB_tree_wrapper(Primitive_range range):data(range.first,range.second){}
 //Operations  
   void rebuild(Primitive_range range){ data.rebuild(range.first,range.second); }
-  FORWARD_CALL_0(void,clear)
-  FORWARD_CALL_0(int,size)
-  FORWARD_CALL_0(bool,empty)
+  SWIG_CGAL_FORWARD_CALL_0(void,clear)
+  SWIG_CGAL_FORWARD_CALL_0(int,size)
+  SWIG_CGAL_FORWARD_CALL_0(bool,empty)
 //Intersection Tests
   //do_intersect  
-  FORWARD_CALL_1(bool,do_intersect,Segment_3)
-  FORWARD_CALL_1(bool,do_intersect,Triangle_3)
-  FORWARD_CALL_1(bool,do_intersect,Plane_3)
-  FORWARD_CALL_1(bool,do_intersect,Ray_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,do_intersect,Segment_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,do_intersect,Triangle_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,do_intersect,Plane_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,do_intersect,Ray_3)
   //number_of_intersected_primitives
-  FORWARD_CALL_1(int,number_of_intersected_primitives,Segment_3)
-  FORWARD_CALL_1(int,number_of_intersected_primitives,Triangle_3)
-  FORWARD_CALL_1(int,number_of_intersected_primitives,Plane_3)
-  FORWARD_CALL_1(int,number_of_intersected_primitives,Ray_3)
+  SWIG_CGAL_FORWARD_CALL_1(int,number_of_intersected_primitives,Segment_3)
+  SWIG_CGAL_FORWARD_CALL_1(int,number_of_intersected_primitives,Triangle_3)
+  SWIG_CGAL_FORWARD_CALL_1(int,number_of_intersected_primitives,Plane_3)
+  SWIG_CGAL_FORWARD_CALL_1(int,number_of_intersected_primitives,Ray_3)
   //all_intersected_primitives
   void all_intersected_primitives (const Segment_3 & query, typename Primitive_iterator_helper<Primitive_id>::output out) {data.all_intersected_primitives(query.get_data(),out);}
   void all_intersected_primitives (const Triangle_3& query, typename Primitive_iterator_helper<Primitive_id>::output out) {data.all_intersected_primitives(query.get_data(),out);}
@@ -129,14 +129,14 @@ public:
   void all_intersections (const Ray_3      & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   
 //Distance Queries
-  FORWARD_CALL_1(double,squared_distance,Point_3)
-  FORWARD_CALL_1(Point_3,closest_point,Point_3)
-  FORWARD_CALL_1(Point_and_primitive_id,closest_point_and_primitive,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(double,squared_distance,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(Point_3,closest_point,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(Point_and_primitive_id,closest_point_and_primitive,Point_3)
 //Accelerating the Distance Queries
-  FORWARD_CALL_0(bool,accelerate_distance_queries)
-  FORWARD_CALL_2(double,squared_distance,Point_3,Point_3)
-  FORWARD_CALL_AND_REF_2(Point_3,closest_point,Point_3,Point_3)
-  FORWARD_CALL_AND_REF_2(Point_and_primitive_id,closest_point_and_primitive,Point_3,Point_and_primitive_id)  
+  SWIG_CGAL_FORWARD_CALL_0(bool,accelerate_distance_queries)
+  SWIG_CGAL_FORWARD_CALL_2(double,squared_distance,Point_3,Point_3)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Point_3,closest_point,Point_3,Point_3)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Point_and_primitive_id,closest_point_and_primitive,Point_3,Point_and_primitive_id)  
   void accelerate_distance_queries (Point_range range) {data.accelerate_distance_queries(range.first,range.second);}  
 };
 

@@ -1,5 +1,5 @@
-#ifndef CGAL_SWIG_MACROS_H
-#define CGAL_SWIG_MACROS_H
+#ifndef SWIG_CGAL_MACROS_H
+#define SWIG_CGAL_MACROS_H
 
 #ifdef SWIGJAVA
 #include <SWIG_CGAL/Java/JavaData.h>
@@ -11,11 +11,11 @@
 #include <boost/mpl/if.hpp>
 
 
-//Functor for FORWARD_CALL_N
+//Functor for SWIG_CGAL_FORWARD_CALL_N
 
 namespace internal{
 
-#define SPECIALIZE_CONVERTER(T)                    \
+#define SWIG_CGAL_SPECIALIZE_CONVERTER(T)                    \
 template <> struct Converter<T>{                   \
   static const bool is_reference=true;             \
   typedef T result_type;                           \
@@ -37,17 +37,17 @@ typename Converter<T>::result_type
 make_conversion(const T& t){return Converter<T>::convert(t);}
 
 
-SPECIALIZE_CONVERTER(int)
-SPECIALIZE_CONVERTER(unsigned)
-SPECIALIZE_CONVERTER(bool)
-SPECIALIZE_CONVERTER(double)
-SPECIALIZE_CONVERTER(float)
+SWIG_CGAL_SPECIALIZE_CONVERTER(int)
+SWIG_CGAL_SPECIALIZE_CONVERTER(unsigned)
+SWIG_CGAL_SPECIALIZE_CONVERTER(bool)
+SWIG_CGAL_SPECIALIZE_CONVERTER(double)
+SWIG_CGAL_SPECIALIZE_CONVERTER(float)
 #ifdef SWIGJAVA
-SPECIALIZE_CONVERTER(JavaData)
+SWIG_CGAL_SPECIALIZE_CONVERTER(JavaData)
 #endif
 
 
-#define SPECIALIZE_CONVERTER_ENUM_2(ENUM,NSPACE)     \
+#define SWIG_CGAL_SPECIALIZE_CONVERTER_ENUM_2(ENUM,NSPACE)     \
 template <> struct Converter<ENUM>{                  \
   static const bool is_reference=false;              \
   typedef NSPACE ENUM result_type;                   \
@@ -55,13 +55,13 @@ template <> struct Converter<ENUM>{                  \
   {return CGAL::enum_cast< NSPACE ENUM>(t);}         \
 };
 
-#define SPECIALIZE_CONVERTER_ENUM(ENUM)     \
-  SPECIALIZE_CONVERTER_ENUM_2(ENUM,::CGAL::)
+#define SWIG_CGAL_SPECIALIZE_CONVERTER_ENUM(ENUM)     \
+  SWIG_CGAL_SPECIALIZE_CONVERTER_ENUM_2(ENUM,::CGAL::)
 
 
 #ifndef SWIG
-typedef  CGAL_SWIG::Triple<int,int,int> TRIPLE_INT;
-SPECIALIZE_CONVERTER( TRIPLE_INT )
+typedef  SWIG_CGAL::Triple<int,int,int> TRIPLE_INT;
+SWIG_CGAL_SPECIALIZE_CONVERTER( TRIPLE_INT )
 #endif
 
 
@@ -81,14 +81,14 @@ struct Converter<std::pair<P1,P2> >{
 };
 
 template <class T1,class T2,class T3>
-struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
+struct Converter< SWIG_CGAL::Triple<T1,T2,T3> >{
   typedef CGAL::Triple<  typename Converter<T1>::result_type,
                          typename Converter<T2>::result_type,    
                          typename Converter<T3>::result_type    >   result_type;
   
   static const bool is_reference=false;
   
-  static result_type convert(const CGAL_SWIG::Triple<T1,T2,T3>& t){
+  static result_type convert(const SWIG_CGAL::Triple<T1,T2,T3>& t){
     return CGAL::make_triple(Converter<T1>::convert(t.first),
                              Converter<T2>::convert(t.second),
                              Converter<T3>::convert(t.third));
@@ -107,118 +107,116 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
   //~ template <class T> const T& convert(const Reference_wrapper<T>& ref){return ref.object();}
   //~ template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object_ref();}  
   
-
-
 }//namespace internal
 
 //Macro functions to ease the wrapping of member functions
 
-#define FORWARD_CALL_0_PTR(RET,NAME) \
+#define SWIG_CGAL_FORWARD_CALL_0_PTR(RET,NAME) \
   RET NAME()\
   {return RET(this->data->NAME());}
 
-#define FORWARD_CALL_0(RET,NAME) \
+#define SWIG_CGAL_FORWARD_CALL_0(RET,NAME) \
   RET NAME()\
   {return RET(this->data.NAME());}
 
-#define DECLARE_CALL_AND_REF_0(RET,NAME) \
+#define SWIG_CGAL_DECLARE_CALL_AND_REF_0(RET,NAME) \
   RET NAME();\
   void NAME(RET& ref);\
 
-#define FORWARD_CALL_AND_REF_0(RET,NAME) \
-  FORWARD_CALL_0(RET,NAME) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_0(RET,NAME) \
+  SWIG_CGAL_FORWARD_CALL_0(RET,NAME) \
   void NAME(RET& ref)\
   {ref = RET(this->data.NAME());}
 
-#define FORWARD_CALL_AND_REF_0_PTR(RET,NAME) \
-  FORWARD_CALL_0_PTR(RET,NAME) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(RET,NAME) \
+  SWIG_CGAL_FORWARD_CALL_0_PTR(RET,NAME) \
   void NAME(RET& ref)\
   {ref = RET(this->data->NAME());}
 //---------------------------------------------------------------------------
-#define FORWARD_CALL_1_PTR(RET,NAME,IN_TYPE) \
+#define SWIG_CGAL_FORWARD_CALL_1_PTR(RET,NAME,IN_TYPE) \
   RET NAME(const IN_TYPE& c){\
     return RET(this->data->NAME(internal::Converter<IN_TYPE>::convert(c)));\
   }
 
-#define FORWARD_CALL_1(RET,NAME,IN_TYPE) \
+#define SWIG_CGAL_FORWARD_CALL_1(RET,NAME,IN_TYPE) \
   RET NAME(const IN_TYPE& c){\
     return RET(this->data.NAME(internal::Converter<IN_TYPE>::convert(c)));\
   }
 
-#define DECLARE_CALL_AND_REF_1(RET,NAME,IN_TYPE) \
+#define SWIG_CGAL_DECLARE_CALL_AND_REF_1(RET,NAME,IN_TYPE) \
   RET NAME(const IN_TYPE& c);\
   void NAME(const IN_TYPE& c,RET& ret);
 
-#define FORWARD_CALL_AND_REF_1(RET,NAME,IN_TYPE) \
-  FORWARD_CALL_1(RET,NAME,IN_TYPE) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_1(RET,NAME,IN_TYPE) \
+  SWIG_CGAL_FORWARD_CALL_1(RET,NAME,IN_TYPE) \
   void NAME(const IN_TYPE& c,RET& ret){\
     ret = RET(this->data.NAME(internal::Converter<IN_TYPE>::convert(c)));\
   }
 
-#define FORWARD_CALL_AND_REF_1_PTR(RET,NAME,IN_TYPE) \
-  FORWARD_CALL_1_PTR(RET,NAME,IN_TYPE) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(RET,NAME,IN_TYPE) \
+  SWIG_CGAL_FORWARD_CALL_1_PTR(RET,NAME,IN_TYPE) \
   void NAME(const IN_TYPE& c,RET& ret){\
     ret = RET(this->data->NAME(internal::Converter<IN_TYPE>::convert(c)));\
   }
 //---------------------------------------------------------------------------
-#define FORWARD_CALL_2_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
+#define SWIG_CGAL_FORWARD_CALL_2_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2){\
     return RET(this->data->NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                 internal::Converter<IN_TYPE_2>::convert(c2)));\
   }
 
-#define FORWARD_CALL_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
+#define SWIG_CGAL_FORWARD_CALL_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2){\
     return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2)));\
   }
   
-#define FORWARD_CALL_AND_REF_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
-  FORWARD_CALL_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
+  SWIG_CGAL_FORWARD_CALL_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
   void NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, RET& ret){\
      ret = RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2)));\
   }
   
-#define FORWARD_CALL_AND_REF_2_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
-  FORWARD_CALL_2_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
+  SWIG_CGAL_FORWARD_CALL_2_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
   void NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, RET& ret){\
      ret = RET(this->data->NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                 internal::Converter<IN_TYPE_2>::convert(c2)));\
   }
 
 //---------------------------------------------------------------------------
-#define FORWARD_CALL_3_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
+#define SWIG_CGAL_FORWARD_CALL_3_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3){\
     return RET(this->data->NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                 internal::Converter<IN_TYPE_2>::convert(c2),\
                                 internal::Converter<IN_TYPE_3>::convert(c3)));\
   }
 
-#define FORWARD_CALL_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
+#define SWIG_CGAL_FORWARD_CALL_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3){\
     return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2),\
                                internal::Converter<IN_TYPE_3>::convert(c3)));\
   }
   
-#define FORWARD_CALL_AND_REF_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
-  FORWARD_CALL_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
+  SWIG_CGAL_FORWARD_CALL_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
   void NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3,RET& ret){\
      ret = RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2),\
                                internal::Converter<IN_TYPE_3>::convert(c3)));\
   }
   
-#define FORWARD_CALL_AND_REF_3_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
-  FORWARD_CALL_3_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_3_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
+  SWIG_CGAL_FORWARD_CALL_3_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
   void NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3,RET& ret){\
     ret = RET(this->data->NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2),\
                                internal::Converter<IN_TYPE_3>::convert(c3)));\
   }
 //---------------------------------------------------------------------------
-#define FORWARD_CALL_4_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
+#define SWIG_CGAL_FORWARD_CALL_4_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2,const IN_TYPE_3& c3,const IN_TYPE_4& c4){\
     return RET(this->data->NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                 internal::Converter<IN_TYPE_2>::convert(c2),\
@@ -226,7 +224,7 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
                                 internal::Converter<IN_TYPE_4>::convert(c4)));\
   }
 
-#define FORWARD_CALL_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
+#define SWIG_CGAL_FORWARD_CALL_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4){\
     return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2),\
@@ -234,8 +232,8 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
                                internal::Converter<IN_TYPE_4>::convert(c4)));\
   }
   
-#define FORWARD_CALL_AND_REF_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
-    FORWARD_CALL_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
+    SWIG_CGAL_FORWARD_CALL_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
   void NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4,RET& ret){\
      ret = RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2),\
@@ -243,8 +241,8 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
                                internal::Converter<IN_TYPE_4>::convert(c4)));\
   }
   
-#define FORWARD_CALL_AND_REF_4_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
-    FORWARD_CALL_4_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_4_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
+    SWIG_CGAL_FORWARD_CALL_4_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
   void NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4,RET& ret){\
      ret = RET(this->data->NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2),\
@@ -252,7 +250,7 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
                                internal::Converter<IN_TYPE_4>::convert(c4)));\
   }
 //---------------------------------------------------------------------------  
-#define FORWARD_CALL_5(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) \
+#define SWIG_CGAL_FORWARD_CALL_5(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5){\
     return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2),\
@@ -260,7 +258,7 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
                                internal::Converter<IN_TYPE_4>::convert(c4),\
                                internal::Converter<IN_TYPE_5>::convert(c5)));\
   }
-#define FORWARD_CALL_5_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) \
+#define SWIG_CGAL_FORWARD_CALL_5_PTR(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5){\
     return RET(this->data->NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                 internal::Converter<IN_TYPE_2>::convert(c2),\
@@ -269,7 +267,7 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
                                 internal::Converter<IN_TYPE_5>::convert(c5)));\
   }
 //---------------------------------------------------------------------------
-#define FORWARD_CALL_6(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5,IN_TYPE_6) \
+#define SWIG_CGAL_FORWARD_CALL_6(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5,IN_TYPE_6) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5, const IN_TYPE_6& c6){\
     return RET(this->data.NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2),\
@@ -279,4 +277,4 @@ struct Converter< CGAL_SWIG::Triple<T1,T2,T3> >{
                                internal::Converter<IN_TYPE_6>::convert(c6)));\
   }
 
-#endif //CGAL_SWIG_MACROS_H
+#endif //SWIG_CGAL_MACROS_H

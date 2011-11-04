@@ -15,10 +15,10 @@ public:
 //Polyhedral_mesh_domain_3_wrapper(const cpp_base& base):data(base){} commented because requires copy cstr which is private
   Polyhedral_mesh_domain_3_wrapper(const Polyhedron_base& poly):data(poly.get_data()){}
 
-  FORWARD_CALL_1(Index,index_from_surface_index,Surface_index)
-  FORWARD_CALL_1(Index,index_from_subdomain_index,Subdomain_index)
-  FORWARD_CALL_1(Surface_index,surface_index,Index)
-  FORWARD_CALL_1(Subdomain_index,subdomain_index,Index)
+  SWIG_CGAL_FORWARD_CALL_1(Index,index_from_surface_index,Surface_index)
+  SWIG_CGAL_FORWARD_CALL_1(Index,index_from_subdomain_index,Subdomain_index)
+  SWIG_CGAL_FORWARD_CALL_1(Surface_index,surface_index,Index)
+  SWIG_CGAL_FORWARD_CALL_1(Subdomain_index,subdomain_index,Index)
 };
 
 #endif // SWIG_CGAL_MESH_3_MESH_DOMAINS_H

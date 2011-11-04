@@ -16,16 +16,16 @@
   %template(CLASSNAME_PREFIX##_Constraint) std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle <CPPTYPE,Point_2>,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2> >;
 
   //Iterators
-  Iterator_for_java(CGAL_Constraint_iterator,CLASSNAME_PREFIX##_Constraint,)
+  SWIG_CGAL_set_as_java_iterator(CGAL_Constraint_iterator,CLASSNAME_PREFIX##_Constraint,)
   %template(CLASSNAME_PREFIX##_Constraint_iterator) CGAL_Constraint_iterator<CPPTYPE,std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle <CPPTYPE,Point_2>,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2> > >;
 
-  Iterator_for_java(CGAL_Subconstraint_iterator,CLASSNAME_PREFIX##_Constraint,)
+  SWIG_CGAL_set_as_java_iterator(CGAL_Subconstraint_iterator,CLASSNAME_PREFIX##_Constraint,)
   %template(CLASSNAME_PREFIX##_Subconstraint_iterator) CGAL_Subconstraint_iterator<CPPTYPE,std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle <CPPTYPE,Point_2>,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2> > >;
 
-  Iterator_for_java(CGAL_Vertices_in_constraint_iterator,CLASSNAME_PREFIX##_Vertex_handle,import CGAL.Kernel.Point_2;)
+  SWIG_CGAL_set_as_java_iterator(CGAL_Vertices_in_constraint_iterator,CLASSNAME_PREFIX##_Vertex_handle,import CGAL.Kernel.Point_2;)
   %template(CLASSNAME_PREFIX##_Vertices_in_constraint_iterator) CGAL_Vertices_in_constraint_iterator<CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2> >;
 
-  Iterator_for_java(CGAL_Context_iterator,CLASSNAME_PREFIX##_Context,)
+  SWIG_CGAL_set_as_java_iterator(CGAL_Context_iterator,CLASSNAME_PREFIX##_Context,)
   %template(CLASSNAME_PREFIX##_Context_iterator) CGAL_Context_iterator<CPPTYPE,CDTP_context<CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2> > >;
 
   //Triangulation

@@ -15,9 +15,9 @@
 %}
 
 #define i_Face_handle_DT2 SWIG_Triangulation_2::CGAL_Face_handle<CGAL_AS2,Point_2>
-add_JavaData_info_to_class(i_Face_handle_DT2,)
+SWIG_CGAL_add_JavaData_info_to_class(i_Face_handle_DT2,)
 #define i_Face_handle_RT2 SWIG_Triangulation_2::CGAL_Face_handle<CGAL_WAS2,Weighted_point_2>
-add_JavaData_info_to_class(i_Face_handle_RT2,)
+SWIG_CGAL_add_JavaData_info_to_class(i_Face_handle_RT2,)
 #endif
 
 

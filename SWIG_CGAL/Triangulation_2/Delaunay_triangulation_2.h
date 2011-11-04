@@ -20,8 +20,8 @@ public:
   #endif
   Delaunay_triangulation_2_wrapper() : Base() {}
 //Queries    
-  FORWARD_CALL_AND_REF_2(Vertex_handle,nearest_vertex,Point_2,Face_handle)
-  FORWARD_CALL_AND_REF_1(Vertex_handle,nearest_vertex,Point_2)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,nearest_vertex,Point_2,Face_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,nearest_vertex,Point_2)
   void get_conflicts_and_boundary(const Point_2& p,Face_output_iterator fout,Edge_output_iterator eout,const Face_handle& start) const
   {
     this->data.get_conflicts_and_boundary(p.get_data(),fout,eout,start.get_data());
@@ -38,7 +38,7 @@ public:
   
   
 // Voronoi diagram
-  FORWARD_CALL_AND_REF_1(Point_2,dual,Face_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,dual,Face_handle)
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_DELAUNAY_TRIANGULATION_2_H

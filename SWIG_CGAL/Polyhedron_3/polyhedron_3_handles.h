@@ -1,5 +1,5 @@
-#ifndef CGAL_SWIG_POLYHEDRON_3_HANDLES_H
-#define CGAL_SWIG_POLYHEDRON_3_HANDLES_H
+#ifndef SWIG_CGAL_POLYHEDRON_3_HANDLES_H
+#define SWIG_CGAL_POLYHEDRON_3_HANDLES_H
 
 #include <SWIG_CGAL/Common/Macros.h>
 #include <CGAL/Polyhedron_3.h>
@@ -61,29 +61,29 @@ public:
 
   CGAL_Halfedge_handle():data(NULL){}
 //Operations
-  FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle,opposite)
-  FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle,next)
-  FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle,prev)
-  FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle,next_on_vertex)
-  FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle,prev_on_vertex)
-  FORWARD_CALL_0_PTR(bool,is_border)
-  FORWARD_CALL_0_PTR(bool,is_border_edge)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle,opposite)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle,next)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle,prev)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle,next_on_vertex)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle,prev_on_vertex)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_border)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_border_edge)
 
   CGAL_Halfedge_around_vertex_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> > vertex_begin(){return CGAL_Halfedge_around_vertex_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> >( data->vertex_begin() );}
   CGAL_Halfedge_around_facet_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> > facet_begin(){return CGAL_Halfedge_around_facet_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> >( data->facet_begin() );}
   
-  FORWARD_CALL_0_PTR(unsigned,vertex_degree)
-  FORWARD_CALL_0_PTR(bool,is_bivalent)
-  FORWARD_CALL_0_PTR(bool,is_trivalent)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(unsigned,vertex_degree)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_bivalent)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_trivalent)
 
-  FORWARD_CALL_0_PTR(unsigned,facet_degree)
-  FORWARD_CALL_0_PTR(bool,is_triangle)
-  FORWARD_CALL_0_PTR(bool,is_quad)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(unsigned,facet_degree)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_triangle)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_quad)
 
 //Operations available if Supports_halfedge_vertex is CGAL::Tag_true
-  FORWARD_CALL_AND_REF_0_PTR(CGAL_Vertex_handle<Polyhedron_base>,vertex)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(CGAL_Vertex_handle<Polyhedron_base>,vertex)
 //Operations available if Supports_halfedge_facet is CGAL::Tag_true
-  FORWARD_CALL_AND_REF_0_PTR(CGAL_Facet_handle<Polyhedron_base>,facet)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(CGAL_Facet_handle<Polyhedron_base>,facet)
   
   bool equals(const CGAL_Halfedge_handle<Polyhedron_base>& he){ return get_data()==he.get_data(); }
   int hashCode(){ return *reinterpret_cast<int*> (&*data);}
@@ -107,14 +107,14 @@ public:
   CGAL_Vertex_handle():data(NULL){}
 
 //Operations available if Supports_vertex_point is CGAL::Tag_true
-  FORWARD_CALL_AND_REF_0_PTR(Point_3,point)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(Point_3,point)
 //Operations available if Supports_vertex_halfedge is CGAL::Tag_true
-  FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle<Polyhedron_base>,halfedge)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle<Polyhedron_base>,halfedge)
   CGAL_Halfedge_around_vertex_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> > vertex_begin(){return CGAL_Halfedge_around_vertex_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> >( data->vertex_begin() );}
-  FORWARD_CALL_1_PTR(void,set_halfedge,CGAL_Halfedge_handle<Polyhedron_base>)
-  FORWARD_CALL_0_PTR(unsigned,vertex_degree)
-  FORWARD_CALL_0_PTR(bool,is_bivalent)
-  FORWARD_CALL_0_PTR(bool,is_trivalent)
+  SWIG_CGAL_FORWARD_CALL_1_PTR(void,set_halfedge,CGAL_Halfedge_handle<Polyhedron_base>)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(unsigned,vertex_degree)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_bivalent)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_trivalent)
 
   bool equals(const CGAL_Vertex_handle<Polyhedron_base>& v){ return get_data()==v.get_data(); }
   int hashCode(){ return *reinterpret_cast<int*> (&*data);}
@@ -140,16 +140,16 @@ public:
   
   CGAL_Facet_handle():data(NULL){}
 //Operations available if Supports_facet_plane is CGAL::Tag_true
-  #ifdef CGAL_SWIG_FACET_SUPPORTS_PLANE
-  FORWARD_CALL_AND_REF_0_PTR(Plane_3,plane)
+  #ifdef SWIG_CGAL_FACET_SUPPORTS_PLANE
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(Plane_3,plane)
   #endif
 //Operations available if Supports_facet_halfedge ? CGAL::Tag_true
-  FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle<Polyhedron_base>,halfedge)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(CGAL_Halfedge_handle<Polyhedron_base>,halfedge)
   CGAL_Halfedge_around_facet_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> > facet_begin(){return CGAL_Halfedge_around_facet_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> >( data->facet_begin() );}
-  FORWARD_CALL_1_PTR(void,set_halfedge,CGAL_Halfedge_handle<Polyhedron_base>)
-  FORWARD_CALL_0_PTR(unsigned,facet_degree)
-  FORWARD_CALL_0_PTR(bool,is_triangle)
-  FORWARD_CALL_0_PTR(bool,is_quad)
+  SWIG_CGAL_FORWARD_CALL_1_PTR(void,set_halfedge,CGAL_Halfedge_handle<Polyhedron_base>)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(unsigned,facet_degree)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_triangle)
+  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_quad)
 
   bool equals(const CGAL_Facet_handle<Polyhedron_base>& f){ return get_data()==f.get_data(); }
   int hashCode(){ return *reinterpret_cast<int*> (&*data);}
@@ -160,4 +160,4 @@ public:
 
 } //namespace SWIG_Polyhedron_3
 
-#endif //CGAL_SWIG_POLYHEDRON_3_HANDLES_H
+#endif //SWIG_CGAL_POLYHEDRON_3_HANDLES_H

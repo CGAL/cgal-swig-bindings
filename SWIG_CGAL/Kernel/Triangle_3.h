@@ -20,13 +20,13 @@ public:
   Triangle_3();
   Triangle_3(const Point_3& p,const Point_3& q,const Point_3& r);
 //Operations
-  FORWARD_CALL_AND_REF_1(Point_3,vertex,int)
-  FORWARD_CALL_0(Plane_3,supporting_plane)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,vertex,int)
+  SWIG_CGAL_FORWARD_CALL_0(Plane_3,supporting_plane)
 //Predicates
-  FORWARD_CALL_0(bool,is_degenerate)
-  FORWARD_CALL_1(bool,has_on,Point_3)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
 //Miscellaneous
-  FORWARD_CALL_0(double,squared_area)
+  SWIG_CGAL_FORWARD_CALL_0(double,squared_area)
   bool equals(const Triangle_3&);
   
   std::string toString();

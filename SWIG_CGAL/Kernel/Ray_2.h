@@ -25,19 +25,19 @@ public:
   Ray_2(const Point_2& p,const Vector_2& v);
   Ray_2(const Point_2& p,const Line_2& l);
 //Operations
-  FORWARD_CALL_AND_REF_0(Point_2,source)
-  FORWARD_CALL_AND_REF_1(Point_2,point,int)
-  DECLARE_CALL_AND_REF_0(Direction_2,direction)
-  DECLARE_CALL_AND_REF_0(Vector_2,to_vector)
-  DECLARE_CALL_AND_REF_0(Line_2,supporting_line)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_2,source)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,point,int)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_2,direction)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_2,to_vector)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Line_2,supporting_line)
     
-  FORWARD_CALL_AND_REF_0(Ray_2,opposite)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Ray_2,opposite)
 //Predicates
-  FORWARD_CALL_0(bool,is_degenerate)
-  FORWARD_CALL_0(bool,is_horizontal)
-  FORWARD_CALL_0(bool,is_vertical)
-  FORWARD_CALL_1(bool,has_on,Point_2)
-  FORWARD_CALL_1(bool,collinear_has_on,Point_2)    
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_horizontal)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_vertical)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_2)
+  SWIG_CGAL_FORWARD_CALL_1(bool,collinear_has_on,Point_2)    
 //
   bool equals(const Ray_2&);
   std::string toString();

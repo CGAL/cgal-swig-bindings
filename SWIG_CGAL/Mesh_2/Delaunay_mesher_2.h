@@ -5,7 +5,7 @@
 #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
 
 
-DECLARE_ITERATOR_CLASS(Seeds_const_iterator)
+SWIG_CGAL_DECLARE_ITERATOR_CLASS(Seeds_const_iterator)
 
 typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > Point_range;
 
@@ -35,20 +35,20 @@ public:
   Delaunay_mesher_2_wrapper(CDT_wrapper& cdt):data(cdt.get_data_ref()){}
   Delaunay_mesher_2_wrapper(CDT_wrapper& cdt,const Criteria_wrapper& criteria):data(cdt.get_data_ref(),criteria.get_data()){}
 //Seeds functions
-  FORWARD_CALL_0(void,clear_seeds)
+  SWIG_CGAL_FORWARD_CALL_0(void,clear_seeds)
   void  set_seeds (Point_range range, const bool mark){data.set_seeds(range.first,range.second,mark);}
   void  set_seeds (Point_range range)                 {data.set_seeds(range.first,range.second);}
   Seeds_const_iterator seeds() const {return Seeds_const_iterator(data.seeds_begin(),data.seeds_end());}
 //Meshing methods
-  FORWARD_CALL_0(void,refine_mesh)
-  FORWARD_CALL_AND_REF_0(Criteria_wrapper,get_criteria)
-  FORWARD_CALL_1(void,set_criteria,Criteria_wrapper)
-  FORWARD_CALL_2(void,set_criteria,Criteria_wrapper,bool)
+  SWIG_CGAL_FORWARD_CALL_0(void,refine_mesh)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Criteria_wrapper,get_criteria)
+  SWIG_CGAL_FORWARD_CALL_1(void,set_criteria,Criteria_wrapper)
+  SWIG_CGAL_FORWARD_CALL_2(void,set_criteria,Criteria_wrapper,bool)
   void set_bad_faces(Facet_range range){data.set_bad_faces(range.first,range.second);}
   //Step by step operations
-  FORWARD_CALL_0(void,init)
-  FORWARD_CALL_0(bool,is_refinement_done)
-  FORWARD_CALL_0(bool,step_by_step_refine_mesh)
+  SWIG_CGAL_FORWARD_CALL_0(void,init)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_refinement_done)
+  SWIG_CGAL_FORWARD_CALL_0(bool,step_by_step_refine_mesh)
 };
 
 #endif //SWIG_CGAL_MESH_2_DELAUNAY_MESHER_2_H

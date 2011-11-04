@@ -57,7 +57,7 @@ Decl_void_type()
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Sphere_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Iterator; import java.util.Collection; import CGAL.Polyhedron_3.Polyhedron_3;%}
 %pragma(java) moduleimports  =%{import CGAL.Polyhedron_3.Polyhedron_3;%} //for global functions
 
-Typemap_for_Input_iterator(Weighting_helper_3<CGAL::Tag_false>::Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
+SWIG_CGAL_input_iterator_typemap_in(Weighting_helper_3<CGAL::Tag_false>::Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
 %import "SWIG_CGAL/Triangulation_3/declare_Delaunay_triangulation_3.i"
 Declare_Delaunay_triangulation_3(Surface_mesh_default_triangulation_3,C2T3_DT)
 
@@ -66,20 +66,20 @@ Declare_Delaunay_triangulation_3(Surface_mesh_default_triangulation_3,C2T3_DT)
 %{
 typedef std::pair< SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int >                              Surface_mesh_default_triangulation_3_Facet;
 %}
-Typemap_for_Output_iterator(Complex_2_in_triangulation_3_Facet_output_iterator,Surface_mesh_default_triangulation_3_Facet,Surface_mesh_default_triangulation_3_Facet,C2T3_DT::Facet,SWIGTYPE_p_std__pairT_SWIG_Triangulation_3__CGAL_Cell_handleT_C2T3_DT_Point_3_t_int_t,"LCGAL/Surface_mesher/Surface_mesh_default_triangulation_3_Facet;")
+SWIG_CGAL_output_iterator_typemap_in(Complex_2_in_triangulation_3_Facet_output_iterator,Surface_mesh_default_triangulation_3_Facet,Surface_mesh_default_triangulation_3_Facet,C2T3_DT::Facet,SWIGTYPE_p_std__pairT_SWIG_Triangulation_3__CGAL_Cell_handleT_C2T3_DT_Point_3_t_int_t,"LCGAL/Surface_mesher/Surface_mesh_default_triangulation_3_Facet;")
 
 //iterators
-Iterator_for_java(CGAL_Vertex_iterator,Surface_mesh_default_triangulation_3_Vertex_handle,import CGAL.Kernel.Point_3;)
+SWIG_CGAL_set_as_java_iterator(CGAL_Vertex_iterator,Surface_mesh_default_triangulation_3_Vertex_handle,import CGAL.Kernel.Point_3;)
 %template(Surface_mesher_Complex_2_in_triangulation_3_Vertex_iterator) CGAL_Vertex_iterator<C2T3,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3> >;
 
-Iterator_for_java(CGAL_Facet_iterator,Surface_mesh_default_triangulation_3_Facet,)
+SWIG_CGAL_set_as_java_iterator(CGAL_Facet_iterator,Surface_mesh_default_triangulation_3_Facet,)
 %template(Surface_mesh_default_triangulation_3_Facet_iterator) CGAL_Facet_iterator<C2T3,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int> >;
 
-Iterator_for_java(CGAL_Edge_iterator,Surface_mesh_default_triangulation_3_Edge,)
-%template(Surface_mesh_default_triangulation_3_Edge_iterator) CGAL_Edge_iterator<C2T3,CGAL_SWIG::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int,int> >;
+SWIG_CGAL_set_as_java_iterator(CGAL_Edge_iterator,Surface_mesh_default_triangulation_3_Edge,)
+%template(Surface_mesh_default_triangulation_3_Edge_iterator) CGAL_Edge_iterator<C2T3,SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int,int> >;
 
-Iterator_for_java(CGAL_Boundary_edges_iterator,Surface_mesh_default_triangulation_3_Edge,)
-%template(Surface_mesh_default_triangulation_3_Boundary_edges_iterator) CGAL_Boundary_edges_iterator<C2T3,CGAL_SWIG::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int,int> >;
+SWIG_CGAL_set_as_java_iterator(CGAL_Boundary_edges_iterator,Surface_mesh_default_triangulation_3_Edge,)
+%template(Surface_mesh_default_triangulation_3_Boundary_edges_iterator) CGAL_Boundary_edges_iterator<C2T3,SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int,int> >;
 
 
 //main classes

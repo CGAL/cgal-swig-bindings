@@ -21,19 +21,19 @@ public:
   Tetrahedron_3();
   Tetrahedron_3(const Point_3& p,const Point_3& q,const Point_3& r,const Point_3& s);
 //Operations
-  FORWARD_CALL_AND_REF_1(Point_3,vertex,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,vertex,int)
 //Predicates
-  FORWARD_CALL_0(bool,is_degenerate)
-  FORWARD_CALL_1(bool,has_on_positive_side,Point_3)
-  FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
-  FORWARD_CALL_1(bool,has_on_boundary,Point_3)
-  FORWARD_CALL_1(bool,has_on_bounded_side,Point_3)
-  FORWARD_CALL_1(bool,has_on_unbounded_side,Point_3)
-  FORWARD_CALL_0(Orientation,orientation)
-  FORWARD_CALL_1(Oriented_side,oriented_side,Point_3)
-  FORWARD_CALL_1(Bounded_side,bounded_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_positive_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_boundary,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_bounded_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_unbounded_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_0(Orientation,orientation)
+  SWIG_CGAL_FORWARD_CALL_1(Oriented_side,oriented_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(Bounded_side,bounded_side,Point_3)
 //Miscellaneous
-  FORWARD_CALL_0(double,volume)
+  SWIG_CGAL_FORWARD_CALL_0(double,volume)
 
   bool equals(const Tetrahedron_3&);
   

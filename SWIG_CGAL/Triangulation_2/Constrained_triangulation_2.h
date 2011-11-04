@@ -28,20 +28,20 @@ public:
       this->data.push_back(*it);
   }        
 // Queries
-  FORWARD_CALL_1(bool,is_constrained,Edge)
-  FORWARD_CALL_1(bool,are_there_incident_constraints,Vertex_handle)
-  FORWARD_CALL_1(void,push_back,Constraint)
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_constrained,Edge)
+  SWIG_CGAL_FORWARD_CALL_1(bool,are_there_incident_constraints,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_1(void,push_back,Constraint)
 
   typedef boost::function_output_iterator< Container_writer<Edge,typename Triangulation::Edge> > Edge_output_iterator;
   void incident_constraints (const Vertex_handle& v, Edge_output_iterator edge_output_iterator){
     this->data.incident_constraints(v.get_data(),edge_output_iterator);
   }      
 // Insertion and removal
-  FORWARD_CALL_2(void,insert_constraint,Point_2,Point_2)    
-  FORWARD_CALL_2(void,insert_constraint,Vertex_handle,Vertex_handle)
-  FORWARD_CALL_1(void,remove,Vertex_handle)
-  FORWARD_CALL_1(void,remove_incident_constraints,Vertex_handle)
-  FORWARD_CALL_2(void,remove_constrained_edge,Face_handle, int)
+  SWIG_CGAL_FORWARD_CALL_2(void,insert_constraint,Point_2,Point_2)    
+  SWIG_CGAL_FORWARD_CALL_2(void,insert_constraint,Vertex_handle,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_1(void,remove,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_1(void,remove_incident_constraints,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_2(void,remove_constrained_edge,Face_handle, int)
   
   void insert_constraint_range(Constraint_range range){
     for (Input_constraint_iterator it=range.first;it!=range.second;++it)

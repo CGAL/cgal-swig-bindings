@@ -25,20 +25,20 @@ public:
   Delaunay_triangulation_3_wrapper():Base(){}
   Delaunay_triangulation_3_wrapper(const Delaunay_triangulation_3_wrapper& dt):Base(static_cast<const Base&>(dt)){};
 //Point moving
-  FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,move,Vertex_handle,Point_3);
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,move,Vertex_handle,Point_3);
 //Removal
-  FORWARD_CALL_1_PTR(void,remove,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_1_PTR(void,remove,Vertex_handle)
 //Queries
-  FORWARD_CALL_2_PTR(Bounded_side,side_of_sphere,Cell_handle,Point_3)
-  FORWARD_CALL_2_PTR(Bounded_side,side_of_circle,Facet,Point_3)
-  FORWARD_CALL_3_PTR(Bounded_side,side_of_circle,Cell_handle,int,Point_3)
-  FORWARD_CALL_AND_REF_1_PTR(Vertex_handle,nearest_vertex,Point_3)
-  FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,nearest_vertex,Point_3,Cell_handle)
-  FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,nearest_vertex_in_cell,Point_3,Cell_handle)    
-  FORWARD_CALL_2_PTR(bool,is_Gabriel,Cell_handle,int)
-  FORWARD_CALL_3_PTR(bool,is_Gabriel,Cell_handle,int,int)
-  FORWARD_CALL_1_PTR(bool,is_Gabriel,Facet)
-  FORWARD_CALL_1_PTR(bool,is_Gabriel,Edge)
+  SWIG_CGAL_FORWARD_CALL_2_PTR(Bounded_side,side_of_sphere,Cell_handle,Point_3)
+  SWIG_CGAL_FORWARD_CALL_2_PTR(Bounded_side,side_of_circle,Facet,Point_3)
+  SWIG_CGAL_FORWARD_CALL_3_PTR(Bounded_side,side_of_circle,Cell_handle,int,Point_3)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Vertex_handle,nearest_vertex,Point_3)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,nearest_vertex,Point_3,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,nearest_vertex_in_cell,Point_3,Cell_handle)    
+  SWIG_CGAL_FORWARD_CALL_2_PTR(bool,is_Gabriel,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_3_PTR(bool,is_Gabriel,Cell_handle,int,int)
+  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_Gabriel,Facet)
+  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_Gabriel,Edge)
 };
 
 //Creation

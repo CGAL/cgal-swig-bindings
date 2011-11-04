@@ -91,14 +91,14 @@ Decl_void_type()
 
 //Regular triangulation
 %typemap(javaimports) SWIG_Triangulation_3::CGAL_Cell_handle %{import CGAL.Kernel.Weighted_point_3;%}
-Typemap_for_Input_iterator(Weighting_helper_3<CGAL::Tag_true>::Point_range,Weighted_point_3,Weighted_point_3,Weighted_point_3::cpp_base,SWIGTYPE_p_Weighted_point_3,"(LCGAL/Kernel/Weighted_point_3;)J",insert_range)
+SWIG_CGAL_input_iterator_typemap_in(Weighting_helper_3<CGAL::Tag_true>::Point_range,Weighted_point_3,Weighted_point_3,Weighted_point_3::cpp_base,SWIGTYPE_p_Weighted_point_3,"(LCGAL/Kernel/Weighted_point_3;)J",insert_range)
 Declare_regular_triangulation_3(Mesh_3_regular_triangulation_3,MT_PMD)
 
 //iterators
-Iterator_for_java(CGAL_Cell_iterator,Mesh_3_regular_triangulation_3_Cell_handle,)
+SWIG_CGAL_set_as_java_iterator(CGAL_Cell_iterator,Mesh_3_regular_triangulation_3_Cell_handle,)
 %template(Mesh_3_Complex_3_in_triangulation_3_Cell_iterator) CGAL_Cell_iterator<C3T3_PMD,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3> >;
 
-Iterator_for_java(CGAL_Facet_iterator,Mesh_3_regular_triangulation_3_Facet,)
+SWIG_CGAL_set_as_java_iterator(CGAL_Facet_iterator,Mesh_3_regular_triangulation_3_Facet,)
 %template(Mesh_3_Complex_3_in_triangulation_3_Facet_iterator) CGAL_Facet_iterator<C3T3_PMD,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int> >;
 
 //Types of Index

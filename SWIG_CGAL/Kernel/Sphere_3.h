@@ -45,22 +45,22 @@ public:
   Sphere_3(Point_3 center, Orientation o):data(center.get_data(),internal::make_conversion(o)){}  
   Sphere_3(Point_3 center):data(center.get_data()){}
 //Access Functions
-  FORWARD_CALL_AND_REF_0(Point_3,center)
-  FORWARD_CALL_0(double,squared_radius)
-  FORWARD_CALL_0(Orientation,orientation)  
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_3,center)
+  SWIG_CGAL_FORWARD_CALL_0(double,squared_radius)
+  SWIG_CGAL_FORWARD_CALL_0(Orientation,orientation)  
 //Predicates
-  FORWARD_CALL_0(bool,is_degenerate)
-  FORWARD_CALL_1(Oriented_side,oriented_side,Point_3)
-  FORWARD_CALL_1(Bounded_side,bounded_side,Point_3)
-  FORWARD_CALL_1(bool,has_on_positive_side,Point_3)
-  FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
-  FORWARD_CALL_1(bool,has_on_boundary,Point_3)
-  FORWARD_CALL_1(bool,has_on_bounded_side,Point_3)
-  FORWARD_CALL_1(bool,has_on_unbounded_side,Point_3)
-  FORWARD_CALL_1(bool,has_on,Point_3)
-//  FORWARD_CALL_1(bool,has_on ( Circle_3<Kernel> p)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
+  SWIG_CGAL_FORWARD_CALL_1(Oriented_side,oriented_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(Bounded_side,bounded_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_positive_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_boundary,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_bounded_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_unbounded_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
+//  SWIG_CGAL_FORWARD_CALL_1(bool,has_on ( Circle_3<Kernel> p)
 //Miscellaneous
-  FORWARD_CALL_AND_REF_0(Sphere_3,opposite)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Sphere_3,opposite)
 };
 
 #endif //SWIG_CGAL_KERNEL_SPHERE_3_H

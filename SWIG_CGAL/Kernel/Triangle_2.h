@@ -21,20 +21,20 @@ public:
   Triangle_2(const Point_2& p,const Point_2& q,const Point_2& r);
 
 //Operations
-  FORWARD_CALL_AND_REF_1(Point_2,vertex,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,vertex,int)
 //Predicates
-  FORWARD_CALL_0(bool,is_degenerate)
-  FORWARD_CALL_1(bool,has_on_positive_side,Point_2)
-  FORWARD_CALL_1(bool,has_on_negative_side,Point_2)
-  FORWARD_CALL_1(bool,has_on_boundary,Point_2)
-  FORWARD_CALL_1(bool,has_on_bounded_side,Point_2)
-  FORWARD_CALL_1(bool,has_on_unbounded_side,Point_2)
-  FORWARD_CALL_0(Orientation,orientation)
-  FORWARD_CALL_1(Oriented_side,oriented_side,Point_2)
-  FORWARD_CALL_1(Bounded_side,bounded_side,Point_2)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_positive_side,Point_2)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_negative_side,Point_2)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_boundary,Point_2)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_bounded_side,Point_2)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_unbounded_side,Point_2)
+  SWIG_CGAL_FORWARD_CALL_0(Orientation,orientation)
+  SWIG_CGAL_FORWARD_CALL_1(Oriented_side,oriented_side,Point_2)
+  SWIG_CGAL_FORWARD_CALL_1(Bounded_side,bounded_side,Point_2)
 //Miscellaneous
-  FORWARD_CALL_AND_REF_0(Triangle_2,opposite)
-  FORWARD_CALL_0(double,area)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Triangle_2,opposite)
+  SWIG_CGAL_FORWARD_CALL_0(double,area)
 
   bool equals(const Triangle_2&);
   

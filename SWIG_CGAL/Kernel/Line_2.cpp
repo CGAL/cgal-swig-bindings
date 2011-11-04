@@ -11,8 +11,8 @@ Line_2::Line_2(const Point_2& p,const Vector_2& v):data(p.get_data(),v.get_data(
 Line_2::Line_2(const Segment_2& s):data(s.get_data()){}
 Line_2::Line_2(const Ray_2& r):data(r.get_data()){}
 
-FORWARD_CALL_AND_REF_0(Direction_2,Line_2::direction)
-FORWARD_CALL_AND_REF_0(Vector_2,Line_2::to_vector)
+SWIG_CGAL_FORWARD_CALL_AND_REF_0(Direction_2,Line_2::direction)
+SWIG_CGAL_FORWARD_CALL_AND_REF_0(Vector_2,Line_2::to_vector)
 
 bool Line_2::equals(const Line_2& r){return data==r.get_data();}
 

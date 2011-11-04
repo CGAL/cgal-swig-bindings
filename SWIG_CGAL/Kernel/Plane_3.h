@@ -32,28 +32,28 @@ public:
   Plane_3(const Ray_3& r,const Point_3& p);
   Plane_3(const Segment_3& s,const Point_3& p);
 //Operations
-  FORWARD_CALL_0(double,a)
-  FORWARD_CALL_0(double,b)
-  FORWARD_CALL_0(double,c)
-  FORWARD_CALL_0(double,d)
-  FORWARD_CALL_AND_REF_1(Point_3,projection,Point_3)
-  FORWARD_CALL_AND_REF_0(Plane_3,opposite)
-  FORWARD_CALL_AND_REF_0(Point_3,point)
-  DECLARE_CALL_AND_REF_0(Vector_3,orthogonal_vector)
-  DECLARE_CALL_AND_REF_1(Line_3,perpendicular_line,Point_3)
-  DECLARE_CALL_AND_REF_0(Direction_3,orthogonal_direction)
-  DECLARE_CALL_AND_REF_0(Vector_3,base1)
-  DECLARE_CALL_AND_REF_0(Vector_3,base2)
+  SWIG_CGAL_FORWARD_CALL_0(double,a)
+  SWIG_CGAL_FORWARD_CALL_0(double,b)
+  SWIG_CGAL_FORWARD_CALL_0(double,c)
+  SWIG_CGAL_FORWARD_CALL_0(double,d)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,projection,Point_3)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Plane_3,opposite)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_3,point)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,orthogonal_vector)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_1(Line_3,perpendicular_line,Point_3)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_3,orthogonal_direction)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,base1)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,base2)
 //2D Conversion
-  FORWARD_CALL_AND_REF_1(Point_2,to_2d,Point_3)
-  FORWARD_CALL_AND_REF_1(Point_3,to_3d,Point_2)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,to_2d,Point_3)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,to_3d,Point_2)
 //Predicates
-  FORWARD_CALL_1(Oriented_side,oriented_side,Point_3)
-  FORWARD_CALL_1(bool,has_on,Point_3)
-  FORWARD_CALL_1(bool,has_on_positive_side,Point_3)
-  FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(Oriented_side,oriented_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_positive_side,Point_3)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
   bool has_on(const Line_3&);
-  FORWARD_CALL_0(bool,is_degenerate)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
 //
   bool equals(const Plane_3&);
   std::string toString();
@@ -68,7 +68,7 @@ public:
 #endif //SWIG_CGAL_KERNEL_PLANE_3_H
 
 //Plane_3(const Circle_3& c);
-//FORWARD_CALL_1(bool,has_on,Circle_3)
+//SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Circle_3)
 //Miscellaneous
 //Plane_3<Kernel> h.transform ( Aff_transformation_3<Kernel> t)
 

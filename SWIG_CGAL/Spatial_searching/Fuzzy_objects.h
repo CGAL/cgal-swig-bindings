@@ -19,7 +19,7 @@ public:
   Fuzzy_sphere_wrapper(const Point_d& center, double radius, double epsilon):data(internal::make_conversion(center),radius,epsilon){}
   Fuzzy_sphere_wrapper(const Point_d& center, double radius):data(internal::make_conversion(center),radius){}
 //Operations
-  FORWARD_CALL_1(bool,contains,Point_d)
+  SWIG_CGAL_FORWARD_CALL_1(bool,contains,Point_d)
 };
 
 //Operations
@@ -43,7 +43,7 @@ public:
   Fuzzy_iso_box_wrapper (const Point_d& p,const Point_d& q, double epsilon):data(internal::make_conversion(p),internal::make_conversion(q),epsilon){}
   Fuzzy_iso_box_wrapper (const Point_d& p,const Point_d& q):data(internal::make_conversion(p),internal::make_conversion(q)){}
 //Operations
-  FORWARD_CALL_1(bool,contains,Point_d)    
+  SWIG_CGAL_FORWARD_CALL_1(bool,contains,Point_d)    
 };
 
 //Operations

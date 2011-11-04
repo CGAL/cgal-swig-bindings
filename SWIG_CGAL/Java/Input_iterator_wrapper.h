@@ -1,5 +1,5 @@
-#ifndef CGAL_SWIG_JAVA_INPUT_ITERATOR_WRAPPER_H
-#define CGAL_SWIG_JAVA_INPUT_ITERATOR_WRAPPER_H
+#ifndef SWIG_CGAL_JAVA_INPUT_ITERATOR_WRAPPER_H
+#define SWIG_CGAL_JAVA_INPUT_ITERATOR_WRAPPER_H
 
 #include <boost/iterator/iterator_facade.hpp>
 #include <SWIG_CGAL/Java/global_functions.h>
@@ -144,4 +144,4 @@ public:
 
 
 
-#endif// CGAL_SWIG_JAVA_INPUT_ITERATOR_WRAPPER_H
+#endif// SWIG_CGAL_JAVA_INPUT_ITERATOR_WRAPPER_H

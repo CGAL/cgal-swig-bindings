@@ -50,14 +50,14 @@ public:
     this->data.make_alpha_shape(range.first,range.second);  
   }
 //Operations
-  FORWARD_CALL_0(Mode,set_mode)
+  SWIG_CGAL_FORWARD_CALL_0(Mode,set_mode)
   Mode set_mode(Mode m){return CGAL::enum_cast<Mode>( this->data.set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) ) );}
-  FORWARD_CALL_0(Mode,get_mode)
-  FORWARD_CALL_0(void,clear)
-  FORWARD_CALL_1(double,set_alpha,double)
-  FORWARD_CALL_0(double,get_alpha)
-  FORWARD_CALL_1(double,get_nth_alpha,int)
-  FORWARD_CALL_0(int,number_of_alphas)
+  SWIG_CGAL_FORWARD_CALL_0(Mode,get_mode)
+  SWIG_CGAL_FORWARD_CALL_0(void,clear)
+  SWIG_CGAL_FORWARD_CALL_1(double,set_alpha,double)
+  SWIG_CGAL_FORWARD_CALL_0(double,get_alpha)
+  SWIG_CGAL_FORWARD_CALL_1(double,get_nth_alpha,int)
+  SWIG_CGAL_FORWARD_CALL_0(int,number_of_alphas)
   int make_alpha_shape(typename Weighting_helper<Weighted_tag>::Point_range range){
     return this->data.make_alpha_shape(range.first,range.second);
   }  
@@ -67,24 +67,24 @@ public:
   Alpha_iterator  alpha_lower_bound(double a){return Alpha_iterator(this->data.alpha_lower_bound(a),this->data.alpha_end());}
   Alpha_iterator  alpha_upper_bound(double a){return Alpha_iterator(this->data.alpha_upper_bound(a),this->data.alpha_end());}
 //Operations
-  FORWARD_CALL_0(int,number_of_solid_components) 
-  FORWARD_CALL_1(int,number_of_solid_components,double) 
+  SWIG_CGAL_FORWARD_CALL_0(int,number_of_solid_components) 
+  SWIG_CGAL_FORWARD_CALL_1(int,number_of_solid_components,double) 
   Alpha_iterator  find_optimal_alpha(int i){return Alpha_iterator(this->data.find_optimal_alpha(i),this->data.alpha_end());}  
   Alpha_shape_vertices_iterator  alpha_shape_vertices(){return Alpha_shape_vertices_iterator(this->data.alpha_shape_vertices_begin(),this->data.alpha_shape_vertices_end());}
   Alpha_shape_edges_iterator     alpha_shape_edges(){return Alpha_shape_edges_iterator(this->data.alpha_shape_edges_begin(),this->data.alpha_shape_edges_end());}
 
   
 //Predicates
-  FORWARD_CALL_1(Classification_type,classify,Point)
-  FORWARD_CALL_1(Classification_type,classify,Face_handle)
-  FORWARD_CALL_1(Classification_type,classify,Edge )
-  FORWARD_CALL_2(Classification_type,classify,Face_handle,int)
-  FORWARD_CALL_1(Classification_type,classify,Vertex_handle)
-  FORWARD_CALL_2(Classification_type,classify,Point,double)
-  FORWARD_CALL_2(Classification_type,classify,Face_handle,double)
-  FORWARD_CALL_2(Classification_type,classify,Edge,double)
-  FORWARD_CALL_3(Classification_type,classify,Face_handle,int,double)
-  FORWARD_CALL_2(Classification_type,classify,Vertex_handle,double)  
+  SWIG_CGAL_FORWARD_CALL_1(Classification_type,classify,Point)
+  SWIG_CGAL_FORWARD_CALL_1(Classification_type,classify,Face_handle)
+  SWIG_CGAL_FORWARD_CALL_1(Classification_type,classify,Edge )
+  SWIG_CGAL_FORWARD_CALL_2(Classification_type,classify,Face_handle,int)
+  SWIG_CGAL_FORWARD_CALL_1(Classification_type,classify,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_2(Classification_type,classify,Point,double)
+  SWIG_CGAL_FORWARD_CALL_2(Classification_type,classify,Face_handle,double)
+  SWIG_CGAL_FORWARD_CALL_2(Classification_type,classify,Edge,double)
+  SWIG_CGAL_FORWARD_CALL_3(Classification_type,classify,Face_handle,int,double)
+  SWIG_CGAL_FORWARD_CALL_2(Classification_type,classify,Vertex_handle,double)  
  
 };
 

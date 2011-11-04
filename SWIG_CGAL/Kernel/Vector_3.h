@@ -28,13 +28,13 @@ public:
   Vector_3(int x, int y, int z);
   Vector_3(double x, double y, double z);
 //Operations
-  FORWARD_CALL_0(double,x)
-  FORWARD_CALL_0(double,y)
-  FORWARD_CALL_0(double,z)
-  FORWARD_CALL_1(double,cartesian,int)
-  DECLARE_CALL_AND_REF_0(Direction_3,direction)
-  FORWARD_CALL_0(double,squared_length)
-  FORWARD_CALL_0(int,dimension)
+  SWIG_CGAL_FORWARD_CALL_0(double,x)
+  SWIG_CGAL_FORWARD_CALL_0(double,y)
+  SWIG_CGAL_FORWARD_CALL_0(double,z)
+  SWIG_CGAL_FORWARD_CALL_1(double,cartesian,int)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_3,direction)
+  SWIG_CGAL_FORWARD_CALL_0(double,squared_length)
+  SWIG_CGAL_FORWARD_CALL_0(int,dimension)
 //
 
   void set_coordinates(double x,double y,double z){

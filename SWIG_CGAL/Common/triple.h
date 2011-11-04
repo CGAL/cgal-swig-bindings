@@ -1,9 +1,9 @@
-#ifndef CGAL_SWIG_TRIPLE_H
-#define CGAL_SWIG_TRIPLE_H
+#ifndef SWIG_CGAL_TRIPLE_H
+#define SWIG_CGAL_TRIPLE_H
 
 #include <CGAL/utility.h>
 
-namespace CGAL_SWIG{
+namespace SWIG_CGAL{
   template <class T1, class T2, class T3>
   class Triple
   {
@@ -52,4 +52,4 @@ namespace CGAL_SWIG{
   }  
 }
 
-#endif //CGAL_SWIG_TRIPLE_H
+#endif //SWIG_CGAL_TRIPLE_H

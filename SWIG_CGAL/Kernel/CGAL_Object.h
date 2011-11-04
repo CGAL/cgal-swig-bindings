@@ -47,8 +47,9 @@ public:
   DECLARE_FCT_IS_AND_GET(Ray_2)
   DECLARE_FCT_IS_AND_GET(Ray_3)
     
-  FORWARD_CALL_0(bool,empty)
+  SWIG_CGAL_FORWARD_CALL_0(bool,empty)
 };
 
+#undef DECLARE_FCT_IS_AND_GET
 
 #endif //SWIG_CGAL_KERNEL_OBJECT_H

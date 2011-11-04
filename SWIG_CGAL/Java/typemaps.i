@@ -2,7 +2,7 @@
 #define SWIG_CGAL_JAVA_TYPEMAPS_I
 
 //IN typemap for reading points from an array of double
-%define Typemap_in_double_Array_to_Point_3_Vector
+%define SWIG_CGAL_array_of_double_to_vector_of_point_3_typemap_in
 %typemap(jni) boost::shared_ptr<std::vector<EPIC_Kernel::Point_3> > "jdoubleArray"  //replace in jni class
 %typemap(jtype) boost::shared_ptr<std::vector<EPIC_Kernel::Point_3> > "double[]"   //replace in java wrapping class
 %typemap(jstype) boost::shared_ptr<std::vector<EPIC_Kernel::Point_3> > "double[]"  //replace in java function args
@@ -23,7 +23,7 @@
 %enddef
 
 //IN typemap for reading vector of points from an array of array of double
-%define Typemap_in_Array_of_Array_of_double_to_Vector_of_Vector_of_Point_3
+%define SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_3_typemap_in
 %typemap(jni) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_3> > > "jobjectArray"  //replace in jni class
 %typemap(jtype) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_3> > > "double[][]"   //replace in java wrapping class
 %typemap(jstype) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_3> > > "double[][]"  //replace in java function args
@@ -53,7 +53,7 @@
 %enddef
 
 //IN typemap for reading vector of points from an array of array of double
-%define Typemap_in_Array_of_Array_of_double_to_Vector_of_Vector_of_Point_2
+%define SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in
 %typemap(jni) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "jobjectArray"  //replace in jni class
 %typemap(jtype) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "double[][]"   //replace in java wrapping class
 %typemap(jstype) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "double[][]"  //replace in java function args
@@ -83,7 +83,7 @@
 %enddef
 
 //IN typemap for reading a vector of triple of int from an array of int
-%define Typemap_in_int_Array_to_Triple_int_Vector
+%define SWIG_CGAL_array_of_int_to_vector_of_triple_of_int_typemap_in
 %typemap(jni) boost::shared_ptr<std::vector<boost::tuple<int,int,int> > > "jintArray"  //replace in jni class
 %typemap(jtype) boost::shared_ptr<std::vector<boost::tuple<int,int,int> > > "int[]"   //replace in java wrapping class
 %typemap(jstype) boost::shared_ptr<std::vector<boost::tuple<int,int,int> > > "int[]"  //replace in java function args
@@ -104,7 +104,7 @@
 %enddef
 
 //IN typemap for a vector of int from an array of int
-%define Typemap_in_int_Array_to_int_Vector
+%define SWIG_CGAL_array_of_int_to_vector_of_int_typemap_in
 %typemap(jni) boost::shared_ptr<std::vector<int> > "jintArray"  //replace in jni class
 %typemap(jtype) boost::shared_ptr<std::vector<int> > "int[]"   //replace in java wrapping class
 %typemap(jstype) boost::shared_ptr<std::vector<int> > "int[]"  //replace in java function args
@@ -125,7 +125,7 @@
 %enddef
 
 //IN typemap for a vector of float from an array of double
-%define Typemap_in_float_Array_to_float_Vector
+%define SWIG_CGAL_array_of_float_to_vector_of_float_typemap_in
 %typemap(jni) boost::shared_ptr<std::vector<float> > "jfloatArray"  //replace in jni class
 %typemap(jtype) boost::shared_ptr<std::vector<float> > "float[]"   //replace in java wrapping class
 %typemap(jstype) boost::shared_ptr<std::vector<float> > "float[]"  //replace in java function args
@@ -146,7 +146,7 @@
 %enddef
 
 //IN typemap for a vector of double from an array of double
-%define Typemap_in_double_Array_to_double_Vector
+%define SWIG_CGAL_array_of_double_to_vector_of_double_typemap_in
 %typemap(jni) boost::shared_ptr<std::vector<double> > "jdoubleArray"  //replace in jni class
 %typemap(jtype) boost::shared_ptr<std::vector<double> > "double[]"   //replace in java wrapping class
 %typemap(jstype) boost::shared_ptr<std::vector<double> > "double[]"  //replace in java function args
@@ -169,7 +169,7 @@
 
 
 //OUT typemap for writting segments into a java array
-%define Typemap_out_Segment_3_Vector_to_double_Array
+%define SWIG_CGAL_vector_of_segment_3_to_array_of_double_typemap_out
 %typemap(jni) boost::shared_ptr<std::vector<EPIC_Kernel::Segment_3> > "jdoubleArray"  //replace in jni class
 %typemap(jtype) boost::shared_ptr<std::vector<EPIC_Kernel::Segment_3> > "double[]"   //replace in java wrapping class
 %typemap(jstype) boost::shared_ptr<std::vector<EPIC_Kernel::Segment_3> > "double[]"  //replace in java function args

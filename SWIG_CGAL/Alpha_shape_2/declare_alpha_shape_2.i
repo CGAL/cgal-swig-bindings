@@ -20,8 +20,8 @@
 
   %extend SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE> {
     double get_alpha() const {return $self->get_data()->get_alpha();}
-    CGAL_SWIG::Triple<double,double,double> get_ranges(int i) const { return $self->get_data()->get_ranges(i); }
-    void set_ranges(int i,CGAL_SWIG::Triple<double,double,double> r){$self->get_data_ref()->set_ranges(i,internal::make_conversion(r));}
+    SWIG_CGAL::Triple<double,double,double> get_ranges(int i) const { return $self->get_data()->get_ranges(i); }
+    void set_ranges(int i,SWIG_CGAL::Triple<double,double,double> r){$self->get_data_ref()->set_ranges(i,internal::make_conversion(r));}
     void set_alpha (double d) {$self->get_data_ref()->set_alpha(d);}
   }
 
@@ -33,12 +33,12 @@
   %template(CLASSNAME)           Alpha_shape_2_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE>,WTAG,BASE_WRAPPER <CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE> > >;  
   
   //typemaps for iterators
-  Iterator_for_java(CGAL_Alpha_shape_vertices_iterator,CLASSNAME##_Vertex_handle,import CGAL.Kernel.POINT_TYPE;)
+  SWIG_CGAL_set_as_java_iterator(CGAL_Alpha_shape_vertices_iterator,CLASSNAME##_Vertex_handle,import CGAL.Kernel.POINT_TYPE;)
   %template(CLASSNAME##_Alpha_shape_vertices_iterator) CGAL_Alpha_shape_vertices_iterator<CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> >;
-  Iterator_for_java(CGAL_Alpha_shape_edges_iterator,CLASSNAME##_Edge,)
+  SWIG_CGAL_set_as_java_iterator(CGAL_Alpha_shape_edges_iterator,CLASSNAME##_Edge,)
   %template(CLASSNAME##_Alpha_shape_edges_iterator) CGAL_Alpha_shape_edges_iterator<CPPTYPE,std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE>,int> >;  
   %typemap(jstype) double "Double"  //next() return type must be Double
-  Iterator_for_java(CGAL_Alpha_iterator,Double,)
+  SWIG_CGAL_set_as_java_iterator(CGAL_Alpha_iterator,Double,)
   %template(CLASSNAME##_Alpha_iterator) CGAL_Alpha_iterator<CPPTYPE,double>;
   %typemap(jstype) double "double"  //restore to default
 %enddef

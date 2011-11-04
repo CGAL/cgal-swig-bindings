@@ -5,7 +5,7 @@
 #include <SWIG_CGAL/Common/Input_iterator.h>
 
 
-DECLARE_ITERATOR_CLASS_2(iterator,NN_search_iterator)
+SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(iterator,NN_search_iterator)
 
 template <class Cpp_base,class Query,class Tree>
 class NN_search_wrapper

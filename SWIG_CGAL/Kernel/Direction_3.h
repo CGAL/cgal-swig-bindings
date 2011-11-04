@@ -25,11 +25,11 @@ public:
   Direction_3(const Segment_3& s);
   Direction_3(double x, double y, double z);
 //Operations
-  FORWARD_CALL_1(double,delta,int)
-  FORWARD_CALL_0(double,dx)
-  FORWARD_CALL_0(double,dy)
-  FORWARD_CALL_0(double,dz)
-  DECLARE_CALL_AND_REF_0(Vector_3,vector)
+  SWIG_CGAL_FORWARD_CALL_1(double,delta,int)
+  SWIG_CGAL_FORWARD_CALL_0(double,dx)
+  SWIG_CGAL_FORWARD_CALL_0(double,dy)
+  SWIG_CGAL_FORWARD_CALL_0(double,dz)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,vector)
 //
   bool equals(const Direction_3&);
   std::string toString();

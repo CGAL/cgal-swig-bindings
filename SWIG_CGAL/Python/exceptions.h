@@ -1,8 +1,8 @@
-#ifndef CGAL_SWIG_PYTHON_EXCEPTIONS_H
-#define CGAL_SWIG_PYTHON_EXCEPTIONS_H
+#ifndef SWIG_CGAL_PYTHON_EXCEPTIONS_H
+#define SWIG_CGAL_PYTHON_EXCEPTIONS_H
 
 struct Bad_list_element{};
 struct Stop_iteration{};
 struct Not_a_list{};
   
-#endif  // CGAL_SWIG_PYTHON_EXCEPTIONS_H
+#endif  // SWIG_CGAL_PYTHON_EXCEPTIONS_H

@@ -1,5 +1,5 @@
-#ifndef CGAL_SWIG_POLYHEDRON_3_EXAMPLE_MODIFIER_H
-#define CGAL_SWIG_POLYHEDRON_3_EXAMPLE_MODIFIER_H
+#ifndef SWIG_CGAL_POLYHEDRON_3_EXAMPLE_MODIFIER_H
+#define SWIG_CGAL_POLYHEDRON_3_EXAMPLE_MODIFIER_H
 
 #include <CGAL/config.h>
 #include <CGAL/Modifier_base.h>
@@ -60,7 +60,7 @@ public:
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/triple.h>
 
-typedef CGAL_SWIG::Triple<int,int,int> Integer_triple;
+typedef SWIG_CGAL::Triple<int,int,int> Integer_triple;
 typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
 typedef std::pair<Input_iterator_wrapper<Integer_triple,Integer_triple>,Input_iterator_wrapper<Integer_triple,Integer_triple> > Triple_integer_range;
 
@@ -102,4 +102,4 @@ public:
 #endif
 };
 
-#endif //CGAL_SWIG_POLYHEDRON_3_EXAMPLE_MODIFIER_H
+#endif //SWIG_CGAL_POLYHEDRON_3_EXAMPLE_MODIFIER_H

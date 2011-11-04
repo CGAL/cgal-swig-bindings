@@ -9,7 +9,7 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 
 //macro function to define proper java iterators
 #ifdef SWIGJAVA
-%define Iterator_for_java(Iterator_type,Object_type,Extra_import)
+%define SWIG_CGAL_set_as_java_iterator(Iterator_type,Object_type,Extra_import)
   %typemap(javaimports) Iterator_type
   %{
   Extra_import
@@ -31,22 +31,8 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
     }  
   %}
 %enddef
-
-%define Add_info(Class_name,Info_type)
-  %typemap(javacode) Class_name
-  %{
-    public void setInfo(Info_type i) {
-      setInfo_i( (Object) i);
-    }
-    
-    public Info_type getInfo(){
-      return (Info_type) getInfo_i();
-    }
-  %}
-%enddef
-
 #else
-%define Iterator_for_java(Iterator_type,Object_type,Extra_import)
+%define SWIG_CGAL_set_as_java_iterator(Iterator_type,Object_type,Extra_import)
 %enddef
 #endif
 
@@ -59,7 +45,7 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 //   SWIG_for_java_        java specific class name (should be a string)
 //   Function_name_        python specific: name of the function using the input_iterator
 #ifdef SWIGPYTHON
-%define Typemap_for_Input_iterator(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_,Function_name_)
+%define SWIG_CGAL_input_iterator_typemap_in(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_,Function_name_)
   %typemap(in) Object_typemap_ {
     try{
       Input_iterator_wrapper<Out_Object_,Out_Object_cpp_base_> it_end;
@@ -94,7 +80,7 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 %enddef  
 #endif
 #ifdef SWIGJAVA
-%define Typemap_for_Input_iterator(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_,Function_name_)
+%define SWIG_CGAL_input_iterator_typemap_in(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_,Function_name_)
   %typemap(jni) Object_typemap_ "jobject"  //replace in jni class
   %typemap(jtype) Object_typemap_ "Iterator<Out_JAVA>"   //replace in java wrapping class
   %typemap(jstype) Object_typemap_ "Iterator<Out_JAVA>"  //replace in java function args
@@ -136,7 +122,7 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 #ifdef SWIGPYTHON
 //Add extra exception handling for function using an input_iterator as input
 //   Function_name_   :     python specific: name of the function
-%define Typemap_for_Input_iterator_additional_function(Function_name_)
+%define SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Function_name_)
 %include exception.i
 %exception Function_name_
 {
@@ -159,7 +145,7 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 //   SWIG_for_java_        java specific class name (should be a string)
 //   Function_name_        python specific: name of the function using the input_iterator
 #ifdef SWIGPYTHON
-%define Typemap_for_Output_iterator(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
+%define SWIG_CGAL_output_iterator_typemap_in(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
   %typemap(in) Object_typemap_ {
     try{
       $1=boost::make_function_output_iterator( Container_writer<Out_Object_,Out_Object_cpp_base_>($input,SWIG_for_python_) );
@@ -175,7 +161,7 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 %enddef
 #endif
 #ifdef SWIGJAVA
-%define Typemap_for_Output_iterator(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
+%define SWIG_CGAL_output_iterator_typemap_in(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
   %typemap(jni) Object_typemap_ "jobject"  //replace in jni class
   %typemap(jtype) Object_typemap_ "Collection<Out_JAVA>"   //replace in java wrapping class
   %typemap(jstype) Object_typemap_ "Collection<Out_JAVA>"  //replace in java function args

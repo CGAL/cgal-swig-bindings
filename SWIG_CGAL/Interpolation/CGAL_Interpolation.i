@@ -71,7 +71,7 @@ Decl_void_type()
 %include "std_pair.i"
 %template(Double_and_bool) std::pair<double,bool>;
 %include "SWIG_CGAL/Common/triple.h"
-%template(Double_bool_bool) CGAL_SWIG::Triple<double,bool,bool>;
+%template(Double_bool_bool) SWIG_CGAL::Triple<double,bool,bool>;
 %typemap(javaimports)  std::pair<Point_2,double> %{import CGAL.Kernel.Point_2;%}
 %template(Point_2_and_double) std::pair<Point_2,double>;
 %typemap(javaimports)  std::pair<Weighted_point_2,double> %{import CGAL.Kernel.Weighted_point_2;%}
@@ -91,7 +91,7 @@ Decl_void_type()
     std::pair<T2,T3> extract_pair(const CGAL::Triple<T1,T2,T3>& triple){return std::make_pair(triple.second,triple.third);}
     
     template <class T1,class T2,class T3,class T4>
-    CGAL_SWIG::Triple<T2,T3,T4> extract_triple(const CGAL::Quadruple<T1,T2,T3,T4>& quad){return CGAL_SWIG::Triple<T2,T3,T4>(quad.second,quad.third,quad.fourth);}
+    SWIG_CGAL::Triple<T2,T3,T4> extract_triple(const CGAL::Quadruple<T1,T2,T3,T4>& quad){return SWIG_CGAL::Triple<T2,T3,T4>(quad.second,quad.third,quad.fourth);}
   }
   #endif
 %}

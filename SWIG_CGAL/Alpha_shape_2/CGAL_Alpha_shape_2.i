@@ -60,16 +60,16 @@ Decl_void_type()
 
 //Face Interval_3
 %include "SWIG_CGAL/Common/triple.h"
-%template(Face_Interval_3)  CGAL_SWIG::Triple<double,double,double>;
+%template(Face_Interval_3)  SWIG_CGAL::Triple<double,double,double>;
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Ref_int; import CGAL.Triangulation_2.Ref_Locate_type; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Triangle_2; import CGAL.Kernel.Segment_2;  import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
 
 //typemap for point input iterator
-Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",make_alpha_shape)
+SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",make_alpha_shape)
 //typemap for weighted point input iterator
-Typemap_for_Input_iterator(Weighting_helper<CGAL::Tag_true>::Point_range,Weighted_point_2,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",make_alpha_shape)
+SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_true>::Point_range,Weighted_point_2,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",make_alpha_shape)
 #ifdef SWIGPYTHON
-Typemap_for_Input_iterator_additional_function(Alpha_shape_2_wrapper::Alpha_shape_2_wrapper)
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Alpha_shape_2_wrapper::Alpha_shape_2_wrapper)
 #endif
 %import "SWIG_CGAL/Alpha_shape_2/declare_alpha_shape_2.i"
 

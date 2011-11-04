@@ -14,10 +14,10 @@
   %define iSWIG_##EXPOSEDNAME##_wrapper Delaunay_triangulation_2_wrapper<CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,Point_2> > %enddef
   %define iSWIG_##EXPOSEDNAME##_Edge_wrapper std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,Point_2>,int > %enddef
   %define iSWIG_##EXPOSEDNAME##_Edge_base std::pair<CPPTYPE::Face_handle,int > %enddef
-  Typemap_for_Output_iterator(iSWIG_##EXPOSEDNAME##_wrapper::Edge_output_iterator,iSWIG_##EXPOSEDNAME##_Edge_wrapper,CLASSNAME_PREFIX##_Edge,iSWIG_##EXPOSEDNAME##_Edge_base,SWIGTYPE_p_std__pairT_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t_int_t,"LCGAL/Triangulation_2/" #EXPOSEDNAME "_Edge;")
+  SWIG_CGAL_output_iterator_typemap_in(iSWIG_##EXPOSEDNAME##_wrapper::Edge_output_iterator,iSWIG_##EXPOSEDNAME##_Edge_wrapper,CLASSNAME_PREFIX##_Edge,iSWIG_##EXPOSEDNAME##_Edge_base,SWIGTYPE_p_std__pairT_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t_int_t,"LCGAL/Triangulation_2/" #EXPOSEDNAME "_Edge;")
 
   %define iSWIG_##EXPOSEDNAME##_Face_wrapper SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,Point_2> %enddef
-  Typemap_for_Output_iterator(iSWIG_##EXPOSEDNAME##_wrapper::Face_output_iterator,iSWIG_##EXPOSEDNAME##_Face_wrapper,CLASSNAME_PREFIX##_Face_handle,CPPTYPE::Face_handle,SWIGTYPE_p_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t,"LCGAL/Triangulation_2/" #EXPOSEDNAME "_Face_handle;")
+  SWIG_CGAL_output_iterator_typemap_in(iSWIG_##EXPOSEDNAME##_wrapper::Face_output_iterator,iSWIG_##EXPOSEDNAME##_Face_wrapper,CLASSNAME_PREFIX##_Face_handle,CPPTYPE::Face_handle,SWIGTYPE_p_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t,"LCGAL/Triangulation_2/" #EXPOSEDNAME "_Face_handle;")
   
 
   %typemap(javaimports)          Delaunay_triangulation_2_wrapper%{import CGAL.Kernel.Point_2; import java.util.Iterator; import java.util.Collection;%}

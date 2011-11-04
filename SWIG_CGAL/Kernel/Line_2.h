@@ -27,26 +27,26 @@ public:
   Line_2(const Segment_2& s);
   Line_2(const Ray_2& r);    
 //Operations
-  FORWARD_CALL_0(double,a)
-  FORWARD_CALL_0(double,b)
-  FORWARD_CALL_0(double,c)
-  FORWARD_CALL_AND_REF_1(Point_2,point,int)
-  FORWARD_CALL_AND_REF_1(Point_2,projection,Point_2)
-  FORWARD_CALL_1(double,x_at_y,double)
-  FORWARD_CALL_1(double,y_at_x,double)
+  SWIG_CGAL_FORWARD_CALL_0(double,a)
+  SWIG_CGAL_FORWARD_CALL_0(double,b)
+  SWIG_CGAL_FORWARD_CALL_0(double,c)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,point,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,projection,Point_2)
+  SWIG_CGAL_FORWARD_CALL_1(double,x_at_y,double)
+  SWIG_CGAL_FORWARD_CALL_1(double,y_at_x,double)
 //Predicates
-  FORWARD_CALL_0(bool,is_degenerate)
-  FORWARD_CALL_0(bool,is_horizontal)
-  FORWARD_CALL_0(bool,is_vertical)
-  FORWARD_CALL_1(Oriented_side,oriented_side,Point_2)
-  FORWARD_CALL_1(bool,has_on,Point_2)
-  FORWARD_CALL_1(bool,has_on_positive_side,Point_2)
-  FORWARD_CALL_1(bool,has_on_negative_side,Point_2)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_horizontal)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_vertical)
+  SWIG_CGAL_FORWARD_CALL_1(Oriented_side,oriented_side,Point_2)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_2)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_positive_side,Point_2)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_negative_side,Point_2)
 //Miscellaneous
-  DECLARE_CALL_AND_REF_0(Vector_2,to_vector)
-  DECLARE_CALL_AND_REF_0(Direction_2,direction)
-  FORWARD_CALL_AND_REF_0(Line_2,opposite)
-  FORWARD_CALL_AND_REF_1(Line_2,perpendicular,Point_2)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_2,to_vector)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_2,direction)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Line_2,opposite)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Line_2,perpendicular,Point_2)
 //
   bool equals(const Line_2&);
   std::string toString();
@@ -57,6 +57,6 @@ public:
 
 #endif //SWIG_CGAL_KERNEL_LINE_2_H
 
-//FORWARD_CALL_0(Line_2,transform,Aff_transformation_2)
+//SWIG_CGAL_FORWARD_CALL_0(Line_2,transform,Aff_transformation_2)
 
 

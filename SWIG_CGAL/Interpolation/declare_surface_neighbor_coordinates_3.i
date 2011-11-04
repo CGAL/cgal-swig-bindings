@@ -12,15 +12,15 @@
 %}
 
 #ifdef SWIGPYTHON
-Typemap_for_Input_iterator_additional_function(surface_neighbor_coordinates_certified_3)
-Typemap_for_Input_iterator_additional_function(surface_neighbor_coordinates_3)
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(surface_neighbor_coordinates_certified_3)
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(surface_neighbor_coordinates_3)
 #endif
 
-Typemap_for_Output_iterator(Point_3_and_double_output_iterator,Point_3_and_double_wrapper,Point_3_and_double,Point_3_and_double_base,SWIGTYPE_p_std__pairT_Point_3_double_t,"LCGAL/Interpolation/Point_3_and_double;")
+SWIG_CGAL_output_iterator_typemap_in(Point_3_and_double_output_iterator,Point_3_and_double_wrapper,Point_3_and_double,Point_3_and_double_base,SWIGTYPE_p_std__pairT_Point_3_double_t,"LCGAL/Interpolation/Point_3_and_double;")
 
 std::pair<double, bool > surface_neighbor_coordinates_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,Point_3_and_double_output_iterator out);
-CGAL_SWIG::Triple<double, bool, bool > surface_neighbor_coordinates_certified_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,Point_3_and_double_output_iterator out);
-CGAL_SWIG::Triple<double, bool, bool > surface_neighbor_coordinates_certified_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,double max_distance,Point_3_and_double_output_iterator out);
+SWIG_CGAL::Triple<double, bool, bool > surface_neighbor_coordinates_certified_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,Point_3_and_double_output_iterator out);
+SWIG_CGAL::Triple<double, bool, bool > surface_neighbor_coordinates_certified_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,double max_distance,Point_3_and_double_output_iterator out);
 std::pair< double, bool > surface_neighbor_coordinates_3(const DT3_wrapper& dt,const Point_3& p,const Vector_3& normal,Point_3_and_double_output_iterator out,const SWIG_Triangulation_3::CGAL_Cell_handle<CGAL_DT3,Point_3>& start);
 std::pair< double, bool > surface_neighbor_coordinates_3(const DT3_wrapper& dt,const Point_3& p,const Vector_3& normal,Point_3_and_double_output_iterator out);
 
@@ -29,11 +29,11 @@ std::pair< double, bool > surface_neighbor_coordinates_3(const DT3_wrapper& dt,c
     return internal::extract_pair(CGAL::surface_neighbor_coordinates_3(range.first,range.second,p.get_data(),normal.get_data(),out,EPIC_Kernel()));
   }
 
-  CGAL_SWIG::Triple<double, bool, bool > surface_neighbor_coordinates_certified_3 (Point_range_3 range,const Point_3& p,const Vector_3& normal,Point_3_and_double_output_iterator out)  {
+  SWIG_CGAL::Triple<double, bool, bool > surface_neighbor_coordinates_certified_3 (Point_range_3 range,const Point_3& p,const Vector_3& normal,Point_3_and_double_output_iterator out)  {
     return internal::extract_triple(CGAL::surface_neighbor_coordinates_certified_3(range.first,range.second,p.get_data(),normal.get_data(),out,EPIC_Kernel()));
   }
 
-  CGAL_SWIG::Triple<double, bool, bool > surface_neighbor_coordinates_certified_3 (Point_range_3 range,const Point_3& p,const Vector_3& normal,double max_distance,Point_3_and_double_output_iterator out){
+  SWIG_CGAL::Triple<double, bool, bool > surface_neighbor_coordinates_certified_3 (Point_range_3 range,const Point_3& p,const Vector_3& normal,double max_distance,Point_3_and_double_output_iterator out){
     return internal::extract_triple(CGAL::surface_neighbor_coordinates_certified_3(range.first,range.second,p.get_data(),normal.get_data(),max_distance,out,EPIC_Kernel()));
   }
 

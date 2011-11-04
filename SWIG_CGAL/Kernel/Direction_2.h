@@ -26,12 +26,12 @@ public:
   Direction_2(const Segment_2& s);
   Direction_2(double x,double y);
 //Operations
-  FORWARD_CALL_1(double,delta,int)
-  FORWARD_CALL_0(double,dx)
-  FORWARD_CALL_0(double,dy)
-  FORWARD_CALL_2(bool,counterclockwise_in_between,Direction_2,Direction_2)
+  SWIG_CGAL_FORWARD_CALL_1(double,delta,int)
+  SWIG_CGAL_FORWARD_CALL_0(double,dx)
+  SWIG_CGAL_FORWARD_CALL_0(double,dy)
+  SWIG_CGAL_FORWARD_CALL_2(bool,counterclockwise_in_between,Direction_2,Direction_2)
 //Miscellaneous
-  DECLARE_CALL_AND_REF_0(Vector_2,vector)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_2,vector)
 //
   bool equals(const Direction_2&);
   std::string toString();
