@@ -8,8 +8,6 @@ Weighted_point_3::Weighted_point_3(double x,double y,double z):data(x,y,z){}
 Weighted_point_3::Weighted_point_3(const Point_3& p,double w):data(p.get_data(),w){}
 Weighted_point_3::Weighted_point_3(const CGAL::Weighted_point<EPIC_Kernel::Point_3,double>& p):data(p){}
   
-const CGAL::Weighted_point<EPIC_Kernel::Point_3,double>& Weighted_point_3::get_data() const {return data;}
-CGAL::Weighted_point<EPIC_Kernel::Point_3,double>& Weighted_point_3::get_data_ref() {return data;}  
 double Weighted_point_3::weight() const {return data.weight();}
 double Weighted_point_3::x() const {return data.x();}
 double Weighted_point_3::y() const {return data.y();}

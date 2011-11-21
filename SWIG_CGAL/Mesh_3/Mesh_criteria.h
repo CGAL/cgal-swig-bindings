@@ -12,7 +12,7 @@ public:
 #ifndef SWIG
   typedef Base cpp_base;
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref(){return data;}
+        cpp_base& get_data()       {return data;}
 #endif
   
   Default_mesh_criteria_wrapper(  double facet_angle=0,
@@ -31,7 +31,7 @@ public:
 #ifndef SWIG
   typedef Base cpp_base;
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref(){return data;}
+        cpp_base& get_data()       {return data;}
 #endif
   
   Mesh_criteria_with_fields_wrapper(  double facet_angle=0,

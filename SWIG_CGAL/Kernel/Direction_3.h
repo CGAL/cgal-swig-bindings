@@ -15,7 +15,7 @@ public:
   #ifndef SWIG
   typedef EPIC_Kernel::Direction_3 cpp_base;
   const cpp_base& get_data() const {return data;}
-        cpp_base& get_data_ref()   {return data;}
+        cpp_base& get_data()       {return data;}
   Direction_3(const cpp_base& base):data(base){}
   #endif //SWIG
 //Creation

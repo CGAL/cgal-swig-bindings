@@ -24,7 +24,7 @@ public:
   #ifndef SWIG
   typedef Cpp_base cpp_base;
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
   typedef Kd_tree_iterator<Cpp_base,Query> Iterator;
   typedef Query Point_d;

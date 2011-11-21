@@ -13,8 +13,8 @@ public:
   typedef std::pair<double,double> Range;
   #ifndef SWIG
   typedef typename Triangulation::Vertex_handle cpp_base;
-  const typename Triangulation::Vertex_handle& get_data() const {return data;}
-  typename Triangulation::Vertex_handle& get_data_ref() {return data;}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   CGAL_Vertex_handle(cpp_base v):data(v){}
   #endif
 //Creation
@@ -45,8 +45,8 @@ class CGAL_Face_handle{
 public:
   #ifndef SWIG
   typedef typename Triangulation::Face_handle cpp_base;
-  const typename Triangulation::Face_handle& get_data() const {return data;}
-  typename Triangulation::Face_handle& get_data_ref() {return data;}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   CGAL_Face_handle(cpp_base v):data(v){}
   #endif
   typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;

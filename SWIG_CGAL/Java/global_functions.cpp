@@ -3,7 +3,7 @@
 #include <SWIG_CGAL/Java/global_functions.h>
 
 //function called when library is loaded in Java
-JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved) {
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *jvm, void *) {
   get_cached_jvm() = jvm;
   return JNI_VERSION_1_2;
 }

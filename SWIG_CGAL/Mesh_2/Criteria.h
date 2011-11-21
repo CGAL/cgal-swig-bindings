@@ -17,7 +17,7 @@ public:
   #ifndef SWIG
   typedef Cpp cpp_base;
   const cpp_base& get_data() const {return data;}
-        cpp_base& get_data_ref()   {return data;}
+        cpp_base& get_data()       {return data;}
   Criteria_wrapper(const cpp_base& base):data(base){}
   #endif
   Criteria_wrapper( double b , double S ):data(b,S){}
@@ -57,7 +57,7 @@ public:
   #ifndef SWIG
   typedef Java_criteria_wrapper<Is_bad_wrapper,Caller> cpp_base;
   const cpp_base& get_data() const {return *this;}
-        cpp_base& get_data_ref()   {return *this;}
+        cpp_base& get_data()       {return *this;}
   const Is_bad& is_bad_object() const {return is_bad;}
   #endif
   

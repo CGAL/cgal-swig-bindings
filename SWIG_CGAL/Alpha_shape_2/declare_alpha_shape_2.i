@@ -15,14 +15,14 @@
   //extending handle classes
   %extend SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> {
     std::pair<double,double> get_range() const {return $self->get_data()->get_range();}
-    void set_range(std::pair<double,double> range) {$self->get_data_ref()->set_range(range);}
+    void set_range(std::pair<double,double> range) {$self->get_data()->set_range(range);}
   }
 
   %extend SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE> {
     double get_alpha() const {return $self->get_data()->get_alpha();}
     SWIG_CGAL::Triple<double,double,double> get_ranges(int i) const { return $self->get_data()->get_ranges(i); }
-    void set_ranges(int i,SWIG_CGAL::Triple<double,double,double> r){$self->get_data_ref()->set_ranges(i,internal::make_conversion(r));}
-    void set_alpha (double d) {$self->get_data_ref()->set_alpha(d);}
+    void set_ranges(int i,SWIG_CGAL::Triple<double,double,double> r){$self->get_data()->set_ranges(i,internal::make_conversion(r));}
+    void set_alpha (double d) {$self->get_data()->set_alpha(d);}
   }
 
 

@@ -15,7 +15,7 @@ Mesh_optimization_return_code  exude_mesh_3( C3T3& c3t3, double time_limit, doub
 %{
   Mesh_optimization_return_code  exude_mesh_3( C3T3& c3t3, double time_limit, double sliver_bound)
   {
-    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::exude_mesh_3(c3t3.get_data_ref(),time_limit,sliver_bound) );
+    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::exude_mesh_3(c3t3.get_data(),time_limit,sliver_bound) );
   }
 %}
 %enddef //end declare_global_functions
@@ -29,17 +29,17 @@ Mesh_optimization_return_code odt_optimize_mesh_3 (C3T3& c3t3,const DOMAIN& doma
 %{
   Mesh_optimization_return_code perturb_mesh_3 (  C3T3& c3t3,const DOMAIN& domain,double time_limit,double sliver_bound)
   {
-    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::perturb_mesh_3(c3t3.get_data_ref(),domain.get_data(),time_limit,sliver_bound) );
+    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::perturb_mesh_3(c3t3.get_data(),domain.get_data(),time_limit,sliver_bound) );
   } 
     
   Mesh_optimization_return_code lloyd_optimize_mesh_3 ( C3T3& c3t3,const DOMAIN& domain,double time_limit,int max_iteration_number,double convergence,double freeze_bound)
   {
-    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::lloyd_optimize_mesh_3(c3t3.get_data_ref(),domain.get_data(),time_limit,max_iteration_number,convergence,freeze_bound) );
+    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::lloyd_optimize_mesh_3(c3t3.get_data(),domain.get_data(),time_limit,max_iteration_number,convergence,freeze_bound) );
   }
 
   Mesh_optimization_return_code odt_optimize_mesh_3 (C3T3& c3t3,const DOMAIN& domain,double time_limit,std::size_t max_iteration_number,double convergence,double freeze_bound)
   {
-    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::odt_optimize_mesh_3(c3t3.get_data_ref(),domain.get_data(),time_limit,max_iteration_number,convergence,freeze_bound) );
+    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::odt_optimize_mesh_3(c3t3.get_data(),domain.get_data(),time_limit,max_iteration_number,convergence,freeze_bound) );
   }  
 %}
 %enddef //end declare_global_functions_domain
@@ -61,7 +61,7 @@ void  refine_mesh_3 ( C3T3& c3t3, const DOMAIN& mesh_domain,const CRITERIA& crit
 
   void  refine_mesh_3 ( C3T3& c3t3, const DOMAIN& domain,const CRITERIA& criteria,const PARAMETERS& parameters)
   {
-    CGAL::refine_mesh_3(c3t3.get_data_ref(),domain.get_data(),criteria.get_data(),
+    CGAL::refine_mesh_3(c3t3.get_data(),domain.get_data(),criteria.get_data(),
                         parameters.get_lloyd_parameters(),
                         parameters.get_odt_parameters(),
                         parameters.get_perturb_parameters(),

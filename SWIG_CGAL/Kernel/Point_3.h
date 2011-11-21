@@ -9,8 +9,8 @@ class SWIG_CGAL_KERNEL_DECL Point_3{
 public:
   #ifndef SWIG
   typedef EPIC_Kernel::Point_3 cpp_base;
-  const cpp_base& get_data() const;
-  cpp_base& get_data_ref();
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   Point_3(const cpp_base& p);
   #endif
 

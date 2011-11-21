@@ -29,7 +29,7 @@ struct Converter{
   static const bool is_reference=true;
   
   static const result_type&  convert(const T& t){return t.get_data();}
-  static result_type& convert(T& t){return t.get_data_ref();}
+  static result_type& convert(T& t){return t.get_data();}
 };
 
 template <class T>
@@ -95,18 +95,6 @@ struct Converter< SWIG_CGAL::Triple<T1,T2,T3> >{
   }
 };
 
-
-  //~ typename Triangulation::Cell_handle convert (const Cell_handle& c) {return c.get_data();}
-  //~ typename Triangulation::Cell_handle& convert (Cell_handle& c) {return c.get_data_ref();}
-  //~ typename Triangulation::Vertex_handle convert (const Vertex_handle& v) {return v.get_data();}
-  //~ typename Triangulation::Vertex_handle& convert (Vertex_handle& v) {return v.get_data_ref();}
-  //~ typename Triangulation::Facet convert(const DT3_Facet& f){return std::make_pair(convert(f.first),f.second);}
-  //~ typename Triangulation::Edge convert (const DT3_Edge& e){return CGAL::make_tuple(convert(e.first),e.second,e.third);}
-  //~ typename Triangulation::Point convert (const Point_3& p){return p.get_data();}
-  //~ const int& convert (const int& i){return i;}
-  //~ template <class T> const T& convert(const Reference_wrapper<T>& ref){return ref.object();}
-  //~ template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object_ref();}  
-  
 }//namespace internal
 
 //Macro functions to ease the wrapping of member functions

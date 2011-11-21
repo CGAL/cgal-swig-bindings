@@ -9,10 +9,10 @@
   %{
     void make_conforming_Delaunay_2(CDTWRAPPER& cdt)
     {
-      CGAL::make_conforming_Delaunay_2(cdt.get_data_ref());
+      CGAL::make_conforming_Delaunay_2(cdt.get_data());
     }
     void make_conforming_Gabriel_2(CDTWRAPPER& cdt){
-      CGAL::make_conforming_Gabriel_2(cdt.get_data_ref());
+      CGAL::make_conforming_Gabriel_2(cdt.get_data());
     }
   %}
 %enddef
@@ -25,15 +25,15 @@
   %{
     void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t, CRITERIA criteria)
     {
-      CGAL::refine_Delaunay_mesh_2(t.get_data_ref(),criteria.get_data());
+      CGAL::refine_Delaunay_mesh_2(t.get_data(),criteria.get_data());
     }
     void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t,Point_range range,CRITERIA criteria,bool mark)
     {
-      CGAL::refine_Delaunay_mesh_2(t.get_data_ref(),range.first,range.second,criteria.get_data(),mark);
+      CGAL::refine_Delaunay_mesh_2(t.get_data(),range.first,range.second,criteria.get_data(),mark);
     }    
     void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t,Point_range range,CRITERIA criteria)
     {
-      CGAL::refine_Delaunay_mesh_2(t.get_data_ref(),range.first,range.second,criteria.get_data());
+      CGAL::refine_Delaunay_mesh_2(t.get_data(),range.first,range.second,criteria.get_data());
     }
   %} 
 %enddef  

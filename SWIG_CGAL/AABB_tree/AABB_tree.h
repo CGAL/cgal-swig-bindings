@@ -33,7 +33,7 @@ public:
   #ifndef SWIG
   typedef Tree cpp_base;
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
   typedef typename Primitive_iterator_helper<Primitive_object>::input Primitive_range;
   typedef std::pair<Point_3,Primitive_id> Point_and_primitive_id;

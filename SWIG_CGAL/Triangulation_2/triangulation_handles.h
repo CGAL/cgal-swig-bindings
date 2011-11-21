@@ -13,8 +13,8 @@ class CGAL_Vertex_handle{
 public:
   #ifndef SWIG
   typedef typename Triangulation::Vertex_handle cpp_base;
-  const typename Triangulation::Vertex_handle& get_data() const {return data;}
-  typename Triangulation::Vertex_handle& get_data_ref() {return data;}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
 //Creation
   CGAL_Vertex_handle():data(NULL){}
@@ -43,16 +43,14 @@ class CGAL_Face_handle{
   typename Triangulation::Face_handle data;
   
 public:
-  #ifndef SWIG
-  typedef typename Triangulation::Face_handle cpp_base;
-  #endif
   typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
 
   CGAL_Face_handle():data(NULL){}
   #ifndef SWIG
+  typedef typename Triangulation::Face_handle cpp_base;
   CGAL_Face_handle(typename Triangulation::Face_handle v):data(v){}
-  const typename Triangulation::Face_handle& get_data() const {return data;}
-  typename Triangulation::Face_handle& get_data_ref() {return data;}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
 
 //Access Functions    

@@ -15,7 +15,7 @@ public:
   #ifndef SWIG
   typedef typename Triangulation::Vertex_handle cpp_base;
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+        cpp_base& get_data()       {return data;}
   CGAL_Vertex_handle(cpp_base v):data(v){}
   #endif
   typedef CGAL_Cell_handle<Triangulation,Point> Cell_handle;
@@ -50,7 +50,7 @@ public:
   typedef typename Triangulation::Cell_handle cpp_base;
   CGAL_Cell_handle(cpp_base v):data(v){}
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
   
   typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;

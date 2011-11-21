@@ -3,8 +3,6 @@
 #include <SWIG_CGAL/Kernel/Triangle_2.h>
 #include <sstream>
 
-const EPIC_Kernel::Triangle_2& Triangle_2::get_data() const {return data;}
-EPIC_Kernel::Triangle_2& Triangle_2::get_data_ref() {return data;}
 Triangle_2::Triangle_2():data(){}
 Triangle_2::Triangle_2(const EPIC_Kernel::Triangle_2& t):data(t){}
 Triangle_2::Triangle_2(const Point_2& p,const Point_2& q,const Point_2& r):data(p.get_data(),q.get_data(),r.get_data()){}

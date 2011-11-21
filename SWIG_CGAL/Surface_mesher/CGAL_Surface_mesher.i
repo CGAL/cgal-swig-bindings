@@ -126,20 +126,20 @@ void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS
   
   void output_surface_facets_to_polyhedron(const T_C2T2_wrapper& c2t3,Polyhedron_3_type& poly)
   {
-    CGAL::output_surface_facets_to_polyhedron( c2t3.get_data(),poly.get_data_ref() );
+    CGAL::output_surface_facets_to_polyhedron( c2t3.get_data(),poly.get_data() );
   }
 
   void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag tag,int nb)
   {
     switch(tag){
       case MANIFOLD_TAG:
-        CGAL::make_surface_mesh(c2t3.get_data_ref(),surface.get_data(),criteria.get_data(),CGAL::Manifold_tag(),nb);
+        CGAL::make_surface_mesh(c2t3.get_data(),surface.get_data(),criteria.get_data(),CGAL::Manifold_tag(),nb);
       break;
       case MANIFOLD_WITH_BOUNDARY_TAG:
-        CGAL::make_surface_mesh(c2t3.get_data_ref(),surface.get_data(),criteria.get_data(),CGAL::Manifold_with_boundary_tag(),nb);
+        CGAL::make_surface_mesh(c2t3.get_data(),surface.get_data(),criteria.get_data(),CGAL::Manifold_with_boundary_tag(),nb);
       break;
       case NON_MANIFOLD_TAG:
-        CGAL::make_surface_mesh(c2t3.get_data_ref(),surface.get_data(),criteria.get_data(),CGAL::Non_manifold_tag(),nb);
+        CGAL::make_surface_mesh(c2t3.get_data(),surface.get_data(),criteria.get_data(),CGAL::Non_manifold_tag(),nb);
       break;
     }
   }

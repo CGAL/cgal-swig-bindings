@@ -26,14 +26,12 @@ class CDTP_context{
 public:
   #ifndef SWIG
   typedef typename CDT_plus_2::Context cpp_base;
-  #endif
-  typedef CGAL_Vertices_in_constraint_iterator<CDT_plus_2,Vertex_handle>  Vertices_in_constraint_iterator;
-
-  #ifndef SWIG
-  const cpp_base& get_data() const { return data; } 
-  cpp_base& get_data_ref() { return data; }
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   CDTP_context(const cpp_base& p):data(p){}
   #endif
+  typedef CGAL_Vertices_in_constraint_iterator<CDT_plus_2,Vertex_handle>  Vertices_in_constraint_iterator;    
+
   CDTP_context(){}
   Vertices_in_constraint_iterator vertices() {return Vertices_in_constraint_iterator(data.vertices_begin(),data.vertices_end());}
   Vertices_in_constraint_iterator current() {return Vertices_in_constraint_iterator(data.current(),data.vertices_end());}

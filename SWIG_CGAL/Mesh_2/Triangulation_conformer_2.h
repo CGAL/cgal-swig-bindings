@@ -10,12 +10,12 @@ public:
   #ifndef SWIG
   typedef CGAL::Triangulation_conformer_2<CDT_cpp> cpp_base;
   const cpp_base& get_data() const {return data;}
-        cpp_base& get_data_ref()   {return data;}
+        cpp_base& get_data()       {return data;}
   Triangulation_conformer_2_wrapper(const cpp_base& base):data(base){}
   #endif
 
 //Creation
-  Triangulation_conformer_2_wrapper( CDT_wrapper& cdt):data(cdt.get_data_ref()){}
+  Triangulation_conformer_2_wrapper( CDT_wrapper& cdt):data(cdt.get_data()){}
 //Conforming methods
   SWIG_CGAL_FORWARD_CALL_0(void,make_conforming_Delaunay)
   SWIG_CGAL_FORWARD_CALL_0(void,make_conforming_Gabriel)

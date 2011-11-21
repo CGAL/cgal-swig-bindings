@@ -14,7 +14,7 @@ public:
   #ifndef SWIG
   typedef C3T3 cpp_base;
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+        cpp_base& get_data()       {return data;}
   C3T3_wrapper(const cpp_base& data_):data(data_){}
   #endif
   
@@ -30,7 +30,7 @@ public:
   
 //Creation  
   C3T3_wrapper(){}
-  void swap(Self& other){data.swap(other.get_data_ref());}
+  void swap(Self& other){data.swap(other.get_data());}
 //Access Functions
   Triangulation triangulation()
   {return Triangulation(&(this->data.triangulation()));}

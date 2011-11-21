@@ -3,8 +3,6 @@
 #include <SWIG_CGAL/Kernel/Point_2.h>
 #include <sstream>
 
-const EPIC_Kernel::Point_2& Point_2::get_data() const {return data;}
-EPIC_Kernel::Point_2& Point_2::get_data_ref() {return data;}
 Point_2::Point_2():data(){}
 Point_2::Point_2(double x,double y):data(x,y){}
 Point_2::Point_2(const EPIC_Kernel::Point_2& p):data(p){}

@@ -11,8 +11,8 @@ class SWIG_CGAL_KERNEL_DECL Sphere_3{
 public:
   #ifndef SWIG
   typedef EPIC_Kernel::Sphere_3 cpp_base;  
-  const cpp_base& get_data() const{return data;}
-  cpp_base& get_data_ref() {return data;}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   Sphere_3(const cpp_base& base):data(base){}
   #endif
   

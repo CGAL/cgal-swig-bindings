@@ -12,7 +12,7 @@ public:
   #ifndef SWIG
   typedef Cpp_base cpp_base;
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
   
 //Creation
@@ -36,7 +36,7 @@ public:
   #ifndef SWIG
   typedef Cpp_base cpp_base;
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
   
 //Creation

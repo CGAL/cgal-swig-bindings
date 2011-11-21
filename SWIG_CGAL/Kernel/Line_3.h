@@ -16,8 +16,8 @@ class SWIG_CGAL_KERNEL_DECL Line_3{
 public:
   #ifndef SWIG
   typedef EPIC_Kernel::Line_3 cpp_base;
-  const EPIC_Kernel::Line_3& get_data() const {return data;}
-  EPIC_Kernel::Line_3& get_data_ref() {return data;}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   Line_3(const cpp_base& l):data(l){}
   #endif
 //Creation

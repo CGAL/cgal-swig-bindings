@@ -58,7 +58,7 @@ Decl_void_type()
   }
   
   void set_in_domain(bool b){
-    $self->get_data_ref()->set_in_domain(b);
+    $self->get_data()->set_in_domain(b);
   }
 }
 Declare_constrained_Delaunay_triangulation_2(Mesh_2_Constrained_Delaunay_triangulation_2,M2_CDT)

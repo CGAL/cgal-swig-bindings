@@ -44,16 +44,16 @@ protected:
   Triangulation* data;
   bool own_triangulation;
   const typename Triangulation::Cell_handle& convert (const Cell_handle& c) {return c.get_data();}
-  typename Triangulation::Cell_handle& convert (Cell_handle& c) {return c.get_data_ref();}
+  typename Triangulation::Cell_handle& convert (Cell_handle& c) {return c.get_data();}
   const typename Triangulation::Vertex_handle& convert (const Vertex_handle& v) {return v.get_data();}
-  typename Triangulation::Vertex_handle& convert (Vertex_handle& v) {return v.get_data_ref();}
+  typename Triangulation::Vertex_handle& convert (Vertex_handle& v) {return v.get_data();}
   template <class T> const T& convert(const Reference_wrapper<T>& ref){return ref.object();}
   template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object_ref();}
 public:
   #ifndef SWIG
   typedef Triangulation cpp_base;
   const cpp_base& get_data() const {return *data;}
-  cpp_base& get_data_ref(){return *data;}
+        cpp_base& get_data()       {return *data;}
   Triangulation_3_wrapper(const cpp_base& base):data(new cpp_base(base)),own_triangulation(true){}
   Triangulation_3_wrapper(cpp_base* base):data(base),own_triangulation(false){} //constructor using a triangulation stored outside the wrapper class (introduced for C3T3::triangulation()
   #endif

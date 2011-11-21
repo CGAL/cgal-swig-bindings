@@ -25,7 +25,7 @@ public:
   #ifndef SWIG
   typedef C2T3 cpp_base;
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}    
+        cpp_base& get_data()       {return data;}   
   #endif
   typedef typename Triangulation::Edge Edge;
   typedef typename Triangulation::Facet Facet;
@@ -40,7 +40,7 @@ public:
   typedef typename C2T3_internal::Iterator_helper<Triangulation>::output Output_iterator;
 
 //Creation
-  C2T3_wrapper(Triangulation& t3):data(t3.get_data_ref()){}
+  C2T3_wrapper(Triangulation& t3):data(t3.get_data()){}
 //Member access
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Triangulation,triangulation)
 //Modifications

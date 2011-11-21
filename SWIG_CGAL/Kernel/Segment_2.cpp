@@ -3,8 +3,6 @@
 #include <SWIG_CGAL/Kernel/Segment_2.h>
 #include <sstream>
 
-const EPIC_Kernel::Segment_2& Segment_2::get_data() const {return data;}
-EPIC_Kernel::Segment_2& Segment_2::get_data_ref() {return data;}
 Segment_2::Segment_2():data(){}
 Segment_2::Segment_2(const Point_2& p,const Point_2& q):data(p.get_data(),q.get_data()){}
 Segment_2::Segment_2(const EPIC_Kernel::Segment_2& s):data(s){}

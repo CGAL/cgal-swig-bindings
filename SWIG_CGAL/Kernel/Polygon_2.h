@@ -17,7 +17,7 @@ public:
   #ifndef SWIG
   typedef CGAL::Polygon_2<EPIC_Kernel,std::vector<EPIC_Kernel::Point_2> > cpp_base;
   const cpp_base& get_data() const {return data;}
-        cpp_base& get_data_ref()   {return data;}
+        cpp_base& get_data()       {return data;}
   Polygon_2(const cpp_base& base):data(base){}
   #endif //SWIG  
 //Creation

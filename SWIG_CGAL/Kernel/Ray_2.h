@@ -16,7 +16,7 @@ public:
   #ifndef SWIG
   typedef EPIC_Kernel::Ray_2 cpp_base;
   const cpp_base& get_data() const {return data;}
-        cpp_base& get_data_ref()   {return data;}
+        cpp_base& get_data()       {return data;}
   Ray_2(const cpp_base& base):data(base){}
   #endif //SWIG
 //Creation

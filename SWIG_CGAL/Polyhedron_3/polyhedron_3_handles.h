@@ -55,8 +55,8 @@ public:
   #ifndef SWIG
   typedef typename Polyhedron_base::Halfedge_handle cpp_base;
   CGAL_Halfedge_handle(cpp_base h):data(h){}
-  const typename Polyhedron_base::Halfedge_handle&  get_data() const {return data;}
-  typename Polyhedron_base::Halfedge_handle& get_data_ref() {return data;}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
 
   CGAL_Halfedge_handle():data(NULL){}
@@ -100,8 +100,8 @@ public:
   #ifndef SWIG
   typedef typename Polyhedron_base::Vertex_handle cpp_base;
   CGAL_Vertex_handle(cpp_base h):data(h){}
-  const cpp_base&  get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
   
   CGAL_Vertex_handle():data(NULL){}
@@ -134,8 +134,8 @@ public:
   #ifndef SWIG  
   typedef typename Polyhedron_base::Facet_handle cpp_base;
   CGAL_Facet_handle(cpp_base h):data(h){}
-  const cpp_base&  get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
   
   CGAL_Facet_handle():data(NULL){}

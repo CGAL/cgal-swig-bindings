@@ -17,7 +17,7 @@ private:
 public:
 #ifndef SWIG
   const cpp_base& get_data() const {return data;}
-  cpp_base& get_data_ref() {return data;}
+        cpp_base& get_data()       {return data;}
   Variant(const cpp_base& base):data(base){}
 #endif
 

@@ -125,7 +125,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
 
 %extend Polygon_2{
   void insert( int i, Point_range_2 range){
-    $self->get_data_ref().insert(boost::next($self->get_data().vertices_begin(),i),range.first,range.second);
+    $self->get_data().insert(boost::next($self->get_data().vertices_begin(),i),range.first,range.second);
   }
   Polygon_2(Point_range_2 range){return new Polygon_2(Polygon_2::cpp_base(range.first,range.second));}
 }

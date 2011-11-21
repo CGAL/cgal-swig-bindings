@@ -24,7 +24,7 @@ public:
   #ifndef SWIG
   typedef Cpp cpp_base;
   const cpp_base& get_data() const {return data;}
-        cpp_base& get_data_ref()   {return data;}
+        cpp_base& get_data()       {return data;}
   Delaunay_mesher_2_wrapper(const cpp_base& base):data(base){}
   #endif
     
@@ -32,8 +32,8 @@ public:
   typedef typename DM2_Input_iterator_helper<CDT_wrapper>::range   Facet_range;
     
 //Creation
-  Delaunay_mesher_2_wrapper(CDT_wrapper& cdt):data(cdt.get_data_ref()){}
-  Delaunay_mesher_2_wrapper(CDT_wrapper& cdt,const Criteria_wrapper& criteria):data(cdt.get_data_ref(),criteria.get_data()){}
+  Delaunay_mesher_2_wrapper(CDT_wrapper& cdt):data(cdt.get_data()){}
+  Delaunay_mesher_2_wrapper(CDT_wrapper& cdt,const Criteria_wrapper& criteria):data(cdt.get_data(),criteria.get_data()){}
 //Seeds functions
   SWIG_CGAL_FORWARD_CALL_0(void,clear_seeds)
   void  set_seeds (Point_range range, const bool mark){data.set_seeds(range.first,range.second,mark);}

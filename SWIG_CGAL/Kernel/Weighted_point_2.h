@@ -11,8 +11,8 @@ class SWIG_CGAL_KERNEL_DECL Weighted_point_2{
 public:
   #ifndef SWIG
   typedef CGAL::Weighted_point<EPIC_Kernel::Point_2,double> cpp_base;
-  const cpp_base& get_data() const;
-  cpp_base& get_data_ref();
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   Weighted_point_2(const cpp_base& p);
   #endif
 

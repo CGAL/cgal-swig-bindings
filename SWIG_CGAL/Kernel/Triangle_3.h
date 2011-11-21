@@ -12,8 +12,8 @@ class SWIG_CGAL_KERNEL_DECL Triangle_3{
 public:
   #ifndef SWIG
   typedef EPIC_Kernel::Triangle_3 cpp_base;
-  const cpp_base& get_data() const;
-  cpp_base& get_data_ref();
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   Triangle_3(const cpp_base& p);
   #endif
 //Creation
