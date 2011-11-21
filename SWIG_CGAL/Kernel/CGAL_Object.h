@@ -17,7 +17,7 @@
 
 #include <CGAL/Object.h>
 
-#define DECLARE_FCT_IS_AND_GET(TYPE) \
+#define SWIG_CGAL_DECLARE_FCT_IS_AND_GET(TYPE) \
   bool is_##TYPE()  { return data.is<TYPE::cpp_base>(); } \
   TYPE get_##TYPE() { return TYPE ( CGAL::object_cast<TYPE::cpp_base>(data) ); }
   
@@ -33,23 +33,24 @@ public:
   CGAL_Object(const cpp_base& base):data(base){}
   #endif
 
-  CGAL_Object();
-    
-  DECLARE_FCT_IS_AND_GET(Point_2)
-  DECLARE_FCT_IS_AND_GET(Point_3)
-  DECLARE_FCT_IS_AND_GET(Triangle_2)
-  DECLARE_FCT_IS_AND_GET(Triangle_3)
-  DECLARE_FCT_IS_AND_GET(Segment_3)
-  DECLARE_FCT_IS_AND_GET(Segment_2)
-  DECLARE_FCT_IS_AND_GET(Line_3)
-  DECLARE_FCT_IS_AND_GET(Line_2)
-  DECLARE_FCT_IS_AND_GET(Plane_3)
-  DECLARE_FCT_IS_AND_GET(Ray_2)
-  DECLARE_FCT_IS_AND_GET(Ray_3)
-    
+//Creation
+  CGAL_Object(){};
+//function to set and get "stored" object
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Point_2)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Point_3)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Triangle_2)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Triangle_3)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Segment_3)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Segment_2)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Line_3)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Line_2)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Plane_3)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Ray_2)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Ray_3)
+//Predicate    
   SWIG_CGAL_FORWARD_CALL_0(bool,empty)
 };
 
-#undef DECLARE_FCT_IS_AND_GET
+#undef SWIG_CGAL_DECLARE_FCT_IS_AND_GET
 
 #endif //SWIG_CGAL_KERNEL_OBJECT_H

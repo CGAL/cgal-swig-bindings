@@ -103,18 +103,24 @@ struct Converter< SWIG_CGAL::Triple<T1,T2,T3> >{
   RET NAME()\
   {return RET(this->data->NAME());}
 
-#define SWIG_CGAL_FORWARD_CALL_0(RET,NAME) \
+#define SWIG_CGAL_FORWARD_CALL_SCOPE_0(RET,NAME,INAME) \
   RET NAME()\
-  {return RET(this->data.NAME());}
+  {return RET(this->data.INAME());}
+
+#define SWIG_CGAL_FORWARD_CALL_0(RET,NAME) \
+  SWIG_CGAL_FORWARD_CALL_SCOPE_0(RET,NAME,NAME)
 
 #define SWIG_CGAL_DECLARE_CALL_AND_REF_0(RET,NAME) \
-  RET NAME();\
-  void NAME(RET& ref);\
+  inline RET NAME();\
+  inline void NAME(RET& ref);\
+
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_SCOPE_0(RET,NAME,INAME) \
+  SWIG_CGAL_FORWARD_CALL_SCOPE_0(RET,NAME,INAME) \
+  void NAME(RET& ref)\
+  {ref = RET(this->data.INAME());}
 
 #define SWIG_CGAL_FORWARD_CALL_AND_REF_0(RET,NAME) \
-  SWIG_CGAL_FORWARD_CALL_0(RET,NAME) \
-  void NAME(RET& ref)\
-  {ref = RET(this->data.NAME());}
+  SWIG_CGAL_FORWARD_CALL_AND_REF_SCOPE_0(RET,NAME,NAME)
 
 #define SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(RET,NAME) \
   SWIG_CGAL_FORWARD_CALL_0_PTR(RET,NAME) \
@@ -126,20 +132,27 @@ struct Converter< SWIG_CGAL::Triple<T1,T2,T3> >{
     return RET(this->data->NAME(internal::Converter<IN_TYPE>::convert(c)));\
   }
 
-#define SWIG_CGAL_FORWARD_CALL_1(RET,NAME,IN_TYPE) \
+#define SWIG_CGAL_FORWARD_CALL_SCOPE_1(RET,NAME,INAME,IN_TYPE) \
   RET NAME(const IN_TYPE& c){\
-    return RET(this->data.NAME(internal::Converter<IN_TYPE>::convert(c)));\
+    return RET(this->data.INAME(internal::Converter<IN_TYPE>::convert(c)));\
   }
+  
+#define SWIG_CGAL_FORWARD_CALL_1(RET,NAME,IN_TYPE) \
+  SWIG_CGAL_FORWARD_CALL_SCOPE_1(RET,NAME,NAME,IN_TYPE)
+
 
 #define SWIG_CGAL_DECLARE_CALL_AND_REF_1(RET,NAME,IN_TYPE) \
-  RET NAME(const IN_TYPE& c);\
-  void NAME(const IN_TYPE& c,RET& ret);
+  inline RET NAME(const IN_TYPE& c);\
+  inline void NAME(const IN_TYPE& c,RET& ret);
 
-#define SWIG_CGAL_FORWARD_CALL_AND_REF_1(RET,NAME,IN_TYPE) \
-  SWIG_CGAL_FORWARD_CALL_1(RET,NAME,IN_TYPE) \
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_SCOPE_1(RET,NAME,INAME,IN_TYPE) \
+  SWIG_CGAL_FORWARD_CALL_SCOPE_1(RET,NAME,INAME,IN_TYPE) \
   void NAME(const IN_TYPE& c,RET& ret){\
-    ret = RET(this->data.NAME(internal::Converter<IN_TYPE>::convert(c)));\
+    ret = RET(this->data.INAME(internal::Converter<IN_TYPE>::convert(c)));\
   }
+  
+#define SWIG_CGAL_FORWARD_CALL_AND_REF_1(RET,NAME,IN_TYPE) \
+  SWIG_CGAL_FORWARD_CALL_AND_REF_SCOPE_1(RET,NAME,NAME,IN_TYPE)
 
 #define SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(RET,NAME,IN_TYPE) \
   SWIG_CGAL_FORWARD_CALL_1_PTR(RET,NAME,IN_TYPE) \

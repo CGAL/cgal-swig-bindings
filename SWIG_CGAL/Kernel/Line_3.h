@@ -1,6 +1,7 @@
 #ifndef SWIG_CGAL_KERNEL_LINE_3_H
 #define SWIG_CGAL_KERNEL_LINE_3_H
 
+#include <sstream>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <SWIG_CGAL/Kernel/Segment_3.h>
@@ -18,15 +19,16 @@ public:
   typedef EPIC_Kernel::Line_3 cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  Line_3(const cpp_base& l):data(l){}
+  Line_3(const cpp_base& base):data(base){}
   #endif
+
 //Creation
-  Line_3();
-  Line_3(const Point_3& p, Point_3& q);
-  Line_3(const Point_3& p, Direction_3& d);
-  Line_3(const Point_3& p, Vector_3& v);
-  Line_3(const Segment_3& s);
-  Line_3(const Ray_3& r);
+  Line_3(){}
+  Line_3(const Point_3& p, Point_3& q):data(p.get_data(),q.get_data()){}
+  inline Line_3(const Point_3& p, Direction_3& d);
+  inline Line_3(const Point_3& p, Vector_3& v);
+  inline Line_3(const Segment_3& s);
+  inline Line_3(const Ray_3& r);
 //Operations
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,projection,Point_3)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,point,int)
@@ -38,14 +40,19 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Line_3,opposite)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,to_vector)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_3,direction)
-//
-  bool equals(const Line_3&);
-  std::string toString();
-  //the C++ object is shared between target languages
-  //and must be mapped only for python
+//equality functors
+  bool equals(const Line_3& p){
+    return data==p.get_data();
+  }
   #ifdef NO_SWIG_OR_PYTHON
-  bool __ne__(const Line_3&);
+  bool __ne__(const Line_3& p){return !equals(p);}
   #endif
+//I/O
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << data;
+    return sstr.str();
+  }  
 };
 
 #endif //SWIG_CGAL_KERNEL_LINE_3_H

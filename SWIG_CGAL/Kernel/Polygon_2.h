@@ -1,6 +1,7 @@
 #ifndef SWIG_CGAL_KERNEL_POLYGON_2_H
 #define SWIG_CGAL_KERNEL_POLYGON_2_H
 
+#include <sstream>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/Segment_2.h>
 #include <SWIG_CGAL/Kernel/enum.h>
@@ -19,9 +20,10 @@ public:
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
   Polygon_2(const cpp_base& base):data(base){}
-  #endif //SWIG  
+  #endif
+
 //Creation
-  Polygon_2();
+  Polygon_2():data(){}
 //Modifiers
   void set( int pos, Point_2 x){data.set(boost::next(data.vertices_begin(),pos),x.get_data());}
   int insert( int i, Point_2 q){return std::distance(data.vertices_begin(),data.insert(boost::next(data.vertices_begin(),i),q.get_data()));}
@@ -60,13 +62,17 @@ public:
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(int,size)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_empty)
-//Globally defined operators
-  bool equals(const Polygon_2&);
+//equality functors
+  bool equals(const Polygon_2& r){return data==r.get_data();}
   #ifdef NO_SWIG_OR_PYTHON
-  bool __ne__(const Polygon_2&);
+  bool __ne__(const Polygon_2& r){return data!=r.get_data();}
   #endif  
 //I/O
-  std::string toString();
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << data;
+    return sstr.str();
+  }
 };
 #endif //SWIG_CGAL_KERNEL_POLYGON_2_H
 

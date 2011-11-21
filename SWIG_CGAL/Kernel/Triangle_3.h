@@ -1,6 +1,7 @@
 #ifndef SWIG_CGAL_KERNEL_TRIANGLE_3_H
 #define SWIG_CGAL_KERNEL_TRIANGLE_3_H
 
+#include <sstream>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <SWIG_CGAL/Kernel/Plane_3.h>
@@ -14,11 +15,12 @@ public:
   typedef EPIC_Kernel::Triangle_3 cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  Triangle_3(const cpp_base& p);
+  Triangle_3(const cpp_base& base):data(base){}
   #endif
+
 //Creation
-  Triangle_3();
-  Triangle_3(const Point_3& p,const Point_3& q,const Point_3& r);
+  Triangle_3():data(){}
+  Triangle_3(const Point_3& p,const Point_3& q,const Point_3& r):data(p.get_data(),q.get_data(),r.get_data()){}
 //Operations
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,vertex,int)
   SWIG_CGAL_FORWARD_CALL_0(Plane_3,supporting_plane)
@@ -27,15 +29,19 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(double,squared_area)
-  bool equals(const Triangle_3&);
-  
-  std::string toString();
-
-  //the C++ object is shared between target languages
-  //and must be mapped only for python
+//equality functors
+  bool equals(const Triangle_3& t){
+    return data==t.get_data();
+  }
   #ifdef NO_SWIG_OR_PYTHON
-  bool __ne__(const Triangle_3&);
+  bool __ne__(const Triangle_3& t){return !equals(t);}
   #endif
+//I/O
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << data;
+    return sstr.str();
+  }
 };
 
 #endif //SWIG_CGAL_KERNEL_TRIANGLE_3_H

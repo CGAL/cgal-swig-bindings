@@ -1,8 +1,8 @@
 #ifndef SWIG_CGAL_KERNEL_VECTOR_2_H
 #define SWIG_CGAL_KERNEL_VECTOR_2_H
 
+#include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_2.h>
-
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
 #include <SWIG_CGAL/Kernel/Segment_2.h>
@@ -19,15 +19,16 @@ public:
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
   Vector_2(const cpp_base& base):data(base){}
-  #endif //SWIG
+  #endif
+
 //Creation
-  Vector_2();
-  Vector_2(const Point_2& a,const Point_2& b);
-  Vector_2(const Segment_2& s);
-  Vector_2(const Ray_2& r);
-  Vector_2(const Line_2& l);
-  Vector_2(int x, int y);
-  Vector_2(double x, double y);
+  Vector_2():data(){}
+  Vector_2(const Point_2& a,const Point_2& b):data(a.get_data(),b.get_data()){}
+  inline Vector_2(const Segment_2& s);
+  inline Vector_2(const Ray_2& r);
+  inline Vector_2(const Line_2& l);
+  Vector_2(int x, int y):data(x,y){}
+  Vector_2(double x, double y):data(x,y){}
 //Operations
   SWIG_CGAL_FORWARD_CALL_0(double,x)
   SWIG_CGAL_FORWARD_CALL_0(double,y)
@@ -36,12 +37,17 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_2,direction)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vector_2,perpendicular,Orientation)
   SWIG_CGAL_FORWARD_CALL_0(double,squared_length)
-//
-  bool equals(const Vector_2&);
-  std::string toString();
+//equality functors
+  bool equals(const Vector_2& r){return data==r.get_data();}
   #ifdef NO_SWIG_OR_PYTHON
-  bool __ne__(const Vector_2&);
+  bool __ne__(const Vector_2& r){return data!=r.get_data();}
   #endif
+//I/O
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << data;
+    return sstr.str();
+  }
 };
 
 #endif //SWIG_CGAL_KERNEL_VECTOR_2_H

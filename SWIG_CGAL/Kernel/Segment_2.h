@@ -1,8 +1,8 @@
 #ifndef SWIG_CGAL_KERNEL_SEGMENT_2_H
 #define SWIG_CGAL_KERNEL_SEGMENT_2_H
 
+#include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_2.h>
-
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
 #include <SWIG_CGAL/Kernel/Vector_2.h>
@@ -17,12 +17,12 @@ public:
   typedef EPIC_Kernel::Segment_2 cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  Segment_2(const cpp_base& p);
+  Segment_2(const cpp_base& base):data(base){}
   #endif
 
-  Segment_2();
 //Creation
-  Segment_2(const Point_2& p,const Point_2& q);
+  Segment_2():data(){}
+  Segment_2(const Point_2& p,const Point_2& q):data(p.get_data(),q.get_data()){}
 //Operations
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_2,source)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_2,target)
@@ -35,23 +35,25 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_2,direction)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_2,to_vector)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Line_2,supporting_line)
-
 //Predicates
   SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_horizontal)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_vertical)
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_2)
   SWIG_CGAL_FORWARD_CALL_1(bool,collinear_has_on,Point_2)
-  
-  bool equals(const Segment_2&);
-  
-  std::string toString();
-
-  //the C++ object is shared between target languages
-  //and must be mapped only for python
+//equality functors  
+  bool equals(const Segment_2& s){
+    return data==s.get_data();
+  }
   #ifdef NO_SWIG_OR_PYTHON
-  bool __ne__(const Segment_2&);
+  bool __ne__(const Segment_2& s){return !equals(s);}
   #endif
+//I/O
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << data;
+    return sstr.str();
+  }
 };
 
 #endif //SWIG_CGAL_KERNEL_SEGMENT_2_H

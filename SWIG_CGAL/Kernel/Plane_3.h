@@ -1,8 +1,8 @@
 #ifndef SWIG_CGAL_KERNEL_PLANE_3_H
 #define SWIG_CGAL_KERNEL_PLANE_3_H
 
+#include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_3.h>
-
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/enum.h>
@@ -13,6 +13,7 @@
 #include <SWIG_CGAL/Kernel/Vector_3.h>
 #include <SWIG_CGAL/Kernel/Direction_3.h>
 
+
 class SWIG_CGAL_KERNEL_DECL Plane_3{
   EPIC_Kernel::Plane_3 data;
 public:
@@ -20,25 +21,26 @@ public:
   typedef EPIC_Kernel::Plane_3 cpp_base;  
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  Plane_3(const cpp_base& p):data(p){}
+  Plane_3(const cpp_base& base):data(base){}
   #endif
+
 //Creation
-  Plane_3();
-  Plane_3(double a,double b,double c,double d);
-  Plane_3(const Point_3& p,const Point_3& q,const Point_3& r);
-  Plane_3(const Point_3& p,const Vector_3& v);
-  Plane_3(const Point_3& p,const Direction_3& d);
-  Plane_3(const Line_3& l,const Point_3& p);
-  Plane_3(const Ray_3& r,const Point_3& p);
-  Plane_3(const Segment_3& s,const Point_3& p);
+  Plane_3(){}
+  Plane_3(double a,double b,double c,double d):data(a,b,c,d){}
+  Plane_3(const Point_3& p,const Point_3& q,const Point_3& r):data(p.get_data(),q.get_data(),r.get_data()){}
+  inline Plane_3(const Point_3& p,const Vector_3& v);
+  inline Plane_3(const Point_3& p,const Direction_3& d);
+  inline Plane_3(const Line_3& l,const Point_3& p);
+  inline Plane_3(const Ray_3& r,const Point_3& p);
+  inline Plane_3(const Segment_3& s,const Point_3& p);
 //Operations
   SWIG_CGAL_FORWARD_CALL_0(double,a)
   SWIG_CGAL_FORWARD_CALL_0(double,b)
   SWIG_CGAL_FORWARD_CALL_0(double,c)
   SWIG_CGAL_FORWARD_CALL_0(double,d)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,projection,Point_3)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Plane_3,opposite)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_3,point)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Plane_3,opposite)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_0(Point_3,point)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,orthogonal_vector)
   SWIG_CGAL_DECLARE_CALL_AND_REF_1(Line_3,perpendicular_line,Point_3)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_3,orthogonal_direction)
@@ -54,14 +56,19 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
   bool has_on(const Line_3&);
   SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
-//
-  bool equals(const Plane_3&);
-  std::string toString();
-  //the C++ object is shared between target languages
-  //and must be mapped only for python
+//equality functors
+  bool equals(const Plane_3& p){
+    return data==p.get_data();
+  }
   #ifdef NO_SWIG_OR_PYTHON
-  bool __ne__(const Plane_3&);
+  bool __ne__(const Plane_3& p){return !equals(p);}
   #endif
+//I/O
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << data;
+    return sstr.str();
+  }
 };
 
 

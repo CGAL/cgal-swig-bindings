@@ -1,10 +1,11 @@
 #ifndef SWIG_CGAL_KERNEL_WEIGHTED_POINT_2_H
 #define SWIG_CGAL_KERNEL_WEIGHTED_POINT_2_H
 
-#include <CGAL/Weighted_point.h>
-
+#include <sstream>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
+
+#include <CGAL/Weighted_point.h>
 
 class SWIG_CGAL_KERNEL_DECL Weighted_point_2{
   CGAL::Weighted_point<EPIC_Kernel::Point_2,double> data;
@@ -13,25 +14,31 @@ public:
   typedef CGAL::Weighted_point<EPIC_Kernel::Point_2,double> cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  Weighted_point_2(const cpp_base& p);
+  Weighted_point_2(const cpp_base& base):data(base){}
   #endif
 
-  Weighted_point_2();
-  Weighted_point_2(double x,double y);
-  Weighted_point_2(const Point_2&,double);
-  Point_2 point() const;
-  double weight() const;
-  double x() const;
-  double y() const;
-  bool equals(const Weighted_point_2&);
-  
-  std::string toString();
-
-  //the C++ object is shared between target languages
-  //and must be mapped only for python
+//Creation
+  Weighted_point_2():data(){}
+  Weighted_point_2(double x,double y):data(x,y){}
+  Weighted_point_2(const Point_2& p,double w):data(p.get_data(),w){}
+//Operations
+  double weight() const {return data.weight();}
+  double x() const {return data.x();}
+  double y() const {return data.y();}
+  Point_2 point() const {return Point_2(data.point());}
+//equality functors
+  bool equals(const Weighted_point_2& p){
+    return data==p.get_data();
+  }
   #ifdef NO_SWIG_OR_PYTHON
-  bool __ne__(const Weighted_point_2&);
+  bool __ne__(const Weighted_point_2& p){return !equals(p);}
   #endif
+//I/O
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << data;
+    return sstr.str();
+  }  
 };
 
 #endif //SWIG_CGAL_KERNEL_WEIGHTED_POINT_2_H

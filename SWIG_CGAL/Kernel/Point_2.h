@@ -1,6 +1,7 @@
 #ifndef SWIG_CGAL_KERNEL_POINT_2_H
 #define SWIG_CGAL_KERNEL_POINT_2_H
 
+#include <sstream>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 
 class SWIG_CGAL_KERNEL_DECL Point_2{
@@ -10,25 +11,32 @@ public:
   typedef EPIC_Kernel::Point_2 cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  Point_2(const cpp_base& p);
+  Point_2(const cpp_base& base):data(base){}
   #endif
 
-  Point_2();
-  Point_2(double x,double y);
-  double x() const;
-  double y() const;
-  bool equals(const Point_2&);
+//Creation
+  Point_2():data(){}
+  Point_2(double x,double y):data(x,y){}
+//Operations
+  double x() const {return data.x();}
+  double y() const {return data.y();}
+//Set coordinates (forbidden in C++ CGAL for kernel objects)
   void set_coordinates(double x,double y){
     data=cpp_base(x,y);
   };
-
-  std::string toString();
-
-  //the C++ object is shared between target languages
-  //and must be mapped only for python
+//equality functors
+  bool equals(const Point_2& p){
+    return data==p.get_data();
+  }
   #ifdef NO_SWIG_OR_PYTHON
-  bool __ne__(const Point_2&);
+  bool __ne__(const Point_2& p){return !equals(p);}
   #endif
+//I/O
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << data;
+    return sstr.str();
+  }
 };
 
 #endif //SWIG_CGAL_KERNEL_POINT_2_H

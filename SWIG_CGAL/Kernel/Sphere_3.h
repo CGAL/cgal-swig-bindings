@@ -1,6 +1,7 @@
 #ifndef SWIG_CGAL_KERNEL_SPHERE_3_H
 #define SWIG_CGAL_KERNEL_SPHERE_3_H
 
+#include <sstream>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
@@ -15,33 +16,15 @@ public:
         cpp_base& get_data()       {return data;}
   Sphere_3(const cpp_base& base):data(base){}
   #endif
-  
-  bool equals(const Sphere_3& s);
-  
-  std::string toString(){
-    std::stringstream sstr;
-    sstr << data;
-    return sstr.str();    
-  }
 
-  //the C++ object is shared between target languages
-  //and must be mapped only for python
-  #ifdef NO_SWIG_OR_PYTHON
-  bool __ne__(const Sphere_3& s){return !equals(s);}
-  #endif  
-  
 //Creation
   Sphere_3(const Point_3& center, double squared_radius, Orientation o):data(center.get_data(),squared_radius,internal::make_conversion(o)){}
   Sphere_3(const Point_3& center, double squared_radius):data(center.get_data(),squared_radius){}
-    
   Sphere_3(Point_3 p, Point_3 q, Point_3 r, Point_3 s):data(p.get_data(),q.get_data(),r.get_data(),s.get_data()){}
-    
   Sphere_3(Point_3 p, Point_3 q, Point_3 r, Orientation o):data(p.get_data(),q.get_data(),r.get_data(),internal::make_conversion(o)){}
   Sphere_3(Point_3 p, Point_3 q, Point_3 r):data(p.get_data(),q.get_data(),r.get_data()){}
-    
   Sphere_3(Point_3 p, Point_3 q, Orientation o):data(p.get_data(),q.get_data(),internal::make_conversion(o)){}
   Sphere_3(Point_3 p, Point_3 q):data(p.get_data(),q.get_data()){}
-    
   Sphere_3(Point_3 center, Orientation o):data(center.get_data(),internal::make_conversion(o)){}  
   Sphere_3(Point_3 center):data(center.get_data()){}
 //Access Functions
@@ -61,6 +44,17 @@ public:
 //  SWIG_CGAL_FORWARD_CALL_1(bool,has_on ( Circle_3<Kernel> p)
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Sphere_3,opposite)
+//equality functors
+  bool equals(const Sphere_3& s){return data==s.get_data();}
+  #ifdef NO_SWIG_OR_PYTHON
+  bool __ne__(const Sphere_3& s){return !equals(s);}
+  #endif  
+//I/O
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << data;
+    return sstr.str();    
+  }    
 };
 
 #endif //SWIG_CGAL_KERNEL_SPHERE_3_H
