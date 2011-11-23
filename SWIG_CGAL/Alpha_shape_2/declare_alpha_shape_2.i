@@ -39,6 +39,7 @@
   %template(CLASSNAME##_Alpha_shape_edges_iterator) CGAL_Alpha_shape_edges_iterator<CPPTYPE,std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE>,int> >;  
   %typemap(jstype) double "Double"  //next() return type must be Double
   SWIG_CGAL_set_as_java_iterator(CGAL_Alpha_iterator,Double,)
+  %ignore CGAL_Alpha_iterator<CPPTYPE,double>::next(double&); 
   %template(CLASSNAME##_Alpha_iterator) CGAL_Alpha_iterator<CPPTYPE,double>;
   %typemap(jstype) double "double"  //restore to default
 %enddef
