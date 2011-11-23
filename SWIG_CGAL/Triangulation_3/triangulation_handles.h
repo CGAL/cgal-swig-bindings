@@ -23,12 +23,12 @@ public:
 
   CGAL_Vertex_handle():data(NULL){}
   
-  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(Point,point)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(Cell_handle,cell)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(void,set_cell,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(void,set_point,Point)
-  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_valid)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_valid,bool)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point,point)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Cell_handle,cell)
+  SWIG_CGAL_FORWARD_CALL_1(void,set_cell,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_1(void,set_point,Point)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
 
   
   bool equals(const CGAL_Vertex_handle<Triangulation,Point>& v){
@@ -59,19 +59,19 @@ public:
   CGAL_Cell_handle():data(NULL){}
   
   
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Vertex_handle,vertex,int)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(int,index,Vertex_handle)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,has_vertex,Vertex_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Cell_handle,neighbor,int)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(int,index,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,has_neighbor,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_2_PTR(void,set_vertex,int,Vertex_handle)
-  SWIG_CGAL_FORWARD_CALL_4_PTR(void,set_vertices,Vertex_handle,Vertex_handle,Vertex_handle,Vertex_handle)
-  SWIG_CGAL_FORWARD_CALL_2_PTR(void,set_neighbor,int,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_4_PTR(void,set_neighbors,Cell_handle,Cell_handle,Cell_handle,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_valid)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_valid,bool)
-  SWIG_CGAL_FORWARD_CALL_2_PTR(bool,is_valid,bool,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,vertex,int)
+  SWIG_CGAL_FORWARD_CALL_1(int,index,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_vertex,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Cell_handle,neighbor,int)
+  SWIG_CGAL_FORWARD_CALL_1(int,index,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_1(bool,has_neighbor,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_2(void,set_vertex,int,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_4(void,set_vertices,Vertex_handle,Vertex_handle,Vertex_handle,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_2(void,set_neighbor,int,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_4(void,set_neighbors,Cell_handle,Cell_handle,Cell_handle,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
+  SWIG_CGAL_FORWARD_CALL_2(bool,is_valid,bool,int)
   
   bool equals(const CGAL_Cell_handle<Triangulation,Point>& c){
     return data==c.get_data();

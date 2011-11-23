@@ -89,61 +89,61 @@ public:
   #ifdef SWIGPYTHON
   bool __ne__(const Triangulation_3_wrapper& dt) {return !equals(dt);}
   #endif
-  SWIG_CGAL_FORWARD_CALL_0_PTR(void,clear)  
+  SWIG_CGAL_FORWARD_CALL_0(void,clear)  
 //Access Functions
 //Non const access
-  SWIG_CGAL_FORWARD_CALL_0_PTR(int, dimension)
-  SWIG_CGAL_FORWARD_CALL_0_PTR(int, number_of_vertices)
-  SWIG_CGAL_FORWARD_CALL_0_PTR(int, number_of_cells)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(Vertex_handle,infinite_vertex)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_0_PTR(Cell_handle,infinite_cell)  
+  SWIG_CGAL_FORWARD_CALL_0(int, dimension)
+  SWIG_CGAL_FORWARD_CALL_0(int, number_of_vertices)
+  SWIG_CGAL_FORWARD_CALL_0(int, number_of_cells)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Vertex_handle,infinite_vertex)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Cell_handle,infinite_cell)  
 //Non-constant-time access functions
-  SWIG_CGAL_FORWARD_CALL_0_PTR(int, number_of_facets)
-  SWIG_CGAL_FORWARD_CALL_0_PTR(int, number_of_edges)
-  SWIG_CGAL_FORWARD_CALL_0_PTR(int, number_of_finite_cells)
-  SWIG_CGAL_FORWARD_CALL_0_PTR(int, number_of_finite_facets)
-  SWIG_CGAL_FORWARD_CALL_0_PTR(int, number_of_finite_edges)  
+  SWIG_CGAL_FORWARD_CALL_0(int, number_of_facets)
+  SWIG_CGAL_FORWARD_CALL_0(int, number_of_edges)
+  SWIG_CGAL_FORWARD_CALL_0(int, number_of_finite_cells)
+  SWIG_CGAL_FORWARD_CALL_0(int, number_of_finite_facets)
+  SWIG_CGAL_FORWARD_CALL_0(int, number_of_finite_edges)  
 //Geometric access functions
 //Tests for Finite and Infinite Vertices and Faces
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_infinite,Vertex_handle)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_infinite,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_2_PTR(bool,is_infinite,Cell_handle,int)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_infinite,Facet)
-  SWIG_CGAL_FORWARD_CALL_3_PTR(bool,is_infinite,Cell_handle,int,int)  
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_infinite,Edge)
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_infinite,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_infinite,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_2(bool,is_infinite,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_infinite,Facet)
+  SWIG_CGAL_FORWARD_CALL_3(bool,is_infinite,Cell_handle,int,int)  
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_infinite,Edge)
 //Queries
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_vertex,Vertex_handle)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_cell,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_2_PTR(bool,has_vertex,Facet,Vertex_handle)
-  SWIG_CGAL_FORWARD_CALL_3_PTR(bool,has_vertex,Cell_handle,int,Vertex_handle)
-  SWIG_CGAL_FORWARD_CALL_4_PTR(bool,are_equal,Cell_handle,int,Cell_handle,int)
-  SWIG_CGAL_FORWARD_CALL_2_PTR(bool,are_equal,Facet,Facet)
-  SWIG_CGAL_FORWARD_CALL_3_PTR(bool,are_equal,Facet,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_vertex,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_cell,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_2(bool,has_vertex,Facet,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_3(bool,has_vertex,Cell_handle,int,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_4(bool,are_equal,Cell_handle,int,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_2(bool,are_equal,Facet,Facet)
+  SWIG_CGAL_FORWARD_CALL_3(bool,are_equal,Facet,Cell_handle,int)
 //Point location
-  SWIG_CGAL_FORWARD_CALL_1_PTR(Cell_handle,locate,Point)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Cell_handle,locate,Point,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Cell_handle,locate,Point,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_1(Cell_handle,locate,Point)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Cell_handle,locate,Point,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Cell_handle,locate,Point,Vertex_handle)
 //Flips
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,flip,Edge)
-  SWIG_CGAL_FORWARD_CALL_3_PTR(bool,flip,Cell_handle,int,int)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(void,flip_flippable,Edge)
-  SWIG_CGAL_FORWARD_CALL_3_PTR(void,flip_flippable,Cell_handle,int,int)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,flip,Facet)
-  SWIG_CGAL_FORWARD_CALL_2_PTR(bool,flip,Cell_handle,int)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(void,flip_flippable,Facet)
-  SWIG_CGAL_FORWARD_CALL_2_PTR(void,flip_flippable,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_1(bool,flip,Edge)
+  SWIG_CGAL_FORWARD_CALL_3(bool,flip,Cell_handle,int,int)
+  SWIG_CGAL_FORWARD_CALL_1(void,flip_flippable,Edge)
+  SWIG_CGAL_FORWARD_CALL_3(void,flip_flippable,Cell_handle,int,int)
+  SWIG_CGAL_FORWARD_CALL_1(bool,flip,Facet)
+  SWIG_CGAL_FORWARD_CALL_2(bool,flip,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_1(void,flip_flippable,Facet)
+  SWIG_CGAL_FORWARD_CALL_2(void,flip_flippable,Cell_handle,int)
 //Insertions
-  SWIG_CGAL_FORWARD_CALL_1_PTR(Vertex_handle,insert,Point)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,insert,Point,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,insert,Point,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_1(Vertex_handle,insert,Point)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Vertex_handle)
   int insert_range(typename Weighting_helper_3<Weighted_tag>::Point_range range){ return this->data->insert(range.first,range.second); }
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,insert_in_cell,Point,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,insert_in_facet,Point,Facet)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_3_PTR(Vertex_handle,insert_in_facet,Point,Cell_handle,int)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,insert_in_edge,Point,Edge)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_4_PTR(Vertex_handle,insert_in_edge,Point,Cell_handle,int,int)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,insert_outside_convex_hull,Point,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Vertex_handle,insert_outside_affine_hull,Point)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_cell,Point,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_facet,Point,Facet)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_3(Vertex_handle,insert_in_facet,Point,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_edge,Point,Edge)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_4(Vertex_handle,insert_in_edge,Point,Cell_handle,int,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_outside_convex_hull,Point,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,insert_outside_affine_hull,Point)
 //Traversal of the Triangulation
   Finite_vertices_iterator      finite_vertices(){return Finite_vertices_iterator(this->data->finite_vertices_begin(),this->data->finite_vertices_end());}
   Finite_edges_iterator         finite_edges(){return Finite_edges_iterator(this->data->finite_edges_begin(),this->data->finite_edges_end());}
@@ -155,16 +155,16 @@ public:
   All_cells_iterator            all_cells(){return All_cells_iterator(this->data->all_cells_begin(),this->data->all_cells_end());}
   Point_iterator                points(){return Point_iterator(this->data->points_begin(),this->data->points_end());}
 //Cell and Facet Circulators
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Cell_circulator,incident_cells,Edge)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_3_PTR(Cell_circulator,incident_cells,Cell_handle,int,int)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Cell_circulator,incident_cells,Edge,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_4_PTR(Cell_circulator,incident_cells,Cell_handle,int,int,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Facet_circulator,incident_facets,Edge)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_3_PTR(Facet_circulator,incident_facets,Cell_handle,int,int)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Facet_circulator,incident_facets,Edge,Facet)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_3_PTR(Facet_circulator,incident_facets,Edge,Cell_handle,int)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_4_PTR(Facet_circulator,incident_facets,Cell_handle,int,int,Facet)
-  SWIG_CGAL_FORWARD_CALL_5_PTR(Facet_circulator,incident_facets,Cell_handle,int,int,Cell_handle,int)  
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Cell_circulator,incident_cells,Edge)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_3(Cell_circulator,incident_cells,Cell_handle,int,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Cell_circulator,incident_cells,Edge,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_4(Cell_circulator,incident_cells,Cell_handle,int,int,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Facet_circulator,incident_facets,Edge)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_3(Facet_circulator,incident_facets,Cell_handle,int,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Facet_circulator,incident_facets,Edge,Facet)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_3(Facet_circulator,incident_facets,Edge,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_4(Facet_circulator,incident_facets,Cell_handle,int,int,Facet)
+  SWIG_CGAL_FORWARD_CALL_5(Facet_circulator,incident_facets,Cell_handle,int,int,Cell_handle,int)  
 //Traversal of the incident cells, facets and edges, and the adjacent vertices of a given vertex
   void incident_cells(const Vertex_handle& v, Cell_handle_output_iterator out){this->data->incident_cells(v.get_data(),out);}
   void finite_incident_cells(const Vertex_handle& v, Cell_handle_output_iterator out){this->data->finite_incident_cells(v.get_data(),out);}
@@ -174,24 +174,24 @@ public:
   void finite_incident_edges(const Vertex_handle& v, Edge_output_iterator out){this->data->finite_incident_edges(v.get_data(),out);}
   void adjacent_vertices(const Vertex_handle& v, Vertex_handle_output_iterator out){this->data->adjacent_vertices(v.get_data(),out);}
   void finite_adjacent_vertices(const Vertex_handle& v, Vertex_handle_output_iterator out){this->data->finite_adjacent_vertices(v.get_data(),out);}
-  SWIG_CGAL_FORWARD_CALL_1_PTR(int,degree,Vertex_handle)  
+  SWIG_CGAL_FORWARD_CALL_1(int,degree,Vertex_handle)  
 //Traversal between adjacent cells
-  SWIG_CGAL_FORWARD_CALL_2_PTR(int,mirror_index,Cell_handle,int)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Vertex_handle,mirror_vertex,Cell_handle,int)  
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Facet,mirror_facet,Facet)
+  SWIG_CGAL_FORWARD_CALL_2(int,mirror_index,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,mirror_vertex,Cell_handle,int)  
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Facet,mirror_facet,Facet)
 //Geometric access functions
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Tetrahedron_3,tetrahedron,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Triangle_3,triangle,Cell_handle,int)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Triangle_3,triangle,Facet)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Segment_3,segment,Edge)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_3_PTR(Segment_3,segment,Cell_handle,int,int)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2_PTR(Point,point,Cell_handle,int)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1_PTR(Point,point,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Tetrahedron_3,tetrahedron,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Triangle_3,triangle,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Triangle_3,triangle,Facet)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Segment_3,segment,Edge)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_3(Segment_3,segment,Cell_handle,int,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Point,point,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point,point,Vertex_handle)
 //Checking
-  SWIG_CGAL_FORWARD_CALL_0_PTR(bool,is_valid)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_valid,bool)
-  SWIG_CGAL_FORWARD_CALL_1_PTR(bool,is_valid,Cell_handle)
-  SWIG_CGAL_FORWARD_CALL_2_PTR(bool,is_valid,Cell_handle,bool)
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
+  SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_2(bool,is_valid,Cell_handle,bool)
 //I/O  
 
 

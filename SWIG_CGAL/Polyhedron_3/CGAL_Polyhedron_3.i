@@ -22,6 +22,7 @@ Decl_void_type()
 //%import  "SWIG_CGAL/Kernel/Kernel.i" This is an alternative to the two previous import
 %import  "SWIG_CGAL/Common/Input_iterator.h"
 
+%include "SWIG_CGAL/Polyhedron_3/config.i"
 //include files
 %{
   #include <SWIG_CGAL/Polyhedron_3/Polyhedron_3.h>
@@ -37,7 +38,6 @@ Decl_void_type()
 %include "SWIG_CGAL/Polyhedron_3/polyhedron_3_iterators.h"
 %include "SWIG_CGAL/Polyhedron_3/Modifier_base.h"
 
-%include "SWIG_CGAL/Polyhedron_3/config.i"
 
 //template instantiation
 %template(Polyhedron_3_Halfedge_handle)             SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>;
