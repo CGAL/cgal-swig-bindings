@@ -7,7 +7,8 @@
 // --CPPTYPE is the c++ type of the triangulation
 // --POINT_TYPE the name of the class wrapping Point or Weighted_point type
 // --WTAG is CGAL::Tag_false if the cpp triangulation is not weighted and CGAL::Tag_true otherwise
-%define Declare_triangulation_3_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,POINT_TYPE,WTAG)
+// --MEMHOLDER is used if the triangulation pointer is hold by another class, it is a shared_ptr in that case and void* otherwise
+%define Declare_triangulation_3_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,POINT_TYPE,WTAG,MEMHOLDER)
   //Handles
   %template(CLASSNAME_PREFIX##_Cell_handle)        SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>;
   %typemap(javaimports) SWIG_Triangulation_3::CGAL_Vertex_handle %{import CGAL.Kernel.POINT_TYPE;%}
@@ -18,10 +19,10 @@
   %template(CLASSNAME_PREFIX##_Edge)  SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int,int>;
 
   //typemaps for Output iterators
-  %define CLASSNAME_PREFIX##_Cell_handle_output_iterator  Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG >::Cell_handle_output_iterator %enddef
-  %define CLASSNAME_PREFIX##_Vertex_handle_output_iterator  Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG >::Vertex_handle_output_iterator %enddef
-  %define CLASSNAME_PREFIX##_Facet_output_iterator  Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG >::Facet_output_iterator %enddef
-  %define CLASSNAME_PREFIX##_Edge_output_iterator  Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG >::Edge_output_iterator %enddef
+  %define CLASSNAME_PREFIX##_Cell_handle_output_iterator  Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG,MEMHOLDER >::Cell_handle_output_iterator %enddef
+  %define CLASSNAME_PREFIX##_Vertex_handle_output_iterator  Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG,MEMHOLDER >::Vertex_handle_output_iterator %enddef
+  %define CLASSNAME_PREFIX##_Facet_output_iterator  Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG,MEMHOLDER >::Facet_output_iterator %enddef
+  %define CLASSNAME_PREFIX##_Edge_output_iterator  Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG,MEMHOLDER >::Edge_output_iterator %enddef
   %{
   typedef SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>                              CLASSNAME_PREFIX##_Cell_handle;
   typedef SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>                            CLASSNAME_PREFIX##_Vertex_handle;
@@ -35,7 +36,7 @@
 
   //Triangulation
   %typemap(javaimports)  Triangulation_3_wrapper%{import CGAL.Kernel.POINT_TYPE;import CGAL.Kernel.Segment_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Tetrahedron_3; import CGAL.Kernel.Ref_int; import java.util.Iterator; import java.util.Collection;%}
-  %template(EXPOSEDNAME) Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG >;
+  %template(EXPOSEDNAME) Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG,MEMHOLDER >;
 
 
   //Iterators and circulators
@@ -78,7 +79,16 @@
 // --CPPTYPE is the c++ type of the triangulation
 // --POINT_TYPE the name of the class wrapping Point or Weighted_point type
 %define Declare_triangulation_3(CLASSNAME,CPPTYPE)
-  Declare_triangulation_3_internal(CLASSNAME,CLASSNAME,CPPTYPE,Point_3,CGAL::Tag_false)
+  Declare_triangulation_3_internal(CLASSNAME,CLASSNAME,CPPTYPE,Point_3,CGAL::Tag_false,void*)
+%enddef
+
+//Expose a triangulation_3 with a memory holder
+// --CLASSNAME  is the name of the class exposed by SWIG
+// --CPPTYPE is the c++ type of the triangulation
+// --POINT_TYPE the name of the class wrapping Point or Weighted_point type
+// --MEMHOLDER is used if the triangulation pointer is hold by another class
+%define Declare_triangulation_3_with_memory_holder(CLASSNAME,CPPTYPE,MEMHOLDER)
+  Declare_triangulation_3_internal(CLASSNAME,CLASSNAME,CPPTYPE,Point_3,CGAL::Tag_false,MEMHOLDER)
 %enddef
 
 #endif // SWIG_CGAL_TRIANGULATION_3_DECLARE_TRIANGULATION_3_I

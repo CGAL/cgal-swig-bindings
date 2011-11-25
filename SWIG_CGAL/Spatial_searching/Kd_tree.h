@@ -20,7 +20,11 @@ struct Query_iterator_helper{
 template<class Cpp_base, class Query, class Fuzzy_sphere, class Fuzzy_iso_box>
 class Kd_tree_wrapper{
   boost::shared_ptr<Cpp_base> data_ptr;
-  Kd_tree_wrapper(const Kd_tree_wrapper<Cpp_base,Query,Fuzzy_sphere,Fuzzy_iso_box>&); //right now CGAL's KDtree does not have a copy constructor.
+  typedef Kd_tree_wrapper<Cpp_base,Query,Fuzzy_sphere,Fuzzy_iso_box>  Self;
+  Kd_tree_wrapper(const Self&); //right now CGAL's KDtree does not have a copy constructor.
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   #ifndef SWIG
   typedef Cpp_base cpp_base;
@@ -52,9 +56,6 @@ public:
 
 #endif //SWIG_CGAL_SPATIAL_SEARCHING_KD_TREE_H
 
-//Creation
-// Kd_tree<Traits, Splitter, UseExtendedNode> tree ( Splitter s=Splitter());
-// template <class InputIterator> Kd_tree<Traits, Splitter, UseExtendedNode> tree ( InputIterator first, InputIterator beyond, Splitter s=Splitter());
 //Operations
 //  SWIG_CGAL_FORWARD_CALL_0(Node_handle,root)
 // Kd_tree_rectangle<Traits>  tree.bounding_box ()  

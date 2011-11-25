@@ -20,24 +20,26 @@ public:
   #endif
   typedef CGAL_Cell_handle<Triangulation,Point> Cell_handle;
   
-
+//Creation
   CGAL_Vertex_handle():data(NULL){}
-  
+//Modifiers  
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point,point)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Cell_handle,cell)
   SWIG_CGAL_FORWARD_CALL_1(void,set_cell,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_1(void,set_point,Point)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
-
-  
+//equality functions
   bool equals(const CGAL_Vertex_handle<Triangulation,Point>& v){
     return data==v.get_data();
   }
-  
   #ifdef SWIGPYTHON
   bool __ne__(const CGAL_Vertex_handle<Triangulation,Point>& v){return !equals(v);}
   #endif
+//Deep copy
+  typedef CGAL_Vertex_handle<Triangulation,Point> Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 
@@ -55,10 +57,9 @@ public:
   
   typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
   typedef CGAL_Cell_handle<Triangulation,Point> Cell_handle;
-
+//Creation
   CGAL_Cell_handle():data(NULL){}
-  
-  
+//Modifiers
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,vertex,int)
   SWIG_CGAL_FORWARD_CALL_1(int,index,Vertex_handle)
   SWIG_CGAL_FORWARD_CALL_1(bool,has_vertex,Vertex_handle)
@@ -72,15 +73,18 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
   SWIG_CGAL_FORWARD_CALL_2(bool,is_valid,bool,int)
-  
+//Equality functions  
   bool equals(const CGAL_Cell_handle<Triangulation,Point>& c){
     return data==c.get_data();
   }  
-
   #ifdef SWIGPYTHON
   bool __ne__(const CGAL_Cell_handle<Triangulation,Point>& c){return !equals(c);}
   #endif  
-
+//Deep copy
+  typedef CGAL_Cell_handle<Triangulation,Point> Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
+  
   //SWIG_CGAL_FORWARD_CALL_2(bool has_vertex,Vertex_handle, int & i)  
   //bool has_neighbor ( Cell_handle n, int & i)  
 };

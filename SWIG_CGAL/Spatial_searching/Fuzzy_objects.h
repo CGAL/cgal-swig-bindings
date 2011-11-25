@@ -20,6 +20,10 @@ public:
   Fuzzy_sphere_wrapper(const Point_d& center, double radius):data(internal::make_conversion(center),radius){}
 //Operations
   SWIG_CGAL_FORWARD_CALL_1(bool,contains,Point_d)
+//Deep copy
+  typedef Fuzzy_sphere_wrapper<Cpp_base,Point_d> Self;
+  Self deepcopy() const {return Self(*this);}
+  void deepcopy(const Self& other){*this=other;}
 };
 
 //Operations
@@ -44,6 +48,10 @@ public:
   Fuzzy_iso_box_wrapper (const Point_d& p,const Point_d& q):data(internal::make_conversion(p),internal::make_conversion(q)){}
 //Operations
   SWIG_CGAL_FORWARD_CALL_1(bool,contains,Point_d)    
+//Deep copy
+  typedef Fuzzy_iso_box_wrapper<Cpp_base,Point_d> Self;
+  Self deepcopy() const {return Self(*this);}
+  void deepcopy(const Self& other){*this=other;}
 };
 
 //Operations

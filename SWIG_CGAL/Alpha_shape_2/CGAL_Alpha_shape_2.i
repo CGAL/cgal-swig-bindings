@@ -40,7 +40,7 @@ Decl_void_type()
   #include <SWIG_CGAL/Kernel/typedefs.h>
   #include <SWIG_CGAL/Alpha_shape_2/Alpha_shape_2.h>
   #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
-  #include <SWIG_CGAL/Triangulation_2/triangulation_iterators.h>
+  #include <SWIG_CGAL/Common/Input_iterator.h>
 %}
 
 %include "SWIG_CGAL/Alpha_shape_2/config.i"
@@ -48,7 +48,6 @@ Decl_void_type()
 //definitions
 %include "SWIG_CGAL/Alpha_shape_2/Alpha_shape_2.h"
 %include "SWIG_CGAL/Triangulation_2/triangulation_handles.h"
-%import  "SWIG_CGAL/Triangulation_2/triangulation_iterators.h"
 %import  "SWIG_CGAL/Triangulation_2/Triangulation_2.h"
 %import  "SWIG_CGAL/Triangulation_2/Delaunay_triangulation_2.h"
 %import  "SWIG_CGAL/Triangulation_2/Regular_triangulation_2.h"

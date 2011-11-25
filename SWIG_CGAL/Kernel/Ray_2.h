@@ -39,7 +39,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_vertical)
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_2)
   SWIG_CGAL_FORWARD_CALL_1(bool,collinear_has_on,Point_2)    
-//equality functors
+//equality functions
   bool equals(const Ray_2& r){return data==r.get_data();}
   #ifdef NO_SWIG_OR_PYTHON
   bool __ne__(const Ray_2& r){return data!=r.get_data();}
@@ -49,7 +49,11 @@ public:
     std::stringstream sstr;
     sstr << data;
     return sstr.str();
-  }  
+  }
+//Deep copy
+  typedef Ray_2 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_RAY_2_H

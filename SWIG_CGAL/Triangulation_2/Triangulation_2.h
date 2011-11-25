@@ -4,7 +4,6 @@
 #include <CGAL/config.h>
 
 #include <SWIG_CGAL/Kernel/typedefs.h>
-#include <SWIG_CGAL/Triangulation_2/triangulation_iterators.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
 #include <SWIG_CGAL/Kernel/Weighted_point_2.h>
 #include <SWIG_CGAL/Kernel/Segment_2.h>
@@ -12,8 +11,10 @@
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/Reference_wrapper.h>
+#include <sstream> 
 
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Common/Input_iterator.h>
 
 #include <boost/static_assert.hpp>
 
@@ -62,8 +63,8 @@ public:
   Triangulation_2_wrapper(){}
   #ifndef SWIG
   typedef Triangulation cpp_base;
-  const cpp_base& get_data() const {return this->data;}
-        cpp_base& get_data()       {return this->data;}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
 
 // Creation 
@@ -89,7 +90,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_2(Oriented_side,side_of_oriented_circle,Face_handle,Point)  
   Face_handle locate(const Point& query, Reference_wrapper<SWIG_Triangulation_2::Locate_type>& lt, Reference_wrapper<int>& li,Face_handle hint=Face_handle()) const {
     typename cpp_base::Locate_type cgal_lt;
-    typename Face_handle::cpp_base res = get_data().locate(query.get_data(),cgal_lt,li.object_ref(),hint.get_data());
+    typename Face_handle::cpp_base res = get_data().locate(query.get_data(),cgal_lt,li.object(),hint.get_data());
     lt.set(CGAL::enum_cast<SWIG_Triangulation_2::Locate_type>(cgal_lt));
     return Face_handle(res);
   }
@@ -148,6 +149,18 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Triangle_2,triangle,Face_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Segment_2,segment,Face_handle,int)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Segment_2,segment,Edge)
+#ifndef CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
+//I/O
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << data;
+    return sstr.str();
+  }
+//Deep copy (the inheritance is not a problem here, 
+  typedef Triangulation_2_wrapper<Triangulation,Point,Vertex_handle,Face_handle,Weighted_tag> Self;
+  Self deepcopy() const {return Self(*this);}
+  void deepcopy(const Self& other){*this=other;}
+#endif
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_TRIANGULATION_2_H

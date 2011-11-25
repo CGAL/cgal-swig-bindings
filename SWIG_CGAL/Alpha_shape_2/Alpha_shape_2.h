@@ -34,6 +34,10 @@ namespace internal{
 template <class Alpha_shape,class Point, class Vertex_handle, class Face_handle,class Weighted_tag,class Base>
 class Alpha_shape_2_wrapper : public Base
 {
+  typedef Alpha_shape_2_wrapper<Alpha_shape,Point, Vertex_handle, Face_handle,Weighted_tag,Base> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);  
 public:
   typedef std::pair<Face_handle,int> Edge;
   typedef CGAL_Alpha_iterator<Alpha_shape,double>                              Alpha_iterator;
@@ -72,8 +76,6 @@ public:
   Alpha_iterator  find_optimal_alpha(int i){return Alpha_iterator(this->data.find_optimal_alpha(i),this->data.alpha_end());}  
   Alpha_shape_vertices_iterator  alpha_shape_vertices(){return Alpha_shape_vertices_iterator(this->data.alpha_shape_vertices_begin(),this->data.alpha_shape_vertices_end());}
   Alpha_shape_edges_iterator     alpha_shape_edges(){return Alpha_shape_edges_iterator(this->data.alpha_shape_edges_begin(),this->data.alpha_shape_edges_end());}
-
-  
 //Predicates
   SWIG_CGAL_FORWARD_CALL_1(Classification_type,classify,Point)
   SWIG_CGAL_FORWARD_CALL_1(Classification_type,classify,Face_handle)
@@ -85,7 +87,6 @@ public:
   SWIG_CGAL_FORWARD_CALL_2(Classification_type,classify,Edge,double)
   SWIG_CGAL_FORWARD_CALL_3(Classification_type,classify,Face_handle,int,double)
   SWIG_CGAL_FORWARD_CALL_2(Classification_type,classify,Vertex_handle,double)  
- 
 };
 
 

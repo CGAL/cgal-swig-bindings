@@ -25,6 +25,10 @@
 class SWIG_CGAL_KERNEL_DECL CGAL_Object
 {
   CGAL::Object data;
+  typedef CGAL_Object Self;
+  //disable deep copy (CGAL::Object is reference counted)
+  Self deepcopy();
+  void deepcopy(const Self&);  
 public:
   #ifndef SWIG
   typedef CGAL::Object cpp_base;

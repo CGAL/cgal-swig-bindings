@@ -27,7 +27,7 @@ public:
   double y() const {return data.y();}
   double z() const {return data.z();}
   Point_3 point() const {return Point_3(data.point());}
-//equality functors
+//equality functions
   bool equals(const Weighted_point_3& p){
     return data==p.get_data();
   }
@@ -40,6 +40,10 @@ public:
     sstr << data;
     return sstr.str();
   }
+//Deep copy
+  typedef Weighted_point_3 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_WEIGHTED_POINT_3_H

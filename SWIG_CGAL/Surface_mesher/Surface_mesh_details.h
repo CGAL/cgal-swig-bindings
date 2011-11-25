@@ -9,6 +9,10 @@ template <class Criteria>
 class Surface_mesh_criteria_3_wrapper
 {
   Criteria data;
+  typedef Surface_mesh_criteria_3_wrapper<Criteria> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   #ifndef SWIG
   typedef Criteria cpp_base;
@@ -24,6 +28,10 @@ template <class Cpp_base>
 class Gray_level_image_3_wrapper
 {
   Cpp_base data;
+  typedef Gray_level_image_3_wrapper<Cpp_base> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   #ifndef SWIG
   typedef Cpp_base cpp_base;
@@ -37,6 +45,10 @@ public:
 template<class Cpp_base,class Function>
 class Implicit_surface_3_wrapper{
   Cpp_base data;
+  typedef Implicit_surface_3_wrapper<Cpp_base,Function> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   #ifndef SWIG
   typedef Cpp_base cpp_base;

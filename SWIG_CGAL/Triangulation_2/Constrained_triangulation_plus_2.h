@@ -23,6 +23,10 @@ struct Iterator_helper<std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle<Triang
 template <class CDT_plus_2, class Vertex_handle>
 class CDTP_context{
   typename CDT_plus_2::Context data;
+  typedef CDTP_context<CDT_plus_2,Vertex_handle> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);  
 public:
   #ifndef SWIG
   typedef typename CDT_plus_2::Context cpp_base;

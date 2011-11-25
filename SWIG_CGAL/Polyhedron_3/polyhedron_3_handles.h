@@ -90,6 +90,10 @@ public:
 
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}
+//Deep copy
+  typedef CGAL_Halfedge_handle<Polyhedron_base> Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 template <class Polyhedron_base>
@@ -123,7 +127,10 @@ public:
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}  
 
   void set_point(const Point_3& p){ data->point() =  internal::Converter<Point_3>::convert(p);}  
-
+//Deep copy
+  typedef CGAL_Vertex_handle<Polyhedron_base> Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 template <class Polyhedron_base>
@@ -155,7 +162,11 @@ public:
   int hashCode(){ return *reinterpret_cast<int*> (&*data);}
 
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
-  void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}  
+  void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}
+//Deep copy
+  typedef CGAL_Facet_handle<Polyhedron_base> Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 } //namespace SWIG_Polyhedron_3

@@ -20,27 +20,31 @@ template <class Cpp_base,class Point,class Value_type>
 class Data_access_wrapper
 {
   typedef typename internal::get_map_type<Cpp_base>::map_type Map;
-  Map map_;
+  Map m_map;
   Cpp_base data;
+  typedef Data_access_wrapper<Cpp_base,Point,Value_type> Self;
+//disable deep copy (Data_accessor has a const& member that prevents default construction induced by SWIG)
+  Self deepcopy();
+  void deepcopy(const Self&); 
 public:
   #ifndef SWIG
   typedef Cpp_base cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  const Map& get_map() const {return map_;} 
-        Map& get_map()       {return map_;} 
+  const Map& get_map() const {return m_map;} 
+        Map& get_map()       {return m_map;}
   #endif
   
-  Data_access_wrapper():map_(),data(map_){}
+  Data_access_wrapper():m_map(),data(m_map){}
         
   void set(const Point& p, Value_type value)
   {
-    map_.insert(std::make_pair(p.get_data(),internal::make_conversion(value)));
+    m_map.insert(std::make_pair(p.get_data(),internal::make_conversion(value)));
   }
   
   Value_type get(const Point& p) const
   {
-    return Value_type( map_.find(p.get_data())->second );
+    return Value_type( m_map.find(p.get_data())->second );
   }
 };
 

@@ -41,7 +41,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_vertical)
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_2)
   SWIG_CGAL_FORWARD_CALL_1(bool,collinear_has_on,Point_2)
-//equality functors  
+//equality functions  
   bool equals(const Segment_2& s){
     return data==s.get_data();
   }
@@ -54,6 +54,10 @@ public:
     sstr << data;
     return sstr.str();
   }
+//Deep copy
+  typedef Segment_2 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_SEGMENT_2_H

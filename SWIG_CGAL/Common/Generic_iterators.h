@@ -1,11 +1,10 @@
-#ifndef SWIG_CGAL_KERNEL_OUTPUT_ITERATOR_H
-#define SWIG_CGAL_KERNEL_OUTPUT_ITERATOR_H
+#ifndef SWIG_CGAL_GENERIC_ITERATOR_H
+#define SWIG_CGAL_GENERIC_ITERATOR_H
+
+//This file contains general classes that can be used when nothing in
+//done for a specific target languages to handle input and output iterators.
 
 #include <vector>
-#ifdef SWIGPYTHON
-#include <SWIG_CGAL/Python/exceptions.h>
-#endif
-
 
 template<class Container,class Object>
 class General_iterator{
@@ -47,16 +46,12 @@ public:
   typedef General_iterator<Output_iterator<Object>,Object > iterator;
 
 
-  Output_iterator(){data.push_back(Object(1,1,1));data.push_back(Object(2,2,2));data.push_back(Object(3,3,3));}
-
   std::vector<Object>& get_data(){return data;}
   
   iterator objects(){
     return iterator(data.begin(),data.end());
   }
-  
-  
 };
 
 
-#endif //SWIG_CGAL_KERNEL_OUTPUT_ITERATOR_H
+#endif //SWIG_CGAL_GENERIC_ITERATOR_H

@@ -5,20 +5,20 @@
 #include <iostream>
 #include <SWIG_CGAL/Common/Input_iterator.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
+#include <boost/shared_ptr.hpp>
 
 template <class C3T3,class Triangulation,class Index,class Surface_index,class Subdomain_index>
 class C3T3_wrapper{
-  C3T3 data;
-//  Triangulation triangulation_wrapper_ref;
+  boost::shared_ptr<C3T3> data_sptr;
 public:
   #ifndef SWIG
   typedef C3T3 cpp_base;
-  const cpp_base& get_data() const {return data;}
-        cpp_base& get_data()       {return data;}
-  C3T3_wrapper(const cpp_base& data_):data(data_){}
+  const cpp_base& get_data() const {return *data_sptr;}
+        cpp_base& get_data()       {return *data_sptr;}
+  C3T3_wrapper(const cpp_base& data_):data_sptr(new C3T3(data_)){}
   #endif
   
-  typedef C3T3_wrapper<C3T3,Triangulation,Index,Surface_index,Subdomain_index> Self;    
+  typedef C3T3_wrapper<C3T3,Triangulation,Index,Surface_index,Subdomain_index> Self;
     
   typedef typename Triangulation::Edge Edge;
   typedef typename Triangulation::Facet Facet;
@@ -30,20 +30,18 @@ public:
   
 //Creation  
   C3T3_wrapper(){}
-  void swap(Self& other){data.swap(other.get_data());}
+  void swap(Self& other){get_data().swap(other.get_data());}
 //Access Functions
-  Triangulation triangulation()
-  {return Triangulation(&(this->data.triangulation()));}
+  Triangulation triangulation() 
+  {
+    //the underlying triangulation is not copied, it's a reference.
+    //Since the reference is ref. counted underlying cpp triangulation is valid
+    //even if C3T3 is deleted
+    return Triangulation(&(data_sptr->triangulation()),data_sptr);
+  }
 
   void triangulation(Triangulation& ref)
-  {ref = Triangulation(&(this->data.triangulation()));}
-  
-//Why did I write this????
-////Non const access
-//  Triangulation&  triangulation_ref(){
-//    triangulation_wrapper_ref=Triangulation(data.triangulation());
-//    return triangulation_wrapper_ref;
-//  }
+  {ref = Triangulation(&(data_sptr->triangulation()),data_sptr);}
 
 //Modifiers
   SWIG_CGAL_FORWARD_CALL_2(void,add_to_complex,Cell_handle,Subdomain_index)
@@ -51,7 +49,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_3(void,add_to_complex,Cell_handle,int,Surface_index)
   SWIG_CGAL_FORWARD_CALL_1(void,remove_from_complex,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_1(void,remove_from_complex,Facet)
-  //~ SWIG_CGAL_FORWARD_CALL_2(void,remove_from_complex,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_2(void,remove_from_complex,Cell_handle,int)
   SWIG_CGAL_FORWARD_CALL_2(void,set_subdomain_index,Cell_handle,Subdomain_index)
   SWIG_CGAL_FORWARD_CALL_2(void,set_surface_index,Facet,Surface_index)
   SWIG_CGAL_FORWARD_CALL_3(void,set_surface_index,Cell_handle,int,Surface_index)
@@ -69,14 +67,17 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(int,in_dimension,Vertex_handle)
   SWIG_CGAL_FORWARD_CALL_1(Index,index,Vertex_handle)
 //Traversal of the complex
-  Cell_iterator  cells() {return Cell_iterator(data.cells_begin(),data.cells_end());}
-  Facet_iterator facets(){return Facet_iterator(data.facets_begin(),data.facets_end());}
+  Cell_iterator  cells() {return Cell_iterator(get_data().cells_begin(),get_data().cells_end());}
+  Facet_iterator facets(){return Facet_iterator(get_data().facets_begin(),get_data().facets_end());}
 //Operations
   void output_to_medit (const char* filename){
     std::ofstream outfile(filename);
     if (!outfile) std::cerr << "Error cannot create file: " << filename << std::endl;
-    else  data.output_to_medit(outfile);
+    else  get_data().output_to_medit(outfile);
   }
+//Deep copy
+  Self deepcopy() const {return Self(get_data());}
+  void deepcopy(const Self& other){data_sptr=boost::shared_ptr<cpp_base>( new cpp_base(other.get_data()) );}  
 };
 
 #endif //SWIG_CGAL_MESH_3_C3T3_H

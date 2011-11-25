@@ -63,7 +63,11 @@ public:
     exude_time_limit=time_limit;
     exude_sliver_bound=sliver_bound;    
   }
-  
+//Deep copy
+  typedef Mesh_3_parameters Self;
+  Self deepcopy() const {return Self(*this);}
+  void deepcopy(const Self& other){*this=other;}
+//internal
   #ifndef SWIG
   CGAL::parameters::internal::Lloyd_options get_lloyd_parameters() const
   {

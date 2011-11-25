@@ -36,7 +36,7 @@ public:
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Triangle_2,opposite)
   SWIG_CGAL_FORWARD_CALL_0(double,area)
-//equality functors
+//equality functions
   bool equals(const Triangle_2& t){
     return data==t.get_data();
   }
@@ -49,6 +49,10 @@ public:
     sstr << data;
     return sstr.str();
   }
+//Deep copy
+  typedef Triangle_2 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_TRIANGLE_2_H

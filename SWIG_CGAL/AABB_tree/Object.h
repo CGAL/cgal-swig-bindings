@@ -21,6 +21,10 @@
 class SWIG_CGAL_AABB_TREE_DECL Object
 {
   CGAL::Object data;
+  typedef Object Self;
+  //disable deep copy (CGAL::Object is reference counted)
+  Self deepcopy();
+  void deepcopy(const Self&);  
 public:
   #ifndef SWIG
   typedef CGAL::Object cpp_base;

@@ -5,9 +5,7 @@
 #include <CGAL/Triangulation_3.h>
 
 #include <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
-#include <SWIG_CGAL/Triangulation_3/triangulation_iterators.h>
 #include <SWIG_CGAL/Common/triple.h>
-#include <SWIG_CGAL/Common/Output_iterator.h>
 #include <SWIG_CGAL/Common/Reference_wrapper.h>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
@@ -18,6 +16,7 @@
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
+#include <SWIG_CGAL/Common/Input_iterator.h>
 
 namespace SWIG_Triangulation_3 {
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
@@ -33,32 +32,40 @@ struct Weighting_helper_3<CGAL::Tag_true>{
   typedef std::pair<Input_iterator_wrapper<Weighted_point_3,Weighted_point_3::cpp_base>,Input_iterator_wrapper<Weighted_point_3,Weighted_point_3::cpp_base> > Point_range;
 };
 
-template <class Triangulation,class Point,class Vertex_handle, class Cell_handle, class Weighted_tag>
+//we use Memory_holder when the triangulation pointer is internally member of a class that should not
+//be deleted while the triangulation exists. Usually it should be a shared_ptr.
+template <class Triangulation,class Point,class Vertex_handle, class Cell_handle, class Weighted_tag,
+class Memory_holder
+#ifndef SWIG
+=void*
+#endif
+>
 class Triangulation_3_wrapper{
-  
   #ifndef SWIG
   BOOST_STATIC_ASSERT( (boost::is_same<Weighted_tag,typename Triangulation::Weighted_tag>::value) );
   #endif  
-  
 protected:
-  Triangulation* data;
+  Triangulation* data_ptr;
+  Memory_holder mem_holder;
   bool own_triangulation;
   const typename Triangulation::Cell_handle& convert (const Cell_handle& c) {return c.get_data();}
   typename Triangulation::Cell_handle& convert (Cell_handle& c) {return c.get_data();}
   const typename Triangulation::Vertex_handle& convert (const Vertex_handle& v) {return v.get_data();}
   typename Triangulation::Vertex_handle& convert (Vertex_handle& v) {return v.get_data();}
   template <class T> const T& convert(const Reference_wrapper<T>& ref){return ref.object();}
-  template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object_ref();}
+  template <class T> T& convert(Reference_wrapper<T>& ref){return ref.object();}
 public:
   #ifndef SWIG
   typedef Triangulation cpp_base;
-  const cpp_base& get_data() const {return *data;}
-        cpp_base& get_data()       {return *data;}
-  Triangulation_3_wrapper(const cpp_base& base):data(new cpp_base(base)),own_triangulation(true){}
-  Triangulation_3_wrapper(cpp_base* base):data(base),own_triangulation(false){} //constructor using a triangulation stored outside the wrapper class (introduced for C3T3::triangulation()
+  const cpp_base& get_data() const {return *data_ptr;}
+        cpp_base& get_data()       {return *data_ptr;}
+  Triangulation_3_wrapper(const cpp_base& base):data_ptr(new cpp_base(base)),own_triangulation(true){}
+  //constructor using a triangulation stored outside the wrapper class ( introduced for C3T3::triangulation() )
+  Triangulation_3_wrapper(cpp_base* base,Memory_holder mh):data_ptr(base),mem_holder(mh),own_triangulation(false){}
+  void share_ownership(Memory_holder mh){own_triangulation=false; mem_holder=mh;}
   #endif
-  Triangulation_3_wrapper():data(new cpp_base()),own_triangulation(true){}
-  ~Triangulation_3_wrapper(){if (own_triangulation) delete data;}
+  Triangulation_3_wrapper():data_ptr(new cpp_base()),own_triangulation(true){}
+  ~Triangulation_3_wrapper(){if (own_triangulation) delete data_ptr;}
   
   typedef std::pair<Cell_handle,int>             Facet;
   typedef SWIG_CGAL::Triple<Cell_handle,int,int> Edge;  
@@ -79,16 +86,7 @@ public:
   typedef boost::function_output_iterator< Container_writer<Vertex_handle,typename Triangulation::Vertex_handle> >      Vertex_handle_output_iterator;
   typedef boost::function_output_iterator< Container_writer<Facet,typename Triangulation::Facet> >                      Facet_output_iterator;
   typedef boost::function_output_iterator< Container_writer<Edge,typename Triangulation::Edge> >                        Edge_output_iterator;
-
-
-
-//Creation
-//Assignment
-  bool equal(const Triangulation_3_wrapper& t) {return t.get_data()==this->get_data();}
-  bool equals(const Triangulation_3_wrapper& t) {return equal(t);}
-  #ifdef SWIGPYTHON
-  bool __ne__(const Triangulation_3_wrapper& dt) {return !equals(dt);}
-  #endif
+//Modifiers
   SWIG_CGAL_FORWARD_CALL_0(void,clear)  
 //Access Functions
 //Non const access
@@ -136,7 +134,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(Vertex_handle,insert,Point)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Vertex_handle)
-  int insert_range(typename Weighting_helper_3<Weighted_tag>::Point_range range){ return this->data->insert(range.first,range.second); }
+  int insert_range(typename Weighting_helper_3<Weighted_tag>::Point_range range){ return get_data().insert(range.first,range.second); }
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_cell,Point,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_facet,Point,Facet)
   SWIG_CGAL_FORWARD_CALL_AND_REF_3(Vertex_handle,insert_in_facet,Point,Cell_handle,int)
@@ -145,15 +143,15 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_outside_convex_hull,Point,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,insert_outside_affine_hull,Point)
 //Traversal of the Triangulation
-  Finite_vertices_iterator      finite_vertices(){return Finite_vertices_iterator(this->data->finite_vertices_begin(),this->data->finite_vertices_end());}
-  Finite_edges_iterator         finite_edges(){return Finite_edges_iterator(this->data->finite_edges_begin(),this->data->finite_edges_end());}
-  Finite_facets_iterator        finite_facets(){return Finite_facets_iterator(this->data->finite_facets_begin(),this->data->finite_facets_end());}
-  Finite_cells_iterator         finite_cells(){return Finite_cells_iterator(this->data->finite_cells_begin(),this->data->finite_cells_end());}
-  All_vertices_iterator         all_vertices(){return All_vertices_iterator(this->data->all_vertices_begin(),this->data->all_vertices_end());}
-  All_edges_iterator            all_edges(){return All_edges_iterator(this->data->all_edges_begin(),this->data->all_edges_end());}
-  All_facets_iterator           all_facets(){return All_facets_iterator(this->data->all_facets_begin(),this->data->all_facets_end());}
-  All_cells_iterator            all_cells(){return All_cells_iterator(this->data->all_cells_begin(),this->data->all_cells_end());}
-  Point_iterator                points(){return Point_iterator(this->data->points_begin(),this->data->points_end());}
+  Finite_vertices_iterator      finite_vertices(){return Finite_vertices_iterator(get_data().finite_vertices_begin(),get_data().finite_vertices_end());}
+  Finite_edges_iterator         finite_edges(){return Finite_edges_iterator(get_data().finite_edges_begin(),get_data().finite_edges_end());}
+  Finite_facets_iterator        finite_facets(){return Finite_facets_iterator(get_data().finite_facets_begin(),get_data().finite_facets_end());}
+  Finite_cells_iterator         finite_cells(){return Finite_cells_iterator(get_data().finite_cells_begin(),get_data().finite_cells_end());}
+  All_vertices_iterator         all_vertices(){return All_vertices_iterator(get_data().all_vertices_begin(),get_data().all_vertices_end());}
+  All_edges_iterator            all_edges(){return All_edges_iterator(get_data().all_edges_begin(),get_data().all_edges_end());}
+  All_facets_iterator           all_facets(){return All_facets_iterator(get_data().all_facets_begin(),get_data().all_facets_end());}
+  All_cells_iterator            all_cells(){return All_cells_iterator(get_data().all_cells_begin(),get_data().all_cells_end());}
+  Point_iterator                points(){return Point_iterator(get_data().points_begin(),get_data().points_end());}
 //Cell and Facet Circulators
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Cell_circulator,incident_cells,Edge)
   SWIG_CGAL_FORWARD_CALL_AND_REF_3(Cell_circulator,incident_cells,Cell_handle,int,int)
@@ -166,14 +164,14 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_4(Facet_circulator,incident_facets,Cell_handle,int,int,Facet)
   SWIG_CGAL_FORWARD_CALL_5(Facet_circulator,incident_facets,Cell_handle,int,int,Cell_handle,int)  
 //Traversal of the incident cells, facets and edges, and the adjacent vertices of a given vertex
-  void incident_cells(const Vertex_handle& v, Cell_handle_output_iterator out){this->data->incident_cells(v.get_data(),out);}
-  void finite_incident_cells(const Vertex_handle& v, Cell_handle_output_iterator out){this->data->finite_incident_cells(v.get_data(),out);}
-  void incident_facets(const Vertex_handle& v, Facet_output_iterator out){    this->data->incident_facets(v.get_data(),out);  }
-  void finite_incident_facets(const Vertex_handle& v, Facet_output_iterator out){this->data->finite_incident_facets(v.get_data(),out);}
-  void incident_edges(const Vertex_handle& v, Edge_output_iterator out){this->data->incident_edges(v.get_data(),out);}
-  void finite_incident_edges(const Vertex_handle& v, Edge_output_iterator out){this->data->finite_incident_edges(v.get_data(),out);}
-  void adjacent_vertices(const Vertex_handle& v, Vertex_handle_output_iterator out){this->data->adjacent_vertices(v.get_data(),out);}
-  void finite_adjacent_vertices(const Vertex_handle& v, Vertex_handle_output_iterator out){this->data->finite_adjacent_vertices(v.get_data(),out);}
+  void incident_cells(const Vertex_handle& v, Cell_handle_output_iterator out){get_data().incident_cells(v.get_data(),out);}
+  void finite_incident_cells(const Vertex_handle& v, Cell_handle_output_iterator out){get_data().finite_incident_cells(v.get_data(),out);}
+  void incident_facets(const Vertex_handle& v, Facet_output_iterator out){    get_data().incident_facets(v.get_data(),out);  }
+  void finite_incident_facets(const Vertex_handle& v, Facet_output_iterator out){get_data().finite_incident_facets(v.get_data(),out);}
+  void incident_edges(const Vertex_handle& v, Edge_output_iterator out){get_data().incident_edges(v.get_data(),out);}
+  void finite_incident_edges(const Vertex_handle& v, Edge_output_iterator out){get_data().finite_incident_edges(v.get_data(),out);}
+  void adjacent_vertices(const Vertex_handle& v, Vertex_handle_output_iterator out){get_data().adjacent_vertices(v.get_data(),out);}
+  void finite_adjacent_vertices(const Vertex_handle& v, Vertex_handle_output_iterator out){get_data().finite_adjacent_vertices(v.get_data(),out);}
   SWIG_CGAL_FORWARD_CALL_1(int,degree,Vertex_handle)  
 //Traversal between adjacent cells
   SWIG_CGAL_FORWARD_CALL_2(int,mirror_index,Cell_handle,int)
@@ -192,15 +190,26 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_2(bool,is_valid,Cell_handle,bool)
-//I/O  
-
-
-
-
-  bool is_cell (Vertex_handle u,Vertex_handle v,Vertex_handle w,Vertex_handle x,Cell_handle & c,Reference_wrapper<int>& i,Reference_wrapper<int> & j,Reference_wrapper<int> & k,Reference_wrapper<int> & l){
-    return this->data->is_cell(convert(u),convert(v),convert(w),convert(x),convert(c),convert(i),convert(j),convert(k),convert(l));
+//I/O
+  std::string toString(){
+    std::stringstream sstr;
+    sstr << get_data();
+    return sstr.str();
   }
-  
+//Queries
+  bool is_cell (Vertex_handle u,Vertex_handle v,Vertex_handle w,Vertex_handle x,Cell_handle & c,Reference_wrapper<int>& i,Reference_wrapper<int> & j,Reference_wrapper<int> & k,Reference_wrapper<int> & l){
+    return get_data().is_cell(convert(u),convert(v),convert(w),convert(x),convert(c),convert(i),convert(j),convert(k),convert(l));
+  }
+//Equality functions
+  bool equal(const Triangulation_3_wrapper& t) {return t.get_data()==this->get_data();}
+  bool equals(const Triangulation_3_wrapper& t) {return equal(t);}
+  #ifdef SWIGPYTHON
+  bool __ne__(const Triangulation_3_wrapper& dt) {return !equals(dt);}
+  #endif
+//Deep copy
+  typedef Triangulation_3_wrapper<Triangulation,Point,Vertex_handle,Cell_handle,Weighted_tag,Memory_holder> Self;
+  Self deepcopy() const {return Self(get_data());}
+  void deepcopy(const Self& other){*this=Self(other.get_data());}
 };
 
 //Creation
@@ -217,7 +226,6 @@ public:
 //  bool t.is_vertex ( Point p, Vertex_handle & v)  
 //  bool t.is_edge ( Vertex_handle u, Vertex_handle v, Cell_handle & c, int & i, int & j)
 //  bool t.is_facet ( Vertex_handle u,Vertex_handle v,Vertex_handle w,Cell_handle & c,int & i,int & j,int & k)
-//  bool t.is_cell ( Vertex_handle u,Vertex_handle v,Vertex_handle w,Vertex_handle x,Cell_handle & c,int & i,int & j,int & k,int & l)
 //  bool t.is_cell ( Vertex_handle u, Vertex_handle v, Vertex_handle w, Vertex_handle x, Cell_handle & c)
 //  bool t.has_vertex ( Facet f, Vertex_handle v, int & j)
 //  bool t.has_vertex ( Cell_handle c, int i, Vertex_handle v, int & j)

@@ -4,6 +4,7 @@
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Input_iterator.h>
+#include <boost/shared_ptr.hpp>
 
 namespace C2T3_internal{
 
@@ -21,6 +22,11 @@ template <class C2T3,class Triangulation>
 class C2T3_wrapper
 {
   C2T3 data;
+  boost::shared_ptr<typename Triangulation::cpp_base> tr_sptr;
+  typedef C2T3_wrapper<C2T3,Triangulation> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);   
 public:
   #ifndef SWIG
   typedef C2T3 cpp_base;
@@ -40,9 +46,14 @@ public:
   typedef typename C2T3_internal::Iterator_helper<Triangulation>::output Output_iterator;
 
 //Creation
-  C2T3_wrapper(Triangulation& t3):data(t3.get_data()){}
+  //here it's a bit tricky: the ownership of the underlying cpp triangulation becomes shared,
+  //so that if the wrapper t3 disappears, the cpp triangulation is not freed since it's shared.
+  C2T3_wrapper(Triangulation& t3):data(t3.get_data()),tr_sptr(&t3.get_data()){
+    t3.share_ownership(tr_sptr);
+  }
 //Member access
-  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Triangulation,triangulation)
+  //same trick here, we share the ownership of the triangulation with another triangulation wrapper
+  Triangulation triangulation(){return Triangulation(tr_sptr.get(),tr_sptr);}
 //Modifications
   SWIG_CGAL_FORWARD_CALL_1(void,add_to_complex,Facet)
   SWIG_CGAL_FORWARD_CALL_2(void ,add_to_complex,Cell_handle,int)

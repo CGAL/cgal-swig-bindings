@@ -9,13 +9,9 @@ class Variant
   typedef typename internal::Converter<T1>::result_type T1_base;
   typedef typename internal::Converter<T2>::result_type T2_base;
 public:
+  typedef Variant<T1,T2> Self;
 #ifndef SWIG
   typedef boost::variant< T1_base,T2_base > cpp_base;
-#endif
-private:
-  cpp_base data;
-public:
-#ifndef SWIG
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
   Variant(const cpp_base& base):data(base){}
@@ -30,6 +26,11 @@ public:
   bool is_of_second_type() const {return boost::get<T2_base>(&data)?true:false;}
   T1 get_first()  const {return T1(boost::get<T1_base>(data));}
   T2 get_second() const {return T2(boost::get<T2_base>(data));}
+//Deep copy
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
+private:
+  cpp_base data;  
 };
 
 #endif //SWIG_CGAL_COMMON_VARIANT_H

@@ -86,6 +86,7 @@ SWIG_JAVABODY_METHODS(public,public,Polygon_2)
   #include <SWIG_CGAL/Kernel/global_functions.h>
   #include <SWIG_CGAL/Kernel/enum.h>
   #include <SWIG_CGAL/Kernel/Polygon_2.h>
+  #include <SWIG_CGAL/Common/Input_iterator.h>
 %}
 
 //typemaps for Polygon_2
@@ -123,11 +124,17 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
 //simple types
 %include "SWIG_CGAL/Kernel/Reference_wrappers.i"
 
+//we need to extend the Polygon_2 class in the .i because some function are target language dependant
 %extend Polygon_2{
   void insert( int i, Point_range_2 range){
     $self->get_data().insert(boost::next($self->get_data().vertices_begin(),i),range.first,range.second);
   }
   Polygon_2(Point_range_2 range){return new Polygon_2(Polygon_2::cpp_base(range.first,range.second));}
+
+  CGAL_Vertex_iterator<Polygon_2::cpp_base,Point_2>   vertices()   {return CGAL_Vertex_iterator<Polygon_2::cpp_base,Point_2>($self->get_data().vertices_begin(),$self->get_data().vertices_end());}
+  CGAL_Edge_const_iterator<Polygon_2::cpp_base,Segment_2>  edges()      {return CGAL_Edge_const_iterator<Polygon_2::cpp_base,Segment_2>($self->get_data().edges_begin(),$self->get_data().edges_end());}
+  CGAL_Vertex_circulator<Polygon_2::cpp_base,Point_2>        vertices_circulator()  {return CGAL_Vertex_circulator<Polygon_2::cpp_base,Point_2>($self->get_data().vertices_circulator());}
+  CGAL_Edge_const_circulator<Polygon_2::cpp_base,Segment_2>  edges_circulator()     {return CGAL_Edge_const_circulator<Polygon_2::cpp_base,Segment_2>($self->get_data().edges_circulator());}  
 }
 
 //Iterators

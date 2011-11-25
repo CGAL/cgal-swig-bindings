@@ -5,10 +5,15 @@
 #include <CGAL/Regular_triangulation_3.h>
 #include <CGAL/Regular_triangulation_euclidean_traits_3.h>
 
-template <class Triangulation,class Vertex_handle_, class Cell_handle_>
-class Regular_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Weighted_point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_true>{
+template <class Triangulation,class Vertex_handle_, class Cell_handle_,
+class Memory_holder
+#ifndef SWIG
+=void*
+#endif
+>
+class Regular_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Weighted_point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_true,Memory_holder>{
 public:
-  typedef Triangulation_3_wrapper<Triangulation,Weighted_point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_true> Base;
+  typedef Triangulation_3_wrapper<Triangulation,Weighted_point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_true,Memory_holder> Base;
   typedef typename Base::Facet Facet;
   typedef typename Base::Edge Edge;
   typedef Vertex_handle_ Vertex_handle;
@@ -17,7 +22,8 @@ public:
   Regular_triangulation_3_wrapper(){}
   #ifndef SWIG
   Regular_triangulation_3_wrapper(const Triangulation& base):Base(base){}
-  Regular_triangulation_3_wrapper(typename Base::cpp_base* base):Base(base){} //constructor using a triangulation stored outside the wrapper class (introduced for C3T3::triangulation()
+  //constructor using a triangulation stored outside the wrapper class ( introduced for C3T3::triangulation() )
+  Regular_triangulation_3_wrapper(typename Base::cpp_base* base,Memory_holder mh):Base(base,mh){}
   #endif
 //Removal
   SWIG_CGAL_FORWARD_CALL_1(void,remove,Vertex_handle)  

@@ -32,7 +32,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(double,dy)
   SWIG_CGAL_FORWARD_CALL_0(double,dz)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,vector)
-//equality functors
+//equality functions
   bool equals(const Direction_3& r){return data==r.get_data();}
   #ifdef NO_SWIG_OR_PYTHON
   bool __ne__(const Direction_3& r){return data!=r.get_data();}
@@ -43,6 +43,10 @@ public:
     sstr << data;
     return sstr.str();
   }
+//Deep copy
+  typedef Direction_3 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };  
 
 #endif //SWIG_CGAL_KERNEL_DIRECTION_3_H

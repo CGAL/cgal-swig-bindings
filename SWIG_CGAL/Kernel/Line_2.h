@@ -48,7 +48,7 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_2,direction)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Line_2,opposite)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Line_2,perpendicular,Point_2)
-//equality functors
+//equality functions
   bool equals(const Line_2& r){return data==r.get_data();}
   #ifdef NO_SWIG_OR_PYTHON
   bool __ne__(const Line_2& r){return data!=r.get_data();}
@@ -58,7 +58,11 @@ public:
     std::stringstream sstr;
     sstr << data;
     return sstr.str();
-  }  
+  }
+//Deep copy
+  typedef Line_2 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_LINE_2_H

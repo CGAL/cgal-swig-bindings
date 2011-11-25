@@ -79,8 +79,6 @@ struct Dereference_input_iterator<Cpp_wrapper,Cpp_wrapper>{
     return *current_ptr;
   }
 };
-
-
 #endif
 
 template <class Cpp_wrapper,class Cpp_base>

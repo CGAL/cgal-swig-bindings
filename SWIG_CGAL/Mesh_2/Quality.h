@@ -4,6 +4,10 @@
 template <class Criteria>
 class Quality_pair_wrapper{
   typename Criteria::Quality data;
+  typedef Quality_pair_wrapper<Criteria>  Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   #ifndef SWIG
   typedef typename Criteria::Quality cpp_base;

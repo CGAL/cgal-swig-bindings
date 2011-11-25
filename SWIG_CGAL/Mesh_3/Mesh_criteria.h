@@ -8,6 +8,10 @@ template <class Base>
 class Default_mesh_criteria_wrapper
 {
   Base data;
+  typedef Default_mesh_criteria_wrapper<Base> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);   
 public:
 #ifndef SWIG
   typedef Base cpp_base;
@@ -27,6 +31,10 @@ template <class Base, class Field1, class Field2, class Field3, class Field4>
 class Mesh_criteria_with_fields_wrapper
 {
   Base data;
+  typedef Mesh_criteria_with_fields_wrapper<Base,Field1,Field2,Field3,Field4> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);   
 public:
 #ifndef SWIG
   typedef Base cpp_base;
@@ -67,6 +75,10 @@ public:
 template <class Triangulation,class Caller>
 class Java_cell_criteria{
   Caller caller;
+  typedef Java_cell_criteria<Triangulation,Caller> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   typedef typename Triangulation::Cell_handle Cell_handle;
   typedef std::pair<int,double> Cell_quality;
@@ -96,6 +108,10 @@ public:
 template <class Triangulation,class Cell_caller,class Facet_caller>
 class Java_criteria_wrapper
 {
+  typedef Java_criteria_wrapper<Triangulation,Cell_caller,Facet_caller> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   typedef Java_facet_criteria<Triangulation,Facet_caller>       Facet_criteria;
   typedef Java_cell_criteria <Triangulation,Cell_caller>        Cell_criteria;

@@ -77,10 +77,9 @@ struct Iterator_helper<double>{
   static double convert(const T& i){  return *i; }
   static double default_value(){return 0.;}
 };
-
+#endif//SWIG
 
 #ifdef SWIGPYTHON
-
 #include <SWIG_CGAL/Python/exceptions.h>
 
 #define SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)             \
@@ -115,8 +114,10 @@ public:                                                                  \
   bool hasNext(){                                                        \
     return cur!=end;                                                     \
   }                                                                      \
-};       
-#else
+};   
+#endif //SWIGPYTHON
+
+#ifdef SWIGJAVA
 #define SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)             \
 template<class T,class R>                                                \
 class EXPOSEDNAME{                                                       \
@@ -147,7 +148,7 @@ public:                                                                  \
     return cur!=end;                                                     \
   }                                                                      \
 };
-#endif //SWIGPYTHON
+#endif //SWIGJAVA
 
 #define SWIG_CGAL_DECLARE_CIRCULATOR_CLASS_2(NAME,EXPOSEDNAME)           \
 template<class T,class R>                                                \
@@ -172,49 +173,15 @@ public:                                                                  \
 };
 
 
-#else //!SWIG
-  #ifdef SWIGPYTHON
-  #include <SWIG_CGAL/Python/exceptions.h>
-
-  #define SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)  \
-  template<class T,class R>                                     \
-  class EXPOSEDNAME{                                            \
-  public:                                                       \
-    EXPOSEDNAME<T,R> __iter__();                                \
-    R next();                                                   \
-    void next(R&);                                              \
-    bool hasNext();                                             \
-  };
-  #else
-  #define SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)  \
-  template<class T,class R>                                     \
-  class EXPOSEDNAME{                                            \
-  public:                                                       \
-    R next();                                                   \
-    void next(R& r);                                            \
-    bool hasNext();                                             \
-  };
-  #endif //SWIGPYTHON
-
-  #define SWIG_CGAL_DECLARE_CIRCULATOR_CLASS_2(NAME,EXPOSEDNAME)           \
-  template<class T,class R>                                                \
-  class EXPOSEDNAME{                                                       \
-  public:                                                                  \
-    R next();                                                              \
-    void next(R& r);                                                       \
-    R prev();                                                              \
-    bool hasNext();                                                        \
-  };
-#endif//SWIG
-
 
 #define SWIG_CGAL_DECLARE_ITERATOR_CLASS(NAME)            SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(NAME,CGAL_##NAME)
 #define SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(NAME)          SWIG_CGAL_DECLARE_CIRCULATOR_CLASS_2(NAME,CGAL_##NAME)
 
 
 //place here iterator wrapper classes to be defined. There are template classes that
-//can be reused between class. The idea is data store is that 
-//SWIG_CGAL_DECLARE_ITERATOR_CLASS(foo) declares template <class T,class R> CGAL_foo storing iterator T::foo.
+//can be reused amongst classes. The idea is that:
+//SWIG_CGAL_DECLARE_ITERATOR_CLASS(foo) declares 
+//template <class T,class R> CGAL_foo storing iterator T::foo which is an iterator with R as value_type.
 SWIG_CGAL_DECLARE_ITERATOR_CLASS(All_cells_iterator)
 SWIG_CGAL_DECLARE_ITERATOR_CLASS(Finite_cells_iterator)
 SWIG_CGAL_DECLARE_ITERATOR_CLASS(All_facets_iterator)
@@ -243,5 +210,11 @@ SWIG_CGAL_DECLARE_ITERATOR_CLASS(Alpha_shape_vertices_iterator)
 SWIG_CGAL_DECLARE_ITERATOR_CLASS(Alpha_shape_edges_iterator)
 SWIG_CGAL_DECLARE_ITERATOR_CLASS(Boundary_edges_iterator)
 SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Vertex_circulator)
+SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Edge_const_circulator)
+SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Line_face_circulator)
+SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Face_circulator)
+SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Edge_circulator)
+SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Cell_circulator)
+SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Facet_circulator)
 
 #endif //SWIG_CGAL_INPUT_ITERATOR_H

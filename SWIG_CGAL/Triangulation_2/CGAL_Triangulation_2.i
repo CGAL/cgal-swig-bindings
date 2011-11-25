@@ -42,7 +42,7 @@ Decl_void_type()
   #include <SWIG_CGAL/Triangulation_2/Constrained_Delaunay_triangulation_2.h>
   #include <SWIG_CGAL/Triangulation_2/Constrained_triangulation_plus_2.h>
   #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
-  #include <SWIG_CGAL/Triangulation_2/triangulation_iterators.h>
+  #include <SWIG_CGAL/Common/Input_iterator.h>
 %}
 
 
@@ -54,7 +54,6 @@ Decl_void_type()
 %include "SWIG_CGAL/Triangulation_2/Constrained_Delaunay_triangulation_2.h"
 %include "SWIG_CGAL/Triangulation_2/Constrained_triangulation_plus_2.h"
 %include "SWIG_CGAL/Triangulation_2/triangulation_handles.h"
-%include "SWIG_CGAL/Triangulation_2/triangulation_iterators.h"
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Segment_2;  import CGAL.Kernel.Triangle_2;  import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
 

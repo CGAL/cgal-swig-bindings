@@ -34,7 +34,7 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Ray_3,opposite)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
-//equality functors
+//equality functions
   bool equals(const Ray_3& r){return data==r.get_data();}
   #ifdef NO_SWIG_OR_PYTHON
   bool __ne__(const Ray_3& r){return data!=r.get_data();}
@@ -45,6 +45,10 @@ public:
     sstr << data;
     return sstr.str();
   }
+//Deep copy
+  typedef Ray_3 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_RAY_3_H

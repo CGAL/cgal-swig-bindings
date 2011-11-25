@@ -8,6 +8,10 @@
 
 template <class HDS>
 class Build_triangle : public CGAL::Modifier_base<HDS>{
+  typedef Build_triangle<HDS> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
     Build_triangle() {}
 #ifndef SWIG
@@ -32,6 +36,10 @@ public:
 
 template <class HDS>
 class Build_square : public CGAL::Modifier_base<HDS>{
+  typedef Build_square<HDS> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
     Build_square() {}
 #ifndef SWIG
@@ -70,7 +78,10 @@ class Build_triangular_facets_from_point_range : public CGAL::Modifier_base<HDS>
   typedef std::list<Integer_triple> Triple_container;
   Point_container points;
   Triple_container triples;
-  
+  typedef Build_triangular_facets_from_point_range<HDS> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
     Build_triangular_facets_from_point_range(){}
     

@@ -24,13 +24,11 @@ Decl_void_type()
   #include <SWIG_CGAL/Triangulation_2/Delaunay_triangulation_2.h>
   #include <SWIG_CGAL/Triangulation_2/Regular_triangulation_2.h>
   #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
-  #include <SWIG_CGAL/Triangulation_2/triangulation_iterators.h>  
 //needed for triangulation_3 import
   #include <SWIG_CGAL/Triangulation_3/Delaunay_triangulation_3.h>
   #include <SWIG_CGAL/Triangulation_3/Regular_triangulation_3.h>
   #include <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
   #include <SWIG_CGAL/Common/triple.h>
-  #include <SWIG_CGAL/Triangulation_3/triangulation_iterators.h>
 //include of the package
   #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
   #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>

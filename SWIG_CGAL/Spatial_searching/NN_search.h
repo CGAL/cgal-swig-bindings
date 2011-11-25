@@ -14,7 +14,11 @@ class NN_search_wrapper
   //collect the tree while used by this class  
   boost::shared_ptr<typename Tree::cpp_base> tree_ptr;
   Cpp_base data;
-  NN_search_wrapper(const NN_search_wrapper<Cpp_base,Query,Tree>&); //prevent copies
+  typedef NN_search_wrapper<Cpp_base,Query,Tree> Self;
+  NN_search_wrapper(const Self&); //prevent copies
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   #ifndef SWIG
   typedef Cpp_base cpp_base;
@@ -41,7 +45,11 @@ class NN_search_wrapper_incremental
   //collect the tree while used by this class
   boost::shared_ptr<typename Tree::cpp_base> tree_ptr;  
   Cpp_base data;
-  NN_search_wrapper_incremental(const NN_search_wrapper_incremental<Cpp_base,Query,Tree>&); //prevent copies
+  typedef NN_search_wrapper_incremental<Cpp_base,Query,Tree> Self;
+  NN_search_wrapper_incremental(const Self&); //prevent copies
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   #ifndef SWIG
   typedef Cpp_base cpp_base;

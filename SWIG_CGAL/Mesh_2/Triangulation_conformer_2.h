@@ -6,6 +6,10 @@ template <class CDT_cpp,class CDT_wrapper>
 class Triangulation_conformer_2_wrapper
 {
   CGAL::Triangulation_conformer_2<CDT_cpp> data;
+  typedef Triangulation_conformer_2_wrapper<CDT_cpp,CDT_wrapper> Self;
+//disable deep copy (no need to copy that class
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   #ifndef SWIG
   typedef CGAL::Triangulation_conformer_2<CDT_cpp> cpp_base;

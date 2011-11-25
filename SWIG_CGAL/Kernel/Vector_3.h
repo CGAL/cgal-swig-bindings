@@ -53,6 +53,10 @@ public:
   #ifdef NO_SWIG_OR_PYTHON
   bool __ne__(const Vector_3& r){return data!=r.get_data();}
   #endif
+//Deep copy
+  typedef Vector_3 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_VECTOR_3_H

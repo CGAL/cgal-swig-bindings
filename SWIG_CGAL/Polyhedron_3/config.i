@@ -10,6 +10,7 @@
 #endif //IMPORT_ONLY_POLYHEDRON_TYPES
 
 %{
+#include <SWIG_CGAL/Kernel/typedefs.h>
 typedef CGAL::Polyhedron_3<EPIC_Kernel>     Polyhedron_3_;
 %}
 
@@ -33,14 +34,6 @@ typedef CGAL::Polyhedron_3<EPIC_Kernel>     Polyhedron_3_;
 %{
 #include <SWIG_CGAL/Kernel/typedefs.h>
 typedef CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_and_info_3<JavaData> > Polyhedron_3_;
-#include <CGAL/is_iterator.h>
-namespace CGAL{
-  namespace internal{
-  template <>
-  struct is_iterator_<Polyhedron_3_>{
-    enum {value=false};
-  };
-} }
 %}
 
 #ifndef IMPORT_ONLY_POLYHEDRON_TYPES
@@ -94,3 +87,14 @@ SWIG_CGAL_add_JavaData_info_to_class( SWIG_Polyhedron_3::CGAL_Facet_handle<Polyh
 #endif //IMPORT_ONLY_POLYHEDRON_TYPES
 
 #endif //SWIGJAVA
+
+%{
+#include <CGAL/is_iterator.h>
+namespace CGAL{
+  namespace internal{
+  template <>
+  struct is_iterator_<Polyhedron_3_>{
+    enum {value=false};
+  };
+} }  
+%}

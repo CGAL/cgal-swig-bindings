@@ -44,7 +44,7 @@ public:
 //  SWIG_CGAL_FORWARD_CALL_1(bool,has_on ( Circle_3<Kernel> p)
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Sphere_3,opposite)
-//equality functors
+//equality functions
   bool equals(const Sphere_3& s){return data==s.get_data();}
   #ifdef NO_SWIG_OR_PYTHON
   bool __ne__(const Sphere_3& s){return !equals(s);}
@@ -54,7 +54,11 @@ public:
     std::stringstream sstr;
     sstr << data;
     return sstr.str();    
-  }    
+  }
+//Deep copy
+  typedef Sphere_3 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_SPHERE_3_H

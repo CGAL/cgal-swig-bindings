@@ -40,7 +40,7 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Line_3,opposite)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,to_vector)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_3,direction)
-//equality functors
+//equality functions
   bool equals(const Line_3& p){
     return data==p.get_data();
   }
@@ -52,7 +52,11 @@ public:
     std::stringstream sstr;
     sstr << data;
     return sstr.str();
-  }  
+  }
+//Deep copy
+  typedef Line_3 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_LINE_3_H

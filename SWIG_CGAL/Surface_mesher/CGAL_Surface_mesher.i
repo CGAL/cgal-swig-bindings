@@ -35,7 +35,7 @@ Decl_void_type()
   #include  <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
   #include  <SWIG_CGAL/Common/triple.h>
-  #include  <SWIG_CGAL/Triangulation_3/triangulation_iterators.h>
+  #include  <SWIG_CGAL/Common/Input_iterator.h>
   #include  <SWIG_CGAL/Surface_mesher/Surface_mesh_details.h>
   #include  <SWIG_CGAL/Surface_mesher/C2T3.h>
 %}
@@ -49,7 +49,6 @@ Decl_void_type()
 %include "SWIG_CGAL/Triangulation_3/triangulation_handles.h"
 %include "SWIG_CGAL/Triangulation_3/Triangulation_3.h"
 %include "SWIG_CGAL/Triangulation_3/Delaunay_triangulation_3.h"
-%include "SWIG_CGAL/Triangulation_3/triangulation_iterators.h"
 %include "SWIG_CGAL/Common/triple.h"
 %include "SWIG_CGAL/Surface_mesher/C2T3.h"
 %include "SWIG_CGAL/Surface_mesher/Surface_mesh_details.h"
@@ -59,10 +58,10 @@ Decl_void_type()
 
 SWIG_CGAL_input_iterator_typemap_in(Weighting_helper_3<CGAL::Tag_false>::Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert_range)
 %import "SWIG_CGAL/Triangulation_3/declare_Delaunay_triangulation_3.i"
-Declare_Delaunay_triangulation_3(Surface_mesh_default_triangulation_3,C2T3_DT)
+Declare_Delaunay_triangulation_3_with_memory_holder(Surface_mesh_default_triangulation_3,C2T3_DT,boost::shared_ptr<C2T3_DT>)
 
 //typemap for output iterator
-%define Complex_2_in_triangulation_3_Facet_output_iterator  C2T3_internal::Iterator_helper<Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3> > >::output %enddef
+%define Complex_2_in_triangulation_3_Facet_output_iterator  C2T3_internal::Iterator_helper<Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,boost::shared_ptr<C2T3_DT> > >::output %enddef
 %{
 typedef std::pair< SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int >                              Surface_mesh_default_triangulation_3_Facet;
 %}
@@ -85,9 +84,9 @@ SWIG_CGAL_set_as_java_iterator(CGAL_Boundary_edges_iterator,Surface_mesh_default
 //main classes
 //--C2T3
 %typemap(javaimports)      C2T3_wrapper%{import java.util.Collection;%}
-%define T_C2T2_wrapper C2T3_wrapper<C2T3,Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3> > > %enddef
+%define T_C2T2_wrapper C2T3_wrapper<C2T3,Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,boost::shared_ptr<C2T3_DT> > > %enddef
 %{
-typedef C2T3_wrapper<C2T3,Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3> > >  T_C2T2_wrapper;
+typedef C2T3_wrapper<C2T3,Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,boost::shared_ptr<C2T3_DT> > >  T_C2T2_wrapper;
 %}
 %template (Complex_2_in_triangulation_3) T_C2T2_wrapper;
 //--

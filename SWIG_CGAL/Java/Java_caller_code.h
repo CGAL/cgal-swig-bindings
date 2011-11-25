@@ -62,6 +62,11 @@ class Java_caller_code
 {
   typedef internal::Java_caller_output_helper<Output_wrapper,boost::is_enum<Output_wrapper>::value > Helper;
   
+  typedef Java_caller_code<Input_wrapper,Output_wrapper> Self;
+  //disable deep copy because the java objects stored may not be clonable
+  Self deepcopy();
+  void deepcopy(const Self&);    
+  
   //info for calling the java predicate
   jobject java_predicate;
   jclass predicate_class;
@@ -126,6 +131,7 @@ public:
     cleanup();
   }
   
+  #ifndef SWIG
   Java_caller_code& operator=(const Java_caller_code &original)
   {
     if (this!=&original){
@@ -140,7 +146,6 @@ public:
     copy(original);
   }
   
-  #ifndef SWIG
   typename internal::Converter<Output_wrapper>::result_type
   run(const typename internal::Converter<Input_wrapper>::result_type& input) const
   {
@@ -250,6 +255,7 @@ public:
     cleanup();
   }
   
+  #ifndef SWIG
   Java_caller_code_2& operator=(const Java_caller_code_2 &original)
   {
     if (this!=&original){
@@ -264,7 +270,6 @@ public:
     copy(original);
   }
   
-  #ifndef SWIG
   typename internal::Converter<Output_wrapper>::result_type
   run_1(const typename internal::Converter<Input_wrapper_2>::result_type& input) const
   {

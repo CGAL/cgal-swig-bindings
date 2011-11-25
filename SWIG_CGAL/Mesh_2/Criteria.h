@@ -23,6 +23,10 @@ public:
   Criteria_wrapper( double b , double S ):data(b,S){}
   Criteria_wrapper( double b ):data(b){}
   Criteria_wrapper(){}
+//Deep copy
+  typedef Criteria_wrapper<Cpp> Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #ifdef SWIGJAVA
@@ -32,6 +36,10 @@ template <class Caller,class Face_handle_,class Quality_>
 class Java_Is_bad_wrapper
 {
   Caller caller;
+  typedef Java_Is_bad_wrapper<Caller,Face_handle_,Quality_> Self;
+  //disable deep copy (undelying objects cannot be copied)
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   typedef typename Face_handle_::cpp_base  Face_handle;
   typedef typename Quality_::cpp_base      Quality;
@@ -49,6 +57,10 @@ public:
 template <class Is_bad_wrapper,class Caller>
 class Java_criteria_wrapper{
   Is_bad_wrapper is_bad;
+  typedef Java_criteria_wrapper<Is_bad_wrapper,Caller> Self;
+  //disable deep copy (undelying objects cannot be copied)
+  Self deepcopy();
+  void deepcopy(const Self&);  
 public:
   typedef typename Is_bad_wrapper::Quality      Quality;
   typedef typename Is_bad_wrapper::Face_handle  Face_handle;

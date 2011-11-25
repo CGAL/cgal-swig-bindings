@@ -5,10 +5,7 @@
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/Segment_2.h>
 #include <SWIG_CGAL/Kernel/enum.h>
-#include <SWIG_CGAL/Common/Input_iterator.h>
-
-SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Edge_const_circulator)
-
+  
 #include <CGAL/Polygon_2.h>
 #include <boost/next_prior.hpp>
 
@@ -32,11 +29,6 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(void,reverse_orientation)
   void erase ( int i) {data.erase(boost::next(data.vertices_begin(),i));}
   void erase (int i, int j){data.erase(boost::next(data.vertices_begin(),i),boost::next(data.vertices_begin(),j));}  
-//Access Functions
-  CGAL_Vertex_iterator<Polygon_2::cpp_base,Point_2>   vertices()   {return CGAL_Vertex_iterator<cpp_base,Point_2>(data.vertices_begin(),data.vertices_end());}
-  CGAL_Edge_const_iterator<Polygon_2::cpp_base,Segment_2>  edges()      {return CGAL_Edge_const_iterator<cpp_base,Segment_2>(data.edges_begin(),data.edges_end());}
-  CGAL_Vertex_circulator<Polygon_2::cpp_base,Point_2>        vertices_circulator()  {return CGAL_Vertex_circulator<cpp_base,Point_2>(data.vertices_circulator());}
-  CGAL_Edge_const_circulator<Polygon_2::cpp_base,Segment_2>  edges_circulator()     {return CGAL_Edge_const_circulator<cpp_base,Segment_2>(data.edges_circulator());}
 //Predicates
   SWIG_CGAL_FORWARD_CALL_0(bool,is_simple)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_convex)
@@ -62,7 +54,7 @@ public:
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(int,size)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_empty)
-//equality functors
+//equality functions
   bool equals(const Polygon_2& r){return data==r.get_data();}
   #ifdef NO_SWIG_OR_PYTHON
   bool __ne__(const Polygon_2& r){return data!=r.get_data();}
@@ -73,6 +65,10 @@ public:
     sstr << data;
     return sstr.str();
   }
+//Deep copy
+  typedef Polygon_2 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 #endif //SWIG_CGAL_KERNEL_POLYGON_2_H
 

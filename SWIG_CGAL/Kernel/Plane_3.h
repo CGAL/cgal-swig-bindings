@@ -56,7 +56,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
   bool has_on(const Line_3&);
   SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
-//equality functors
+//equality functions
   bool equals(const Plane_3& p){
     return data==p.get_data();
   }
@@ -69,6 +69,10 @@ public:
     sstr << data;
     return sstr.str();
   }
+//Deep copy
+  typedef Plane_3 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 

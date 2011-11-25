@@ -26,7 +26,7 @@ public:
   void set_coordinates(double x,double y,double z){
     data=cpp_base(x,y,z);
   };
-//equality functors
+//equality functions
   bool equals(const Point_3& p){
     return data==p.get_data();
   }
@@ -38,7 +38,11 @@ public:
     std::stringstream sstr;
     sstr << data;
     return sstr.str();
-  }  
+  }
+//Deep copy
+  typedef Point_3 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_POINT_3_H

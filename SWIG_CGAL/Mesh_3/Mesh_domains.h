@@ -5,6 +5,10 @@ template <class Base,class Polyhedron_base,class Index,class Surface_index,class
 class Polyhedral_mesh_domain_3_wrapper
 {
   Base data;
+  typedef Polyhedral_mesh_domain_3_wrapper<Base,Polyhedron_base,Index,Surface_index,Subdomain_index> Self;
+   //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&); 
 public:
   #ifndef SWIG
   typedef Base cpp_base;

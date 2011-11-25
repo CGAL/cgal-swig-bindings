@@ -29,6 +29,10 @@ template <class Tree,class Primitive_object,class Primitive_id>
 class AABB_tree_wrapper
 {
   Tree data;
+  typedef AABB_tree_wrapper<Tree,Primitive_object,Primitive_id> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);
 public:
   #ifndef SWIG
   typedef Tree cpp_base;

@@ -35,7 +35,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(Bounded_side,bounded_side,Point_3)
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(double,volume)
-//equality functors
+//equality functions
   bool equals(const Tetrahedron_3& t){
     return data==t.get_data();
   }
@@ -48,6 +48,10 @@ public:
     sstr << data;
     return sstr.str();
   }
+//Deep copy
+  typedef Tetrahedron_3 Self;
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 #endif //SWIG_CGAL_KERNEL_TETRAHEDRON_3_H

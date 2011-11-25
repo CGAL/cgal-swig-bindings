@@ -9,8 +9,8 @@ namespace SWIG_Triangulation_2{
 template <class Triangulation,class Point>
 class CGAL_Vertex_handle{
   typename Triangulation::Vertex_handle data;
-  
 public:
+  typedef CGAL_Vertex_handle<Triangulation,Point> Self;
   #ifndef SWIG
   typedef typename Triangulation::Vertex_handle cpp_base;
   const cpp_base& get_data() const {return data;}
@@ -25,14 +25,16 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point,point)
 //Setting
   SWIG_CGAL_FORWARD_CALL_1(void,set_point,Point)
-  
-  bool equals(const CGAL_Vertex_handle<Triangulation,Point>& v){
+//Equality functions  
+  bool equals(const Self& v){
     return data==v.get_data();
   }
-  
   #ifdef SWIGPYTHON
-  bool __ne__(const CGAL_Vertex_handle<Triangulation,Point>& v){return !equals(v);}
+  bool __ne__(const Self& v){return !equals(v);}
   #endif
+//Deep copy
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();} 
 };
 
 
@@ -41,8 +43,8 @@ public:
 template <class Triangulation,class Point>
 class CGAL_Face_handle{
   typename Triangulation::Face_handle data;
-  
 public:
+  typedef CGAL_Face_handle<Triangulation,Point> Self;
   typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
 
   CGAL_Face_handle():data(NULL){}
@@ -75,14 +77,16 @@ public:
 //Checking
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
-  
-  bool equals(const CGAL_Face_handle<Triangulation,Point>& c){
+//Equality Functions  
+  bool equals(const Self& c){
     return data==c.get_data();
   }  
-
   #ifdef SWIGPYTHON
-  bool __ne__(const CGAL_Face_handle<Triangulation,Point>& c){return !equals(c);}
+  bool __ne__(const Self& c){return !equals(c);}
   #endif  
+//Deep copy
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 } //namespace SWIG_Triangulation_2

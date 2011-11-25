@@ -50,7 +50,6 @@ Decl_void_type()
 %include "SWIG_CGAL/Common/Variant.h"
 %include "SWIG_CGAL/Triangulation_3/triangulation_handles.h"
 %include "SWIG_CGAL/Triangulation_3/Triangulation_3.h"
-%include "SWIG_CGAL/Triangulation_3/triangulation_iterators.h"
 %include "SWIG_CGAL/Triangulation_3/Regular_triangulation_3.h"
 %include "SWIG_CGAL/Mesh_3/C3T3.h"
 %include "SWIG_CGAL/Mesh_3/Mesh_domains.h"
@@ -92,7 +91,7 @@ Decl_void_type()
 //Regular triangulation
 %typemap(javaimports) SWIG_Triangulation_3::CGAL_Cell_handle %{import CGAL.Kernel.Weighted_point_3;%}
 SWIG_CGAL_input_iterator_typemap_in(Weighting_helper_3<CGAL::Tag_true>::Point_range,Weighted_point_3,Weighted_point_3,Weighted_point_3::cpp_base,SWIGTYPE_p_Weighted_point_3,"(LCGAL/Kernel/Weighted_point_3;)J",insert_range)
-Declare_regular_triangulation_3(Mesh_3_regular_triangulation_3,MT_PMD)
+Declare_regular_triangulation_3_with_memory_holder(Mesh_3_regular_triangulation_3,MT_PMD,boost::shared_ptr<C3T3_PMD>)
 
 //iterators
 SWIG_CGAL_set_as_java_iterator(CGAL_Cell_iterator,Mesh_3_regular_triangulation_3_Cell_handle,)
@@ -107,7 +106,7 @@ SWIG_CGAL_set_as_java_iterator(CGAL_Facet_iterator,Mesh_3_regular_triangulation_
 
 
 %define T_C3T3_wrapper C3T3_wrapper<  C3T3_PMD,
-                                      Regular_triangulation_3_wrapper<MT_PMD,SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3> >,
+                                      Regular_triangulation_3_wrapper<MT_PMD,SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,boost::shared_ptr<C3T3_PMD> >,
                                       Variant< int, std::pair<int,int> >,
                                       std::pair<int,int>,
                                       int > 
@@ -116,7 +115,7 @@ SWIG_CGAL_set_as_java_iterator(CGAL_Facet_iterator,Mesh_3_regular_triangulation_
 
 %{
   typedef C3T3_wrapper <  C3T3_PMD,
-                          Regular_triangulation_3_wrapper<MT_PMD,SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3> >,
+                          Regular_triangulation_3_wrapper<MT_PMD,SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,boost::shared_ptr<C3T3_PMD> >,
                           Variant< int, std::pair<int,int> >,
                           std::pair<int,int>,
                           int  >

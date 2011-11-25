@@ -5,15 +5,22 @@
 #include <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
 #include <CGAL/Delaunay_triangulation_3.h>
 
-template <class Triangulation,class Vertex_handle_, class Cell_handle_>
-class Delaunay_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_false>{
+template <class Triangulation,class Vertex_handle_, class Cell_handle_, 
+class Memory_holder
+#ifndef SWIG
+=void*
+#endif
+>
+class Delaunay_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_false,Memory_holder>{
  
 public:
-  typedef Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_false> Base;
+  typedef Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_false,Memory_holder> Base;
 
   #ifndef SWIG
   typedef typename Base::cpp_base cpp_base;
   Delaunay_triangulation_3_wrapper(const cpp_base& base):Base(base){}
+  //constructor using a triangulation stored outside the wrapper class (by symmetry with regular triangulation)
+  Delaunay_triangulation_3_wrapper(typename Base::cpp_base* base,Memory_holder mh):Base(base,mh){} 
   #endif
 
   typedef typename Base::Edge Edge;

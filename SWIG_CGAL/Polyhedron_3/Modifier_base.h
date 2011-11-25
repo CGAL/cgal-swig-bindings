@@ -7,6 +7,10 @@ template <class Polyhedron_base>
 class Modifier_base{
   typedef typename Polyhedron_base::HalfedgeDS HDS;  
   CGAL::Modifier_base<HDS>* data;
+  typedef Modifier_base<Polyhedron_base> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);  
 public:
   #ifndef SWIG
   typedef CGAL::Modifier_base<HDS> cpp_base;
@@ -21,6 +25,10 @@ public:
 template <class Polyhedron_base,class Cpp_modifier>
 class Modifier_wrapper{
   Cpp_modifier modifier;
+  typedef Modifier_wrapper<Polyhedron_base,Cpp_modifier> Self;
+  //disable deep copy
+  Self deepcopy();
+  void deepcopy(const Self&);  
 public:
   Modifier_base<Polyhedron_base> get_modifier(){
     return Modifier_base<Polyhedron_base>( static_cast<void*>(&modifier) );

@@ -20,6 +20,10 @@ template <class Cpp,class CDT_wrapper,class Criteria_wrapper>
 class Delaunay_mesher_2_wrapper
 {
   Cpp data;
+  typedef Delaunay_mesher_2_wrapper<Cpp,CDT_wrapper,Criteria_wrapper> Self;
+  //disable deep copy (some criteria cannot be copied)
+  Self deepcopy();
+  void deepcopy(const Self&);    
 public:
   #ifndef SWIG
   typedef Cpp cpp_base;

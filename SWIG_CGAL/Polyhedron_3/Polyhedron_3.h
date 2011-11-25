@@ -30,14 +30,12 @@ public:
     file >> data;
     file.close();
   }
-  //Polyhedron_3_wrapper<Traits> P ( Traits traits = Traits());
-  //Polyhedron_3_wrapper<Traits> P ( size_type v, size_type h, size_type f, Traits traits = Traits());
+  Polyhedron_3_wrapper(unsigned v, unsigned h, unsigned f):data(v,h,f){}
   SWIG_CGAL_FORWARD_CALL_3(void,reserve,unsigned,unsigned,unsigned)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Halfedge_handle,make_tetrahedron)
   SWIG_CGAL_FORWARD_CALL_AND_REF_4(Halfedge_handle,make_tetrahedron,Point_3,Point_3,Point_3,Point_3)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Halfedge_handle,make_triangle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_3(Halfedge_handle,make_triangle,Point_3,Point_3,Point_3)
-    
 //Access Member Functions
   SWIG_CGAL_FORWARD_CALL_0(bool,empty)
   SWIG_CGAL_FORWARD_CALL_0(unsigned,size_of_vertices)
@@ -48,9 +46,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(unsigned,capacity_of_facets)
   SWIG_CGAL_FORWARD_CALL_0(unsigned,bytes)
   SWIG_CGAL_FORWARD_CALL_0(unsigned,bytes_reserved)
-
-  //allocator_type P.get_allocator ()
-
+//Iterators
   CGAL_Vertex_iterator<Polyhedron_base,Vertex_handle> vertices()     {return CGAL_Vertex_iterator<Polyhedron_base,Vertex_handle>(data.vertices_begin(),data.vertices_end());}
   CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle> halfedges(){return CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>(data.halfedges_begin(),data.halfedges_end());}
   CGAL_Facet_iterator<Polyhedron_base,Facet_handle> facets()         {return CGAL_Facet_iterator<Polyhedron_base,Facet_handle>(data.facets_begin(),data.facets_end());}
@@ -59,9 +55,6 @@ public:
   #ifdef SWIG_CGAL_FACET_SUPPORTS_PLANE
   CGAL_Plane_iterator<Polyhedron_base,Plane_3> planes()              {return CGAL_Plane_iterator<Polyhedron_base,Plane_3>(data.planes_begin(),data.planes_end());}
   #endif
-  
-  //Traits P.traits ()
-
 //Combinatorial Predicates
   SWIG_CGAL_FORWARD_CALL_0(bool,is_closed)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_pure_bivalent)
@@ -79,17 +72,14 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Halfedge_handle,split_edge,Halfedge_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Halfedge_handle,flip_edge,Halfedge_handle)
 
-
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Halfedge_handle,create_center_vertex,Halfedge_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Halfedge_handle,erase_center_vertex,Halfedge_handle)
 
   SWIG_CGAL_FORWARD_CALL_AND_REF_3(Halfedge_handle,split_loop,Halfedge_handle,Halfedge_handle,Halfedge_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Halfedge_handle,join_loop,Halfedge_handle,Halfedge_handle)
 
-
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Halfedge_handle,make_hole,Halfedge_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Halfedge_handle,fill_hole,Halfedge_handle)
-
 
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Halfedge_handle,add_vertex_and_facet_to_border,Halfedge_handle,Halfedge_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Halfedge_handle,add_facet_to_border,Halfedge_handle,Halfedge_handle)
@@ -119,6 +109,10 @@ public:
     file << data;
     file.close();    
   }
+//Deep copy
+  typedef Polyhedron_3_wrapper<Polyhedron_base,Vertex_handle,Halfedge_handle,Facet_handle> Self;
+  Self deepcopy() const {return Self(*this);}
+  void deepcopy(const Self& other){*this=other;}
 };
 
 #endif //SWIG_CGAL_POLYHEDRON_3_POLYHEDRON_3_H
