@@ -3,6 +3,7 @@
 
 #include <boost/iterator/iterator_facade.hpp>
 #include <SWIG_CGAL/Java/global_functions.h>
+#include <SWIG_CGAL/Java/exception.h>
 
 #ifndef SWIG
 struct Ref_counted_jdata{
@@ -15,7 +16,9 @@ struct Ref_counted_jdata{
   Ref_counted_jdata(jobject jit):counter(new int(1))
   {
     jiterator=JNU_GetEnv()->NewGlobalRef(jit);
+    JNI_THROW_ON_ERROR(jiterator,NewGlobalRef," ")
     it_class=(jclass) JNU_GetEnv()->NewGlobalRef( JNU_GetEnv()->GetObjectClass(jiterator) );
+    JNI_THROW_ON_ERROR(it_class,NewGlobalRef," ")
   }
   
   void cleanup()
@@ -103,12 +106,14 @@ public boost::iterator_facade<
       jobject jpoint=JNU_GetEnv()->CallObjectMethod(rc.jiterator,next_id);
       if (first){
         rc.pt_class = (jclass) JNU_GetEnv()->NewGlobalRef( JNU_GetEnv()->GetObjectClass(jpoint) );
-        assert(rc.pt_class!=NULL);
+        JNI_THROW_ON_ERROR(rc.pt_class,NewGlobalRef," ")
         getCPtr_id=JNU_GetEnv()->GetStaticMethodID(rc.pt_class, "getCPtr",signature.c_str());
+        JNI_THROW_ON_ERROR(getCPtr_id,GetStaticMethodID,std::string("getCPtr ")+signature)
       }
       assert(getCPtr_id!=NULL);
       assert(rc.pt_class!=NULL);
       jlong jpt=(jlong) JNU_GetEnv()->CallStaticObjectMethod(rc.pt_class,getCPtr_id,jpoint);
+      JNI_THROW_ON_ERROR((void*) jpt,CallStaticObjectMethod," ")
       current_ptr = (Cpp_wrapper*) jpt;
       
     }
@@ -125,11 +130,11 @@ public:
   {
     assert(rc.it_class!=NULL);
     hasnext_id=JNU_GetEnv()->GetMethodID(rc.it_class, "hasNext", "()Z");
-    assert(hasnext_id!=NULL);
+    JNI_THROW_ON_ERROR(hasnext_id,GetMethodID,"hasNext ()Z");
     next_id=JNU_GetEnv()->GetMethodID(rc.it_class, "next","()Ljava/lang/Object;");
+    JNI_THROW_ON_ERROR(next_id,GetMethodID,"next ()Ljava/lang/Object;");
     getCPtr_id=NULL;
     rc.pt_class=NULL;
-    assert(next_id!=NULL);
     update_with_next_point(true);
   }
 

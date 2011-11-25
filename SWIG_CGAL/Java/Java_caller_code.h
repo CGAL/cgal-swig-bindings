@@ -3,10 +3,12 @@
 
 #include <SWIG_CGAL/Java/global_functions.h>
 #include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Java/exception.h>
 #include <boost/type_traits/is_enum.hpp>
 #include <cassert>
 #include <iostream>
 #include <string>
+
 
 #ifndef SWIG
 namespace internal{
@@ -27,7 +29,7 @@ namespace internal{
       assert(output_class!=NULL);
       assert(get_output_id!=NULL);
       jlong jcpp=(jlong) JNU_GetEnv()->CallStaticObjectMethod(output_class,get_output_id,res);
-      assert( (void*) jcpp != NULL );
+      JNI_THROW_ON_ERROR((void*) jcpp,CallStaticObjectMethod," ")
       return internal::Converter<Type>::convert( *reinterpret_cast<Type*>(jcpp) );
     }
   };
@@ -110,20 +112,27 @@ public:
     //set info for java predicate
     std::string fsign=std::string("(L")+input_type+std::string(";)L")+std::string(output_type)+std::string(";");
     java_predicate=JNU_GetEnv()->NewGlobalRef(jobj);
+    JNI_THROW_ON_ERROR(java_predicate,NewGlobalRef," ")
     jclass local_jclass=JNU_GetEnv()->GetObjectClass(java_predicate);
     predicate_class=(jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
-    assert(predicate_class!=NULL);
+    JNI_THROW_ON_ERROR(predicate_class,NewGlobalRef," ")
     predicate_id=JNU_GetEnv()->GetMethodID(predicate_class, fname, fsign.c_str());
-    assert(predicate_id!=NULL);
+    JNI_THROW_ON_ERROR(predicate_id,GetMethodID,(std::string(fname)+" "+fsign));
     //set info for input
     local_jclass = JNU_GetEnv()->FindClass(input_type);
+    JNI_THROW_ON_ERROR(local_jclass,FindClass,input_type)
     input_class = (jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
+    JNI_THROW_ON_ERROR(input_class,NewGlobalRef," ")
     input_cst_id=JNU_GetEnv()->GetMethodID(input_class,"<init>", "(JZ)V");
+    JNI_THROW_ON_ERROR(input_cst_id,GetMethodID,"<init> (JZ)V");
     //set info for output
     local_jclass=JNU_GetEnv()->FindClass(output_type);
+    JNI_THROW_ON_ERROR(local_jclass,FindClass,output_type)
     output_class=(jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
+    JNI_THROW_ON_ERROR(output_class,NewGlobalRef," ")
     std::string output_signature=Helper::output_function_signature(output_type);
     get_output_id=JNU_GetEnv()->GetStaticMethodID(output_class, Helper::output_function_name().c_str(),output_signature.c_str());
+    JNI_THROW_ON_ERROR(get_output_id,GetStaticMethodID,Helper::output_function_name()+" "+output_signature)
   }
   
   ~Java_caller_code()
@@ -155,7 +164,7 @@ public:
     assert( input_class !=NULL );
     assert( input_cst_id !=NULL );
     jobject input_in_java = JNU_GetEnv()->NewObject(input_class,input_cst_id, (jlong) cpp_wrapper,true);
-    assert(input_in_java!=NULL);
+    JNI_THROW_ON_ERROR(input_in_java,NewObject," ")
     
     //call java method
     jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id,input_in_java);
@@ -221,33 +230,40 @@ public:
   {
     //set info for calling predicates
     java_predicate=JNU_GetEnv()->NewGlobalRef(jobj);
+    JNI_THROW_ON_ERROR(java_predicate,NewGlobalRef," ")
     jclass local_jclass=JNU_GetEnv()->GetObjectClass(java_predicate);
     predicate_class=(jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
-    assert(predicate_class!=NULL);
+    JNI_THROW_ON_ERROR(predicate_class,NewGlobalRef," ")
     //set info for java predicate jobject
     std::string fsign_1=std::string("(L")+input_type_2+std::string(";)L")+std::string(output_type)+std::string(";");
     predicate_id_1=JNU_GetEnv()->GetMethodID(predicate_class, fname, fsign_1.c_str());
-    assert(predicate_id_1!=NULL);    
+    JNI_THROW_ON_ERROR(predicate_id_1,GetMethodID,(std::string(fname)+" "+fsign_1));
     //set info for java predicate 2
     std::string fsign_2=std::string("(L")+input_type_1+std::string(";L")+input_type_2+std::string(";)L")+output_type+std::string(";");
     predicate_id_2=JNU_GetEnv()->GetMethodID(predicate_class, fname, fsign_2.c_str());
-    assert(predicate_id_2!=NULL);
+    JNI_THROW_ON_ERROR(predicate_id_2,GetMethodID,(std::string(fname)+" "+fsign_2));
     //set info for input_1
     local_jclass = JNU_GetEnv()->FindClass(input_type_1);
+    JNI_THROW_ON_ERROR(local_jclass,FindClass,input_type_1)
     input_class_1 = (jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
-    assert(input_class_1!=NULL);
+    JNI_THROW_ON_ERROR(input_class_1,NewGlobalRef," ")
     input_cst_id_1=JNU_GetEnv()->GetMethodID(input_class_1,"<init>", "(JZ)V");
+    JNI_THROW_ON_ERROR(input_cst_id_1,GetMethodID,"<init> (JZ)V");
     //set info for input_2
     local_jclass = JNU_GetEnv()->FindClass(input_type_2);
+    JNI_THROW_ON_ERROR(local_jclass,FindClass,input_type_2)
     input_class_2 = (jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
-    assert(input_class_2!=NULL);
+    JNI_THROW_ON_ERROR(input_class_2,NewGlobalRef," ")
     input_cst_id_2=JNU_GetEnv()->GetMethodID(input_class_2,"<init>", "(JZ)V");
+    JNI_THROW_ON_ERROR(input_cst_id_2,GetMethodID,"<init> (JZ)V");
     //set info for output
     local_jclass=JNU_GetEnv()->FindClass(output_type);
+    JNI_THROW_ON_ERROR(local_jclass,FindClass,output_type)
     output_class=(jclass) JNU_GetEnv()->NewGlobalRef(local_jclass);
+    JNI_THROW_ON_ERROR(output_class,NewGlobalRef," ")
     std::string output_signature=Helper::output_function_signature(output_type); 
-    assert(output_class!=NULL);
     get_output_id=JNU_GetEnv()->GetMethodID(output_class, Helper::output_function_name().c_str(),output_signature.c_str());
+    JNI_THROW_ON_ERROR(get_output_id,GetMethodID,(Helper::output_function_name()+" "+output_signature));
   }
   
   ~Java_caller_code_2()
@@ -279,7 +295,7 @@ public:
     assert( input_class_2 !=NULL );
     assert( input_cst_id_2 !=NULL );
     jobject input_in_java = JNU_GetEnv()->NewObject(input_class_2,input_cst_id_2, (jlong) cpp_wrapper_2,true);
-    assert(input_in_java!=NULL);    
+    JNI_THROW_ON_ERROR(input_in_java,NewObject," ")
     //call java method
     jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_1,input_in_java);
     //convert the result back to c++
@@ -296,7 +312,7 @@ public:
     assert( input_class_1 !=NULL );
     assert( input_cst_id_1 !=NULL );
     jobject input_in_java_1 = JNU_GetEnv()->NewObject(input_class_1,input_cst_id_1, (jlong) cpp_wrapper_1,true);
-    assert(input_in_java_1!=NULL);
+    JNI_THROW_ON_ERROR(input_in_java_1,NewObject," ")
     
     //create the wrapper object 2
     Input_wrapper_2*  cpp_wrapper_2=new Input_wrapper_2(input_2);
@@ -304,7 +320,7 @@ public:
     assert( input_class_2 !=NULL );
     assert( input_cst_id_2 !=NULL );
     jobject input_in_java_2 = JNU_GetEnv()->NewObject(input_class_2,input_cst_id_2, (jlong) cpp_wrapper_2,true);
-    assert(input_in_java_2!=NULL);
+    JNI_THROW_ON_ERROR(input_in_java_2,NewObject," ")
     
     //call java method
     jobject res = JNU_GetEnv()->CallObjectMethod(java_predicate,predicate_id_2,input_in_java_1,input_in_java_2);

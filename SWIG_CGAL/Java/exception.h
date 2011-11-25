@@ -27,4 +27,7 @@ bool throwJavaException(const char* msg)
 #endif
 
 
+#define JNI_THROW_ON_ERROR(JOBJECT,METHOD,WITH) \
+  if (JOBJECT==NULL) throwJavaException((std::string("Error in " #METHOD " -- ")+WITH).c_str());
+
 #endif //SWIG_CGAL_JAVA_EXCEPTION_H

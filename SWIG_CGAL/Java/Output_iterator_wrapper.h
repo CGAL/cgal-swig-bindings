@@ -3,7 +3,7 @@
 
 #include <boost/function_output_iterator.hpp>
 #include <SWIG_CGAL/Java/global_functions.h>
-#include <cassert>
+#include <SWIG_CGAL/Java/exception.h>
 
 template<class Cpp_wrapper,class Cpp_base>
 class Container_writer{
@@ -39,14 +39,17 @@ public:
   Container_writer(jobject container_,const char* name):ref_counter(new int(1))
   {
     container = JNU_GetEnv()->NewGlobalRef( container_ );
-    obj_class =(jclass) JNU_GetEnv()->NewGlobalRef( JNU_GetEnv()->FindClass(name) );
-    assert( obj_class !=NULL );
+    JNI_THROW_ON_ERROR(container,NewGlobalRef," ")
+    jclass tmp_class=JNU_GetEnv()->FindClass(name);
+    JNI_THROW_ON_ERROR(tmp_class,FindClass,name)
+    obj_class =(jclass) JNU_GetEnv()->NewGlobalRef( tmp_class );
+    JNI_THROW_ON_ERROR(obj_class,NewGlobalRef," ")
     init_id = JNU_GetEnv()->GetMethodID(obj_class,"<init>", "(JZ)V");
-    
+    JNI_THROW_ON_ERROR(init_id,GetMethodID,"<init> (JZ)V");
     cont_class=(jclass) JNU_GetEnv()->NewGlobalRef( JNU_GetEnv()->GetObjectClass(container) );
-    assert(cont_class!=NULL);
+    JNI_THROW_ON_ERROR(cont_class,NewGlobalRef," ")
     add_id=JNU_GetEnv()->GetMethodID(cont_class, "add", "(Ljava/lang/Object;)Z");
-    assert(add_id!=NULL);
+    JNI_THROW_ON_ERROR(add_id,GetMethodID,"add (Ljava/lang/Object;)Z")
   }
   
   ~Container_writer(){
@@ -71,7 +74,7 @@ public:
     Cpp_wrapper*  object=new Cpp_wrapper(new_base);
     jlong hptr = (jlong) object;
     jobject ho = JNU_GetEnv()->NewObject(obj_class, init_id, hptr,true);
-    assert(ho!=NULL);
+    JNI_THROW_ON_ERROR(ho,NewObject," ")
     JNU_GetEnv()->CallBooleanMethod(container, add_id, ho);
   }
 };
@@ -110,14 +113,17 @@ public:
   Container_writer(jobject container_,const char* name):ref_counter(new int(1))
   {
     container = JNU_GetEnv()->NewGlobalRef( container_ );
-    obj_class =(jclass) JNU_GetEnv()->NewGlobalRef( JNU_GetEnv()->FindClass(name) );
-    assert( obj_class !=NULL );
+    JNI_THROW_ON_ERROR(container,NewGlobalRef," ")
+    jclass tmp_class=JNU_GetEnv()->FindClass(name);
+    JNI_THROW_ON_ERROR(tmp_class,FindClass,name);
+    obj_class =(jclass) JNU_GetEnv()->NewGlobalRef( tmp_class );
+    JNI_THROW_ON_ERROR(obj_class,NewGlobalRef," ")
     init_id = JNU_GetEnv()->GetMethodID(obj_class,"<init>", "(I)V");
-    
+    JNI_THROW_ON_ERROR(init_id,GetMethodID,"<init> (I)V")
     cont_class=(jclass) JNU_GetEnv()->NewGlobalRef( JNU_GetEnv()->GetObjectClass(container) );
-    assert(cont_class!=NULL);
+    JNI_THROW_ON_ERROR(cont_class,NewGlobalRef," ")
     add_id=JNU_GetEnv()->GetMethodID(cont_class, "add", "(Ljava/lang/Object;)Z");
-    assert(add_id!=NULL);
+    JNI_THROW_ON_ERROR(add_id,GetMethodID,"add (Ljava/lang/Object;)Z")
   }
   
   ~Container_writer(){
@@ -140,7 +146,7 @@ public:
   
   void operator()(int new_base) {
     jobject ho = JNU_GetEnv()->NewObject(obj_class, init_id,new_base,true);
-    assert(ho!=NULL);
+    JNI_THROW_ON_ERROR(ho,NewObject," ")
     JNU_GetEnv()->CallBooleanMethod(container, add_id, ho);
   }
 };
