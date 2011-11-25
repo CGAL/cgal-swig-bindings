@@ -196,7 +196,6 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 #endif
 
 #ifdef SWIGJAVA
-%rename(set_equal) operator=;
 %rename(clone) deepcopy;
 #endif
 
