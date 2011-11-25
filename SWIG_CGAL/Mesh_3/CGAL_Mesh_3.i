@@ -27,6 +27,7 @@ Decl_void_type()
 
 //include files
 %{
+  #define SWIGCGAL_NO_TRIANGULATION_STRING_OUTPUT //I/O are broken for C3T3 triangulation
   #include  <SWIG_CGAL/Kernel/typedefs.h>
   #include  <SWIG_CGAL/Triangulation_3/Regular_triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
@@ -44,6 +45,7 @@ Decl_void_type()
 
 //definitions
 
+#define SWIGCGAL_NO_TRIANGULATION_STRING_OUTPUT //I/O are broken for C3T3 triangulation
 %include "SWIG_CGAL/Common/Input_iterator.h"
 %include "SWIG_CGAL/Common/Optional.h"
 %include "SWIG_CGAL/Common/triple.h"
@@ -87,6 +89,18 @@ Decl_void_type()
   double meshing_info(){return $self->get_data()->meshing_info();}
   void set_meshing_info (double d) {$self->get_data()->set_meshing_info(d);}
 }
+
+
+%{
+  template < class T1, class T2 >
+  std::ostream&
+  operator<<(std::ostream &os,
+             const std::pair<T1,T2>& p)
+  {
+    os << p.first << " " << p.second;
+    return os;
+  }               
+%}
 
 //Regular triangulation
 %typemap(javaimports) SWIG_Triangulation_3::CGAL_Cell_handle %{import CGAL.Kernel.Weighted_point_3;%}

@@ -191,11 +191,13 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_2(bool,is_valid,Cell_handle,bool)
 //I/O
+  #ifndef SWIGCGAL_NO_TRIANGULATION_STRING_OUTPUT
   std::string toString(){
     std::stringstream sstr;
     sstr << get_data();
     return sstr.str();
   }
+  #endif
 //Queries
   bool is_cell (Vertex_handle u,Vertex_handle v,Vertex_handle w,Vertex_handle x,Cell_handle & c,Reference_wrapper<int>& i,Reference_wrapper<int> & j,Reference_wrapper<int> & k,Reference_wrapper<int> & l){
     return get_data().is_cell(convert(u),convert(v),convert(w),convert(x),convert(c),convert(i),convert(j),convert(k),convert(l));
