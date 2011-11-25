@@ -3,7 +3,7 @@
 
 #include <fstream>
 #include <iostream>
-#include <SWIG_CGAL/Common/Input_iterator.h>
+#include <SWIG_CGAL/Common/Iterator.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <boost/shared_ptr.hpp>
 

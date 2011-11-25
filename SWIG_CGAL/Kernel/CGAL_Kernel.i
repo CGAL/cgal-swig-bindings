@@ -24,7 +24,7 @@ Decl_void_type()
 
 
 %import  "SWIG_CGAL/Common/Macros.h"
-%import  "SWIG_CGAL/Common/Input_iterator.h"
+%import  "SWIG_CGAL/Common/Iterator.h"
 
 //%typemap(javapackage) Point_3 "CGAL.Kernel"
 
@@ -86,7 +86,7 @@ SWIG_JAVABODY_METHODS(public,public,Polygon_2)
   #include <SWIG_CGAL/Kernel/global_functions.h>
   #include <SWIG_CGAL/Kernel/enum.h>
   #include <SWIG_CGAL/Kernel/Polygon_2.h>
-  #include <SWIG_CGAL/Common/Input_iterator.h>
+  #include <SWIG_CGAL/Common/Iterator.h>
 %}
 
 //typemaps for Polygon_2

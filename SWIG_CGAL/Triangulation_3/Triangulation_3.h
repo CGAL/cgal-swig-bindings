@@ -16,7 +16,7 @@
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
-#include <SWIG_CGAL/Common/Input_iterator.h>
+#include <SWIG_CGAL/Common/Iterator.h>
 
 namespace SWIG_Triangulation_3 {
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};

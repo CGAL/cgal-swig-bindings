@@ -15,7 +15,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Common/Input_iterator.h>
+#include <SWIG_CGAL/Common/Iterator.h>
 
 #include <boost/static_assert.hpp>
 

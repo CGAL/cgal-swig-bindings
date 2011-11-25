@@ -20,7 +20,7 @@ Decl_void_type()
 %import  "SWIG_CGAL/Kernel/Point_3.h"
 %import  "SWIG_CGAL/Kernel/Plane_3.h"
 //%import  "SWIG_CGAL/Kernel/Kernel.i" This is an alternative to the two previous import
-%import  "SWIG_CGAL/Common/Input_iterator.h"
+%import  "SWIG_CGAL/Common/Iterator.h"
 
 %include "SWIG_CGAL/Polyhedron_3/config.i"
 //include files

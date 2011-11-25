@@ -22,7 +22,7 @@ SWIG_JAVABODY_METHODS(public,public,Object)
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
 %import  "SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h"
-%include "SWIG_CGAL/Common/Input_iterator.h"
+%include "SWIG_CGAL/Common/Iterator.h"
 %include "SWIG_CGAL/Common/Optional.h"
 
 //For Object

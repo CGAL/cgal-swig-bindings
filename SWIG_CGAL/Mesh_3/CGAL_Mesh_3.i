@@ -46,7 +46,7 @@ Decl_void_type()
 //definitions
 
 #define SWIGCGAL_NO_TRIANGULATION_STRING_OUTPUT //I/O are broken for C3T3 triangulation
-%include "SWIG_CGAL/Common/Input_iterator.h"
+%include "SWIG_CGAL/Common/Iterator.h"
 %include "SWIG_CGAL/Common/Optional.h"
 %include "SWIG_CGAL/Common/triple.h"
 %include "SWIG_CGAL/Common/Variant.h"

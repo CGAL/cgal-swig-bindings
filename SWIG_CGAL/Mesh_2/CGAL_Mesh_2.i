@@ -31,13 +31,13 @@ Decl_void_type()
   #include  <SWIG_CGAL/Kernel/typedefs.h>
   #include <SWIG_CGAL/Triangulation_2/Constrained_Delaunay_triangulation_2.h>
   #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
-  #include <SWIG_CGAL/Common/Input_iterator.h>
+  #include <SWIG_CGAL/Common/Iterator.h>
   #include <SWIG_CGAL/Mesh_2/Delaunay_mesher_2.h>
   #include <SWIG_CGAL/Mesh_2/Criteria.h>
   #include <SWIG_CGAL/Mesh_2/Triangulation_conformer_2.h>
 %}
 
-%include "SWIG_CGAL/Common/Input_iterator.h"
+%include "SWIG_CGAL/Common/Iterator.h"
 %include "SWIG_CGAL/Mesh_2/Delaunay_mesher_2.h"
 %include "SWIG_CGAL/Mesh_2/Criteria.h"
 %include "SWIG_CGAL/Mesh_2/Triangulation_conformer_2.h"

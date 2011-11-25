@@ -29,7 +29,7 @@ Decl_void_type()
 %import  "SWIG_CGAL/Kernel/Triangle_2.h"
 %import  "SWIG_CGAL/Kernel/enum.h"
 %import  "SWIG_CGAL/Kernel/Reference_wrappers.i"
-%include "SWIG_CGAL/Common/Input_iterator.h"
+%include "SWIG_CGAL/Common/Iterator.h"
 
 %include "SWIG_CGAL/Triangulation_2/config.i"
 
@@ -42,7 +42,7 @@ Decl_void_type()
   #include <SWIG_CGAL/Triangulation_2/Constrained_Delaunay_triangulation_2.h>
   #include <SWIG_CGAL/Triangulation_2/Constrained_triangulation_plus_2.h>
   #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
-  #include <SWIG_CGAL/Common/Input_iterator.h>
+  #include <SWIG_CGAL/Common/Iterator.h>
 %}
 
 

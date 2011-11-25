@@ -3,7 +3,7 @@
 
 
 #include <SWIG_CGAL/Common/Macros.h>
-#include <SWIG_CGAL/Common/Input_iterator.h>
+#include <SWIG_CGAL/Common/Iterator.h>
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 #include <boost/shared_ptr.hpp>

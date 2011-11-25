@@ -24,7 +24,7 @@ Decl_void_type()
 %import  "SWIG_CGAL/Kernel/Triangle_3.h"
 %import  "SWIG_CGAL/Kernel/enum.h"
 %import  "SWIG_CGAL/Kernel/Reference_wrappers.i"
-%include "SWIG_CGAL/Common/Input_iterator.h"
+%include "SWIG_CGAL/Common/Iterator.h"
 
 //include files
 %{
@@ -32,7 +32,7 @@ Decl_void_type()
   #include <SWIG_CGAL/Triangulation_3/Regular_triangulation_3.h>
   #include <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
   #include <SWIG_CGAL/Common/triple.h>
-  #include <SWIG_CGAL/Common/Input_iterator.h>
+  #include <SWIG_CGAL/Common/Iterator.h>
 %}
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import CGAL.Kernel.Ref_int; import java.util.Iterator; import java.util.Collection;%}

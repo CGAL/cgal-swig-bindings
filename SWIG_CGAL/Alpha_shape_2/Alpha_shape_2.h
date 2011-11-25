@@ -29,7 +29,7 @@ namespace internal{
   
 } //namespace internal
 
-#include <SWIG_CGAL/Common/Input_iterator.h>
+#include <SWIG_CGAL/Common/Iterator.h>
 
 template <class Alpha_shape,class Point, class Vertex_handle, class Face_handle,class Weighted_tag,class Base>
 class Alpha_shape_2_wrapper : public Base

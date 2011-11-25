@@ -2,7 +2,7 @@
 #define SWIG_CGAL_AABB_TREE_AABB_TREE_H
 
 #include <SWIG_CGAL/Common/Macros.h>
-#include <SWIG_CGAL/Common/Input_iterator.h>
+#include <SWIG_CGAL/Common/Iterator.h>
 #include <SWIG_CGAL/Common/Optional.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <SWIG_CGAL/Kernel/Plane_3.h>

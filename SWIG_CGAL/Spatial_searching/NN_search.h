@@ -2,7 +2,7 @@
 #define SWIG_CGAL_SPATIAL_SEARCHING_NN_SEARCH_H
 
 #include <SWIG_CGAL/Common/Macros.h>
-#include <SWIG_CGAL/Common/Input_iterator.h>
+#include <SWIG_CGAL/Common/Iterator.h>
 #include <boost/shared_ptr.hpp>
 
 SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(iterator,NN_search_iterator)

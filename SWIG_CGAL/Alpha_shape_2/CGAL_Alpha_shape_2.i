@@ -33,14 +33,14 @@ Decl_void_type()
 %import  "SWIG_CGAL/Kernel/enum.h"
 %import  "SWIG_CGAL/Kernel/Reference_wrappers.i"
 %import  "SWIG_CGAL/Triangulation_2/Reference_wrappers.i"
-%include "SWIG_CGAL/Common/Input_iterator.h"
+%include "SWIG_CGAL/Common/Iterator.h"
 
 //include files
 %{
   #include <SWIG_CGAL/Kernel/typedefs.h>
   #include <SWIG_CGAL/Alpha_shape_2/Alpha_shape_2.h>
   #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
-  #include <SWIG_CGAL/Common/Input_iterator.h>
+  #include <SWIG_CGAL/Common/Iterator.h>
 %}
 
 %include "SWIG_CGAL/Alpha_shape_2/config.i"
