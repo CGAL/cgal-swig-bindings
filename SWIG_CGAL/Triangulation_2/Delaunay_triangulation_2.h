@@ -24,16 +24,16 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,nearest_vertex,Point_2)
   void get_conflicts_and_boundary(const Point_2& p,Face_output_iterator fout,Edge_output_iterator eout,const Face_handle& start) const
   {
-    this->data.get_conflicts_and_boundary(p.get_data(),fout,eout,start.get_data());
+    this->get_data().get_conflicts_and_boundary(p.get_data(),fout,eout,start.get_data());
   }
   void get_conflicts(const Point_2& p,Face_output_iterator fout,const Face_handle& start) const 
   {
-    this->data.get_conflicts(p.get_data(),fout,start.get_data());
+    this->get_data().get_conflicts(p.get_data(),fout,start.get_data());
   }
     
   void get_boundary_of_conflicts(const Point_2& p, Edge_output_iterator out, Face_handle start) const
   {
-    this->data.get_boundary_of_conflicts(p.get_data(),out,start.get_data());
+    this->get_data().get_boundary_of_conflicts(p.get_data(),out,start.get_data());
   }
   
   

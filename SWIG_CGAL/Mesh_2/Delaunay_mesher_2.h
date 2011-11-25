@@ -3,7 +3,7 @@
 
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
-
+#include <boost/shared_ptr.hpp>
 
 SWIG_CGAL_DECLARE_ITERATOR_CLASS(Seeds_const_iterator)
 
@@ -20,6 +20,7 @@ template <class Cpp,class CDT_wrapper,class Criteria_wrapper>
 class Delaunay_mesher_2_wrapper
 {
   Cpp data;
+  boost::shared_ptr<typename CDT_wrapper::cpp_base> cdt_sptr;
   typedef Delaunay_mesher_2_wrapper<Cpp,CDT_wrapper,Criteria_wrapper> Self;
   //disable deep copy (some criteria cannot be copied)
   Self deepcopy();
@@ -29,15 +30,14 @@ public:
   typedef Cpp cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  Delaunay_mesher_2_wrapper(const cpp_base& base):data(base){}
   #endif
     
   typedef CGAL_Seeds_const_iterator<Cpp,Point_2>          Seeds_const_iterator;
   typedef typename DM2_Input_iterator_helper<CDT_wrapper>::range   Facet_range;
     
 //Creation
-  Delaunay_mesher_2_wrapper(CDT_wrapper& cdt):data(cdt.get_data()){}
-  Delaunay_mesher_2_wrapper(CDT_wrapper& cdt,const Criteria_wrapper& criteria):data(cdt.get_data(),criteria.get_data()){}
+  Delaunay_mesher_2_wrapper(CDT_wrapper& cdt):data(cdt.get_data()),cdt_sptr(cdt.shared_ptr()){}
+  Delaunay_mesher_2_wrapper(CDT_wrapper& cdt,const Criteria_wrapper& criteria):data(cdt.get_data(),criteria.get_data()),cdt_sptr(cdt.shared_ptr()){}
 //Seeds functions
   SWIG_CGAL_FORWARD_CALL_0(void,clear_seeds)
   void  set_seeds (Point_range range, const bool mark){data.set_seeds(range.first,range.second,mark);}

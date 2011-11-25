@@ -25,7 +25,7 @@ public:
   Constrained_triangulation_2_wrapper():Base(){}
   Constrained_triangulation_2_wrapper(Constraint_range range):Base(){
     for (Input_constraint_iterator it=range.first;it!=range.second;++it)
-      this->data.push_back(*it);
+      this->get_data().push_back(*it);
   }        
 // Queries
   SWIG_CGAL_FORWARD_CALL_1(bool,is_constrained,Edge)
@@ -34,7 +34,7 @@ public:
 
   typedef boost::function_output_iterator< Container_writer<Edge,typename Triangulation::Edge> > Edge_output_iterator;
   void incident_constraints (const Vertex_handle& v, Edge_output_iterator edge_output_iterator){
-    this->data.incident_constraints(v.get_data(),edge_output_iterator);
+    this->get_data().incident_constraints(v.get_data(),edge_output_iterator);
   }      
 // Insertion and removal
   SWIG_CGAL_FORWARD_CALL_2(void,insert_constraint,Point_2,Point_2)    
@@ -45,7 +45,7 @@ public:
   
   void insert_constraint_range(Constraint_range range){
     for (Input_constraint_iterator it=range.first;it!=range.second;++it)
-      this->data.push_back(*it);
+      this->get_data().push_back(*it);
   }
 };
 

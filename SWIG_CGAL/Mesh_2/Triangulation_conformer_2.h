@@ -1,11 +1,14 @@
 #ifndef SWIG_CGAL_MESH_2_TRIANGULATION_CONFORMER_2_H
 #define SWIG_CGAL_MESH_2_TRIANGULATION_CONFORMER_2_H
 
+#include <boost/shared_ptr.hpp>
 
 template <class CDT_cpp,class CDT_wrapper>
 class Triangulation_conformer_2_wrapper
 {
   CGAL::Triangulation_conformer_2<CDT_cpp> data;
+  boost::shared_ptr<typename CDT_wrapper::cpp_base> cdt_sptr;
+  
   typedef Triangulation_conformer_2_wrapper<CDT_cpp,CDT_wrapper> Self;
 //disable deep copy (no need to copy that class
   Self deepcopy();
@@ -15,11 +18,10 @@ public:
   typedef CGAL::Triangulation_conformer_2<CDT_cpp> cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  Triangulation_conformer_2_wrapper(const cpp_base& base):data(base){}
   #endif
 
 //Creation
-  Triangulation_conformer_2_wrapper( CDT_wrapper& cdt):data(cdt.get_data()){}
+  Triangulation_conformer_2_wrapper( CDT_wrapper& cdt):data(cdt.get_data()),cdt_sptr(cdt.shared_ptr()){}
 //Conforming methods
   SWIG_CGAL_FORWARD_CALL_0(void,make_conforming_Delaunay)
   SWIG_CGAL_FORWARD_CALL_0(void,make_conforming_Gabriel)

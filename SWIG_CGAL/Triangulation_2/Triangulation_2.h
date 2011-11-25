@@ -11,7 +11,8 @@
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/Reference_wrapper.h>
-#include <sstream> 
+#include <sstream>
+#include <boost/shared_ptr.hpp>
 
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Input_iterator.h>
@@ -43,7 +44,7 @@ class Triangulation_2_wrapper
 
   
 protected :
-  Triangulation data;
+  boost::shared_ptr<Triangulation> data_sptr;
 public:
 
   typedef std::pair<Face_handle,int>                                   Edge;
@@ -63,8 +64,10 @@ public:
   Triangulation_2_wrapper(){}
   #ifndef SWIG
   typedef Triangulation cpp_base;
-  const cpp_base& get_data() const {return data;}
-        cpp_base& get_data()       {return data;}
+  const cpp_base& get_data() const {return *data_sptr;}
+        cpp_base& get_data()       {return *data_sptr;}
+  Triangulation_2_wrapper(const cpp_base& base):data_sptr(new cpp_base(base)){}
+  boost::shared_ptr<cpp_base> shared_ptr() {return data_sptr;}
   #endif
 
 // Creation 
@@ -110,22 +113,22 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(void,remove_degree_3,Vertex_handle)
   SWIG_CGAL_FORWARD_CALL_1(void,remove_second,Vertex_handle)
   SWIG_CGAL_FORWARD_CALL_1(void,remove_first,Vertex_handle)
-  Vertex_handle insert(const Point& p,SWIG_Triangulation_2::Locate_type l,const Face_handle& f,int i) {return data.insert(p.get_data(),CGAL::enum_cast<typename Triangulation::Locate_type>(l),f.get_data(),i);}
+  Vertex_handle insert(const Point& p,SWIG_Triangulation_2::Locate_type l,const Face_handle& f,int i) {return get_data().insert(p.get_data(),CGAL::enum_cast<typename Triangulation::Locate_type>(l),f.get_data(),i);}
   int insert_range(typename Weighting_helper<Weighted_tag>::Point_range range){
-    return this->data.insert(range.first,range.second);
+    return get_data().insert(range.first,range.second);
   }
 #endif  
 // Traversal of the Triangulation
-  Finite_vertices_iterator finite_vertices(){return Finite_vertices_iterator(this->data.finite_vertices_begin(),this->data.finite_vertices_end());}
-  Finite_edges_iterator finite_edges(){return Finite_edges_iterator(this->data.finite_edges_begin(),this->data.finite_edges_end());}
-  Finite_faces_iterator finite_faces(){return Finite_faces_iterator(this->data.finite_faces_begin(),this->data.finite_faces_end());}
-  All_vertices_iterator all_vertices(){return All_vertices_iterator(this->data.all_vertices_begin(),this->data.all_vertices_end());}
-  All_edges_iterator all_edges(){return All_edges_iterator(this->data.all_edges_begin(),this->data.all_edges_end());}
-  All_faces_iterator all_faces(){return All_faces_iterator(this->data.all_faces_begin(),this->data.all_faces_end());}
-  Point_iterator points(){return Point_iterator(this->data.points_begin(),this->data.points_end());}
+  Finite_vertices_iterator finite_vertices(){return Finite_vertices_iterator(get_data().finite_vertices_begin(),get_data().finite_vertices_end());}
+  Finite_edges_iterator finite_edges(){return Finite_edges_iterator(get_data().finite_edges_begin(),get_data().finite_edges_end());}
+  Finite_faces_iterator finite_faces(){return Finite_faces_iterator(get_data().finite_faces_begin(),get_data().finite_faces_end());}
+  All_vertices_iterator all_vertices(){return All_vertices_iterator(get_data().all_vertices_begin(),get_data().all_vertices_end());}
+  All_edges_iterator all_edges(){return All_edges_iterator(get_data().all_edges_begin(),get_data().all_edges_end());}
+  All_faces_iterator all_faces(){return All_faces_iterator(get_data().all_faces_begin(),get_data().all_faces_end());}
+  Point_iterator points(){return Point_iterator(get_data().points_begin(),get_data().points_end());}
 // Line Face Circulator
-  Line_face_circulator line_walk(const Point& p,const Point& q){return Line_face_circulator(this->data.line_walk(p.get_data(),q.get_data()));}
-  Line_face_circulator line_walk(const Point& p,const Point& q,const Face_handle& f){return Line_face_circulator(this->data.line_walk(p.get_data(),q.get_data(),f.get_data()));}
+  Line_face_circulator line_walk(const Point& p,const Point& q){return Line_face_circulator(get_data().line_walk(p.get_data(),q.get_data()));}
+  Line_face_circulator line_walk(const Point& p,const Point& q,const Face_handle& f){return Line_face_circulator(get_data().line_walk(p.get_data(),q.get_data(),f.get_data()));}
 // Face, Edge and Vertex Circulators
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Face_circulator,incident_faces,Vertex_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Face_circulator,incident_faces,Vertex_handle,Face_handle)
@@ -153,13 +156,13 @@ public:
 //I/O
   std::string toString(){
     std::stringstream sstr;
-    sstr << data;
+    sstr << *data_sptr;
     return sstr.str();
   }
 //Deep copy (the inheritance is not a problem here, 
   typedef Triangulation_2_wrapper<Triangulation,Point,Vertex_handle,Face_handle,Weighted_tag> Self;
-  Self deepcopy() const {return Self(*this);}
-  void deepcopy(const Self& other){*this=other;}
+  Self deepcopy() const {return Self(get_data());}
+  void deepcopy(const Self& other){*this=Self(other.get_data());}
 #endif
 };
 

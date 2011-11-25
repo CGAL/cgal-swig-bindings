@@ -60,16 +60,16 @@ public:
   Constrained_triangulation_plus_2_wrapper():Base(){}
   Constrained_triangulation_plus_2_wrapper(Constraint_range range):Base(){
     for (Input_constraint_iterator it=range.first;it!=range.second;++it)
-      this->data.push_back(*it);
+      this->get_data().push_back(*it);
   }
   
 // Queries
   SWIG_CGAL_FORWARD_CALL_2(int,number_of_enclosing_constraints,Vertex_handle,Vertex_handle)
-  Constraint_iterator constraints(){return Constraint_iterator( this->data.constraints_begin(),this->data.constraints_end() );}
-  Subconstraint_iterator subconstraints(){return Subconstraint_iterator( this->data.subconstraints_begin(),this->data.subconstraints_end() );}
-  Vertices_in_constraint_iterator vertices_in_constraint(const Vertex_handle& va,const Vertex_handle& vb){ return Vertices_in_constraint_iterator(this->data.vertices_in_constraint_begin(va.get_data(),vb.get_data()),this->data.vertices_in_constraint_end(va.get_data(),vb.get_data()));}
+  Constraint_iterator constraints(){return Constraint_iterator( this->get_data().constraints_begin(),this->get_data().constraints_end() );}
+  Subconstraint_iterator subconstraints(){return Subconstraint_iterator( this->get_data().subconstraints_begin(),this->get_data().subconstraints_end() );}
+  Vertices_in_constraint_iterator vertices_in_constraint(const Vertex_handle& va,const Vertex_handle& vb){ return Vertices_in_constraint_iterator(this->get_data().vertices_in_constraint_begin(va.get_data(),vb.get_data()),this->get_data().vertices_in_constraint_end(va.get_data(),vb.get_data()));}
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Context,context,Vertex_handle,Vertex_handle)
-  Context_iterator contexts(const Vertex_handle& va,Vertex_handle& vb) {return Context_iterator(this->data.contexts_begin(va.get_data(),vb.get_data()),this->data.contexts_end(va.get_data(),vb.get_data()));}
+  Context_iterator contexts(const Vertex_handle& va,Vertex_handle& vb) {return Context_iterator(this->get_data().contexts_begin(va.get_data(),vb.get_data()),this->get_data().contexts_end(va.get_data(),vb.get_data()));}
   
 };
 

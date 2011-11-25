@@ -45,17 +45,17 @@ public:
   typedef CGAL_Alpha_shape_edges_iterator<Alpha_shape,Edge>                    Alpha_shape_edges_iterator;
 //Creation
   Alpha_shape_2_wrapper(){}
-  Alpha_shape_2_wrapper(double alpha){this->data.set_alpha(alpha);}
-  Alpha_shape_2_wrapper(typename Weighting_helper<Weighted_tag>::Point_range range,double alpha){this->data.set_alpha(alpha); this->data.make_alpha_shape(range.first,range.second);}
-  Alpha_shape_2_wrapper(double alpha,Mode m){this->data.set_alpha(alpha);this->data.set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );}    
+  Alpha_shape_2_wrapper(double alpha){this->get_data().set_alpha(alpha);}
+  Alpha_shape_2_wrapper(typename Weighting_helper<Weighted_tag>::Point_range range,double alpha){this->get_data().set_alpha(alpha); this->get_data().make_alpha_shape(range.first,range.second);}
+  Alpha_shape_2_wrapper(double alpha,Mode m){this->get_data().set_alpha(alpha);this->get_data().set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );}    
   Alpha_shape_2_wrapper(typename Weighting_helper<Weighted_tag>::Point_range range,double alpha,Mode m){
-    this->data.set_alpha(alpha);
-    this->data.set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );
-    this->data.make_alpha_shape(range.first,range.second);  
+    this->get_data().set_alpha(alpha);
+    this->get_data().set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );
+    this->get_data().make_alpha_shape(range.first,range.second);  
   }
 //Operations
   SWIG_CGAL_FORWARD_CALL_0(Mode,set_mode)
-  Mode set_mode(Mode m){return CGAL::enum_cast<Mode>( this->data.set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) ) );}
+  Mode set_mode(Mode m){return CGAL::enum_cast<Mode>( this->get_data().set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) ) );}
   SWIG_CGAL_FORWARD_CALL_0(Mode,get_mode)
   SWIG_CGAL_FORWARD_CALL_0(void,clear)
   SWIG_CGAL_FORWARD_CALL_1(double,set_alpha,double)
@@ -63,19 +63,19 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(double,get_nth_alpha,int)
   SWIG_CGAL_FORWARD_CALL_0(int,number_of_alphas)
   int make_alpha_shape(typename Weighting_helper<Weighted_tag>::Point_range range){
-    return this->data.make_alpha_shape(range.first,range.second);
+    return this->get_data().make_alpha_shape(range.first,range.second);
   }  
 //Traversal of the alpha-Values
-  Alpha_iterator  alpha(){return Alpha_iterator(this->data.alpha_begin(),this->data.alpha_end());}
-  Alpha_iterator  alpha_find(double a){return Alpha_iterator(this->data.alpha_find(a),this->data.alpha_end());}
-  Alpha_iterator  alpha_lower_bound(double a){return Alpha_iterator(this->data.alpha_lower_bound(a),this->data.alpha_end());}
-  Alpha_iterator  alpha_upper_bound(double a){return Alpha_iterator(this->data.alpha_upper_bound(a),this->data.alpha_end());}
+  Alpha_iterator  alpha(){return Alpha_iterator(this->get_data().alpha_begin(),this->get_data().alpha_end());}
+  Alpha_iterator  alpha_find(double a){return Alpha_iterator(this->get_data().alpha_find(a),this->get_data().alpha_end());}
+  Alpha_iterator  alpha_lower_bound(double a){return Alpha_iterator(this->get_data().alpha_lower_bound(a),this->get_data().alpha_end());}
+  Alpha_iterator  alpha_upper_bound(double a){return Alpha_iterator(this->get_data().alpha_upper_bound(a),this->get_data().alpha_end());}
 //Operations
   SWIG_CGAL_FORWARD_CALL_0(int,number_of_solid_components) 
   SWIG_CGAL_FORWARD_CALL_1(int,number_of_solid_components,double) 
-  Alpha_iterator  find_optimal_alpha(int i){return Alpha_iterator(this->data.find_optimal_alpha(i),this->data.alpha_end());}  
-  Alpha_shape_vertices_iterator  alpha_shape_vertices(){return Alpha_shape_vertices_iterator(this->data.alpha_shape_vertices_begin(),this->data.alpha_shape_vertices_end());}
-  Alpha_shape_edges_iterator     alpha_shape_edges(){return Alpha_shape_edges_iterator(this->data.alpha_shape_edges_begin(),this->data.alpha_shape_edges_end());}
+  Alpha_iterator  find_optimal_alpha(int i){return Alpha_iterator(this->get_data().find_optimal_alpha(i),this->get_data().alpha_end());}  
+  Alpha_shape_vertices_iterator  alpha_shape_vertices(){return Alpha_shape_vertices_iterator(this->get_data().alpha_shape_vertices_begin(),this->get_data().alpha_shape_vertices_end());}
+  Alpha_shape_edges_iterator     alpha_shape_edges(){return Alpha_shape_edges_iterator(this->get_data().alpha_shape_edges_begin(),this->get_data().alpha_shape_edges_end());}
 //Predicates
   SWIG_CGAL_FORWARD_CALL_1(Classification_type,classify,Point)
   SWIG_CGAL_FORWARD_CALL_1(Classification_type,classify,Face_handle)

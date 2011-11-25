@@ -19,7 +19,7 @@ struct Query_iterator_helper{
 
 template<class Cpp_base, class Query, class Fuzzy_sphere, class Fuzzy_iso_box>
 class Kd_tree_wrapper{
-  boost::shared_ptr<Cpp_base> data_ptr;
+  boost::shared_ptr<Cpp_base> data_sptr;
   typedef Kd_tree_wrapper<Cpp_base,Query,Fuzzy_sphere,Fuzzy_iso_box>  Self;
   Kd_tree_wrapper(const Self&); //right now CGAL's KDtree does not have a copy constructor.
   //disable deep copy
@@ -28,9 +28,9 @@ class Kd_tree_wrapper{
 public:
   #ifndef SWIG
   typedef Cpp_base cpp_base;
-  const cpp_base& get_data() const {return *data_ptr;}
-        cpp_base& get_data()       {return *data_ptr;}
-  boost::shared_ptr<cpp_base> shared_ptr() {return data_ptr;}
+  const cpp_base& get_data() const {return *data_sptr;}
+        cpp_base& get_data()       {return *data_sptr;}
+  boost::shared_ptr<cpp_base> shared_ptr() {return data_sptr;}
   #endif
   typedef Kd_tree_iterator<Cpp_base,Query> Iterator;
   typedef Query Point_d;
@@ -38,8 +38,8 @@ public:
   typedef typename Query_iterator_helper<Query>::input       Point_range; 
 
 //Creation
-  Kd_tree_wrapper():data_ptr(new cpp_base()){}
-  Kd_tree_wrapper(Point_range range):data_ptr(new cpp_base(range.first,range.second)){}
+  Kd_tree_wrapper():data_sptr(new cpp_base()){}
+  Kd_tree_wrapper(Point_range range):data_sptr(new cpp_base(range.first,range.second)){}
   
 //Operations
   SWIG_CGAL_FORWARD_CALL_1(void,insert,Point_d)
