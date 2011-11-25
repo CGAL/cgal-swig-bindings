@@ -211,7 +211,10 @@ public:
 //Deep copy
   typedef Triangulation_3_wrapper<Triangulation,Point,Vertex_handle,Cell_handle,Weighted_tag,Memory_holder> Self;
   Self deepcopy() const {return Self(get_data());}
-  void deepcopy(const Self& other){*this=Self(other.get_data());}
+  void deepcopy(const Self& other){
+    if (own_triangulation) delete data_ptr;
+    *this=Self(other.get_data());
+  }
 };
 
 //Creation
