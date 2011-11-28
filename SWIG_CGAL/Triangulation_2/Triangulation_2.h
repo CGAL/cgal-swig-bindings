@@ -61,7 +61,7 @@ public:
   typedef CGAL_Vertex_circulator<Triangulation,Vertex_handle>          Vertex_circulator;
 
 
-  Triangulation_2_wrapper(){}
+  Triangulation_2_wrapper():data_sptr(new cpp_base()){}
   #ifndef SWIG
   typedef Triangulation cpp_base;
   const cpp_base& get_data() const {return *data_sptr;}
