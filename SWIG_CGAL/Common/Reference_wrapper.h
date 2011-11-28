@@ -7,8 +7,8 @@ class Reference_wrapper{
 public:
   typedef Reference_wrapper<Object> Self;
   Reference_wrapper(){}
-  #ifndef SWIG
   Reference_wrapper(const Object& k):i(k){}
+  #ifndef SWIG
   Object& object(){return i;}
   #endif
   void set(Object t){i=t;}
