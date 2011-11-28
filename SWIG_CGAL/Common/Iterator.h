@@ -114,41 +114,8 @@ public:                                                                  \
   bool hasNext(){                                                        \
     return cur!=end;                                                     \
   }                                                                      \
-};   
-#endif //SWIGPYTHON
-
-#ifdef SWIGJAVA
-#define SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)             \
-template<class T,class R>                                                \
-class EXPOSEDNAME{                                                       \
-  typename T::NAME cur;                                                  \
-  typename T::NAME end;                                                  \
-public:                                                                  \
-                                                                         \
-  EXPOSEDNAME(){}                                                        \
-                                                                         \
-  EXPOSEDNAME(                                                           \
-    typename T::NAME cur_,                                               \
-    typename T::NAME end_                                                \
-  ):cur(cur_),end(end_){}                                                \
-                                                                         \
-  R next()                                                               \
-  {                                                                      \
-    if (cur!=end)                                                        \
-      return Iterator_helper<R>::convert ( (cur++) );                    \
-    return Iterator_helper<R>::default_value();                          \
-  }                                                                      \
-  void next(R& r)                                                        \
-  {                                                                      \
-    if (cur!=end)                                                        \
-      r = Iterator_helper<R>::convert ( (cur++) );                       \
-  }                                                                      \
-                                                                         \
-  bool hasNext(){                                                        \
-    return cur!=end;                                                     \
-  }                                                                      \
 };
-#endif //SWIGJAVA
+
 
 #define SWIG_CGAL_DECLARE_CIRCULATOR_CLASS_2(NAME,EXPOSEDNAME)           \
 template<class T,class R>                                                \
@@ -171,6 +138,63 @@ public:                                                                  \
   }                                                                      \
   bool hasNext(){return true; }                                          \
 };
+#endif //SWIGPYTHON
+
+#ifdef SWIGJAVA
+#define SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)             \
+template<class T,class R>                                                \
+class EXPOSEDNAME{                                                       \
+  typename T::NAME cur;                                                  \
+  typename T::NAME end;                                                  \
+public:                                                                  \
+                                                                         \
+  EXPOSEDNAME(){}                                                        \
+                                                                         \
+  EXPOSEDNAME(                                                           \
+    typename T::NAME cur_,                                               \
+    typename T::NAME end_                                                \
+  ):cur(cur_),end(end_){}                                                \
+                                                                         \
+  R slow_next()                                                          \
+  {                                                                      \
+    if (cur!=end)                                                        \
+      return Iterator_helper<R>::convert ( (cur++) );                    \
+    return Iterator_helper<R>::default_value();                          \
+  }                                                                      \
+  void next(R& r)                                                        \
+  {                                                                      \
+    if (cur!=end)                                                        \
+      r = Iterator_helper<R>::convert ( (cur++) );                       \
+  }                                                                      \
+                                                                         \
+  bool hasNext(){                                                        \
+    return cur!=end;                                                     \
+  }                                                                      \
+};
+
+
+#define SWIG_CGAL_DECLARE_CIRCULATOR_CLASS_2(NAME,EXPOSEDNAME)           \
+template<class T,class R>                                                \
+class EXPOSEDNAME{                                                       \
+  typename T::NAME cur;                                                  \
+public:                                                                  \
+  typedef typename T::NAME cpp_base;                                     \
+  EXPOSEDNAME(){}                                                        \
+  EXPOSEDNAME( typename T::NAME cur_):cur(cur_){}                        \
+    EXPOSEDNAME<T,R> __iter__(){return *this;}                           \
+  R slow_next() {                                                             \
+    return Iterator_helper<R>::convert ( (cur++) );                      \
+  }                                                                      \
+  void next(R& r)                                                        \
+  {                                                                      \
+    r = Iterator_helper<R>::convert ( (cur++) );                         \
+  }                                                                      \
+  R prev() {                                                             \
+    return Iterator_helper<R>::convert ( (cur--) );                      \
+  }                                                                      \
+  bool hasNext(){return true; }                                          \
+};
+#endif //SWIGJAVA
 
 
 

@@ -9,6 +9,33 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 
 //macro function to define proper java iterators
 #ifdef SWIGJAVA
+//this one is specific to iterator of int, double, ...
+%define SWIG_CGAL_set_as_java_iterator_non_class(Iterator_type,Object_type)
+  %typemap(javaimports) Iterator_type
+  %{
+  import java.lang.Iterable;
+  import java.lang.UnsupportedOperationException;
+  import java.util.Iterator;
+  %}
+  
+  %typemap(javainterfaces) Iterator_type %{  Iterable<Object_type>, Iterator<Object_type> %}
+
+  %typemap(javacode) Iterator_type
+  %{
+    public void remove() {
+      throw new UnsupportedOperationException();
+    }
+    
+    public Iterator<Object_type> iterator() {
+      return this;
+    }
+
+    public Object_type next() {
+      return slow_next();
+    }
+  %}
+%enddef
+  
 %define SWIG_CGAL_set_as_java_iterator(Iterator_type,Object_type,Extra_import)
   %typemap(javaimports) Iterator_type
   %{
@@ -28,7 +55,15 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
     
     public Iterator<Object_type> iterator() {
       return this;
-    }  
+    }
+    
+    //we store an object of type Object_type to avoid
+    //creation and allocation of a java object at each iteration.
+    private Object_type objectInstance = new Object_Default_Constructor;
+    public Object_type next() {
+      next(objectInstance);
+      return objectInstance;
+    }
   %}
 %enddef
 #else
