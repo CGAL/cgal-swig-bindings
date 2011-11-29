@@ -5,6 +5,7 @@ rm -f error.txt
 
 for i in test_*.java; do
   name=`echo $i | sed 's/\.java//'`;
+  echo ==================Running  $name ==================
   if javac $i; then 
     echo $i compiled >> error.txt
     if java $name; then 

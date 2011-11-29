@@ -71,7 +71,17 @@ public class test_sp {
     
     Orthogonal_incremental_neighbor_search_tree_3 tree=new Orthogonal_incremental_neighbor_search_tree_3(lst.iterator());
     
-    Orthogonal_incremental_neighbor_search_3 search = new Orthogonal_incremental_neighbor_search_3(tree,new Point_3(0,0,0));
+   // Orthogonal_incremental_neighbor_search_3 search = new Orthogonal_incremental_neighbor_search_3(tree,new Point_3(0,0,0));
+    Orthogonal_incremental_neighbor_search_3 search = new Orthogonal_incremental_neighbor_search_3(new Orthogonal_incremental_neighbor_search_tree_3(lst.iterator()),new Point_3(0,0,0));
+    
+    System.gc();
+    System.runFinalization();
+    try{
+      Thread.sleep(100);
+    }
+    catch(InterruptedException e)
+    {
+    }
     
     for (Point_with_transformed_distance_3 p : search.iterator())
       System.out.println(p.getFirst()+" "+p.getSecond());    
