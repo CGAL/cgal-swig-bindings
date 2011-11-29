@@ -11,6 +11,7 @@ import CGAL.Mesh_2.User_mesh_criteria_simple_2;
 import CGAL.Mesh_2.Mesh_2_predicate;
 import java.util.LinkedList;
 import CGAL.Kernel.Point_2;
+import CGAL.Mesh_2.Face_badness;
 
 public class test_mesh_2 {
   public static void test_conforming()
