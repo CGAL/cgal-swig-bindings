@@ -1,3 +1,9 @@
+// ------------------------------------------------------------------------------
+// Copyright (c) 2011 GeometryFactory (FRANCE)
+// Distributed under the Boost Software License, Version 1.0. (See accompany-
+// ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+// ------------------------------------------------------------------------------ 
+
 //this is the default with SWIG2
 //The intermediary JNI class modifiers are now public by default meaning these
 //intermediary low level functions are now accessible by default from outside any package
