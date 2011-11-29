@@ -11,6 +11,7 @@
 #ifndef SWIG 
 #include <SWIG_CGAL/Java/global_functions.h>
 #include <iostream>
+#include <stdexcept>
  
 bool throwJavaException(const char* msg)
 {
@@ -35,6 +36,6 @@ bool throwJavaException(const char* msg)
 
 
 #define JNI_THROW_ON_ERROR(JOBJECT,METHOD,WITH) \
-  if (JOBJECT==NULL) throwJavaException((std::string("Error in " #METHOD " -- ")+WITH).c_str());
+  if (JOBJECT==NULL) throw std::runtime_error(std::string("Error in " #METHOD " -- ")+WITH);
 
 #endif //SWIG_CGAL_JAVA_EXCEPTION_H
