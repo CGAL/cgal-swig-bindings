@@ -15,7 +15,7 @@ public:
   #ifndef SWIG  
   typedef Triangulation cpp_base;
   #endif
-  typedef CGAL_Hidden_vertices_iterator<Triangulation,Vertex_handle> Hidden_vertices_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::Hidden_vertices_iterator,Vertex_handle> Hidden_vertices_iterator;
   Regular_triangulation_2_wrapper() : Base() {}
 // Access functions
   SWIG_CGAL_FORWARD_CALL_0(int,number_of_hidden_vertices)

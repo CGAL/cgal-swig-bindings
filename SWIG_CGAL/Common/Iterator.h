@@ -77,168 +77,100 @@ struct Iterator_helper<double>{
   static double convert(const T& i){  return *i; }
   static double default_value(){return 0.;}
 };
-#endif//SWIG
+#endif
+
 
 #ifdef SWIGPYTHON
 #include <SWIG_CGAL/Python/exceptions.h>
+#endif
 
-#define SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)             \
-template<class T,class R>                                                \
-class EXPOSEDNAME{                                                       \
-  typename T::NAME cur;                                                  \
-  typename T::NAME end;                                                  \
-public:                                                                  \
-                                                                         \
-  EXPOSEDNAME(){}                                                        \
-                                                                         \
-  EXPOSEDNAME(                                                           \
-    typename T::NAME cur_,                                               \
-    typename T::NAME end_                                                \
-  ):cur(cur_),end(end_){}                                                \
-                                                                         \
-  EXPOSEDNAME<T,R> __iter__(){return *this;}                             \
-  R next()                                                               \
-  {                                                                      \
-    if (cur!=end)                                                        \
-      return Iterator_helper<R>::convert ( (cur++) );                    \
-    throw Stop_iteration();                                              \
-    return Iterator_helper<R>::default_value();                          \
-  }                                                                      \
-  void next(R& r)                                                        \
-  {                                                                      \
-    if (cur!=end)                                                        \
-      r=Iterator_helper<R>::convert ( (cur++) );                         \
-    throw Stop_iteration();                                              \
-  }                                                                      \
-                                                                         \
-  bool hasNext(){                                                        \
-    return cur!=end;                                                     \
-  }                                                                      \
+template<class Cpp_iterator,class Value_type>
+class SWIG_CGAL_Iterator{
+  Cpp_iterator cur;
+  Cpp_iterator end;
+public:
+
+  SWIG_CGAL_Iterator(){}
+
+  #ifndef SWIG
+  SWIG_CGAL_Iterator(
+    Cpp_iterator cur_,
+    Cpp_iterator end_
+  ):cur(cur_),end(end_){}
+  #endif
+    
+  #ifdef SWIGPYTHON
+  SWIG_CGAL_Iterator<Cpp_iterator,Value_type> __iter__(){return *this;}
+
+  Value_type next()
+  {
+    if (cur!=end)
+      return Iterator_helper<Value_type>::convert ( (cur++) );
+    throw Stop_iteration();
+    return Iterator_helper<Value_type>::default_value();
+  }
+  #else
+
+  #ifdef SWIGJAVA
+  Value_type slow_next()
+  #else
+  Value_type next()
+  #endif  
+  {
+    if (cur!=end)
+      return Iterator_helper<Value_type>::convert ( (cur++) );
+    return Iterator_helper<Value_type>::default_value();
+  }
+  #endif //SWIGPYTHON
+  
+  void next(Value_type& r)
+  {
+    if (cur!=end)
+      r=Iterator_helper<Value_type>::convert ( (cur++) );
+    #ifdef SWIGPYTHON
+    throw Stop_iteration();
+    #endif
+  }
+
+  bool hasNext(){
+    return cur!=end;
+  }
+};
+
+template<class Cpp_circulator,class Value_type>
+class SWIG_CGAL_Circulator{
+  Cpp_circulator cur;
+public:
+  SWIG_CGAL_Circulator(){}
+  #ifndef SWIG
+  SWIG_CGAL_Circulator( Cpp_circulator cur_):cur(cur_){}
+  #endif
+  
+  #ifdef SWIGPYTHON
+  SWIG_CGAL_Circulator<Cpp_circulator,Value_type> __iter__(){return *this;}
+  #endif
+
+  #ifdef SWIGJAVA
+  Value_type slow_next()
+  #else
+  Value_type next()
+  #endif
+  {
+    return Iterator_helper<Value_type>::convert ( (cur++) );
+  }
+  
+  void next(Value_type& r)
+  {
+    r = Iterator_helper<Value_type>::convert ( (cur++) );
+  }
+  
+  Value_type prev() {
+    return Iterator_helper<Value_type>::convert ( (cur--) );
+  }
+  
+  bool hasNext(){return true;}
 };
 
 
-#define SWIG_CGAL_DECLARE_CIRCULATOR_CLASS_2(NAME,EXPOSEDNAME)           \
-template<class T,class R>                                                \
-class EXPOSEDNAME{                                                       \
-  typename T::NAME cur;                                                  \
-public:                                                                  \
-  typedef typename T::NAME cpp_base;                                     \
-  EXPOSEDNAME(){}                                                        \
-  EXPOSEDNAME( typename T::NAME cur_):cur(cur_){}                        \
-    EXPOSEDNAME<T,R> __iter__(){return *this;}                           \
-  R next() {                                                             \
-    return Iterator_helper<R>::convert ( (cur++) );                      \
-  }                                                                      \
-  void next(R& r)                                                        \
-  {                                                                      \
-    r = Iterator_helper<R>::convert ( (cur++) );                         \
-  }                                                                      \
-  R prev() {                                                             \
-    return Iterator_helper<R>::convert ( (cur--) );                      \
-  }                                                                      \
-  bool hasNext(){return true; }                                          \
-};
-#endif //SWIGPYTHON
-
-#ifdef SWIGJAVA
-#define SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(NAME,EXPOSEDNAME)             \
-template<class T,class R>                                                \
-class EXPOSEDNAME{                                                       \
-  typename T::NAME cur;                                                  \
-  typename T::NAME end;                                                  \
-public:                                                                  \
-                                                                         \
-  EXPOSEDNAME(){}                                                        \
-                                                                         \
-  EXPOSEDNAME(                                                           \
-    typename T::NAME cur_,                                               \
-    typename T::NAME end_                                                \
-  ):cur(cur_),end(end_){}                                                \
-                                                                         \
-  R slow_next()                                                          \
-  {                                                                      \
-    if (cur!=end)                                                        \
-      return Iterator_helper<R>::convert ( (cur++) );                    \
-    return Iterator_helper<R>::default_value();                          \
-  }                                                                      \
-  void next(R& r)                                                        \
-  {                                                                      \
-    if (cur!=end)                                                        \
-      r = Iterator_helper<R>::convert ( (cur++) );                       \
-  }                                                                      \
-                                                                         \
-  bool hasNext(){                                                        \
-    return cur!=end;                                                     \
-  }                                                                      \
-};
-
-
-#define SWIG_CGAL_DECLARE_CIRCULATOR_CLASS_2(NAME,EXPOSEDNAME)           \
-template<class T,class R>                                                \
-class EXPOSEDNAME{                                                       \
-  typename T::NAME cur;                                                  \
-public:                                                                  \
-  typedef typename T::NAME cpp_base;                                     \
-  EXPOSEDNAME(){}                                                        \
-  EXPOSEDNAME( typename T::NAME cur_):cur(cur_){}                        \
-    EXPOSEDNAME<T,R> __iter__(){return *this;}                           \
-  R slow_next() {                                                             \
-    return Iterator_helper<R>::convert ( (cur++) );                      \
-  }                                                                      \
-  void next(R& r)                                                        \
-  {                                                                      \
-    r = Iterator_helper<R>::convert ( (cur++) );                         \
-  }                                                                      \
-  R prev() {                                                             \
-    return Iterator_helper<R>::convert ( (cur--) );                      \
-  }                                                                      \
-  bool hasNext(){return true; }                                          \
-};
-#endif //SWIGJAVA
-
-
-
-#define SWIG_CGAL_DECLARE_ITERATOR_CLASS(NAME)            SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(NAME,CGAL_##NAME)
-#define SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(NAME)          SWIG_CGAL_DECLARE_CIRCULATOR_CLASS_2(NAME,CGAL_##NAME)
-
-
-//place here iterator wrapper classes to be defined. There are template classes that
-//can be reused amongst classes. The idea is that:
-//SWIG_CGAL_DECLARE_ITERATOR_CLASS(foo) declares 
-//template <class T,class R> CGAL_foo storing iterator T::foo which is an iterator with R as value_type.
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(All_cells_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Finite_cells_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(All_facets_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Finite_facets_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Finite_edges_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Point_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Halfedge_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Edge_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Edge_const_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Vertex_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Facet_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Plane_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Cell_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Finite_vertices_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(All_vertices_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(All_edges_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Finite_faces_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(All_faces_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Hidden_vertices_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Constraint_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Subconstraint_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Vertices_in_constraint_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Context_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Alpha_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Alpha_shape_vertices_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Alpha_shape_edges_iterator)
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Boundary_edges_iterator)
-SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Vertex_circulator)
-SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Edge_const_circulator)
-SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Line_face_circulator)
-SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Face_circulator)
-SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Edge_circulator)
-SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Cell_circulator)
-SWIG_CGAL_DECLARE_CIRCULATOR_CLASS(Facet_circulator)
 
 #endif //SWIG_CGAL_COMMON_ITERATOR_H

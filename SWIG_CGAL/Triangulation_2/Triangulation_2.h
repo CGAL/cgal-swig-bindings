@@ -48,17 +48,17 @@ protected :
 public:
 
   typedef std::pair<Face_handle,int>                                   Edge;
-  typedef CGAL_Finite_vertices_iterator<Triangulation,Vertex_handle>   Finite_vertices_iterator;
-  typedef CGAL_Finite_edges_iterator<Triangulation,Edge>               Finite_edges_iterator;
-  typedef CGAL_Finite_faces_iterator<Triangulation,Face_handle>        Finite_faces_iterator;
-  typedef CGAL_All_vertices_iterator<Triangulation,Vertex_handle>      All_vertices_iterator;
-  typedef CGAL_All_edges_iterator<Triangulation,Edge>                  All_edges_iterator;
-  typedef CGAL_All_faces_iterator<Triangulation,Face_handle>           All_faces_iterator;
-  typedef CGAL_Point_iterator<Triangulation,Point>                     Point_iterator;
-  typedef CGAL_Line_face_circulator<Triangulation,Face_handle>         Line_face_circulator;
-  typedef CGAL_Face_circulator<Triangulation,Face_handle>              Face_circulator;
-  typedef CGAL_Edge_circulator<Triangulation,Edge>                     Edge_circulator;
-  typedef CGAL_Vertex_circulator<Triangulation,Vertex_handle>          Vertex_circulator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::Finite_vertices_iterator,Vertex_handle>   Finite_vertices_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::Finite_edges_iterator,Edge>               Finite_edges_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::Finite_faces_iterator,Face_handle>        Finite_faces_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::All_vertices_iterator,Vertex_handle>      All_vertices_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::All_edges_iterator,Edge>                  All_edges_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::All_faces_iterator,Face_handle>           All_faces_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::Point_iterator,Point>                     Point_iterator;
+  typedef SWIG_CGAL_Circulator<typename Triangulation::Line_face_circulator,Face_handle>         Line_face_circulator;
+  typedef SWIG_CGAL_Circulator<typename Triangulation::Face_circulator,Face_handle>              Face_circulator;
+  typedef SWIG_CGAL_Circulator<typename Triangulation::Edge_circulator,Edge>                     Edge_circulator;
+  typedef SWIG_CGAL_Circulator<typename Triangulation::Vertex_circulator,Vertex_handle>          Vertex_circulator;
 
 
   Triangulation_2_wrapper():data_sptr(new cpp_base()){}

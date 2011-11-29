@@ -8,8 +8,6 @@
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 #include <boost/shared_ptr.hpp>
 
-SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(iterator,Kd_tree_iterator)
-
 template <class Query>
 struct Query_iterator_helper{
   typedef typename internal::Converter<Query>::result_type Base;
@@ -32,7 +30,7 @@ public:
         cpp_base& get_data()       {return *data_sptr;}
   boost::shared_ptr<cpp_base> shared_ptr() {return data_sptr;}
   #endif
-  typedef Kd_tree_iterator<Cpp_base,Query> Iterator;
+  typedef SWIG_CGAL_Iterator<typename Cpp_base::iterator,Query> Iterator;
   typedef Query Point_d;
 //Input iterator
   typedef typename Query_iterator_helper<Query>::input       Point_range; 

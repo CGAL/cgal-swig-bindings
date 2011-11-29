@@ -40,9 +40,9 @@ class Alpha_shape_2_wrapper : public Base
   void deepcopy(const Self&);  
 public:
   typedef std::pair<Face_handle,int> Edge;
-  typedef CGAL_Alpha_iterator<Alpha_shape,double>                              Alpha_iterator;
-  typedef CGAL_Alpha_shape_vertices_iterator<Alpha_shape,Vertex_handle>        Alpha_shape_vertices_iterator;
-  typedef CGAL_Alpha_shape_edges_iterator<Alpha_shape,Edge>                    Alpha_shape_edges_iterator;
+  typedef SWIG_CGAL_Iterator<typename Alpha_shape::Alpha_iterator,double>                              Alpha_iterator;
+  typedef SWIG_CGAL_Iterator<typename Alpha_shape::Alpha_shape_vertices_iterator,Vertex_handle>        Alpha_shape_vertices_iterator;
+  typedef SWIG_CGAL_Iterator<typename Alpha_shape::Alpha_shape_edges_iterator,Edge>                    Alpha_shape_edges_iterator;
 //Creation
   Alpha_shape_2_wrapper(){}
   Alpha_shape_2_wrapper(double alpha){this->get_data().set_alpha(alpha);}

@@ -27,7 +27,6 @@ Decl_void_type()
 %{
   #include <SWIG_CGAL/Polyhedron_3/Polyhedron_3.h>
   #include <SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h>
-  #include <SWIG_CGAL/Polyhedron_3/polyhedron_3_iterators.h>
 %}
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
@@ -35,7 +34,6 @@ Decl_void_type()
 //definitions
 %include "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
 %include "SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h"
-%include "SWIG_CGAL/Polyhedron_3/polyhedron_3_iterators.h"
 %include "SWIG_CGAL/Polyhedron_3/Modifier_base.h"
 
 
@@ -58,29 +56,29 @@ Decl_void_type()
 
 
 //Iterators
-SWIG_CGAL_set_as_java_iterator(CGAL_Halfedge_iterator,Polyhedron_3_Halfedge_handle,)
-%template(Polyhedron_3_Halfedge_iterator) CGAL_Halfedge_iterator< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Polyhedron_3_Halfedge_handle,)
+%template(Polyhedron_3_Halfedge_iterator) SWIG_CGAL_Iterator< Polyhedron_3_::Halfedge_iterator,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
 
-SWIG_CGAL_set_as_java_iterator(CGAL_Edge_iterator,Polyhedron_3_Halfedge_handle,)
-%template(Polyhedron_3_Edge_iterator) CGAL_Edge_iterator< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Polyhedron_3_Halfedge_handle,)
+%template(Polyhedron_3_Edge_iterator) SWIG_CGAL_Iterator< Polyhedron_3_::Edge_iterator,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
 
-SWIG_CGAL_set_as_java_iterator(CGAL_Vertex_iterator,Polyhedron_3_Vertex_handle,)
-%template(Polyhedron_3_Vertex_iterator) CGAL_Vertex_iterator< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_> >;
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Polyhedron_3_Vertex_handle,)
+%template(Polyhedron_3_Vertex_iterator) SWIG_CGAL_Iterator< Polyhedron_3_::Vertex_iterator,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_> >;
 
-SWIG_CGAL_set_as_java_iterator(CGAL_Facet_iterator,Polyhedron_3_Facet_handle,)
-%template(Polyhedron_3_Facet_iterator) CGAL_Facet_iterator< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> >;
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Polyhedron_3_Facet_handle,)
+%template(Polyhedron_3_Facet_iterator) SWIG_CGAL_Iterator< Polyhedron_3_::Facet_iterator,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> >;
 
-SWIG_CGAL_set_as_java_iterator(CGAL_Point_iterator,Point_3,import CGAL.Kernel.Point_3;)
-%template(Polyhedron_3_Point_iterator) CGAL_Point_iterator< Polyhedron_3_,Point_3>; 
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Point_3,import CGAL.Kernel.Point_3;)
+%template(Polyhedron_3_Point_iterator) SWIG_CGAL_Iterator< Polyhedron_3_::Point_iterator,Point_3>; 
 
 #ifdef SWIG_CGAL_FACET_SUPPORTS_PLANE
-SWIG_CGAL_set_as_java_iterator(CGAL_Plane_iterator,Plane_3,import CGAL.Kernel.Plane_3;)
-%template(Polyhedron_3_Plane_iterator) CGAL_Plane_iterator< Polyhedron_3_,Plane_3>; 
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Plane_3,import CGAL.Kernel.Plane_3;)
+%template(Polyhedron_3_Plane_iterator) SWIG_CGAL_Iterator< Polyhedron_3_::Plane_iterator,Plane_3>; 
 #endif
 
-SWIG_CGAL_set_as_java_iterator(CGAL_Halfedge_around_vertex_circulator,Polyhedron_3_Halfedge_handle,)
-%template(Polyhedron_3_Halfedge_around_vertex_circulator) CGAL_Halfedge_around_vertex_circulator< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Circulator,Polyhedron_3_Halfedge_handle,)
+%template(Polyhedron_3_Halfedge_around_vertex_circulator) SWIG_CGAL_Circulator< Polyhedron_3_::Halfedge_around_vertex_circulator,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
 
-SWIG_CGAL_set_as_java_iterator(CGAL_Halfedge_around_facet_circulator,Polyhedron_3_Halfedge_handle,)
-%template(Polyhedron_3_Halfedge_around_facet_circulator) CGAL_Halfedge_around_facet_circulator< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Circulator,Polyhedron_3_Halfedge_handle,)
+%template(Polyhedron_3_Halfedge_around_facet_circulator) SWIG_CGAL_Circulator< Polyhedron_3_::Halfedge_around_vertex_circulator,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
 

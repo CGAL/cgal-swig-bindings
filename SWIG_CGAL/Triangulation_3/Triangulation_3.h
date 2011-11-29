@@ -70,17 +70,17 @@ public:
   typedef std::pair<Cell_handle,int>             Facet;
   typedef SWIG_CGAL::Triple<Cell_handle,int,int> Edge;  
 //Iterator typedefs  
-  typedef CGAL_Finite_vertices_iterator<Triangulation,Vertex_handle>            Finite_vertices_iterator;
-  typedef CGAL_Finite_edges_iterator<Triangulation,Edge>                        Finite_edges_iterator;
-  typedef CGAL_Finite_facets_iterator<Triangulation,Facet>                      Finite_facets_iterator;
-  typedef CGAL_Finite_cells_iterator<Triangulation,Cell_handle>                 Finite_cells_iterator;
-  typedef CGAL_All_vertices_iterator<Triangulation,Vertex_handle>               All_vertices_iterator;
-  typedef CGAL_All_edges_iterator<Triangulation,Edge>                           All_edges_iterator;
-  typedef CGAL_All_facets_iterator<Triangulation,Facet>                         All_facets_iterator;
-  typedef CGAL_All_cells_iterator<Triangulation,Cell_handle>                    All_cells_iterator;
-  typedef CGAL_Point_iterator<Triangulation,Point>                              Point_iterator;
-  typedef CGAL_Cell_circulator<Triangulation,Cell_handle>                       Cell_circulator;
-  typedef CGAL_Facet_circulator<Triangulation,Facet>                            Facet_circulator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::Finite_vertices_iterator,Vertex_handle>            Finite_vertices_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::Finite_edges_iterator,Edge>                        Finite_edges_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::Finite_facets_iterator,Facet>                      Finite_facets_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::Finite_cells_iterator,Cell_handle>                 Finite_cells_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::All_vertices_iterator,Vertex_handle>               All_vertices_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::All_edges_iterator,Edge>                           All_edges_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::All_facets_iterator,Facet>                         All_facets_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::All_cells_iterator,Cell_handle>                    All_cells_iterator;
+  typedef SWIG_CGAL_Iterator<typename Triangulation::Point_iterator,Point>                              Point_iterator;
+  typedef SWIG_CGAL_Circulator<typename Triangulation::Cell_circulator,Cell_handle>                     Cell_circulator;
+  typedef SWIG_CGAL_Circulator<typename Triangulation::Facet_circulator,Facet>                          Facet_circulator;
 //Output iterator typedefs  
   typedef boost::function_output_iterator< Container_writer<Cell_handle,typename Triangulation::Cell_handle> >          Cell_handle_output_iterator;
   typedef boost::function_output_iterator< Container_writer<Vertex_handle,typename Triangulation::Vertex_handle> >      Vertex_handle_output_iterator;

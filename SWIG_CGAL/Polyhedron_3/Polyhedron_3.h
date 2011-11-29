@@ -8,7 +8,9 @@
 
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Common/Macros.h>
-#include <SWIG_CGAL/Polyhedron_3/polyhedron_3_iterators.h>
+#include <SWIG_CGAL/Common/Iterator.h>
+#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Plane_3.h>
 #include <SWIG_CGAL/Polyhedron_3/Modifier_base.h>
 
 template <class Polyhedron_base,class Vertex_handle,class Halfedge_handle,class Facet_handle>
@@ -23,6 +25,15 @@ public:
   Polyhedron_3_wrapper(const cpp_base& base):data(base){}
   #endif
   
+  typedef SWIG_CGAL_Iterator<typename Polyhedron_base::Vertex_iterator,Vertex_handle>     Vertex_iterator;
+  typedef SWIG_CGAL_Iterator<typename Polyhedron_base::Halfedge_iterator,Halfedge_handle> Halfedge_iterator;
+  typedef SWIG_CGAL_Iterator<typename Polyhedron_base::Facet_iterator,Facet_handle>       Facet_iterator;
+  typedef SWIG_CGAL_Iterator<typename Polyhedron_base::Edge_iterator,Halfedge_handle>     Edge_iterator;
+  typedef SWIG_CGAL_Iterator<typename Polyhedron_base::Point_iterator,Point_3>            Point_iterator;
+  #ifdef SWIG_CGAL_FACET_SUPPORTS_PLANE
+  typedef SWIG_CGAL_Iterator<typename Polyhedron_base::Plane_iterator,Plane_3>            Plane_iterator;
+  #endif    
+    
 //Creation
   Polyhedron_3_wrapper():data(){}
   Polyhedron_3_wrapper(const char* off_filename){
@@ -47,13 +58,13 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(unsigned,bytes)
   SWIG_CGAL_FORWARD_CALL_0(unsigned,bytes_reserved)
 //Iterators
-  CGAL_Vertex_iterator<Polyhedron_base,Vertex_handle> vertices()     {return CGAL_Vertex_iterator<Polyhedron_base,Vertex_handle>(data.vertices_begin(),data.vertices_end());}
-  CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle> halfedges(){return CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>(data.halfedges_begin(),data.halfedges_end());}
-  CGAL_Facet_iterator<Polyhedron_base,Facet_handle> facets()         {return CGAL_Facet_iterator<Polyhedron_base,Facet_handle>(data.facets_begin(),data.facets_end());}
-  CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle> edges()        {return CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>(data.edges_begin(),data.edges_end());}
-  CGAL_Point_iterator<Polyhedron_base,Point_3> points()              {return CGAL_Point_iterator<Polyhedron_base,Point_3>(data.points_begin(),data.points_end());}
+  Vertex_iterator vertices()     {return Vertex_iterator(data.vertices_begin(),data.vertices_end());}
+  Halfedge_iterator halfedges(){return Halfedge_iterator(data.halfedges_begin(),data.halfedges_end());}
+  Facet_iterator facets()         {return Facet_iterator(data.facets_begin(),data.facets_end());}
+  Edge_iterator edges()        {return Edge_iterator(data.edges_begin(),data.edges_end());}
+  Point_iterator points()              {return Point_iterator(data.points_begin(),data.points_end());}
   #ifdef SWIG_CGAL_FACET_SUPPORTS_PLANE
-  CGAL_Plane_iterator<Polyhedron_base,Plane_3> planes()              {return CGAL_Plane_iterator<Polyhedron_base,Plane_3>(data.planes_begin(),data.planes_end());}
+  Plane_iterator planes()              {return Plane_iterator(data.planes_begin(),data.planes_end());}
   #endif
 //Combinatorial Predicates
   SWIG_CGAL_FORWARD_CALL_0(bool,is_closed)
@@ -93,10 +104,10 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(void,normalize_border)
   SWIG_CGAL_FORWARD_CALL_0(unsigned,size_of_border_halfedges)
   SWIG_CGAL_FORWARD_CALL_0(unsigned,size_of_border_edges)
-  CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>   border_halfedges()      {return CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>(data.border_halfedges_begin(),data.halfedges_end());}
-  CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>   non_border_halfedges()  {return CGAL_Halfedge_iterator<Polyhedron_base,Halfedge_handle>(data.halfedges_begin(),data.border_halfedges_begin());}      
-  CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>       border_edges()          {return CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>(data.border_edges_begin(),data.edges_end());}
-  CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>       non_border_edges()      {return CGAL_Edge_iterator<Polyhedron_base,Halfedge_handle>(data.edges_begin(),data.border_edges_begin());}
+  Halfedge_iterator   border_halfedges()      {return Halfedge_iterator(data.border_halfedges_begin(),data.halfedges_end());}
+  Halfedge_iterator   non_border_halfedges()  {return Halfedge_iterator(data.halfedges_begin(),data.border_halfedges_begin());}      
+  Edge_iterator       border_edges()          {return Edge_iterator(data.border_edges_begin(),data.edges_end());}
+  Edge_iterator       non_border_edges()      {return Edge_iterator(data.edges_begin(),data.border_edges_begin());}
   
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(void,inside_out)

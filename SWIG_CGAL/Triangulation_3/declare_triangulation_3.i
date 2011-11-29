@@ -40,38 +40,38 @@
 
 
   //Iterators and circulators
-  SWIG_CGAL_set_as_java_iterator(CGAL_All_vertices_iterator,CLASSNAME_PREFIX##_Vertex_handle,import CGAL.Kernel.POINT_TYPE;)
-  %template(CLASSNAME_PREFIX##_All_vertices_iterator) CGAL_All_vertices_iterator<CPPTYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> >;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Vertex_handle,import CGAL.Kernel.POINT_TYPE;)
+  %template(CLASSNAME_PREFIX##_All_vertices_iterator) SWIG_CGAL_Iterator<CPPTYPE::All_vertices_iterator,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> >;
 
-  SWIG_CGAL_set_as_java_iterator(CGAL_Finite_vertices_iterator,CLASSNAME_PREFIX##_Vertex_handle,import CGAL.Kernel.POINT_TYPE;)
-  %template(CLASSNAME_PREFIX##_Finite_vertices_iterator) CGAL_Finite_vertices_iterator<CPPTYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> >;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Vertex_handle,import CGAL.Kernel.POINT_TYPE;)
+  %template(CLASSNAME_PREFIX##_Finite_vertices_iterator) SWIG_CGAL_Iterator<CPPTYPE::Finite_vertices_iterator,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> >;
 
-  SWIG_CGAL_set_as_java_iterator(CGAL_All_cells_iterator,CLASSNAME_PREFIX##_Cell_handle,)
-  %template(CLASSNAME_PREFIX##_All_cells_iterator) CGAL_All_cells_iterator<CPPTYPE,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE> >;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Cell_handle,)
+  %template(CLASSNAME_PREFIX##_All_cells_iterator) SWIG_CGAL_Iterator<CPPTYPE::All_cells_iterator,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE> >;
 
-  SWIG_CGAL_set_as_java_iterator(CGAL_Finite_cells_iterator,CLASSNAME_PREFIX##_Cell_handle,)
-  %template(CLASSNAME_PREFIX##_Finite_cells_iterator) CGAL_Finite_cells_iterator<CPPTYPE,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE> >;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Cell_handle,)
+  %template(CLASSNAME_PREFIX##_Finite_cells_iterator) SWIG_CGAL_Iterator<CPPTYPE::Finite_cells_iterator,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE> >;
 
-  SWIG_CGAL_set_as_java_iterator(CGAL_All_facets_iterator,CLASSNAME_PREFIX##_Facet,)
-  %template(CLASSNAME_PREFIX##_All_facets_iterator) CGAL_All_facets_iterator<CPPTYPE,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int> >;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Facet,)
+  %template(CLASSNAME_PREFIX##_All_facets_iterator) SWIG_CGAL_Iterator<CPPTYPE::All_facets_iterator,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int> >;
 
-  SWIG_CGAL_set_as_java_iterator(CGAL_Finite_facets_iterator,CLASSNAME_PREFIX##_Facet,)
-  %template(CLASSNAME_PREFIX##_Finite_facets_iterator) CGAL_Finite_facets_iterator<CPPTYPE,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int> >;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Facet,)
+  %template(CLASSNAME_PREFIX##_Finite_facets_iterator) SWIG_CGAL_Iterator<CPPTYPE::Finite_facets_iterator,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int> >;
 
-  SWIG_CGAL_set_as_java_iterator(CGAL_All_edges_iterator,CLASSNAME_PREFIX##_Edge,)
-  %template(CLASSNAME_PREFIX##_All_edges_iterator) CGAL_All_edges_iterator<CPPTYPE,SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int,int> >;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Edge,)
+  %template(CLASSNAME_PREFIX##_All_edges_iterator) SWIG_CGAL_Iterator<CPPTYPE::All_edges_iterator,SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int,int> >;
 
-  SWIG_CGAL_set_as_java_iterator(CGAL_Finite_edges_iterator,CLASSNAME_PREFIX##_Edge,)
-  %template(CLASSNAME_PREFIX##_Finite_edges_iterator) CGAL_Finite_edges_iterator<CPPTYPE,SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int,int> >;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Edge,)
+  %template(CLASSNAME_PREFIX##_Finite_edges_iterator) SWIG_CGAL_Iterator<CPPTYPE::Finite_edges_iterator,SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int,int> >;
 
-  SWIG_CGAL_set_as_java_iterator(CGAL_Point_iterator,POINT_TYPE,import CGAL.Kernel.POINT_TYPE;)
-  %template(CLASSNAME_PREFIX##_Point_iterator) CGAL_Point_iterator<CPPTYPE,POINT_TYPE>;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,POINT_TYPE,import CGAL.Kernel.POINT_TYPE;)
+  %template(CLASSNAME_PREFIX##_Point_iterator) SWIG_CGAL_Iterator<CPPTYPE::Point_iterator,POINT_TYPE>;
 
-  SWIG_CGAL_set_as_java_iterator(CGAL_Cell_circulator,CLASSNAME_PREFIX##_Cell_handle,)
-  %template(CLASSNAME_PREFIX##_Cell_circulator) CGAL_Cell_circulator<CPPTYPE,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE> >;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Circulator,CLASSNAME_PREFIX##_Cell_handle,)
+  %template(CLASSNAME_PREFIX##_Cell_circulator) SWIG_CGAL_Circulator<CPPTYPE::Cell_circulator,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE> >;
 
-  SWIG_CGAL_set_as_java_iterator(CGAL_Facet_circulator,CLASSNAME_PREFIX##_Facet,)
-  %template(CLASSNAME_PREFIX##_Facet_circulator) CGAL_Facet_circulator<CPPTYPE,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int> >;
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Circulator,CLASSNAME_PREFIX##_Facet,)
+  %template(CLASSNAME_PREFIX##_Facet_circulator) SWIG_CGAL_Circulator<CPPTYPE::Facet_circulator,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int> >;
 %enddef
 
 //Expose a triangulation_3

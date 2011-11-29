@@ -131,24 +131,24 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
   }
   Polygon_2(Point_range_2 range){return new Polygon_2(Polygon_2::cpp_base(range.first,range.second));}
 
-  CGAL_Vertex_iterator<Polygon_2::cpp_base,Point_2>   vertices()   {return CGAL_Vertex_iterator<Polygon_2::cpp_base,Point_2>($self->get_data().vertices_begin(),$self->get_data().vertices_end());}
-  CGAL_Edge_const_iterator<Polygon_2::cpp_base,Segment_2>  edges()      {return CGAL_Edge_const_iterator<Polygon_2::cpp_base,Segment_2>($self->get_data().edges_begin(),$self->get_data().edges_end());}
-  CGAL_Vertex_circulator<Polygon_2::cpp_base,Point_2>        vertices_circulator()  {return CGAL_Vertex_circulator<Polygon_2::cpp_base,Point_2>($self->get_data().vertices_circulator());}
-  CGAL_Edge_const_circulator<Polygon_2::cpp_base,Segment_2>  edges_circulator()     {return CGAL_Edge_const_circulator<Polygon_2::cpp_base,Segment_2>($self->get_data().edges_circulator());}  
+  SWIG_CGAL_Iterator<Polygon_2::cpp_base::Vertex_iterator,Point_2>   vertices()   {return SWIG_CGAL_Iterator<Polygon_2::cpp_base::Vertex_iterator,Point_2>($self->get_data().vertices_begin(),$self->get_data().vertices_end());}
+  SWIG_CGAL_Iterator<Polygon_2::cpp_base::Edge_const_iterator,Segment_2>  edges()      {return SWIG_CGAL_Iterator<Polygon_2::cpp_base::Edge_const_iterator,Segment_2>($self->get_data().edges_begin(),$self->get_data().edges_end());}
+  SWIG_CGAL_Circulator<Polygon_2::cpp_base::Vertex_circulator,Point_2>        vertices_circulator()  {return SWIG_CGAL_Circulator<Polygon_2::cpp_base::Vertex_circulator,Point_2>($self->get_data().vertices_circulator());}
+  SWIG_CGAL_Circulator<Polygon_2::cpp_base::Edge_const_circulator,Segment_2>  edges_circulator()     {return SWIG_CGAL_Circulator<Polygon_2::cpp_base::Edge_const_circulator,Segment_2>($self->get_data().edges_circulator());}  
 }
 
 //Iterators
-SWIG_CGAL_set_as_java_iterator(CGAL_Vertex_iterator,Point_2,)
-%template(Polygon_2_Vertex_iterator) CGAL_Vertex_iterator< Polygon_2::cpp_base,Point_2 >;
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Point_2,)
+%template(Polygon_2_Vertex_iterator) SWIG_CGAL_Iterator< Polygon_2::cpp_base::Vertex_iterator,Point_2 >;
 
-SWIG_CGAL_set_as_java_iterator(CGAL_Edge_const_iterator,Segment_2,)
-%template(Polygon_2_Edge_const_iterator) CGAL_Edge_const_iterator< Polygon_2::cpp_base,Segment_2 >;
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Segment_2,)
+%template(Polygon_2_Edge_const_iterator) SWIG_CGAL_Iterator< Polygon_2::cpp_base::Edge_const_iterator,Segment_2 >;
 
-SWIG_CGAL_set_as_java_iterator(CGAL_Vertex_circulator,Point_2,)
-%template(Polygon_2_Vertex_circulator) CGAL_Vertex_circulator< Polygon_2::cpp_base,Point_2 >;
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Circulator,Point_2,)
+%template(Polygon_2_Vertex_circulator) SWIG_CGAL_Circulator< Polygon_2::cpp_base::Vertex_circulator,Point_2 >;
 
-SWIG_CGAL_set_as_java_iterator(CGAL_Edge_const_circulator,Segment_2,)
-%template(Polygon_2_Edge_const_circulator) CGAL_Edge_const_circulator< Polygon_2::cpp_base,Segment_2 >;
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Circulator,Segment_2,)
+%template(Polygon_2_Edge_const_circulator) SWIG_CGAL_Circulator< Polygon_2::cpp_base::Edge_const_circulator,Segment_2 >;
 
 
 //global function that needs to know about Point_range_2

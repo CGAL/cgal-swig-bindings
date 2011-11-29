@@ -35,9 +35,6 @@ namespace internal{
   
 } //namespace internal
 
-template <class T,class R> class CGAL_Halfedge_around_vertex_circulator;
-template <class T,class R> class CGAL_Halfedge_around_facet_circulator;
-
 namespace SWIG_Polyhedron_3
 {
 
@@ -58,6 +55,8 @@ public:
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
   #endif
+  typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_vertex_circulator,CGAL_Halfedge_handle<Polyhedron_base> > Halfedge_around_vertex_circulator;
+  typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_facet_circulator,CGAL_Halfedge_handle<Polyhedron_base> >  Halfedge_around_facet_circulator;
 
   CGAL_Halfedge_handle():data(NULL){}
 //Operations
@@ -69,8 +68,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_border)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_border_edge)
 
-  CGAL_Halfedge_around_vertex_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> > vertex_begin(){return CGAL_Halfedge_around_vertex_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> >( data->vertex_begin() );}
-  CGAL_Halfedge_around_facet_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> > facet_begin(){return CGAL_Halfedge_around_facet_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> >( data->facet_begin() );}
+  Halfedge_around_vertex_circulator vertex_begin(){return Halfedge_around_vertex_circulator( data->vertex_begin() );}
+  Halfedge_around_facet_circulator facet_begin(){return Halfedge_around_facet_circulator( data->facet_begin() );}
   
   SWIG_CGAL_FORWARD_CALL_0(unsigned,vertex_degree)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_bivalent)
@@ -107,14 +106,16 @@ public:
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
   #endif
-  
+  typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_vertex_circulator,CGAL_Halfedge_handle<Polyhedron_base> > Halfedge_around_vertex_circulator;
+  typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_facet_circulator,CGAL_Halfedge_handle<Polyhedron_base> >  Halfedge_around_facet_circulator;
+
   CGAL_Vertex_handle():data(NULL){}
 
 //Operations available if Supports_vertex_point is CGAL::Tag_true
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_3,point)
 //Operations available if Supports_vertex_halfedge is CGAL::Tag_true
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(CGAL_Halfedge_handle<Polyhedron_base>,halfedge)
-  CGAL_Halfedge_around_vertex_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> > vertex_begin(){return CGAL_Halfedge_around_vertex_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> >( data->vertex_begin() );}
+  Halfedge_around_vertex_circulator vertex_begin(){return Halfedge_around_vertex_circulator( data->vertex_begin() );}
   SWIG_CGAL_FORWARD_CALL_1(void,set_halfedge,CGAL_Halfedge_handle<Polyhedron_base>)
   SWIG_CGAL_FORWARD_CALL_0(unsigned,vertex_degree)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_bivalent)
@@ -144,7 +145,9 @@ public:
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
   #endif
-  
+
+  typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_facet_circulator,CGAL_Halfedge_handle<Polyhedron_base> >  Halfedge_around_facet_circulator;
+
   CGAL_Facet_handle():data(NULL){}
 //Operations available if Supports_facet_plane is CGAL::Tag_true
   #ifdef SWIG_CGAL_FACET_SUPPORTS_PLANE
@@ -152,7 +155,7 @@ public:
   #endif
 //Operations available if Supports_facet_halfedge ? CGAL::Tag_true
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(CGAL_Halfedge_handle<Polyhedron_base>,halfedge)
-  CGAL_Halfedge_around_facet_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> > facet_begin(){return CGAL_Halfedge_around_facet_circulator<Polyhedron_base,CGAL_Halfedge_handle<Polyhedron_base> >( data->facet_begin() );}
+  Halfedge_around_facet_circulator facet_begin(){return Halfedge_around_facet_circulator( data->facet_begin() );}
   SWIG_CGAL_FORWARD_CALL_1(void,set_halfedge,CGAL_Halfedge_handle<Polyhedron_base>)
   SWIG_CGAL_FORWARD_CALL_0(unsigned,facet_degree)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_triangle)

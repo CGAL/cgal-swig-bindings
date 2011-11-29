@@ -25,8 +25,8 @@ public:
   typedef typename Triangulation::Vertex_handle Vertex_handle;
   typedef typename Triangulation::Cell_handle Cell_handle;
 
-  typedef CGAL_Cell_iterator<C3T3,Cell_handle>               Cell_iterator;
-  typedef CGAL_Facet_iterator<C3T3,Facet>                    Facet_iterator;  
+  typedef SWIG_CGAL_Iterator<typename C3T3::Cell_iterator,Cell_handle>               Cell_iterator;
+  typedef SWIG_CGAL_Iterator<typename C3T3::Facet_iterator,Facet>                    Facet_iterator;  
   
 //Creation  
   C3T3_wrapper():data_sptr(new cpp_base()){}

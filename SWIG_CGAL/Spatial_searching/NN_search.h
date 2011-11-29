@@ -5,8 +5,6 @@
 #include <SWIG_CGAL/Common/Iterator.h>
 #include <boost/shared_ptr.hpp>
 
-SWIG_CGAL_DECLARE_ITERATOR_CLASS_2(iterator,NN_search_iterator)
-
 template <class Cpp_base,class Query,class Tree>
 class NN_search_wrapper
 {
@@ -26,7 +24,7 @@ public:
 
   typedef typename Tree::Point_d Point_d;
   typedef std::pair<Point_d,double>  Point_with_transformed_distance;
-  typedef NN_search_iterator<Cpp_base,Point_with_transformed_distance> Iterator;
+  typedef SWIG_CGAL_Iterator<typename Cpp_base::iterator,Point_with_transformed_distance> Iterator;
 //Creation
   NN_search_wrapper(Tree& tree,const Query& query):tree_ptr(tree.shared_ptr()),data(*tree_ptr,query.get_data()){}
   NN_search_wrapper(Tree& tree,const Query& query,int k):tree_ptr(tree.shared_ptr()),data(*tree_ptr,query.get_data(),k){}
@@ -56,7 +54,7 @@ public:
   #endif
   typedef typename Tree::Point_d Point_d;
   typedef std::pair<Point_d,double>  Point_with_transformed_distance;
-  typedef NN_search_iterator<Cpp_base,Point_with_transformed_distance> Iterator;
+  typedef SWIG_CGAL_Iterator<typename Cpp_base::iterator,Point_with_transformed_distance> Iterator;
 //Creation
   NN_search_wrapper_incremental(Tree& tree,const Query& query):tree_ptr(tree.shared_ptr()),data(*tree_ptr,query.get_data()){}
   NN_search_wrapper_incremental(Tree& tree,const Query& query,double eps):tree_ptr(tree.shared_ptr()),data(*tree_ptr,query.get_data(),eps){}

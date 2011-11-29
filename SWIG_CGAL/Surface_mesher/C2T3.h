@@ -38,10 +38,10 @@ public:
   typedef typename Triangulation::Vertex_handle Vertex_handle;
   typedef typename Triangulation::Cell_handle Cell_handle;
 
-  typedef CGAL_Vertex_iterator<C2T3,Vertex_handle>               Vertex_iterator;
-  typedef CGAL_Edge_iterator<C2T3,Edge>                          Edge_iterator;
-  typedef CGAL_Facet_iterator<C2T3,Facet>                        Facet_iterator;
-  typedef CGAL_Boundary_edges_iterator<C2T3,Edge>                Boundary_edges_iterator;
+  typedef SWIG_CGAL_Iterator<typename C2T3::Vertex_iterator,Vertex_handle>               Vertex_iterator;
+  typedef SWIG_CGAL_Iterator<typename C2T3::Edge_iterator,Edge>                          Edge_iterator;
+  typedef SWIG_CGAL_Iterator<typename C2T3::Facet_iterator,Facet>                        Facet_iterator;
+  typedef SWIG_CGAL_Iterator<typename C2T3::Boundary_edges_iterator,Edge>                Boundary_edges_iterator;
 
   typedef typename C2T3_internal::Iterator_helper<Triangulation>::output Output_iterator;
 

@@ -5,8 +5,6 @@
 #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
 #include <boost/shared_ptr.hpp>
 
-SWIG_CGAL_DECLARE_ITERATOR_CLASS(Seeds_const_iterator)
-
 typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > Point_range;
 
 template <class CDT_wrapper>
@@ -32,7 +30,7 @@ public:
         cpp_base& get_data()       {return data;}
   #endif
     
-  typedef CGAL_Seeds_const_iterator<Cpp,Point_2>          Seeds_const_iterator;
+  typedef SWIG_CGAL_Iterator<typename Cpp::Seeds_const_iterator,Point_2>          Seeds_const_iterator;
   typedef typename DM2_Input_iterator_helper<CDT_wrapper>::range   Facet_range;
     
 //Creation
