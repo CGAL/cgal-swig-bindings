@@ -59,7 +59,7 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
     
     //we store an object of type Object_type to avoid
     //creation and allocation of a java object at each iteration.
-    private Object_type objectInstance = new Object_Default_Constructor;
+    private Object_type objectInstance = new Object_type();
     public Object_type next() {
       next(objectInstance);
       return objectInstance;
@@ -68,6 +68,8 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 %enddef
 #else
 %define SWIG_CGAL_set_as_java_iterator(Iterator_type,Object_type,Extra_import)
+%enddef
+%define SWIG_CGAL_set_as_java_iterator_non_class(Iterator_type,Object_type)
 %enddef
 #endif
 
