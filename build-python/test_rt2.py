@@ -7,15 +7,15 @@ l.append(CGAL_Kernel.Weighted_point_3(CGAL_Kernel.Point_3(1,1,1),34))
 l.append(CGAL_Kernel.Weighted_point_3(CGAL_Kernel.Point_3(1,56,2),334))
 l.append(CGAL_Kernel.Weighted_point_3(CGAL_Kernel.Point_3(1,3,1),3))
 l.append(CGAL_Kernel.Weighted_point_3(CGAL_Kernel.Point_3(1,1,33),4))
-t.insert_range(l)
+t.insert(l)
 print "OK"
 l.append(1)
 try:
-  t.insert_range(l)
+  t.insert(l)
 except:
   print "list does not contains only points"
 try:
-  t.insert_range(3)
+  t.insert(3)
 except:
   print "Not a list"
 

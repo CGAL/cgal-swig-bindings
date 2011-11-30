@@ -37,7 +37,7 @@ for e in lst:
   print e
 
 print "Try point range insertion"
-t.insert_range(lst)
+t.insert(lst)
 
 
 edges=[]
