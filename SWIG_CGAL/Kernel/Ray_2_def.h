@@ -48,7 +48,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,collinear_has_on,Point_2)    
 //equality functions
   bool equals(const Ray_2& r){return data==r.get_data();}
-  #ifdef NO_SWIG_OR_PYTHON
+  #ifdef SWIGPYTHON
   bool __ne__(const Ray_2& r){return data!=r.get_data();}
   #endif
 //I/O

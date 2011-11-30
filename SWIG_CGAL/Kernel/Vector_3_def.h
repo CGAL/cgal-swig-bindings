@@ -57,7 +57,7 @@ public:
     return sstr.str();
   }
 
-  #ifdef NO_SWIG_OR_PYTHON
+  #ifdef SWIGPYTHON
   bool __ne__(const Vector_3& r){return data!=r.get_data();}
   #endif
 //Deep copy

@@ -10,15 +10,6 @@
 
 #include <SWIG_CGAL/Kernel/decl.h>
 
-#ifndef SWIG
-#define NO_SWIG_OR_PYTHON
-#else
-#ifdef SWIGPYTHON
-#define NO_SWIG_OR_PYTHON
-#endif
-#endif
-
-
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel EPIC_Kernel;

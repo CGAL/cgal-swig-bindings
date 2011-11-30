@@ -57,7 +57,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Line_2,perpendicular,Point_2)
 //equality functions
   bool equals(const Line_2& r){return data==r.get_data();}
-  #ifdef NO_SWIG_OR_PYTHON
+  #ifdef SWIGPYTHON
   bool __ne__(const Line_2& r){return data!=r.get_data();}
   #endif
 //I/O

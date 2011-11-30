@@ -52,7 +52,7 @@ public:
   bool equals(const Segment_2& s){
     return data==s.get_data();
   }
-  #ifdef NO_SWIG_OR_PYTHON
+  #ifdef SWIGPYTHON
   bool __ne__(const Segment_2& s){return !equals(s);}
   #endif
 //I/O

@@ -53,7 +53,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Sphere_3,opposite)
 //equality functions
   bool equals(const Sphere_3& s){return data==s.get_data();}
-  #ifdef NO_SWIG_OR_PYTHON
+  #ifdef SWIGPYTHON
   bool __ne__(const Sphere_3& s){return !equals(s);}
   #endif  
 //I/O

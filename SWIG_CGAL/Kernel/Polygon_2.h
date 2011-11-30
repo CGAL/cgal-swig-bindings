@@ -63,7 +63,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_empty)
 //equality functions
   bool equals(const Polygon_2& r){return data==r.get_data();}
-  #ifdef NO_SWIG_OR_PYTHON
+  #ifdef SWIGPYTHON
   bool __ne__(const Polygon_2& r){return data!=r.get_data();}
   #endif  
 //I/O
