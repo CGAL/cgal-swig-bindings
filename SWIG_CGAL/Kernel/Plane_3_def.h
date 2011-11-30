@@ -61,7 +61,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on_positive_side,Point_3)
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
-  SWIG_CGAL_DECLARE_CALL_AND_REF_1(bool,has_on,Line_3)
+  SWIG_CGAL_DECLARE_CALL_1(bool,has_on,Line_3)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
 //equality functions
   bool equals(const Plane_3& p){

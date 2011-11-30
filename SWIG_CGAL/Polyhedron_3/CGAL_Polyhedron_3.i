@@ -85,5 +85,5 @@ SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Circulator,Polyhedron_3_Halfedge_handle
 %template(Polyhedron_3_Halfedge_around_vertex_circulator) SWIG_CGAL_Circulator< Polyhedron_3_::Halfedge_around_vertex_circulator,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
 
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Circulator,Polyhedron_3_Halfedge_handle,)
-%template(Polyhedron_3_Halfedge_around_facet_circulator) SWIG_CGAL_Circulator< Polyhedron_3_::Halfedge_around_vertex_circulator,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
+%template(Polyhedron_3_Halfedge_around_facet_circulator) SWIG_CGAL_Circulator< Polyhedron_3_::Halfedge_around_facet_circulator,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
 

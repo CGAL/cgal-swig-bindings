@@ -10,12 +10,12 @@
 
 //typedefs
 %define Point_3_output_iterator boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base > >  %enddef
-%define DT3_wrapper Delaunay_triangulation_3_wrapper<CGAL_DT3,SWIG_Triangulation_3::CGAL_Vertex_handle<CGAL_DT3,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<CGAL_DT3,Point_3> > %enddef
+%define DT3_wrapper Delaunay_triangulation_3_wrapper<CGAL_DT3,SWIG_Triangulation_3::CGAL_Vertex_handle<CGAL_DT3,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<CGAL_DT3,Point_3>,void* > %enddef
 %define Point_range_3 std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > %enddef
 
 %{
 typedef boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base > > Point_3_output_iterator;
-typedef Delaunay_triangulation_3_wrapper<CGAL_DT3,SWIG_Triangulation_3::CGAL_Vertex_handle<CGAL_DT3,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<CGAL_DT3,Point_3> > DT3_wrapper;
+typedef Delaunay_triangulation_3_wrapper<CGAL_DT3,SWIG_Triangulation_3::CGAL_Vertex_handle<CGAL_DT3,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<CGAL_DT3,Point_3>,void* > DT3_wrapper;
 typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range_3;
 %}
 

@@ -163,6 +163,9 @@ SWIG_CGAL_extract_data(T& t)
 #define SWIG_CGAL_FORWARD_CALL_AND_REF_0(RET,NAME) \
   SWIG_CGAL_FORWARD_CALL_AND_REF_SCOPE_0(RET,NAME,NAME)
 //---------------------------------------------------------------------------
+#define SWIG_CGAL_DECLARE_CALL_1(RET,NAME,IN_TYPE) \
+  inline RET NAME(const IN_TYPE& c);
+
 #define SWIG_CGAL_FORWARD_CALL_SCOPE_1(RET,NAME,INAME,IN_TYPE) \
   RET NAME(const IN_TYPE& c){\
     return RET(SWIG_CGAL_extract_data(this->get_data()).INAME(internal::Converter<IN_TYPE>::convert(c)));\
