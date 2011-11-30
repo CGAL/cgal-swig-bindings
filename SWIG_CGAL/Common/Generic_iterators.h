@@ -11,52 +11,47 @@
 //This file contains general classes that can be used when nothing in
 //done for a specific target languages to handle input and output iterators.
 
+#include <SWIG_CGAL/Common/Iterator.h>
 #include <vector>
+#include <boost/shared_ptr.hpp>
+#include <iterator>
 
-template<class Container,class Object>
-class General_iterator{
-  typename Container::cpp_iterator cur;
-  typename Container::cpp_iterator end;
-  
+
+#ifndef SWIG
+namespace internal{
+  template <class Object>
+  struct Container_writer_base{
+    boost::shared_ptr< std::vector<Object> > data_sptr;
+    Container_writer_base(): data_sptr(new std::vector<Object>() ){}
+    std::vector<Object>& data() {return *data_sptr;}
+  };
+}
+#endif
+
+
+template <class Cpp_object,class Object>
+class Generic_output_iterator
+#ifndef SWIG
+:public internal::Container_writer_base<Cpp_object>, 
+ public std::back_insert_iterator<std::vector<Cpp_object> >
+#endif
+{
 public:
-  typedef Object value_type;
+  typedef SWIG_CGAL_Iterator<typename std::vector<Cpp_object>::iterator,Object > Iterator;
 
-  General_iterator(
-    typename Container::cpp_iterator cur_,
-    typename Container::cpp_iterator end_
-  ):cur(cur_),end(end_){}
-   
-  General_iterator __iter__(){return *this;}
-  
-  value_type next()
-  {
-    if (cur!=end)
-      return *cur++;
-    #ifdef SWIGPYTHON
-    throw Stop_iteration();
-    #endif
-    return value_type();
-  }
-  
-  bool hasNext(){
-    return cur!=end;
-  }
-};
+  #ifndef SWIG
+  typedef internal::Container_writer_base<Cpp_object> Base1;
+  typedef std::back_insert_iterator<std::vector<Cpp_object> > Base2;
+  #endif
 
+  Generic_output_iterator()
+  #ifndef SWIG
+  :Base1(), Base2(this->data())
+  #endif
+  {}
 
-template <class Object>
-class Output_iterator{
-  std::vector<Object> data;
-  
-public:
-  typedef typename std::vector<Object>::iterator cpp_iterator;
-  typedef General_iterator<Output_iterator<Object>,Object > iterator;
-
-
-  std::vector<Object>& get_data(){return data;}
-  
-  iterator objects(){
-    return iterator(data.begin(),data.end());
+  Iterator iterator(){
+    return Iterator(this->data().begin(),this->data().end());
   }
 };
 
