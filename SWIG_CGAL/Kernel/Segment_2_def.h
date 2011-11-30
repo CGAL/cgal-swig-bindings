@@ -5,16 +5,16 @@
 // ------------------------------------------------------------------------------ 
 
 
-#ifndef SWIG_CGAL_KERNEL_SEGMENT_2_H
-#define SWIG_CGAL_KERNEL_SEGMENT_2_H
+#ifndef SWIG_CGAL_KERNEL_SEGMENT_2_DEF_H
+#define SWIG_CGAL_KERNEL_SEGMENT_2_DEF_H
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_2.h>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
-#include <SWIG_CGAL/Kernel/Vector_2.h>
-#include <SWIG_CGAL/Kernel/Line_2.h>
-#include <SWIG_CGAL/Kernel/Direction_2.h>
+#include <SWIG_CGAL/Kernel/Vector_2_def.h>
+#include <SWIG_CGAL/Kernel/Line_2_def.h>
+#include <SWIG_CGAL/Kernel/Direction_2_def.h>
 #include <SWIG_CGAL/Common/Macros.h>
 
 class SWIG_CGAL_KERNEL_DECL Segment_2{
@@ -67,7 +67,7 @@ public:
   void deepcopy(const Self& other){data=other.get_data();}
 };
 
-#endif //SWIG_CGAL_KERNEL_SEGMENT_2_H
+#endif //SWIG_CGAL_KERNEL_SEGMENT_2_DEF_H
 
 //Miscellaneous
 //  Bbox_2   s.bbox ()   returns a bounding box containing s.

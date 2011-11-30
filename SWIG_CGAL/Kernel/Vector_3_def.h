@@ -5,17 +5,17 @@
 // ------------------------------------------------------------------------------ 
 
 
-#ifndef SWIG_CGAL_KERNEL_VECTOR_3_H
-#define SWIG_CGAL_KERNEL_VECTOR_3_H
+#ifndef SWIG_CGAL_KERNEL_VECTOR_3_DEF_H
+#define SWIG_CGAL_KERNEL_VECTOR_3_DEF_H
 
 #include <sstream>
 
 #include <SWIG_CGAL/Kernel/include_conflicts_3.h>
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
-#include <SWIG_CGAL/Kernel/Segment_3.h>
-#include <SWIG_CGAL/Kernel/Line_3.h>
-#include <SWIG_CGAL/Kernel/Direction_3.h>
+#include <SWIG_CGAL/Kernel/Segment_3_def.h>
+#include <SWIG_CGAL/Kernel/Line_3_def.h>
+#include <SWIG_CGAL/Kernel/Direction_3_def.h>
 
 
 class SWIG_CGAL_KERNEL_DECL Vector_3{
@@ -66,7 +66,7 @@ public:
   void deepcopy(const Self& other){data=other.get_data();}
 };
 
-#endif //SWIG_CGAL_KERNEL_VECTOR_3_H
+#endif //SWIG_CGAL_KERNEL_VECTOR_3_DEF_H
 
 //Kernel::FT v.operator[] ( int i) returns cartesian(i).
 //Cartesian_const_iterator v.cartesian_begin () returns an iterator to the Cartesian coordinates of v, starting with the 0th coordinate.

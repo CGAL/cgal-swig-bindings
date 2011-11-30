@@ -5,17 +5,17 @@
 // ------------------------------------------------------------------------------ 
 
 
-#ifndef SWIG_CGAL_KERNEL_VECTOR_2_H
-#define SWIG_CGAL_KERNEL_VECTOR_2_H
+#ifndef SWIG_CGAL_KERNEL_VECTOR_2_DEF_H
+#define SWIG_CGAL_KERNEL_VECTOR_2_DEF_H
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_2.h>
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
-#include <SWIG_CGAL/Kernel/Segment_2.h>
-#include <SWIG_CGAL/Kernel/Line_2.h>
-#include <SWIG_CGAL/Kernel/Ray_2.h>
-#include <SWIG_CGAL/Kernel/Direction_2.h>
+#include <SWIG_CGAL/Kernel/Segment_2_def.h>
+#include <SWIG_CGAL/Kernel/Line_2_def.h>
+#include <SWIG_CGAL/Kernel/Ray_2_def.h>
+#include <SWIG_CGAL/Kernel/Direction_2_def.h>
 
 
 class SWIG_CGAL_KERNEL_DECL Vector_2{
@@ -61,7 +61,7 @@ public:
   void deepcopy(const Self& other){data=other.get_data();}
 };
 
-#endif //SWIG_CGAL_KERNEL_VECTOR_2_H
+#endif //SWIG_CGAL_KERNEL_VECTOR_2_DEF_H
 
 //  Vector_2(Null_vector NULL_VECTOR);
 //  double v.operator[] ( int i) returns cartesian(i).

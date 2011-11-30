@@ -5,8 +5,8 @@
 // ------------------------------------------------------------------------------ 
 
 
-#ifndef SWIG_CGAL_KERNEL_PLANE_3_H
-#define SWIG_CGAL_KERNEL_PLANE_3_H
+#ifndef SWIG_CGAL_KERNEL_PLANE_3_DEF_H
+#define SWIG_CGAL_KERNEL_PLANE_3_DEF_H
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_3.h>
@@ -15,10 +15,10 @@
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
-#include <SWIG_CGAL/Kernel/Segment_3.h>
-#include <SWIG_CGAL/Kernel/Line_3.h>
-#include <SWIG_CGAL/Kernel/Vector_3.h>
-#include <SWIG_CGAL/Kernel/Direction_3.h>
+#include <SWIG_CGAL/Kernel/Segment_3_def.h>
+#include <SWIG_CGAL/Kernel/Line_3_def.h>
+#include <SWIG_CGAL/Kernel/Vector_3_def.h>
+#include <SWIG_CGAL/Kernel/Direction_3_def.h>
 
 
 class SWIG_CGAL_KERNEL_DECL Plane_3{
@@ -61,7 +61,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on_positive_side,Point_3)
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
-  bool has_on(const Line_3&);
+  SWIG_CGAL_DECLARE_CALL_AND_REF_1(bool,has_on,Line_3)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
 //equality functions
   bool equals(const Plane_3& p){
@@ -83,7 +83,7 @@ public:
 };
 
 
-#endif //SWIG_CGAL_KERNEL_PLANE_3_H
+#endif //SWIG_CGAL_KERNEL_PLANE_3_DEF_H
 
 //Plane_3(const Circle_3& c);
 //SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Circle_3)

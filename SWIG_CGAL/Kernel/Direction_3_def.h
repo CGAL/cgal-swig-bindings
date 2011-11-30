@@ -5,16 +5,16 @@
 // ------------------------------------------------------------------------------ 
 
 
-#ifndef SWIG_CGAL_KERNEL_DIRECTION_3_H
-#define SWIG_CGAL_KERNEL_DIRECTION_3_H
+#ifndef SWIG_CGAL_KERNEL_DIRECTION_3_DEF_H
+#define SWIG_CGAL_KERNEL_DIRECTION_3_DEF_H
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_3.h>
 #include <SWIG_CGAL/Common/Macros.h>
-#include <SWIG_CGAL/Kernel/Segment_3.h>
-#include <SWIG_CGAL/Kernel/Line_3.h>
-#include <SWIG_CGAL/Kernel/Ray_3.h>
-#include <SWIG_CGAL/Kernel/Vector_3.h>
+#include <SWIG_CGAL/Kernel/Segment_3_def.h>
+#include <SWIG_CGAL/Kernel/Line_3_def.h>
+#include <SWIG_CGAL/Kernel/Ray_3_def.h>
+#include <SWIG_CGAL/Kernel/Vector_3_def.h>
 
 
 class SWIG_CGAL_KERNEL_DECL Direction_3{
@@ -56,7 +56,7 @@ public:
   void deepcopy(const Self& other){data=other.get_data();}
 };  
 
-#endif //SWIG_CGAL_KERNEL_DIRECTION_3_H
+#endif //SWIG_CGAL_KERNEL_DIRECTION_3_DEF_H
 
 //Direction_3<Kernel> d.operator- () The direction opposite to d.
 //Direction_3<Kernel> d.transform ( Aff_transformation_3<Kernel> t)

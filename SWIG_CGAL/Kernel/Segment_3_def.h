@@ -5,17 +5,17 @@
 // ------------------------------------------------------------------------------ 
 
 
-#ifndef SWIG_CGAL_KERNEL_SEGMENT_3_H
-#define SWIG_CGAL_KERNEL_SEGMENT_3_H
+#ifndef SWIG_CGAL_KERNEL_SEGMENT_3_DEF_H
+#define SWIG_CGAL_KERNEL_SEGMENT_3_DEF_H
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_3.h>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
-#include <SWIG_CGAL/Kernel/Line_3.h>
-#include <SWIG_CGAL/Kernel/Vector_3.h>
-#include <SWIG_CGAL/Kernel/Direction_3.h>
+#include <SWIG_CGAL/Kernel/Line_3_def.h>
+#include <SWIG_CGAL/Kernel/Vector_3_def.h>
+#include <SWIG_CGAL/Kernel/Direction_3_def.h>
 
 class SWIG_CGAL_KERNEL_DECL Segment_3{
   EPIC_Kernel::Segment_3 data;
@@ -67,7 +67,7 @@ public:
 
 
 
-#endif //SWIG_CGAL_KERNEL_SEGMENT_3_H
+#endif //SWIG_CGAL_KERNEL_SEGMENT_3_DEF_H
 
 //Bbox_3 s.bbox () returns a bounding box containing s.
 //Segment_3<Kernel> s.transform ( Aff_transformation_3<Kernel> t)

@@ -5,17 +5,17 @@
 // ------------------------------------------------------------------------------ 
 
 
-#ifndef SWIG_CGAL_KERNEL_LINE_3_H
-#define SWIG_CGAL_KERNEL_LINE_3_H
+#ifndef SWIG_CGAL_KERNEL_LINE_3_DEF_H
+#define SWIG_CGAL_KERNEL_LINE_3_DEF_H
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
-#include <SWIG_CGAL/Kernel/Segment_3.h>
-#include <SWIG_CGAL/Kernel/Plane_3.h>
-#include <SWIG_CGAL/Kernel/Vector_3.h>
-#include <SWIG_CGAL/Kernel/Direction_3.h>
-#include <SWIG_CGAL/Kernel/Ray_3.h>
+#include <SWIG_CGAL/Kernel/Segment_3_def.h>
+#include <SWIG_CGAL/Kernel/Plane_3_def.h>
+#include <SWIG_CGAL/Kernel/Vector_3_def.h>
+#include <SWIG_CGAL/Kernel/Direction_3_def.h>
+#include <SWIG_CGAL/Kernel/Ray_3_def.h>
 
 class Plane_3;
 
@@ -66,7 +66,7 @@ public:
   void deepcopy(const Self& other){data=other.get_data();}
 };
 
-#endif //SWIG_CGAL_KERNEL_LINE_3_H
+#endif //SWIG_CGAL_KERNEL_LINE_3_DEF_H
 
 //  Line_3<Kernel>  l.transform ( Aff_transformation_3<Kernel> t)
 
