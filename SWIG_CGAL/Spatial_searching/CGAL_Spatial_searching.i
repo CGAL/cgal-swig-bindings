@@ -24,8 +24,7 @@ Decl_void_type()
 
 
 %import  "SWIG_CGAL/Common/Macros.h"
-%import  "SWIG_CGAL/Kernel/Point_2.h"
-%import  "SWIG_CGAL/Kernel/Point_3.h"
+%import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 %include "SWIG_CGAL/Common/Iterator.h"
 
 //include files

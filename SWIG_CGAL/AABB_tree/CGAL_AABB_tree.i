@@ -33,13 +33,7 @@ SWIG_JAVABODY_METHODS(public,public,Object)
 %include "SWIG_CGAL/Common/Optional.h"
 
 //For Object
-%import "SWIG_CGAL/Kernel/Point_3.h"
-%import "SWIG_CGAL/Kernel/Triangle_3.h"
-%import "SWIG_CGAL/Kernel/Segment_3.h"
-%import "SWIG_CGAL/Kernel/Line_3.h"
-%import "SWIG_CGAL/Kernel/Plane_3.h"
-%import "SWIG_CGAL/Kernel/Ray_3.h"
-
+%import "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 
 //include files
 %{

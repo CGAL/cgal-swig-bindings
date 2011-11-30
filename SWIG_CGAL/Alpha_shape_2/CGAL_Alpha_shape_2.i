@@ -33,12 +33,7 @@ Decl_void_type()
 
 
 %import  "SWIG_CGAL/Common/Macros.h"
-%import  "SWIG_CGAL/Kernel/Point_2.h"
-%import  "SWIG_CGAL/Kernel/Segment_2.h"
-%import  "SWIG_CGAL/Kernel/Triangle_2.h"
-%import  "SWIG_CGAL/Kernel/Weighted_point_2.h"
-%import  "SWIG_CGAL/Kernel/enum.h"
-%import  "SWIG_CGAL/Kernel/Reference_wrappers.i"
+%import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 %import  "SWIG_CGAL/Triangulation_2/Reference_wrappers.i"
 %include "SWIG_CGAL/Common/Iterator.h"
 

@@ -29,7 +29,7 @@ Decl_void_type()
 #endif
 
 %import  "SWIG_CGAL/Common/Macros.h"
-%import  "SWIG_CGAL/Kernel/Reference_wrappers.i"
+%import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 
 %include "SWIG_CGAL/Mesh_2/config.i"
 

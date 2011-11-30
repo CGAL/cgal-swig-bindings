@@ -23,13 +23,7 @@ Decl_void_type()
 
 
 %import  "SWIG_CGAL/Common/Macros.h"
-%import  "SWIG_CGAL/Kernel/Point_3.h"
-%import  "SWIG_CGAL/Kernel/Sphere_3.h"
-%import  "SWIG_CGAL/Kernel/Segment_3.h"
-%import  "SWIG_CGAL/Kernel/Tetrahedron_3.h"
-%import  "SWIG_CGAL/Kernel/Triangle_3.h"
-%import  "SWIG_CGAL/Kernel/enum.h"
-%import  "SWIG_CGAL/Kernel/Reference_wrappers.i"
+%import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 %include "SWIG_CGAL/Common/Iterator.h"
 %import  "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
 %import  "SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h"
