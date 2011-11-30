@@ -226,6 +226,8 @@ public:
     if (own_triangulation) delete data_ptr;
     *this=Self(other.get_data());
   }
+//Special for SWIG
+  bool same_internal_object(const Self& other) {return other.data_ptr==data_ptr;}
 };
 
 //Creation

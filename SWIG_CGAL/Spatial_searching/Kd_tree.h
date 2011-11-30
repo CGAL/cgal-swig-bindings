@@ -56,6 +56,8 @@ public:
   void search(typename Query_iterator_helper<Query>::output out, const Fuzzy_iso_box& fbox)   { get_data().search(out,fbox.get_data());}
   
   SWIG_CGAL_FORWARD_CALL_0(void,build)
+//Special for SWIG
+  bool same_internal_object(const Kd_tree_wrapper<Cpp_base,Query,Fuzzy_sphere,Fuzzy_iso_box>& other) {return other.data_sptr.get()==data_sptr.get();}
 };
 
 
