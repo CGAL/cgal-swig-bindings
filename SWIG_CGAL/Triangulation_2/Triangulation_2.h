@@ -121,7 +121,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(void,remove_second,Vertex_handle)
   SWIG_CGAL_FORWARD_CALL_1(void,remove_first,Vertex_handle)
   Vertex_handle insert(const Point& p,SWIG_Triangulation_2::Locate_type l,const Face_handle& f,int i) {return get_data().insert(p.get_data(),CGAL::enum_cast<typename Triangulation::Locate_type>(l),f.get_data(),i);}
-  int insert_range(typename Weighting_helper<Weighted_tag>::Point_range range){
+  int insert(typename Weighting_helper<Weighted_tag>::Point_range range){
     return get_data().insert(range.first,range.second);
   }
 #endif  

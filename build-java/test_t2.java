@@ -45,7 +45,7 @@ public class test_t2 {
     lst.add( array[2] );
     lst.add( array[3] );
     
-    t.insert_range(lst.iterator());
+    t.insert(lst.iterator());
     
     System.out.println("Nb vertices after insert_range "+t.number_of_vertices());
     
@@ -134,7 +134,7 @@ public class test_t2 {
     wlst.add( new Weighted_point_2(new Point_2(21.9,3),0) );
     System.out.println("List size "+wlst.size());
     Regular_triangulation_2 rt=new Regular_triangulation_2();
-    rt.insert_range(wlst.iterator());
+    rt.insert(wlst.iterator());
     System.out.println("Nb vertices "+rt.number_of_vertices());
     int shv=0;
     for (Regular_triangulation_2_Vertex_handle rtvh : rt.hidden_vertices())
@@ -144,7 +144,7 @@ public class test_t2 {
     
     System.out.println("Testing Delaunay triangulation 2 with info in vertices and faces");
     Delaunay_triangulation_2 dt2 = new Delaunay_triangulation_2();
-    dt2.insert_range(lst.iterator());
+    dt2.insert(lst.iterator());
     int k=0;
     for (Delaunay_triangulation_2_Vertex_handle vh : dt2.finite_vertices())
       vh.info().set_data(new Double(++k));

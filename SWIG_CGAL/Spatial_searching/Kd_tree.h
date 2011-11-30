@@ -48,7 +48,7 @@ public:
   
 //Operations
   SWIG_CGAL_FORWARD_CALL_1(void,insert,Point_d)
-  void insert_range(Point_range range){ get_data().insert(range.first,range.second);}
+  void insert(Point_range range){ get_data().insert(range.first,range.second);}
   Iterator iterator(){return Iterator(get_data().begin(),get_data().end());}
   SWIG_CGAL_FORWARD_CALL_0(void,clear)
   SWIG_CGAL_FORWARD_CALL_0(int,size)

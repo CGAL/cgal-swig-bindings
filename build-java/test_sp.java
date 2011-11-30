@@ -52,7 +52,7 @@ public class test_sp {
     System.out.println(lst_search.size());
     
     K_neighbor_search_tree_2 tree2= new K_neighbor_search_tree_2();
-    tree2.insert_range(lst.iterator());
+    tree2.insert(lst.iterator());
     K_neighbor_search_2 search2 = new K_neighbor_search_2(tree2,new Point_2(0,0),3);
     for (Point_with_transformed_distance_2 p : search2.iterator())
       System.out.println(p.getFirst()+" "+p.getSecond());        

@@ -27,6 +27,7 @@ public:
   typedef Cell_handle_ Cell_handle;
 //Creation
   Regular_triangulation_3_wrapper(){}
+  Regular_triangulation_3_wrapper(typename Weighting_helper_3<CGAL::Tag_true>::Point_range range):Base(range.first,range.second){}    
   #ifndef SWIG
   Regular_triangulation_3_wrapper(const Triangulation& base):Base(base){}
   //constructor using a triangulation stored outside the wrapper class ( introduced for C3T3::triangulation() )

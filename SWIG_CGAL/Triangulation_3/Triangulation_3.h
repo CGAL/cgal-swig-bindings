@@ -70,9 +70,13 @@ public:
   //constructor using a triangulation stored outside the wrapper class ( introduced for C3T3::triangulation() )
   Triangulation_3_wrapper(cpp_base* base,Memory_holder mh):data_ptr(base),mem_holder(mh),own_triangulation(false){}
   void share_ownership(Memory_holder mh){own_triangulation=false; mem_holder=mh;}
+  //constructor used by inheriting classes  
+  template <class PointIterator>
+  Triangulation_3_wrapper(PointIterator first,PointIterator end):data_ptr(new cpp_base(first,end)){}
   #endif
   Triangulation_3_wrapper():data_ptr(new cpp_base()),own_triangulation(true){}
   ~Triangulation_3_wrapper(){if (own_triangulation) delete data_ptr;}
+  Triangulation_3_wrapper(typename Weighting_helper_3<Weighted_tag>::Point_range range):data_ptr(new cpp_base(range.first,range.second)){}
   
   typedef std::pair<Cell_handle,int>             Facet;
   typedef SWIG_CGAL::Triple<Cell_handle,int,int> Edge;  
@@ -141,7 +145,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(Vertex_handle,insert,Point)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Vertex_handle)
-  int insert_range(typename Weighting_helper_3<Weighted_tag>::Point_range range){ return get_data().insert(range.first,range.second); }
+  int insert(typename Weighting_helper_3<Weighted_tag>::Point_range range){ return get_data().insert(range.first,range.second); }
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_cell,Point,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_facet,Point,Facet)
   SWIG_CGAL_FORWARD_CALL_AND_REF_3(Vertex_handle,insert_in_facet,Point,Cell_handle,int)

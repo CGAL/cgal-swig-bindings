@@ -32,9 +32,12 @@ public class test_dt3 {
   lsti.add(new Point_3(1,1,15));
   lsti.add(new Point_3(154,11,5));
   lsti.add(new Point_3(14,0,45));     
-  t.insert_range(lsti.iterator());
+  t.insert(lsti.iterator());
   System.out.println("insert range OK");   
-    
+  
+  Delaunay_triangulation_3 tbis=new Delaunay_triangulation_3(lsti.iterator());
+  System.out.println("create with range OK");   
+  System.out.println(tbis.number_of_vertices());   
     
   Iterator<Delaunay_triangulation_3_Vertex_handle> it=t.finite_vertices();
   for (Delaunay_triangulation_3_Vertex_handle v : t.finite_vertices())

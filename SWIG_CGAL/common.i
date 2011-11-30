@@ -116,7 +116,7 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
       }
   }
   //check that the input is a list
-  %typemap(typecheck) Object_typemap_ {
+  %typemap(typecheck,precedence=0) Object_typemap_ {
     $1 = PyList_Check($input) ? 1 : 0;
   }
   
@@ -198,7 +198,7 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
     }
   }
   //check that the input is a list
-  %typemap(typecheck) Object_typemap_ {
+  %typemap(typecheck,precedence=0) Object_typemap_ {
     $1 = PyList_Check($input) ? 1 : 0;
   }
 %enddef

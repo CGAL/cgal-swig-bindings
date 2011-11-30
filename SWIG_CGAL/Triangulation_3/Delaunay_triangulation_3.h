@@ -38,6 +38,7 @@ public:
 //Creation
   Delaunay_triangulation_3_wrapper():Base(){}
   Delaunay_triangulation_3_wrapper(const Delaunay_triangulation_3_wrapper& dt):Base(static_cast<const Base&>(dt)){};
+  Delaunay_triangulation_3_wrapper(typename Weighting_helper_3<CGAL::Tag_false>::Point_range range):Base(range.first,range.second){}
 //Point moving
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,move,Vertex_handle,Point_3);
 //Removal

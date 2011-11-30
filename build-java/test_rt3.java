@@ -22,7 +22,7 @@ public class test_rt3 {
   lsti.add(new Weighted_point_3(new Point_3(1,1,15),2));
   lsti.add(new Weighted_point_3(new Point_3(154,11,5),3));
   lsti.add(new Weighted_point_3(new Point_3(14,0,45),4));     
-  t.insert_range(lsti.iterator());
+  t.insert(lsti.iterator());
   System.out.println("insert range OK");   
     
     
