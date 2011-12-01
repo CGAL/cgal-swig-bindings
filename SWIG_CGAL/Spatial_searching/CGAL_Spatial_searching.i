@@ -82,7 +82,7 @@ SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_2,Point_2,Point_2,P
 %define Kd_tree_output_iterator_3 Query_iterator_helper<Point_3>::output %enddef
 SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_3,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
 #else
-%include "SWIG_CGAL/Common/Generic_iterators.h"
+%include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
 SWIG_CGAL_declare_generic_output_iterator(Point_2_output_iterator,Point_2_output_iterator_nested_iterator,Point_2)
 SWIG_CGAL_declare_generic_output_iterator(Point_3_output_iterator,Point_3_output_iterator_nested_iterator,Point_3)
 #endif

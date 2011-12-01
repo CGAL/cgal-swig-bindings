@@ -26,7 +26,7 @@
   SWIG_CGAL_output_iterator_typemap_in(iSWIG_##EXPOSEDNAME##_wrapper::Edge_output_iterator,iSWIG_##EXPOSEDNAME##_Edge_wrapper,CLASSNAME_PREFIX##_Edge,iSWIG_##EXPOSEDNAME##_Edge_base,SWIGTYPE_p_std__pairT_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t_int_t,"LCGAL/Triangulation_2/" #EXPOSEDNAME "_Edge;")
   SWIG_CGAL_output_iterator_typemap_in(iSWIG_##EXPOSEDNAME##_wrapper::Face_output_iterator,iSWIG_##EXPOSEDNAME##_Face_wrapper,CLASSNAME_PREFIX##_Face_handle,CPPTYPE::Face_handle,SWIGTYPE_p_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t,"LCGAL/Triangulation_2/" #EXPOSEDNAME "_Face_handle;")
   #else
-  %include "SWIG_CGAL/Common/Generic_iterators.h"  
+  %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"  
   SWIG_CGAL_declare_generic_output_iterator(EXPOSEDNAME##_Edge_output_iterator,EXPOSEDNAME##_Edge_output_iterator_nested_iterator,iSWIG_##EXPOSEDNAME##_Edge_wrapper)
   SWIG_CGAL_declare_generic_output_iterator(EXPOSEDNAME##_Face_handle_output_iterator,EXPOSEDNAME##_Face_handle_output_iterator_nested_iterator,iSWIG_##EXPOSEDNAME##_Face_wrapper)
   #endif

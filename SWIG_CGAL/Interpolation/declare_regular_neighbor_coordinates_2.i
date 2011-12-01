@@ -35,7 +35,7 @@
 SWIG_CGAL_output_iterator_typemap_in(iWeighted_point_2_and_double_output_iterator,Weighted_point_2_and_double_wrapper,Weighted_point_2_and_double,Weighted_point_2_and_double_base,SWIGTYPE_p_std__pairT_Weighted_point_2_double_t,"LCGAL/Interpolation/Weighted_point_2_and_double;")
 #else
 %include "SWIG_CGAL/Common/Iterator.h"
-%include "SWIG_CGAL/Common/Generic_iterators.h"
+%include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
 %define iWeighted_point_2_and_double_output_iterator Generic_output_iterator< std::pair<Weighted_point_2,double> > %enddef
 %define iWeighted_point_2_and_double std::pair<Weighted_point_2,double> %enddef
 SWIG_CGAL_declare_generic_output_iterator(Weighted_point_2_and_double_output_iterator,Weighted_point_2_and_double_output_iterator_nested_iterator,iWeighted_point_2_and_double)

@@ -42,7 +42,7 @@
   SWIG_CGAL_output_iterator_typemap_in(CLASSNAME_PREFIX##_Edge_output_iterator,CLASSNAME_PREFIX##_Edge,CLASSNAME_PREFIX##_Edge,CPPTYPE::Edge,SWIGTYPE_p_SWIG_CGAL__TripleT_SWIG_Triangulation_3__CGAL_Cell_handleT_##CPPTYPE##_##POINT_TYPE##_t_int_int_t,"LCGAL/Triangulation_3/" #CLASSNAME_PREFIX "_Edge;")
   SWIG_CGAL_output_iterator_typemap_in(CLASSNAME_PREFIX##_Facet_output_iterator,CLASSNAME_PREFIX##_Facet,CLASSNAME_PREFIX##_Facet,CPPTYPE::Facet,SWIGTYPE_p_std__pairT_SWIG_Triangulation_3__CGAL_Cell_handleT_##CPPTYPE##_##POINT_TYPE##_t_int_t,"LCGAL/Triangulation_3/" #CLASSNAME_PREFIX "_Facet;")
   #else
-  %include "SWIG_CGAL/Common/Generic_iterators.h"  
+  %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"  
   %define CLASSNAME_PREFIX##_iCell_handle SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE> %enddef
   %define CLASSNAME_PREFIX##_iVertex_handle SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> %enddef
   %define CLASSNAME_PREFIX##_iFacet std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int> %enddef

@@ -32,7 +32,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(surface_neighbors_cert
 SWIG_CGAL_output_iterator_typemap_in(iPoint_3_output_iterator,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
 #else
 %include "SWIG_CGAL/Common/Iterator.h"
-%include "SWIG_CGAL/Common/Generic_iterators.h"
+%include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
 %define iPoint_3_output_iterator Generic_output_iterator< Point_3 >  %enddef
 SWIG_CGAL_declare_generic_output_iterator(Point_3_output_iterator,Point_3_output_iterator_nested_iterator,Point_3)
 #endif

@@ -31,7 +31,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(surface_neighbor_coord
 SWIG_CGAL_output_iterator_typemap_in(iPoint_3_and_double_output_iterator,Point_3_and_double_wrapper,Point_3_and_double,Point_3_and_double_base,SWIGTYPE_p_std__pairT_Point_3_double_t,"LCGAL/Interpolation/Point_3_and_double;")
 #else
 %include "SWIG_CGAL/Common/Iterator.h"
-%include "SWIG_CGAL/Common/Generic_iterators.h"
+%include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
 %define iPoint_3_and_double_output_iterator Generic_output_iterator<std::pair<Point_3,double> >  %enddef
 %define iPoint_3_and_double std::pair<Point_3,double>   %enddef
 SWIG_CGAL_declare_generic_output_iterator(Point_3_and_double_output_iterator,Point_3_and_double_output_iterator_nested_iterator,iPoint_3_and_double)
