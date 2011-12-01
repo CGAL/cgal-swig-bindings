@@ -71,8 +71,8 @@ std::pair<double,bool> regular_neighbor_coordinates_2(const RT2_wrapper& dt,cons
   {
     //we need to make a copy as the algorithm uses operator-- on the iterator, which is not defined in our case.
     std::list<CGAL_RT2::Edge> edges;
-    std::copy(erange.first,erange.second,std::back_inserter(edges));
-    return internal::extract_pair( CGAL::regular_neighbor_coordinates_2(dt.get_data(),p.get_data(),out,edges.begin(),edges.end(),vrange.first,vrange.second) );
+    std::copy(SWIG_CGAL::get_begin(erange),SWIG_CGAL::get_end(erange),std::back_inserter(edges));
+    return internal::extract_pair( CGAL::regular_neighbor_coordinates_2(dt.get_data(),p.get_data(),out,edges.begin(),edges.end(),SWIG_CGAL::get_begin(vrange),SWIG_CGAL::get_end(vrange)) );
   }
   
   std::pair<double,bool> 

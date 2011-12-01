@@ -36,11 +36,11 @@
     }
     void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t,Point_range range,CRITERIA criteria,bool mark)
     {
-      CGAL::refine_Delaunay_mesh_2(t.get_data(),range.first,range.second,criteria.get_data(),mark);
+      CGAL::refine_Delaunay_mesh_2(t.get_data(),SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),criteria.get_data(),mark);
     }    
     void refine_Delaunay_mesh_2 (M2_CDT_wrapper& t,Point_range range,CRITERIA criteria)
     {
-      CGAL::refine_Delaunay_mesh_2(t.get_data(),range.first,range.second,criteria.get_data());
+      CGAL::refine_Delaunay_mesh_2(t.get_data(),SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),criteria.get_data());
     }
   %} 
 %enddef  

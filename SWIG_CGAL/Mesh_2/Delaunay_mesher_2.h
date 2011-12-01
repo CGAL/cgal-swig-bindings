@@ -45,15 +45,15 @@ public:
   Delaunay_mesher_2_wrapper(CDT_wrapper& cdt,const Criteria_wrapper& criteria):data(cdt.get_data(),criteria.get_data()),cdt_sptr(cdt.shared_ptr()){}
 //Seeds functions
   SWIG_CGAL_FORWARD_CALL_0(void,clear_seeds)
-  void  set_seeds (Point_range range, const bool mark){data.set_seeds(range.first,range.second,mark);}
-  void  set_seeds (Point_range range)                 {data.set_seeds(range.first,range.second);}
+  void  set_seeds (Point_range range, const bool mark){data.set_seeds(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),mark);}
+  void  set_seeds (Point_range range)                 {data.set_seeds(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));}
   Seeds_const_iterator seeds() const {return Seeds_const_iterator(data.seeds_begin(),data.seeds_end());}
 //Meshing methods
   SWIG_CGAL_FORWARD_CALL_0(void,refine_mesh)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Criteria_wrapper,get_criteria)
   SWIG_CGAL_FORWARD_CALL_1(void,set_criteria,Criteria_wrapper)
   SWIG_CGAL_FORWARD_CALL_2(void,set_criteria,Criteria_wrapper,bool)
-  void set_bad_faces(Facet_range range){data.set_bad_faces(range.first,range.second);}
+  void set_bad_faces(Facet_range range){data.set_bad_faces(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));}
   //Step by step operations
   SWIG_CGAL_FORWARD_CALL_0(void,init)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_refinement_done)

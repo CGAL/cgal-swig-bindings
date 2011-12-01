@@ -27,7 +27,7 @@ public:
   typedef Cell_handle_ Cell_handle;
 //Creation
   Regular_triangulation_3_wrapper(){}
-  Regular_triangulation_3_wrapper(typename Weighting_helper_3<CGAL::Tag_true>::Point_range range):Base(range.first,range.second){}    
+  Regular_triangulation_3_wrapper(typename Weighting_helper_3<CGAL::Tag_true>::Point_range range):Base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)){}    
   #ifndef SWIG
   Regular_triangulation_3_wrapper(const Triangulation& base):Base(base){}
   //constructor using a triangulation stored outside the wrapper class ( introduced for C3T3::triangulation() )
@@ -50,8 +50,6 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_Gabriel,Vertex_handle)
 };
 
-//Creation
-// template < class InputIterator > Regular_triangulation_3<RegularTriangulationTraits_3,TriangulationDataStructure_3> rt ( InputIterator first,InputIterator last,RegularTriangulationTraits_3 traits = RegularTriangulationTraits_3());
 //Queries
 // template <class OutputIteratorBoundaryFacets, class OutputIteratorCells, class OutputIteratorInternalFacets> Triple<OutputIteratorBoundaryFacets, OutputIteratorCells, OutputIteratorInternalFacets> rt.find_conflicts ( const Weighted_point p, Cell_handle c,OutputIteratorBoundaryFacets bfit,OutputIteratorCells cit,OutputIteratorInternalFacets ifit)
 // template <class OutputIterator> OutputIterator rt.vertices_in_conflict ( Point p, Cell_handle c, OutputIterator res)

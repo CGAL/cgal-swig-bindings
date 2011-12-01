@@ -53,12 +53,12 @@ public:
 //Creation
   Alpha_shape_2_wrapper(){}
   Alpha_shape_2_wrapper(double alpha){this->get_data().set_alpha(alpha);}
-  Alpha_shape_2_wrapper(typename Weighting_helper<Weighted_tag>::Point_range range,double alpha){this->get_data().set_alpha(alpha); this->get_data().make_alpha_shape(range.first,range.second);}
+  Alpha_shape_2_wrapper(typename Weighting_helper<Weighted_tag>::Point_range range,double alpha){this->get_data().set_alpha(alpha); this->get_data().make_alpha_shape(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));}
   Alpha_shape_2_wrapper(double alpha,Mode m){this->get_data().set_alpha(alpha);this->get_data().set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );}    
   Alpha_shape_2_wrapper(typename Weighting_helper<Weighted_tag>::Point_range range,double alpha,Mode m){
     this->get_data().set_alpha(alpha);
     this->get_data().set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );
-    this->get_data().make_alpha_shape(range.first,range.second);  
+    this->get_data().make_alpha_shape(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));  
   }
 //Operations
   SWIG_CGAL_FORWARD_CALL_0(Mode,set_mode)
@@ -70,7 +70,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(double,get_nth_alpha,int)
   SWIG_CGAL_FORWARD_CALL_0(int,number_of_alphas)
   int make_alpha_shape(typename Weighting_helper<Weighted_tag>::Point_range range){
-    return this->get_data().make_alpha_shape(range.first,range.second);
+    return this->get_data().make_alpha_shape(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
   }  
 //Traversal of the alpha-Values
   Alpha_iterator  alpha(){return Alpha_iterator(this->get_data().alpha_begin(),this->get_data().alpha_end());}
@@ -99,9 +99,5 @@ public:
 
 #endif //SWIG_CGAL_ALPHA_SHAPE_2_ALPHA_SHAPE_2_H
 
-//Creation
-//  template < class InputIterator > Alpha_shape_2<Dt> A ( InputIterator first, InputIterator last, FT alpha = 0, Mode m = GENERAL);
-//Operations
-//  template < class InputIterator > int  A.make_alpha_shape ( InputIterator first, InputIterator last)
 //I/O
 //  ostream&  ostream& os << A  Inserts the alpha shape A for the current ?-value into the stream os.

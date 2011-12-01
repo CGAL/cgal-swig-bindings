@@ -17,5 +17,9 @@
 #include <SWIG_CGAL/Java/Input_iterator_wrapper.h>
 #endif
 
+namespace SWIG_CGAL{
+  template <class T> inline T& get_begin(std::pair<T,T>& p){return p.first;}
+  template <class T> inline T& get_end(std::pair<T,T>& p){return p.second;}
+}
 
 #endif //SWIG_CGAL_COMMON_INPUT_ITERATOR_WRAPPER_H

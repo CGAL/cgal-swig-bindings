@@ -74,8 +74,8 @@ SWIG_CGAL_input_iterator_typemap_in(Triple_integer_range,Integer_triple,Integer_
 %extend Modifier_wrapper< Polyhedron_3_,Build_triangular_facets_from_point_range<Polyhedron_3_::HalfedgeDS> >{
   void set_modifier_data(Point_range pt_range,Triple_integer_range int_range){
     //We need to make a copy because the iterator may not be valid when delegate will be called
-    std::copy (pt_range.first,pt_range.second,$self->get_modifier_cpp_base().point_writer()); //copy points into the modifier
-    std::copy (int_range.first,int_range.second,$self->get_modifier_cpp_base().integer_triple_writer()); //copy triple of integer into the modifier
+    std::copy (SWIG_CGAL::get_begin(pt_range),SWIG_CGAL::get_end(pt_range),$self->get_modifier_cpp_base().point_writer()); //copy points into the modifier
+    std::copy (SWIG_CGAL::get_begin(int_range),SWIG_CGAL::get_end(int_range),$self->get_modifier_cpp_base().integer_triple_writer()); //copy triple of integer into the modifier
   }
 }
 

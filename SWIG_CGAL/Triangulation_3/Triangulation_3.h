@@ -76,7 +76,7 @@ public:
   #endif
   Triangulation_3_wrapper():data_ptr(new cpp_base()),own_triangulation(true){}
   ~Triangulation_3_wrapper(){if (own_triangulation) delete data_ptr;}
-  Triangulation_3_wrapper(typename Weighting_helper_3<Weighted_tag>::Point_range range):data_ptr(new cpp_base(range.first,range.second)){}
+  Triangulation_3_wrapper(typename Weighting_helper_3<Weighted_tag>::Point_range range):data_ptr(new cpp_base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range))){}
   
   typedef std::pair<Cell_handle,int>             Facet;
   typedef SWIG_CGAL::Triple<Cell_handle,int,int> Edge;  
@@ -152,7 +152,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(Vertex_handle,insert,Point)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Vertex_handle)
-  int insert(typename Weighting_helper_3<Weighted_tag>::Point_range range){ return get_data().insert(range.first,range.second); }
+  int insert(typename Weighting_helper_3<Weighted_tag>::Point_range range){ return get_data().insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)); }
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_cell,Point,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert_in_facet,Point,Facet)
   SWIG_CGAL_FORWARD_CALL_AND_REF_3(Vertex_handle,insert_in_facet,Point,Cell_handle,int)
@@ -237,8 +237,6 @@ public:
   bool same_internal_object(const Self& other) {return other.data_ptr==data_ptr;}
 };
 
-//Creation
-// template < class InputIterator> Triangulation_3<TriangulationTraits_3,TriangulationDataStructure_3> t ( InputIterator first,InputIterator last,TriangulationTraits_3 traits = TriangulationTraits_3());
 //Assignment
 //  Triangulation_3 & t = Triangulation_3 tr
 //  void t.swap ( Triangulation_3 & tr)

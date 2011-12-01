@@ -38,7 +38,7 @@ public:
 //Creation
   Delaunay_triangulation_3_wrapper():Base(){}
   Delaunay_triangulation_3_wrapper(const Delaunay_triangulation_3_wrapper& dt):Base(static_cast<const Base&>(dt)){};
-  Delaunay_triangulation_3_wrapper(typename Weighting_helper_3<CGAL::Tag_false>::Point_range range):Base(range.first,range.second){}
+  Delaunay_triangulation_3_wrapper(typename Weighting_helper_3<CGAL::Tag_false>::Point_range range):Base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)){}
 //Point moving
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,move,Vertex_handle,Point_3);
 //Removal
@@ -56,8 +56,6 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_Gabriel,Edge)
 };
 
-//Creation
-// template < class InputIterator > Delaunay_triangulation_3<DelaunayTriangulationTraits_3,TriangulationDataStructure_3,LocationPolicy> dt ( InputIterator first,InputIterator last,DelaunayTriangulationTraits_3 traits = DelaunayTriangulationTraits_3());
 //Removal
 // template < typename InputIterator > int dt.remove ( InputIterator first, InputIterator beyond)
 //Queries

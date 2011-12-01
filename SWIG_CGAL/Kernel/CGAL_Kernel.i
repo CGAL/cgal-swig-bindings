@@ -134,9 +134,9 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
 //we need to extend the Polygon_2 class in the .i because some function are target language dependant
 %extend Polygon_2{
   void insert( int i, Point_range_2 range){
-    $self->get_data().insert(boost::next($self->get_data().vertices_begin(),i),range.first,range.second);
+    $self->get_data().insert(boost::next($self->get_data().vertices_begin(),i),SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
   }
-  Polygon_2(Point_range_2 range){return new Polygon_2(Polygon_2::cpp_base(range.first,range.second));}
+  Polygon_2(Point_range_2 range){return new Polygon_2(Polygon_2::cpp_base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)));}
 
   SWIG_CGAL_Iterator<Polygon_2::cpp_base::Vertex_iterator,Point_2>   vertices()   {return SWIG_CGAL_Iterator<Polygon_2::cpp_base::Vertex_iterator,Point_2>($self->get_data().vertices_begin(),$self->get_data().vertices_end());}
   SWIG_CGAL_Iterator<Polygon_2::cpp_base::Edge_const_iterator,Segment_2>  edges()      {return SWIG_CGAL_Iterator<Polygon_2::cpp_base::Edge_const_iterator,Segment_2>($self->get_data().edges_begin(),$self->get_data().edges_end());}
@@ -163,7 +163,7 @@ Bounded_side bounded_side_2(Point_range_2 range,const Point_2& p);
 %{
   #include <CGAL/Polygon_2_algorithms.h>
   Bounded_side bounded_side_2(Point_range_2 range,const Point_2& p){
-    return Bounded_side(CGAL::bounded_side_2(range.first,range.second,p.get_data(),EPIC_Kernel()));
+    return Bounded_side(CGAL::bounded_side_2(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),p.get_data(),EPIC_Kernel()));
   }
 %}
 

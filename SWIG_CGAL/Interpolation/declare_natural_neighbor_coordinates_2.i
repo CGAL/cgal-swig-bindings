@@ -65,7 +65,7 @@ std::pair<double,bool> natural_neighbor_coordinates_2(const DT2_wrapper& dt,cons
   {
     //we need to make a copy as the algorithm uses operator-- on the iterator, which is not defined in our case.
     std::list<CGAL_DT2::Edge> edges;
-    std::copy(its.first,its.second,std::back_inserter(edges));
+    std::copy(SWIG_CGAL::get_begin(its),SWIG_CGAL::get_end(its),std::back_inserter(edges));
     return internal::extract_pair( CGAL::natural_neighbor_coordinates_2(dt.get_data(),p.get_data(),out,edges.begin(),edges.end()) );
   }
   

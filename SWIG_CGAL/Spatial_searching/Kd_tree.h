@@ -44,11 +44,11 @@ public:
 
 //Creation
   Kd_tree_wrapper():data_sptr(new cpp_base()){}
-  Kd_tree_wrapper(Point_range range):data_sptr(new cpp_base(range.first,range.second)){}
+  Kd_tree_wrapper(Point_range range):data_sptr(new cpp_base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range))){}
   
 //Operations
   SWIG_CGAL_FORWARD_CALL_1(void,insert,Point_d)
-  void insert(Point_range range){ get_data().insert(range.first,range.second);}
+  void insert(Point_range range){ get_data().insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));}
   Iterator iterator(){return Iterator(get_data().begin(),get_data().end());}
   SWIG_CGAL_FORWARD_CALL_0(void,clear)
   SWIG_CGAL_FORWARD_CALL_0(int,size)

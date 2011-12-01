@@ -21,7 +21,7 @@ public:
 
   Constrained_Delaunay_triangulation_2_wrapper():Base(){}
   Constrained_Delaunay_triangulation_2_wrapper(Constraint_range range):Base(){
-    for (Input_constraint_iterator it=range.first;it!=range.second;++it)
+    for (Input_constraint_iterator it=SWIG_CGAL::get_begin(range);it!=SWIG_CGAL::get_end(range);++it)
       this->get_data().push_back(*it);
   }
 };

@@ -122,7 +122,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(void,remove_first,Vertex_handle)
   Vertex_handle insert(const Point& p,SWIG_Triangulation_2::Locate_type l,const Face_handle& f,int i) {return get_data().insert(p.get_data(),CGAL::enum_cast<typename Triangulation::Locate_type>(l),f.get_data(),i);}
   int insert(typename Weighting_helper<Weighted_tag>::Point_range range){
-    return get_data().insert(range.first,range.second);
+    return get_data().insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
   }
 #endif  
 // Traversal of the Triangulation

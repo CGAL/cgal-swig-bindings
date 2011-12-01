@@ -55,9 +55,9 @@ public:
 
 //Creation
   AABB_tree_wrapper(){}
-  AABB_tree_wrapper(Primitive_range range):data(range.first,range.second){}
+  AABB_tree_wrapper(Primitive_range range):data(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)){}
 //Operations  
-  void rebuild(Primitive_range range){ data.rebuild(range.first,range.second); }
+  void rebuild(Primitive_range range){ data.rebuild(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)); }
   SWIG_CGAL_FORWARD_CALL_0(void,clear)
   SWIG_CGAL_FORWARD_CALL_0(int,size)
   SWIG_CGAL_FORWARD_CALL_0(bool,empty)
@@ -162,7 +162,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_2(double,squared_distance,Point_3,Point_3)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Point_3,closest_point,Point_3,Point_3)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Point_and_primitive_id,closest_point_and_primitive,Point_3,Point_and_primitive_id)  
-  void accelerate_distance_queries (Point_range range) {data.accelerate_distance_queries(range.first,range.second);}  
+  void accelerate_distance_queries (Point_range range) {data.accelerate_distance_queries(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));}  
 };
 
 
