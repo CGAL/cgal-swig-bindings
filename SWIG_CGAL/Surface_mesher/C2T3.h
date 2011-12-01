@@ -49,9 +49,12 @@ public:
   typedef SWIG_CGAL_Iterator<typename C2T3::Edge_iterator,Edge>                          Edge_iterator;
   typedef SWIG_CGAL_Iterator<typename C2T3::Facet_iterator,Facet>                        Facet_iterator;
   typedef SWIG_CGAL_Iterator<typename C2T3::Boundary_edges_iterator,Edge>                Boundary_edges_iterator;
-
+  
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef typename C2T3_internal::Iterator_helper<Triangulation>::output Output_iterator;
-
+  #else
+  typedef Generic_output_iterator<typename Triangulation::Facet> Output_iterator;      
+  #endif
 //Creation
   //here it's a bit tricky: the ownership of the underlying cpp triangulation becomes shared,
   //so that if the wrapper t3 disappears, the cpp triangulation is not freed since it's shared.

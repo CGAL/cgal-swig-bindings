@@ -257,3 +257,33 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
 #define SWIG_CGAL_KERNEL_DECL
 #define SWIG_CGAL_AABB_TREE_DECL
 %enddef
+
+
+//For non supported target languages
+
+//Macro to declare pseudo output iterator.
+//--GenericOutputIterator is the name exposed in the target language of the container that mimic the cpp output iterator
+//--GenericIterator is the name exposed in the target language of the nested iterator of the previous class
+//--Object is the object type the output iterator is supposed to collect (from the target language point of view)
+%define SWIG_CGAL_declare_generic_output_iterator(GenericOutputIterator,GenericIterator,Object)
+  %template (GenericIterator) SWIG_CGAL_Iterator<std::vector< Generic_output_iterator< Object >::Cpp_object>::iterator,Object >;
+  %template (GenericOutputIterator) Generic_output_iterator< Object >;
+%enddef
+
+#if !defined(SWIGPYTHON) && !defined(SWIGJAVA)
+  #define SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE 1
+#else
+  #define SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE 0
+#endif
+%{
+#if !defined(SWIGPYTHON) && !defined(SWIGJAVA)
+  #define SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE 1
+#else
+  #define SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE 0
+#endif  
+%}
+
+#if SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+%define SWIG_CGAL_output_iterator_typemap_in(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
+%enddef
+#endif

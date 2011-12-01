@@ -52,8 +52,13 @@ public:
   Iterator iterator(){return Iterator(get_data().begin(),get_data().end());}
   SWIG_CGAL_FORWARD_CALL_0(void,clear)
   SWIG_CGAL_FORWARD_CALL_0(int,size)
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   void search(typename Query_iterator_helper<Query>::output out, const Fuzzy_sphere& fsphere) { get_data().search(out,fsphere.get_data());}
   void search(typename Query_iterator_helper<Query>::output out, const Fuzzy_iso_box& fbox)   { get_data().search(out,fbox.get_data());}
+  #else
+  void search(Generic_output_iterator<Query> out, const Fuzzy_sphere& fsphere) { get_data().search(out,fsphere.get_data());}
+  void search(Generic_output_iterator<Query> out, const Fuzzy_iso_box& fbox)   { get_data().search(out,fbox.get_data());}
+  #endif
   
   SWIG_CGAL_FORWARD_CALL_0(void,build)
 //Special for SWIG

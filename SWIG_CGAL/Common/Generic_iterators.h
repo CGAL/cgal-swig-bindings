@@ -29,14 +29,15 @@ namespace internal{
 #endif
 
 
-template <class Cpp_object,class Object>
+template <class Object>
 class Generic_output_iterator
 #ifndef SWIG
-:public internal::Container_writer_base<Cpp_object>, 
- public std::back_insert_iterator<std::vector<Cpp_object> >
+:public internal::Container_writer_base<typename internal::Converter<Object>::result_type>, 
+ public std::back_insert_iterator<std::vector<typename internal::Converter<Object>::result_type> >
 #endif
 {
 public:
+  typedef typename internal::Converter<Object>::result_type Cpp_object;
   typedef SWIG_CGAL_Iterator<typename std::vector<Cpp_object>::iterator,Object > Iterator;
 
   #ifndef SWIG
@@ -54,6 +55,5 @@ public:
     return Iterator(this->data().begin(),this->data().end());
   }
 };
-
 
 #endif //SWIG_CGAL_GENERIC_ITERATOR_H

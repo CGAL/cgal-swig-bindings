@@ -38,8 +38,11 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_constrained,Edge)
   SWIG_CGAL_FORWARD_CALL_1(bool,are_there_incident_constraints,Vertex_handle)
   SWIG_CGAL_FORWARD_CALL_1(void,push_back,Constraint)
-
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef boost::function_output_iterator< Container_writer<Edge,typename Triangulation::Edge> > Edge_output_iterator;
+  #else
+  typedef Generic_output_iterator< std::pair<Face_handle,int> >       Edge_output_iterator;
+  #endif
   void incident_constraints (const Vertex_handle& v, Edge_output_iterator edge_output_iterator){
     this->get_data().incident_constraints(v.get_data(),edge_output_iterator);
   }      

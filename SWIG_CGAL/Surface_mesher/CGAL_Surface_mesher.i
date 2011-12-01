@@ -66,11 +66,14 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Delaunay_triangulation
 #endif
 
 //typemap for output iterator
-%define Complex_2_in_triangulation_3_Facet_output_iterator  C2T3_internal::Iterator_helper<Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,boost::shared_ptr<C2T3_DT> > >::output %enddef
 %{
 typedef std::pair< SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int >                              Surface_mesh_default_triangulation_3_Facet;
 %}
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+%define Complex_2_in_triangulation_3_Facet_output_iterator  C2T3_internal::Iterator_helper<Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,boost::shared_ptr<C2T3_DT> > >::output %enddef
 SWIG_CGAL_output_iterator_typemap_in(Complex_2_in_triangulation_3_Facet_output_iterator,Surface_mesh_default_triangulation_3_Facet,Surface_mesh_default_triangulation_3_Facet,C2T3_DT::Facet,SWIGTYPE_p_std__pairT_SWIG_Triangulation_3__CGAL_Cell_handleT_C2T3_DT_Point_3_t_int_t,"LCGAL/Surface_mesher/Surface_mesh_default_triangulation_3_Facet;")
+#endif //#else is needed as the output_iterator type is already defined within declare_Delaunay_triangulation_3
+
 
 //iterators
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Surface_mesh_default_triangulation_3_Vertex_handle,import CGAL.Kernel.Point_3;)

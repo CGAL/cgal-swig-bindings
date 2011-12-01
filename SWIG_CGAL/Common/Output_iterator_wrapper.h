@@ -15,5 +15,8 @@
 #include <SWIG_CGAL/Java/Output_iterator_wrapper.h>
 #endif
 
+#if SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+#include <SWIG_CGAL/Common/Generic_iterators.h>
+#endif
 
 #endif //SWIG_CGAL_COMMON_OUTPUT_ITERATOR_WRAPPER_H

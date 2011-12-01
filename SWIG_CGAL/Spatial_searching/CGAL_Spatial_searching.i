@@ -76,10 +76,16 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Kd_tree_wrapper::Kd_tr
 %template(Fuzzy_iso_box_3)  Fuzzy_iso_box_wrapper<CGAL_FB_3,Point_3>;
 
 //typemaps for output iterator
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define Kd_tree_output_iterator_2 Query_iterator_helper<Point_2>::output %enddef
 SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_2,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"LCGAL/Kernel/Point_2;")
 %define Kd_tree_output_iterator_3 Query_iterator_helper<Point_3>::output %enddef
 SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_3,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
+#else
+%include "SWIG_CGAL/Common/Generic_iterators.h"
+SWIG_CGAL_declare_generic_output_iterator(Point_2_output_iterator,Point_2_output_iterator_nested_iterator,Point_2)
+SWIG_CGAL_declare_generic_output_iterator(Point_3_output_iterator,Point_3_output_iterator_nested_iterator,Point_3)
+#endif
 
 %include "SWIG_CGAL/Spatial_searching/declare_spatial_searching_objects.i"
 Declare_spatial_searching_objects_incremental(Orthogonal_incremental,OI,Point_2,2)

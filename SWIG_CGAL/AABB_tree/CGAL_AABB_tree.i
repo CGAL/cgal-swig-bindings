@@ -103,6 +103,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(AABB_tree_wrapper::AAB
 #endif
 SWIG_CGAL_input_iterator_typemap_in(Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",accelerate_distance_queries)
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //intersected primitive output iterator
 %define Polyhedron_3_Facet_output_iterator Primitive_iterator_helper<SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> >::output %enddef
 SWIG_CGAL_output_iterator_typemap_in(Polyhedron_3_Facet_output_iterator,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> ,Polyhedron_3_Facet_handle,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> ::cpp_base,SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t,"LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;")
@@ -128,7 +129,18 @@ SWIG_CGAL_output_iterator_typemap_in(Polyhedron_3_Halfedge_output_iterator_2,Obj
 %{ typedef std::pair<Object,int > Object_and_Integer; %}
 %define Object_and_Integer_base std::pair<CGAL::Object,int> %enddef
 SWIG_CGAL_output_iterator_typemap_in(Soup_output_iterator_2,Object_and_Integer,Object_and_Integer,Object_and_Integer_base,SWIGTYPE_p_std__pairT_Object_int_t,"LCGAL/AABB_tree/Object_and_Integer;")
-
+#else
+%include "SWIG_CGAL/Common/Generic_iterators.h"
+SWIG_CGAL_declare_generic_output_iterator(Polyhedron_3_Facet_output_iterator,Polyhedron_3_Facet_output_iterator_nested_iterator,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>)
+SWIG_CGAL_declare_generic_output_iterator(Polyhedron_3_Halfedge_output_iterator,Polyhedron_3_Halfedge_output_iterator_nested_iterator,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>)
+SWIG_CGAL_declare_generic_output_iterator(Integer_output_iterator,Integer_output_iterator_nested_iterator,int)
+%define iObject_and_Facet std::pair<Object,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> > %enddef
+SWIG_CGAL_declare_generic_output_iterator(Polyhedron_3_Facet_and_Object_output_iterator,Polyhedron_3_Facet_and_Object_output_iterator_nested_iterator,iObject_and_Facet)
+%define iObject_and_Halfedge std::pair<Object,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> > %enddef
+SWIG_CGAL_declare_generic_output_iterator(Polyhedron_3_Halfedge_and_Object_output_iterator,Polyhedron_3_Halfedge_and_Object_output_iterator_nested_iterator,iObject_and_Halfedge)
+%define iObject_and_Integer std::pair<Object,int> %enddef
+SWIG_CGAL_declare_generic_output_iterator(Object_and_Integer_output_iterator,Object_and_Integer_output_iterator_nested_iterator,iObject_and_Integer)
+#endif
 
 //Declaration of the main classes
 %typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}

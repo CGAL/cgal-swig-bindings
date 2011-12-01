@@ -93,10 +93,17 @@ public:
   typedef SWIG_CGAL_Circulator<typename Triangulation::Cell_circulator,Cell_handle>                     Cell_circulator;
   typedef SWIG_CGAL_Circulator<typename Triangulation::Facet_circulator,Facet>                          Facet_circulator;
 //Output iterator typedefs  
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef boost::function_output_iterator< Container_writer<Cell_handle,typename Triangulation::Cell_handle> >          Cell_handle_output_iterator;
   typedef boost::function_output_iterator< Container_writer<Vertex_handle,typename Triangulation::Vertex_handle> >      Vertex_handle_output_iterator;
   typedef boost::function_output_iterator< Container_writer<Facet,typename Triangulation::Facet> >                      Facet_output_iterator;
   typedef boost::function_output_iterator< Container_writer<Edge,typename Triangulation::Edge> >                        Edge_output_iterator;
+  #else
+  typedef Generic_output_iterator< Cell_handle >                                 Cell_handle_output_iterator;
+  typedef Generic_output_iterator< Vertex_handle >                               Vertex_handle_output_iterator;
+  typedef Generic_output_iterator< std::pair<Cell_handle,int> >                  Facet_output_iterator;
+  typedef Generic_output_iterator< SWIG_CGAL::Triple<Cell_handle,int,int> >      Edge_output_iterator;  
+  #endif
 //Modifiers
   SWIG_CGAL_FORWARD_CALL_0(void,clear)  
 //Access Functions

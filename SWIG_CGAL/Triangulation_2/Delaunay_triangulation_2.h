@@ -18,9 +18,13 @@ class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangula
 {
   typedef Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false> Base;
 public:
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef boost::function_output_iterator< Container_writer<std::pair<Face_handle,int>,std::pair<typename Triangulation::Face_handle,int> > >     Edge_output_iterator;
   typedef boost::function_output_iterator< Container_writer<Face_handle,typename Triangulation::Face_handle > >                                   Face_output_iterator;
-
+  #else
+  typedef Generic_output_iterator< std::pair<Face_handle,int> >       Edge_output_iterator;
+  typedef Generic_output_iterator< Face_handle >                      Face_output_iterator;
+  #endif
 
   #ifndef SWIG
   typedef Triangulation cpp_base;

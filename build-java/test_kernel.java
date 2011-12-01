@@ -1,6 +1,8 @@
 import CGAL.Kernel.Point_2;
 import CGAL.Kernel.Segment_2;
 import CGAL.Kernel.Polygon_2;
+import CGAL.Kernel.Direction_3;
+import CGAL.Kernel.Vector_3;
 import java.util.LinkedList;
 
 
@@ -21,7 +23,8 @@ public class test_kernel {
     for ( Segment_2 p : poly.edges() )
       System.out.println(p);
     
-    
+    Vector_3 v=new Vector_3(1,1,1);
+    Direction_3 d= v.direction();
     
   }
 

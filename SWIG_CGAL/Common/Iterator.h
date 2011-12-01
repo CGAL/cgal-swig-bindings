@@ -166,10 +166,12 @@ public:
     return Iterator_helper<Value_type>::convert ( (cur++) );
   }
   
+  #ifdef SWIGJAVA
   void next(Value_type& r)
   {
     r = Iterator_helper<Value_type>::convert ( (cur++) );
   }
+  #endif
   
   Value_type prev() {
     return Iterator_helper<Value_type>::convert ( (cur--) );
