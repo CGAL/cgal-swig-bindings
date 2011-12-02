@@ -30,7 +30,11 @@ struct Primitive_iterator_helper
   typedef boost::function_output_iterator< Container_writer<std::pair<Object,Primitive_object>,std::pair<CGAL::Object,typename internal::Converter<Primitive_object>::result_type > > >     output2;
 };
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
+#else
+typedef Generic_input_iterator<Point_3> Point_range;
+#endif
 
 template <class Tree,class Primitive_object,class Primitive_id>
 class AABB_tree_wrapper
@@ -46,7 +50,12 @@ public:
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
   #endif
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef typename Primitive_iterator_helper<Primitive_object>::input Primitive_range;
+  #else
+  typedef Generic_input_iterator<Primitive_object> Primitive_range;
+  #endif
+
   typedef std::pair<Point_3,Primitive_id> Point_and_primitive_id;
   typedef std::pair<Object,Primitive_id>  Object_and_primitive_id;
   typedef Optional<Primitive_id> Optional_primitive_id;

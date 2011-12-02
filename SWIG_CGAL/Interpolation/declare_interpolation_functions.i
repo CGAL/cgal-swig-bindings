@@ -10,6 +10,7 @@
 
 
 //typedefs
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define Point_2_and_double_range std::pair<Input_iterator_wrapper<std::pair<Point_2,double>,std::pair<Point_2::cpp_base,double> >,Input_iterator_wrapper<std::pair<Point_2,double>,std::pair<Point_2::cpp_base,double> > > %enddef
 %define Point_2_and_double_wrapper std::pair<Point_2,double> %enddef
 %define Point_2_and_double_base std::pair<Point_2::cpp_base,double> %enddef
@@ -26,7 +27,11 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(quadratic_interpolatio
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(sibson_c1_interpolation)
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(sibson_c1_interpolation_square)
 #endif
-
+#else //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+%define Point_2_and_double_range Generic_input_iterator< std::pair<Point_2,double> > %enddef
+%{ typedef Generic_input_iterator< std::pair<Point_2,double> > Point_2_and_double_range; %}
+%template(Point_2_and_double_input_iterator) Generic_input_iterator< std::pair<Point_2,double> >;
+#endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 
 
 double linear_interpolation(Point_2_and_double_range range,double norm,const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values);

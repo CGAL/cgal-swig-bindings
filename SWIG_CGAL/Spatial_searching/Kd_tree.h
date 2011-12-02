@@ -40,7 +40,11 @@ public:
   typedef SWIG_CGAL_Iterator<typename Cpp_base::iterator,Query> Iterator;
   typedef Query Point_d;
 //Input iterator
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef typename Query_iterator_helper<Query>::input       Point_range; 
+  #else
+  typedef Generic_input_iterator<Query> Point_range;
+  #endif
 
 //Creation
   Kd_tree_wrapper():data_sptr(new cpp_base()){}

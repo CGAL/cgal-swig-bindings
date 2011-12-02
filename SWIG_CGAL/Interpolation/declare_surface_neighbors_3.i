@@ -10,32 +10,35 @@
 
 //typedefs
 %define DT3_wrapper Delaunay_triangulation_3_wrapper<CGAL_DT3,SWIG_Triangulation_3::CGAL_Vertex_handle<CGAL_DT3,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<CGAL_DT3,Point_3>,void* > %enddef
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define Point_range_3 std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > %enddef
-
+#else
+%define Point_range_3 Generic_input_iterator<Point_3> %enddef
+#endif
 %{
   #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base > > iPoint_3_output_iterator;
+  typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range_3;
   #else
   typedef Generic_output_iterator< Point_3 > iPoint_3_output_iterator;
+  typedef Generic_input_iterator<Point_3> Point_range_3;
   #endif
 typedef Delaunay_triangulation_3_wrapper<CGAL_DT3,SWIG_Triangulation_3::CGAL_Vertex_handle<CGAL_DT3,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<CGAL_DT3,Point_3>,void* > DT3_wrapper;
-typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range_3;
 %}
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 SWIG_CGAL_input_iterator_typemap_in(Point_range_3,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",surface_neighbors_3)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(surface_neighbors_certified_3)
 #endif
-
-#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define iPoint_3_output_iterator boost::function_output_iterator< Container_writer<Point_3,Point_3::cpp_base > >  %enddef
 SWIG_CGAL_output_iterator_typemap_in(iPoint_3_output_iterator,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
-#else
+#else //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %include "SWIG_CGAL/Common/Iterator.h"
 %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
 %define iPoint_3_output_iterator Generic_output_iterator< Point_3 >  %enddef
 SWIG_CGAL_declare_generic_output_iterator(Point_3_output_iterator,Point_3_output_iterator_nested_iterator,Point_3)
-#endif
+#endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 
 void surface_neighbors_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,iPoint_3_output_iterator out);
 bool surface_neighbors_certified_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,iPoint_3_output_iterator out);

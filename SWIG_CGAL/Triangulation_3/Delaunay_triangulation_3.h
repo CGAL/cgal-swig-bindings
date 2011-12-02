@@ -22,6 +22,11 @@ class Delaunay_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulat
  
 public:
   typedef Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_false,Memory_holder> Base;
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+  typedef typename Weighting_helper_3<CGAL::Tag_false>::Point_range Point_range;
+  #else
+  typedef Generic_input_iterator<Point_3> Point_range;
+  #endif
 
   #ifndef SWIG
   typedef typename Base::cpp_base cpp_base;
@@ -38,7 +43,7 @@ public:
 //Creation
   Delaunay_triangulation_3_wrapper():Base(){}
   Delaunay_triangulation_3_wrapper(const Delaunay_triangulation_3_wrapper& dt):Base(static_cast<const Base&>(dt)){};
-  Delaunay_triangulation_3_wrapper(typename Weighting_helper_3<CGAL::Tag_false>::Point_range range):Base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)){}
+  Delaunay_triangulation_3_wrapper(Point_range range):Base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)){}
 //Point moving
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,move,Vertex_handle,Point_3);
 //Removal

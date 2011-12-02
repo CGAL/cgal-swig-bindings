@@ -58,12 +58,14 @@ Decl_void_type()
 %typemap(javaimports)       std::pair<Point_3,double> %{import CGAL.Kernel.Point_3;%}
 %template(Point_with_transformed_distance_3) std::pair<Point_3,double>;
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemap for point input iterator
 SWIG_CGAL_input_iterator_typemap_in(Query_iterator_helper<Point_2>::input,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
 SWIG_CGAL_input_iterator_typemap_in(Query_iterator_helper<Point_3>::input,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Kd_tree_wrapper::Kd_tree_wrapper)
 #endif
+#endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 
 //Fuzzy objects
 %typemap(javaimports)       Fuzzy_sphere_wrapper%{import CGAL.Kernel.Point_2;%}

@@ -94,6 +94,7 @@ SWIG_JAVABODY_METHODS(public,public,Object)
 %template (Optional_Object_and_Integer)    Optional< std::pair<Object,int > >;
 
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> >::input,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>,Polyhedron_3_Facet_handle,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>::cpp_base,SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t,"(LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;)J",rebuild)
 SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >::input,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,Polyhedron_3_Halfedge_handle,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>::cpp_base,SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t,"(LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;)J",rebuild)
 SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< Triangle_3 >::input,Triangle_3,Triangle_3,Triangle_3::cpp_base,SWIGTYPE_p_Triangle_3,"(LCGAL/Kernel/Triangle_3;)J",rebuild)
@@ -102,6 +103,10 @@ SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< Segment_3 >::inpu
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(AABB_tree_wrapper::AABB_tree_wrapper)
 #endif
 SWIG_CGAL_input_iterator_typemap_in(Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",accelerate_distance_queries)
+#else //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+%template(Polyhedron_3_Facet_handle_input_iterator) Generic_input_iterator< SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> >;
+%template(Polyhedron_3_Halfedge_handle_input_iterator) Generic_input_iterator< SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >;
+#endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //intersected primitive output iterator

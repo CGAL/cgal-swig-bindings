@@ -60,6 +60,7 @@ Decl_void_type()
 
 %include "SWIG_CGAL/Triangulation_2/config.i"
 %include "SWIG_CGAL/Triangulation_3/config.i"
+%include "SWIG_CGAL/Common/Input_iterator_wrapper.h"
 %import  "SWIG_CGAL/Triangulation_2/CGAL_Triangulation_2.i"
 %import  "SWIG_CGAL/Triangulation_3/CGAL_Triangulation_3.i"
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"

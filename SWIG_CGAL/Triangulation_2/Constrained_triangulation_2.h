@@ -15,8 +15,14 @@
 #include <CGAL/Constrained_triangulation_2.h>
 
 typedef std::pair<Point_2,Point_2>                                          Constraint;
+
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 typedef Input_iterator_wrapper<Constraint,std::pair<Point_2::cpp_base,Point_2::cpp_base> > Input_constraint_iterator;
 typedef std::pair<Input_constraint_iterator,Input_constraint_iterator > Constraint_range;
+#else
+typedef Generic_input_iterator< std::pair<Point_2,Point_2> > Constraint_range;
+typedef Constraint_range::Iterator Input_constraint_iterator;
+#endif
 
 template <class Triangulation,class Vertex_handle, class Face_handle>
 class Constrained_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false>

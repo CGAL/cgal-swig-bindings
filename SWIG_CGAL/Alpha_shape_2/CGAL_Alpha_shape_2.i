@@ -65,6 +65,7 @@ Decl_void_type()
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Ref_int; import CGAL.Triangulation_2.Ref_Locate_type; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Triangle_2; import CGAL.Kernel.Segment_2;  import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemap for point input iterator
 SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",make_alpha_shape)
 //typemap for weighted point input iterator
@@ -72,6 +73,7 @@ SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_true>::Point_rang
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Alpha_shape_2_wrapper::Alpha_shape_2_wrapper)
 #endif
+#endif //SWIG_CGAL_NON_SUPPORTED
 %import "SWIG_CGAL/Alpha_shape_2/declare_alpha_shape_2.i"
 
 #ifdef   SWIG_EXPOSE_ALPHA_SHAPE_2

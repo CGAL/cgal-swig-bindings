@@ -67,9 +67,13 @@ SWIG_JAVABODY_METHODS(public,public,Polygon_2)
 //include files
 %{
   #include <SWIG_CGAL/Kernel/Point_2.h>
-  
   #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
+
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > Point_range_2;  
+  #else
+  typedef Generic_input_iterator<Point_2> Point_range_2;
+  #endif
   
   #include <SWIG_CGAL/Kernel/Weighted_point_2.h>
   #include <SWIG_CGAL/Kernel/Segment_2.h>
@@ -97,9 +101,20 @@ SWIG_JAVABODY_METHODS(public,public,Polygon_2)
 %}
 
 //typemaps for Polygon_2
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 SWIG_CGAL_input_iterator_typemap_in(Point_range_2,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
+#endif
+#else
+%include "SWIG_CGAL/Common/Input_iterator_wrapper.h"
+%define Point_range_2 Generic_input_iterator<Point_2> %enddef
+%template(Point_2_input_iterator) Generic_input_iterator<Point_2>;
+%template(Point_3_input_iterator) Generic_input_iterator<Point_3>;
+%template(Weighted_point_2_input_iterator) Generic_input_iterator<Weighted_point_2>;
+%template(Weighted_point_3_input_iterator) Generic_input_iterator<Weighted_point_3>;
+%template(Triangle_3_input_iterator) Generic_input_iterator<Triangle_3>;
+%template(Segment_3_input_iterator) Generic_input_iterator<Segment_3>;
 #endif
 
 //definitions

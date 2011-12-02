@@ -46,6 +46,12 @@ class Alpha_shape_2_wrapper : public Base
   Self deepcopy();
   void deepcopy(const Self&);  
 public:
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+  typedef typename Weighting_helper<Weighted_tag>::Point_range Point_range;
+  #else
+  typedef Generic_input_iterator<Point> Point_range;
+  #endif
+
   typedef std::pair<Face_handle,int> Edge;
   typedef SWIG_CGAL_Iterator<typename Alpha_shape::Alpha_iterator,double>                              Alpha_iterator;
   typedef SWIG_CGAL_Iterator<typename Alpha_shape::Alpha_shape_vertices_iterator,Vertex_handle>        Alpha_shape_vertices_iterator;
@@ -53,9 +59,9 @@ public:
 //Creation
   Alpha_shape_2_wrapper(){}
   Alpha_shape_2_wrapper(double alpha){this->get_data().set_alpha(alpha);}
-  Alpha_shape_2_wrapper(typename Weighting_helper<Weighted_tag>::Point_range range,double alpha){this->get_data().set_alpha(alpha); this->get_data().make_alpha_shape(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));}
+  Alpha_shape_2_wrapper(Point_range range,double alpha){this->get_data().set_alpha(alpha); this->get_data().make_alpha_shape(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));}
   Alpha_shape_2_wrapper(double alpha,Mode m){this->get_data().set_alpha(alpha);this->get_data().set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );}    
-  Alpha_shape_2_wrapper(typename Weighting_helper<Weighted_tag>::Point_range range,double alpha,Mode m){
+  Alpha_shape_2_wrapper(Point_range range,double alpha,Mode m){
     this->get_data().set_alpha(alpha);
     this->get_data().set_mode( CGAL::enum_cast<typename Alpha_shape::Mode>(m) );
     this->get_data().make_alpha_shape(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));  
@@ -69,7 +75,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(double,get_alpha)
   SWIG_CGAL_FORWARD_CALL_1(double,get_nth_alpha,int)
   SWIG_CGAL_FORWARD_CALL_0(int,number_of_alphas)
-  int make_alpha_shape(typename Weighting_helper<Weighted_tag>::Point_range range){
+  int make_alpha_shape(Point_range range){
     return this->get_data().make_alpha_shape(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
   }  
 //Traversal of the alpha-Values

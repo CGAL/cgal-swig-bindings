@@ -57,8 +57,14 @@ typedef CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_and_info_3
 %include "SWIG_CGAL//Common/triple.h"
 %template(Integer_triple)  SWIG_CGAL::Triple<int,int,int>;
 //typemap for input iterators
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 SWIG_CGAL_input_iterator_typemap_in(Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",set_modifier_data)
 SWIG_CGAL_input_iterator_typemap_in(Triple_integer_range,Integer_triple,Integer_triple,iInteger_triple,SWIGTYPE_p_SWIG_CGAL__TripleT_int_int_int_t,"(LCGAL/Polyhedron_3/Integer_triple;)J",set_modifier_data)
+#else
+%define Point_range Generic_input_iterator<Point_3> %enddef
+%define Triple_integer_range Generic_input_iterator< SWIG_CGAL::Triple<int,int,int> > %enddef
+%template(Integer_triple_input_iterator) Generic_input_iterator< SWIG_CGAL::Triple<int,int,int> >;
+#endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 
 %{
   #include <SWIG_CGAL/Common/triple.h>

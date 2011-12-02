@@ -20,6 +20,12 @@ class Memory_holder
 >
 class Regular_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulation,Weighted_point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_true,Memory_holder>{
 public:
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+  typedef typename Weighting_helper_3<CGAL::Tag_true>::Point_range Point_range;
+  #else
+  typedef Generic_input_iterator<Weighted_point_3> Point_range;
+  #endif  
+
   typedef Triangulation_3_wrapper<Triangulation,Weighted_point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_true,Memory_holder> Base;
   typedef typename Base::Facet Facet;
   typedef typename Base::Edge Edge;
@@ -27,7 +33,7 @@ public:
   typedef Cell_handle_ Cell_handle;
 //Creation
   Regular_triangulation_3_wrapper(){}
-  Regular_triangulation_3_wrapper(typename Weighting_helper_3<CGAL::Tag_true>::Point_range range):Base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)){}    
+  Regular_triangulation_3_wrapper(Point_range range):Base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)){}    
   #ifndef SWIG
   Regular_triangulation_3_wrapper(const Triangulation& base):Base(base){}
   //constructor using a triangulation stored outside the wrapper class ( introduced for C3T3::triangulation() )

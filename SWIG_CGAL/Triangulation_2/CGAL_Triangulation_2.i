@@ -67,6 +67,7 @@ Decl_void_type()
 %include "std_pair.i"
 %template(Constraint) std::pair<Point_2,Point_2>;
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemap for point input iterator
 SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
 //typemap for weighted point input iterator
@@ -79,6 +80,10 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Constrained_triangulat
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Constrained_Delaunay_triangulation_2_wrapper::Constrained_Delaunay_triangulation_2_wrapper)
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Constrained_triangulation_plus_2_wrapper::Constrained_triangulation_plus_2_wrapper)
 #endif
+#else //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+//nothing to do for Point_2 and Point_3 ranges, already done in the kernel
+%template (Constraint_input_iterator) Generic_input_iterator< std::pair<Point_2,Point_2> >;
+#endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 
 #ifdef   SWIG_EXPOSE_TRIANGULATION_2
 %import "SWIG_CGAL/Triangulation_2/declare_triangulation_2.i"

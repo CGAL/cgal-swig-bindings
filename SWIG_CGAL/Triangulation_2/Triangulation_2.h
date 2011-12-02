@@ -67,6 +67,11 @@ public:
   typedef SWIG_CGAL_Circulator<typename Triangulation::Edge_circulator,Edge>                     Edge_circulator;
   typedef SWIG_CGAL_Circulator<typename Triangulation::Vertex_circulator,Vertex_handle>          Vertex_circulator;
 
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+  typedef typename Weighting_helper<Weighted_tag>::Point_range                                  Point_range;
+  #else
+  typedef Generic_input_iterator<Point>                                                         Point_range;
+  #endif
 
   Triangulation_2_wrapper():data_sptr(new cpp_base()){}
   #ifndef SWIG
@@ -121,7 +126,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(void,remove_second,Vertex_handle)
   SWIG_CGAL_FORWARD_CALL_1(void,remove_first,Vertex_handle)
   Vertex_handle insert(const Point& p,SWIG_Triangulation_2::Locate_type l,const Face_handle& f,int i) {return get_data().insert(p.get_data(),CGAL::enum_cast<typename Triangulation::Locate_type>(l),f.get_data(),i);}
-  int insert(typename Weighting_helper<Weighted_tag>::Point_range range){
+  int insert(Point_range range){
     return get_data().insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
   }
 #endif  
