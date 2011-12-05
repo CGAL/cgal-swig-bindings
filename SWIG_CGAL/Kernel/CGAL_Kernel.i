@@ -35,32 +35,6 @@ Decl_void_type()
 
 //%typemap(javapackage) Point_3 "CGAL.Kernel"
 
-#ifdef SWIGJAVA
-//method getCPtr and constructor from (long,bool) should be public
-//to be used in other packages cf. file java.swg
-SWIG_JAVABODY_METHODS(public,public,Point_2)
-SWIG_JAVABODY_METHODS(public,public,Weighted_point_2)
-SWIG_JAVABODY_METHODS(public,public,Segment_2)
-SWIG_JAVABODY_METHODS(public,public,Triangle_2)
-SWIG_JAVABODY_METHODS(public,public,Ray_2)
-SWIG_JAVABODY_METHODS(public,public,Direction_2)
-SWIG_JAVABODY_METHODS(public,public,Line_2)
-SWIG_JAVABODY_METHODS(public,public,Vector_2)
-SWIG_JAVABODY_METHODS(public,public,Point_3)
-SWIG_JAVABODY_METHODS(public,public,Weighted_point_3)
-SWIG_JAVABODY_METHODS(public,public,Plane_3)
-SWIG_JAVABODY_METHODS(public,public,Segment_3)
-SWIG_JAVABODY_METHODS(public,public,Triangle_3)
-SWIG_JAVABODY_METHODS(public,public,Tetrahedron_3)
-SWIG_JAVABODY_METHODS(public,public,Line_3)
-SWIG_JAVABODY_METHODS(public,public,Sphere_3)
-SWIG_JAVABODY_METHODS(public,public,Ray_3)
-SWIG_JAVABODY_METHODS(public,public,Direction_3)
-SWIG_JAVABODY_METHODS(public,public,Vector_3)
-SWIG_JAVABODY_METHODS(public,public,CGAL_Object)
-SWIG_JAVABODY_METHODS(public,public,Polygon_2)
-#endif
-
 %pragma(java)          jniclassimports=%{import java.util.Iterator; import java.util.Collection;%}
 %typemap(javaimports)  Polygon_2 %{import java.util.Iterator;%}
 %pragma(java) moduleimports    =%{import java.util.Iterator;%}

@@ -22,10 +22,6 @@ Decl_void_type()
   }
 %}
 
-#ifdef SWIGJAVA
-SWIG_JAVABODY_METHODS(public,public,Object)
-#endif
-
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
 %import  "SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h"
