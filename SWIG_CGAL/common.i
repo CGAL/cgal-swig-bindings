@@ -4,14 +4,14 @@
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 // ------------------------------------------------------------------------------ 
 
-//this is the default with SWIG2
-//The intermediary JNI class modifiers are now public by default meaning these
-//intermediary low level functions are now accessible by default from outside any package
-//used. The proxy class pointer constructor and getCPtr() methods are also now public.
-//These are needed in order for the nspace option to work without any other mods.
-#ifdef SWIGJAVA
-SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
-#endif
+%define SWIG_CGAL_declare_identifier_of_template_class(Prefix,Type ... )
+%inline %{ typedef Type  Prefix##_SWIG_wrapper; %}
+%define SWIG_CGAL_import_##Prefix##_SWIG_wrapper
+  %{typedef Type  Prefix##_SWIG_wrapper; %}
+%enddef
+%define  Prefix##_SWIG_wrapper_for_typemap Type %enddef
+%template (Prefix) Type;
+%enddef
 
 //macro function to define proper java iterators
 #ifdef SWIGJAVA
@@ -270,11 +270,17 @@ SWIG_JAVABODY_METHODS(public, public, SWIGTYPE)
   %template (GenericOutputIterator) Generic_output_iterator< Object >;
 %enddef
 
+//do not generate a constant in the target language
+%ignore SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE;
+
 #if !defined(SWIGPYTHON) && !defined(SWIGJAVA)
   #define SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE 1
 #else
   #define SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE 0
 #endif
+
+
+
 %{
 #if !defined(SWIGPYTHON) && !defined(SWIGJAVA)
   #define SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE 1

@@ -5,62 +5,11 @@
 // ------------------------------------------------------------------------------ 
 
 
-#ifdef SWIGJAVA
-#define ADD_JAVA_DATA_IN_FACET_CDT_2 //define this variable to add a jobject in faces of CDT_plus_2 and CDT_2
-#define ADD_JAVA_DATA_IN_SIMPLICES_DT2 //define this variable to add a jobject in faces and vertices of DT2
-%{
-#define ADD_JAVA_DATA_IN_FACET_CDT_2 
-#define  ADD_JAVA_DATA_IN_SIMPLICES_DT2
-%}
-#endif
+#ifndef SWIG_CGAL_TRIANGULATION_2_TYPEDEFS_H
+#define SWIG_CGAL_TRIANGULATION_2_TYPEDEFS_H
 
-
-
-#ifdef ADD_JAVA_DATA_IN_FACET_CDT_2
-#define NEED_JAVA_DATA_IMPORT
-#else
-  #ifdef ADD_JAVA_DATA_IN_SIMPLICES_DT2
-    #define NEED_JAVA_DATA_IMPORT
-  #endif
-#endif
-
-
-#ifdef NEED_JAVA_DATA_IMPORT
-%import "SWIG_CGAL/Java/JavaData.h"
-%import "SWIG_CGAL/Java/Macro.i"
-%{
-#include <SWIG_CGAL/Java/JavaData.h>
-#include <CGAL/Triangulation_vertex_base_with_info_2.h>
-#include <CGAL/Triangulation_face_base_with_info_2.h>
-%}
-#endif
-
-
-#ifdef ADD_JAVA_DATA_IN_FACET_CDT_2
-//assign JavaData to Face_handle of CGAL_CDTplus2
-#define i_Face_handle_CDT2_plus   SWIG_Triangulation_2::CGAL_Face_handle<CGAL_CDTplus2,Point_2>
-#define i_Vertex_handle_CDT2_plus SWIG_Triangulation_2::CGAL_Vertex_handle<CGAL_CDTplus2,Point_2>
-SWIG_CGAL_add_JavaData_info_to_class(i_Face_handle_CDT2_plus,)
-SWIG_CGAL_add_JavaData_info_to_class(i_Vertex_handle_CDT2_plus,import CGAL.Kernel.Point_2;)
-#define i_Face_handle_CDT2 SWIG_Triangulation_2::CGAL_Face_handle<CGAL_CDT2,Point_2>
-#define i_Vertex_handle_CDT2 SWIG_Triangulation_2::CGAL_Vertex_handle<CGAL_CDT2,Point_2>
-SWIG_CGAL_add_JavaData_info_to_class(i_Face_handle_CDT2,)
-SWIG_CGAL_add_JavaData_info_to_class(i_Vertex_handle_CDT2,import CGAL.Kernel.Point_2;)
-#endif
-
-
-#ifdef ADD_JAVA_DATA_IN_SIMPLICES_DT2
-//assign JavaData to Face_handle of CGAL_CDTplus2
-#define i_Face_handle_DT2 SWIG_Triangulation_2::CGAL_Face_handle<CGAL_DT2,Point_2>
-#define i_Vertex_handle_DT2 SWIG_Triangulation_2::CGAL_Vertex_handle<CGAL_DT2,Point_2>
-SWIG_CGAL_add_JavaData_info_to_class(i_Face_handle_DT2,)
-SWIG_CGAL_add_JavaData_info_to_class(i_Vertex_handle_DT2,import CGAL.Kernel.Point_2;)
-#endif
-
-//macros defining the underlying types used
-%{
+#include <SWIG_CGAL/Triangulation_2/config.h>
 #include <SWIG_CGAL/Kernel/typedefs.h>
-#include <SWIG_CGAL/Kernel/Point_2.h>
 #include <CGAL/Triangulation_2.h>
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <CGAL/Regular_triangulation_euclidean_traits_2.h>
@@ -68,7 +17,13 @@ SWIG_CGAL_add_JavaData_info_to_class(i_Vertex_handle_DT2,import CGAL.Kernel.Poin
 #include <CGAL/Constrained_Delaunay_triangulation_2.h>
 #include <CGAL/Constrained_triangulation_2.h>
 #include <CGAL/Constrained_triangulation_plus_2.h>  
-  
+
+#if defined(ADD_JAVA_DATA_IN_FACET_CDT_2) || defined(ADD_JAVA_DATA_IN_SIMPLICES_DT2)
+#include <SWIG_CGAL/Java/JavaData.h>
+#include <CGAL/Triangulation_vertex_base_with_info_2.h>
+#include <CGAL/Triangulation_face_base_with_info_2.h>
+#endif
+
 typedef CGAL::Triangulation_2<EPIC_Kernel>                                  CGAL_T2;
 #ifdef ADD_JAVA_DATA_IN_SIMPLICES_DT2
 typedef CGAL::Triangulation_vertex_base_with_info_2<JavaData,EPIC_Kernel>   Vbase_DT2;
@@ -94,15 +49,6 @@ typedef CGAL::Exact_intersections_tag                                       Itag
 typedef CGAL::Constrained_Delaunay_triangulation_2<EPIC_Kernel, TDS, Itag>  CGAL_CDT2;
 typedef CGAL::Constrained_triangulation_plus_2<CGAL_CDT2>                   CGAL_CDTplus2;  
 #endif
-typedef std::pair<Point_2::cpp_base,Point_2::cpp_base>                      iConstraint;
-%}
+typedef std::pair<EPIC_Kernel::Point_2,EPIC_Kernel::Point_2>                iConstraint;
 
-//macro to decide which class to expose
-#define SWIG_EXPOSE_TRIANGULATION_2
-#define SWIG_EXPOSE_DELAUNAY_TRIANGULATION_2
-#define SWIG_EXPOSE_REGULAR_TRIANGULATION_2
-#define SWIG_EXPOSE_CONSTRAINED_TRIANGULATION_2
-#define SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_2
-#define SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_PLUS_2
-
-
+#endif //SWIG_CGAL_TRIANGULATION_2_TYPEDEFS_H

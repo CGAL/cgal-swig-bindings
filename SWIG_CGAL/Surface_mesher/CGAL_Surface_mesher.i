@@ -25,23 +25,17 @@ Decl_void_type()
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 %include "SWIG_CGAL/Common/Iterator.h"
-%import  "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
-%import  "SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h"
 
 //include files
 %{
-  #include  <SWIG_CGAL/Polyhedron_3/Polyhedron_3.h>
-  #include  <SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h>  
+  #include  <SWIG_CGAL/Polyhedron_3/all_includes.h>
   #include  <SWIG_CGAL/Triangulation_3/Delaunay_triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
   #include  <SWIG_CGAL/Common/triple.h>
   #include  <SWIG_CGAL/Common/Iterator.h>
-  #include  <SWIG_CGAL/Surface_mesher/Surface_mesh_details.h>
-  #include  <SWIG_CGAL/Surface_mesher/C2T3.h>
+  #include  <SWIG_CGAL/Surface_mesher/all_includes.h>
 %}
-
-%include "SWIG_CGAL/Surface_mesher/config.i"
 
 //import definitions of Polyhedron objects
 %import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
@@ -66,7 +60,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Delaunay_triangulation
 #endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 
 %import "SWIG_CGAL/Triangulation_3/declare_Delaunay_triangulation_3.i"
-Declare_Delaunay_triangulation_3_with_memory_holder(Surface_mesh_default_triangulation_3,C2T3_DT,boost::shared_ptr<C2T3_DT>)
+SWIG_CGAL_declare_Delaunay_triangulation_3_with_memory_holder(Surface_mesh_default_triangulation_3,C2T3_DT,boost::shared_ptr<C2T3_DT>)
 
 //typemap for output iterator
 %{
@@ -75,71 +69,56 @@ typedef std::pair< SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int >
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define Complex_2_in_triangulation_3_Facet_output_iterator  C2T3_internal::Iterator_helper<Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,boost::shared_ptr<C2T3_DT> > >::output %enddef
 SWIG_CGAL_output_iterator_typemap_in(Complex_2_in_triangulation_3_Facet_output_iterator,Surface_mesh_default_triangulation_3_Facet,Surface_mesh_default_triangulation_3_Facet,C2T3_DT::Facet,SWIGTYPE_p_std__pairT_SWIG_Triangulation_3__CGAL_Cell_handleT_C2T3_DT_Point_3_t_int_t,"LCGAL/Surface_mesher/Surface_mesh_default_triangulation_3_Facet;")
-#endif //#else is needed as the output_iterator type is already defined within declare_Delaunay_triangulation_3
+#endif //#else is not needed as the output_iterator type is already defined within declare_Delaunay_triangulation_3
 
 
 //iterators
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Surface_mesh_default_triangulation_3_Vertex_handle,import CGAL.Kernel.Point_3;)
-%template(Surface_mesher_Complex_2_in_triangulation_3_Vertex_iterator) SWIG_CGAL_Iterator<C2T3::Vertex_iterator,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3> >;
+SWIG_CGAL_declare_identifier_of_template_class(Surface_mesher_Complex_2_in_triangulation_3_Vertex_iterator,SWIG_CGAL_Iterator<C2T3::Vertex_iterator,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3> >)
 
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Surface_mesh_default_triangulation_3_Facet,)
-%template(Surface_mesh_default_triangulation_3_Facet_iterator) SWIG_CGAL_Iterator<C2T3::Facet_iterator,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int> >;
+SWIG_CGAL_declare_identifier_of_template_class(Surface_mesh_default_triangulation_3_Facet_iterator,SWIG_CGAL_Iterator<C2T3::Facet_iterator,std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int> >)
 
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Surface_mesh_default_triangulation_3_Edge,)
-%template(Surface_mesh_default_triangulation_3_Edge_iterator) SWIG_CGAL_Iterator<C2T3::Edge_iterator,SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int,int> >;
+SWIG_CGAL_declare_identifier_of_template_class(Surface_mesh_default_triangulation_3_Edge_iterator,SWIG_CGAL_Iterator<C2T3::Edge_iterator,SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int,int> >)
 
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Surface_mesh_default_triangulation_3_Edge,)
-%template(Surface_mesh_default_triangulation_3_Boundary_edges_iterator) SWIG_CGAL_Iterator<C2T3::Boundary_edges_iterator,SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int,int> >;
+SWIG_CGAL_declare_identifier_of_template_class(Surface_mesh_default_triangulation_3_Boundary_edges_iterator,SWIG_CGAL_Iterator<C2T3::Boundary_edges_iterator,SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int,int> >)
 
 
 //main classes
 //--C2T3
 %typemap(javaimports)      C2T3_wrapper%{import java.util.Collection;%}
-%define T_C2T2_wrapper C2T3_wrapper<C2T3,Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,boost::shared_ptr<C2T3_DT> > > %enddef
-%{
-typedef C2T3_wrapper<C2T3,Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,boost::shared_ptr<C2T3_DT> > >  T_C2T2_wrapper;
-%}
-%template (Complex_2_in_triangulation_3) T_C2T2_wrapper;
+SWIG_CGAL_declare_identifier_of_template_class(Complex_2_in_triangulation_3,C2T3_wrapper<C2T3,Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,boost::shared_ptr<C2T3_DT> > >)
+
 //--
-%template (Surface_mesh_default_criteria_3) Surface_mesh_criteria_3_wrapper<SMDC_3>;
+SWIG_CGAL_declare_identifier_of_template_class(Surface_mesh_default_criteria_3,Surface_mesh_criteria_3_wrapper<SMDC_3>)
 //--
-%template (Gray_level_image_3) Gray_level_image_3_wrapper<GLI_3>;
+SWIG_CGAL_declare_identifier_of_template_class(Gray_level_image_3,Gray_level_image_3_wrapper<GLI_3>)
 //--
 %typemap(javaimports)      Implicit_surface_3_wrapper%{import CGAL.Kernel.Sphere_3;%}
-%template (Implicit_surface_Gray_level_image_3) Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >;
+SWIG_CGAL_declare_identifier_of_template_class(Implicit_surface_Gray_level_image_3,Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >)
 
-%define Polyhedron_3_type Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> > %enddef
-%{
-typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> > Polyhedron_3_type;
-%}
+//import Polyhedron_3 wrapper type
+SWIG_CGAL_import_Polyhedron_3_SWIG_wrapper
 
 //global functions
-
-%include "std_string.i"
-void output_surface_facets_to_off(const std::string& s,const T_C2T2_wrapper&);
-void output_surface_facets_to_polyhedron(const T_C2T2_wrapper&,Polyhedron_3_type&);
-
-//general
-//void  make_surface_mesh(T_C2T2_wrapper& c2t3,Surface surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag Tag,int initial_number_of_points = 20)
-void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag Tag);
-void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag Tag,int);
-
-%{
+%inline %{
   #include <fstream>
   
-  void output_surface_facets_to_off(const std::string& s,const T_C2T2_wrapper& c2t3)
+  void output_surface_facets_to_off(const std::string& s,const Complex_2_in_triangulation_3_SWIG_wrapper& c2t3)
   {
     std::ofstream outfile(s.c_str());
     if (!outfile) std::cerr << "Error cannot create file: " << s << std::endl;
     else  CGAL::output_surface_facets_to_off(outfile,c2t3.get_data());
   }
   
-  void output_surface_facets_to_polyhedron(const T_C2T2_wrapper& c2t3,Polyhedron_3_type& poly)
+  void output_surface_facets_to_polyhedron(const Complex_2_in_triangulation_3_SWIG_wrapper& c2t3,Polyhedron_3_SWIG_wrapper& poly)
   {
     CGAL::output_surface_facets_to_polyhedron( c2t3.get_data(),poly.get_data() );
   }
 
-  void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag tag,int nb)
+  void  make_surface_mesh(Complex_2_in_triangulation_3_SWIG_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag tag,int nb)
   {
     switch(tag){
       case MANIFOLD_TAG:
@@ -153,13 +132,8 @@ void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS
       break;
     }
   }
-  void  make_surface_mesh(T_C2T2_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag tag)
+  void  make_surface_mesh(Complex_2_in_triangulation_3_SWIG_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag tag)
   {
     make_surface_mesh(c2t3,surface,criteria,tag,20);
   }
-  
 %}
-
-
-
-

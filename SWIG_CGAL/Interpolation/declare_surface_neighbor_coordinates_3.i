@@ -37,13 +37,8 @@ SWIG_CGAL_output_iterator_typemap_in(iPoint_3_and_double_output_iterator,Point_3
 SWIG_CGAL_declare_generic_output_iterator(Point_3_and_double_output_iterator,Point_3_and_double_output_iterator_nested_iterator,iPoint_3_and_double)
 #endif
 
-std::pair<double, bool > surface_neighbor_coordinates_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,iPoint_3_and_double_output_iterator out);
-SWIG_CGAL::Triple<double, bool, bool > surface_neighbor_coordinates_certified_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,iPoint_3_and_double_output_iterator out);
-SWIG_CGAL::Triple<double, bool, bool > surface_neighbor_coordinates_certified_3(Point_range_3 range,const Point_3& p,const Vector_3& normal,double max_distance,iPoint_3_and_double_output_iterator out);
-std::pair< double, bool > surface_neighbor_coordinates_3(const DT3_wrapper& dt,const Point_3& p,const Vector_3& normal,iPoint_3_and_double_output_iterator out,const SWIG_Triangulation_3::CGAL_Cell_handle<CGAL_DT3,Point_3>& start);
-std::pair< double, bool > surface_neighbor_coordinates_3(const DT3_wrapper& dt,const Point_3& p,const Vector_3& normal,iPoint_3_and_double_output_iterator out);
 
-%{
+%inline %{
   std::pair<double, bool > surface_neighbor_coordinates_3 (Point_range_3 range,const Point_3& p,const Vector_3& normal,iPoint_3_and_double_output_iterator out){
     return internal::extract_pair(CGAL::surface_neighbor_coordinates_3(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),p.get_data(),normal.get_data(),out,EPIC_Kernel()));
   }
@@ -56,11 +51,11 @@ std::pair< double, bool > surface_neighbor_coordinates_3(const DT3_wrapper& dt,c
     return internal::extract_triple(CGAL::surface_neighbor_coordinates_certified_3(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),p.get_data(),normal.get_data(),max_distance,out,EPIC_Kernel()));
   }
 
-  std::pair< double, bool > surface_neighbor_coordinates_3(const DT3_wrapper& dt,const Point_3& p,const Vector_3& normal,iPoint_3_and_double_output_iterator out,const SWIG_Triangulation_3::CGAL_Cell_handle<CGAL_DT3,Point_3>& start){
+  std::pair< double, bool > surface_neighbor_coordinates_3(const Delaunay_triangulation_3_SWIG_wrapper& dt,const Point_3& p,const Vector_3& normal,iPoint_3_and_double_output_iterator out,const SWIG_Triangulation_3::CGAL_Cell_handle<CGAL_DT3,Point_3>& start){
     return internal::extract_pair(CGAL::surface_neighbor_coordinates_3(dt.get_data(),p.get_data(),normal.get_data(),out,start.get_data()));
   }
 
-  std::pair< double, bool > surface_neighbor_coordinates_3(const DT3_wrapper& dt,const Point_3& p,const Vector_3& normal,iPoint_3_and_double_output_iterator out){
+  std::pair< double, bool > surface_neighbor_coordinates_3(const Delaunay_triangulation_3_SWIG_wrapper& dt,const Point_3& p,const Vector_3& normal,iPoint_3_and_double_output_iterator out){
     return internal::extract_pair(CGAL::surface_neighbor_coordinates_3(dt.get_data(),p.get_data(),normal.get_data(),out));
   }
 %}

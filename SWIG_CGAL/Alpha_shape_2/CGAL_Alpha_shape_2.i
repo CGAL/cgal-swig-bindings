@@ -25,13 +25,6 @@ Decl_void_type()
 
 #define CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
 
-//Special treatment for enum in java
-#ifdef SWIGJAVA
-%include "enums.swg"
-%javaconst(1);
-#endif
-
-
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 %import  "SWIG_CGAL/Triangulation_2/Reference_wrappers.i"
@@ -40,12 +33,14 @@ Decl_void_type()
 //include files
 %{
   #include <SWIG_CGAL/Kernel/typedefs.h>
-  #include <SWIG_CGAL/Alpha_shape_2/Alpha_shape_2.h>
+  #include <SWIG_CGAL/Alpha_shape_2/all_includes.h>
   #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
   #include <SWIG_CGAL/Common/Iterator.h>
 %}
 
-%include "SWIG_CGAL/Alpha_shape_2/config.i"
+#ifdef SWIGJAVA
+%include "SWIG_CGAL/Alpha_shape_2/java_extensions.i"
+#endif
 
 //definitions
 %include "SWIG_CGAL/Alpha_shape_2/Alpha_shape_2.h"
@@ -57,11 +52,11 @@ Decl_void_type()
 
 //vertex range
 %include "std_pair.i"
-%template(Vertex_range) std::pair<double,double>;
+SWIG_CGAL_declare_identifier_of_template_class(Vertex_range,std::pair<double,double>)
 
 //Face Interval_3
 %include "SWIG_CGAL/Common/triple.h"
-%template(Face_Interval_3)  SWIG_CGAL::Triple<double,double,double>;
+SWIG_CGAL_declare_identifier_of_template_class(Face_Interval_3,SWIG_CGAL::Triple<double,double,double>)
 
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Ref_int; import CGAL.Triangulation_2.Ref_Locate_type; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Triangle_2; import CGAL.Kernel.Segment_2;  import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
 
@@ -76,10 +71,5 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Alpha_shape_2_wrapper:
 #endif //SWIG_CGAL_NON_SUPPORTED
 %import "SWIG_CGAL/Alpha_shape_2/declare_alpha_shape_2.i"
 
-#ifdef   SWIG_EXPOSE_ALPHA_SHAPE_2
-Declare_alpha_shape_2(Alpha_shape_2,CGAL_AS2)
-#endif //SWIG_EXPOSE_ALPHA_SHAPE_2
-#ifdef   SWIG_EXPOSE_WEIGHTED_ALPHA_SHAPE_2
-Declare_weighted_alpha_shape_2(Weighted_alpha_shape_2,CGAL_WAS2)
-#endif //SWIG_EXPOSE_WEIGHTED_ALPHA_SHAPE_2
-
+SWIG_CGAL_declare_alpha_shape_2(Alpha_shape_2,CGAL_AS2)
+SWIG_CGAL_declare_weighted_alpha_shape_2(Weighted_alpha_shape_2,CGAL_WAS2)

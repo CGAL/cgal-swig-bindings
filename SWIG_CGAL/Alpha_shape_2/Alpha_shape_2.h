@@ -8,11 +8,6 @@
 #ifndef SWIG_CGAL_ALPHA_SHAPE_2_ALPHA_SHAPE_2_H
 #define SWIG_CGAL_ALPHA_SHAPE_2_ALPHA_SHAPE_2_H
 
-#include <CGAL/Alpha_shape_2.h>
-#include <CGAL/Weighted_point.h>
-#include <CGAL/Weighted_alpha_shape_euclidean_traits_2.h>
-#include <CGAL/Regular_triangulation_2.h>
-
 #include <SWIG_CGAL/Triangulation_2/Delaunay_triangulation_2.h>
 #include <SWIG_CGAL/Triangulation_2/Regular_triangulation_2.h>
 

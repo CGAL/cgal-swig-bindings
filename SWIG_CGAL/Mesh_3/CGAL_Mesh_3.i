@@ -28,25 +28,20 @@ Decl_void_type()
 
 //include files
 %{
-  #define SWIGCGAL_NO_TRIANGULATION_STRING_OUTPUT //I/O are broken for C3T3 triangulation
+  #define SWIG_CGAL_NO_TRIANGULATION_STRING_OUTPUT //I/O are broken for C3T3 triangulation
   #include  <SWIG_CGAL/Kernel/typedefs.h>
   #include  <SWIG_CGAL/Triangulation_3/Regular_triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
-  #include  <SWIG_CGAL/Polyhedron_3/Polyhedron_3.h>
-  #include  <SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h>  
   #include  <SWIG_CGAL/Common/triple.h>
   #include  <SWIG_CGAL/Common/Variant.h>
   #include  <SWIG_CGAL/Common/Optional.h>
-  #include  <SWIG_CGAL/Mesh_3/C3T3.h>
-  #include  <SWIG_CGAL/Mesh_3/Mesh_domains.h>
-  #include  <SWIG_CGAL/Mesh_3/Mesh_criteria.h>
-  #include  <SWIG_CGAL/Mesh_3/parameters.h>
+  #include  <SWIG_CGAL/Mesh_3/all_includes.h>
 %}
 
 //definitions
 
-#define SWIGCGAL_NO_TRIANGULATION_STRING_OUTPUT //I/O are broken for C3T3 triangulation
+#define SWIG_CGAL_NO_TRIANGULATION_STRING_OUTPUT //I/O are broken for C3T3 triangulation
 %include "SWIG_CGAL/Common/Iterator.h"
 %include "SWIG_CGAL/Common/Optional.h"
 %include "SWIG_CGAL/Common/triple.h"
@@ -65,7 +60,6 @@ Decl_void_type()
 %template(Mesh_3_Quality) std::pair<int,double>;
 %template(Mesh_3_Badness) Optional< std::pair<int,double> >;
 
-%include "SWIG_CGAL/Mesh_3/config.i"
 %import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
       
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Collection; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
@@ -112,7 +106,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Triangulation_3_wrappe
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Regular_triangulation_3_wrapper::Regular_triangulation_3_wrapper)
 #endif
 #endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-Declare_regular_triangulation_3_with_memory_holder(Mesh_3_regular_triangulation_3,MT_PMD,boost::shared_ptr<C3T3_PMD>)
+SWIG_CGAL_declare_regular_triangulation_3_with_memory_holder(Mesh_3_regular_triangulation_3,MT_PMD,boost::shared_ptr<C3T3_PMD>)
 
 //iterators
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Mesh_3_regular_triangulation_3_Cell_handle,)
@@ -126,33 +120,18 @@ SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Mesh_3_regular_triangulation_3
 %template(Mesh_3_Index) Variant<int,std::pair<int,int> >;
 
 
-%define T_C3T3_wrapper C3T3_wrapper<  C3T3_PMD,
-                                      Regular_triangulation_3_wrapper<MT_PMD,SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,boost::shared_ptr<C3T3_PMD> >,
-                                      Variant< int, std::pair<int,int> >,
-                                      std::pair<int,int>,
-                                      int > 
-%enddef
-%template (Mesh_3_Complex_3_in_triangulation_3) T_C3T3_wrapper;
-
-%{
-  typedef C3T3_wrapper <  C3T3_PMD,
-                          Regular_triangulation_3_wrapper<MT_PMD,SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,boost::shared_ptr<C3T3_PMD> >,
-                          Variant< int, std::pair<int,int> >,
-                          std::pair<int,int>,
-                          int  >
-  T_C3T3_wrapper;
-%}
-
+SWIG_CGAL_declare_identifier_of_template_class(Mesh_3_Complex_3_in_triangulation_3,C3T3_wrapper<  C3T3_PMD,
+                                                                                                  Regular_triangulation_3_wrapper<MT_PMD,SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,boost::shared_ptr<C3T3_PMD> >,
+                                                                                                  Variant< int, std::pair<int,int> >,
+                                                                                                  std::pair<int,int>,
+                                                                                                  int >)
 
 //Polyhedral mesh domain
-%define Polyhedron_3_type Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> > %enddef
-%{
-typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> > Polyhedron_3_type;
-%}
+SWIG_CGAL_import_Polyhedron_3_SWIG_wrapper
 
-%define Polyhedral_mesh_domain_3_type Polyhedral_mesh_domain_3_wrapper<PMD,Polyhedron_3_type,Variant< int, std::pair<int,int> >,std::pair<int,int>,int > %enddef
+%define Polyhedral_mesh_domain_3_type Polyhedral_mesh_domain_3_wrapper<PMD,Polyhedron_3_SWIG_wrapper,Variant< int, std::pair<int,int> >,std::pair<int,int>,int > %enddef
 %{
-  typedef Polyhedral_mesh_domain_3_wrapper<PMD,Polyhedron_3_type,Variant< int, std::pair<int,int> >,std::pair<int,int>,int > Polyhedral_mesh_domain_3_type; 
+  typedef Polyhedral_mesh_domain_3_wrapper<PMD,Polyhedron_3_SWIG_wrapper,Variant< int, std::pair<int,int> >,std::pair<int,int>,int > Polyhedral_mesh_domain_3_type; 
 %}
 %typemap(javaimports)      Polyhedral_mesh_domain_3_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3;%}
 %template (Polyhedral_mesh_domain_3) Polyhedral_mesh_domain_3_type;
@@ -164,32 +143,12 @@ typedef Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handl
 %template(Default_mesh_criteria) T_Mesh_criteria;
 
 
-//Special treatment for enum in java
-#ifdef SWIGJAVA
-%include "enums.swg"
-%javaconst(1);
-#endif
-
 %import "SWIG_CGAL/Mesh_3/declare_global_functions.i"
 
-declare_global_functions(T_C3T3_wrapper)
-declare_global_functions_domain(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type)
-declare_global_functions_domain_criteria(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,T_Mesh_criteria,Mesh_3_parameters)
-
-
+declare_global_functions(Mesh_3_Complex_3_in_triangulation_3_SWIG_wrapper)
+declare_global_functions_domain(Mesh_3_Complex_3_in_triangulation_3_SWIG_wrapper,Polyhedral_mesh_domain_3_type)
+declare_global_functions_domain_criteria(Mesh_3_Complex_3_in_triangulation_3_SWIG_wrapper,Polyhedral_mesh_domain_3_type,T_Mesh_criteria,Mesh_3_parameters)
 
 #ifdef SWIGJAVA
-%include "SWIG_CGAL/Java/Java_caller_code.h"
-%template(Cell_predicate) Java_caller_code<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >;
-%template(Facet_predicate) Java_caller_code<std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > >;
-
-%define JavaMeshCriteria Java_criteria_wrapper<MT_PMD,
-                                               Java_caller_code<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >,
-                                               Java_caller_code<std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > > > 
-%enddef
-%{typedef Java_criteria_wrapper<MT_PMD,
-                                Java_caller_code<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >,
-                                Java_caller_code<std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > > > JavaMeshCriteria;%}
-%template(User_mesh_criteria) JavaMeshCriteria;
-declare_global_functions_domain_criteria(T_C3T3_wrapper,Polyhedral_mesh_domain_3_type,JavaMeshCriteria,Mesh_3_parameters)
+%include "SWIG_CGAL/Mesh_3/java_extensions.i"
 #endif

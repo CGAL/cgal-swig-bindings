@@ -4,8 +4,9 @@
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 // ------------------------------------------------------------------------------ 
 
+#ifndef SWIG_CGAL_MESH_2_TYPEDEFS_H
+#define SWIG_CGAL_MESH_2_TYPEDEFS_H
 
-%{
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <CGAL/Constrained_Delaunay_triangulation_2.h>
 #include <CGAL/Delaunay_mesher_2.h>
@@ -20,5 +21,6 @@ typedef CGAL::Constrained_Delaunay_triangulation_2<EPIC_Kernel, M2_Tds>         
 
 typedef CGAL::Delaunay_mesh_size_criteria_2<M2_CDT>                             DM2_C;
 typedef CGAL::Delaunay_mesher_2<M2_CDT,DM2_C>                                   DM2_M;
-  
-%}
+
+
+#endif //SWIG_CGAL_MESH_2_TYPEDEFS_H

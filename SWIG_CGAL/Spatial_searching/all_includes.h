@@ -5,9 +5,13 @@
 // ------------------------------------------------------------------------------ 
 
 
-%{
-  #include <SWIG_CGAL/Common/Reference_wrapper.h>
-%}
-%include "SWIG_CGAL/Common/Reference_wrapper.h"
+#ifndef SWIG_CGAL_SPATIAL_SEARCHING_ALL_INCLUDES_H
+#define SWIG_CGAL_SPATIAL_SEARCHING_ALL_INCLUDES_H
+ 
+#include <SWIG_CGAL/Spatial_searching/typedefs.h>
+#include <SWIG_CGAL/Spatial_searching/Kd_tree.h>
+#include <SWIG_CGAL/Spatial_searching/NN_search.h>
+#include <SWIG_CGAL/Spatial_searching/Fuzzy_objects.h>
 
-SWIG_CGAL_declare_identifier_of_template_class(Ref_Locate_type,Reference_wrapper<SWIG_Triangulation_2::Locate_type>)
+
+#endif //SWIG_CGAL_SPATIAL_SEARCHING_ALL_INCLUDES_H

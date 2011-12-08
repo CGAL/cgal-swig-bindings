@@ -18,8 +18,7 @@
 //C3T3 dependant
 %define declare_global_functions(C3T3)
 //global functions
-Mesh_optimization_return_code  exude_mesh_3( C3T3& c3t3, double time_limit, double sliver_bound);
-%{
+%inline %{
   Mesh_optimization_return_code  exude_mesh_3( C3T3& c3t3, double time_limit, double sliver_bound)
   {
     return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::exude_mesh_3(c3t3.get_data(),time_limit,sliver_bound) );
@@ -30,10 +29,7 @@ Mesh_optimization_return_code  exude_mesh_3( C3T3& c3t3, double time_limit, doub
 
 //C3T3-DOMAIN dependant
 %define declare_global_functions_domain(C3T3,DOMAIN)
-Mesh_optimization_return_code perturb_mesh_3 (  C3T3& c3t3,const DOMAIN& domain,double time_limit,double sliver_bound);
-Mesh_optimization_return_code lloyd_optimize_mesh_3 ( C3T3& c3t3,const DOMAIN& domain,double time_limit,int max_iteration_number,double convergence,double freeze_bound);
-Mesh_optimization_return_code odt_optimize_mesh_3 (C3T3& c3t3,const DOMAIN& domain,double time_limit,std::size_t max_iteration_number,double convergence,double freeze_bound);
-%{
+%inline  %{
   Mesh_optimization_return_code perturb_mesh_3 (  C3T3& c3t3,const DOMAIN& domain,double time_limit,double sliver_bound)
   {
     return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::perturb_mesh_3(c3t3.get_data(),domain.get_data(),time_limit,sliver_bound) );
@@ -53,9 +49,7 @@ Mesh_optimization_return_code odt_optimize_mesh_3 (C3T3& c3t3,const DOMAIN& doma
 
 //C3T3-domain-criteria dependant
 %define declare_global_functions_domain_criteria(C3T3,DOMAIN,CRITERIA,PARAMETERS)
-C3T3 make_mesh_3(const DOMAIN& domain, const CRITERIA& criteria,const PARAMETERS& parameters);
-void  refine_mesh_3 ( C3T3& c3t3, const DOMAIN& mesh_domain,const CRITERIA& criteria,const PARAMETERS& parameters);
-%{
+%inline %{
   C3T3 make_mesh_3(const DOMAIN& domain, const CRITERIA& criteria,const PARAMETERS& parameters)
   {
     return C3T3( CGAL::make_mesh_3<C3T3::cpp_base>( domain.get_data(),criteria.get_data(),

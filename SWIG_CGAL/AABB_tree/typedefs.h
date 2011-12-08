@@ -4,18 +4,14 @@
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 // ------------------------------------------------------------------------------ 
 
+#ifndef SWIG_CGAL_AABB_TREE_TYPEDEFS_H
+#define SWIG_CGAL_AABB_TREE_TYPEDEFS_H
 
-#define IMPORT_ONLY_POLYHEDRON_TYPES
-%include "SWIG_CGAL/Polyhedron_3/config.i"
-#undef IMPORT_ONLY_POLYHEDRON_TYPES
-
-%{
-
+#include  <CGAL/AABB_tree.h>
 #include <CGAL/AABB_traits.h>
 #include <CGAL/AABB_polyhedron_triangle_primitive.h>
 #include <CGAL/AABB_polyhedron_segment_primitive.h>
 #include <CGAL/AABB_integer_primitive.h>
-
 
 // Polyhedron Triangle Primitive
 typedef CGAL::AABB_polyhedron_triangle_primitive<EPIC_Kernel,Polyhedron_3_>     CGAL_PTP;
@@ -34,4 +30,4 @@ typedef CGAL::AABB_integer_primitive<EPIC_Kernel::Segment_3>                    
 typedef CGAL::AABB_traits<EPIC_Kernel, CGAL_SSP>                                CGAL_SSP_T;
 typedef CGAL::AABB_tree<CGAL_SSP_T>                                             CGAL_SSP_Tree;
 
-%}
+#endif //SWIG_CGAL_AABB_TREE_TYPEDEFS_H

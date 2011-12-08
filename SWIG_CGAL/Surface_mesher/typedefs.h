@@ -4,13 +4,9 @@
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 // ------------------------------------------------------------------------------ 
 
+#ifndef SWIG_CGAL_SURFACE_MESHER_TYPEDEFS_H
+#define SWIG_CGAL_SURFACE_MESHER_TYPEDEFS_H
 
-#define IMPORT_ONLY_POLYHEDRON_TYPES
-%include "SWIG_CGAL/Polyhedron_3/config.i"
-#undef IMPORT_ONLY_POLYHEDRON_TYPES
-
-//macros defining the underlying types used
-%{
 #include <CGAL/Surface_mesh_default_triangulation_3.h>
 #include <CGAL/Complex_2_in_triangulation_3.h>
 #include <CGAL/Surface_mesh_default_criteria_3.h>
@@ -25,6 +21,4 @@ typedef CGAL::Surface_mesh_default_criteria_3<C2T3_DT>                  SMDC_3;
 typedef CGAL::Gray_level_image_3<double, C2T3_DT::Point>                GLI_3;
 typedef CGAL::Implicit_surface_3<C2T3_DT::Geom_traits, GLI_3>           IS_GLI_3;
   
-%}
-
-
+#endif//SWIG_CGAL_SURFACE_MESHER_TYPEDEFS_H

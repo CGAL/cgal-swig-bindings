@@ -29,9 +29,7 @@ Decl_void_type()
 
 //include files
 %{
-  #include <SWIG_CGAL/Triangulation_3/Delaunay_triangulation_3.h>
-  #include <SWIG_CGAL/Triangulation_3/Regular_triangulation_3.h>
-  #include <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
+  #include <SWIG_CGAL/Triangulation_3/all_includes.h>
   #include <SWIG_CGAL/Common/triple.h>
   #include <SWIG_CGAL/Common/Iterator.h>
 %}
@@ -46,8 +44,6 @@ Decl_void_type()
 %include "SWIG_CGAL/Triangulation_3/triangulation_handles.h"
 %include "SWIG_CGAL/Common/triple.h"
 
-%include "SWIG_CGAL/Triangulation_3/config.i"
-
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemaps for Input iterator(s)
 SWIG_CGAL_input_iterator_typemap_in(Weighting_helper_3<CGAL::Tag_false>::Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert)
@@ -59,20 +55,11 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Regular_triangulation_
 #endif
 #endif//!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   
-#ifdef   SWIG_EXPOSE_TRIANGULATION_3
 %import "SWIG_CGAL/Triangulation_3/declare_triangulation_3.i"
-Declare_triangulation_3(Triangulation_3,CGAL_T3)
-#endif //SWIG_EXPOSE_TRIANGULATION_3
+SWIG_CGAL_declare_triangulation_3(Triangulation_3,CGAL_T3)
 
-#ifdef   SWIG_EXPOSE_DELAUNAY_TRIANGULATION_3
 %import "SWIG_CGAL/Triangulation_3/declare_Delaunay_triangulation_3.i"
-Declare_Delaunay_triangulation_3(Delaunay_triangulation_3,CGAL_DT3)
-#endif //SWIG_EXPOSE_DELAUNAY_TRIANGULATION_3
+SWIG_CGAL_declare_Delaunay_triangulation_3(Delaunay_triangulation_3,CGAL_DT3)
 
-#ifdef   SWIG_EXPOSE_REGULAR_TRIANGULATION_3
 %import "SWIG_CGAL/Triangulation_3/declare_regular_triangulation_3.i"
-Declare_regular_triangulation_3(Regular_triangulation_3,CGAL_RT3)
-#endif //SWIG_EXPOSE_REGULAR_TRIANGULATION_3
-
-
-
+SWIG_CGAL_declare_regular_triangulation_3(Regular_triangulation_3,CGAL_RT3)

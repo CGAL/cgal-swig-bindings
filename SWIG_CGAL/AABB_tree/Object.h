@@ -37,10 +37,10 @@ public:
   typedef CGAL::Object cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  Object(const cpp_base& base);
+  Object(const cpp_base& base):data(base){}
   #endif
 
-  Object();
+  Object(){}
     
 
   DECLARE_FCT_IS_AND_GET(Point_3)

@@ -22,28 +22,17 @@ Decl_void_type()
   }
 %}
 
-//Special treatment for enum in java
-#ifdef SWIGJAVA
-%include "enums.swg"
-%javaconst(1);
-#endif
-
-
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 
 %include "SWIG_CGAL/Common/Iterator.h"
-%include "SWIG_CGAL/Triangulation_2/config.i"
+#ifdef SWIGJAVA
+%include "SWIG_CGAL/Triangulation_2/java_extensions.i"
+#endif
 
 //include files
 %{
-  #include <SWIG_CGAL/Triangulation_2/Triangulation_2.h>
-  #include <SWIG_CGAL/Triangulation_2/Delaunay_triangulation_2.h>
-  #include <SWIG_CGAL/Triangulation_2/Regular_triangulation_2.h>
-  #include <SWIG_CGAL/Triangulation_2/Constrained_triangulation_2.h>
-  #include <SWIG_CGAL/Triangulation_2/Constrained_Delaunay_triangulation_2.h>
-  #include <SWIG_CGAL/Triangulation_2/Constrained_triangulation_plus_2.h>
-  #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
+  #include <SWIG_CGAL/Triangulation_2/all_includes.h>
   #include <SWIG_CGAL/Common/Iterator.h>
 %}
 
@@ -65,7 +54,7 @@ Decl_void_type()
 //Constraint
 %typemap(javaimports) std::pair<Point_2,Point_2> %{ import CGAL.Kernel.Point_2;%}
 %include "std_pair.i"
-%template(Constraint) std::pair<Point_2,Point_2>;
+SWIG_CGAL_declare_identifier_of_template_class(Constraint,std::pair<Point_2,Point_2>)
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemap for point input iterator
@@ -82,35 +71,23 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Constrained_triangulat
 #endif
 #else //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //nothing to do for Point_2 and Point_3 ranges, already done in the kernel
-%template (Constraint_input_iterator) Generic_input_iterator< std::pair<Point_2,Point_2> >;
+SWIG_CGAL_declare_identifier_of_template_class(Constraint_input_iterator,Generic_input_iterator< std::pair<Point_2,Point_2> >)
 #endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 
-#ifdef   SWIG_EXPOSE_TRIANGULATION_2
 %import "SWIG_CGAL/Triangulation_2/declare_triangulation_2.i"
-Declare_triangulation_2(Triangulation_2,CGAL_T2,Point_2,CGAL::Tag_false)
-#endif //SWIG_EXPOSE_TRIANGULATION_2
+SWIG_CGAL_declare_triangulation_2(Triangulation_2,CGAL_T2,Point_2,CGAL::Tag_false)
 
-#ifdef   SWIG_EXPOSE_DELAUNAY_TRIANGULATION_2
 %import "SWIG_CGAL/Triangulation_2/declare_Delaunay_triangulation_2.i"
-Declare_Delaunay_triangulation_2(Delaunay_triangulation_2,CGAL_DT2)
-#endif //SWIG_EXPOSE_DELAUNAY_TRIANGULATION_2
+SWIG_CGAL_declare_Delaunay_triangulation_2(Delaunay_triangulation_2,CGAL_DT2)
 
-#ifdef   SWIG_EXPOSE_REGULAR_TRIANGULATION_2
 %import "SWIG_CGAL/Triangulation_2/declare_regular_triangulation_2.i"
-Declare_regular_triangulation_2(Regular_triangulation_2,CGAL_RT2)
-#endif //SWIG_EXPOSE_REGULAR_TRIANGULATION_2
+SWIG_CGAL_declare_regular_triangulation_2(Regular_triangulation_2,CGAL_RT2)
 
-#ifdef   SWIG_EXPOSE_CONSTRAINED_TRIANGULATION_2
 %import "SWIG_CGAL/Triangulation_2/declare_constrained_triangulation_2.i"
-Declare_constrained_triangulation_2(Constrained_triangulation_2,CGAL_CT2)
-#endif //SWIG_EXPOSE_CONSTRAINED_TRIANGULATION_2
+SWIG_CGAL_declare_constrained_triangulation_2(Constrained_triangulation_2,CGAL_CT2)
 
-#ifdef   SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_2
 %import "SWIG_CGAL/Triangulation_2/declare_constrained_Delaunay_triangulation_2.i"
-Declare_constrained_Delaunay_triangulation_2(Constrained_Delaunay_triangulation_2,CGAL_CDT2)
-#endif //SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_2
+SWIG_CGAL_declare_constrained_Delaunay_triangulation_2(Constrained_Delaunay_triangulation_2,CGAL_CDT2)
 
-#ifdef   SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_PLUS_2
 %import "SWIG_CGAL/Triangulation_2/declare_constrained_Delaunay_triangulation_plus_2.i"
-Declare_constrained_Delaunay_triangulation_plus_2(Constrained_Delaunay_triangulation_plus_2,CGAL_CDTplus2)
-#endif //SWIG_EXPOSE_CONSTRAINED_DELAUNAY_TRIANGULATION_PLUS_2
+SWIG_CGAL_declare_constrained_Delaunay_triangulation_plus_2(Constrained_Delaunay_triangulation_plus_2,CGAL_CDTplus2)

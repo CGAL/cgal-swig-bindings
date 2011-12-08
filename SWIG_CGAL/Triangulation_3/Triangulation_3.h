@@ -9,7 +9,6 @@
 #define SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_3_H
 
 #include <boost/static_assert.hpp>
-#include <CGAL/Triangulation_3.h>
 
 #include <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
 #include <SWIG_CGAL/Common/triple.h>
@@ -215,7 +214,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_2(bool,is_valid,Cell_handle,bool)
 //I/O
-  #ifndef SWIGCGAL_NO_TRIANGULATION_STRING_OUTPUT
+  #ifndef SWIG_CGAL_NO_TRIANGULATION_STRING_OUTPUT
   std::string toString(){
     std::stringstream sstr;
     sstr << get_data();

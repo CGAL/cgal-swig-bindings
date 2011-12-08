@@ -5,9 +5,11 @@
 // ------------------------------------------------------------------------------ 
 
 
-%{
-  #include <SWIG_CGAL/Common/Reference_wrapper.h>
-%}
-%include "SWIG_CGAL/Common/Reference_wrapper.h"
+#ifndef SWIG_CGAL_POLYHEDRON_3_ALL_INCLUDES_H
+#define SWIG_CGAL_POLYHEDRON_3_ALL_INCLUDES_H
 
-SWIG_CGAL_declare_identifier_of_template_class(Ref_Locate_type,Reference_wrapper<SWIG_Triangulation_2::Locate_type>)
+#include <SWIG_CGAL/Polyhedron_3/typedefs.h>
+#include <SWIG_CGAL/Polyhedron_3/Polyhedron_3.h>
+#include <SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h>
+
+#endif //SWIG_CGAL_POLYHEDRON_3_ALL_INCLUDES_H

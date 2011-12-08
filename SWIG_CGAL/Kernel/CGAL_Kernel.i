@@ -22,14 +22,6 @@ Decl_void_type()
   }
 %}
 
-
-//Special treatment for enum in java
-#ifdef SWIGJAVA
-%include "enums.swg"
-%javaconst(1);
-#endif
-
-
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Common/Iterator.h"
 

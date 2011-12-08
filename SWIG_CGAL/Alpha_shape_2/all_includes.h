@@ -4,10 +4,10 @@
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 // ------------------------------------------------------------------------------ 
 
+#ifndef SWIG_CGAL_ALPHA_SHAPE_2_ALL_INCLUDES_H
+#define SWIG_CGAL_ALPHA_SHAPE_2_ALL_INCLUDES_H
 
-%{
-  #include <SWIG_CGAL/Common/Reference_wrapper.h>
-%}
-%include "SWIG_CGAL/Common/Reference_wrapper.h"
+#include <SWIG_CGAL/Alpha_shape_2/typedefs.h>
+#include <SWIG_CGAL/Alpha_shape_2/Alpha_shape_2.h>
 
-SWIG_CGAL_declare_identifier_of_template_class(Ref_Locate_type,Reference_wrapper<SWIG_Triangulation_2::Locate_type>)
+#endif //SWIG_CGAL_ALPHA_SHAPE_2_ALL_INCLUDES_H
