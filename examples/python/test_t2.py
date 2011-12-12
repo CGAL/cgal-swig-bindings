@@ -1,30 +1,26 @@
-from CGAL import CGAL_Kernel
-from CGAL import CGAL_Triangulation_2
-
+from CGAL.CGAL_Kernel import Point_2
+from CGAL.CGAL_Triangulation_2 import Constraint
+from CGAL.CGAL_Triangulation_2 import Constrained_Delaunay_triangulation_plus_2
 
 constraints=[]
 
-constraints.append(CGAL_Triangulation_2.Constraint(CGAL_Kernel.Point_2(745,118),CGAL_Kernel.Point_2(777,88)))
-constraints.append(CGAL_Triangulation_2.Constraint(CGAL_Kernel.Point_2(744,888),CGAL_Kernel.Point_2(71177,88)))
-constraints.append(CGAL_Triangulation_2.Constraint(CGAL_Kernel.Point_2(711,888),CGAL_Kernel.Point_2(7757,88)))
-#constraints.append(54)
+constraints.append(Constraint(Point_2(745,118),Point_2(777,88)))
+constraints.append(Constraint(Point_2(744,888),Point_2(71177,88)))
+constraints.append(Constraint(Point_2(711,888),Point_2(7757,88)))
 
-t=CGAL_Triangulation_2.Constrained_Delaunay_triangulation_plus_2(constraints)
-#~ t=CGAL_Triangulation_2.Constrained_Delaunay_triangulation_plus_2()
-
-
+t=Constrained_Delaunay_triangulation_plus_2(constraints)
 
 print "Nb vertices ",t.number_of_vertices()
 
 
-v1=t.insert(CGAL_Kernel.Point_2(1,2))
-v2=t.insert(CGAL_Kernel.Point_2(3,2))
-v3=t.insert(CGAL_Kernel.Point_2(3,44))
+v1=t.insert(Point_2(1,2))
+v2=t.insert(Point_2(3,2))
+v3=t.insert(Point_2(3,44))
 
 lst=[]
-lst.append(CGAL_Kernel.Point_2(34,4))
-lst.append(CGAL_Kernel.Point_2(11,45))
-lst.append(CGAL_Kernel.Point_2(11,7))
+lst.append(Point_2(34,4))
+lst.append(Point_2(11,45))
+lst.append(Point_2(11,7))
 
 print t.dimension()
 for e in t.all_edges():

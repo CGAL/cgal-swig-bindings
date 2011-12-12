@@ -1,12 +1,13 @@
-from CGAL import CGAL_Kernel
-from CGAL import CGAL_Triangulation_3
+from CGAL.CGAL_Kernel import Point_3
+from CGAL.CGAL_Kernel import Weighted_point_3
+from CGAL.CGAL_Triangulation_3 import Regular_triangulation_3
 
-t=CGAL_Triangulation_3 .Regular_triangulation_3()
+t=Regular_triangulation_3()
 l=[]
-l.append(CGAL_Kernel.Weighted_point_3(CGAL_Kernel.Point_3(1,1,1),34))
-l.append(CGAL_Kernel.Weighted_point_3(CGAL_Kernel.Point_3(1,56,2),334))
-l.append(CGAL_Kernel.Weighted_point_3(CGAL_Kernel.Point_3(1,3,1),3))
-l.append(CGAL_Kernel.Weighted_point_3(CGAL_Kernel.Point_3(1,1,33),4))
+l.append(Weighted_point_3(Point_3(1,1,1),34))
+l.append(Weighted_point_3(Point_3(1,56,2),334))
+l.append(Weighted_point_3(Point_3(1,3,1),3))
+l.append(Weighted_point_3(Point_3(1,1,33),4))
 t.insert(l)
 print "OK"
 l.append(1)
@@ -34,10 +35,13 @@ except:
 
 #test for memory leak: infinite loop
 mylist=[]
-while 1:
+i=5000
+while i!=0:
   t.adjacent_vertices(v,mylist)
   t.incident_edges(v,mylist)
   t.incident_facets(v,mylist)
-  print len(mylist)
+  print i,
   mylist=[]
+  i-=1
+print "done"
 
