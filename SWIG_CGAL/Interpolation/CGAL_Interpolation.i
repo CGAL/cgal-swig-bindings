@@ -10,17 +10,7 @@
 %include "SWIG_CGAL/common.i"
 Decl_void_type()
 
-%pragma(java) jniclasscode=%{
-  static {
-    try {
-        System.loadLibrary("CGAL_Interpolation");
-    } catch (UnsatisfiedLinkError e) {
-      System.err.println("Native code library CGAL_Interpolation failed to load. \n" + e);
-      throw e;
-    }
-  }
-%}
-
+SWIG_CGAL_add_java_loadLibrary(CGAL_Interpolation)
 
 %import  "SWIG_CGAL/Common/Macros.h"
 

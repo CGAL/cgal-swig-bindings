@@ -13,6 +13,19 @@
 %template (Prefix) Type;
 %enddef
 
+%define SWIG_CGAL_add_java_loadLibrary(NAME)
+  %pragma(java) jniclasscode=%{
+    static {
+      try {
+          System.loadLibrary("NAME");
+      } catch (UnsatisfiedLinkError e) {
+        System.err.println("Native code library NAME failed to load. \n" + e);
+        throw e;
+      }
+    }
+  %}
+%enddef
+  
 //macro function to define proper java iterators
 #ifdef SWIGJAVA
 //this one is specific to iterator of int, double, ...
@@ -257,6 +270,7 @@
 #define SWIG_CGAL_KERNEL_DECL
 #define SWIG_CGAL_AABB_TREE_DECL
 %enddef
+
 
 
 //For non supported target languages

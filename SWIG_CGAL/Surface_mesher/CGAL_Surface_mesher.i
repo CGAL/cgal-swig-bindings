@@ -10,17 +10,7 @@
 %include "SWIG_CGAL/common.i"
 Decl_void_type()
 
-%pragma(java) jniclasscode=%{
-  static {
-    try {
-        System.loadLibrary("CGAL_Surface_mesher");
-    } catch (UnsatisfiedLinkError e) {
-      System.err.println("Native code library CGAL_Surface_mesher failed to load. \n" + e);
-      throw e;
-    }
-  }
-%}
-
+SWIG_CGAL_add_java_loadLibrary(CGAL_Surface_mesher)
 
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"

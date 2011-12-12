@@ -10,17 +10,7 @@
 %include "SWIG_CGAL/common.i"
 Decl_void_type()
 
-%pragma(java) jniclasscode=%{
-  static {
-    try {
-        System.loadLibrary("CGAL_Java");
-    } catch (UnsatisfiedLinkError e) {
-      System.err.println("Native code library CGAL_AABB_tree failed to load. \n" + e);
-      throw e;
-    }
-  }
-%}
-
+SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 
 //include files
 %{
