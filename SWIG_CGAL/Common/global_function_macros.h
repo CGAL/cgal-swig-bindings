@@ -72,10 +72,23 @@
                             internal::Converter<IN_TYPE_7>::convert(c7) \
               )           );\
   }
+  
+#define SWIG_CGAL_FORWARD_AND_FILTER_CALL_GF_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
+  RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2){\
+    To_Lazy to_lazy; \
+    return  \
+      RET ( \
+           To_EPIC() (CGAL:: NAME( to_lazy( internal::Converter<IN_TYPE_1>::convert(c1) ),\
+                            to_lazy( internal::Converter<IN_TYPE_2>::convert(c2) ) \
+           ) \
+      ) \
+    );\
+  }
 
 #else
 #define SWIG_CGAL_FORWARD_CALL_GF_1(RET,NAME,IN_TYPE) RET NAME(const IN_TYPE&);
 #define SWIG_CGAL_FORWARD_CALL_GF_2(RET,NAME,IN_TYPE_1,IN_TYPE_2)  RET NAME(const IN_TYPE_1&,const IN_TYPE_2&);
+#define SWIG_CGAL_FORWARD_AND_FILTER_CALL_GF_2(RET,NAME,IN_TYPE_1,IN_TYPE_2)  RET NAME(const IN_TYPE_1&,const IN_TYPE_2&);
 #define SWIG_CGAL_FORWARD_CALL_GF_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3)  RET NAME(const IN_TYPE_1&,const IN_TYPE_2&,const IN_TYPE_3&);
 #define SWIG_CGAL_FORWARD_CALL_GF_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4)  RET NAME(const IN_TYPE_1&,const IN_TYPE_2&,const IN_TYPE_3&,const IN_TYPE_4&);
 #define SWIG_CGAL_FORWARD_CALL_GF_5(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5)  RET NAME(const IN_TYPE_1&,const IN_TYPE_2&,const IN_TYPE_3&,const IN_TYPE_4&,const IN_TYPE_5&);
