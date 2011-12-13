@@ -50,6 +50,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Delaunay_triangulation
 #endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 
 %import "SWIG_CGAL/Triangulation_3/declare_Delaunay_triangulation_3.i"
+%include "SWIG_CGAL/Triangulation_3/Reference_wrappers.i"
 SWIG_CGAL_declare_Delaunay_triangulation_3_with_memory_holder(Surface_mesh_default_triangulation_3,C2T3_DT,boost::shared_ptr<C2T3_DT>)
 
 //typemap for output iterator

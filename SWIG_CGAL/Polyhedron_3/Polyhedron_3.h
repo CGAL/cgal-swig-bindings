@@ -45,8 +45,11 @@ public:
   Polyhedron_3_wrapper():data(){}
   Polyhedron_3_wrapper(const char* off_filename){
     std::ifstream file(off_filename);
-    file >> data;
-    file.close();
+    if (!file) std::cerr << "Error cannot open file: " << off_filename << std::endl;
+    else{
+      file >> data;
+      file.close();
+    }
   }
   Polyhedron_3_wrapper(unsigned v, unsigned h, unsigned f):data(v,h,f){}
   SWIG_CGAL_FORWARD_CALL_3(void,reserve,unsigned,unsigned,unsigned)
@@ -124,8 +127,11 @@ public:
   void write_to_file(const char* off_filename) const
   {
     std::ofstream file(off_filename);
-    file << data;
-    file.close();    
+    if (!off_filename) std::cerr << "Error cannot create file: " << off_filename << std::endl;    
+    else{
+      file << data;
+      file.close();
+    }
   }
 //Deep copy
   typedef Polyhedron_3_wrapper<Polyhedron_base,Vertex_handle,Halfedge_handle,Facet_handle> Self;

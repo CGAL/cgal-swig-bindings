@@ -23,6 +23,10 @@
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Iterator.h>
+#include <SWIG_CGAL/Kernel/enum.h>
+
+#include <sstream>
+#include <fstream>
 
 namespace SWIG_Triangulation_3 {
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
@@ -49,6 +53,9 @@ class Memory_holder
 class Triangulation_3_wrapper{
   #ifndef SWIG
   BOOST_STATIC_ASSERT( (boost::is_same<Weighted_tag,typename Triangulation::Weighted_tag>::value) );
+  template<class T>
+  void reset(T& shared_ptr) {shared_ptr.reset();}
+  void reset(void*){}
   #endif  
 protected:
   Triangulation* data_ptr;
@@ -144,6 +151,27 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(Cell_handle,locate,Point)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Cell_handle,locate,Point,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Cell_handle,locate,Point,Vertex_handle)
+  Cell_handle locate (const Point& query, Reference_wrapper<SWIG_Triangulation_3::Locate_type> & lt, Reference_wrapper<int>& li, Reference_wrapper<int>& lj){
+    return get_data().locate(query.get_data(),(typename cpp_base::Locate_type&) lt.object(),convert(li),convert(lj));
+  }
+  Cell_handle locate (const Point& query, Reference_wrapper<SWIG_Triangulation_3::Locate_type> & lt, Reference_wrapper<int>& li, Reference_wrapper<int>& lj,const Cell_handle& cell){
+    return get_data().locate(query.get_data(),(typename cpp_base::Locate_type&) lt.object(),convert(li),convert(lj),cell.get_data());
+  }
+  Cell_handle locate (const Point& query, Reference_wrapper<SWIG_Triangulation_3::Locate_type> & lt, Reference_wrapper<int>& li, Reference_wrapper<int>& lj,const Vertex_handle& hint){
+    return get_data().locate(query.get_data(),(typename cpp_base::Locate_type&) lt.object(),convert(li),convert(lj),hint.get_data());
+  }
+  Bounded_side side_of_cell (const Point& p,const Cell_handle& c,Reference_wrapper<SWIG_Triangulation_3::Locate_type> & lt, Reference_wrapper<int>& li, Reference_wrapper<int>& lj){
+    return CGAL::enum_cast<Bounded_side>( get_data().side_of_cell(p.get_data(),c.get_data(),(typename cpp_base::Locate_type&) lt.object(),convert(li),convert(lj)) );
+  }
+  Bounded_side side_of_facet (const Point& p,const Facet& f, Reference_wrapper<SWIG_Triangulation_3::Locate_type> & lt, Reference_wrapper<int>& li, Reference_wrapper<int>& lj){
+    return CGAL::enum_cast<Bounded_side>( get_data().side_of_facet(p.get_data(),internal::make_conversion(f),(typename cpp_base::Locate_type&) lt.object(),convert(li),convert(lj)) );
+  }
+  Bounded_side side_of_edge (const Point& p, const Edge& e, Reference_wrapper<SWIG_Triangulation_3::Locate_type> & lt, Reference_wrapper<int>& li){
+    return CGAL::enum_cast<Bounded_side>( get_data().side_of_edge(p.get_data(),internal::make_conversion(e),(typename cpp_base::Locate_type&) lt.object(),convert(li)) );    
+  }
+  Bounded_side side_of_edge (const Point& p, const Cell_handle& c, Reference_wrapper<SWIG_Triangulation_3::Locate_type> & lt, Reference_wrapper<int>& li){
+    return CGAL::enum_cast<Bounded_side>( get_data().side_of_edge(p.get_data(),c.get_data(),(typename cpp_base::Locate_type&) lt.object(),convert(li)) );    
+  }
 //Flips
   SWIG_CGAL_FORWARD_CALL_1(bool,flip,Edge)
   SWIG_CGAL_FORWARD_CALL_3(bool,flip,Cell_handle,int,int)
@@ -220,6 +248,22 @@ public:
     sstr << get_data();
     return sstr.str();
   }
+  void write_to_file(const char* fname){
+    std::ofstream out(fname);
+    if (!out) std::cerr << "Error cannot create file: " << fname << std::endl;
+    else out << get_data();
+  }
+  void read_from_file(const char* fname){
+    std::ifstream in(fname);
+    if (!in) std::cerr << "Error cannot open file: " << fname << std::endl;
+    else{
+      if (!own_triangulation){
+        data_ptr=new Triangulation();
+        reset(mem_holder);
+      }
+      in >> get_data();
+    }
+  }
   #endif
 //Queries
   bool is_cell (Vertex_handle u,Vertex_handle v,Vertex_handle w,Vertex_handle x,Cell_handle & c,Reference_wrapper<int>& i,Reference_wrapper<int> & j,Reference_wrapper<int> & k,Reference_wrapper<int> & l){
@@ -235,7 +279,10 @@ public:
   typedef Triangulation_3_wrapper<Triangulation,Point,Vertex_handle,Cell_handle,Weighted_tag,Memory_holder> Self;
   Self deepcopy() const {return Self(get_data());}
   void deepcopy(const Self& other){
-    if (own_triangulation) delete data_ptr;
+    if (!own_triangulation){
+      data_ptr=new Triangulation();
+      reset(mem_holder);
+    }
     *this=Self(other.get_data());
   }
 //Special for SWIG
@@ -257,13 +304,6 @@ public:
 //  bool t.is_cell ( Vertex_handle u, Vertex_handle v, Vertex_handle w, Vertex_handle x, Cell_handle & c)
 //  bool t.has_vertex ( Facet f, Vertex_handle v, int & j)
 //  bool t.has_vertex ( Cell_handle c, int i, Vertex_handle v, int & j)
-//Point location
-//  Cell_handle t.locate ( Point query, Locate_type & lt, int & li, int & lj, Cell_handle start = Cell_handle())
-//  Cell_handle t.locate ( Point query, Locate_type & lt, int & li, int & lj, Vertex_handle hint)
-//  Bounded_side t.side_of_cell ( Point p, Cell_handle c, Locate_type & lt, int & li, int & lj)
-//  Bounded_side t.side_of_facet ( Point p, Facet f, Locate_type & lt, int & li, int & lj)
-//  Bounded_side t.side_of_edge ( Point p, Edge e, Locate_type & lt, int & li)
-//  Bounded_side t.side_of_edge ( Point p, Cell_handle c, Locate_type & lt, int & li)
 //Insertions
 //  Vertex_handle t.insert ( Point p, Locate_type lt, Cell_handle loc, int li, int lj)  
 //  template <class CellIt> Vertex_handle t.insert_in_hole ( Point p, CellIt cell_begin, CellIt cell_end, Cell_handle begin, int i)

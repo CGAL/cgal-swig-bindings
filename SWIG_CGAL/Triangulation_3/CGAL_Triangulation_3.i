@@ -33,6 +33,8 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 %include "SWIG_CGAL/Triangulation_3/Regular_triangulation_3.h"
 %include "SWIG_CGAL/Triangulation_3/triangulation_handles.h"
 %include "SWIG_CGAL/Common/triple.h"
+%include "SWIG_CGAL/Triangulation_3/Reference_wrappers.i"
+
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemaps for Input iterator(s)

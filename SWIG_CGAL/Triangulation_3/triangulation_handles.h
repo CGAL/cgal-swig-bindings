@@ -9,6 +9,7 @@
 #define SWIG_CGAL_TRIANGULATION_3_TRIANGULATION_HANDLES_H
 
 #include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Common/Reference_wrapper.h>
 
 namespace SWIG_Triangulation_3{
 
@@ -80,6 +81,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
   SWIG_CGAL_FORWARD_CALL_2(bool,is_valid,bool,int)
+  bool has_vertex(const Vertex_handle& v, Reference_wrapper<int>& i){ return get_data()->has_vertex(v.get_data(),i.object()); }
+  bool has_neighbor (const Cell_handle& n, Reference_wrapper<int>& i){ return get_data()->has_neighbor(n.get_data(),i.object()); }
 //Equality functions  
   bool equals(const CGAL_Cell_handle<Triangulation,Point>& c){
     return data==c.get_data();
@@ -91,9 +94,6 @@ public:
   typedef CGAL_Cell_handle<Triangulation,Point> Self;
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();}
-  
-  //SWIG_CGAL_FORWARD_CALL_2(bool has_vertex,Vertex_handle, int & i)  
-  //bool has_neighbor ( Cell_handle n, int & i)  
 };
 
 } //namespace SWIG_Triangulation_3

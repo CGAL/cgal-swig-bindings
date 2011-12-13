@@ -97,6 +97,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Triangulation_3_wrappe
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Regular_triangulation_3_wrapper::Regular_triangulation_3_wrapper)
 #endif
 #endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+%include "SWIG_CGAL/Triangulation_3/Reference_wrappers.i"
 SWIG_CGAL_declare_regular_triangulation_3_with_memory_holder(Mesh_3_regular_triangulation_3,MT_PMD,boost::shared_ptr<C3T3_PMD>)
 
 //iterators
