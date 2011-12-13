@@ -177,7 +177,7 @@ public:
     return Iterator_helper<Value_type>::convert ( (cur--) );
   }
   
-  bool hasNext(){return true;}
+  bool hasNext(){return cur!=0;}
 };
 
 

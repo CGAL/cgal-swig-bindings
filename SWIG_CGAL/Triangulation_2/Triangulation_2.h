@@ -19,6 +19,7 @@
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/Reference_wrapper.h>
 #include <sstream>
+#include <fstream>
 #include <boost/shared_ptr.hpp>
 
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
@@ -170,6 +171,19 @@ public:
     std::stringstream sstr;
     sstr << *data_sptr;
     return sstr.str();
+  }
+
+  void write_to_file(const char* fname){
+    std::ofstream out(fname);
+    if (!out) std::cerr << "Error cannot create file: " << fname << std::endl;
+    else out << get_data();
+  }
+  void read_from_file(const char* fname){
+    std::ifstream in(fname);
+    if (!in) std::cerr << "Error cannot open file: " << fname << std::endl;
+    else{
+      in >> get_data();
+    }
   }
 //Deep copy (the inheritance is not a problem here, 
   typedef Triangulation_2_wrapper<Triangulation,Point,Vertex_handle,Face_handle,Weighted_tag> Self;
