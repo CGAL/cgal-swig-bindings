@@ -9,5 +9,5 @@
   #include <SWIG_CGAL/Common/Reference_wrapper.h>
 %}
 %include "SWIG_CGAL/Common/Reference_wrapper.h"
-
-SWIG_CGAL_declare_identifier_of_template_class(Ref_Locate_type,Reference_wrapper<SWIG_Triangulation_2::Locate_type>)
+//the _2 is needed to avoid clash with the dim 3
+SWIG_CGAL_declare_identifier_of_template_class(Ref_Locate_type_2,Reference_wrapper<SWIG_Triangulation_2::Locate_type>)

@@ -17,7 +17,7 @@
 // --MEMHOLDER is used if the triangulation pointer is hold by another class, it is a shared_ptr in that case and void* otherwise
 %define SWIG_CGAL_declare_triangulation_3_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,POINT_TYPE,WTAG,MEMHOLDER)
   //Handles
-  %typemap(javaimports) SWIG_Triangulation_3::CGAL_Cell_handle %{import CGAL.Kernel.Ref_int;%}
+  %typemap(javaimports) SWIG_Triangulation_3::CGAL_Cell_handle %{import CGAL.Kernel.POINT_TYPE; import CGAL.Kernel.Ref_int;%}
   SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Cell_handle,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>)
   %typemap(javaimports) SWIG_Triangulation_3::CGAL_Vertex_handle %{import CGAL.Kernel.POINT_TYPE;%}
   SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Vertex_handle,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>)

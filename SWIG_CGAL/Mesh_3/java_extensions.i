@@ -21,4 +21,4 @@
                                 Java_caller_code<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >,
                                 Java_caller_code<std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,int>,Optional< std::pair<int,double> > > > JavaMeshCriteria;%}
 %template(User_mesh_criteria) JavaMeshCriteria;
-declare_global_functions_domain_criteria(Mesh_3_Complex_3_in_triangulation_3_SWIG_wrapper,Polyhedral_mesh_domain_3_type,JavaMeshCriteria,Mesh_3_parameters)
+declare_global_functions_domain_criteria(Mesh_3_Complex_3_in_triangulation_3_SWIG_wrapper,Polyhedral_mesh_domain_3_SWIG_wrapper,JavaMeshCriteria,Mesh_3_parameters)
