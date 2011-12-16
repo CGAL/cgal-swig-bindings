@@ -5,8 +5,8 @@ import CGAL.Kernel.Triangle_3;
 import CGAL.Polyhedron_3.Polyhedron_3;
 import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle;
 import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle;
-import CGAL.AABB_tree.AABB_tree_Polyhedron_3_Facet;
-import CGAL.AABB_tree.AABB_tree_Polyhedron_3_Halfedge;
+import CGAL.AABB_tree.AABB_tree_Polyhedron_3_Facet_handle;
+import CGAL.AABB_tree.AABB_tree_Polyhedron_3_Halfedge_handle;
 import CGAL.AABB_tree.AABB_tree_Triangle_3_soup;
 import CGAL.AABB_tree.Point_and_Polyhedron_3_Halfedge_handle;
 import CGAL.AABB_tree.Optional_Polyhedron_3_Facet_handle;
@@ -39,8 +39,8 @@ public class test_aabb {
     Polyhedron_3 poly=new Polyhedron_3();
     poly.make_tetrahedron(new Point_3(0,0,0),new Point_3(1,0,0),new Point_3(0,1,0),new Point_3(0,0,1));
     
-    AABB_tree_Polyhedron_3_Facet tree=new AABB_tree_Polyhedron_3_Facet(poly.facets());
-    AABB_tree_Polyhedron_3_Halfedge tree2=new AABB_tree_Polyhedron_3_Halfedge(poly.edges());
+    AABB_tree_Polyhedron_3_Facet_handle tree=new AABB_tree_Polyhedron_3_Facet_handle(poly.facets());
+    AABB_tree_Polyhedron_3_Halfedge_handle tree2=new AABB_tree_Polyhedron_3_Halfedge_handle(poly.edges());
     
     System.out.println(tree.size());
     System.out.println(tree2.size());

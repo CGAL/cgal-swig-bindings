@@ -39,7 +39,7 @@ t.insert(lst)
 edges=[]
 
 for v in t.finite_vertices():
-  t.incident_constraints(v,edges);
+  t.incident_constraints(v,edges)
 
 
 print "Nb incident constraints ", len(edges)

@@ -1,7 +1,7 @@
-from CGAL.CGAL_Kernel import Point_2;
-from CGAL.CGAL_Triangulation_2 import Triangulation_2;
-from CGAL.CGAL_Triangulation_2 import Triangulation_2_Vertex_circulator;
-from CGAL.CGAL_Triangulation_2 import Triangulation_2_Vertex_handle;
+from CGAL.CGAL_Kernel import Point_2
+from CGAL.CGAL_Triangulation_2 import Triangulation_2
+from CGAL.CGAL_Triangulation_2 import Triangulation_2_Vertex_circulator
+from CGAL.CGAL_Triangulation_2 import Triangulation_2_Vertex_handle
 
 points=[]
 points.append( Point_2(1,0) )
@@ -13,14 +13,14 @@ points.append( Point_2(5,2) )
 points.append( Point_2(6,3) )
 points.append( Point_2(10,1) )
   
-t=Triangulation_2();
-t.insert(points);
+t=Triangulation_2()
+t.insert(points)
 
-vc = t.incident_vertices(t.infinite_vertex());
+vc = t.incident_vertices(t.infinite_vertex())
 
 if vc.hasNext():
-  done = vc.next();
-  iter=Triangulation_2_Vertex_handle();
+  done = vc.next()
+  iter=Triangulation_2_Vertex_handle()
   while(1):
     iter=vc.next()
     print iter.point()

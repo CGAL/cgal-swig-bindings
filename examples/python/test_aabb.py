@@ -13,7 +13,7 @@ lst=[]
 for f in poly.facets():
   lst.append(f)
 
-tree.rebuild(lst);
+tree.rebuild(lst)
 tree=AABB_tree_Polyhedron_3_Facet(lst)
 print tree.size()
 

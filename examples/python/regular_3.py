@@ -1,9 +1,9 @@
-from CGAL.CGAL_Kernel import Point_3;
-from CGAL.CGAL_Kernel import Weighted_point_3;
-from CGAL.CGAL_Triangulation_3 import Regular_triangulation_3;
+from CGAL.CGAL_Kernel import Point_3
+from CGAL.CGAL_Kernel import Weighted_point_3
+from CGAL.CGAL_Triangulation_3 import Regular_triangulation_3
 
 # generate points on a 3D grid
-P=[];
+P=[]
 
 number_of_points = 0
 
@@ -20,17 +20,17 @@ T = Regular_triangulation_3()
 # insert all points in a row (this is faster than one insert() at a time).
 T.insert (P)
 
-assert T.is_valid();
-assert T.dimension() == 3;
+assert T.is_valid()
+assert T.dimension() == 3
 
 print "Number of vertices : ", T.number_of_vertices()
 
 #removal of all vertices
-count = 0;
+count = 0
 while T.number_of_vertices() > 0:
-  T.remove (T.finite_vertices().next());
-  count+=1;
+  T.remove (T.finite_vertices().next())
+  count+=1
 
 
-assert count == number_of_points;
+assert count == number_of_points
 

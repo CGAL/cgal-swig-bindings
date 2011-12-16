@@ -1,9 +1,9 @@
-from CGAL.CGAL_Kernel import Point_2;
-from CGAL.CGAL_Triangulation_2 import Constrained_Delaunay_triangulation_2;
-from CGAL.CGAL_Triangulation_2 import Constrained_Delaunay_triangulation_2_Vertex_handle;
-from CGAL import CGAL_Mesh_2;
+from CGAL.CGAL_Kernel import Point_2
+from CGAL.CGAL_Triangulation_2 import Constrained_Delaunay_triangulation_2
+from CGAL.CGAL_Triangulation_2 import Constrained_Delaunay_triangulation_2_Vertex_handle
+from CGAL import CGAL_Mesh_2
 
-cdt=Constrained_Delaunay_triangulation_2();
+cdt=Constrained_Delaunay_triangulation_2()
 
 #construct a constrained triangulation
 va = cdt.insert(Point_2( 5., 5.))

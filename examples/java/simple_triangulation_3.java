@@ -3,7 +3,7 @@ import CGAL.Triangulation_3.Delaunay_triangulation_3;
 import CGAL.Triangulation_3.Delaunay_triangulation_3_Cell_handle;
 import CGAL.Triangulation_3.Delaunay_triangulation_3_Vertex_handle;
 import CGAL.Triangulation_3.Locate_type;
-import CGAL.Triangulation_3.Ref_Locate_type;
+import CGAL.Triangulation_3.Ref_Locate_type_3;
 import CGAL.Kernel.Ref_int;
 import java.util.LinkedList;
 import java.util.Vector;
@@ -30,7 +30,7 @@ public class simple_triangulation_3 {
     assert n==6;
     assert T.is_valid();
 
-    Ref_Locate_type lt=new Ref_Locate_type();
+    Ref_Locate_type_3 lt=new Ref_Locate_type_3();
     Ref_int li=new Ref_int();
     Ref_int lj=new Ref_int();
     Point_3 p=new Point_3(0,0,0);

@@ -15,7 +15,6 @@ public class test_mesh_3 {
     Polyhedron_3 poly=new Polyhedron_3("../data/elephant.off");
     Mesh_3_parameters params=new Mesh_3_parameters();
     Polyhedral_mesh_domain_3 domain= new Polyhedral_mesh_domain_3(poly);
-    //Default_mesh_criteria criteria = new  Default_mesh_criteria(25,0.15,0.008,3);
     Mesh3CellCriteria cell_pred_base=new Mesh3CellCriteria();
     Mesh3FacetCriteria facet_pred_base=new Mesh3FacetCriteria();
     Cell_predicate cell_pred =new Cell_predicate(cell_pred_base,"evaluate","CGAL/Mesh_3/Mesh_3_regular_triangulation_3_Cell_handle","CGAL/Mesh_3/Mesh_3_Badness");
@@ -30,7 +29,8 @@ public class test_mesh_3 {
     res.output_to_medit("/tmp/medit_out.mesh");    
 
     System.out.println("Refining mesh...");
-    Default_mesh_criteria new_criteria = new Default_mesh_criteria(0,0,0,3,0.03);
+    Default_mesh_criteria new_criteria = new Default_mesh_criteria();
+    new_criteria.cell_radius_edge_ratio(3).cell_size(0.03);
 
     // Mesh refinement
     CGAL_Mesh_3.refine_mesh_3(res, domain, new_criteria,params);
