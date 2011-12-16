@@ -10,71 +10,70 @@
 
 #include <CGAL/Mesh_criteria_3.h>
 
-//default mesh criteria
-template <class Base>
-class Default_mesh_criteria_wrapper
-{
-  Base data;
-  typedef Default_mesh_criteria_wrapper<Base> Self;
-  //disable deep copy
-  Self deepcopy();
-  void deepcopy(const Self&);   
-public:
-#ifndef SWIG
-  typedef Base cpp_base;
-  const cpp_base& get_data() const {return data;}
-        cpp_base& get_data()       {return data;}
-#endif
-  
-  Default_mesh_criteria_wrapper(  double facet_angle=0,
-                                  double facet_size=0,
-                                  double facet_distance=0,
-                                  double cell_radius_edge=0,
-                                  double cell_size=0)
-  :data(facet_angle,facet_size,facet_distance,cell_radius_edge,cell_size){}
-};
+enum Mesh_facet_topology {
+  FACET_VERTICES_ON_SURFACE = 1,
+  FACET_VERTICES_ON_SAME_SURFACE_PATCH,
+  FACET_VERTICES_ON_SAME_SURFACE_PATCH_WITH_ADJACENCY_CHECK
+};  
 
 template <class Base, class Field1, class Field2, class Field3, class Field4>
 class Mesh_criteria_with_fields_wrapper
 {
-  Base data;
-  typedef Mesh_criteria_with_fields_wrapper<Base,Field1,Field2,Field3,Field4> Self;
-  //disable deep copy
-  Self deepcopy();
-  void deepcopy(const Self&);   
+  
+  #ifndef SWIG
+  template <class Field,class Dummy=int>
+  struct Default{ static Field get(){return Field();} };
+  template<class Dummy> struct Default<double,Dummy>{ static double get(){return 0;} };
+  #endif  
+ 
+  Field1 m_edge_size;
+  double m_facet_angle;
+  Field2 m_facet_size;
+  Field3 m_facet_distance;
+  CGAL::Mesh_facet_topology m_facet_topology;
+  double m_cell_radius_edge_ratio;
+  Field4 m_cell_size;
 public:
 #ifndef SWIG
   typedef Base cpp_base;
-  const cpp_base& get_data() const {return data;}
-        cpp_base& get_data()       {return data;}
+  cpp_base get_data() const {
+    return cpp_base(
+      CGAL::parameters::edge_size=internal::make_conversion(m_edge_size),
+      CGAL::parameters::facet_angle=m_facet_angle,
+      CGAL::parameters::facet_size=internal::make_conversion(m_facet_size),
+      CGAL::parameters::facet_distance=internal::make_conversion(m_facet_distance),
+      CGAL::parameters::facet_topology=m_facet_topology,
+      CGAL::parameters::cell_radius_edge_ratio=m_cell_radius_edge_ratio,
+      CGAL::parameters::cell_size=internal::make_conversion(m_cell_size)
+    );
+  }
 #endif
   
-  Mesh_criteria_with_fields_wrapper(  double facet_angle=0,
-                                      double facet_size=0,
-                                      double facet_distance=0,
-                                      double cell_radius_edge=0,
-                                      double cell_size=0)
-  :data(facet_angle,facet_size,facet_distance,cell_radius_edge,cell_size){}
+  Mesh_criteria_with_fields_wrapper()
+  : m_edge_size(Default<Field1>::get()),m_facet_angle(0),
+    m_facet_size(Default<Field2>::get()),m_facet_distance(Default<Field3>::get()),
+    m_facet_topology(CGAL::FACET_VERTICES_ON_SURFACE),m_cell_radius_edge_ratio(0),m_cell_size(Default<Field4>::get())
+  {}
     
+  typedef Mesh_criteria_with_fields_wrapper<Base,Field1,Field2,Field3,Field4> Self;  
     
-  Mesh_criteria_with_fields_wrapper(  Field1 edge_size,
-                                      double facet_angle,
-                                      Field2 facet_size,
-                                      //Field3 facet_distance,
-                                      double facet_distance,
-                                      double cell_radius_edge_ratio,
-                                      Field4 cell_size
-//                                    ,Mesh_facet_topology parameters::facet_topology
-  ) :data(  CGAL::parameters::edge_sizing_field = edge_size.get_data(),
-            CGAL::parameters::facet_angle = facet_angle,
-            CGAL::parameters::facet_sizing_field = facet_size.get_data(),
-            CGAL::parameters::facet_distance = facet_distance,
-            //Mesh_facet_topology parameters::facet_topology = CGAL::FACET_VERTICES_ON_SURFACE,
-            CGAL::parameters::cell_radius_edge_ratio = cell_radius_edge_ratio,
-            CGAL::parameters::cell_sizing_field = cell_size.get_data()
-    ){}
+  //set criteria
+  Self& edge_size(const Field1& v){ m_edge_size=v; return *this; }
+  Self& facet_angle(double v){m_facet_angle=v; return *this;}
+  Self& facet_size(const Field2& v){m_facet_size=v; return *this;}
+  Self& facet_distance(const Field3& v){m_facet_distance=v; return *this;}
+  Self& facet_topology(Mesh_facet_topology v){m_facet_topology=CGAL::enum_cast<CGAL::Mesh_facet_topology>(v); return *this;}
+  Self& cell_radius_edge_ratio(double v){m_cell_radius_edge_ratio=v; return *this;}
+  Self& cell_size(const Field4& v){m_cell_size=v; return *this;}
+    
+  
+  //deep copy
+  Self deepcopy(){return *this;}
+  void deepcopy(const Self& other){*this=other;}
 };
 
+//Mesh_criteria_3<Tr> mc ( Facet_criteria facet_criteria, Cell_criteria cell_criteria);
+//Mesh_criteria_3<Tr> mc ( Edge_criteria edge_criteria, Facet_criteria facet_criteria, Cell_criteria cell_criteria); 
 
 
 #ifdef SWIGJAVA
