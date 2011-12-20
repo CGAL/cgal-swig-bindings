@@ -2,8 +2,8 @@ from CGAL.CGAL_Kernel import Point_3
 from CGAL.CGAL_Triangulation_3 import Delaunay_triangulation_3
 from CGAL.CGAL_Triangulation_3 import Delaunay_triangulation_3_Cell_handle
 from CGAL.CGAL_Triangulation_3 import Delaunay_triangulation_3_Vertex_handle
+from CGAL.CGAL_Triangulation_3 import Ref_Locate_type_3
 from CGAL.CGAL_Triangulation_3 import VERTEX
-from CGAL.CGAL_Triangulation_3 import Ref_Locate_type
 from CGAL.CGAL_Kernel import Ref_int
 
 
@@ -27,7 +27,7 @@ n = n + T.insert(V)
 assert n==6
 assert T.is_valid()
 
-lt=Ref_Locate_type()
+lt=Ref_Locate_type_3()
 li=Ref_int()
 lj=Ref_int()
 p=Point_3(0,0,0)

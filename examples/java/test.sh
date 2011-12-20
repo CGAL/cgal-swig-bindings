@@ -3,7 +3,7 @@ export LD_LIBRARY_PATH
 
 rm -f error.txt
 
-for i in test_*.java; do
+for i in `egrep -l "public\s+static\s+void\s+main" *.java`; do
   name=`echo $i | sed 's/\.java//'`;
   echo ==================Running  $name ==================
   if javac $i; then 

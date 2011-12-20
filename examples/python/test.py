@@ -6,15 +6,15 @@ l.append(CGAL_Kernel.Point_3(1,1,1))
 l.append(CGAL_Kernel.Point_3(2,2,2))
 l.append(CGAL_Kernel.Point_3(441,41,84))
 l.append(CGAL_Kernel.Point_3(1,1,8))
-t.insert_range(l)
+t.insert(l)
 print "OK"
 l.append(1)
 try:
-  t.insert_range(l)
+  t.insert(l)
 except:
   print "list does not contains only points"
 try:
-  t.insert_range(3)
+  t.insert(3)
 except:
   print "Not a list"
 
@@ -32,11 +32,11 @@ except:
   print "Not a list"
 
 #test for memory leak: infinite loop
-mylist=[]
-while 1:
-  t.adjacent_vertices(v,mylist)
-  t.incident_edges(v,mylist)
-  t.incident_facets(v,mylist)
-  print len(mylist)
-  mylist=[]
+#mylist=[]
+#while 1:
+#  t.adjacent_vertices(v,mylist)
+#  t.incident_edges(v,mylist)
+#  t.incident_facets(v,mylist)
+#  print len(mylist)
+#  mylist=[]
 

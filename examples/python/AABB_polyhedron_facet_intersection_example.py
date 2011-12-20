@@ -14,7 +14,7 @@ polyhedron = Polyhedron_3()
 polyhedron.make_tetrahedron(p, q, r, s)
 
 #constructs AABB tree
-tree = AABB_tree_Polyhedron_3_Facet_handle(list(polyhedron.facets()))
+tree = AABB_tree_Polyhedron_3_Facet_handle(polyhedron.facets())
 
 #constructs segment query
 a = Point_3(-0.2, 0.2, -0.2)

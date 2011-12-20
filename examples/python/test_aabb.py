@@ -2,19 +2,19 @@ from CGAL.CGAL_Kernel import Point_3
 from CGAL.CGAL_Kernel import Segment_3
 from CGAL.CGAL_Kernel import Triangle_3
 from CGAL.CGAL_Polyhedron_3 import Polyhedron_3
-from CGAL.CGAL_AABB_tree import AABB_tree_Polyhedron_3_Facet
+from CGAL.CGAL_AABB_tree import AABB_tree_Polyhedron_3_Facet_handle
 from CGAL.CGAL_AABB_tree import AABB_tree_Triangle_3_soup
 
 poly=Polyhedron_3()
 poly.make_tetrahedron(Point_3(0,0,0),Point_3(1,0,0),Point_3(0,1,0),Point_3(0,0,1))
-tree=AABB_tree_Polyhedron_3_Facet()
+tree=AABB_tree_Polyhedron_3_Facet_handle()
 
 lst=[]
 for f in poly.facets():
   lst.append(f)
 
 tree.rebuild(lst)
-tree=AABB_tree_Polyhedron_3_Facet(lst)
+tree=AABB_tree_Polyhedron_3_Facet_handle(lst)
 print tree.size()
 
 lst=[]
