@@ -37,7 +37,7 @@ class Mesh_3_parameters
   double exude_time_limit;
   double exude_sliver_bound;
 public:
-  Mesh_3_parameters():lloyd_set(false),odt_set(false),perturb_set(true),exude_set(true){}
+  Mesh_3_parameters():lloyd_set(false),odt_set(false),perturb_set(true),exude_set(true),perturb_time_limit(0),perturb_sliver_bound(0),exude_time_limit(0),exude_sliver_bound(0){}
 
   void set_lloyd(double time_limit,int max_iteration_number,double convergence,double freeze_bound)
   {
@@ -57,14 +57,14 @@ public:
     odt_freeze_bound=freeze_bound;
   }
 
-  void set_perturb(double time_limit,double sliver_bound )
+  void set_perturb(double time_limit,double sliver_bound)
   {
     perturb_set=true;
     perturb_time_limit=time_limit;
     perturb_sliver_bound=sliver_bound;    
   }
 
-  void set_exude(double time_limit,double sliver_bound )
+  void set_exude(double time_limit,double sliver_bound)
   {
     exude_set=true;
     exude_time_limit=time_limit;
