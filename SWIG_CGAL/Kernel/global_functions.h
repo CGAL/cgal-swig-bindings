@@ -20,7 +20,7 @@
 #include <SWIG_CGAL/Kernel/Line_3.h>
 #include <SWIG_CGAL/Kernel/Segment_3.h>
 #include <SWIG_CGAL/Kernel/Ray_3.h>
-#include <SWIG_CGAL/Kernel/CGAL_Object.h>
+#include <SWIG_CGAL/Kernel/Object.h>
 
 
 #include <SWIG_CGAL/Common/global_function_macros.h>

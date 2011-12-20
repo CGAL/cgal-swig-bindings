@@ -1,5 +1,8 @@
-from CGAL import CGAL_Kernel
 from CGAL import CGAL_Triangulation_3
+from CGAL import CGAL_Kernel
+from CGAL.CGAL_Kernel import Point_2
+from CGAL.CGAL_Kernel import Triangle_2
+
 t=CGAL_Triangulation_3 .Delaunay_triangulation_3()
 l=[]
 l.append(CGAL_Kernel.Point_3(1,1,1))
@@ -30,6 +33,12 @@ try:
   t.adjacent_vertices(v,3)  
 except:
   print "Not a list"
+
+t1=Triangle_2(Point_2(0,0),Point_2(1,0),Point_2(0,1))
+t2=Triangle_2(Point_2(1,1),Point_2(1,0),Point_2(0,1))
+object = CGAL_Kernel.intersection(t1,t2)
+assert object.is_Segment_2()
+print object.get_Segment_2()
 
 #test for memory leak: infinite loop
 #mylist=[]

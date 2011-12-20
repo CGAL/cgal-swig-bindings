@@ -9,7 +9,7 @@
 #define SWIG_CGAL_KERNEL_ALL_INCLUDES_H
 
 #include <SWIG_CGAL/Kernel/typedefs.h>
-#include <SWIG_CGAL/Kernel/CGAL_Object.h>
+#include <SWIG_CGAL/Kernel/Object.h>
 #include <SWIG_CGAL/Kernel/Direction_2.h>
 #include <SWIG_CGAL/Kernel/Direction_3.h>
 #include <SWIG_CGAL/Kernel/enum.h>

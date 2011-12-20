@@ -18,7 +18,6 @@ import CGAL.AABB_tree.Object_and_Polyhedron_3_Halfedge_handle;
 import CGAL.AABB_tree.AABB_tree_Segment_3_soup;
 
 import CGAL.AABB_tree.Object;
-import CGAL.Kernel.CGAL_Object;
 import CGAL.Kernel.CGAL_Kernel;
 
 import java.util.LinkedList;
@@ -77,7 +76,7 @@ public class test_aabb {
     
     Segment_3 seg1=new Segment_3(new Point_3(-1,0,0),new Point_3(1,0,0));
     Segment_3 seg2=new Segment_3(new Point_3(0,1,0),new Point_3(0,-1,0));
-    CGAL_Object obj=CGAL_Kernel.intersection(seg1,seg2);
+    Object obj=CGAL_Kernel.intersection(seg1,seg2);
     if (obj.is_Point_3())
       System.out.println(obj.get_Point_3());
     else
