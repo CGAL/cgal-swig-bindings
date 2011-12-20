@@ -108,10 +108,10 @@
       Input_iterator_wrapper<Out_Object_,Out_Object_cpp_base_> it_begin($input,SWIG_for_python_);
       $1=std::make_pair(it_begin,it_end);
     }
-    catch(Bad_list_element){
+    catch(Bad_element_type){
       SWIG_fail;
     }
-    catch(Not_a_list){
+    catch(Not_an_iterator){
       SWIG_fail;
     }
   }
@@ -122,15 +122,20 @@
     try{
         $action
       }
-      catch(Bad_list_element){
+      catch(Bad_element_type){
         //TODO: throw a specify exception
         //TODO add a message to specify that the list does not contains only points
         SWIG_fail;
       }
   }
-  //check that the input is a list
+  //check that the input is an iterator
   %typemap(typecheck,precedence=0) Object_typemap_ {
-    $1 = PyList_Check($input) ? 1 : 0;
+    PyObject* iter=PyObject_GetIter($input);
+    if (iter!=NULL){
+      Py_DECREF(iter);
+      $1=1;
+    }
+    else $1=0;
   }
   
 %enddef  
@@ -185,7 +190,7 @@
   try{
       $action
     }
-    catch(Bad_list_element){
+    catch(Bad_element_type){
       SWIG_fail;
     }
 }
