@@ -195,6 +195,18 @@
     }
 }
 %enddef
+
+%exception {
+   try {
+      $action
+   } catch (std::exception &e) {
+      std::string error_msg("Error in SWIG_CGAL code. Here is the text of the C++ exception:\n");
+      error_msg += e.what();
+      PyErr_SetString(PyExc_Exception, error_msg.c_str());
+      SWIG_fail;
+   }
+}
+
 #endif  
 
 //output iterator typemap
