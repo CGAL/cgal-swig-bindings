@@ -17,7 +17,8 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 %include "SWIG_CGAL/Common/Iterator.h"
 %include "SWIG_CGAL/Common/Optional.h"
 
-
+//import Kernel but Object to avoid conflict
+#define SWIG_CGAL_DO_NOT_IMPORT_OBJECT
 %import "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 
 //include files
