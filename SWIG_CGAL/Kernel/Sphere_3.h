@@ -32,7 +32,7 @@ public:
   Sphere_3(Point_3 p, Point_3 q, Point_3 r):data(p.get_data(),q.get_data(),r.get_data()){}
   Sphere_3(Point_3 p, Point_3 q, Orientation o):data(p.get_data(),q.get_data(),internal::make_conversion(o)){}
   Sphere_3(Point_3 p, Point_3 q):data(p.get_data(),q.get_data()){}
-  Sphere_3(Point_3 center, Orientation o):data(center.get_data(),internal::make_conversion(o)){}  
+//  Sphere_3(Point_3 center, Orientation o):data(center.get_data(),internal::make_conversion(o)){}  
   Sphere_3(Point_3 center):data(center.get_data()){}
 //Access Functions
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_3,center)

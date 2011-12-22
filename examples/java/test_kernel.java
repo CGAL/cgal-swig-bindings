@@ -8,6 +8,9 @@ import CGAL.Kernel.Vector_3;
 import java.util.LinkedList;
 import CGAL.Kernel.CGAL_Kernel;
 import CGAL.Kernel.Object;
+import CGAL.Kernel.Sphere_3;
+import CGAL.Kernel.Bounded_side;
+
 
 public class test_kernel {
   public static void main(String arg[]){
@@ -34,6 +37,10 @@ public class test_kernel {
     Object obj=CGAL_Kernel.intersection(seg1,seg2);
     assert obj.is_Point_3();
     System.out.println(obj.get_Point_3());
+    
+    Point_3 p=new Point_3(0,0,0);
+    Sphere_3 s=new Sphere_3(p,1);
+    assert s.bounded_side(p)==Bounded_side.ON_BOUNDED_SIDE;
     
   }
 
