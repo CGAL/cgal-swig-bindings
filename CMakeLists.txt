@@ -20,8 +20,10 @@ if ( CGAL_FOUND )
   include( ${CGAL_USE_FILE} )
   
   if (${CMAKE_BUILD_TYPE} STREQUAL Release)
-    message ("Release mode: using -fno-strict-aliasing flags")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing")
+    if(CMAKE_COMPILER_IS_GNUCXX)
+      message (STATUS "Release mode with g++: using -fno-strict-aliasing flags")
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing")
+    endif()
   endif()
   
   if (SWIG_FOUND)
