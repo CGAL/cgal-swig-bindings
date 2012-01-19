@@ -14,7 +14,7 @@ MACRO(ADD_SWIG_CGAL_LIBRARY libname)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})
   include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${COMMON_LIBRARIES_PATH}")
-  add_library(${libname} ${ARGN})
+  add_library(${libname} SHARED ${ARGN})
 ENDMACRO()
 
 MACRO(ADD_SWIG_CGAL_JAVA_MODULE packagename)
