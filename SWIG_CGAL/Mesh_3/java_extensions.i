@@ -8,6 +8,11 @@
 %{ 
   #include <SWIG_CGAL/Java/Java_caller_code.h>
 %}
+
+//to avoid conflict with Object from package
+%typemap(jstype) jobject      "java.lang.Object"
+%typemap(jtype) jobject       "java.lang.Object"
+
 %include "SWIG_CGAL/Java/Java_caller_code.h"
 
 %template(Cell_predicate) Java_caller_code<SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>,Optional< std::pair<int,double> > >;
