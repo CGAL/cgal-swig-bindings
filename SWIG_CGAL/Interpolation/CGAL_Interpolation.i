@@ -18,6 +18,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Interpolation)
 %{
   #include  <SWIG_CGAL/Kernel/typedefs.h>
 //needed for triangulation_2 import
+  #include <SWIG_CGAL/Triangulation_2/Object.h>
   #include <SWIG_CGAL/Triangulation_2/all_includes.h>
 //needed for triangulation_3 import
   #include <SWIG_CGAL/Triangulation_3/all_includes.h>

@@ -1,3 +1,4 @@
 SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
-ADD_SWIG_CGAL_JAVA_MODULE  (Surface_mesher ${LIBSTOLINKWITH} CGAL_Java_cpp)
-ADD_SWIG_CGAL_PYTHON_MODULE(Surface_mesher ${LIBSTOLINKWITH})
+add_swig_cgal_library(CGAL_Surface_mesher_cpp "Object.cpp")
+ADD_SWIG_CGAL_JAVA_MODULE  (Surface_mesher ${LIBSTOLINKWITH} CGAL_Surface_mesher_cpp CGAL_Java_cpp)
+ADD_SWIG_CGAL_PYTHON_MODULE(Surface_mesher ${LIBSTOLINKWITH} CGAL_Surface_mesher_cpp)

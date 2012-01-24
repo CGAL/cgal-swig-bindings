@@ -57,6 +57,11 @@ public:
   SWIG_CGAL_FORWARD_CALL_3(bool,is_Gabriel,Cell_handle,int,int)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_Gabriel,Facet)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_Gabriel,Edge)
+//Voronoi diagram
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,dual,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Facet) 
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Object,dual,Cell_handle,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Line_3,dual_support,Cell_handle,int)
 };
 
 //Removal
@@ -66,10 +71,6 @@ public:
 // template <class OutputIteratorBoundaryFacets, class OutputIteratorCells, class OutputIteratorInternalFacets> Triple<OutputIteratorBoundaryFacets, OutputIteratorCells, OutputIteratorInternalFacets> dt.find_conflicts ( Point p,Cell_handle c,OutputIteratorBoundaryFacets bfit,OutputIteratorCells cit,OutputIteratorInternalFacets ifit)
 // template <class OutputIterator> OutputIterator dt.vertices_in_conflict ( Point p, Cell_handle c, OutputIterator res)
 //Voronoi diagram
-// Point dt.dual ( Cell_handle c)
-// Object dt.dual ( Facet f) 
-// Object dt.dual ( Cell_handle c, int i) same as the previous method for facet (c,i).
-// Line dt.dual_support ( Cell_handle c, int i)
 // template <class Stream> Stream & dt.draw_dual ( Stream & os) Sends the set of duals to all the facets of dt into os.
 
 

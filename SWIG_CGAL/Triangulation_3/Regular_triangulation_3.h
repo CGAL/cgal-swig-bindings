@@ -52,15 +52,16 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_Gabriel,Facet)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_Gabriel,Edge)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_Gabriel,Vertex_handle)
+//Power diagram
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Weighted_point_3,dual,Cell_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Facet)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Object,dual,Cell_handle,int)
 };
 
 //Queries
 // template <class OutputIteratorBoundaryFacets, class OutputIteratorCells, class OutputIteratorInternalFacets> Triple<OutputIteratorBoundaryFacets, OutputIteratorCells, OutputIteratorInternalFacets> rt.find_conflicts ( const Weighted_point p, Cell_handle c,OutputIteratorBoundaryFacets bfit,OutputIteratorCells cit,OutputIteratorInternalFacets ifit)
 // template <class OutputIterator> OutputIterator rt.vertices_in_conflict ( Point p, Cell_handle c, OutputIterator res)
 //Power diagram
-// Weighted_point_3 rt.dual ( Cell_handle c) Returns the weighted circumcenter of the four vertices of c.
-// Object rt.dual ( Facet f) Returns the dual of facet f, which is
-// Object rt.dual ( Cell_handle c, int i) same as the previous method for facet (c,i).
 // template <class Stream> Stream & rt.draw_dual ( Stream & os) Sends the set of duals to all the facets of rt into os.
 
 #endif //SWIG_CGAL_TRIANGULATION_3_REGULAR_TRIANGULATION_3_H

@@ -23,6 +23,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 //include files
 %{
   #include <SWIG_CGAL/Kernel/typedefs.h>
+  #include <SWIG_CGAL/Alpha_shape_2/Object.h>
   #include <SWIG_CGAL/Alpha_shape_2/all_includes.h>
   #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
   #include <SWIG_CGAL/Common/Iterator.h>
@@ -39,6 +40,10 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 %import  "SWIG_CGAL/Triangulation_2/Delaunay_triangulation_2.h"
 %import  "SWIG_CGAL/Triangulation_2/Regular_triangulation_2.h"
 
+//local Object class: we cannot use the class from Kernel module as CGAL::Object uses RTTI
+#ifdef SWIG_CGAL_Alpha_shape_2_MODULE
+%include "SWIG_CGAL/Common/Object.i"
+#endif
 
 //vertex range
 %include "std_pair.i"

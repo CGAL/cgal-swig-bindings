@@ -19,6 +19,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Surface_mesher)
 //include files
 %{
   #include  <SWIG_CGAL/Polyhedron_3/all_includes.h>
+  #include  <SWIG_CGAL/Surface_mesher/Object.h>
   #include  <SWIG_CGAL/Triangulation_3/Delaunay_triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
@@ -38,7 +39,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Surface_mesher)
 %include "SWIG_CGAL/Surface_mesher/C2T3.h"
 %include "SWIG_CGAL/Surface_mesher/Surface_mesh_details.h"
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Sphere_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Iterator; import java.util.Collection; import CGAL.Polyhedron_3.Polyhedron_3;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Line_3; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Sphere_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Iterator; import java.util.Collection; import CGAL.Polyhedron_3.Polyhedron_3;%}
 %pragma(java) moduleimports  =%{import CGAL.Polyhedron_3.Polyhedron_3;%} //for global functions
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
@@ -48,6 +49,11 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Triangulation_3_wrappe
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Delaunay_triangulation_3_wrapper::Delaunay_triangulation_3_wrapper)
 #endif
 #endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+
+//local Object class: we cannot use the class from Kernel module as CGAL::Object uses RTTI
+#ifdef SWIG_CGAL_Surface_mesher_MODULE
+%include "SWIG_CGAL/Common/Object.i"
+#endif
 
 %import "SWIG_CGAL/Triangulation_3/declare_Delaunay_triangulation_3.i"
 %include "SWIG_CGAL/Triangulation_3/Reference_wrappers.i"

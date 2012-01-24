@@ -5,11 +5,6 @@
 // ------------------------------------------------------------------------------ 
 
 
-#ifndef SWIG_CGAL_AABB_TREE_OBJECT_H
-#define SWIG_CGAL_AABB_TREE_OBJECT_H
+#define SWIG_CGAL_MESH_3_EXPORT
 
-#include <SWIG_CGAL/AABB_tree/decl.h>
-#define SWIG_CGAL_XXXXXX_DECL SWIG_CGAL_AABB_TREE_DECL
-#include <SWIG_CGAL/Common/Object_impl.h>
-
-#endif //SWIG_CGAL_AABB_TREE_OBJECT_H
+#include <SWIG_CGAL/Mesh_3/Object.h>

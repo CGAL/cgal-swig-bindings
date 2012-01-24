@@ -19,6 +19,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 //include files
 %{
   #include  <SWIG_CGAL/Kernel/typedefs.h>
+  #include <SWIG_CGAL/Triangulation_2/Object.h>
   #include <SWIG_CGAL/Triangulation_2/all_includes.h>
   #include <SWIG_CGAL/Common/Iterator.h>
   #include <SWIG_CGAL/Mesh_2/all_includes.h>

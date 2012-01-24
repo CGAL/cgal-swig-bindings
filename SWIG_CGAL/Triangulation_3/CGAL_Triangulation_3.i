@@ -19,12 +19,13 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 
 //include files
 %{
+  #include <SWIG_CGAL/Triangulation_3/Object.h>
   #include <SWIG_CGAL/Triangulation_3/all_includes.h>
   #include <SWIG_CGAL/Common/triple.h>
   #include <SWIG_CGAL/Common/Iterator.h>
 %}
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import CGAL.Kernel.Ref_int; import java.util.Iterator; import java.util.Collection;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Line_3; import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import CGAL.Kernel.Ref_int; import java.util.Iterator; import java.util.Collection;%}
 
 
 //definitions
@@ -46,7 +47,12 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Delaunay_triangulation
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Regular_triangulation_3_wrapper::Regular_triangulation_3_wrapper)
 #endif
 #endif//!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-  
+
+//local Object class: we cannot use the class from Kernel module as CGAL::Object uses RTTI
+#ifdef SWIG_CGAL_Triangulation_3_MODULE
+%include "SWIG_CGAL/Common/Object.i"
+#endif
+
 %import "SWIG_CGAL/Triangulation_3/declare_triangulation_3.i"
 SWIG_CGAL_declare_triangulation_3(Triangulation_3,CGAL_T3)
 

@@ -5,11 +5,11 @@
 // ------------------------------------------------------------------------------ 
 
 
-#ifndef SWIG_CGAL_AABB_TREE_OBJECT_H
-#define SWIG_CGAL_AABB_TREE_OBJECT_H
+#ifndef SWIG_CGAL_TRIANGULATION_2_OBJECT_H
+#define SWIG_CGAL_TRIANGULATION_2_OBJECT_H
 
-#include <SWIG_CGAL/AABB_tree/decl.h>
-#define SWIG_CGAL_XXXXXX_DECL SWIG_CGAL_AABB_TREE_DECL
+#include <SWIG_CGAL/Triangulation_2/decl.h>
+#define SWIG_CGAL_XXXXXX_DECL SWIG_CGAL_TRIANGULATION_2_DECL
 #include <SWIG_CGAL/Common/Object_impl.h>
 
-#endif //SWIG_CGAL_AABB_TREE_OBJECT_H
+#endif //SWIG_CGAL_TRIANGULATION_2_OBJECT_H

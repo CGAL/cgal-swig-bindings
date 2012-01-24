@@ -16,9 +16,6 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 %import  "SWIG_CGAL/Common/Macros.h"
 %include "SWIG_CGAL/Common/Iterator.h"
 %include "SWIG_CGAL/Common/Optional.h"
-
-//import Kernel but Object to avoid conflict
-#define SWIG_CGAL_DO_NOT_IMPORT_OBJECT
 %import "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 
 //include files
@@ -44,8 +41,9 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 %}
 
 //local Object class: we cannot use the class from Kernel module as CGAL::Object uses RTTI
-%include "SWIG_CGAL/Common/Object_impl.i"
-%include "SWIG_CGAL/AABB_tree/Object.h"
+#ifdef SWIG_CGAL_AABB_tree_MODULE
+%include "SWIG_CGAL/Common/Object.i"
+#endif
 
 //import Polyhedron_3 wrapper types
 SWIG_CGAL_import_Polyhedron_3_Facet_handle_SWIG_wrapper

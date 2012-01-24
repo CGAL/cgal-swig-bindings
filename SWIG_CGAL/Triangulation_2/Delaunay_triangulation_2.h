@@ -10,6 +10,7 @@
 
 #include <SWIG_CGAL/Triangulation_2/Triangulation_2.h>
 
+
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 
@@ -26,6 +27,7 @@ public:
   typedef Generic_output_iterator< Face_handle >                      Face_output_iterator;
   #endif
 
+  typedef std::pair<Face_handle,int> Edge;
   #ifndef SWIG
   typedef Triangulation cpp_base;
   #endif
@@ -46,16 +48,14 @@ public:
   {
     this->get_data().get_boundary_of_conflicts(p.get_data(),out,start.get_data());
   }
-  
-  
 // Voronoi diagram
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,dual,Face_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Edge)
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_DELAUNAY_TRIANGULATION_2_H
 
 // Voronoi diagram
-//   Object   dt.dual ( Edge e)
 //   Object   dt.dual ( Edge_circulator ec)
 //   Object   dt.dual ( Edge_iterator ei)
 //   template < class Stream>

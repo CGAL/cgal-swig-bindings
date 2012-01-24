@@ -22,6 +22,7 @@ public:
   #ifndef SWIG  
   typedef Triangulation cpp_base;
   #endif
+  typedef std::pair<Face_handle,int> Edge;
   typedef SWIG_CGAL_Iterator<typename Triangulation::Hidden_vertices_iterator,Vertex_handle> Hidden_vertices_iterator;
   Regular_triangulation_2_wrapper() : Base() {}
 // Access functions
@@ -30,6 +31,7 @@ public:
 // Dual power diagram    
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Weighted_point_2,weighted_circumcenter,Face_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Weighted_point_2,dual,Face_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Edge)
 // Predicates
   SWIG_CGAL_FORWARD_CALL_2(Oriented_side,power_test,Face_handle,Weighted_point_2)
 };
@@ -57,7 +59,6 @@ public:
 //   OutputItHiddenVertices   rt.get_hidden_vertices ( Point p, OutputItHiddenVertices vit, Face_handle start)
 //   Vertex_handle   rt.nearest_power_vertex ( Bare_point p)
 // Dual power diagram
-//   Object   rt.dual ( Edge e)
 //   Object   rt.dual ( Edge_circulator ec)
 //   Object   rt.dual ( Edge_iterator ei)
 //   template < class Stream>

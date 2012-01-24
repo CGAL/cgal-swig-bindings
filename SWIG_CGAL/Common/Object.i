@@ -4,7 +4,7 @@
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 // ------------------------------------------------------------------------------ 
 
-#ifdef SWIG_CGAL_DO_NOT_IMPORT_OBJECT
+#ifndef SWIG_CGAL_Kernel_MODULE
 %typemap(javaimports) Object%{
   import CGAL.Kernel.Point_2;
   import CGAL.Kernel.Point_3;
@@ -24,21 +24,20 @@
   bool is_##TYPE(); \
   TYPE get_##TYPE();
 
-#define SWIG_CGAL_OBJECT_IMPLEMENTATION \
-class Object \
-{ \
-public:\
-  Object(){};\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Point_2)\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Point_3)\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Triangle_2)\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Triangle_3)\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Segment_3)\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Segment_2)\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Line_3)\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Line_2)\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Plane_3)\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Ray_2)\
-  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Ray_3)\
-  SWIG_CGAL_FORWARD_CALL_0(bool,empty)\
+class Object 
+{
+public:
+  Object(){};
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Point_2)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Point_3)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Triangle_2)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Triangle_3)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Segment_3)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Segment_2)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Line_3)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Line_2)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Plane_3)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Ray_2)
+  SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Ray_3)
+  SWIG_CGAL_FORWARD_CALL_0(bool,empty)
 };

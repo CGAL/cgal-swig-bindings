@@ -1,3 +1,4 @@
 SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
-ADD_SWIG_CGAL_JAVA_MODULE  (Triangulation_3 ${LIBSTOLINKWITH} CGAL_Java_cpp)
-ADD_SWIG_CGAL_PYTHON_MODULE(Triangulation_3 ${LIBSTOLINKWITH})
+add_swig_cgal_library(CGAL_Triangulation_3_cpp "Object.cpp")
+ADD_SWIG_CGAL_JAVA_MODULE  (Triangulation_3 ${LIBSTOLINKWITH} CGAL_Triangulation_3_cpp CGAL_Java_cpp)
+ADD_SWIG_CGAL_PYTHON_MODULE(Triangulation_3 ${LIBSTOLINKWITH} CGAL_Triangulation_3_cpp)

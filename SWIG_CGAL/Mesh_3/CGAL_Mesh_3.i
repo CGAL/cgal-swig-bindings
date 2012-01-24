@@ -21,6 +21,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 %{
   #define SWIG_CGAL_NO_TRIANGULATION_STRING_OUTPUT //I/O are broken for C3T3 triangulation
   #include  <SWIG_CGAL/Kernel/typedefs.h>
+  #include  <SWIG_CGAL/Mesh_3/Object.h>
   #include  <SWIG_CGAL/Triangulation_3/Regular_triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/Triangulation_3.h>
   #include  <SWIG_CGAL/Triangulation_3/triangulation_handles.h>
@@ -96,6 +97,13 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Triangulation_3_wrappe
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Regular_triangulation_3_wrapper::Regular_triangulation_3_wrapper)
 #endif
 #endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+
+
+//local Object class: we cannot use the class from Kernel module as CGAL::Object uses RTTI
+#ifdef SWIG_CGAL_Mesh_3_MODULE
+%include "SWIG_CGAL/Common/Object.i"
+#endif
+
 %include "SWIG_CGAL/Triangulation_3/Reference_wrappers.i"
 SWIG_CGAL_declare_regular_triangulation_3_with_memory_holder(Mesh_3_regular_triangulation_3,MT_PMD,boost::shared_ptr<C3T3_PMD>)
 

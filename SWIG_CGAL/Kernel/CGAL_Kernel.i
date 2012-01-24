@@ -95,9 +95,8 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
 %include "SWIG_CGAL/Kernel/Direction_3_def.h"
 %include "SWIG_CGAL/Kernel/Tetrahedron_3.h"
 %include "SWIG_CGAL/Kernel/Vector_3_def.h"
-#ifndef SWIG_CGAL_DO_NOT_IMPORT_OBJECT
-%include "SWIG_CGAL/Common/Object_impl.i"
-%include "SWIG_CGAL/Kernel/Object.h"
+#ifdef SWIG_CGAL_Kernel_MODULE
+%include "SWIG_CGAL/Common/Object.i"
 #endif
 %include "SWIG_CGAL/Kernel/enum.h"
 %include "SWIG_CGAL/Kernel/Polygon_2.h"
