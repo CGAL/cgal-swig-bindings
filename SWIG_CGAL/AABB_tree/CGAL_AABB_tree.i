@@ -44,7 +44,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 %}
 
 //local Object class: we cannot use the class from Kernel module as CGAL::Object uses RTTI
-%typemap(javaimports)      Object%{import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import CGAL.Kernel.Line_3; %}
+%include "SWIG_CGAL/Common/Object_impl.i"
 %include "SWIG_CGAL/AABB_tree/Object.h"
 
 //import Polyhedron_3 wrapper types
