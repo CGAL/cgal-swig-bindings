@@ -10,6 +10,7 @@
 
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
+#include <boost/functional/hash.hpp>
 
 namespace SWIG_Triangulation_2{
 
@@ -38,6 +39,7 @@ public:
   }
   #ifdef SWIGPYTHON
   bool __ne__(const Self& v){return !equals(v);}
+  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
   #endif
 //Deep copy
   Self deepcopy() const {return Self(data);}
@@ -90,6 +92,7 @@ public:
   }  
   #ifdef SWIGPYTHON
   bool __ne__(const Self& c){return !equals(c);}
+  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
   #endif  
 //Deep copy
   Self deepcopy() const {return Self(data);}

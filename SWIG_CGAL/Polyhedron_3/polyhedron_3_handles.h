@@ -12,6 +12,7 @@
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/Polyhedron_items_with_id_3.h>
 #include <SWIG_CGAL/Polyhedron_3/Polyhedron_items_with_id_and_info_3.h>
+#include <boost/functional/hash.hpp>
 
 namespace internal{
   
@@ -94,6 +95,9 @@ public:
   bool equals(const CGAL_Halfedge_handle<Polyhedron_base>& he){ return get_data()==he.get_data(); }
   int hashCode(){ return *reinterpret_cast<int*> (&*data);}
 
+  #ifdef SWIGPYTHON
+  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
+  #endif  
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}
 //Deep copy
@@ -134,6 +138,10 @@ public:
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}  
 
+  #ifdef SWIGPYTHON
+  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
+  #endif  
+  
   void set_point(const Point_3& p){ data->point() =  internal::Converter<Point_3>::convert(p);}  
 //Deep copy
   typedef CGAL_Vertex_handle<Polyhedron_base> Self;
@@ -171,6 +179,10 @@ public:
   bool equals(const CGAL_Facet_handle<Polyhedron_base>& f){ return get_data()==f.get_data(); }
   int hashCode(){ return *reinterpret_cast<int*> (&*data);}
 
+  #ifdef SWIGPYTHON
+  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
+  #endif  
+  
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}
 //Deep copy

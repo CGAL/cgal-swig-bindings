@@ -10,6 +10,7 @@
 
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/Reference_wrapper.h>
+#include <boost/functional/hash.hpp>
 
 namespace SWIG_Triangulation_3{
 
@@ -43,6 +44,7 @@ public:
   }
   #ifdef SWIGPYTHON
   bool __ne__(const CGAL_Vertex_handle<Triangulation,Point>& v){return !equals(v);}
+  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
   #endif
 //Deep copy
   typedef CGAL_Vertex_handle<Triangulation,Point> Self;
@@ -89,6 +91,7 @@ public:
   }  
   #ifdef SWIGPYTHON
   bool __ne__(const CGAL_Cell_handle<Triangulation,Point>& c){return !equals(c);}
+  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
   #endif  
 //Deep copy
   typedef CGAL_Cell_handle<Triangulation,Point> Self;
