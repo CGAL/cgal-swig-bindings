@@ -19,7 +19,7 @@ ENDMACRO()
 
 MACRO(ADD_SWIG_CGAL_JAVA_MODULE packagename)
   
-  if (JAVA_INCLUDE_PATH)
+  if (BUILD_JAVA AND JAVA_INCLUDE_PATH)
     SET (MODULENAME "CGAL_${packagename}")
     SET (INTERFACE_FILES  "CGAL_${packagename}.i")
     SET (JAVAPACKAGENAME "CGAL.${packagename}")
