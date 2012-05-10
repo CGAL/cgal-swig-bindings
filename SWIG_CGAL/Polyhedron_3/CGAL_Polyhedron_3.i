@@ -24,6 +24,10 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 %include "SWIG_CGAL/Polyhedron_3/java_extensions.i"
 #endif
 
+#ifdef SWIGPYTHON
+%include "SWIG_CGAL/Polyhedron_3/python_extensions.i"
+#endif
+
 //include files
 
 
