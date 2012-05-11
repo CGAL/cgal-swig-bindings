@@ -175,3 +175,85 @@ SWIG_CGAL_FORWARD_AND_FILTER_CALL_GF_2(Object,intersection,Ray_2,Line_2)
 
 //area
 SWIG_CGAL_FORWARD_CALL_GF_3(double,area,Point_2,Point_2,Point_2)
+
+
+//other constructions
+SWIG_CGAL_FORWARD_CALL_GF_2(Vector_3,cross_product,Vector_3,Vector_3)
+SWIG_CGAL_FORWARD_CALL_GF_3(double,determinant,Vector_3,Vector_3,Vector_3)
+SWIG_CGAL_FORWARD_CALL_GF_2(double,determinant,Vector_2,Vector_2)
+
+
+//All kernel global functions
+// angle
+// are_ordered_along_line
+// are_strictly_ordered_along_line
+// barycenter
+// bisector
+// centroid
+// circumcenter
+// collinear
+// collinear_are_ordered_along_line
+// collinear_are_strictly_ordered_along_line
+// compare_distance_to_point
+// compare_lexicographically
+// compare_signed_distance_to_line
+// compare_signed_distance_to_plane
+// compare_slopes
+// compare_dihedral_angle
+// compare_squared_distance
+// compare_squared_radius
+// compare_x
+// compare_xy
+// compare_xyz
+// compare_x_at_y
+// compare_y
+// compare_y_at_x
+// compare_yx
+// compare_z
+// coplanar
+// coplanar_orientation
+// coplanar_side_of_bounded_circle
+// do_intersect
+// do_overlap
+// equidistant_line
+// has_larger_distance_to_point
+// has_larger_signed_distance_to_line
+// has_larger_signed_distance_to_plane
+// has_smaller_distance_to_point
+// has_smaller_signed_distance_to_line
+// has_smaller_signed_distance_to_plane
+// left_turn
+// lexicographically_xyz_smaller
+// lexicographically_xyz_smaller_or_equal
+// lexicographically_xy_larger
+// lexicographically_xy_larger_or_equal
+// lexicographically_xy_smaller
+// lexicographically_xy_smaller_or_equal
+// max_vertex
+// midpoint
+// normal
+// min_vertex
+// operator+
+// operator-
+// operator*
+// opposite
+// orthogonal_vector
+// orientation
+// parallel
+// quotient_cartesian_to_homogeneous
+// radical_plane
+// radical_line
+// rational_rotation_approximation
+// right_turn
+// side_of_bounded_circle
+// side_of_bounded_sphere
+// side_of_oriented_circle
+// side_of_oriented_sphere
+// squared_area
+// squared_radius
+// unit_normal
+// volume
+// x_equal
+// y_equal
+// z_equal
+
