@@ -36,7 +36,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 //definitions
 %include "SWIG_CGAL/Polyhedron_3/Polyhedron_3.h"
 %include "SWIG_CGAL/Polyhedron_3/polyhedron_3_handles.h"
-
+%include "SWIG_CGAL/Polyhedron_3/general_modifier.h"
 
 //template instantiation
 SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_3_Halfedge_handle,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>)
@@ -52,6 +52,9 @@ SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_3_Facet_handle,SWIG_Po
 %typemap(javaimports)                       Polyhedron_3_wrapper %{import CGAL.Kernel.Point_3;%}
 SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_3,Polyhedron_3_wrapper< Polyhedron_3_,SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>,SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_> >)
 
+//general modifier
+%typemap(javaimports)       General_modifier<Polyhedron_3_::HalfedgeDS> %{import CGAL.Kernel.Point_3;%}
+SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_modifier,General_modifier<Polyhedron_3_::HalfedgeDS>)
 
 //Iterators
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Polyhedron_3_Halfedge_handle,)

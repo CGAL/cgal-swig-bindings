@@ -13,12 +13,14 @@
 #include <CGAL/IO/Polyhedron_iostream.h>
 #include <fstream>
 
+
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/Iterator.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <SWIG_CGAL/Kernel/Plane_3.h>
 #include <SWIG_CGAL/Polyhedron_3/Modifier_base.h>
+#include <SWIG_CGAL/Polyhedron_3/general_modifier.h>
 #include <boost/shared_ptr.hpp>
 
 template <class Polyhedron_base,class Vertex_handle,class Halfedge_handle,class Facet_handle>
@@ -126,6 +128,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid) //bool P.is_valid ( bool verbose = false, int level = 0)
   SWIG_CGAL_FORWARD_CALL_0(bool,normalized_border_is_valid)  //bool P.normalized_border_is_valid ( bool verbose = false)
   void delegate(Modifier_base<Polyhedron_base> modifier){get_data().delegate(modifier.get_data());}
+  void delegate(General_modifier<typename Polyhedron_base::HalfedgeDS> modifier){get_data().delegate(modifier);}
   void write_to_file(const char* off_filename) const
   {
     std::ofstream file(off_filename);
