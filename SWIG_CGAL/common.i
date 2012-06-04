@@ -321,6 +321,6 @@
 %}
 
 #if SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-%define SWIG_CGAL_output_iterator_typemap_in(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
+%define SWIG_CGAL_output_iterator_typemap_in(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_,SWIG_for_ruby_)
 %enddef
 #endif
