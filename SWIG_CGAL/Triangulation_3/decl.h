@@ -8,20 +8,12 @@
 #ifndef SWIG_CGAL_TRIANGULATION_3_DECL_H
 #define SWIG_CGAL_TRIANGULATION_3_DECL_H
 
-#include <boost/config.hpp>
-
-#ifdef BOOST_HAS_DECLSPEC
+#include <CGAL/export/helpers.h>
 
 #ifdef  SWIG_CGAL_TRIANGULATION_3_EXPORT
-#define SWIG_CGAL_TRIANGULATION_3_DECL __declspec(dllexport) 
+#define SWIG_CGAL_TRIANGULATION_3_DECL CGAL_DLL_EXPORT
 #else
-#define SWIG_CGAL_TRIANGULATION_3_DECL __declspec(dllimport) 
+#define SWIG_CGAL_TRIANGULATION_3_DECL CGAL_DLL_IMPORT
 #endif
-
-#else
-#define SWIG_CGAL_TRIANGULATION_3_DECL 
-#endif
-
-
 
 #endif // SWIG_CGAL_TRIANGULATION_3_DECL_H
