@@ -4,11 +4,8 @@
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 // ------------------------------------------------------------------------------ 
 
-
-#include <SWIG_CGAL/Kernel/global_functions.h>
+#define SWIG_CGAL_KERNEL_EXPORT
 
 #define NO_SWIG_CGAL_GF_MACRO_DEFINITION
 
-#include <SWIG_CGAL/Common/global_function_macros.h>
-
-#include <SWIG_CGAL/Kernel/global_function_signatures.h>
+#include <SWIG_CGAL/Kernel/global_functions.h>
