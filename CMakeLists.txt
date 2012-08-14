@@ -11,9 +11,10 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/SWIG_CGAL_Macros.cmake)
 
 find_package(CGAL QUIET COMPONENTS ImageIO)
 find_package(SWIG REQUIRED)
-option( BUILD_PYTHON "Build Python bindings" OFF )
-option( BUILD_JAVA "Build Java bindings" OFF )
-option( BUILD_RUBY "Build Ruby bindings" ON )
+option( BUILD_PYTHON "Build Python bindings" ON )
+option( BUILD_JAVA "Build Java bindings" ON )
+#set it to OFF by default while it is not fully tested and thus officially supported
+option( BUILD_RUBY "Build Ruby bindings" OFF )
 
 #include_directories(BEFORE include)
 
