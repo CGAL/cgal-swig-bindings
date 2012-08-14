@@ -33,6 +33,7 @@ namespace SWIG_Triangulation_2{
 enum Locate_type { VERTEX=0, EDGE, FACE, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
 } //namespace SWIG_Triangulation_2
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 template <class Weighted_tag>
 struct Weighting_helper{
   typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > Point_range;
@@ -42,6 +43,7 @@ template <>
 struct Weighting_helper<CGAL::Tag_true>{
   typedef std::pair<Input_iterator_wrapper<Weighted_point_2,Weighted_point_2::cpp_base>,Input_iterator_wrapper<Weighted_point_2,Weighted_point_2::cpp_base> > Point_range;
 };
+#endif
 
 template <class Triangulation,class Point, class Vertex_handle, class Face_handle,class Weighted_tag>
 class Triangulation_2_wrapper
