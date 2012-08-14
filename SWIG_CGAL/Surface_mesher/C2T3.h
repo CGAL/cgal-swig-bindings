@@ -15,11 +15,13 @@
 
 namespace C2T3_internal{
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 template <class Triangulation>
 struct Iterator_helper
 {
   typedef boost::function_output_iterator< Container_writer<typename Triangulation::Facet,typename Triangulation::cpp_base::Facet > >     output;
 };
+#endif
 
 } //namespace internal
 

@@ -21,6 +21,7 @@
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 template <class Primitive_object>
 struct Primitive_iterator_helper
 {
@@ -30,7 +31,6 @@ struct Primitive_iterator_helper
   typedef boost::function_output_iterator< Container_writer<std::pair<Object,Primitive_object>,std::pair<CGAL::Object,typename internal::Converter<Primitive_object>::result_type > > >     output2;
 };
 
-#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
 #else
 typedef Generic_input_iterator<Point_3> Point_range;

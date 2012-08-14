@@ -15,12 +15,14 @@
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 #include <boost/shared_ptr.hpp>
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 template <class Query>
 struct Query_iterator_helper{
   typedef typename internal::Converter<Query>::result_type Base;
   typedef std::pair<Input_iterator_wrapper<Query,Base>,Input_iterator_wrapper<Query,Base> > input;
   typedef boost::function_output_iterator< Container_writer<Query,Base> >                                       output;
 };
+#endif
 
 template<class Cpp_base, class Query, class Fuzzy_sphere, class Fuzzy_iso_box>
 class Kd_tree_wrapper{

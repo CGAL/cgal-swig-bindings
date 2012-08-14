@@ -32,6 +32,7 @@ namespace SWIG_Triangulation_3 {
 enum Locate_type { VERTEX=0, EDGE, FACET, CELL, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HULL};
 } //namespace SWIG_Triangulation_3
 
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 template <class Weighted_tag>
 struct Weighting_helper_3{
   typedef std::pair<Input_iterator_wrapper<Point_3,Point_3::cpp_base>,Input_iterator_wrapper<Point_3,Point_3::cpp_base> > Point_range;
@@ -41,6 +42,7 @@ template <>
 struct Weighting_helper_3<CGAL::Tag_true>{
   typedef std::pair<Input_iterator_wrapper<Weighted_point_3,Weighted_point_3::cpp_base>,Input_iterator_wrapper<Weighted_point_3,Weighted_point_3::cpp_base> > Point_range;
 };
+#endif
 
 //we use Memory_holder when the triangulation pointer is internally member of a class that should not
 //be deleted while the triangulation exists. Usually it should be a shared_ptr.

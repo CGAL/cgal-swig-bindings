@@ -14,9 +14,6 @@
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > Point_range;
-#else
-typedef Generic_input_iterator<Point_2> Point_range;
-#endif
 
 template <class CDT_wrapper>
 struct DM2_Input_iterator_helper
@@ -24,6 +21,11 @@ struct DM2_Input_iterator_helper
   typedef SWIG_Triangulation_2::CGAL_Face_handle<typename CDT_wrapper::cpp_base,Point_2> Face_handle;
   typedef std::pair<Input_iterator_wrapper<Face_handle,typename Face_handle::cpp_base>,Input_iterator_wrapper<Face_handle,typename Face_handle::cpp_base> > range;
 };
+#else
+typedef Generic_input_iterator<Point_2> Point_range;
+#endif
+
+
 
 template <class Cpp,class CDT_wrapper,class Criteria_wrapper>
 class Delaunay_mesher_2_wrapper
