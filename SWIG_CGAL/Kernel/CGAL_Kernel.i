@@ -52,6 +52,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
   #include <SWIG_CGAL/Kernel/Direction_3.h>
   #include <SWIG_CGAL/Kernel/Vector_3.h>
   #include <SWIG_CGAL/Kernel/Object.h>
+  #include <SWIG_CGAL/Common/global_function_macros.h>
   #include <SWIG_CGAL/Kernel/global_functions.h>
   #include <SWIG_CGAL/Kernel/enum.h>
   #include <SWIG_CGAL/Kernel/Polygon_2.h>
