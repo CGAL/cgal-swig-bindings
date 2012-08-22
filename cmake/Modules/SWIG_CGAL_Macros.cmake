@@ -10,11 +10,16 @@ MACRO(EXTRACT_CPP_AND_LIB_FILES)
     ENDIF(${it} MATCHES ".*\\.cpp$")
   ENDFOREACH(it)
 ENDMACRO(EXTRACT_CPP_AND_LIB_FILES)
+
+
 MACRO(ADD_SWIG_CGAL_LIBRARY libname)
   include_directories(${CMAKE_CURRENT_SOURCE_DIR})
   include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${COMMON_LIBRARIES_PATH}")
-  add_library(${libname} SHARED ${ARGN})
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${COMMON_LIBRARIES_PATH}")
+  EXTRACT_CPP_AND_LIB_FILES(${ARGN}) 
+  add_library(${libname} SHARED ${object_files})
+  target_link_libraries(${libname} ${libstolinkwith})
 ENDMACRO()
 
 MACRO(ADD_SWIG_CGAL_JAVA_MODULE packagename)
