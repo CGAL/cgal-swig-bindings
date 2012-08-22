@@ -17,6 +17,7 @@ option( BUILD_JAVA "Build Java bindings" ON )
 option( BUILD_RUBY "Build Ruby bindings" OFF )
 
 #include_directories(BEFORE include)
+include_directories(BEFORE patches_for_CGAL_4.0/include)
 
 if ( CGAL_FOUND )
   include( ${CGAL_USE_FILE} )
