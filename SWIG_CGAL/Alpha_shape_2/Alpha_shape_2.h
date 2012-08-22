@@ -33,10 +33,10 @@ namespace internal{
 
 #include <SWIG_CGAL/Common/Iterator.h>
 
-template <class Alpha_shape,class Point, class Vertex_handle, class Face_handle,class Weighted_tag,class Base>
-class Alpha_shape_2_wrapper : public Base
+template <class Alpha_shape,class Point, class Vertex_handle, class Face_handle,class Weighted_tag,class Base_wrapper>
+class Alpha_shape_2_wrapper : public Base_wrapper
 {
-  typedef Alpha_shape_2_wrapper<Alpha_shape,Point, Vertex_handle, Face_handle,Weighted_tag,Base> Self;
+  typedef Alpha_shape_2_wrapper<Alpha_shape,Point, Vertex_handle, Face_handle,Weighted_tag,Base_wrapper> Self;
   //disable deep copy
   Self deepcopy();
   void deepcopy(const Self&);  
