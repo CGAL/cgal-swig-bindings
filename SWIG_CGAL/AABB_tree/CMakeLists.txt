@@ -1,6 +1,6 @@
 SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
 include_directories(include)
-add_swig_cgal_library(CGAL_AABB_tree_cpp "Object.cpp")
-ADD_SWIG_CGAL_JAVA_MODULE  (AABB_tree  ${LIBSTOLINKWITH} CGAL_AABB_tree_cpp CGAL_Java_cpp)
+add_swig_cgal_library(CGAL_AABB_tree_cpp Object.cpp ${LIBSTOLINKWITH})
+ADD_SWIG_CGAL_JAVA_MODULE  (AABB_tree  ${LIBSTOLINKWITH} CGAL_AABB_tree_cpp)
 ADD_SWIG_CGAL_PYTHON_MODULE(AABB_tree  ${LIBSTOLINKWITH} CGAL_AABB_tree_cpp)
 ADD_SWIG_CGAL_RUBY_MODULE(AABB_tree  ${LIBSTOLINKWITH} CGAL_AABB_tree_cpp)
