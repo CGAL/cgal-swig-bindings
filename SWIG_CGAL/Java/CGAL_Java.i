@@ -10,7 +10,7 @@
 %include "SWIG_CGAL/common.i"
 Decl_void_type()
 
-SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
+SWIG_CGAL_add_java_loadLibrary_CGAL_Java()
 
 //include files
 %{

@@ -13,6 +13,19 @@
 %template (Prefix) Type;
 %enddef
 
+%define SWIG_CGAL_add_java_loadLibrary_CGAL_Java()
+  %pragma(java) jniclasscode=%{
+    static{
+      try {
+          System.loadLibrary("CGAL_Java");
+      } catch (UnsatisfiedLinkError e) {
+        System.err.println("Native code library CGAL_Java failed to load. \n" + e);
+        throw e;
+      }
+    }
+  %}      
+%enddef
+
 %define SWIG_CGAL_add_java_loadLibrary(NAME)
   %pragma(java) jniclasscode=%{
     static {
@@ -24,6 +37,8 @@
       }
     }
   %}
+  #always load CGAL_Java to get JNI_OnLoad called
+  SWIG_CGAL_add_java_loadLibrary_CGAL_Java()  
 %enddef
   
 //macro function to define proper java iterators

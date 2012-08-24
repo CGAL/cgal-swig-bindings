@@ -11,7 +11,6 @@
 Decl_void_type()
 
 SWIG_CGAL_add_java_loadLibrary(CGAL_AABB_tree)
-SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 
 %import  "SWIG_CGAL/Common/Macros.h"
 %include "SWIG_CGAL/Common/Iterator.h"

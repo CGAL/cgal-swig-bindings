@@ -47,7 +47,8 @@ MACRO(ADD_SWIG_CGAL_JAVA_MODULE packagename)
     SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${JAVALIBPATH})
     SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${JAVALIBPATH})
     SWIG_ADD_MODULE(${MODULENAME} java ${INTERFACE_FILES} ${object_files})
-    SWIG_LINK_LIBRARIES(${MODULENAME} ${libstolinkwith})
+    #link all modules with CGAL_Java_cpp as many if not all need it for the iterators for example
+    SWIG_LINK_LIBRARIES(${MODULENAME} ${libstolinkwith} CGAL_Java_cpp)
   endif()
 ENDMACRO(ADD_SWIG_CGAL_JAVA_MODULE)
 
