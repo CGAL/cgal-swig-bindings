@@ -20,3 +20,12 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 //definitions
 %include "SWIG_CGAL/Java/JavaData.h"
 
+%{
+  #include <jni.h>
+  //function called when library is loaded in Java
+  JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *jvm, void *) {
+    get_cached_jvm() = jvm;
+    std::cout << "Calling JNI_OnLoad" << std::endl;
+    return JNI_VERSION_1_2;
+  }
+%}

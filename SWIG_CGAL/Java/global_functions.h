@@ -11,7 +11,6 @@
 #include <jni.h>
 
 JNIEXPORT JavaVM* & get_cached_jvm();
-JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved);
 JNIEXPORT JNIEnv * JNU_GetEnv();
 
 
