@@ -11,7 +11,6 @@
 Decl_void_type()
 
 SWIG_CGAL_add_java_loadLibrary(CGAL_Triangulation_2)
-SWIG_CGAL_add_java_loadLibrary(CGAL_Java)
 
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
