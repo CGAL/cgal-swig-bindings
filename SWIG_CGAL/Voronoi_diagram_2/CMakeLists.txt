@@ -1,0 +1,6 @@
+SET (LIBSTOLINKWITH CGAL_Kernel_cpp CGAL_Triangulation_2_cpp)
+
+# Modules
+ADD_SWIG_CGAL_JAVA_MODULE   ( Voronoi_diagram_2 ${LIBSTOLINKWITH} )
+ADD_SWIG_CGAL_PYTHON_MODULE ( Voronoi_diagram_2 ${LIBSTOLINKWITH} )
+ADD_SWIG_CGAL_RUBY_MODULE   ( Voronoi_diagram_2 ${LIBSTOLINKWITH} )
