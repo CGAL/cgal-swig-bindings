@@ -44,7 +44,7 @@ SWIG_CGAL_declare_generic_output_iterator(Point_2_output_iterator,Point_2_output
 
 //include files
 %{
-  #include <SWIG_CGAL/Kernel/Point_2.h>
+  #include <SWIG_CGAL/Convex_hull_2/typedefs.h>
   #include <SWIG_CGAL/Convex_hull_2/all_includes.h>
 %}
 
