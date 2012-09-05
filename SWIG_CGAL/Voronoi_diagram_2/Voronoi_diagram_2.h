@@ -48,6 +48,21 @@ public:
   typedef std::pair<TriangulationFaceWrapper,int> TriangulationEdgeWrapper;
   typedef typename Kernel_iterator_helper<SiteWrapper>::input SiteRange;
 
+  //iterator types
+  typedef SWIG_CGAL_Iterator<typename CppBase::Vertex_iterator,Vertex_wrapper>  Vertex_iterator;
+  typedef SWIG_CGAL_Iterator<typename CppBase::Face_iterator, Face_wrapper> Face_iterator;
+  typedef SWIG_CGAL_Iterator<typename CppBase::Unbounded_faces_iterator, Face_wrapper> Unbounded_faces_iterator;
+  typedef SWIG_CGAL_Iterator<typename CppBase::Bounded_faces_iterator, Face_wrapper> Bounded_faces_iterator;
+  typedef SWIG_CGAL_Iterator<typename CppBase::Edge_iterator, Halfedge_wrapper> Edge_iterator;
+  typedef SWIG_CGAL_Iterator<typename CppBase::Halfedge_iterator, Halfedge_wrapper> Halfedge_iterator;
+  typedef SWIG_CGAL_Iterator<typename CppBase::Unbounded_halfedges_iterator, Halfedge_wrapper> Unbounded_halfedges_iterator;
+  typedef SWIG_CGAL_Iterator<typename CppBase::Bounded_halfedges_iterator, Halfedge_wrapper> Bounded_halfedges_iterator;
+  typedef SWIG_CGAL_Iterator<typename CppBase::Site_iterator, SiteWrapper>  Site_iterator;
+  //circulator types
+  typedef SWIG_CGAL_Circulator< typename CppBase::Ccb_halfedge_circulator, Halfedge_wrapper > Ccb_halfedge_circulator;
+  typedef SWIG_CGAL_Circulator< typename CppBase::Halfedge_around_vertex_circulator, Halfedge_wrapper > Halfedge_around_vertex_circulator;
+  
+    
 //Creation
   Voronoi_diagram_2_wrapper(){}
   Voronoi_diagram_2_wrapper(TriangulationWrapper& triangulation,bool swap_dg = false):data( triangulation.get_data(), swap_dg) {}
@@ -85,50 +100,30 @@ public:
     std::ifstream in(fname);
     if (in) in >> data;    
   }
+//Traversal of the Voronoi diagram
+//  Iterators
+  Face_iterator faces() { return Face_iterator(get_data().faces_begin(),get_data().faces_end()); }
+  Unbounded_faces_iterator  unbounded_faces(){ return Unbounded_faces_iterator(get_data().unbounded_faces_begin(), get_data().unbounded_faces_end()); }
+  Bounded_faces_iterator  bounded_faces() {return Bounded_faces_iterator(get_data().bounded_faces_begin(), get_data().bounded_faces_end ()); }
+
+  Edge_iterator edges() { return  Edge_iterator(get_data().edges_begin(), get_data().edges_end() ); }
+  Halfedge_iterator halfedges() { return Halfedge_iterator( get_data().halfedges_begin(), get_data().halfedges_end() ); }
+  Unbounded_halfedges_iterator unbounded_halfedges(){ return Unbounded_halfedges_iterator( get_data().unbounded_halfedges_begin(), get_data().unbounded_halfedges_end() ); }
+  Bounded_halfedges_iterator bounded_halfedges() {return Bounded_halfedges_iterator(get_data().bounded_halfedges_begin(), get_data().bounded_halfedges_end() ); }
+
+  Vertex_iterator  vertices() { return Vertex_iterator( get_data().vertices_begin(), get_data().vertices_end() ); }
+  Site_iterator  sites() { return Site_iterator( get_data().sites_begin(), get_data().sites_end() ); }
+
+//  Circulators
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Ccb_halfedge_circulator,ccb_halfedges,Face_wrapper)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Ccb_halfedge_circulator,ccb_halfedges,Face_wrapper,Halfedge_wrapper)
+
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Halfedge_around_vertex_circulator,incident_halfedges,Vertex_wrapper)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Halfedge_around_vertex_circulator,incident_halfedges,Vertex_wrapper,Halfedge_wrapper)
+  
 //Queries
   typedef Locate_result_wrapper<Vertex_wrapper, Halfedge_wrapper, Face_wrapper> Locate_result;
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Locate_result,locate, Point_2);
 };
 
 #endif //SWIG_CGAL_VORONOI_DIAGRAM_2_VORONOI_DIAGRAM_2_H
-
-
-//Traversal of the Voronoi diagram
-//  Iterators
-//    Face_iterator  vd.faces_begin ()  Starts at an arbitrary Voronoi face.
-//    Face_iterator  vd.faces_end ()  Past-the-end iterator.
-//
-//    Unbounded_faces_iterator  vd.unbounded_faces_begin ()
-//    Unbounded_faces_iterator  vd.unbounded_faces_end ()
-//
-//    Bounded_faces_iterator  vd.bounded_faces_begin ()
-//    Bounded_faces_iterator  vd.bounded_faces_end ()
-//
-//    Edge_iterator  vd.edges_begin ()
-//    Edge_iterator  vd.edges_end ()
-//
-//    Halfedge_iterator  vd.halfedges_begin ()
-//    Halfedge_iterator  vd.halfedges_end ()
-//
-//    Unbounded_halfedges_iterator  vd.unbounded_halfedges_begin ()
-//    Unbounded_halfedges_iterator  vd.unbounded_halfedges_end ()
-//
-//    Bounded_halfedges_iterator  vd.bounded_halfedges_begin ()
-//    Bounded_halfedges_iterator  vd.bounded_halfedges_end ()
-//
-//    Vertex_iterator  vd.vertices_begin ()
-//    Vertex_iterator  vd.vertices_end ()
-//
-//    Site_iterator  vd.sites_begin ()
-//    Site_iterator  vd.sites_end ()
-//
-//  Circulators
-//
-//    Ccb_halfedge_circulator  vd.ccb_halfedges ( Face_handle f)
-//    Ccb_halfedge_circulator  vd.ccb_halfedges ( Face_handle f, Halfedge_handle h)
-//
-//    Halfedge_around_vertex_circulator  vd.incident_halfedges ( Vertex_handle v)
-//    Halfedge_around_vertex_circulator  vd.incident_halfedges ( Vertex_handle v, Halfedge_handle h)
-//
-//
-
