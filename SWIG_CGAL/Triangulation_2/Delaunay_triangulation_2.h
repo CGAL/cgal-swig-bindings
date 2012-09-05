@@ -30,6 +30,7 @@ public:
   typedef std::pair<Face_handle,int> Edge;
   #ifndef SWIG
   typedef Triangulation cpp_base;
+  Delaunay_triangulation_2_wrapper(const cpp_base& base) : Base(base) {}
   #endif
   Delaunay_triangulation_2_wrapper() : Base() {}
 //Queries    

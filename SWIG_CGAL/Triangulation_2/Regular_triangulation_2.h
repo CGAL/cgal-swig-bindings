@@ -21,6 +21,7 @@ class Regular_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulat
 public:
   #ifndef SWIG  
   typedef Triangulation cpp_base;
+  Regular_triangulation_2_wrapper(const cpp_base& base) : Base(base) {}
   #endif
   typedef std::pair<Face_handle,int> Edge;
   typedef SWIG_CGAL_Iterator<typename Triangulation::Hidden_vertices_iterator,Vertex_handle> Hidden_vertices_iterator;
