@@ -8,49 +8,85 @@
 #ifndef SWIG_CGAL_VORONOI_DIAGRAM_2_VORONOI_DIAGRAM_2_H
 #define SWIG_CGAL_VORONOI_DIAGRAM_2_VORONOI_DIAGRAM_2_H
 
-template <class CppBase, class SiteWrapper, class TriangulationWrapper>
-class Voronoi_diagram_wrapper_2{
+#include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Common/Iterator.h>
+#include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
+#include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
+#include <SWIG_CGAL/Kernel/Point_2.h>
+#include <SWIG_CGAL/Voronoi_diagram_2/Voronoi_diagram_handles_2.h>
+#include <fstream>
+
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+template <class Kernel_object>
+struct Kernel_iterator_helper{
+  typedef typename internal::Converter<Kernel_object>::result_type Base;
+  typedef std::pair<Input_iterator_wrapper<Kernel_object,Base>,Input_iterator_wrapper<Kernel_object,Base> > input;
+  typedef boost::function_output_iterator< Container_writer<Kernel_object,Base> >                                       output;
+};
+
+typedef Kernel_iterator_helper<Point_2>::input       Point_range; 
+typedef Kernel_iterator_helper<Point_2>::output      Point_output_iterator; 
+#else
+typedef Generic_input_iterator<Point_2>  Point_range;
+typedef Generic_output_iterator<Point_2>  Point_output_iterator;
+#endif
+
+
+template <class CppBase, class SiteWrapper, class TriangulationWrapper, class TriangulationVertexWrapper, class TriangulationFaceWrapper, class Vertex_wrapper, class Halfedge_wrapper, class Face_wrapper >
+class Voronoi_diagram_2_wrapper{
   #ifndef SWIG
   CppBase data;
   typedef CppBase cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
+  Voronoi_diagram_2_wrapper(const cpp_base& base):data(base){}
   #endif
 public:
-//Creation
-  Voronoi_diagram_wrapper_2(){}
-  Voronoi_diagram_wrapper_2(TriangulationWrapper& triangulation,bool swap_dg = false):data( triangulation.get_data(), swap_dg) {}
-  //~ Voronoi_diagram_wrapper_2(SiteRange range) : data( SWIG_CGAL::get_begin(range), SWIG_CGAL::get_end(range) ){}
-};
+  typedef Voronoi_diagram_2_wrapper<CppBase, SiteWrapper, TriangulationWrapper,TriangulationVertexWrapper, TriangulationFaceWrapper, Vertex_wrapper, Halfedge_wrapper, Face_wrapper> Self;
+  typedef typename Kernel_iterator_helper<SiteWrapper>::input SiteRange;
 
-template <class CppBase, class SiteWrapper, class TriangulationWrapper>
-class Voronoi_diagram_wrapper_with_insert_2
-  : public Voronoi_diagram_wrapper_2< CppBase, SiteWrapper, TriangulationWrapper>
-{
+//Creation
+  Voronoi_diagram_2_wrapper(){}
+  Voronoi_diagram_2_wrapper(TriangulationWrapper& triangulation,bool swap_dg = false):data( triangulation.get_data(), swap_dg) {}
+  Voronoi_diagram_2_wrapper(SiteRange range){ data.insert( SWIG_CGAL::get_begin(range), SWIG_CGAL::get_end(range) ); }
+  
+//Insertion
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Face_wrapper,insert,SiteWrapper)
+  int insert ( SiteRange range ){ return data.insert( SWIG_CGAL::get_begin(range), SWIG_CGAL::get_end(range) ); }
+
+//Access Methods
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(TriangulationWrapper,dual)
+//  Halfedge_handle  vd.dual(Delaunay_edge e)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_wrapper,dual,TriangulationFaceWrapper)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Face_wrapper,dual,TriangulationVertexWrapper)
+  SWIG_CGAL_FORWARD_CALL_0(int,number_of_vertices)
+  SWIG_CGAL_FORWARD_CALL_0(int,number_of_faces)
+  SWIG_CGAL_FORWARD_CALL_0(int,number_of_halfedges)
+  SWIG_CGAL_FORWARD_CALL_0(int,number_of_connected_components)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Face_wrapper,unbounded_face)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Face_wrapper,bounded_face)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Halfedge_wrapper,unbounded_halfedge)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Halfedge_wrapper,bounded_halfedge)
+  
+//Validity check
+  SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
+//Miscellaneous
+  SWIG_CGAL_FORWARD_CALL_0(void,clear)
+  //~ SWIG_CGAL_FORWARD_CALL_1(void,swap,Self)
+//I/O
+  void  file_output ( const char* fname ){
+    std::ofstream out(fname);
+    if (out) out << data;
+  }
+  void  file_input ( const char* fname ){
+    std::ifstream in(fname);
+    if (in) in >> data;    
+  }
 };
 
 #endif //SWIG_CGAL_VORONOI_DIAGRAM_2_VORONOI_DIAGRAM_2_H
 
 
-
-
-//
-//Access Methods
-//  Delaunay_graph  vd.dual()
-//  Halfedge_handle  vd.dual(Delaunay_edge e)
-//  Face_handle  vd.dual ( Delaunay_vertex_handle v)
-//  Vertex_handle  vd.dual ( Delaunay_face_handle f)
-//  Adaptation_traits  vd.adaptation_traits ()
-//  Adaptation_policy  vd.adaptation_policy ()
-//  size_type  vd.number_of_vertices ()
-//  size_type  vd.number_of_faces ()
-//  size_type  vd.number_of_halfedges ()
-//  size_type  vd.number_of_connected_components ()
-//  Face_handle  vd.unbounded_face ()
-//  Face_handle  vd.bounded_face ()
-//  Halfedge_handle  vd.unbounded_halfedge ()
-//  Halfedge_handle  vd.bounded_halfedge ()
-//
 //Traversal of the Voronoi diagram
 //  Iterators
 //    Face_iterator  vd.faces_begin ()  Starts at an arbitrary Voronoi face.
@@ -88,28 +124,6 @@ class Voronoi_diagram_wrapper_with_insert_2
 //    Halfedge_around_vertex_circulator  vd.incident_halfedges ( Vertex_handle v)
 //    Halfedge_around_vertex_circulator  vd.incident_halfedges ( Vertex_handle v, Halfedge_handle h)
 //
-//Insertion
-//  Face_handle  vd.insert ( Site_2 t)
-//  template<class Iterator>  size_type  vd.insert ( Iterator first, Iterator beyond)
 //
 //Queries
 //  Locate_result  vd.locate ( Point_2 p)
-//I/O
-//  void  vd.file_output ( std::ostream& os)
-//  std::ostream& operator<<(std::ostream&, Delaunay_graph)
-//  void  vd.file_input ( std::istream& is)
-//  std::istream& operator>>(std::istream&, Delaunay_graph)
-//
-//  std::ostream&  std::ostream& os << vd
-//  The following operator must be defined:
-//  std::ostream& operator<<(std::ostream&, Delaunay_graph)
-//  std::istream&  std::istream& is >> vd
-//  The following operator must be defined:
-//  std::istream& operator>>(std::istream&, Delaunay_graph)
-//
-//Validity check
-//  bool  vd.is_valid ()
-//
-//Miscellaneous
-//  void  vd.clear ()
-//  void  vd.swap ( other)

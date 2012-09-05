@@ -47,5 +47,6 @@ typedef CGAL::Voronoi_diagram_2< CGAL_RT2,V2_RT_AT,V2_RT_I_CAP >                
 typedef CGAL::Voronoi_diagram_2< CGAL_RT2,V2_RT_AT,V2_RT_IAP >                     V2_RT_AT_IAP;
 
 
+
 #endif //SWIG_CGAL_VORONOI_DIAGRAM_2_TYPEDEFS_H
 
