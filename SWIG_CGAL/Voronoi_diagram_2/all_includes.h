@@ -9,5 +9,6 @@
 
 #include <SWIG_CGAL/Voronoi_diagram_2/Voronoi_diagram_2.h>
 #include <SWIG_CGAL/Voronoi_diagram_2/Voronoi_diagram_handles_2.h>
+#include <SWIG_CGAL/Voronoi_diagram_2/Locate_result.h>
 
 #endif //SWIG_CGAL_VORONOI_DIAGRAM_2_ALL_INCLUDES_H

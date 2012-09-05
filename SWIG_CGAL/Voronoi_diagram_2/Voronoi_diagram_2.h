@@ -14,6 +14,7 @@
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
 #include <SWIG_CGAL/Voronoi_diagram_2/Voronoi_diagram_handles_2.h>
+#include <SWIG_CGAL/Voronoi_diagram_2/Locate_result.h>
 #include <fstream>
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
@@ -34,6 +35,7 @@ typedef Generic_output_iterator<Point_2>  Point_output_iterator;
 
 template <class CppBase, class SiteWrapper, class TriangulationWrapper, class TriangulationVertexWrapper, class TriangulationFaceWrapper, class Vertex_wrapper, class Halfedge_wrapper, class Face_wrapper >
 class Voronoi_diagram_2_wrapper{
+public:
   #ifndef SWIG
   CppBase data;
   typedef CppBase cpp_base;
@@ -41,8 +43,9 @@ class Voronoi_diagram_2_wrapper{
         cpp_base& get_data()       {return data;}
   Voronoi_diagram_2_wrapper(const cpp_base& base):data(base){}
   #endif
-public:
+
   typedef Voronoi_diagram_2_wrapper<CppBase, SiteWrapper, TriangulationWrapper,TriangulationVertexWrapper, TriangulationFaceWrapper, Vertex_wrapper, Halfedge_wrapper, Face_wrapper> Self;
+  typedef std::pair<TriangulationFaceWrapper,int> TriangulationEdgeWrapper;
   typedef typename Kernel_iterator_helper<SiteWrapper>::input SiteRange;
 
 //Creation
@@ -56,7 +59,7 @@ public:
 
 //Access Methods
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(TriangulationWrapper,dual)
-//  Halfedge_handle  vd.dual(Delaunay_edge e)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Halfedge_wrapper,dual,TriangulationEdgeWrapper)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_wrapper,dual,TriangulationFaceWrapper)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Face_wrapper,dual,TriangulationVertexWrapper)
   SWIG_CGAL_FORWARD_CALL_0(int,number_of_vertices)
@@ -72,7 +75,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(void,clear)
-  //~ SWIG_CGAL_FORWARD_CALL_1(void,swap,Self)
+  void swap(Self& other){ get_data().swap(other.get_data()); }
 //I/O
   void  file_output ( const char* fname ){
     std::ofstream out(fname);
@@ -82,6 +85,9 @@ public:
     std::ifstream in(fname);
     if (in) in >> data;    
   }
+//Queries
+  typedef Locate_result_wrapper<Vertex_wrapper, Halfedge_wrapper, Face_wrapper> Locate_result;
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Locate_result,locate, Point_2);
 };
 
 #endif //SWIG_CGAL_VORONOI_DIAGRAM_2_VORONOI_DIAGRAM_2_H
@@ -125,5 +131,4 @@ public:
 //    Halfedge_around_vertex_circulator  vd.incident_halfedges ( Vertex_handle v, Halfedge_handle h)
 //
 //
-//Queries
-//  Locate_result  vd.locate ( Point_2 p)
+
