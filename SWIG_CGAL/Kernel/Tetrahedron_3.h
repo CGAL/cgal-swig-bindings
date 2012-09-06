@@ -46,7 +46,7 @@ public:
   bool equals(const Tetrahedron_3& t){
     return data==t.get_data();
   }
-  #ifdef SWIGPYTHON
+  #if !defined SWIG || defined SWIGPYTHON
   bool __ne__(const Tetrahedron_3& t){return !equals(t);}
   #endif
 //I/O

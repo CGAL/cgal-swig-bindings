@@ -47,7 +47,7 @@ public:
   bool equals(const Triangle_2& t){
     return data==t.get_data();
   }
-  #ifdef SWIGPYTHON
+  #if !defined SWIG || defined SWIGPYTHON
   bool __ne__(const Triangle_2& t){return !equals(t);}
   #endif
 //I/O

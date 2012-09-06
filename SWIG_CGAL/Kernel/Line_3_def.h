@@ -51,7 +51,7 @@ public:
   bool equals(const Line_3& p){
     return data==p.get_data();
   }
-  #ifdef SWIGPYTHON
+  #if !defined SWIG || defined SWIGPYTHON
   bool __ne__(const Line_3& p){return !equals(p);}
   #endif
 //I/O

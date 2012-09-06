@@ -42,7 +42,7 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_2,vector)
 //equality functions
   bool equals(const Direction_2& r){return data==r.get_data();}
-  #ifdef SWIGPYTHON
+  #if !defined SWIG || defined SWIGPYTHON
   bool __ne__(const Direction_2& r){return data!=r.get_data();}
   #endif
 //IO

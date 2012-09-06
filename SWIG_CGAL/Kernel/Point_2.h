@@ -35,7 +35,7 @@ public:
   bool equals(const Point_2& p){
     return data==p.get_data();
   }
-  #ifdef SWIGPYTHON
+  #if !defined SWIG || defined SWIGPYTHON
   bool __ne__(const Point_2& p){return !equals(p);}
   #endif
 //I/O
