@@ -26,7 +26,18 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Voronoi_diagram_2)
   #include <SWIG_CGAL/Triangulation_2/all_includes.h>  
 %}
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Triangulation_2.Delaunay_triangulation_2; import CGAL.Triangulation_2.Regular_triangulation_2; import CGAL.Kernel.Weighted_point_2; import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
+%pragma(java) jniclassimports=%{
+  import CGAL.Kernel.Point_2;
+  import CGAL.Triangulation_2.Delaunay_triangulation_2;
+  import CGAL.Triangulation_2.Delaunay_triangulation_2_Vertex_handle;
+  import CGAL.Triangulation_2.Delaunay_triangulation_2_Face_handle;
+  import CGAL.Triangulation_2.Delaunay_triangulation_2_Edge;
+  import CGAL.Triangulation_2.Regular_triangulation_2;
+  import CGAL.Kernel.Weighted_point_2;
+  import java.util.Iterator;
+  import java.util.Collection;
+  import CGAL.Java.JavaData;
+%}
 
 %include "SWIG_CGAL/Voronoi_diagram_2/Voronoi_diagram_2.h"
 %include "SWIG_CGAL/Voronoi_diagram_2/Voronoi_diagram_handles_2.h"
@@ -58,6 +69,11 @@ SWIG_CGAL_import_Delaunay_triangulation_2_SWIG_wrapper
 SWIG_CGAL_import_Delaunay_triangulation_2_Face_handle_SWIG_wrapper
 SWIG_CGAL_import_Delaunay_triangulation_2_Vertex_handle_SWIG_wrapper
 
+//Voronoi handles
+%typemap(javaimports)  Voronoi_vertex_wrapper_2 %{ import CGAL.Kernel.Point_2; import CGAL.Triangulation_2.Delaunay_triangulation_2_Face_handle; import CGAL.Triangulation_2.Delaunay_triangulation_2_Vertex_handle; %}
+%typemap(javaimports)  Voronoi_halfedge_wrapper_2 %{ import CGAL.Triangulation_2.Delaunay_triangulation_2_Edge; import CGAL.Triangulation_2.Delaunay_triangulation_2_Vertex_handle; %}
+%typemap(javaimports)  Voronoi_face_wrapper_2 %{ import CGAL.Triangulation_2.Delaunay_triangulation_2_Vertex_handle; %}
+
 SWIG_CGAL_declare_identifier_of_template_class(Voronoi_diagram_2_Vertex_handle,   Voronoi_vertex_wrapper_2   <V2_DT_AT_CAP, Delaunay_triangulation_2_Vertex_handle_SWIG_wrapper, Delaunay_triangulation_2_Face_handle_SWIG_wrapper>)
 SWIG_CGAL_declare_identifier_of_template_class(Voronoi_diagram_2_Face_handle,     Voronoi_face_wrapper_2     <V2_DT_AT_CAP, Delaunay_triangulation_2_Vertex_handle_SWIG_wrapper, Delaunay_triangulation_2_Face_handle_SWIG_wrapper>)
 SWIG_CGAL_declare_identifier_of_template_class(Voronoi_diagram_2_Halfedge_handle, Voronoi_halfedge_wrapper_2 <V2_DT_AT_CAP, Delaunay_triangulation_2_Vertex_handle_SWIG_wrapper, Delaunay_triangulation_2_Face_handle_SWIG_wrapper>)
@@ -85,5 +101,7 @@ SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Point_2,import CGAL.Kernel.Poi
 SWIG_CGAL_declare_identifier_of_template_class(Voronoi_diagram_2_Site_iterator,SWIG_CGAL_Iterator<V2_DT_AT_CAP::Site_iterator,Point_2 >)
 
 SWIG_CGAL_declare_identifier_of_template_class(Locate_result, Locate_result_wrapper<Voronoi_diagram_2_Vertex_handle_SWIG_wrapper,Voronoi_diagram_2_Halfedge_handle_SWIG_wrapper,Voronoi_diagram_2_Face_handle_SWIG_wrapper>)
+
+%typemap(javaimports)  Voronoi_diagram_2_wrapper %{ import CGAL.Triangulation_2.Delaunay_triangulation_2; import CGAL.Kernel.Point_2; import java.util.Iterator; import CGAL.Triangulation_2.Delaunay_triangulation_2_Face_handle; import CGAL.Triangulation_2.Delaunay_triangulation_2_Edge; import CGAL.Triangulation_2.Delaunay_triangulation_2_Vertex_handle; %}
 SWIG_CGAL_declare_identifier_of_template_class(Voronoi_diagram_2,Voronoi_diagram_2_wrapper<V2_DT_AT_CAP,Point_2,Delaunay_triangulation_2_SWIG_wrapper,Delaunay_triangulation_2_Vertex_handle_SWIG_wrapper, Delaunay_triangulation_2_Face_handle_SWIG_wrapper, Voronoi_diagram_2_Vertex_handle_SWIG_wrapper,Voronoi_diagram_2_Halfedge_handle_SWIG_wrapper,Voronoi_diagram_2_Face_handle_SWIG_wrapper>)
 
