@@ -24,12 +24,6 @@ struct Kernel_iterator_helper{
   typedef std::pair<Input_iterator_wrapper<Kernel_object,Base>,Input_iterator_wrapper<Kernel_object,Base> > input;
   typedef boost::function_output_iterator< Container_writer<Kernel_object,Base> >                                       output;
 };
-
-typedef Kernel_iterator_helper<Point_2>::input       Point_range; 
-typedef Kernel_iterator_helper<Point_2>::output      Point_output_iterator; 
-#else
-typedef Generic_input_iterator<Point_2>  Point_range;
-typedef Generic_output_iterator<Point_2>  Point_output_iterator;
 #endif
 
 
@@ -46,7 +40,11 @@ public:
 
   typedef Voronoi_diagram_2_wrapper<CppBase, SiteWrapper, TriangulationWrapper,TriangulationVertexWrapper, TriangulationFaceWrapper, Vertex_wrapper, Halfedge_wrapper, Face_wrapper> Self;
   typedef std::pair<TriangulationFaceWrapper,int> TriangulationEdgeWrapper;
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef typename Kernel_iterator_helper<SiteWrapper>::input SiteRange;
+  #else
+  typedef Generic_input_iterator<SiteWrapper>  SiteRange;
+  #endif
 
   //iterator types
   typedef SWIG_CGAL_Iterator<typename CppBase::Vertex_iterator,Vertex_wrapper>  Vertex_iterator;

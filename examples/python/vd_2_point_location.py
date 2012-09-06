@@ -4,7 +4,7 @@ from CGAL.CGAL_Voronoi_diagram_2 import Voronoi_diagram_2_Halfedge_handle
 from CGAL.CGAL_Voronoi_diagram_2 import Voronoi_diagram_2_Vertex_handle
 from CGAL.CGAL_Voronoi_diagram_2 import Voronoi_diagram_2_Face_handle
 from CGAL.CGAL_Voronoi_diagram_2 import Voronoi_diagram_2_Ccb_halfedge_circulator
-from CGAL.CGAL_Voronoi_diagram_2 import Locate_result
+from CGAL.CGAL_Voronoi_diagram_2 import Voronoi_diagram_2_Locate_result
 
 
 

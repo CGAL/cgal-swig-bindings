@@ -4,7 +4,7 @@ import CGAL.Voronoi_diagram_2.Voronoi_diagram_2_Halfedge_handle;
 import CGAL.Voronoi_diagram_2.Voronoi_diagram_2_Vertex_handle;
 import CGAL.Voronoi_diagram_2.Voronoi_diagram_2_Face_handle;
 import CGAL.Voronoi_diagram_2.Voronoi_diagram_2_Ccb_halfedge_circulator;
-import CGAL.Voronoi_diagram_2.Locate_result;
+import CGAL.Voronoi_diagram_2.Voronoi_diagram_2_Locate_result;
 import java.util.Vector;
 
 
@@ -55,7 +55,7 @@ public class vd_2_point_location {
       System.out.print(p);
       System.out.print(") lies on a Voronoi ");
 
-      Locate_result lr = vd.locate(p);
+      Voronoi_diagram_2_Locate_result lr = vd.locate(p);
       if ( lr.is_vertex_handle() ) {
         Voronoi_diagram_2_Vertex_handle v=lr.get_vertex_handle();
         System.out.println("vertex.");
