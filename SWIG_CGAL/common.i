@@ -43,10 +43,11 @@
   
 //macro function to define proper java iterators
 #ifdef SWIGJAVA
-//2011-11-25: wsfulton  visibility is now back to protected by default!
-SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
-SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
-
+#if SWIG_VERSION > 0x020005
+  //2011-11-25: wsfulton  visibility is now back to protected by default!
+  SWIG_JAVABODY_PROXY(public, public, SWIGTYPE)
+  SWIG_JAVABODY_TYPEWRAPPER(public, public, public, SWIGTYPE)
+#endif
 //this one is specific to iterator of int, double, ...
 %define SWIG_CGAL_set_as_java_iterator_non_class(Iterator_type,Object_type)
   %typemap(javaimports) Iterator_type
