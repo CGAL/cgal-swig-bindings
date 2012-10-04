@@ -301,6 +301,14 @@
 %rename(__eq__)  equals;   //equalily overloading in python using java
 #endif
 
+//operator renaming for languages that does not support them
+#ifdef SWIGJAVA
+%rename(plus) operator+;
+%rename(minus) operator-;
+%rename(times) operator*;
+%rename(div) operator/;
+#endif
+
 //macro for defining void DECL macro for swig parsing
 %define Decl_void_type()
 #define SWIG_CGAL_JAVA_DECL

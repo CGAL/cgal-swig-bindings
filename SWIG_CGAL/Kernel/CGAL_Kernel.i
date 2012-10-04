@@ -106,6 +106,14 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
 //simple types
 %include "SWIG_CGAL/Kernel/Reference_wrappers.i"
 
+#ifdef SWIGPYTHON
+//support operator*(double,Vector_d)
+%pythoncode %{
+Vector_2.__rmul__ = Vector_2.__mul__
+Vector_3.__rmul__ = Vector_3.__mul__
+%}
+#endif
+
 //we need to extend the Polygon_2 class in the .i because some function are target language dependant
 %extend Polygon_2{
   void insert( int i, Point_range_2 range){

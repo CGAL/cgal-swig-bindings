@@ -44,6 +44,17 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_2,direction)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vector_2,perpendicular,Orientation)
   SWIG_CGAL_FORWARD_CALL_0(double,squared_length)
+//Operators
+  SWIG_CGAL_FORWARD_CALL_1(Vector_2,operator+,Vector_2)
+  SWIG_CGAL_FORWARD_CALL_1(Vector_2,operator-,Vector_2)
+  SWIG_CGAL_FORWARD_CALL_0(Vector_2,operator-)
+  double operator*(const Vector_2& v) const {
+    return get_data() * v.get_data();
+  }
+  Vector_2 operator*(double d) const {
+    return Vector_2( d * get_data() );
+  }
+  SWIG_CGAL_FORWARD_CALL_1(Vector_2,operator/,double)
 //equality functions
   bool equals(const Vector_2& r){return data==r.get_data();}
   #if !defined SWIG || defined SWIGPYTHON
@@ -68,14 +79,4 @@ public:
 //  SWIG_CGAL_FORWARD_CALL_0(Vector_2,transform,Aff_transformation_2)
 //  Cartesian_const_iterator v.cartesian_begin () returns an iterator to the Cartesian coordinates of v, starting with the 0th coordinate.
 //  Cartesian_const_iterator v.cartesian_end () returns an off the end iterator to the Cartesian coordinates of v.
-//Operators
-//  Vector_2 v.operator+ ( w) Addition.
-//  Vector_2 v.operator- ( w) Subtraction.
-//  Vector_2 v.operator- () returns the opposite vector.
-//  Kernel::FT v.operator* ( w) returns the scalar product (= inner product) of the two vectors.
-//  Vector_2 operator* ( v, Kernel::RT s) Multiplication with a scalar from the right.
-//  Vector_2 operator* ( v, Kernel::FT s) Multiplication with a scalar from the right.
-//  Vector_2 operator* ( Kernel::RT s, v) Multiplication with a scalar from the left.
-//  Vector_2 operator* ( Kernel::FT s, v) Multiplication with a scalar from the left.
-//  Vector_2 v.operator/ ( Kernel::RT s) Division by a scalar.
 

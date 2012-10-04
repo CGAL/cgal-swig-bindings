@@ -44,6 +44,17 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_3,direction)
   SWIG_CGAL_FORWARD_CALL_0(double,squared_length)
   SWIG_CGAL_FORWARD_CALL_0(int,dimension)
+//Operators
+  SWIG_CGAL_FORWARD_CALL_1(Vector_3,operator+,Vector_3)
+  SWIG_CGAL_FORWARD_CALL_1(Vector_3,operator-,Vector_3)
+  SWIG_CGAL_FORWARD_CALL_0(Vector_3,operator-)
+  double operator*(const Vector_3& v) const {
+    return get_data() * v.get_data();
+  }
+  Vector_3 operator*(double d) const {
+    return Vector_3( d* get_data() );
+  }
+  SWIG_CGAL_FORWARD_CALL_1(Vector_3,operator/,double)
 //
   void set_coordinates(double x,double y,double z){
     data=cpp_base(x,y,z);
@@ -72,14 +83,4 @@ public:
 //Cartesian_const_iterator v.cartesian_begin () returns an iterator to the Cartesian coordinates of v, starting with the 0th coordinate.
 //Cartesian_const_iterator v.cartesian_end () returns an off the end iterator to the Cartesian coordinates of v.
 //Vector_3<Kernel> v.transform ( Aff_transformation_3<Kernel> t)
-//Operators
-//Vector_3<Kernel> v.operator+ ( w) Addition.
-//Vector_3<Kernel> v.operator- ( w) Subtraction.
-//Vector_3<Kernel> v.operator- () Returns the opposite vector.
-//Kernel::FT v.operator* ( w) returns the scalar product (= inner product) of the two vectors.
-//Vector_3<Kernel> operator* ( v, Kernel::RT s) Multiplication with a scalar from the right.
-//Vector_3<Kernel> operator* ( v, Kernel::FT s) Multiplication with a scalar from the right.
-//Vector_3<Kernel> operator* ( Kernel::RT s, v) Multiplication with a scalar from the left.
-//Vector_3<Kernel> operator* ( Kernel::FT s, v) Multiplication with a scalar from the left.
-//Vector_3<Kernel> v.operator/ ( Kernel::RT s) Division by a scalar.
 
