@@ -43,13 +43,8 @@ public:
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Triangle_2,opposite)
   SWIG_CGAL_FORWARD_CALL_0(double,area)
-//equality functions
-  bool equals(const Triangle_2& t){
-    return data==t.get_data();
-  }
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Triangle_2& t){return !equals(t);}
-  #endif
+//Operators
+  DEFINE_EQUALITY_OPERATORS(Triangle_2)
 //I/O
   std::string toString(){
     std::stringstream sstr;

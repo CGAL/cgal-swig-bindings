@@ -35,11 +35,9 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(double,dy)
   SWIG_CGAL_FORWARD_CALL_0(double,dz)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,vector)
-//equality functions
-  bool equals(const Direction_3& r){return data==r.get_data();}
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Direction_3& r){return data!=r.get_data();}
-  #endif
+//Operators
+  DEFINE_EQUALITY_OPERATORS(Direction_3)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Direction_3,operator-)
 //I/O
   std::string   toString(){
     std::stringstream sstr;
@@ -54,5 +52,4 @@ public:
 
 #endif //SWIG_CGAL_KERNEL_DIRECTION_3_DEF_H
 
-//Direction_3<Kernel> d.operator- () The direction opposite to d.
 //Direction_3<Kernel> d.transform ( Aff_transformation_3<Kernel> t)

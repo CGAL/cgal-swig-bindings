@@ -41,11 +41,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_vertical)
   SWIG_CGAL_DECLARE_CALL_1(bool,has_on,Point_2)
   SWIG_CGAL_DECLARE_CALL_1(bool,collinear_has_on,Point_2)
-//equality functions
-  bool equals(const Ray_2& r){return data==r.get_data();}
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Ray_2& r){return data!=r.get_data();}
-  #endif
+//Operators
+  DEFINE_EQUALITY_OPERATORS(Ray_2)
 //I/O
   std::string toString(){
     std::stringstream sstr;

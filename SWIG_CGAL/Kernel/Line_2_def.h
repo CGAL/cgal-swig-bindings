@@ -51,11 +51,8 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_2,direction)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Line_2,opposite)
   SWIG_CGAL_DECLARE_CALL_AND_REF_1(Line_2,perpendicular,Point_2)
-//equality functions
-  bool equals(const Line_2& r){return data==r.get_data();}
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Line_2& r){return data!=r.get_data();}
-  #endif
+//Operators
+  DEFINE_EQUALITY_OPERATORS(Line_2)
 //I/O
   std::string toString(){
     std::stringstream sstr;

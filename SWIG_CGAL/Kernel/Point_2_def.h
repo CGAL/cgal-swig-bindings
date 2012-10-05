@@ -33,13 +33,6 @@ public:
   void set_coordinates(double x,double y){
     data=cpp_base(x,y);
   };
-//equality functions
-  bool equals(const Point_2& p){
-    return data==p.get_data();
-  }
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Point_2& p){return !equals(p);}
-  #endif
 //I/O
   std::string toString(){
     std::stringstream sstr;
@@ -50,6 +43,7 @@ public:
   inline Vector_2 operator-(Point_2&);
   inline Point_2 operator+(Vector_2&);
   inline Point_2 operator-(Vector_2&);
+  DEFINE_COMPARISON_OPERATORS(Point_2)
 //Operators added for convenience
   inline Point_2& operator+=(Vector_2&);
   inline Point_2& operator-=(Vector_2&);

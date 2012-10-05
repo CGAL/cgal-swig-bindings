@@ -42,13 +42,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(Bounded_side,bounded_side,Point_3)
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(double,volume)
-//equality functions
-  bool equals(const Tetrahedron_3& t){
-    return data==t.get_data();
-  }
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Tetrahedron_3& t){return !equals(t);}
-  #endif
+//Operators
+  DEFINE_EQUALITY_OPERATORS(Tetrahedron_3)
 //I/O
   std::string toString(){
     std::stringstream sstr;

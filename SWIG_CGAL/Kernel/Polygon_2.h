@@ -61,11 +61,8 @@ public:
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(int,size)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_empty)
-//equality functions
-  bool equals(const Polygon_2& r){return data==r.get_data();}
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Polygon_2& r){return data!=r.get_data();}
-  #endif  
+//Operators
+  DEFINE_EQUALITY_OPERATORS(Polygon_2)
 //I/O
   std::string toString(){
     std::stringstream sstr;

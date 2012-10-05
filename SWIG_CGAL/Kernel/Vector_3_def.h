@@ -51,6 +51,7 @@ public:
     return Vector_3( d* get_data() );
   }
   SWIG_CGAL_FORWARD_CALL_1(Vector_3,operator/,double)
+  DEFINE_EQUALITY_OPERATORS(Vector_3)
 //Operators added for convenience
   Vector_3& operator+=(Vector_3& v) {get_data()=get_data()+v.get_data(); return *this;}
   Vector_3& operator-=(Vector_3& v) {get_data()=get_data()-v.get_data(); return *this;}
@@ -61,17 +62,12 @@ public:
     data=cpp_base(x,y,z);
   };
 
-  bool equals(const Vector_3& r){return data==r.get_data();}
-
   std::string toString(){
     std::stringstream sstr;
     sstr << data;
     return sstr.str();
   }
 
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Vector_3& r){return data!=r.get_data();}
-  #endif
 //Deep copy
   typedef Vector_3 Self;
   Self deepcopy() const {return Self(data);}

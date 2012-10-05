@@ -37,11 +37,8 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Ray_3,opposite)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
   SWIG_CGAL_DECLARE_CALL_1(bool,has_on,Point_3)
-//equality functions
-  bool equals(const Ray_3& r){return data==r.get_data();}
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Ray_3& r){return data!=r.get_data();}
-  #endif
+//Operators
+  DEFINE_EQUALITY_OPERATORS(Ray_3)
 //I/O
   std::string toString(){
     std::stringstream sstr;

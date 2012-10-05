@@ -51,11 +51,8 @@ public:
 //  SWIG_CGAL_FORWARD_CALL_1(bool,has_on ( Circle_3<Kernel> p)
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Sphere_3,opposite)
-//equality functions
-  bool equals(const Sphere_3& s){return data==s.get_data();}
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Sphere_3& s){return !equals(s);}
-  #endif  
+//Operators
+  DEFINE_EQUALITY_OPERATORS(Sphere_3)
 //I/O
   std::string toString(){
     std::stringstream sstr;

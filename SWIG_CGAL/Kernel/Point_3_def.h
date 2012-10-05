@@ -10,6 +10,7 @@
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_3.h>
+#include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 
 class SWIG_CGAL_KERNEL_DECL Point_3{
@@ -34,13 +35,6 @@ public:
   void set_coordinates(double x,double y,double z){
     data=cpp_base(x,y,z);
   };
-//equality functions
-  bool equals(const Point_3& p){
-    return data==p.get_data();
-  }
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Point_3& p){return !equals(p);}
-  #endif
 //I/O
   std::string toString(){
     std::stringstream sstr;
@@ -51,6 +45,7 @@ public:
   inline Vector_3 operator-(Point_3&);
   inline Point_3 operator+(Vector_3&);
   inline Point_3 operator-(Vector_3&);
+  DEFINE_COMPARISON_OPERATORS(Point_3)
 //Operators added for convenience
   inline Point_3& operator+=(Vector_3&);
   inline Point_3& operator-=(Vector_3&);

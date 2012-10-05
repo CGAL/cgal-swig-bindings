@@ -295,12 +295,6 @@
 
 %include "std_string.i"
 
-//RENAMING
-#ifdef SWIGPYTHON
-%rename(__str__) toString; //print overloading in python using java
-%rename(__eq__)  equals;   //equalily overloading in python using java
-#endif
-
 //operator renaming for languages that does not support them
 #ifdef SWIGJAVA
 %rename(plus) operator+;
@@ -311,6 +305,12 @@
 %rename(iminus) operator-=;
 %rename(itimes) operator*=;
 %rename(idiv) operator/=;
+%rename(equals) operator==;
+%rename(not_equals) operator!=;
+%rename(lt) operator<;
+%rename(le) operator<=;
+%rename(gt) operator>;
+%rename(ge) operator>=;
 #endif
 
 //macro for defining void DECL macro for swig parsing

@@ -34,13 +34,8 @@ public:
   double y() const {return data.y();}
   double z() const {return data.z();}
   Point_3 point() const {return Point_3(data.point());}
-//equality functions
-  bool equals(const Weighted_point_3& p){
-    return data==p.get_data();
-  }
-  #if !defined SWIG || defined SWIGPYTHON
-  bool __ne__(const Weighted_point_3& p){return !equals(p);}
-  #endif
+//Operators
+  DEFINE_EQUALITY_OPERATORS(Weighted_point_3)
 //I/O
   std::string toString(){
     std::stringstream sstr;

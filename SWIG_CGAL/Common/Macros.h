@@ -106,7 +106,16 @@ struct Converter< SWIG_CGAL::Triple<T1,T2,T3> >{
 
 }//namespace internal
 
+#define DEFINE_EQUALITY_OPERATORS(TYPE) \
+bool operator==(TYPE& p) const { return get_data() == p.get_data(); } \
+bool operator!=(TYPE& p) const { return get_data( )== p.get_data(); }
 
+#define DEFINE_COMPARISON_OPERATORS(TYPE) \
+bool operator< (TYPE& p) const { return get_data() <  p.get_data(); } \
+bool operator> (TYPE& p) const { return get_data() >  p.get_data(); } \
+bool operator<=(TYPE& p) const { return get_data() <= p.get_data(); } \
+bool operator>=(TYPE& p) const { return get_data() >= p.get_data(); } \
+DEFINE_EQUALITY_OPERATORS(TYPE)
 
 template <class T, bool is_iterator=CGAL::is_iterator<T>::value >
 struct SWIG_CGAL_Extract_data;
