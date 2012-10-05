@@ -108,7 +108,7 @@ struct Converter< SWIG_CGAL::Triple<T1,T2,T3> >{
 
 #define DEFINE_EQUALITY_OPERATORS(TYPE) \
 bool operator==(TYPE& p) const { return get_data() == p.get_data(); } \
-bool operator!=(TYPE& p) const { return get_data( )== p.get_data(); }
+bool operator!=(TYPE& p) const { return get_data( )!= p.get_data(); }
 
 #define DEFINE_COMPARISON_OPERATORS(TYPE) \
 bool operator< (TYPE& p) const { return get_data() <  p.get_data(); } \
