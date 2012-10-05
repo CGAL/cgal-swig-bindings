@@ -10,7 +10,7 @@
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/typedefs.h>
-#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Point_3_def.h>
 #include <SWIG_CGAL/Kernel/Segment_3_def.h>
 #include <SWIG_CGAL/Kernel/Plane_3_def.h>
 #include <SWIG_CGAL/Kernel/Vector_3_def.h>
@@ -31,17 +31,17 @@ public:
 
 //Creation
   Line_3(){}
-  Line_3(const Point_3& p, Point_3& q):data(p.get_data(),q.get_data()){}
+  inline Line_3(const Point_3& p, Point_3& q);
   inline Line_3(const Point_3& p, Direction_3& d);
   inline Line_3(const Point_3& p, Vector_3& v);
   inline Line_3(const Segment_3& s);
   inline Line_3(const Ray_3& r);
 //Operations
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,projection,Point_3)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,point,int)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_1(Point_3,projection,Point_3)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_1(Point_3,point,int)
 //Predicates
   SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
-  SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
+  SWIG_CGAL_DECLARE_CALL_1(bool,has_on,Point_3)
 //Miscellaneous
   SWIG_CGAL_DECLARE_CALL_AND_REF_1(Plane_3,perpendicular_plane,Point_3)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Line_3,opposite)

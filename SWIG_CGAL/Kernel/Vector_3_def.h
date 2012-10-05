@@ -12,7 +12,7 @@
 
 #include <SWIG_CGAL/Kernel/include_conflicts_3.h>
 #include <SWIG_CGAL/Kernel/enum.h>
-#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Point_3_def.h>
 #include <SWIG_CGAL/Kernel/Segment_3_def.h>
 #include <SWIG_CGAL/Kernel/Line_3_def.h>
 #include <SWIG_CGAL/Kernel/Direction_3_def.h>
@@ -30,7 +30,7 @@ public:
 
 //Creation
   Vector_3(){}
-  Vector_3(const Point_3& a,const Point_3& b):data(a.get_data(),b.get_data()){}
+  inline Vector_3(const Point_3& a,const Point_3& b);
   inline Vector_3(const Segment_3& s);
   inline Vector_3(const Ray_3& r);
   inline Vector_3(const Line_3& l);

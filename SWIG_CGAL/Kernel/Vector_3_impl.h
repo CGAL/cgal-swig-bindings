@@ -8,6 +8,7 @@
 #ifndef SWIG_CGAL_KERNEL_VECTOR_3_IMPL_H
 #define SWIG_CGAL_KERNEL_VECTOR_3_IMPL_H
 //member functions involving elements that are in include conflict
+Vector_3::Vector_3(const Point_3& a,const Point_3& b):data(a.get_data(),b.get_data()){}
 Vector_3::Vector_3(const Segment_3& s):data(s.get_data()){}
 Vector_3::Vector_3(const Ray_3& r):data(r.get_data()){}
 Vector_3::Vector_3(const Line_3& l):data(l.get_data()){}

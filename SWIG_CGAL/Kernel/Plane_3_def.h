@@ -13,7 +13,7 @@
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/enum.h>
-#include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Point_3_def.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
 #include <SWIG_CGAL/Kernel/Segment_3_def.h>
 #include <SWIG_CGAL/Kernel/Line_3_def.h>
@@ -34,7 +34,7 @@ public:
 //Creation
   Plane_3(){}
   Plane_3(double a,double b,double c,double d):data(a,b,c,d){}
-  Plane_3(const Point_3& p,const Point_3& q,const Point_3& r):data(p.get_data(),q.get_data(),r.get_data()){}
+  inline Plane_3(const Point_3& p,const Point_3& q,const Point_3& r);
   inline Plane_3(const Point_3& p,const Vector_3& v);
   inline Plane_3(const Point_3& p,const Direction_3& d);
   inline Plane_3(const Line_3& l,const Point_3& p);
@@ -45,7 +45,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(double,b)
   SWIG_CGAL_FORWARD_CALL_0(double,c)
   SWIG_CGAL_FORWARD_CALL_0(double,d)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,projection,Point_3)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_1(Point_3,projection,Point_3)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Plane_3,opposite)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Point_3,point)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,orthogonal_vector)
@@ -54,13 +54,13 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,base1)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,base2)
 //2D Conversion
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,to_2d,Point_3)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,to_3d,Point_2)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_1(Point_2,to_2d,Point_3)
+  SWIG_CGAL_DECLARE_CALL_AND_REF_1(Point_3,to_3d,Point_2)
 //Predicates
-  SWIG_CGAL_FORWARD_CALL_1(Oriented_side,oriented_side,Point_3)
-  SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
-  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_positive_side,Point_3)
-  SWIG_CGAL_FORWARD_CALL_1(bool,has_on_negative_side,Point_3)
+  SWIG_CGAL_DECLARE_CALL_1(Oriented_side,oriented_side,Point_3)
+  SWIG_CGAL_DECLARE_CALL_1(bool,has_on,Point_3)
+  SWIG_CGAL_DECLARE_CALL_1(bool,has_on_positive_side,Point_3)
+  SWIG_CGAL_DECLARE_CALL_1(bool,has_on_negative_side,Point_3)
   SWIG_CGAL_DECLARE_CALL_1(bool,has_on,Line_3)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
 //equality functions

@@ -10,6 +10,7 @@
 class Direction_3;
 class Line_3;
 class Plane_3;
+class Point_3;
 class Ray_3;
 class Segment_3;
 class Vector_3;
