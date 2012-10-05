@@ -76,7 +76,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
 #endif
 
 //definitions
-%include "SWIG_CGAL/Kernel/Point_2.h"
+%include "SWIG_CGAL/Kernel/Point_2_def.h"
 %include "SWIG_CGAL/Kernel/Weighted_point_2.h"
 %include "SWIG_CGAL/Kernel/Segment_2_def.h"
 %include "SWIG_CGAL/Kernel/Triangle_2.h"

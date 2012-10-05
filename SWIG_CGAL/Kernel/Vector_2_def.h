@@ -11,7 +11,7 @@
 #include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_2.h>
 #include <SWIG_CGAL/Kernel/enum.h>
-#include <SWIG_CGAL/Kernel/Point_2.h>
+#include <SWIG_CGAL/Kernel/Point_2_def.h>
 #include <SWIG_CGAL/Kernel/Segment_2_def.h>
 #include <SWIG_CGAL/Kernel/Line_2_def.h>
 #include <SWIG_CGAL/Kernel/Ray_2_def.h>
@@ -30,7 +30,7 @@ public:
 
 //Creation
   Vector_2():data(){}
-  Vector_2(const Point_2& a,const Point_2& b):data(a.get_data(),b.get_data()){}
+  inline Vector_2(const Point_2& a,const Point_2& b);
   inline Vector_2(const Segment_2& s);
   inline Vector_2(const Ray_2& r);
   inline Vector_2(const Line_2& l);
