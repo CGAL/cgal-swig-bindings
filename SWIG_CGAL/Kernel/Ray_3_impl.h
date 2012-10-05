@@ -7,6 +7,12 @@
 
 #ifndef SWIG_CGAL_KERNEL_RAY_3_IMPL_H
 #define SWIG_CGAL_KERNEL_RAY_3_IMPL_H
+
+#include <SWIG_CGAL/Kernel/Point_3_def.h>
+#include <SWIG_CGAL/Kernel/Vector_3_def.h>
+#include <SWIG_CGAL/Kernel/Line_3_def.h>
+#include <SWIG_CGAL/Kernel/Direction_3_def.h>
+
 //member functions involving elements that are in include conflict
 Ray_3::Ray_3(const Point_3& p,const Point_3& q):data(p.get_data(),q.get_data()){}
 Ray_3::Ray_3(const Point_3& p,const Direction_3& d):data(p.get_data(),d.get_data()){}

@@ -10,12 +10,8 @@
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_3.h>
+#include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Common/Macros.h>
-#include <SWIG_CGAL/Kernel/Segment_3_def.h>
-#include <SWIG_CGAL/Kernel/Line_3_def.h>
-#include <SWIG_CGAL/Kernel/Ray_3_def.h>
-#include <SWIG_CGAL/Kernel/Vector_3_def.h>
-
 
 class SWIG_CGAL_KERNEL_DECL Direction_3{
   EPIC_Kernel::Direction_3 data;

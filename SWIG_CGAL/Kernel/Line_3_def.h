@@ -9,15 +9,10 @@
 #define SWIG_CGAL_KERNEL_LINE_3_DEF_H
 
 #include <sstream>
+#include <SWIG_CGAL/Kernel/include_conflicts_3.h>
+#include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/typedefs.h>
-#include <SWIG_CGAL/Kernel/Point_3_def.h>
-#include <SWIG_CGAL/Kernel/Segment_3_def.h>
-#include <SWIG_CGAL/Kernel/Plane_3_def.h>
-#include <SWIG_CGAL/Kernel/Vector_3_def.h>
-#include <SWIG_CGAL/Kernel/Direction_3_def.h>
-#include <SWIG_CGAL/Kernel/Ray_3_def.h>
 
-class Plane_3;
 
 class SWIG_CGAL_KERNEL_DECL Line_3{
   EPIC_Kernel::Line_3 data;

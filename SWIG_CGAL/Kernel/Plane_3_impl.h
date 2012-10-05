@@ -7,6 +7,14 @@
 
 #ifndef SWIG_CGAL_KERNEL_PLANE_3_IMPL_H
 #define SWIG_CGAL_KERNEL_PLANE_3_IMPL_H
+
+#include <SWIG_CGAL/Kernel/Point_3_def.h>
+#include <SWIG_CGAL/Kernel/Segment_3_def.h>
+#include <SWIG_CGAL/Kernel/Line_3_def.h>
+#include <SWIG_CGAL/Kernel/Ray_3_def.h>
+#include <SWIG_CGAL/Kernel/Vector_3_def.h>
+#include <SWIG_CGAL/Kernel/Direction_3_def.h>
+
 //member functions involving elements that are in include conflict
 Plane_3::Plane_3(const Point_3& p,const Point_3& q,const Point_3& r):data(p.get_data(),q.get_data(),r.get_data()){}
 Plane_3::Plane_3(const Point_3& p,const Vector_3& v):data(p.get_data(),v.get_data()){}

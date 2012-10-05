@@ -10,12 +10,8 @@
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_2.h>
+#include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/enum.h>
-#include <SWIG_CGAL/Kernel/Point_2_def.h>
-#include <SWIG_CGAL/Kernel/Vector_2_def.h>
-#include <SWIG_CGAL/Kernel/Ray_2_def.h>
-#include <SWIG_CGAL/Kernel/Direction_2_def.h>
-
 
 class SWIG_CGAL_KERNEL_DECL Line_2{
   EPIC_Kernel::Line_2 data;
