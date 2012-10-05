@@ -50,6 +50,11 @@ public:
     return Vector_2( d * get_data() );
   }
   SWIG_CGAL_FORWARD_CALL_1(Vector_2,operator/,double)
+//Operators added for convenience
+  Vector_2& operator+=(Vector_2& v) {get_data()=get_data()+v.get_data(); return *this;}
+  Vector_2& operator-=(Vector_2& v) {get_data()=get_data()-v.get_data(); return *this;}
+  Vector_2& operator*=(double d) { get_data()=d*get_data(); return *this;}
+  Vector_2& operator/=(double d) { get_data()=get_data()/d; return *this;}
 //equality functions
   bool equals(const Vector_2& r){return data==r.get_data();}
   #if !defined SWIG || defined SWIGPYTHON

@@ -51,6 +51,9 @@ public:
   inline Vector_3 operator-(Point_3&);
   inline Point_3 operator+(Vector_3&);
   inline Point_3 operator-(Vector_3&);
+//Operators added for convenience
+  inline Point_3& operator+=(Vector_3&);
+  inline Point_3& operator-=(Vector_3&);
 //Deep copy
   typedef Point_3 Self;
   Self deepcopy() const {return Self(data);}

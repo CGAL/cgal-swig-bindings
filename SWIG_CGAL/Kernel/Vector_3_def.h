@@ -51,7 +51,12 @@ public:
     return Vector_3( d* get_data() );
   }
   SWIG_CGAL_FORWARD_CALL_1(Vector_3,operator/,double)
-//
+//Operators added for convenience
+  Vector_3& operator+=(Vector_3& v) {get_data()=get_data()+v.get_data(); return *this;}
+  Vector_3& operator-=(Vector_3& v) {get_data()=get_data()-v.get_data(); return *this;}
+  Vector_3& operator*=(double d) { get_data()=d*get_data(); return *this;}
+  Vector_3& operator/=(double d) { get_data()=get_data()/d; return *this;}
+//added for convenience not allowed in CGAL
   void set_coordinates(double x,double y,double z){
     data=cpp_base(x,y,z);
   };

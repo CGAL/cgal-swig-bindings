@@ -14,4 +14,15 @@ Vector_3 Point_3::operator-(Point_3& p) {return Vector_3( get_data() - p.get_dat
 Point_3  Point_3::operator+(Vector_3& v) {return Point_3( get_data() + v.get_data() );}
 Point_3  Point_3::operator-(Vector_3& v) {return Point_3( get_data() - v.get_data() );}
 
+Point_3&  Point_3::operator+=(Vector_3& v) 
+{
+  get_data()=get_data()+v.get_data();
+  return *this;
+}
+Point_3&  Point_3::operator-=(Vector_3& v)
+{
+  get_data()=get_data()-v.get_data();
+  return *this;
+}
+
 #endif //SWIG_CGAL_KERNEL_POINT_3_IMPL_H

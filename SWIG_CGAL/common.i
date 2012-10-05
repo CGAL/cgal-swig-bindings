@@ -307,6 +307,10 @@
 %rename(minus) operator-;
 %rename(times) operator*;
 %rename(div) operator/;
+%rename(iplus) operator+=;
+%rename(iminus) operator-=;
+%rename(itimes) operator*=;
+%rename(idiv) operator/=;
 #endif
 
 //macro for defining void DECL macro for swig parsing
