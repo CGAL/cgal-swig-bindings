@@ -34,11 +34,8 @@ public:
 //Setting
   SWIG_CGAL_FORWARD_CALL_1(void,set_point,Point)
 //Equality functions  
-  bool equals(const Self& v){
-    return data==v.get_data();
-  }
+  DEFINE_EQUALITY_OPERATORS(Self);
   #ifdef SWIGPYTHON
-  bool __ne__(const Self& v){return !equals(v);}
   std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
   #endif
 //Deep copy
@@ -87,11 +84,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
 //Equality Functions  
-  bool equals(const Self& c){
-    return data==c.get_data();
-  }  
+  DEFINE_EQUALITY_OPERATORS(Self);
   #ifdef SWIGPYTHON
-  bool __ne__(const Self& c){return !equals(c);}
   std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
   #endif  
 //Deep copy

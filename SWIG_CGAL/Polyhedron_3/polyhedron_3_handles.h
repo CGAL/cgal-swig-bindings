@@ -65,6 +65,7 @@ public:
   #endif
   typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_vertex_circulator,CGAL_Halfedge_handle<Polyhedron_base> > Halfedge_around_vertex_circulator;
   typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_facet_circulator,CGAL_Halfedge_handle<Polyhedron_base> >  Halfedge_around_facet_circulator;
+  typedef CGAL_Halfedge_handle<Polyhedron_base> Self;
 
   CGAL_Halfedge_handle():data(NULL){}
 //Operations
@@ -92,7 +93,7 @@ public:
 //Operations available if Supports_halfedge_facet is CGAL::Tag_true
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(CGAL_Facet_handle<Polyhedron_base>,facet)
   
-  bool equals(const CGAL_Halfedge_handle<Polyhedron_base>& he){ return get_data()==he.get_data(); }
+  DEFINE_EQUALITY_OPERATORS(Self);
   int hashCode(){ return *reinterpret_cast<int*> (&*data);}
 
   #ifdef SWIGPYTHON
@@ -101,7 +102,6 @@ public:
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}
 //Deep copy
-  typedef CGAL_Halfedge_handle<Polyhedron_base> Self;
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();}
 };
@@ -119,7 +119,8 @@ public:
   #endif
   typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_vertex_circulator,CGAL_Halfedge_handle<Polyhedron_base> > Halfedge_around_vertex_circulator;
   typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_facet_circulator,CGAL_Halfedge_handle<Polyhedron_base> >  Halfedge_around_facet_circulator;
-
+  typedef CGAL_Vertex_handle<Polyhedron_base> Self;
+        
   CGAL_Vertex_handle():data(NULL){}
 
 //Operations available if Supports_vertex_point is CGAL::Tag_true
@@ -132,7 +133,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_bivalent)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_trivalent)
 
-  bool equals(const CGAL_Vertex_handle<Polyhedron_base>& v){ return get_data()==v.get_data(); }
+  DEFINE_EQUALITY_OPERATORS(Self);
   int hashCode(){ return *reinterpret_cast<int*> (&*data);}
 
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
@@ -144,7 +145,6 @@ public:
   
   void set_point(const Point_3& p){ data->point() =  internal::Converter<Point_3>::convert(p);}  
 //Deep copy
-  typedef CGAL_Vertex_handle<Polyhedron_base> Self;
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();}
 };
@@ -162,6 +162,7 @@ public:
   #endif
 
   typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_facet_circulator,CGAL_Halfedge_handle<Polyhedron_base> >  Halfedge_around_facet_circulator;
+  typedef CGAL_Facet_handle<Polyhedron_base> Self;
 
   CGAL_Facet_handle():data(NULL){}
 //Operations available if Supports_facet_plane is CGAL::Tag_true
@@ -176,7 +177,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_triangle)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_quad)
 
-  bool equals(const CGAL_Facet_handle<Polyhedron_base>& f){ return get_data()==f.get_data(); }
+  DEFINE_EQUALITY_OPERATORS(Self);
   int hashCode(){ return *reinterpret_cast<int*> (&*data);}
 
   #ifdef SWIGPYTHON
@@ -186,7 +187,6 @@ public:
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}
 //Deep copy
-  typedef CGAL_Facet_handle<Polyhedron_base> Self;
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();}
 };

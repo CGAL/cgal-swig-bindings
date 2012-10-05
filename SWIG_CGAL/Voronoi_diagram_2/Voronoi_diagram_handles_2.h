@@ -66,9 +66,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_incident_face,Face_wrapper)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
 //Equality Functions  
-  bool equals(const Self& c){
-    return data==c.get_data();
-  }  
+  DEFINE_EQUALITY_OPERATORS(Self);
 //Deep copy
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();} 
@@ -100,9 +98,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_halfedge_on_ccb,Halfedge_wrapper)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
 //Equality Functions  
-  bool equals(const Self& c){
-    return data==c.get_data();
-  }  
+  DEFINE_EQUALITY_OPERATORS(Self);
 //Deep copy
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();} 
@@ -153,9 +149,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_ray)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
 //Equality Functions  
-  bool equals(const Self& c){
-    return data==c.get_data();
-  }  
+  DEFINE_EQUALITY_OPERATORS(Self);
 //Deep copy
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();} 

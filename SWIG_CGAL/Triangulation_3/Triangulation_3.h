@@ -92,6 +92,7 @@ public:
   ~Triangulation_3_wrapper(){if (own_triangulation) delete data_ptr;}
   Triangulation_3_wrapper(Point_range range):data_ptr(new cpp_base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range))){}
   
+  typedef Triangulation_3_wrapper<Triangulation,Point,Vertex_handle,Cell_handle,Weighted_tag,Memory_holder> Self;
   typedef std::pair<Cell_handle,int>             Facet;
   typedef SWIG_CGAL::Triple<Cell_handle,int,int> Edge;  
 //Iterator typedefs  
@@ -273,12 +274,8 @@ public:
   }
 //Equality functions
   bool equal(const Triangulation_3_wrapper& t) {return t.get_data()==this->get_data();}
-  bool equals(const Triangulation_3_wrapper& t) {return equal(t);}
-  #ifdef SWIGPYTHON
-  bool __ne__(const Triangulation_3_wrapper& dt) {return !equals(dt);}
-  #endif
+  DEFINE_EQUALITY_OPERATORS(Self);
 //Deep copy
-  typedef Triangulation_3_wrapper<Triangulation,Point,Vertex_handle,Cell_handle,Weighted_tag,Memory_holder> Self;
   Self deepcopy() const {return Self(get_data());}
   void deepcopy(const Self& other){
     if (!own_triangulation){
