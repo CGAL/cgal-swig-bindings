@@ -75,6 +75,10 @@ public:
   typedef Vector_3 Self;
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();}
+//Operations added for convenience
+  void normalize(){
+    get_data()=get_data()/sqrt( get_data().squared_length() );
+  }
 };
 
 #endif //SWIG_CGAL_KERNEL_VECTOR_3_DEF_H
