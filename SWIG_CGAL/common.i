@@ -313,6 +313,12 @@
 %rename(ge) operator>=;
 #endif
 
+//hash function
+#ifdef PYTHON
+%rename (__hash__) hashCode;
+#endif
+
+
 //macro for defining void DECL macro for swig parsing
 %define Decl_void_type()
 #define SWIG_CGAL_JAVA_DECL

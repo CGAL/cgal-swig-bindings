@@ -40,9 +40,9 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
 //equality functions
   DEFINE_EQUALITY_OPERATORS(Self);
-  #ifdef SWIGPYTHON
-  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
-  #endif
+
+//hash function renamed to __hash__ in python
+  std::size_t hashCode() const { return boost::hash_value(&(*data) ); }
 //Deep copy
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();}
@@ -84,9 +84,10 @@ public:
   bool has_neighbor (const Cell_handle& n, Reference_wrapper<int>& i){ return get_data()->has_neighbor(n.get_data(),i.object()); }
 //Equality functions  
   DEFINE_EQUALITY_OPERATORS(Self);
-  #ifdef SWIGPYTHON
-  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
-  #endif  
+
+//hash function renamed to __hash__ in python
+  std::size_t hashCode() const { return boost::hash_value(&(*data) ); }
+
 //Deep copy
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();}

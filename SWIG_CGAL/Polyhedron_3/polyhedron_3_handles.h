@@ -94,11 +94,10 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(CGAL_Facet_handle<Polyhedron_base>,facet)
   
   DEFINE_EQUALITY_OPERATORS(Self);
-  int hashCode(){ return *reinterpret_cast<int*> (&*data);}
 
-  #ifdef SWIGPYTHON
-  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
-  #endif  
+//hash function renamed to __hash__ in python
+  std::size_t hashCode() const { return boost::hash_value(&(*data) ); }
+
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}
 //Deep copy
@@ -134,14 +133,13 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_trivalent)
 
   DEFINE_EQUALITY_OPERATORS(Self);
-  int hashCode(){ return *reinterpret_cast<int*> (&*data);}
 
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}  
 
-  #ifdef SWIGPYTHON
-  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
-  #endif  
+//hash function renamed to __hash__ in python
+  std::size_t hashCode() const { return boost::hash_value(&(*data) ); }
+
   
   void set_point(const Point_3& p){ data->point() =  internal::Converter<Point_3>::convert(p);}  
 //Deep copy
@@ -178,11 +176,9 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_quad)
 
   DEFINE_EQUALITY_OPERATORS(Self);
-  int hashCode(){ return *reinterpret_cast<int*> (&*data);}
-
-  #ifdef SWIGPYTHON
-  std::size_t __hash__() const { return boost::hash_value(&(*data) ); }
-  #endif  
+  
+//hash function renamed to __hash__ in python
+  std::size_t hashCode() const { return boost::hash_value(&(*data) ); }
   
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
   void set_id(int i){internal::Id<typename Polyhedron_base::Items>::set(data,i);}

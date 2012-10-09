@@ -14,7 +14,7 @@
 #include <SWIG_CGAL/Voronoi_diagram_2/typedefs.h>
 
 #include <CGAL/Voronoi_diagram_2/Handle_adaptor.h>
-
+#include <boost/functional/hash.hpp>
 
 #ifndef SWIG
 //overload to be used in FORWARD macros
@@ -67,6 +67,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
 //Equality Functions  
   DEFINE_EQUALITY_OPERATORS(Self);
+//hash function renamed to __hash__ in python
+  std::size_t hashCode() const { return boost::hash_value(&(*data) ); }
 //Deep copy
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();} 
@@ -99,6 +101,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
 //Equality Functions  
   DEFINE_EQUALITY_OPERATORS(Self);
+//hash function renamed to __hash__ in python
+  std::size_t hashCode() const { return boost::hash_value(&(*data) ); }
 //Deep copy
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();} 
@@ -150,6 +154,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
 //Equality Functions  
   DEFINE_EQUALITY_OPERATORS(Self);
+//hash function renamed to __hash__ in python
+  std::size_t hashCode() const { return boost::hash_value(&(*data) ); }
 //Deep copy
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();} 
