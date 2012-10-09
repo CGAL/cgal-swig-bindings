@@ -117,6 +117,11 @@ bool operator<=(TYPE& p) const { return get_data() <= p.get_data(); } \
 bool operator>=(TYPE& p) const { return get_data() >= p.get_data(); } \
 DEFINE_EQUALITY_OPERATORS(TYPE)
 
+
+//hash function renamed to __hash__ in python
+#define DEFINE_HASH_FUNCTION_FOR_HANDLE \
+int hashCode() const { return (int) boost::hash_value(&(*data) ); }
+
 template <class T, bool is_iterator=CGAL::is_iterator<T>::value >
 struct SWIG_CGAL_Extract_data;
 

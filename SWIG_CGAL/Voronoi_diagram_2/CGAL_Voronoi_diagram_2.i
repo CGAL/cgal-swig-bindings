@@ -29,6 +29,8 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Voronoi_diagram_2)
 
 %pragma(java) jniclassimports=%{
   import CGAL.Kernel.Point_2;
+  import CGAL.Kernel.Segment_2;
+  import CGAL.Kernel.Iso_rectangle_2;
   import CGAL.Triangulation_2.Delaunay_triangulation_2;
   import CGAL.Triangulation_2.Delaunay_triangulation_2_Vertex_handle;
   import CGAL.Triangulation_2.Delaunay_triangulation_2_Face_handle;

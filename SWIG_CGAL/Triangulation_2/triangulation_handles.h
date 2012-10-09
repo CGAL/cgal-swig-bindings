@@ -35,8 +35,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(void,set_point,Point)
 //Equality functions  
   DEFINE_EQUALITY_OPERATORS(Self);
-//hash function renamed to __hash__ in python
-  std::size_t hashCode() const { return boost::hash_value(&(*data) ); }
+//hash function
+  DEFINE_HASH_FUNCTION_FOR_HANDLE
 
 //Deep copy
   Self deepcopy() const {return Self(data);}
@@ -85,8 +85,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
 //Equality Functions  
   DEFINE_EQUALITY_OPERATORS(Self);
-//hash function renamed to __hash__ in python
-  std::size_t hashCode() const { return boost::hash_value(&(*data) ); }
+//hash function
+  DEFINE_HASH_FUNCTION_FOR_HANDLE
  
 //Deep copy
   Self deepcopy() const {return Self(data);}

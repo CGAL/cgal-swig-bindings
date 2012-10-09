@@ -317,7 +317,6 @@
 %rename(ge) operator>=;
 #endif
 
-//hash function
 #ifdef PYTHON
 %rename (__hash__) hashCode;
 #endif
