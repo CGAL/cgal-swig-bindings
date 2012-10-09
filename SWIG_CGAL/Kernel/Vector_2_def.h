@@ -25,6 +25,7 @@ public:
 
 //Creation
   Vector_2():data(){}
+  Vector_2(const Null_vector&):data(CGAL::NULL_VECTOR){}
   inline Vector_2(const Point_2& a,const Point_2& b);
   inline Vector_2(const Segment_2& s);
   inline Vector_2(const Ray_2& r);
@@ -50,6 +51,7 @@ public:
     return Vector_2( d * get_data() );
   }
   SWIG_CGAL_FORWARD_CALL_1(Vector_2,operator/,double)
+  inline bool operator==(const Null_vector&){return get_data()==CGAL::NULL_VECTOR;}
   DEFINE_EQUALITY_OPERATORS(Vector_2)
 //Operators added for convenience
   Vector_2& operator+=(Vector_2& v) {get_data()=get_data()+v.get_data(); return *this;}

@@ -55,6 +55,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Kernel)
   #include <SWIG_CGAL/Kernel/global_functions.h>
   #include <SWIG_CGAL/Kernel/enum.h>
   #include <SWIG_CGAL/Kernel/Polygon_2.h>
+  #include <SWIG_CGAL/Kernel/Origin.h>
   #include <SWIG_CGAL/Common/Iterator.h>
 %}
 
@@ -102,6 +103,15 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
 %include "SWIG_CGAL/Kernel/Polygon_2.h"
 %include "SWIG_CGAL/Common/global_function_macros.h"
 %include "SWIG_CGAL/Kernel/global_function_signatures.h"
+%include "SWIG_CGAL/Kernel/Origin.h"
+
+
+const Origin           ORIGIN;
+const Null_vector      NULL_VECTOR;
+%{
+const Origin      ORIGIN      = Origin();
+const Null_vector NULL_VECTOR = Null_vector();
+%}
 
 //simple types
 %include "SWIG_CGAL/Kernel/Reference_wrappers.i"

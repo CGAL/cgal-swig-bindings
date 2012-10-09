@@ -25,6 +25,7 @@ public:
 
 //Creation
   Point_2():data(){}
+  Point_2(const Origin&):data(CGAL::ORIGIN){}
   Point_2(double x,double y):data(x,y){}
 //Operations
   double x() const {return data.x();}
@@ -43,6 +44,8 @@ public:
   inline Vector_2 operator-(Point_2&);
   inline Point_2 operator+(Vector_2&);
   inline Point_2 operator-(Vector_2&);
+  inline Vector_2 operator-(const Origin&);
+  inline bool operator==(const Origin&){return get_data()==CGAL::ORIGIN;}
   DEFINE_COMPARISON_OPERATORS(Point_2)
 //Operators added for convenience
   inline Point_2& operator+=(Vector_2&);

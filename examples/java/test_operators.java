@@ -2,10 +2,11 @@ import CGAL.Kernel.Point_2;
 import CGAL.Kernel.Point_3;
 import CGAL.Kernel.Vector_3;
 import CGAL.Kernel.Vector_2;
+import CGAL.Kernel.CGAL_Kernel;
 
 
 public class test_operators {
-  public static void assertion(boolean b,int k){
+  public static void assertion(boolean b,double k){
     if (!b) throw new AssertionError("ERROR!!!!");
     else System.out.println("Test "+k+" OK");
   }
@@ -22,6 +23,7 @@ public class test_operators {
     assertion( p1.plus(v2).equals( p2 ), 1);
     assertion( p1.minus(v2).lt(p2), 2);
     assertion( p2.minus(p1).equals(v2), 3);
+    assertion( p2.minus(CGAL_Kernel.getORIGIN()).equals(v2), 3.1);
     assertion( p2.gt(p1), 4);
     assertion( p2.ge(p2), 5);
     assertion( p2.le(p2), 6);
@@ -35,6 +37,21 @@ public class test_operators {
     assertion( v1.div(2).equals(new Vector_2(0.5,0.5)),12 );
     assertion( v2.minus().equals( new Vector_2(-1,-2) ),13 );
     assertion( v2.not_equals( v1 ),14 );
+    
+    //operations on ORIGIN
+    assertion( CGAL_Kernel.getORIGIN().minus(p2).equals(v2.minus()), 14 );
+    assertion( CGAL_Kernel.getORIGIN().plus(v2).equals(p2), 15 );
+    assertion( p1.equals( CGAL_Kernel.getORIGIN() ), 15.1);
+    assertion( p1.minus( p1 ).equals(CGAL_Kernel.getNULL_VECTOR()), 15.2);
+    
+    //test inplace operations
+    Point_2 pt_tmp=p1.clone();
+    pt_tmp.iplus(v2);
+    assertion( pt_tmp.equals( p2 ), 16);
+    
+    Vector_2 vect_tmp=new Vector_2( 2,3);
+    vect_tmp.iminus(v1);
+    assertion( vect_tmp.equals(v2), 17);
   }
   
   public static void test_3d(){
@@ -49,6 +66,7 @@ public class test_operators {
     assertion( p1.plus(v2).equals( p2 ), 1);
     assertion( p1.minus(v2).lt(p2), 2);
     assertion( p2.minus(p1).equals(v2), 3);
+    assertion( p2.minus(CGAL_Kernel.getORIGIN()).equals(v2), 3.1);
     assertion( p2.gt(p1), 4);
     assertion( p2.ge(p2), 5);
     assertion( p2.le(p2), 6);
@@ -62,6 +80,21 @@ public class test_operators {
     assertion( v1.div(2).equals(new Vector_3(0.5,0.5,0)),12 );
     assertion( v2.minus().equals( new Vector_3(-1,-2,0) ),13 );    
     assertion( v2.not_equals( v1 ),14 );
+    
+    //operations on ORIGIN/NULL_VECTOR
+    assertion( CGAL_Kernel.getORIGIN().minus(p2).equals(v2.minus()), 14 );
+    assertion( CGAL_Kernel.getORIGIN().plus(v2).equals(p2), 15 );
+    assertion( p1.equals( CGAL_Kernel.getORIGIN() ), 15.1);
+    assertion( p1.minus( p1 ).equals(CGAL_Kernel.getNULL_VECTOR()), 15.2);
+    
+    //test inplace operations
+    Point_3 pt_tmp=p1.clone();
+    pt_tmp.iplus(v2);
+    assertion( pt_tmp.equals( p2 ), 16);
+    
+    Vector_3 vect_tmp=new Vector_3( 2,3,0);
+    vect_tmp.iminus(v1);
+    assertion( vect_tmp.equals(v2), 17);
   }
   
   public static void main(String arg[]){

@@ -13,6 +13,7 @@
 Vector_3 Point_3::operator-(Point_3& p) {return Vector_3( get_data() - p.get_data() );}
 Point_3  Point_3::operator+(Vector_3& v) {return Point_3( get_data() + v.get_data() );}
 Point_3  Point_3::operator-(Vector_3& v) {return Point_3( get_data() - v.get_data() );}
+Vector_3 Point_3::operator-(const Origin&) {return Vector_3( get_data() - CGAL::ORIGIN ); }
 
 Point_3&  Point_3::operator+=(Vector_3& v) 
 {

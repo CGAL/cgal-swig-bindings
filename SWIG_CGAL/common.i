@@ -295,6 +295,10 @@
 
 %include "std_string.i"
 
+#ifdef SWIGPYTHON
+%rename(__str__) toString; //print overloading in python using java
+#endif
+
 //operator renaming for languages that does not support them
 #ifdef SWIGJAVA
 %rename(plus) operator+;
