@@ -8,11 +8,11 @@
 #ifndef SWIG_CGAL_KERNEL_VECTOR_2_IMPL_H
 #define SWIG_CGAL_KERNEL_VECTOR_2_IMPL_H
 
-#include <SWIG_CGAL/Kernel/Point_2_def.h>
-#include <SWIG_CGAL/Kernel/Segment_2_def.h>
-#include <SWIG_CGAL/Kernel/Line_2_def.h>
-#include <SWIG_CGAL/Kernel/Ray_2_def.h>
-#include <SWIG_CGAL/Kernel/Direction_2_def.h>
+#include <SWIG_CGAL/Kernel/Point_2_decl.h>
+#include <SWIG_CGAL/Kernel/Segment_2_decl.h>
+#include <SWIG_CGAL/Kernel/Line_2_decl.h>
+#include <SWIG_CGAL/Kernel/Ray_2_decl.h>
+#include <SWIG_CGAL/Kernel/Direction_2_decl.h>
 
 //member functions involving elements that are in include conflict
 Vector_2::Vector_2(const Point_2& a,const Point_2& b):data(a.get_data(),b.get_data()){}

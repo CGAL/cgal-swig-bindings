@@ -8,10 +8,10 @@
 #define SWIG_CGAL_KERNEL_EXPORT
 
 #include <SWIG_CGAL/Kernel/Origin.h>
-#include <SWIG_CGAL/Kernel/Point_2_def.h>
-#include <SWIG_CGAL/Kernel/Point_3_def.h>
-#include <SWIG_CGAL/Kernel/Vector_2_def.h>
-#include <SWIG_CGAL/Kernel/Vector_3_def.h>
+#include <SWIG_CGAL/Kernel/Point_2_decl.h>
+#include <SWIG_CGAL/Kernel/Point_3_decl.h>
+#include <SWIG_CGAL/Kernel/Vector_2_decl.h>
+#include <SWIG_CGAL/Kernel/Vector_3_decl.h>
 #include <CGAL/Origin.h>
 
 Point_2 Origin::operator+(const Vector_2& v) const {return Point_2( CGAL::ORIGIN+v.get_data() ); }

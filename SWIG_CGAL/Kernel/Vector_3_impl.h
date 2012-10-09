@@ -8,11 +8,11 @@
 #ifndef SWIG_CGAL_KERNEL_VECTOR_3_IMPL_H
 #define SWIG_CGAL_KERNEL_VECTOR_3_IMPL_H
 
-#include <SWIG_CGAL/Kernel/Point_3_def.h>
-#include <SWIG_CGAL/Kernel/Segment_3_def.h>
-#include <SWIG_CGAL/Kernel/Line_3_def.h>
-#include <SWIG_CGAL/Kernel/Ray_3_def.h>
-#include <SWIG_CGAL/Kernel/Direction_3_def.h>
+#include <SWIG_CGAL/Kernel/Point_3_decl.h>
+#include <SWIG_CGAL/Kernel/Segment_3_decl.h>
+#include <SWIG_CGAL/Kernel/Line_3_decl.h>
+#include <SWIG_CGAL/Kernel/Ray_3_decl.h>
+#include <SWIG_CGAL/Kernel/Direction_3_decl.h>
 
 //member functions involving elements that are in include conflict
 Vector_3::Vector_3(const Point_3& a,const Point_3& b):data(a.get_data(),b.get_data()){}

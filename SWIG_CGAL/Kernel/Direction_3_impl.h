@@ -8,10 +8,10 @@
 #ifndef SWIG_CGAL_KERNEL_DIRECTION_3_IMPL_H
 #define SWIG_CGAL_KERNEL_DIRECTION_3_IMPL_H
 
-#include <SWIG_CGAL/Kernel/Segment_3_def.h>
-#include <SWIG_CGAL/Kernel/Line_3_def.h>
-#include <SWIG_CGAL/Kernel/Ray_3_def.h>
-#include <SWIG_CGAL/Kernel/Vector_3_def.h>
+#include <SWIG_CGAL/Kernel/Segment_3_decl.h>
+#include <SWIG_CGAL/Kernel/Line_3_decl.h>
+#include <SWIG_CGAL/Kernel/Ray_3_decl.h>
+#include <SWIG_CGAL/Kernel/Vector_3_decl.h>
 
 //member functions involving elements that are in include conflict
 Direction_3::Direction_3(const Vector_3& v):data(v.get_data()){}

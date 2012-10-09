@@ -8,7 +8,7 @@
 #ifndef SWIG_CGAL_KERNEL_RAY_2_H
 #define SWIG_CGAL_KERNEL_RAY_2_H
 
-#include <SWIG_CGAL/Kernel/Ray_2_def.h>
+#include <SWIG_CGAL/Kernel/Ray_2_decl.h>
 #include <SWIG_CGAL/Kernel/Ray_2_impl.h>
 
 #endif //SWIG_CGAL_KERNEL_RAY_2_H

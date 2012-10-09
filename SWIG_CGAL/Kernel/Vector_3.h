@@ -8,7 +8,7 @@
 #ifndef SWIG_CGAL_KERNEL_VECTOR_3_H
 #define SWIG_CGAL_KERNEL_VECTOR_3_H
 
-#include <SWIG_CGAL/Kernel/Vector_3_def.h>
+#include <SWIG_CGAL/Kernel/Vector_3_decl.h>
 #include <SWIG_CGAL/Kernel/Vector_3_impl.h>
 
 #endif //SWIG_CGAL_KERNEL_VECTOR_3_H
