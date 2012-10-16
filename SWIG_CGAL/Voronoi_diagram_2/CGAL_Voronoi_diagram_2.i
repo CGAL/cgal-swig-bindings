@@ -93,6 +93,8 @@ declare_voronoi_diagram_2(Voronoi_diagram_2,V2_DT_AT_CAP,Point_2,Delaunay_triang
 declare_voronoi_diagram_2(Power_diagram_2,V2_RT_AT_CAP,Weighted_point_2,Regular_triangulation_2)
 
 //function added for convinience but that is not in CGAL
+%pragma(java) moduleimports=%{import CGAL.Kernel.Segment_2; import CGAL.Kernel.Iso_rectangle_2; import java.util.Collection;%}
+
 //  typemaps for output iterator
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define Segment_2_output_iterator Kernel_iterator_helper<Segment_2>::output %enddef
