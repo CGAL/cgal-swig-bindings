@@ -25,12 +25,14 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Voronoi_diagram_2)
   #include <SWIG_CGAL/Triangulation_2/Object.h>
   #include <SWIG_CGAL/Triangulation_2/all_includes.h>
   #include <SWIG_CGAL/Kernel/Iso_rectangle_2.h>
+  #include <SWIG_CGAL/Kernel/Polygon_2.h>
 %}
 
 %pragma(java) jniclassimports=%{
   import CGAL.Kernel.Point_2;
   import CGAL.Kernel.Segment_2;
   import CGAL.Kernel.Iso_rectangle_2;
+  import CGAL.Kernel.Polygon_2;
   import CGAL.Triangulation_2.Delaunay_triangulation_2;
   import CGAL.Triangulation_2.Delaunay_triangulation_2_Vertex_handle;
   import CGAL.Triangulation_2.Delaunay_triangulation_2_Face_handle;
@@ -93,7 +95,7 @@ declare_voronoi_diagram_2(Voronoi_diagram_2,V2_DT_AT_CAP,Point_2,Delaunay_triang
 declare_voronoi_diagram_2(Power_diagram_2,V2_RT_AT_CAP,Weighted_point_2,Regular_triangulation_2)
 
 //function added for convinience but that is not in CGAL
-%pragma(java) moduleimports=%{import CGAL.Kernel.Segment_2; import CGAL.Kernel.Iso_rectangle_2; import java.util.Collection;%}
+%pragma(java) moduleimports=%{import CGAL.Kernel.Segment_2; import CGAL.Kernel.Iso_rectangle_2; import CGAL.Kernel.Polygon_2; import java.util.Collection;%}
 
 //  typemaps for output iterator
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
@@ -106,6 +108,7 @@ SWIG_CGAL_declare_generic_output_iterator(Segment_2_output_iterator,Segment_2_ou
 
 %types(Segment_2*,Segment_2);//needed so that the identifier SWIGTYPE_p_Segment_2 is generated
 void crop_voronoi_facet(Voronoi_diagram_2_SWIG_wrapper&,Voronoi_diagram_2_Face_handle_SWIG_wrapper&,Iso_rectangle_2&,Segment_2_output_iterator);
+void crop_voronoi_facet_polygon(Voronoi_diagram_2_SWIG_wrapper&,Voronoi_diagram_2_Face_handle_SWIG_wrapper&,Iso_rectangle_2&,Polygon_2&);
 %{
   #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef Kernel_iterator_helper<Segment_2>::output      Segment_2_output_iterator; 
@@ -117,6 +120,10 @@ void crop_voronoi_facet(Voronoi_diagram_2_SWIG_wrapper&,Voronoi_diagram_2_Face_h
   void crop_voronoi_facet(Voronoi_diagram_2_SWIG_wrapper& vd_wrapper,Voronoi_diagram_2_Face_handle_SWIG_wrapper& fh_wrapper,Iso_rectangle_2& rect_wrapper,Segment_2_output_iterator output)
   {
     internal::crop_face_boundary(vd_wrapper.get_data(),rect_wrapper.get_data(),fh_wrapper.get_data(),output);
+  }
+  void crop_voronoi_facet_polygon(Voronoi_diagram_2_SWIG_wrapper& vd_wrapper,Voronoi_diagram_2_Face_handle_SWIG_wrapper& fh_wrapper,Iso_rectangle_2& rect_wrapper,Polygon_2& result)
+  {
+    internal::crop_voronoi_facet_polygon(vd_wrapper.get_data(),rect_wrapper.get_data(),fh_wrapper.get_data(),result.get_data());
   }
 %}
 
