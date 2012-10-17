@@ -9,18 +9,54 @@
 #define SWIG_CGAL_VORONOI_DIAGRAM_2_UTILITY_H
 
 #include <CGAL/Polygon_2.h>
+#include <CGAL/Lazy_exact_nt.h>
+#include <CGAL/Gmpq.h>
+#include <CGAL/Cartesian_converter.h>
 
 namespace internal{
 
+// raw version
+//template <class Primitive, class Kernel, class Output_iterator>
+//bool
+//cast_into_segment(const Primitive& p, const typename CGAL::Iso_rectangle_2<Kernel>& bbox, Output_iterator out)
+//{
+//  typename Kernel::Segment_2 s;
+//  CGAL::Object object = CGAL::intersection(p,bbox);
+//  if ( CGAL::assign(s, object) )
+//  {
+//    *out++=s;
+//    return true;
+//  }
+//  return false;
+//}
+
+//using interval arithmetic to snap points onto bbox
 template <class Primitive, class Kernel, class Output_iterator>
 bool
 cast_into_segment(const Primitive& p, const typename CGAL::Iso_rectangle_2<Kernel>& bbox, Output_iterator out)
 {
-  typename Kernel::Segment_2 s;
-  CGAL::Object object = CGAL::intersection(p,bbox);
+  typedef CGAL::Simple_cartesian< CGAL::Lazy_exact_nt<CGAL::Gmpq> > Exact_kernel;
+  CGAL::Cartesian_converter<Kernel,Exact_kernel> to_exact;
+  
+  typename Exact_kernel::Segment_2 s;
+  CGAL::Object object = CGAL::intersection( to_exact(p), to_exact(bbox) );
   if ( CGAL::assign(s, object) )
   {
-    *out++=s;
+    typename Kernel::Point_2 src(
+      approx( s.source().x() ).do_overlap( bbox.xmax() )? bbox.xmax() :
+     (approx( s.source().x() ).do_overlap( bbox.xmin() )? bbox.xmin() : to_double(s.source().x()) ),
+      approx( s.source().y() ).do_overlap( bbox.ymax() )? bbox.ymax() :
+     (approx( s.source().y() ).do_overlap( bbox.ymin() )? bbox.ymin() : to_double(s.source().y()) )
+    );
+
+    typename Kernel::Point_2 tgt(
+      approx( s.target().x() ).do_overlap( bbox.xmax() )? bbox.xmax() :
+     (approx( s.target().x() ).do_overlap( bbox.xmin() )? bbox.xmin() : to_double(s.target().x()) ),
+      approx( s.target().y() ).do_overlap( bbox.ymax() )? bbox.ymax() :
+     (approx( s.target().y() ).do_overlap( bbox.ymin() )? bbox.ymin() : to_double(s.target().y()) )
+    );
+    
+    *out++=typename Kernel::Segment_2(src,tgt);
     return true;
   }
   return false;
