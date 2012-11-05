@@ -52,29 +52,14 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Voronoi_diagram_2)
 %include "SWIG_CGAL/Voronoi_diagram_2/Locate_result.h"
 
 
-#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemap for point input iterator
-SWIG_CGAL_input_iterator_typemap_in(Kernel_iterator_helper<Point_2>::input,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
-SWIG_CGAL_input_iterator_typemap_in(Kernel_iterator_helper<Weighted_point_2>::input,Weighted_point_2,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",insert)
+SWIG_CGAL_set_wrapper_iterator_helper_input(Point_2)
+SWIG_CGAL_set_wrapper_iterator_helper_input(Weighted_point_2)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Voronoi_diagram_2_wrapper::Voronoi_diagram_2_wrapper)
 #endif
-#endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-
-
-
-//typemaps for output iterator
-#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-%define Pt_2_output_iterator Kernel_iterator_helper<Point_2>::output %enddef
-SWIG_CGAL_output_iterator_typemap_in(Pt_2_output_iterator,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"LCGAL/Kernel/Point_2;")
-%define Wpt_2_output_iterator Kernel_iterator_helper<Point_2>::output %enddef
-SWIG_CGAL_output_iterator_typemap_in(Wpt_2_output_iterator,Weighted_point_2,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"LCGAL/Kernel/Weighted_point_2;")
-#else
-%include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
-SWIG_CGAL_declare_generic_output_iterator(Point_2_output_iterator,Point_2_output_iterator_nested_iterator,Point_2)
-SWIG_CGAL_declare_generic_output_iterator(Weighted_point_2_output_iterator,Weighted_point_2_output_iterator_nested_iterator,Weighted_point_2)
-#endif
-
+SWIG_CGAL_set_wrapper_iterator_helper_output(Point_2)
+SWIG_CGAL_set_wrapper_iterator_helper_output(Weighted_point_2)
 
 //import Triangulation_2 package types
 SWIG_CGAL_import_Delaunay_triangulation_2_SWIG_wrapper
@@ -97,24 +82,16 @@ declare_voronoi_diagram_2(Power_diagram_2,V2_RT_AT_CAP,Weighted_point_2,Regular_
 //function added for convinience but that is not in CGAL
 %pragma(java) moduleimports=%{import CGAL.Kernel.Segment_2; import CGAL.Kernel.Iso_rectangle_2; import CGAL.Kernel.Polygon_2; import java.util.Collection;%}
 
-//  typemaps for output iterator
-#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-%define Segment_2_output_iterator Kernel_iterator_helper<Segment_2>::output %enddef
-SWIG_CGAL_output_iterator_typemap_in(Segment_2_output_iterator,Segment_2,Segment_2,Segment_2::cpp_base,SWIGTYPE_p_Segment_2,"LCGAL/Kernel/Segment_2;")
-#else
-%include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
-SWIG_CGAL_declare_generic_output_iterator(Segment_2_output_iterator,Segment_2_output_iterator_nested_iterator,Segment_2)
-#endif
+//  typemaps for output iterator of Segment_2
+SWIG_CGAL_set_wrapper_iterator_helper_output(Segment_2)
+
 
 %types(Segment_2*,Segment_2);//needed so that the identifier SWIGTYPE_p_Segment_2 is generated
+typedef Wrapper_iterator_helper<Segment_2>::output      Segment_2_output_iterator;
 void crop_voronoi_facet(Voronoi_diagram_2_SWIG_wrapper&,Voronoi_diagram_2_Face_handle_SWIG_wrapper&,Iso_rectangle_2&,Segment_2_output_iterator);
 void crop_voronoi_facet_polygon(Voronoi_diagram_2_SWIG_wrapper&,Voronoi_diagram_2_Face_handle_SWIG_wrapper&,Iso_rectangle_2&,Polygon_2&);
 %{
-  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-  typedef Kernel_iterator_helper<Segment_2>::output      Segment_2_output_iterator; 
-  #else
-  typedef Generic_output_iterator<Segment_2>  Segment_2_output_iterator;
-  #endif
+  typedef Wrapper_iterator_helper<Segment_2>::output      Segment_2_output_iterator; 
   
   #include <SWIG_CGAL/Voronoi_diagram_2/utility.h>
   void crop_voronoi_facet(Voronoi_diagram_2_SWIG_wrapper& vd_wrapper,Voronoi_diagram_2_Face_handle_SWIG_wrapper& fh_wrapper,Iso_rectangle_2& rect_wrapper,Segment_2_output_iterator output)

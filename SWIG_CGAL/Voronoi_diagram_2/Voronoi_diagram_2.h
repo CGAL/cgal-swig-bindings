@@ -10,21 +10,11 @@
 
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/Iterator.h>
-#include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
+#include <SWIG_CGAL/Common/Wrapper_iterator_helper.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
 #include <SWIG_CGAL/Voronoi_diagram_2/Voronoi_diagram_handles_2.h>
 #include <SWIG_CGAL/Voronoi_diagram_2/Locate_result.h>
 #include <fstream>
-
-#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-template <class Kernel_object>
-struct Kernel_iterator_helper{
-  typedef typename internal::Converter<Kernel_object>::result_type Base;
-  typedef std::pair<Input_iterator_wrapper<Kernel_object,Base>,Input_iterator_wrapper<Kernel_object,Base> > input;
-  typedef boost::function_output_iterator< Container_writer<Kernel_object,Base> >                                       output;
-};
-#endif
 
 
 template <class CppBase, class SiteWrapper, class TriangulationWrapper, class TriangulationVertexWrapper, class TriangulationFaceWrapper, class Vertex_wrapper, class Halfedge_wrapper, class Face_wrapper >
@@ -40,11 +30,7 @@ public:
 
   typedef Voronoi_diagram_2_wrapper<CppBase, SiteWrapper, TriangulationWrapper,TriangulationVertexWrapper, TriangulationFaceWrapper, Vertex_wrapper, Halfedge_wrapper, Face_wrapper> Self;
   typedef std::pair<TriangulationFaceWrapper,int> TriangulationEdgeWrapper;
-  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-  typedef typename Kernel_iterator_helper<SiteWrapper>::input SiteRange;
-  #else
-  typedef Generic_input_iterator<SiteWrapper>  SiteRange;
-  #endif
+  typedef typename Wrapper_iterator_helper<SiteWrapper>::input SiteRange;
 
   //iterator types
   typedef SWIG_CGAL_Iterator<typename CppBase::Vertex_iterator,Vertex_wrapper>  Vertex_iterator;

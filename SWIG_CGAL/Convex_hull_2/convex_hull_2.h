@@ -10,25 +10,12 @@
 
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/Iterator.h>
-#include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
-#include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
+#include <SWIG_CGAL/Common/Wrapper_iterator_helper.h>
 
 #include <SWIG_CGAL/Kernel/Point_2.h>
 
-#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-template <class Kernel_object>
-struct Kernel_iterator_helper{
-  typedef typename internal::Converter<Kernel_object>::result_type Base;
-  typedef std::pair<Input_iterator_wrapper<Kernel_object,Base>,Input_iterator_wrapper<Kernel_object,Base> > input;
-  typedef boost::function_output_iterator< Container_writer<Kernel_object,Base> >                                       output;
-};
-
-typedef Kernel_iterator_helper<Point_2>::input       Point_range; 
-typedef Kernel_iterator_helper<Point_2>::output      Point_output_iterator; 
-#else
-typedef Generic_input_iterator<Point_2>  Point_range;
-typedef Generic_output_iterator<Point_2>  Point_output_iterator;
-#endif
+typedef Wrapper_iterator_helper<Point_2>::input       Point_range; 
+typedef Wrapper_iterator_helper<Point_2>::output      Point_output_iterator; 
 
 //using input iterators
 void  convex_hull_2 (Point_range range, Point_output_iterator result){ CGAL::convex_hull_2( SWIG_CGAL::get_begin(range), SWIG_CGAL::get_end(range), result ); }

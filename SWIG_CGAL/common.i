@@ -365,3 +365,26 @@
 %define SWIG_CGAL_output_iterator_typemap_in(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
 %enddef
 #endif
+
+
+//typemaps to ease SWIG to handle correctly input and output iterator declared using Wrapper_iterator_helper class
+#if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+//typemap for input iterator
+%define SWIG_CGAL_set_wrapper_iterator_helper_input(WRAPPER)
+  SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<WRAPPER>::input,WRAPPER,WRAPPER,WRAPPER::cpp_base,SWIGTYPE_p_##WRAPPER,"(LCGAL/Kernel/"#WRAPPER";)J",insert)
+%enddef
+//typemap for output iterator
+%define SWIG_CGAL_set_wrapper_iterator_helper_output(WRAPPER)
+  SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<WRAPPER>::output,WRAPPER,WRAPPER,WRAPPER::cpp_base,SWIGTYPE_p_##WRAPPER,"LCGAL/Kernel/"#WRAPPER";")
+%enddef
+#else
+//nothing need to be done for input iterator
+%declare SWIG_CGAL_set_wrapper_iterator_helper_input(WRAPPER)
+%enddef
+//output iterator
+%declare SWIG_CGAL_set_wrapper_iterator_helper_output(WRAPPER)
+%include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
+SWIG_CGAL_declare_generic_output_iterator(WRAPPER##_output_iterator,WRAPPER##_output_iterator_nested_iterator,WRAPPER)
+%enddef
+#endif
+
