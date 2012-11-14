@@ -35,6 +35,8 @@ template <class Primitive, class Kernel, class Output_iterator>
 bool
 cast_into_segment(const Primitive& p, const typename CGAL::Iso_rectangle_2<Kernel>& bbox, Output_iterator out)
 {
+  if ( p.is_degenerate() ) return false;
+
   typedef CGAL::Simple_cartesian< CGAL::Lazy_exact_nt<CGAL::Gmpq> > Exact_kernel;
   CGAL::Cartesian_converter<Kernel,Exact_kernel> to_exact;
   
