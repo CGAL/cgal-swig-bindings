@@ -15,8 +15,8 @@ class Ray_2;
 class Segment_2;
 class Vector_2;
 #ifndef SWIG_CGAL_KERNEL_INCLUDE_CONFLICTS_3_H
-class Origin;
-class Null_vector;
+struct Origin;
+struct Null_vector;
 #endif
 
 #endif //SWIG_CGAL_KERNEL_INCLUDE_CONFLICTS_2_H
