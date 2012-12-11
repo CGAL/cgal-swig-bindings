@@ -9,6 +9,7 @@
 #define SWIG_CGAL_KERNEL_POINT_2_IMPL_H
 
 #include <SWIG_CGAL/Kernel/Vector_2.h>
+#include <SWIG_CGAL/Kernel/Origin.h>
 #include <CGAL/Origin.h>
 
 Vector_2 Point_2::operator-(Point_2& p) {return Vector_2( get_data() - p.get_data() );}
