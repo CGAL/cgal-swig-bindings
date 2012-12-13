@@ -16,12 +16,14 @@ option( BUILD_JAVA "Build Java bindings" ON )
 #set it to OFF by default while it is not fully tested and thus officially supported
 option( BUILD_RUBY "Build Ruby bindings" OFF )
 
-#include_directories(BEFORE include)
-include_directories(BEFORE patches_for_CGAL_4.0/include)
-
 if ( CGAL_FOUND )
   include( ${CGAL_USE_FILE} )
-  
+
+  if ("${CGAL_MAJOR_VERSION}" STREQUAL "4" AND "${CGAL_MINOR_VERSION}" STREQUAL "0")
+  MESSAGE(STATUS "Using patches for CGAL-4.0")
+  include_directories(BEFORE patches_for_CGAL_4.0/include)
+  endif()
+
   if (${CMAKE_BUILD_TYPE} STREQUAL Release)
     if(CMAKE_COMPILER_IS_GNUCXX)
       message (STATUS "Release mode with g++: using -fno-strict-aliasing flags")
