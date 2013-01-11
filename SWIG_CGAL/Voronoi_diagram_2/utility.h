@@ -12,6 +12,7 @@
 #include <CGAL/Lazy_exact_nt.h>
 #include <CGAL/Gmpq.h>
 #include <CGAL/Cartesian_converter.h>
+#include <boost/optional.hpp>
 
 namespace internal{
 
@@ -256,11 +257,60 @@ crop_voronoi_facet_polygon(const Voronoi_diagram& vd,
       );
     }
   }
+}
+
+/*! crop a voronoi bissector to a given bbox as a segment */
+template <class Voronoi_diagram, class Kernel>
+boost::optional< typename Kernel::Segment_2 >
+crop_bissector( const Voronoi_diagram& vd,
+                typename Voronoi_diagram::Halfedge_handle hedge,
+                const CGAL::Iso_rectangle_2<Kernel>& bbox )
+{
+  typedef CGAL::Simple_cartesian< CGAL::Lazy_exact_nt<CGAL::Gmpq> > Exact_kernel;
+  typedef typename Exact_kernel::Point_2 EPoint_2;
+  typedef typename Exact_kernel::Ray_2 ERay_2;
+  typedef typename Exact_kernel::Line_2 ELine_2;
+  typedef typename Exact_kernel::Segment_2 ESegment_2;
+
+  typedef typename Kernel::Point_2 Point_2;
+  typedef typename Kernel::Ray_2 Ray_2;
+  typedef typename Kernel::Line_2 Line_2;
+  typedef typename Kernel::Segment_2 Segment_2;
+
+  CGAL::Cartesian_converter<Kernel,Exact_kernel> to_exact;
+  CGAL::Cartesian_converter<Exact_kernel,Kernel> to_output;
+
+  CGAL::Object dual_obj = vd.dual().dual( hedge->dual() );
+  CGAL::Object crop_obj;
+
+  if (const Segment_2 * segment_ptr = CGAL::object_cast<Segment_2>(&dual_obj)) {
+    if ( segment_ptr->is_degenerate() )
+      crop_obj = intersection( to_exact(segment_ptr->source()), to_exact(bbox) );
+    else
+      crop_obj = intersection( to_exact(*segment_ptr), to_exact(bbox) );
+  } else {
+    if (const Ray_2 * ray_ptr = CGAL::object_cast<Ray_2>(&dual_obj)) {
+      crop_obj = intersection( to_exact(*ray_ptr), to_exact(bbox) );
+    }
+    else
+    {
+      const Line_2 * line_ptr = CGAL::object_cast<Line_2>(&dual_obj);
+      CGAL_assertion(  line_ptr );
+      crop_obj = intersection( to_exact(*line_ptr), to_exact(bbox) );
+    }
+  }
+
+  if ( crop_obj.empty() ) return boost::optional<typename Kernel::Segment_2>();
+
+  if (const EPoint_2 * point = CGAL::object_cast<EPoint_2>(&crop_obj))
+      return Segment_2(to_output(*point), to_output(*point));
+
+  const ESegment_2 * segment = CGAL::object_cast<ESegment_2>(&crop_obj);
+  CGAL_assertion(segment);
+  return to_output(*segment);
+}
 
 } //namespace internal
 
-
-
-}
 
 #endif //SWIG_CGAL_VORONOI_DIAGRAM_2_UTILITY_H

@@ -79,7 +79,8 @@ declare_voronoi_diagram_2(Voronoi_diagram_2,V2_DT_AT_CAP,Point_2,Delaunay_triang
 //exposes power diagram with Regular_triangulation_caching_degeneracy_removal_policy_2s
 declare_voronoi_diagram_2(Power_diagram_2,V2_RT_AT_CAP,Weighted_point_2,Regular_triangulation_2)
 
-//function added for convinience but that is not in CGAL
+/// Below are functions that are added for convinience but that is not in CGAL
+///
 %pragma(java) moduleimports=%{import CGAL.Kernel.Segment_2; import CGAL.Kernel.Iso_rectangle_2; import CGAL.Kernel.Polygon_2; import java.util.Collection;%}
 
 //  typemaps for output iterator of Segment_2
@@ -89,7 +90,12 @@ SWIG_CGAL_set_wrapper_iterator_helper_output(Segment_2)
 %types(Segment_2*,Segment_2);//needed so that the identifier SWIGTYPE_p_Segment_2 is generated
 typedef Wrapper_iterator_helper<Segment_2>::output      Segment_2_output_iterator;
 void crop_voronoi_facet(Voronoi_diagram_2_SWIG_wrapper&,Voronoi_diagram_2_Face_handle_SWIG_wrapper&,Iso_rectangle_2&,Segment_2_output_iterator);
+
+%include "SWIG_CGAL/Common/Optional.h"
+%typemap(javaimports)  Optional %{ import CGAL.Kernel.Segment_2; %}
+%template (Optional_segment_2) Optional<Segment_2>;
 void crop_voronoi_facet_polygon(Voronoi_diagram_2_SWIG_wrapper&,Voronoi_diagram_2_Face_handle_SWIG_wrapper&,Iso_rectangle_2&,Polygon_2&);
+Optional<Segment_2> crop_voronoi_edge(Voronoi_diagram_2_SWIG_wrapper&, Voronoi_diagram_2_Halfedge_handle_SWIG_wrapper&,Iso_rectangle_2&);
 %{
   typedef Wrapper_iterator_helper<Segment_2>::output      Segment_2_output_iterator; 
   
@@ -101,6 +107,15 @@ void crop_voronoi_facet_polygon(Voronoi_diagram_2_SWIG_wrapper&,Voronoi_diagram_
   void crop_voronoi_facet_polygon(Voronoi_diagram_2_SWIG_wrapper& vd_wrapper,Voronoi_diagram_2_Face_handle_SWIG_wrapper& fh_wrapper,Iso_rectangle_2& rect_wrapper,Polygon_2& result)
   {
     internal::crop_voronoi_facet_polygon(vd_wrapper.get_data(),rect_wrapper.get_data(),fh_wrapper.get_data(),result.get_data());
+  }
+
+  #include <SWIG_CGAL/Common/Optional.h>
+  Optional<Segment_2> crop_voronoi_edge(Voronoi_diagram_2_SWIG_wrapper& vd_wrapper, Voronoi_diagram_2_Halfedge_handle_SWIG_wrapper& hh_wrapper, Iso_rectangle_2& rect_wrapper)
+  {
+    boost::optional< Segment_2::cpp_base > res =
+      internal::crop_bissector(vd_wrapper.get_data(), hh_wrapper.get_data(), rect_wrapper.get_data());
+    if ( !res ) return Optional<Segment_2>();
+    return Optional<Segment_2>( Segment_2(*res) );
   }
 %}
 

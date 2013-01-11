@@ -58,6 +58,11 @@ public:
 
 //Access Methods
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(TriangulationWrapper,dual)
+//TriangulationWrapper dual()
+//{ return TriangulationWrapper( this->get_data().dual() ); }
+//void dual(TriangulationWrapper& ref)
+//{ref = TriangulationWrapper(SWIG_CGAL_extract_data(this->get_data()).dual());}
+
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Halfedge_wrapper,dual,TriangulationEdgeWrapper)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_wrapper,dual,TriangulationFaceWrapper)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Face_wrapper,dual,TriangulationVertexWrapper)
