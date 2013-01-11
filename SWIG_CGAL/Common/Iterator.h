@@ -96,6 +96,7 @@ class SWIG_CGAL_Iterator{
   Cpp_iterator cur;
   Cpp_iterator end;
 public:
+  typedef SWIG_CGAL_Iterator<Cpp_iterator, Value_type> Self;
 
   SWIG_CGAL_Iterator(){}
 
@@ -142,12 +143,16 @@ public:
   bool hasNext(){
     return cur!=end;
   }
+
+  bool operator==(const Self& p) const { return cur==p.cur; }
+  bool operator!=(const Self& p) const { return cur!=p.cur; }
 };
 
 template<class Cpp_circulator,class Value_type>
 class SWIG_CGAL_Circulator{
   Cpp_circulator cur;
 public:
+  typedef SWIG_CGAL_Circulator<Cpp_circulator,Value_type> Self;
   SWIG_CGAL_Circulator(){}
   #ifndef SWIG
   SWIG_CGAL_Circulator( Cpp_circulator cur_):cur(cur_){}
@@ -178,6 +183,9 @@ public:
   }
   
   bool hasNext(){return cur!=Cpp_circulator();}
+
+  bool operator==(const Self& p) const { return cur==p.cur; }
+  bool operator!=(const Self& p) const { return cur!=p.cur; }
 };
 
 
