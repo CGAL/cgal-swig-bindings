@@ -379,10 +379,10 @@
 %enddef
 #else
 //nothing need to be done for input iterator
-%declare SWIG_CGAL_set_wrapper_iterator_helper_input(WRAPPER)
+%define SWIG_CGAL_set_wrapper_iterator_helper_input(WRAPPER)
 %enddef
 //output iterator
-%declare SWIG_CGAL_set_wrapper_iterator_helper_output(WRAPPER)
+%define SWIG_CGAL_set_wrapper_iterator_helper_output(WRAPPER)
 %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
 SWIG_CGAL_declare_generic_output_iterator(WRAPPER##_output_iterator,WRAPPER##_output_iterator_nested_iterator,WRAPPER)
 %enddef
