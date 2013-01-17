@@ -32,6 +32,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_HalfedgeDS)
 //definitions
 %include "SWIG_CGAL/HalfedgeDS/HalfedgeDS.h"
 %include "SWIG_CGAL/HalfedgeDS/HalfedgeDS_handles.h"
+%include "SWIG_CGAL/HalfedgeDS/HalfedgeDS_decorator.h"
 
 //template instantiations of handles
 SWIG_CGAL_declare_identifier_of_template_class(HDS_Halfedge_handle,HDSHalfedge_wrapper<HDS_d>)
@@ -48,4 +49,8 @@ SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,HDS_Face_handle,)
 SWIG_CGAL_declare_identifier_of_template_class(HDS_Face_iterator,SWIG_CGAL_Iterator< HDS_d::Face_iterator, HDSFace_wrapper<HDS_d> >)
 
 // template instantiation of HDS class
+%typemap(javaimports)                       HalfedgeDS_wrapper %{import CGAL.Kernel.Point_2;%}
 SWIG_CGAL_declare_identifier_of_template_class(HalfedgeDS,HalfedgeDS_wrapper<HDS_d>)
+// template instantiation of HDS decorator class
+%typemap(javaimports)                       HalfedgeDS_decorator_wrapper %{import CGAL.Kernel.Point_2;%}
+SWIG_CGAL_declare_identifier_of_template_class(HalfedgeDS_decorator,HalfedgeDS_decorator_wrapper<HDS_d>)

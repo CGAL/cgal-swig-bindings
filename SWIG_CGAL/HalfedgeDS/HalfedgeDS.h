@@ -11,11 +11,12 @@
 #include <SWIG_CGAL/Common/Iterator.h>
 #include <SWIG_CGAL/HalfedgeDS/HalfedgeDS_handles.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
+#include <boost/shared_ptr.hpp>
 
 template < class HDS_cpp >
 class HalfedgeDS_wrapper
 {
-  HDS_cpp data;
+  boost::shared_ptr<HDS_cpp> data_sptr;
 public:
   typedef HDSVertex_wrapper<HDS_cpp>   Vertex_wrapper;
   typedef HDSHalfedge_wrapper<HDS_cpp> Hedge_wrapper;
@@ -30,15 +31,16 @@ public:
   typedef HDS_cpp cpp_base;
 
 
-  const cpp_base& get_data() const {return data;}
-        cpp_base& get_data()       {return data;}
-  HalfedgeDS_wrapper(const cpp_base& base):data(base){}
+  const cpp_base& get_data() const {return *data_sptr;}
+        cpp_base& get_data()       {return *data_sptr;}
+  HalfedgeDS_wrapper(const cpp_base& base):data_sptr(new cpp_base(base)){};
+  boost::shared_ptr<cpp_base> shared_ptr() {return data_sptr;}
   #endif
 
 //Construction
-  HalfedgeDS_wrapper():data(){};
-  HalfedgeDS_wrapper(int v, int h, int f):data(v,h,f){}
-  HalfedgeDS_wrapper( const HalfedgeDS_wrapper& hds2):data(hds2.get_data()){}
+  HalfedgeDS_wrapper():data_sptr(new cpp_base()){};
+  HalfedgeDS_wrapper(int v, int h, int f):data_sptr( new cpp_base(v,h,f) ){}
+  HalfedgeDS_wrapper( const HalfedgeDS_wrapper& hds2):data_sptr( new cpp_base(hds2.get_data()) ){}
 
   SWIG_CGAL_FORWARD_CALL_3(void,reserve,int,int,int)
 // Access Member Functions
@@ -57,6 +59,9 @@ public:
   Face_range faces() { return Face_range( get_data().faces_begin(), get_data().faces_end() ); }
 
 // Insertion (I tweaked a little bit CGAL's function as the simplices classes are not exposed (only the handles)
+  Vertex_wrapper vertices_push_back(){
+    return Vertex_wrapper( get_data().vertices_push_back( typename cpp_base::Vertex() ) );
+  }
   Vertex_wrapper vertices_push_back(const Point_2& p){
     return Vertex_wrapper( get_data().vertices_push_back( typename cpp_base::Vertex(p.get_data()) ) );
   }
@@ -97,8 +102,8 @@ public:
 
 //Deep copy
   typedef HalfedgeDS_wrapper<HDS_cpp> Self;
-  Self deepcopy() const {return Self(data);}
-  void deepcopy(const Self& other){data=other.get_data();}
+  Self deepcopy() const {return Self(get_data());}
+  void deepcopy(const Self& other){get_data()=other.get_data();}
 
 };
 

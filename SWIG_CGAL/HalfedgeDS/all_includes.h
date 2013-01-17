@@ -11,5 +11,6 @@
 #include <SWIG_CGAL/HalfedgeDS/typedefs.h>
 #include <SWIG_CGAL/HalfedgeDS/HalfedgeDS.h>
 #include <SWIG_CGAL/HalfedgeDS/HalfedgeDS_handles.h>
+#include <SWIG_CGAL/HalfedgeDS/HalfedgeDS_decorator.h>
 
 #endif //SWIG_CGAL_HALFEDGEDS_ALL_INCLUDES_H

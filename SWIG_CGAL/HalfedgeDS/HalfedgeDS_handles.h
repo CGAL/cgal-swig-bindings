@@ -33,6 +33,15 @@ public:
 // Operations available if Supports_face_halfedge == CGAL::Tag_true
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(HDSHalfedge_wrapper<HDS_cpp>,halfedge)
   SWIG_CGAL_FORWARD_CALL_1(void,set_halfedge,HDSHalfedge_wrapper<HDS_cpp>)
+
+//Deep copy
+  typedef HDSFace_wrapper<HDS_cpp> Self;
+  Self deepcopy() const {return Self(get_data());}
+  void deepcopy(const Self& other){get_data()=other.get_data();}
+//equality functions
+  DEFINE_EQUALITY_OPERATORS(Self);
+//hash function
+  DEFINE_HASH_FUNCTION_FOR_HANDLE
 };
 
 template <class HDS_cpp>
@@ -65,6 +74,15 @@ public:
 // Operations available if Supports_halfedge_face == CGAL::Tag_true
   SWIG_CGAL_FORWARD_CALL_0(HDSFace_wrapper<HDS_cpp>,face)
   SWIG_CGAL_FORWARD_CALL_1(void,set_face,HDSFace_wrapper<HDS_cpp>);
+
+//Deep copy
+  typedef HDSHalfedge_wrapper<HDS_cpp> Self;
+  Self deepcopy() const {return Self(get_data());}
+  void deepcopy(const Self& other){get_data()=other.get_data();}
+//equality functions
+  DEFINE_EQUALITY_OPERATORS(Self);
+//hash function
+  DEFINE_HASH_FUNCTION_FOR_HANDLE
 };
 
 template <class HDS_cpp>
@@ -87,6 +105,15 @@ public:
 // Operations with point
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_2,point)
   void set_point( const Point_2& p){get_data()->point()=p.get_data();}
+
+//Deep copy
+  typedef HDSVertex_wrapper<HDS_cpp> Self;
+  Self deepcopy() const {return Self(get_data());}
+  void deepcopy(const Self& other){get_data()=other.get_data();}
+//equality functions
+  DEFINE_EQUALITY_OPERATORS(Self);
+//hash function
+  DEFINE_HASH_FUNCTION_FOR_HANDLE
 };
 
 
