@@ -110,7 +110,7 @@ if ( CGAL_FOUND )
     else()
       add_subdirectory(SWIG_CGAL/Voronoi_diagram_2)
     endif()
-
+    add_subdirectory(SWIG_CGAL/HalfedgeDS)
 
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/SWIG_CGAL/User_packages/CMakeLists.txt")
       MESSAGE(STATUS "Found SWIG_CGAL/User_packages/CMakeLists.txt, user packages will be built.")
