@@ -10,7 +10,6 @@
 
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
-#include <boost/functional/hash.hpp>
 
 namespace SWIG_Triangulation_2{
 
