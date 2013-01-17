@@ -27,6 +27,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_HalfedgeDS)
 %pragma(java) jniclassimports=%{
   import java.util.Iterator;
   import java.util.Collection;
+  import CGAL.Kernel.Point_2;
 %}
 
 //definitions
