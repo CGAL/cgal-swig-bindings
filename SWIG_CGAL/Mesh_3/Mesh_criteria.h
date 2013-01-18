@@ -9,12 +9,15 @@
 #define SWIG_CGAL_MESH_3_MESH_CRITERIA_H
 
 #include <CGAL/Mesh_criteria_3.h>
+#include <SWIG_CGAL/Common/Macros.h>
 
 enum Mesh_facet_topology {
   FACET_VERTICES_ON_SURFACE = 1,
   FACET_VERTICES_ON_SAME_SURFACE_PATCH,
   FACET_VERTICES_ON_SAME_SURFACE_PATCH_WITH_ADJACENCY_CHECK
-};  
+};
+
+
 
 template <class Base, class Field1, class Field2, class Field3, class Field4>
 class Mesh_criteria_with_fields_wrapper
@@ -71,6 +74,17 @@ public:
   Self deepcopy(){return *this;}
   void deepcopy(const Self& other){*this=other;}
 };
+
+namespace internal{
+  template <class Base, class Field1, class Field2, class Field3, class Field4>
+  struct Converter<Mesh_criteria_with_fields_wrapper<Base, Field1, Field2, Field3, Field4> >
+  {
+    typedef Mesh_criteria_with_fields_wrapper<Base, Field1, Field2, Field3, Field4> Input;
+    typedef typename Input::cpp_base  result_type;
+    static const bool is_reference=false;
+    static result_type convert(const Input& t){return t.get_data();}
+  };
+}
 
 //Mesh_criteria_3<Tr> mc ( Facet_criteria facet_criteria, Cell_criteria cell_criteria);
 //Mesh_criteria_3<Tr> mc ( Edge_criteria edge_criteria, Facet_criteria facet_criteria, Cell_criteria cell_criteria); 
