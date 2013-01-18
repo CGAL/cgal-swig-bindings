@@ -11,6 +11,7 @@
 #include <SWIG_CGAL/Common/Iterator.h>
 #include <SWIG_CGAL/HalfedgeDS/HalfedgeDS_handles.h>
 #include <SWIG_CGAL/Kernel/Point_2.h>
+#include <SWIG_CGAL/HalfedgeDS/General_modifier.h>
 #include <boost/shared_ptr.hpp>
 
 template < class HDS_cpp >
@@ -104,6 +105,8 @@ public:
   typedef HalfedgeDS_wrapper<HDS_cpp> Self;
   Self deepcopy() const {return Self(get_data());}
   void deepcopy(const Self& other){get_data()=other.get_data();}
+//For convenience add the modifier mechanism
+  void delegate(General_modifier<HDS_cpp> modifier){modifier(get_data());}
 
 };
 
