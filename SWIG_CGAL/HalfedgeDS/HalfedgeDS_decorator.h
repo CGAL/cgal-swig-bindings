@@ -27,7 +27,6 @@ public:
 
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
-  //~ HalfedgeDS_wrapper(const cpp_base& base):data(base){}
   #endif
 // Creation
   HalfedgeDS_decorator_wrapper(HDS_wrapper& hds)
@@ -55,21 +54,21 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(void, vertices_pop_front)
   SWIG_CGAL_FORWARD_CALL_0(void, vertices_pop_back)
   SWIG_CGAL_FORWARD_CALL_1(void, vertices_erase, Vertex_wrapper)
-  //~ SWIG_CGAL_FORWARD_CALL_2(void, vertices_erase, Vertex_wrapper, Vertex_wrapper)
+  SWIG_CGAL_FORWARD_CALL_2(void, vertices_erase, Vertex_wrapper, Vertex_wrapper)
   SWIG_CGAL_FORWARD_CALL_0(void, faces_pop_front)
   SWIG_CGAL_FORWARD_CALL_0(void, faces_pop_back)
   SWIG_CGAL_FORWARD_CALL_1(void, faces_erase, Face_wrapper)
-  //~ SWIG_CGAL_FORWARD_CALL_2(void, faces_erase, Face_wrapper , Face_wrapper)
+  SWIG_CGAL_FORWARD_CALL_2(void, faces_erase, Face_wrapper , Face_wrapper)
   SWIG_CGAL_FORWARD_CALL_1(void, erase_face, Hedge_wrapper)
   SWIG_CGAL_FORWARD_CALL_1(void, erase_connected_component, Hedge_wrapper)
-  //~ SWIG_CGAL_FORWARD_CALL_1(int, keep_largest_connected_components, int)
+  SWIG_CGAL_FORWARD_CALL_1(int, keep_largest_connected_components, int)
 
 // Modifying Functions (For Border Halfedges)
   SWIG_CGAL_FORWARD_CALL_1(void, make_hole, Hedge_wrapper)
   SWIG_CGAL_FORWARD_CALL_1(Hedge_wrapper, fill_hole, Hedge_wrapper)
-  // Halfedge_handle fill_hole( Halfedge_handle h, const Face& f)
+  // Halfedge_handle fill_hole( Halfedge_handle h, const Face& f) not enabled as Face is not exposed
   SWIG_CGAL_FORWARD_CALL_2(Hedge_wrapper, add_face_to_border, Hedge_wrapper, Hedge_wrapper)
-  // Halfedge_handle add_face_to_border( Halfedge_handle h, Halfedge_handle g, const Face& f)
+  // Halfedge_handle add_face_to_border( Halfedge_handle h, Halfedge_handle g, const Face& f) not enabled as Face is not exposed
 
 // Modifying Functions (Euler Operators)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Hedge_wrapper, split_face, Hedge_wrapper, Hedge_wrapper)

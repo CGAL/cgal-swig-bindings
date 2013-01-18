@@ -24,6 +24,11 @@ if ( CGAL_FOUND )
   include_directories(BEFORE patches_for_CGAL_4.0/include)
   endif()
 
+  if ("${CGAL_MAJOR_VERSION}" STREQUAL "4" AND "${CGAL_MINOR_VERSION}" STRLESS "2")
+  MESSAGE(STATUS "Using patches from CGAL-4.2")
+  include_directories(BEFORE patches_in_CGAL_4.2/include)
+  endif()
+
   if (${CMAKE_BUILD_TYPE} STREQUAL Release)
     if(CMAKE_COMPILER_IS_GNUCXX)
       message (STATUS "Release mode with g++: using -fno-strict-aliasing flags")
