@@ -25,7 +25,7 @@ struct Iterator_helper
 
 } //namespace internal
 
-enum Face_status { NOT_IN_COMPLEX, BOUNDARY, REGULAR, SINGULAR};
+enum Face_status { NOT_IN_COMPLEX=0, ISOLATED=1, BOUNDARY, REGULAR, SINGULAR};
 
 template <class C2T3,class Triangulation>
 class C2T3_wrapper
