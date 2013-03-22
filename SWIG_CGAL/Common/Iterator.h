@@ -140,6 +140,9 @@ public:
     #endif
   }
 
+  Self deepcopy() const {return Self(cur, end);}
+  void deepcopy(const Self& other){cur=other.cur; end=other.end;}
+
   bool hasNext(){
     return cur!=end;
   }
@@ -178,6 +181,9 @@ public:
   }
   #endif
   
+  Self deepcopy() const {return Self(cur);}
+  void deepcopy(const Self& other){cur=other.cur;}
+
   Value_type prev() {
     return Iterator_helper<Value_type>::convert ( (cur--) );
   }
