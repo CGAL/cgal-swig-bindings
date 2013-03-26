@@ -95,7 +95,7 @@ int remove_outliers (Wrapper_iterator_helper<Point_3>::input point_range, int k,
 }
 
 /// Smoothing functions
-void jet_smooth_point_set (Wrapper_iterator_helper<Point_3>::input point_range, unsigned int degree_fitting=2, unsigned int degree_monge=2)
+void jet_smooth_point_set (Wrapper_iterator_helper<Point_3>::input point_range,unsigned int nb_neighbors, unsigned int degree_fitting=2, unsigned int degree_monge=2)
 {
   typedef typename Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
   std::vector<Point_3::cpp_base*> points_ptr;
@@ -108,7 +108,7 @@ void jet_smooth_point_set (Wrapper_iterator_helper<Point_3>::input point_range, 
   points.reserve(nb_pts);
   for (std::size_t i=0; i<nb_pts; ++i) points.push_back( *points_ptr[i] );
 //CGAL function call
-  CGAL::jet_smooth_point_set(points.begin(), points.end(), degree_fitting, degree_monge);
+  CGAL::jet_smooth_point_set(points.begin(), points.end(), nb_neighbors, degree_fitting, degree_monge);
 //copy the points back into the original points
   for (std::size_t i=0; i<nb_pts; ++i) *points_ptr[i] = points[i];
 }
@@ -131,17 +131,19 @@ void jet_estimate_normals (Wrapper_iterator_helper<Point_3>::input point_range, 
   for(std::size_t i=0; i<nb_pts; ++i) *normal_writer++=input[i].second;
 }
 
-int mst_orient_normals (Wrapper_iterator_helper<Point_3>::input point_range, Wrapper_iterator_helper<Vector_3>::output normal_writer, unsigned int k)
+int mst_orient_normals (Wrapper_iterator_helper<Point_3>::input point_range, Wrapper_iterator_helper<Vector_3>::input normal_range, unsigned int k)
 {
   std::vector< std::pair<Point_3::cpp_base, Vector_3::cpp_base> > input;
-  std::vector< Point_3::cpp_base* > points_ptr;
+  std::vector< std::pair<Point_3::cpp_base*, Vector_3::cpp_base*> > ptrs;
 
-  typedef typename Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
-  Vector_3::cpp_base normal = Vector_3::cpp_base();
-  for (Iterator it=point_range.first; it!=point_range.second; ++it)
+  typedef typename Wrapper_iterator_helper<Point_3>::input::first_type PointIterator;
+  typedef typename Wrapper_iterator_helper<Vector_3>::input::first_type VectorIterator;
+
+  VectorIterator nit=normal_range.first;
+  for (PointIterator pit=point_range.first; pit!=point_range.second; ++pit, ++nit)
   {
-    input.push_back( std::make_pair(*it, normal) );
-    points_ptr.push_back( &(*it) );
+    input.push_back( std::make_pair(*pit, *nit) );
+    ptrs.push_back( std::make_pair(&(*pit), &(*nit)) );
   }
 
   CGAL::First_of_pair_property_map< std::pair<Point_3::cpp_base, Vector_3::cpp_base > > point_pmap;
@@ -154,8 +156,8 @@ int mst_orient_normals (Wrapper_iterator_helper<Point_3>::input point_range, Wra
   std::size_t nb_pts=input.size();
   for(std::size_t i=0; i<nb_pts; ++i)
   {
-    *points_ptr[i]=input[i].first;
-    *normal_writer++=input[i].second;
+    *ptrs[i].first=input[i].first;
+    *ptrs[i].second=input[i].second;
   }
 
   return (int) std::distance(input.begin(), result);
@@ -297,7 +299,7 @@ bool write_off_points_and_normals (const char* fname, Wrapper_iterator_helper<Po
   CGAL::Nth_of_tuple_property_map< 1, boost::tuple<Point_3::cpp_base, Vector_3::cpp_base > > normal_pmap;
   return CGAL::write_off_points_and_normals(  output,
                                               boost::make_zip_iterator(boost::make_tuple(points.first, normals.first)),
-                                              boost::make_zip_iterator(boost::make_tuple(points.first, normals.second)),
+                                              boost::make_zip_iterator(boost::make_tuple(points.second, normals.second)),
                                               point_pmap, normal_pmap );
 }
 
@@ -308,7 +310,7 @@ bool write_xyz_points_and_normals (const char* fname, Wrapper_iterator_helper<Po
   CGAL::Nth_of_tuple_property_map< 1, boost::tuple<Point_3::cpp_base, Vector_3::cpp_base > > normal_pmap;
   return CGAL::write_xyz_points_and_normals(  output,
                                               boost::make_zip_iterator(boost::make_tuple(points.first, normals.first)),
-                                              boost::make_zip_iterator(boost::make_tuple(points.first, normals.second)),
+                                              boost::make_zip_iterator(boost::make_tuple(points.second, normals.second)),
                                               point_pmap, normal_pmap );
 }
 

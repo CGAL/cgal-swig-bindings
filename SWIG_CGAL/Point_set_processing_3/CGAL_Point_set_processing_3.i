@@ -20,12 +20,14 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Point_set_processing_3)
 import CGAL.Kernel.Point_3;
 import CGAL.Kernel.Vector_3;
 import java.util.Iterator;
+import java.util.Collection;
 %}
 
 %pragma(java) moduleimports=%{
 import CGAL.Kernel.Point_3;
 import CGAL.Kernel.Vector_3;
 import java.util.Iterator;
+import java.util.Collection;
 %};
 
 %types(Point_3*,Point_3);//needed so that the identifier SWIGTYPE_p_Point_3 is generated
