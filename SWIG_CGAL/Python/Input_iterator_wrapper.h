@@ -25,7 +25,7 @@ public boost::iterator_facade<
     boost::single_pass_traversal_tag,
     typename boost::mpl::if_<
           boost::mpl::bool_<internal::Converter<Cpp_wrapper>::is_reference>, 
-          const Cpp_base&, Cpp_base
+          Cpp_base&, Cpp_base
         >::type //this allows to use a reference for dereference when possible
     >
 {
@@ -99,7 +99,7 @@ public:
 
   typename boost::mpl::if_<
         boost::mpl::bool_<internal::Converter<Cpp_wrapper>::is_reference>, 
-        const Cpp_base&, Cpp_base
+        Cpp_base&, Cpp_base
       >::type
     dereference() const { 
       return internal::Converter<Cpp_wrapper>::convert(*m_current_ptr);

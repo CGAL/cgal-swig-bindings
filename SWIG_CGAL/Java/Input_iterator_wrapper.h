@@ -73,7 +73,7 @@ template <class Cpp_wrapper,class Cpp_base>
 struct Dereference_input_iterator{
   typedef typename boost::mpl::if_<
         boost::mpl::bool_<internal::Converter<Cpp_wrapper>::is_reference>, 
-        const Cpp_base&, Cpp_base
+        Cpp_base&, Cpp_base
       >::type result_type;
   
   static result_type dereference(Cpp_wrapper* current_ptr) {
