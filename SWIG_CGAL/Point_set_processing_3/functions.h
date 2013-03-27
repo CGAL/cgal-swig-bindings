@@ -24,7 +24,7 @@
 #include <CGAL/IO/write_xyz_points.h>
 #include <CGAL/IO/write_off_points.h>
 
-double compute_average_spacing(typename Wrapper_iterator_helper<Point_3>::input point_range, int k)
+double compute_average_spacing(Wrapper_iterator_helper<Point_3>::input point_range, int k)
 {
   return CGAL::compute_average_spacing(point_range.first, point_range.second, k);
 }
@@ -32,7 +32,7 @@ double compute_average_spacing(typename Wrapper_iterator_helper<Point_3>::input 
 /// Simplification functions
 int grid_simplify_point_set ( Wrapper_iterator_helper<Point_3>::input point_range, double epsilon )
 {
-  typedef typename Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
+  typedef Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
   std::vector<Point_3::cpp_base*> points_ptr;
 //save the pointer to the original points
   for (Iterator it=point_range.first; it!=point_range.second; ++it)
@@ -53,7 +53,7 @@ int grid_simplify_point_set ( Wrapper_iterator_helper<Point_3>::input point_rang
 
 int random_simplify_point_set ( Wrapper_iterator_helper<Point_3>::input point_range, double removed_percentage )
 {
-  typedef typename Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
+  typedef Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
   std::vector<Point_3::cpp_base*> points_ptr;
 //save the pointer to the original points
   for (Iterator it=point_range.first; it!=point_range.second; ++it)
@@ -75,7 +75,7 @@ int random_simplify_point_set ( Wrapper_iterator_helper<Point_3>::input point_ra
 
 int remove_outliers (Wrapper_iterator_helper<Point_3>::input point_range, int k, double threshold_percent)
 {
-  typedef typename Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
+  typedef Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
   std::vector<Point_3::cpp_base*> points_ptr;
 //save the pointer to the original points
   for (Iterator it=point_range.first; it!=point_range.second; ++it)
@@ -97,7 +97,7 @@ int remove_outliers (Wrapper_iterator_helper<Point_3>::input point_range, int k,
 /// Smoothing functions
 void jet_smooth_point_set (Wrapper_iterator_helper<Point_3>::input point_range,unsigned int nb_neighbors, unsigned int degree_fitting=2, unsigned int degree_monge=2)
 {
-  typedef typename Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
+  typedef Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
   std::vector<Point_3::cpp_base*> points_ptr;
 //save the pointer to the original points
   for (Iterator it=point_range.first; it!=point_range.second; ++it)
@@ -117,7 +117,7 @@ void jet_smooth_point_set (Wrapper_iterator_helper<Point_3>::input point_range,u
 void jet_estimate_normals (Wrapper_iterator_helper<Point_3>::input point_range, Wrapper_iterator_helper<Vector_3>::output normal_writer, unsigned int k, unsigned int degree_fitting=2)
 {
   std::vector< std::pair<Point_3::cpp_base, Vector_3::cpp_base> > input;
-  typedef typename Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
+  typedef Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
   Vector_3::cpp_base normal = Vector_3::cpp_base();
   for (Iterator it=point_range.first; it!=point_range.second; ++it)
     input.push_back( std::make_pair(*it, normal) );
@@ -136,8 +136,8 @@ int mst_orient_normals (Wrapper_iterator_helper<Point_3>::input point_range, Wra
   std::vector< std::pair<Point_3::cpp_base, Vector_3::cpp_base> > input;
   std::vector< std::pair<Point_3::cpp_base*, Vector_3::cpp_base*> > ptrs;
 
-  typedef typename Wrapper_iterator_helper<Point_3>::input::first_type PointIterator;
-  typedef typename Wrapper_iterator_helper<Vector_3>::input::first_type VectorIterator;
+  typedef Wrapper_iterator_helper<Point_3>::input::first_type PointIterator;
+  typedef Wrapper_iterator_helper<Vector_3>::input::first_type VectorIterator;
 
   VectorIterator nit=normal_range.first;
   for (PointIterator pit=point_range.first; pit!=point_range.second; ++pit, ++nit)
@@ -166,7 +166,7 @@ int mst_orient_normals (Wrapper_iterator_helper<Point_3>::input point_range, Wra
 void pca_estimate_normals (Wrapper_iterator_helper<Point_3>::input point_range, Wrapper_iterator_helper<Vector_3>::output normal_writer, unsigned int k)
 {
   std::vector< std::pair<Point_3::cpp_base, Vector_3::cpp_base> > input;
-  typedef typename Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
+  typedef Wrapper_iterator_helper<Point_3>::input::first_type Iterator;
   Vector_3::cpp_base normal = Vector_3::cpp_base();
   for (Iterator it=point_range.first; it!=point_range.second; ++it)
     input.push_back( std::make_pair(*it, normal) );
