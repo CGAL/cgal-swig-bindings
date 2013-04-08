@@ -284,6 +284,19 @@ public:
     }
     *this=Self(other.get_data());
   }
+  #ifndef SWIG
+  Self& operator=(const Self& other)
+  {
+    if (own_triangulation)
+      *data_ptr=other.get_data();
+    else
+    {
+      data_ptr=new Triangulation(other.get_data());
+      reset(mem_holder);
+    }
+    return *this;
+  }
+  #endif
 //Special for SWIG
   bool same_internal_object(const Self& other) {return other.data_ptr==data_ptr;}
 };
