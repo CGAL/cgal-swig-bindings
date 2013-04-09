@@ -20,6 +20,7 @@ class Delaunay_triangulation_3_wrapper:public Triangulation_3_wrapper<Triangulat
  
 public:
   typedef Triangulation_3_wrapper<Triangulation,Point_3,Vertex_handle_,Cell_handle_,CGAL::Tag_false,Memory_holder> Base;
+  typedef Delaunay_triangulation_3_wrapper<Triangulation,Vertex_handle_,Cell_handle_,Memory_holder> Self;
   #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef typename Weighting_helper_3<CGAL::Tag_false>::Point_range Point_range;
   #else
@@ -62,6 +63,16 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Facet) 
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Object,dual,Cell_handle,int)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Line_3,dual_support,Cell_handle,int)
+//overload dual for convenience
+  Self deepcopy() const {
+    Self ret;
+    static_cast<Base&>(ret).deepcopy(
+      static_cast<const Base&>(*this));
+    return ret;
+  }
+  void deepcopy(const Self& other){
+    this->deepcopy(other);
+  }
 };
 
 //Removal
