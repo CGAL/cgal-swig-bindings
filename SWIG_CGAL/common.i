@@ -317,7 +317,7 @@
 %rename(ge) operator>=;
 #endif
 
-#ifdef PYTHON
+#ifdef SWIGPYTHON
 %rename (__hash__) hashCode;
 #endif
 
