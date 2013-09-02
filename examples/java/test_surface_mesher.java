@@ -12,6 +12,7 @@ import CGAL.Surface_mesher.Surface_mesh_default_criteria_3;
 import CGAL.Surface_mesher.Surface_mesher_tag;
 import CGAL.Polyhedron_3.Polyhedron_3;
 import java.util.LinkedList;
+import java.io.File;
 
 public class test_surface_mesher {
   public static void main(String arg[]){
@@ -34,8 +35,13 @@ public class test_surface_mesher {
       ++i;
     for (Surface_mesh_default_triangulation_3_Edge f : c2t3.boundary_edges())
       ++i;
-    
-    
+
+    File f = new File("skull_2.9.inr");
+    if(!f.isFile()){
+      System.err.println("Error: Cannot open skull_2.9.inr");
+      return;
+    }
+
     Gray_level_image_3 image=new Gray_level_image_3("skull_2.9.inr",2.9);
        
     Sphere_3 sphere=new Sphere_3(new Point_3(122., 102., 117.),200.*200.*2);
