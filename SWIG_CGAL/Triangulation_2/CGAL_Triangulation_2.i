@@ -49,9 +49,14 @@ SWIG_CGAL_declare_identifier_of_template_class(Constraint,std::pair<Point_2,Poin
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemap for point input iterator
-SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
+%define Range_of_Point_2 Weighting_helper<Point_2,CGAL::Tag_false>::Point_range %enddef
+SWIG_CGAL_input_iterator_typemap_in(Range_of_Point_2,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
+//typemap for 3D point input iterator
+%define Range_of_Point_3 Weighting_helper<Point_3,CGAL::Tag_false>::Point_range %enddef
+SWIG_CGAL_input_iterator_typemap_in(Range_of_Point_3,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert)
 //typemap for weighted point input iterator
-SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_true>::Point_range,Weighted_point_2,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",insert)
+%define Range_of_Weighted_point_2 Weighting_helper<Weighted_point_2,CGAL::Tag_true>::Point_range %enddef
+SWIG_CGAL_input_iterator_typemap_in(Range_of_Weighted_point_2,Weighted_point_2,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",insert)
 
 //typemap for Constaints input iterator
 SWIG_CGAL_input_iterator_typemap_in(Constraint_range,Constraint,Constraint,iConstraint,SWIGTYPE_p_std__pairT_Point_2_Point_2_t,"(LCGAL/Triangulation_2/Constraint;)J",insert_constraint_range)
@@ -75,6 +80,7 @@ SWIG_CGAL_declare_triangulation_2(Triangulation_2,CGAL_T2,Point_2,CGAL::Tag_fals
 
 %import "SWIG_CGAL/Triangulation_2/declare_Delaunay_triangulation_2.i"
 SWIG_CGAL_declare_Delaunay_triangulation_2(Delaunay_triangulation_2,CGAL_DT2)
+SWIG_CGAL_declare_Delaunay_triangulation_2_internal_point(Delaunay_triangulation_xy_2,Delaunay_triangulation_xy_2,DT_xy_2,Point_3)
 
 %import "SWIG_CGAL/Triangulation_2/declare_regular_triangulation_2.i"
 SWIG_CGAL_declare_regular_triangulation_2(Regular_triangulation_2,CGAL_RT2)

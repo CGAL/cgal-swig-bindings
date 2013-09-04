@@ -14,10 +14,10 @@
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 
-template <class Triangulation,class Vertex_handle, class Face_handle>
-class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false>
+template <class Triangulation,class Vertex_handle, class Face_handle, class Pt2=Point_2>
+class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Pt2,Vertex_handle,Face_handle,CGAL::Tag_false>
 {
-  typedef Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false> Base;
+  typedef Triangulation_2_wrapper<Triangulation,Pt2,Vertex_handle,Face_handle,CGAL::Tag_false> Base;
 public:
   #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   typedef boost::function_output_iterator< Container_writer<std::pair<Face_handle,int>,std::pair<typename Triangulation::Face_handle,int> > >     Edge_output_iterator;
@@ -34,24 +34,25 @@ public:
   #endif
   Delaunay_triangulation_2_wrapper() : Base() {}
 //Queries    
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,nearest_vertex,Point_2,Face_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,nearest_vertex,Point_2)
-  void get_conflicts_and_boundary(const Point_2& p,Face_output_iterator fout,Edge_output_iterator eout,const Face_handle& start) const
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,nearest_vertex,Pt2,Face_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,nearest_vertex,Pt2)
+  void get_conflicts_and_boundary(const Pt2& p,Face_output_iterator fout,Edge_output_iterator eout,const Face_handle& start) const
   {
     this->get_data().get_conflicts_and_boundary(p.get_data(),fout,eout,start.get_data());
   }
-  void get_conflicts(const Point_2& p,Face_output_iterator fout,const Face_handle& start) const 
+  void get_conflicts(const Pt2& p,Face_output_iterator fout,const Face_handle& start) const 
   {
     this->get_data().get_conflicts(p.get_data(),fout,start.get_data());
   }
     
-  void get_boundary_of_conflicts(const Point_2& p, Edge_output_iterator out, Face_handle start) const
+  void get_boundary_of_conflicts(const Pt2& p, Edge_output_iterator out, Face_handle start) const
   {
     this->get_data().get_boundary_of_conflicts(p.get_data(),out,start.get_data());
   }
 // Voronoi diagram
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,dual,Face_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Edge)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Pt2,dual,Face_handle)
+  // TODO: fix when using projection traits
+  //SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Edge)
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_DELAUNAY_TRIANGULATION_2_H

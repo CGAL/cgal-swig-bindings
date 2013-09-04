@@ -17,6 +17,7 @@
 #include <CGAL/Constrained_Delaunay_triangulation_2.h>
 #include <CGAL/Constrained_triangulation_2.h>
 #include <CGAL/Constrained_triangulation_plus_2.h>  
+#include <CGAL/Projection_traits_xy_3.h>
 
 #if defined(ADD_JAVA_DATA_IN_FACET_CDT_2) || defined(ADD_JAVA_DATA_IN_SIMPLICES_DT2)
 #include <SWIG_CGAL/Java/JavaData.h>
@@ -46,6 +47,7 @@ typedef CGAL::Triangulation_face_base_with_info_2<JavaData,EPIC_Kernel>     Fbi;
 typedef CGAL::Constrained_triangulation_face_base_2<EPIC_Kernel, Fbi>       Fb;
 typedef CGAL::Triangulation_data_structure_2<Vbase_CDT2_plus,Fb>            CDT_TDS;
 #endif
+typedef CGAL::Delaunay_triangulation_2< CGAL::Projection_traits_xy_3<EPIC_Kernel> > DT_xy_2;
    
 typedef CGAL::Exact_predicates_tag                                          EP_tag;
 typedef CGAL::Constrained_triangulation_2<EPIC_Kernel,CDT_TDS,EP_tag>               CGAL_CT2;

@@ -34,13 +34,13 @@ enum Locate_type { VERTEX=0, EDGE, FACE, OUTSIDE_CONVEX_HULL, OUTSIDE_AFFINE_HUL
 } //namespace SWIG_Triangulation_2
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-template <class Weighted_tag>
+template <class Point, class Weighted_tag>
 struct Weighting_helper{
-  typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > Point_range;
+  typedef std::pair<Input_iterator_wrapper<Point,typename Point::cpp_base>,Input_iterator_wrapper<Point,typename Point::cpp_base> > Point_range;
 };
 
 template <>
-struct Weighting_helper<CGAL::Tag_true>{
+struct Weighting_helper<Weighted_point_2,CGAL::Tag_true>{
   typedef std::pair<Input_iterator_wrapper<Weighted_point_2,Weighted_point_2::cpp_base>,Input_iterator_wrapper<Weighted_point_2,Weighted_point_2::cpp_base> > Point_range;
 };
 #endif
@@ -71,7 +71,7 @@ public:
   typedef SWIG_CGAL_Circulator<typename Triangulation::Vertex_circulator,Vertex_handle>          Vertex_circulator;
 
   #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-  typedef typename Weighting_helper<Weighted_tag>::Point_range                                  Point_range;
+  typedef typename Weighting_helper<Point,Weighted_tag>::Point_range                             Point_range;
   #else
   typedef Generic_input_iterator<Point>                                                         Point_range;
   #endif
@@ -164,9 +164,10 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
   SWIG_CGAL_FORWARD_CALL_2(bool,is_valid,bool,int)
 // Miscellaneous
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Triangle_2,triangle,Face_handle)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Segment_2,segment,Face_handle,int)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Segment_2,segment,Edge)
+  // TODO: fix when using projection traits
+  //SWIG_CGAL_FORWARD_CALL_AND_REF_1(Triangle_2,triangle,Face_handle)
+  //SWIG_CGAL_FORWARD_CALL_AND_REF_2(Segment_2,segment,Face_handle,int)
+  //SWIG_CGAL_FORWARD_CALL_AND_REF_1(Segment_2,segment,Edge)
 #ifndef CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
 //I/O
   std::string toString(){
