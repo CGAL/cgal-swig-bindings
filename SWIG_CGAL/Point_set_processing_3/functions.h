@@ -190,7 +190,7 @@ namespace CGAL{
 template <>
 struct value_type_traits< Wrapper_iterator_helper< ::Point_3 >::output >
 {
-  typedef typename ::Point_3::cpp_base type;
+  typedef ::Point_3::cpp_base type;
 };
 
 }
