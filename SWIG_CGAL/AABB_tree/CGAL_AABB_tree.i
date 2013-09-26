@@ -19,6 +19,7 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_AABB_tree)
 
 //include files
 %{
+  #define CGAL_INTERSECTION_VERSION 1
   #include  <SWIG_CGAL/Kernel/typedefs.h>
   #include  <SWIG_CGAL/Kernel/Point_3.h>
   #include  <SWIG_CGAL/Kernel/Triangle_3.h>
