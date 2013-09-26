@@ -251,10 +251,10 @@ public:
     sstr << get_data();
     return sstr.str();
   }
-  void write_to_file(const char* fname){
+  void write_to_file(const char* fname, int prec=5){
     std::ofstream out(fname);
     if (!out) std::cerr << "Error cannot create file: " << fname << std::endl;
-    else out << get_data();
+    else out << std::setprecision(prec) << get_data();
   }
   void read_from_file(const char* fname){
     std::ifstream in(fname);

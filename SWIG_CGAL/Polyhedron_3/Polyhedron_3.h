@@ -129,12 +129,12 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,normalized_border_is_valid)  //bool P.normalized_border_is_valid ( bool verbose = false)
   void delegate(Modifier_base<Polyhedron_base> modifier){get_data().delegate(modifier.get_data());}
   void delegate(General_modifier<typename Polyhedron_base::HalfedgeDS> modifier){get_data().delegate(modifier);}
-  void write_to_file(const char* off_filename) const
+  void write_to_file(const char* off_filename, int prec=5) const
   {
     std::ofstream file(off_filename);
     if (!off_filename) std::cerr << "Error cannot create file: " << off_filename << std::endl;    
     else{
-      file << get_data();
+      file << std::setprecision(prec) << get_data();
       file.close();
     }
   }
