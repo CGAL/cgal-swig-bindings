@@ -14,6 +14,7 @@
 
 #include <SWIG_CGAL/Common/triple.h>
 #include <CGAL/utility.h>
+#include <CGAL/assertions.h>
 #include <CGAL/is_iterator.h>
 
 #include <boost/mpl/if.hpp>
