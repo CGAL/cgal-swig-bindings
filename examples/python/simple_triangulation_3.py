@@ -43,7 +43,7 @@ nc = c.neighbor(li.object())
 nli=Ref_int()
 assert nc.has_vertex( v, nli )
 
-T.write_to_file("output")
+T.write_to_file("output",14)
 
 T1 = Delaunay_triangulation_3()
 T1.read_from_file("output")
