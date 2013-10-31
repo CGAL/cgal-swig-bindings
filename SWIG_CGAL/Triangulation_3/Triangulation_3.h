@@ -288,9 +288,16 @@ public:
   Self& operator=(const Self& other)
   {
     if (own_triangulation)
-      *data_ptr=other.get_data();
-    else
+      delete data_ptr;
+
+    if (!other.own_triangulation)
     {
+      own_triangulation=false;
+      mem_holder=other.mem_holder;
+      data_ptr=other.data_ptr;
+    }
+    else{
+      own_triangulation=true;
       data_ptr=new Triangulation(other.get_data());
       reset(mem_holder);
     }
