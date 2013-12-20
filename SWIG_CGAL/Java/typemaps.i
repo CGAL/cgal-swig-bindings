@@ -9,35 +9,38 @@
 #define SWIG_CGAL_JAVA_TYPEMAPS_I
 
 //IN typemap for reading points from an array of double
-%define SWIG_CGAL_array_of_double_to_vector_of_point_3_typemap_in
-%typemap(jni) boost::shared_ptr<std::vector<EPIC_Kernel::Point_3> > "jdoubleArray"  //replace in jni class
-%typemap(jtype) boost::shared_ptr<std::vector<EPIC_Kernel::Point_3> > "double[]"   //replace in java wrapping class
-%typemap(jstype) boost::shared_ptr<std::vector<EPIC_Kernel::Point_3> > "double[]"  //replace in java function args
-%typemap(javain) boost::shared_ptr<std::vector<EPIC_Kernel::Point_3> > "$javainput" //replace in java function call to wrapped function
+%define SWIG_CGAL_array_of_double_to_vector_of_point_3_typemap_in_advanced(KERNEL)
+%typemap(jni) boost::shared_ptr<std::vector<KERNEL::Point_3> > "jdoubleArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr<std::vector<KERNEL::Point_3> > "double[]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr<std::vector<KERNEL::Point_3> > "double[]"  //replace in java function args
+%typemap(javain) boost::shared_ptr<std::vector<KERNEL::Point_3> > "$javainput" //replace in java function call to wrapped function
 
-%typemap(in) boost::shared_ptr<std::vector<EPIC_Kernel::Point_3> > {
-  boost::shared_ptr<std::vector<EPIC_Kernel::Point_3> > res(new std::vector<EPIC_Kernel::Point_3>());
+%typemap(in) boost::shared_ptr<std::vector<KERNEL::Point_3> > {
+  boost::shared_ptr<std::vector<KERNEL::Point_3> > res(new std::vector<KERNEL::Point_3>());
   const jsize size = jenv->GetArrayLength($input) / 3;
   res->reserve((const std::size_t) size);
   jboolean is_copy;
   jdouble* points = jenv->GetDoubleArrayElements($input, &is_copy);
   for (int i = 0 ; i < size ; i++){
-    res->push_back(EPIC_Kernel::Point_3(points[i*3],points[i*3+1],points[i*3+2]));
+    res->push_back(KERNEL::Point_3(points[i*3],points[i*3+1],points[i*3+2]));
   }
   jenv->ReleaseDoubleArrayElements($input, points, JNI_ABORT);
   $1=res;
 }
 %enddef
+%define SWIG_CGAL_array_of_double_to_vector_of_point_3_typemap_in
+SWIG_CGAL_array_of_double_to_vector_of_point_3_typemap_in_advanced(EPIC_Kernel)
+%enddef
 
 //IN typemap for reading vector of points from an array of array of double
-%define SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_3_typemap_in
-%typemap(jni) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_3> > > "jobjectArray"  //replace in jni class
-%typemap(jtype) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_3> > > "double[][]"   //replace in java wrapping class
-%typemap(jstype) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_3> > > "double[][]"  //replace in java function args
-%typemap(javain) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_3> > > "$javainput" //replace in java function call to wrapped function
+%define SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_3_typemap_in_advanced(KERNEL)
+%typemap(jni) boost::shared_ptr<std::vector< std::vector<KERNEL::Point_3> > > "jobjectArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr<std::vector< std::vector<KERNEL::Point_3> > > "double[][]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr<std::vector< std::vector<KERNEL::Point_3> > > "double[][]"  //replace in java function args
+%typemap(javain) boost::shared_ptr<std::vector< std::vector<KERNEL::Point_3> > > "$javainput" //replace in java function call to wrapped function
 
-%typemap(in) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_3> > > {
-  boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_3> > > res(new std::vector< std::vector<EPIC_Kernel::Point_3> >());
+%typemap(in) boost::shared_ptr<std::vector< std::vector<KERNEL::Point_3> > > {
+  boost::shared_ptr<std::vector< std::vector<KERNEL::Point_3> > > res(new std::vector< std::vector<KERNEL::Point_3> >());
   
   const jsize size_of_lines = jenv->GetArrayLength($input);
   res->resize(size_of_lines);
@@ -51,12 +54,15 @@
     (*res)[l].reserve((const std::size_t) size);
     jdouble* points = jenv->GetDoubleArrayElements(line, &is_copy);
     for (int i = 0 ; i < size ; i++){
-      (*res)[l].push_back(EPIC_Kernel::Point_3(points[i*3],points[i*3+1],points[i*3+2]));
+      (*res)[l].push_back(KERNEL::Point_3(points[i*3],points[i*3+1],points[i*3+2]));
     }
     jenv->ReleaseDoubleArrayElements(line, points, JNI_ABORT);
   }
   $1=res;
 }
+%enddef
+%define SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_3_typemap_in
+SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_3_typemap_in_advanced(EPIC_Kernel)
 %enddef
 
 //IN typemap for reading vector of points from an array of array of double
