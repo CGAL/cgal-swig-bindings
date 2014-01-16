@@ -209,4 +209,34 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_3_typemap_in_adv
 }
 %enddef
 
+//OUT typemap for writting points into a java array
+%define SWIG_CGAL_vector_of_points_3_to_array_of_double_typemap_out_advanced(KERNEL)
+%typemap(jni) boost::shared_ptr<std::vector<KERNEL::Point_3> > "jdoubleArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr<std::vector<KERNEL::Point_3> > "double[]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr<std::vector<KERNEL::Point_3> > "double[]"  //replace in java function args
+%typemap(javaout) boost::shared_ptr<std::vector<KERNEL::Point_3> > "{return $jnicall;}" //replace in java function call to wrapped function
+
+%typemap(out) boost::shared_ptr<std::vector<KERNEL::Point_3> > {
+  const jsize size = $1->size();
+
+  jdoubleArray jPoints = jenv->NewDoubleArray(size*3);
+  jdouble tmp_pt[3];
+
+  for (int i = 0 ; i < size; ++i){
+    const KERNEL::Point_3& pt = (*$1)[i];
+    tmp_pt[0] = pt.x();
+    tmp_pt[1] = pt.y();
+    tmp_pt[2] = pt.z();
+    jenv->SetDoubleArrayRegion(jPoints, 3*i, 3, tmp_pt);
+  }
+
+  $result=jPoints;
+}
+%enddef
+
+%define SWIG_CGAL_vector_of_points_3_to_array_of_double_typemap_out
+SWIG_CGAL_vector_of_points_3_to_array_of_double_typemap_out_advanced(EPIC_Kernel)
+%enddef
+
+
 #endif //SWIG_CGAL_JAVA_TYPEMAPS_I
