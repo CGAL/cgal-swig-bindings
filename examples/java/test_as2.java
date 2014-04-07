@@ -38,7 +38,7 @@ public class test_as2 {
       System.out.println(v.get_range().getFirst());
       switch(type){
         case INTERIOR:
-          System.out.println("EXTERIOR"); break;
+          System.out.println("INTERIOR"); break;
         case SINGULAR:
           System.out.println("SINGULAR"); break;
         case REGULAR:
