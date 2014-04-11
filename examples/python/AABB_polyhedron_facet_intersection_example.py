@@ -1,3 +1,4 @@
+from __future__ import print_function
 from CGAL.CGAL_Kernel import Point_3
 from CGAL.CGAL_Kernel import Vector_3
 from CGAL.CGAL_Kernel import Plane_3
@@ -23,12 +24,12 @@ segment_query=Segment_3(a,b)
 
 #tests intersections with segment query
 if tree.do_intersect(segment_query):
-  print "intersection(s)"
+    print("intersection(s)")
 else:
-  print "no intersection"
+    print("no intersection")
 
 #computes #intersections with segment query
-print tree.number_of_intersected_primitives(segment_query)," intersection(s)"
+print(tree.number_of_intersected_primitives(segment_query)," intersection(s)")
 
 #computes first encountered intersection with segment query
 #(generally a point)
@@ -38,7 +39,7 @@ if not intersection.empty():
   op = intersection.value()
   object = op[0]
   if object.is_Point_3():
-    print "intersection object is a point"
+      print("intersection object is a point")
 
 
 #computes all intersections with segment query (as pairs object - primitive_id)
@@ -61,5 +62,4 @@ if not intersection.empty():
   op = intersection.value()
   object = op[0]
   if object.is_Segment_3():
-    print "intersection object is a segment"
-
+    print("intersection object is a segment")

@@ -1,3 +1,4 @@
+from __future__ import print_function
 from sys import exit
 
 from CGAL.CGAL_Kernel import Point_3
@@ -6,9 +7,9 @@ from CGAL.CGAL_Point_set_processing_3 import *
 
 #Reads a .xyz point set file in points[].
 points=[];
-  
+
 if not read_xyz_points("../data/oni.xyz", points):
-  print "Error: cannot read file data/oni.xyz"
+  print("Error: cannot read file data/oni.xyz")
   exit()
 
 #Removes outliers using erase-remove idiom.

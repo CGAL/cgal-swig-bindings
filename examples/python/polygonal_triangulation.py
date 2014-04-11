@@ -1,7 +1,8 @@
-# This code is a python re-implementation of an example entitled 
-# "Triangulating a Polygonal Domain" from the CGAL documentation, 
+# This code is a python re-implementation of an example entitled
+# "Triangulating a Polygonal Domain" from the CGAL documentation,
 # in the Chapter entitled "2D Triangulation"
-from CGAL.CGAL_Kernel import Point_2 
+from __future__ import print_function
+from CGAL.CGAL_Kernel import Point_2
 from CGAL.CGAL_Triangulation_2 import Constrained_Delaunay_triangulation_2
 
 class FaceInfo2(object):
@@ -20,7 +21,7 @@ def mark_domains(ct, start_face, index, edge_border, face_info):
         queue = queue[1:] # queue.pop_front
         if face_info[fh].nesting_level == -1:
             face_info[fh].nesting_level = index
-            for i in xrange(3):
+            for i in range(3):
                 e = (fh, i)
                 n = fh.neighbor(i)
                 if face_info[n].nesting_level == -1:
@@ -35,16 +36,16 @@ def mark_domain(cdt):
     Explore the set of facets connected with non constrained edges,
     and attribute to each such set a nesting level.
 
-    We start from the facets incident to the infinite vertex, with a 
-    nesting level of 0. Then we recursively consider the non-explored 
-    facets incident to constrained edges bounding the former set and 
+    We start from the facets incident to the infinite vertex, with a
+    nesting level of 0. Then we recursively consider the non-explored
+    facets incident to constrained edges bounding the former set and
     increase the nesting level by 1.
 
     Facets in the domain are those with an odd nesting level.
     """
     face_info = {}
     for face in cdt.all_faces():
-        face_info[face] = FaceInfo2()    
+        face_info[face] = FaceInfo2()
     index = 0
     border = []
     mark_domains(cdt, cdt.infinite_face(), index+1, border, face_info)
@@ -62,7 +63,7 @@ def insert_polygon(cdt, polygon):
         return
 
     handles = [ cdt.insert(polypt) for polypt in polygon ]
-    for i in xrange(len(polygon)-1):
+    for i in range(len(polygon)-1):
         cdt.insert_constraint(handles[i], handles[i+1])
     cdt.insert_constraint(handles[-1], handles[0])
 
@@ -71,12 +72,12 @@ if __name__ == "__main__":
     def plot_triangulated_polygon(cdt, face_info):
         # This code is an additional element which recreates the figure
         # presented in the original CGAL example. Given the ease of which
-        # a standard plotting library can be installed for python, it 
+        # a standard plotting library can be installed for python, it
         # makes sense to offer some form of visualisation directly
         try:
             import matplotlib.pyplot as plt
         except:
-            print 'plotting of triangulation not supported'
+            print('plotting of triangulation not supported')
             return
 
         def rescale_plot(ax, scale = 1.1):
@@ -112,7 +113,7 @@ if __name__ == "__main__":
         polygon1 = [
             Point_2(0, 0),
             Point_2(2, 0),
-            Point_2(2, 2),    
+            Point_2(2, 2),
             Point_2(0, 2)
         ]
 

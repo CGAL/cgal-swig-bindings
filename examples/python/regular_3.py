@@ -1,3 +1,4 @@
+from __future__ import print_function
 from CGAL.CGAL_Kernel import Point_3
 from CGAL.CGAL_Kernel import Weighted_point_3
 from CGAL.CGAL_Triangulation_3 import Regular_triangulation_3
@@ -23,7 +24,7 @@ T.insert (P)
 assert T.is_valid()
 assert T.dimension() == 3
 
-print "Number of vertices : ", T.number_of_vertices()
+print("Number of vertices : ", T.number_of_vertices())
 
 #removal of all vertices
 count = 0
@@ -33,4 +34,3 @@ while T.number_of_vertices() > 0:
 
 
 assert count == number_of_points
-

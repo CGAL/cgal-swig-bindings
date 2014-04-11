@@ -1,3 +1,4 @@
+from __future__ import print_function
 from CGAL.CGAL_Kernel import Point_3
 from CGAL.CGAL_Kernel import Segment_3
 from CGAL.CGAL_Kernel import Triangle_3
@@ -15,7 +16,7 @@ for f in poly.facets():
 
 tree.rebuild(lst)
 tree=AABB_tree_Polyhedron_3_Facet_handle(lst)
-print tree.size()
+print(tree.size())
 
 lst=[]
 
@@ -36,4 +37,4 @@ l=[]
 tree2.all_intersected_primitives(s,l)
 
 for i in l:
-  print i
+  print(i)

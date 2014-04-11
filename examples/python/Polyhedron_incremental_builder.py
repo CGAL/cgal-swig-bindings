@@ -1,3 +1,4 @@
+from __future__ import print_function
 from CGAL.CGAL_Polyhedron_3 import Polyhedron_modifier
 from CGAL.CGAL_Polyhedron_3 import Polyhedron_3
 from CGAL.CGAL_Polyhedron_3 import ABSOLUTE_INDEXING
@@ -21,7 +22,7 @@ m.end_facet()
 P=Polyhedron_3()
 #create the triangle in P
 P.delegate(m)
-print "(v,f,e) = ", P.size_of_vertices(), P.size_of_facets(), P.size_of_halfedges()/2
+print("(v,f,e) = ", P.size_of_vertices(), P.size_of_facets(), divmod(P.size_of_halfedges(),2)[0])
 
 #clear the modifier
 m.clear()
@@ -37,6 +38,6 @@ m.end_facet()
 
 #append a triangle incident to the existing one
 P.delegate(m)
-print "(v,f,e) = ", P.size_of_vertices(), P.size_of_facets(), P.size_of_halfedges()/2
+print("(v,f,e) = ", P.size_of_vertices(), P.size_of_facets(), divmod(P.size_of_halfedges(),2)[0])
 
 assert P.is_valid()

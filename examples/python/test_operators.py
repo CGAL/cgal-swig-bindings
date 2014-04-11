@@ -1,3 +1,4 @@
+from __future__ import print_function
 from CGAL.CGAL_Kernel import Point_2
 from CGAL.CGAL_Kernel import Point_3
 from CGAL.CGAL_Kernel import Vector_3
@@ -8,10 +9,10 @@ from CGAL.CGAL_Kernel import NULL_VECTOR
 
 def assertion(b,k):
     assert(b)
-    print "Test ",k," OK"
-  
+    print("Test ",k," OK")
+
 def test_2d():
-  print "2D Tests"
+  print("2D Tests")
 
   p1 = Point_2(0,0)
   p2 = Point_2(1,2)
@@ -54,7 +55,7 @@ def test_2d():
   assertion( vect_tmp == v2, 17)
 
 def test_3d():
-  print "3D Tests"
+  print("3D Tests")
 
   p1 = Point_3(0,0,0)
   p2 = Point_3(1,2,0)

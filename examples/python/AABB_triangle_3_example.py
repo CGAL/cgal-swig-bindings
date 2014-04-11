@@ -1,3 +1,4 @@
+from __future__ import print_function
 from CGAL.CGAL_Kernel import Point_3
 from CGAL.CGAL_Kernel import Triangle_3
 from CGAL.CGAL_Kernel import Ray_3
@@ -18,10 +19,10 @@ tree = AABB_tree_Triangle_3_soup(triangles)
 
 # counts #intersections
 ray_query =  Ray_3(a,b)
-print tree.number_of_intersected_primitives(ray_query), " intersections(s) with ray query"
+print(tree.number_of_intersected_primitives(ray_query), " intersections(s) with ray query")
 
 # compute closest point and squared distance
 point_query = Point_3(2.0, 2.0, 2.0)
 closest_point = tree.closest_point(point_query)
 sqd = tree.squared_distance(point_query)
-print "squared distance: ", sqd
+print("squared distance: ", sqd)

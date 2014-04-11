@@ -1,3 +1,4 @@
+from __future__ import print_function
 from CGAL.CGAL_Kernel import Point_2
 from CGAL.CGAL_Triangulation_2 import Constraint
 from CGAL.CGAL_Triangulation_2 import Constrained_Delaunay_triangulation_plus_2
@@ -10,7 +11,7 @@ constraints.append(Constraint(Point_2(711,888),Point_2(7757,88)))
 
 t=Constrained_Delaunay_triangulation_plus_2(constraints)
 
-print "Nb vertices ",t.number_of_vertices()
+print("Nb vertices ",t.number_of_vertices())
 
 
 v1=t.insert(Point_2(1,2))
@@ -22,17 +23,17 @@ lst.append(Point_2(34,4))
 lst.append(Point_2(11,45))
 lst.append(Point_2(11,7))
 
-print t.dimension()
+print(t.dimension())
 for e in t.all_edges():
   if not t.is_infinite(e):
-    print t.segment(e)
+    print(t.segment(e))
   else:
-    print "infinite edge"
+    print("infinite edge")
 
 for e in lst:
-  print e
+  print(e)
 
-print "Try point range insertion"
+print("Try point range insertion")
 t.insert(lst)
 
 
@@ -42,12 +43,11 @@ for v in t.finite_vertices():
   t.incident_constraints(v,edges)
 
 
-print "Nb incident constraints ", len(edges)
+print("Nb incident constraints ", len(edges))
 
-print t.number_of_vertices()
+print(t.number_of_vertices())
 
 
 
 for v in t.finite_vertices():
-  print v.point()
-
+  print(v.point())

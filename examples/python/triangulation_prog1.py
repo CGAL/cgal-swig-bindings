@@ -1,3 +1,4 @@
+from __future__ import print_function
 from CGAL.CGAL_Kernel import Point_2
 from CGAL.CGAL_Triangulation_2 import Triangulation_2
 from CGAL.CGAL_Triangulation_2 import Triangulation_2_Vertex_circulator
@@ -12,7 +13,7 @@ points.append( Point_2(7,4) )
 points.append( Point_2(5,2) )
 points.append( Point_2(6,3) )
 points.append( Point_2(10,1) )
-  
+
 t=Triangulation_2()
 t.insert(points)
 
@@ -23,7 +24,6 @@ if vc.hasNext():
   iter=Triangulation_2_Vertex_handle()
   while(1):
     iter=vc.next()
-    print iter.point()
+    print(iter.point())
     if iter == done:
       break
-
