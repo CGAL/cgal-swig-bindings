@@ -268,11 +268,8 @@ crop_bissector( const Voronoi_diagram& vd,
 {
   typedef CGAL::Simple_cartesian< CGAL::Lazy_exact_nt<CGAL::Gmpq> > Exact_kernel;
   typedef typename Exact_kernel::Point_2 EPoint_2;
-  typedef typename Exact_kernel::Ray_2 ERay_2;
-  typedef typename Exact_kernel::Line_2 ELine_2;
   typedef typename Exact_kernel::Segment_2 ESegment_2;
 
-  typedef typename Kernel::Point_2 Point_2;
   typedef typename Kernel::Ray_2 Ray_2;
   typedef typename Kernel::Line_2 Line_2;
   typedef typename Kernel::Segment_2 Segment_2;
