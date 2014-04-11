@@ -7,6 +7,8 @@ if(POLICY CMP0017)
   cmake_policy(SET CMP0017 NEW)
 endif()
 
+option ( LINK_PYTHON_LIBRARY "Link against python libraries" ON )
+
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/SWIG_CGAL_Macros.cmake)
 
 find_package(CGAL QUIET COMPONENTS ImageIO)
