@@ -5,8 +5,12 @@ from CGAL.CGAL_Mesh_3 import Mesh_3_parameters
 from CGAL.CGAL_Mesh_3 import Default_mesh_criteria
 from CGAL import CGAL_Mesh_3
 
+import os
+datadir = os.environ.get('DATADIR', '../data')
+datafile = datadir+'/elephant.off'
+
 #Create input polyhedron
-polyhedron=Polyhedron_3("../data/elephant.off")
+polyhedron=Polyhedron_3(datafile)
 
 #Create domain
 domain = Polyhedral_mesh_domain_3(polyhedron)

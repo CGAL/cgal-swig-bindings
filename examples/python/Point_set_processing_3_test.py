@@ -3,10 +3,14 @@ from CGAL.CGAL_Kernel import Point_3
 from CGAL.CGAL_Kernel import Vector_3
 from CGAL.CGAL_Point_set_processing_3 import *
 
+
+import os
+datadir = os.environ.get('DATADIR', '../data')
+datafile = datadir+'/oni.xyz'
 points = []
 
 print("Running read_xyz_points...")
-read_xyz_points("../data/oni.xyz", points)
+read_xyz_points(datafile, points)
 print(len(points), " points read")
 
 print( "Average point spacing is ", compute_average_spacing(points,24))
@@ -55,5 +59,5 @@ normals=[]
 points=[]
 
 print("Running read_xyz_points_and_normals...")
-read_xyz_points_and_normals("oni.xyz", points, normals)
+read_xyz_points_and_normals(datafile, points, normals)
 print(len(normals), " normal vectors read")
