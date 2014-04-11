@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------ 
 
 
-%module CGAL_Spatial_searching
+%module (package="CGAL") CGAL_Spatial_searching
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

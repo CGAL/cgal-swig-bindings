@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------ 
 
 
-%module CGAL_Surface_mesher
+%module (package="CGAL") CGAL_Surface_mesher
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

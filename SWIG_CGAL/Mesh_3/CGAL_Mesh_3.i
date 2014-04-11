@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------ 
 
 
-%module CGAL_Mesh_3
+%module (package="CGAL") CGAL_Mesh_3
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

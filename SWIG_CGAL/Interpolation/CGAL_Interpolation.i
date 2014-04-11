@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------ 
 
 
-%module CGAL_Interpolation
+%module (package="CGAL") CGAL_Interpolation
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------ 
 
 
-%module CGAL_Java
+%module (package="CGAL") CGAL_Java
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

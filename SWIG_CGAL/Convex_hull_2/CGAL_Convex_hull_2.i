@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------ 
 
 
-%module CGAL_Convex_hull_2
+%module (package="CGAL") CGAL_Convex_hull_2
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

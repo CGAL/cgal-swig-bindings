@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------ 
 
 
-%module CGAL_Kernel
+%module (package="CGAL") CGAL_Kernel
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

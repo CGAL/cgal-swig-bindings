@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------
 
 
-%module CGAL_HalfedgeDS
+%module (package="CGAL") CGAL_HalfedgeDS
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

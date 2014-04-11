@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------------ 
 
 
-%module CGAL_AABB_tree
+%module (package="CGAL") CGAL_AABB_tree
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()
