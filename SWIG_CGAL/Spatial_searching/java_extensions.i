@@ -9,7 +9,7 @@
 #include <SWIG_CGAL/Spatial_searching/First_of_pair.h>
 #include <SWIG_CGAL/Java/JavaData.h>
 
-typedef First_of_pair<EPIC_Kernel::Point_2>                          PPmap_2;
+typedef First_of_pair<EPIC_Kernel::Point_2,JavaData>                 PPmap_2;
 typedef std::pair<EPIC_Kernel::Point_2,JavaData>                     Point_WI_2;
 typedef CGAL::Search_traits_adapter<Point_WI_2,PPmap_2,CGAL_ST_2>  CGAL_ST_WI_2;
 typedef CGAL::Fuzzy_sphere <CGAL_ST_WI_2>                            CGAL_FS_WI_2;
@@ -25,7 +25,7 @@ typedef CGAL_I_WI_S_2 ::Tree                                         CGAL_I_WI_T
 typedef CGAL_K_WI_S_2 ::Tree                                         CGAL_K_WI_T_2;
 typedef CGAL_OK_WI_S_2::Tree                                         CGAL_OK_WI_T_2;
   
-typedef First_of_pair<EPIC_Kernel::Point_3>                          PPmap_3;
+typedef First_of_pair<EPIC_Kernel::Point_3,JavaData>                 PPmap_3;
 typedef std::pair<EPIC_Kernel::Point_3,JavaData>                     Point_WI_3;
 typedef CGAL::Search_traits_adapter<Point_WI_3,PPmap_3,CGAL_ST_3>  CGAL_ST_WI_3;
 typedef CGAL::Fuzzy_sphere <CGAL_ST_WI_3>                            CGAL_FS_WI_3;
