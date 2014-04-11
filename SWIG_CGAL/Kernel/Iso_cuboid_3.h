@@ -14,6 +14,10 @@
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Common/Macros.h>
 
+// defined by windows.h, brought by CGAL headers
+#ifdef far
+#undef far
+#endif
 
 class SWIG_CGAL_KERNEL_DECL Iso_cuboid_3
 {
