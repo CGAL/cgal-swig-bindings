@@ -2,6 +2,8 @@ from __future__ import print_function
 from CGAL.CGAL_Kernel import Point_2
 from CGAL.CGAL_Triangulation_2 import Constraint
 from CGAL.CGAL_Triangulation_2 import Constrained_Delaunay_triangulation_plus_2
+from CGAL.CGAL_Triangulation_2 import Ref_Constrained_Delaunay_triangulation_plus_2_Face_handle
+from CGAL.CGAL_Kernel import Ref_int
 
 constraints=[]
 
@@ -41,6 +43,13 @@ edges=[]
 
 for v in t.finite_vertices():
   t.incident_constraints(v,edges)
+
+rf=Ref_Constrained_Delaunay_triangulation_plus_2_Face_handle()
+ri=Ref_int()
+t.is_edge(edges[0][0].vertex(t.cw(edges[0][1])),
+          edges[0][0].vertex(t.ccw(edges[0][1])),
+          rf, ri );
+assert( rf.object()==edges[0][0] or rf.object()==edges[0][0].neighbor( edges[1] ) )
 
 
 print("Nb incident constraints ", len(edges))

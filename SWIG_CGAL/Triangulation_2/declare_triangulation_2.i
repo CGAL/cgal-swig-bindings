@@ -61,6 +61,10 @@
 
   SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Circulator,CLASSNAME_PREFIX##_Vertex_handle,import CGAL.Kernel.POINT_TYPE;)
   SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Vertex_circulator,SWIG_CGAL_Circulator<CPPTYPE::Vertex_circulator,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> >)
+
+  //Reference wrapper
+  SWIG_CGAL_declare_identifier_of_template_class(Ref_##CLASSNAME_PREFIX##_Face_handle,Reference_wrapper<SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE> >)
+  SWIG_CGAL_declare_identifier_of_template_class(Ref_##CLASSNAME_PREFIX##_Vertex_handle,Reference_wrapper<SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> >)
 %enddef
 
 //Expose a triangulation_2
