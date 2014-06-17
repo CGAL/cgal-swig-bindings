@@ -45,6 +45,7 @@ public:
   CDTP_context(){}
   Vertices_in_constraint_iterator vertices() {return Vertices_in_constraint_iterator(data.vertices_begin(),data.vertices_end());}
   Vertices_in_constraint_iterator current() {return Vertices_in_constraint_iterator(data.current(),data.vertices_end());}
+  SWIG_CGAL_FORWARD_CALL_0(int,number_of_vertices)
 };
 
 template < class Cpp_base,class Base_triangulation_wrapper, class Vertex_handle >
