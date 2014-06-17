@@ -92,7 +92,7 @@ declare_refine_global_functions(Criteria_wrapper<DM2_C>)
     $self->get_data()->set_in_domain(b);
   }
 }
-SWIG_CGAL_declare_constrained_Delaunay_triangulation_2(Mesh_2_Constrained_Delaunay_triangulation_plus_2,M2_CDT_plus)
+SWIG_CGAL_declare_constrained_Delaunay_triangulation_plus_2(Mesh_2_Constrained_Delaunay_triangulation_plus_2,M2_CDT_plus)
 
 
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Point_2,import CGAL.Kernel.Point_2;)
