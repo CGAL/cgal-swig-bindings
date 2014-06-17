@@ -92,7 +92,7 @@ public:
 //Operations available if Supports_halfedge_facet is CGAL::Tag_true
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(CGAL_Facet_handle<Polyhedron_base>,facet)
   
-  DEFINE_EQUALITY_OPERATORS(Self);
+  DEFINE_COMPARISON_OPERATORS(Self);
   DEFINE_HASH_FUNCTION_FOR_HANDLE
 
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
@@ -129,7 +129,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_bivalent)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_trivalent)
 
-  DEFINE_EQUALITY_OPERATORS(Self);
+  DEFINE_COMPARISON_OPERATORS(Self);
   DEFINE_HASH_FUNCTION_FOR_HANDLE
 
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}
@@ -169,7 +169,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,is_triangle)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_quad)
 
-  DEFINE_EQUALITY_OPERATORS(Self);
+  DEFINE_COMPARISON_OPERATORS(Self);
   DEFINE_HASH_FUNCTION_FOR_HANDLE
   
   int id(){return internal::Id<typename Polyhedron_base::Items>::get(data);}

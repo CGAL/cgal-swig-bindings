@@ -32,8 +32,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point,point)
 //Setting
   SWIG_CGAL_FORWARD_CALL_1(void,set_point,Point)
-//Equality functions  
-  DEFINE_EQUALITY_OPERATORS(Self);
+//Comparision Functions
+  DEFINE_COMPARISON_OPERATORS(Self);
 //hash function
   DEFINE_HASH_FUNCTION_FOR_HANDLE
 
@@ -82,8 +82,8 @@ public:
 //Checking
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
-//Equality Functions  
-  DEFINE_EQUALITY_OPERATORS(Self);
+//Comparision Functions
+  DEFINE_COMPARISON_OPERATORS(Self);
 //hash function
   DEFINE_HASH_FUNCTION_FOR_HANDLE
  

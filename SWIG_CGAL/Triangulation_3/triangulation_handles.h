@@ -37,8 +37,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(void,set_point,Point)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_valid)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_valid,bool)
-//equality functions
-  DEFINE_EQUALITY_OPERATORS(Self);
+//Comparision Functions
+  DEFINE_COMPARISON_OPERATORS(Self);
 //hash function
   DEFINE_HASH_FUNCTION_FOR_HANDLE
 
@@ -81,8 +81,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_2(bool,is_valid,bool,int)
   bool has_vertex(const Vertex_handle& v, Reference_wrapper<int>& i){ return get_data()->has_vertex(v.get_data(),i.object()); }
   bool has_neighbor (const Cell_handle& n, Reference_wrapper<int>& i){ return get_data()->has_neighbor(n.get_data(),i.object()); }
-//Equality functions  
-  DEFINE_EQUALITY_OPERATORS(Self);
+//Comparision Functions
+  DEFINE_COMPARISON_OPERATORS(Self);
 //hash function
   DEFINE_HASH_FUNCTION_FOR_HANDLE
 
