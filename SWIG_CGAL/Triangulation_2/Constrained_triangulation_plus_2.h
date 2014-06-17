@@ -69,7 +69,8 @@ public:
     for (Input_constraint_iterator it=SWIG_CGAL::get_begin(range);it!=SWIG_CGAL::get_end(range);++it)
       this->get_data().push_back(*it);
   }
-  
+
+  SWIG_CGAL_FORWARD_CALL_2(void,remove_constraint,Vertex_handle,Vertex_handle)
 // Queries
   SWIG_CGAL_FORWARD_CALL_2(int,number_of_enclosing_constraints,Vertex_handle,Vertex_handle)
   Constraint_iterator constraints(){return Constraint_iterator( this->get_data().constraints_begin(),this->get_data().constraints_end() );}
