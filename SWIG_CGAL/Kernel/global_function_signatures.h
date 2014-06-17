@@ -246,6 +246,15 @@ SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_AND_FILTER_CALL_GF_2(Object,intersection
 SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(double,area,Point_2,Point_2,Point_2)
 
 
+//centroid
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(Point_2, centroid, Point_2, Point_2, Point_2)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_4(Point_2, centroid, Point_2, Point_2, Point_2, Point_2)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_1(Point_2, centroid, Triangle_2)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(Point_3, centroid, Point_3, Point_3, Point_3)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_4(Point_3, centroid, Point_3, Point_3, Point_3, Point_3)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_1(Point_3, centroid, Triangle_3)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_1(Point_3, centroid, Tetrahedron_3)
+
 //other constructions
 SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(Vector_3,cross_product,Vector_3,Vector_3)
 SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(double,determinant,Vector_3,Vector_3,Vector_3)
@@ -258,7 +267,6 @@ SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(double,determinant,Vector_2,Ve
 // are_strictly_ordered_along_line
 // barycenter
 // bisector
-// centroid
 // circumcenter
 // collinear
 // collinear_are_ordered_along_line
