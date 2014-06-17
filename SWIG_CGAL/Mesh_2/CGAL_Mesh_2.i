@@ -80,6 +80,36 @@ declare_conforming_global_functions(Mesh_2_Constrained_Delaunay_triangulation_2_
 
 declare_refine_global_functions(Criteria_wrapper<DM2_C>)
 
+
+/////////  CDT_plus_2 //////////////
+//Constrained triangulation_plus for Mesh_2
+%extend SWIG_Triangulation_2::CGAL_Face_handle<M2_CDT_plus,Point_2> {
+  bool is_in_domain(){
+    return $self->get_data()->is_in_domain();
+  }
+  
+  void set_in_domain(bool b){
+    $self->get_data()->set_in_domain(b);
+  }
+}
+SWIG_CGAL_declare_constrained_Delaunay_triangulation_2(Mesh_2_Constrained_Delaunay_triangulation_plus_2,M2_CDT_plus)
+
+
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Point_2,import CGAL.Kernel.Point_2;)
+SWIG_CGAL_declare_identifier_of_template_class(Delaunay_mesher_plus_2_Seeds_const_iterator,SWIG_CGAL_Iterator<DM2_M_plus::Seeds_const_iterator,Point_2>)
+
+
+SWIG_CGAL_declare_identifier_of_template_class(Delaunay_mesh_plus_size_criteria_2,Criteria_wrapper<DM2_C_plus>)
+%typemap(javaimports)  Delaunay_mesher_2_wrapper %{import CGAL.Kernel.Point_2; import java.util.Iterator; import CGAL.Triangulation_2.Constraint;%}
+SWIG_CGAL_declare_identifier_of_template_class(Default_Delaunay_mesher_plus_2,Delaunay_mesher_2_wrapper<DM2_M_plus,Mesh_2_Constrained_Delaunay_triangulation_plus_2_SWIG_wrapper,Criteria_wrapper<DM2_C_plus> >)
+
+SWIG_CGAL_declare_identifier_of_template_class(Mesh_2_Constrained_Delaunay_triangulation_conformer_plus_2,Triangulation_conformer_2_wrapper<M2_CDT_plus,Mesh_2_Constrained_Delaunay_triangulation_plus_2_SWIG_wrapper >)
+
+declare_conforming_global_functions(Mesh_2_Constrained_Delaunay_triangulation_plus_2_SWIG_wrapper)
+
+declare_refine_global_functions(Criteria_wrapper<DM2_C_plus>)
+
+
 #ifdef SWIGJAVA
 %include "SWIG_CGAL/Mesh_2/java_extensions.i"
 #endif
