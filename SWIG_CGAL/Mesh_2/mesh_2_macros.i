@@ -21,17 +21,17 @@
   %}
 %enddef
 
-%define declare_refine_global_functions(CRITERIA)
+%define declare_refine_global_functions(MESH_CLASS, CRITERIA)
   %inline %{
-    void refine_Delaunay_mesh_2 (Mesh_2_Constrained_Delaunay_triangulation_2_SWIG_wrapper& t, CRITERIA criteria)
+    void refine_Delaunay_mesh_2 (MESH_CLASS& t, CRITERIA criteria)
     {
       CGAL::refine_Delaunay_mesh_2(t.get_data(),criteria.get_data());
     }
-    void refine_Delaunay_mesh_2 (Mesh_2_Constrained_Delaunay_triangulation_2_SWIG_wrapper& t,Point_range range,CRITERIA criteria,bool mark)
+    void refine_Delaunay_mesh_2 (MESH_CLASS& t,Point_range range,CRITERIA criteria,bool mark)
     {
       CGAL::refine_Delaunay_mesh_2(t.get_data(),SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),criteria.get_data(),mark);
     }    
-    void refine_Delaunay_mesh_2 (Mesh_2_Constrained_Delaunay_triangulation_2_SWIG_wrapper& t,Point_range range,CRITERIA criteria)
+    void refine_Delaunay_mesh_2 (MESH_CLASS& t,Point_range range,CRITERIA criteria)
     {
       CGAL::refine_Delaunay_mesh_2(t.get_data(),SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),criteria.get_data());
     }

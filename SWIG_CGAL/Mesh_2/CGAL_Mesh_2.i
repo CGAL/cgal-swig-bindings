@@ -78,7 +78,7 @@ SWIG_CGAL_declare_identifier_of_template_class(Constrained_Delaunay_triangulatio
 declare_conforming_global_functions(Constrained_Delaunay_triangulation_2_SWIG_wrapper)
 declare_conforming_global_functions(Mesh_2_Constrained_Delaunay_triangulation_2_SWIG_wrapper)
 
-declare_refine_global_functions(Criteria_wrapper<DM2_C>)
+declare_refine_global_functions(Mesh_2_Constrained_Delaunay_triangulation_2_SWIG_wrapper, Criteria_wrapper<DM2_C>)
 
 
 /////////  CDT_plus_2 //////////////
@@ -107,7 +107,7 @@ SWIG_CGAL_declare_identifier_of_template_class(Mesh_2_Constrained_Delaunay_trian
 
 declare_conforming_global_functions(Mesh_2_Constrained_Delaunay_triangulation_plus_2_SWIG_wrapper)
 
-declare_refine_global_functions(Criteria_wrapper<DM2_C_plus>)
+declare_refine_global_functions(Mesh_2_Constrained_Delaunay_triangulation_plus_2_SWIG_wrapper, Criteria_wrapper<DM2_C_plus>)
 
 
 #ifdef SWIGJAVA
