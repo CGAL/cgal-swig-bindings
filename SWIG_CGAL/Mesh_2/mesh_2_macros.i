@@ -2,7 +2,7 @@
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // Distributed under the Boost Software License, Version 1.0. (See accompany-
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_MESH_2_DECLARE_MACROS_I
@@ -21,21 +21,21 @@
   %}
 %enddef
 
-%define declare_refine_global_functions(MESH_CLASS, CRITERIA)
+%define declare_refine_global_functions(MESHWRAPPER, CRITERIAWRAPPER)
   %inline %{
-    void refine_Delaunay_mesh_2 (MESH_CLASS& t, CRITERIA criteria)
+    void refine_Delaunay_mesh_2 (MESHWRAPPER& t, CRITERIAWRAPPER criteria)
     {
       CGAL::refine_Delaunay_mesh_2(t.get_data(),criteria.get_data());
     }
-    void refine_Delaunay_mesh_2 (MESH_CLASS& t,Point_range range,CRITERIA criteria,bool mark)
+    void refine_Delaunay_mesh_2 (MESHWRAPPER& t,Point_range range,CRITERIAWRAPPER criteria,bool mark)
     {
       CGAL::refine_Delaunay_mesh_2(t.get_data(),SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),criteria.get_data(),mark);
-    }    
-    void refine_Delaunay_mesh_2 (MESH_CLASS& t,Point_range range,CRITERIA criteria)
+    }
+    void refine_Delaunay_mesh_2 (MESHWRAPPER& t,Point_range range,CRITERIAWRAPPER criteria)
     {
       CGAL::refine_Delaunay_mesh_2(t.get_data(),SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),criteria.get_data());
     }
-  %} 
-%enddef  
+  %}
+%enddef
 
 #endif //SWIG_CGAL_MESH_2_DECLARE_MACROS_I
