@@ -35,6 +35,9 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Edge)
 // Predicates
   SWIG_CGAL_FORWARD_CALL_2(Oriented_side,power_test,Face_handle,Weighted_point_2)
+//Deep copy
+  typedef Regular_triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle> Self;
+  Self deepcopy() const {return Self(this->get_data());}
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_REGULAR_TRIANGULATION_2_H

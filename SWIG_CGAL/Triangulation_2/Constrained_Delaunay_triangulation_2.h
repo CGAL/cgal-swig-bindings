@@ -24,6 +24,12 @@ public:
     for (Input_constraint_iterator it=SWIG_CGAL::get_begin(range);it!=SWIG_CGAL::get_end(range);++it)
       this->get_data().push_back(*it);
   }
+  #ifndef SWIG
+  Constrained_Delaunay_triangulation_2_wrapper(const cpp_base& cbase):Base(cbase){}
+  #endif
+//Deep copy
+  typedef Constrained_Delaunay_triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle> Self;
+  Self deepcopy() const {return Self(this->get_data());}
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_DELAUNAY_TRIANGULATION_2_H

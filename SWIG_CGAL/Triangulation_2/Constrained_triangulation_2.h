@@ -39,7 +39,10 @@ public:
   Constrained_triangulation_2_wrapper(Constraint_range range):Base(){
     for (Input_constraint_iterator it=SWIG_CGAL::get_begin(range);it!=SWIG_CGAL::get_end(range);++it)
       this->get_data().push_back(*it);
-  }        
+  }
+  #ifndef SWIG
+  Constrained_triangulation_2_wrapper(const cpp_base& cbase):Base(cbase){}
+  #endif
 // Queries
   SWIG_CGAL_FORWARD_CALL_1(bool,is_constrained,Edge)
   SWIG_CGAL_FORWARD_CALL_1(bool,are_there_incident_constraints,Vertex_handle)
@@ -63,6 +66,9 @@ public:
     for (Input_constraint_iterator it=SWIG_CGAL::get_begin(range);it!=SWIG_CGAL::get_end(range);++it)
       this->get_data().push_back(*it);
   }
+//Deep copy
+  typedef Constrained_triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle> Self;
+  Self deepcopy() const {return Self(this->get_data());}
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_2_H

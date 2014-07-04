@@ -219,10 +219,10 @@ public:
       in >> get_data();
     }
   }
-//Deep copy (the inheritance is not a problem here, 
+//Deep copy
   typedef Triangulation_2_wrapper<Triangulation,Point,Vertex_handle,Face_handle,Weighted_tag> Self;
   Self deepcopy() const {return Self(get_data());}
-  void deepcopy(const Self& other){*this=Self(other.get_data());}
+  void deepcopy(const Self& other){*this=Self(other.get_data());} // (the inheritance is not a problem here)
 //Special for SWIG
   bool same_internal_object(const Self& other) {return other.data_sptr.get()==data_sptr.get();}
 #endif

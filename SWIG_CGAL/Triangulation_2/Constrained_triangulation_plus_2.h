@@ -69,7 +69,9 @@ public:
     for (Input_constraint_iterator it=SWIG_CGAL::get_begin(range);it!=SWIG_CGAL::get_end(range);++it)
       this->get_data().push_back(*it);
   }
-
+  #ifndef SWIG
+  Constrained_triangulation_plus_2_wrapper(const cpp_base& cbase):Base(cbase){}
+  #endif
   SWIG_CGAL_FORWARD_CALL_2(void,remove_constraint,Vertex_handle,Vertex_handle)
 // Queries
   SWIG_CGAL_FORWARD_CALL_2(int,number_of_enclosing_constraints,Vertex_handle,Vertex_handle)
@@ -78,7 +80,9 @@ public:
   Vertices_in_constraint_iterator vertices_in_constraint(const Vertex_handle& va,const Vertex_handle& vb){ return Vertices_in_constraint_iterator(this->get_data().vertices_in_constraint_begin(va.get_data(),vb.get_data()),this->get_data().vertices_in_constraint_end(va.get_data(),vb.get_data()));}
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Context,context,Vertex_handle,Vertex_handle)
   Context_iterator contexts(const Vertex_handle& va,Vertex_handle& vb) {return Context_iterator(this->get_data().contexts_begin(va.get_data(),vb.get_data()),this->get_data().contexts_end(va.get_data(),vb.get_data()));}
-  
+//Deep copy
+  typedef Constrained_triangulation_plus_2_wrapper<Cpp_base,Base_triangulation_wrapper,Vertex_handle> Self;
+  Self deepcopy() const {return Self(this->get_data());}
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H
