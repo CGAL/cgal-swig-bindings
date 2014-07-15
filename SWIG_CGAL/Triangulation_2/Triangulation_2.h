@@ -220,9 +220,11 @@ public:
     }
   }
 //Deep copy
+  #ifndef CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
   typedef Triangulation_2_wrapper<Triangulation,Point,Vertex_handle,Face_handle,Weighted_tag> Self;
   Self deepcopy() const {return Self(get_data());}
   void deepcopy(const Self& other){*this=Self(other.get_data());} // (the inheritance is not a problem here)
+  #endif
 //Special for SWIG
   bool same_internal_object(const Self& other) {return other.data_sptr.get()==data_sptr.get();}
 #endif

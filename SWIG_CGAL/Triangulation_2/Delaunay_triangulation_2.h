@@ -53,8 +53,10 @@ public:
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,dual,Face_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Edge)
 //Deep copy
+  #ifndef CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
   typedef Delaunay_triangulation_2_wrapper<Triangulation,Vertex_handle,Face_handle> Self;
   Self deepcopy() const {return Self(this->get_data());}
+  #endif
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_DELAUNAY_TRIANGULATION_2_H
