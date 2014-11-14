@@ -11,6 +11,7 @@
 #include <sstream>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/Segment_2.h>
+#include <SWIG_CGAL/Kernel/Bbox_2.h>
 #include <SWIG_CGAL/Kernel/enum.h>
   
 #include <CGAL/Polygon_2.h>
@@ -61,6 +62,7 @@ public:
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(int,size)
   SWIG_CGAL_FORWARD_CALL_0(bool,is_empty)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Bbox_2,bbox)
 //Operators
   DEFINE_EQUALITY_OPERATORS(Polygon_2)
 //I/O
@@ -76,5 +78,4 @@ public:
 };
 #endif //SWIG_CGAL_KERNEL_POLYGON_2_H
 
-//  Bbox_2 bbox ()
 //  Polygon_2<Traits,Container> transform ( Transformation t, Polygon_2<Traits,Container> p)

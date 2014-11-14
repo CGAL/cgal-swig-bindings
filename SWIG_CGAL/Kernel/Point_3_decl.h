@@ -10,6 +10,7 @@
 
 #include <sstream>
 #include <SWIG_CGAL/Kernel/include_conflicts_3.h>
+#include <SWIG_CGAL/Kernel/Bbox_3.h>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 
@@ -32,6 +33,7 @@ public:
   double x() const {return data.x();}
   double y() const {return data.y();}
   double z() const {return data.z();}
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Bbox_3,bbox)
 //Set coordinates (forbidden in C++ CGAL for kernel objects)
   void set_coordinates(double x,double y,double z){
     data=cpp_base(x,y,z);

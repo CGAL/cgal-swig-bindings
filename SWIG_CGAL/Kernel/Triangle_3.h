@@ -11,6 +11,7 @@
 #include <sstream>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Bbox_3.h>
 #include <SWIG_CGAL/Kernel/Plane_3.h>
 #include <SWIG_CGAL/Common/Macros.h>
 
@@ -36,6 +37,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,has_on,Point_3)
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(double,squared_area)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Bbox_3,bbox)
 //Operators
   DEFINE_EQUALITY_OPERATORS(Triangle_3)
 //I/O
@@ -53,5 +55,4 @@ public:
 #endif //SWIG_CGAL_KERNEL_TRIANGLE_3_H
 
 //Miscellaneous
-//  Bbox_3  t.bbox ()  returns a bounding box containing t.
 //  Triangle_3<Kernel>  t.transform ( Aff_transformation_3<Kernel> at)

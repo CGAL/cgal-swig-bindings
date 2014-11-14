@@ -12,6 +12,7 @@
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Bbox_3.h>
 #include <SWIG_CGAL/Kernel/enum.h>
 
 class SWIG_CGAL_KERNEL_DECL Sphere_3{
@@ -51,6 +52,7 @@ public:
 //  SWIG_CGAL_FORWARD_CALL_1(bool,has_on ( Circle_3<Kernel> p)
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Sphere_3,opposite)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Bbox_3,bbox)
 //Operators
   DEFINE_EQUALITY_OPERATORS(Sphere_3)
 //I/O
@@ -72,4 +74,3 @@ public:
 // Sphere_3<Kernel> c ( Circle_3<Kernel> c);
 //Miscellaneous
 //  Sphere_3<Kernel>  c.orthogonal_transform ( Aff_transformation_3<Kernel> at)  
-//  Bbox_3  c.bbox ()  returns a bounding box containing c.

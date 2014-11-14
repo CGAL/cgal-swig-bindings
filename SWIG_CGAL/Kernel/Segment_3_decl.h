@@ -12,6 +12,7 @@
 #include <SWIG_CGAL/Kernel/include_conflicts_3.h>
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Kernel/Bbox_3.h>
 
 class SWIG_CGAL_KERNEL_DECL Segment_3{
   EPIC_Kernel::Segment_3 data;
@@ -40,6 +41,7 @@ public:
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Vector_3,to_vector)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Direction_3,direction)
   SWIG_CGAL_DECLARE_CALL_AND_REF_0(Line_3,supporting_line)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Bbox_3,bbox)
 //Operators
   DEFINE_EQUALITY_OPERATORS(Segment_3)
 //I/O
@@ -60,6 +62,6 @@ public:
 
 #endif //SWIG_CGAL_KERNEL_SEGMENT_3_DEF_H
 
-//Bbox_3 s.bbox () returns a bounding box containing s.
+
 //Segment_3<Kernel> s.transform ( Aff_transformation_3<Kernel> t)
 //Point_3<Kernel> s.operator[] ( int i)

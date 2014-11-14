@@ -12,6 +12,7 @@
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <SWIG_CGAL/Kernel/enum.h>
+#include <SWIG_CGAL/Kernel/Bbox_3.h>
 #include <SWIG_CGAL/Common/Macros.h>
 
 // defined by windows.h, brought by CGAL headers
@@ -48,6 +49,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(double,zmax)
   SWIG_CGAL_FORWARD_CALL_1(double,min_coord,int)
   SWIG_CGAL_FORWARD_CALL_1(double,max_coord,int)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Bbox_3,bbox)
 //Predicates
   SWIG_CGAL_FORWARD_CALL_0(bool,is_degenerate)
   SWIG_CGAL_FORWARD_CALL_1(Bounded_side,bounded_side,Point_3)
@@ -61,6 +63,5 @@ public:
 #endif //SWIG_CGAL_KERNEL_ISO_CUBOID_3_H
 
 //Miscellaneous
-//Bbox bbox () const
 //Iso_cuboid_3<Kernel> transform ( Aff_transformation_3<Kernel> t) const
 

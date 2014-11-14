@@ -11,6 +11,7 @@
 #include <sstream>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
+#include <SWIG_CGAL/Kernel/Bbox_3.h>
 #include <SWIG_CGAL/Kernel/enum.h>
 #include <SWIG_CGAL/Common/Macros.h>
 
@@ -42,6 +43,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(Bounded_side,bounded_side,Point_3)
 //Miscellaneous
   SWIG_CGAL_FORWARD_CALL_0(double,volume)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Bbox_3,bbox)
 //Operators
   DEFINE_EQUALITY_OPERATORS(Tetrahedron_3)
 //I/O
@@ -60,5 +62,4 @@ public:
 
 
 //Miscellaneous
-//  Bbox_3  t.bbox ()  returns a bounding box containing t.
 //  Tetrahedron_3<Kernel>  t.transform ( Aff_transformation_3<Kernel> at)

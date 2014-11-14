@@ -10,6 +10,7 @@ import CGAL.Kernel.CGAL_Kernel;
 import CGAL.Kernel.Object;
 import CGAL.Kernel.Sphere_3;
 import CGAL.Kernel.Bounded_side;
+import CGAL.Kernel.Bbox_3;
 
 
 public class test_kernel {
@@ -42,6 +43,8 @@ public class test_kernel {
     Sphere_3 s=new Sphere_3(p,1);
     assert s.bounded_side(p)==Bounded_side.ON_BOUNDED_SIDE;
     
+    Bbox_3 bbox1 = p.bbox();
+    Bbox_3 bbox2 = p.bbox();
   }
 
 
