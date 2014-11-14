@@ -58,6 +58,8 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Kernel)
   #include <SWIG_CGAL/Kernel/Origin.h>
   #include <SWIG_CGAL/Kernel/Iso_rectangle_2.h>
   #include <SWIG_CGAL/Kernel/Iso_cuboid_3.h>
+  #include <SWIG_CGAL/Kernel/Bbox_2.h>
+  #include <SWIG_CGAL/Kernel/Bbox_3.h>
   #include <SWIG_CGAL/Common/Iterator.h>
 %}
 
@@ -98,6 +100,8 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
 %include "SWIG_CGAL/Kernel/Direction_3_decl.h"
 %include "SWIG_CGAL/Kernel/Tetrahedron_3.h"
 %include "SWIG_CGAL/Kernel/Vector_3_decl.h"
+%include "SWIG_CGAL/Kernel/Bbox_2_decl.h"
+%include "SWIG_CGAL/Kernel/Bbox_3_decl.h"
 #ifdef SWIG_CGAL_Kernel_MODULE
 %include "SWIG_CGAL/Common/Object.i"
 #endif
