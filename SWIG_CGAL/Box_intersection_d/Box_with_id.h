@@ -41,5 +41,4 @@ struct Box_with_id_3{
   Box_with_id_3(const Bbox_3& bbox ,unsigned int id) : data(bbox.get_data(), id)  {}
 };
 
-
 #endif // SWIG_CGAL_BOX_INTERSECTION_D_BOX_WITH_ID
