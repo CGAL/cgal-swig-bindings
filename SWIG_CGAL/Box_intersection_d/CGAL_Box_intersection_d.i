@@ -22,6 +22,12 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Box_intersection_d)
   #include <SWIG_CGAL/Common/Iterator.h>
 %}
 
+%include "std_pair.i"
+SWIG_CGAL_declare_identifier_of_template_class(Pair_of_int,std::pair<int,int>)
+
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Ids_iterator,)
+SWIG_CGAL_declare_identifier_of_template_class(Ids_iterator,SWIG_CGAL_Iterator<std::vector< std::pair<int,int> >::iterator,std::pair<int,int> >)
+
 %include "SWIG_CGAL/Box_intersection_d/Box_with_id.h"
 %include "SWIG_CGAL/Box_intersection_d/Callbacks.h"
 %include "SWIG_CGAL/Box_intersection_d/enum.h"

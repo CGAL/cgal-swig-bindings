@@ -11,19 +11,23 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include <utility>
+#include <SWIG_CGAL/Common/Iterator.h>
 
 struct Collect_ids_callback{
+  typedef std::pair<int, int> Pair_of_int;
+  typedef SWIG_CGAL_Iterator<std::vector< Pair_of_int >::iterator,Pair_of_int> Ids_iterator;
   #ifndef SWIG
-  typedef std::pair<int, int> Pair_of_ids;
-  boost::shared_ptr< std::vector< Pair_of_ids > > ids_ptr;
+  boost::shared_ptr< std::vector< Pair_of_int > > ids_ptr;
 
-  Collect_ids_callback():ids_ptr(new std::vector< Pair_of_ids >()){}
+  Collect_ids_callback():ids_ptr(new std::vector< Pair_of_int >()){}
   template <class Box>
   void operator()( const Box& b1, const Box& b2)
   {
-    ids_ptr->push_back( Pair_of_ids(b1.id(), b2.id()) );
+    ids_ptr->push_back( Pair_of_int(b1.id(), b2.id()) );
   }
   #endif
+  SWIG_CGAL_Iterator<std::vector< std::pair<int, int> >::iterator,std::pair<int, int> >
+  ids(){ return Ids_iterator(ids_ptr->begin(), ids_ptr->end()); }
 };
 
 #endif //SWIG_CGAL_BOX_INTERSECTION_D_CALLBACKS_H
