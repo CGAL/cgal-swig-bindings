@@ -133,6 +133,7 @@ if ( CGAL_FOUND )
     endif()
     add_subdirectory(SWIG_CGAL/HalfedgeDS)
     add_subdirectory(SWIG_CGAL/Point_set_processing_3)
+    add_subdirectory(SWIG_CGAL/Box_intersection_d)
 
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/SWIG_CGAL/User_packages/CMakeLists.txt")
       MESSAGE(STATUS "Found SWIG_CGAL/User_packages/CMakeLists.txt, user packages will be built.")
