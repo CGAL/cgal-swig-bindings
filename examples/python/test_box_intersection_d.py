@@ -24,7 +24,7 @@ bboxes_1=[]
 i=0
 for s in segments_1:
   bboxes_1.append( Box_with_id_2(s.bbox(),i) )
-  ++i
+  i+=1
 
 
 #Create the set of bboxes of the second set
@@ -32,15 +32,15 @@ for s in segments_1:
 bboxes_2=[]
 for s in segments_2:
   bboxes_2.append( Box_with_id_2(s.bbox(),i) )
-  ++i
+  i+=1
 
 
 callback = Collect_ids_callback()
-CGAL_Box_intersection_d.box_intersection_d(bboxes_1, bboxes_1, callback)
+CGAL_Box_intersection_d.box_intersection_d(bboxes_1, bboxes_2, callback)
 
 offset=len(bboxes_1)
 print("Ids of segments which bbox intersect")
 for p in callback.ids():
-  print(p[0]+" "+p[1])
+  print(p[0],p[1]-offset)
 
 
