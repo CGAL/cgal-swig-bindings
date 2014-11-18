@@ -27,6 +27,8 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Box_intersection_d)
   import java.util.Iterator;
   import CGAL.Kernel.Bbox_2;
   import CGAL.Kernel.Bbox_3;
+  import CGAL.Kernel.Segment_2;
+  import CGAL.Kernel.Point_2;
 %}
 
 %pragma(java) moduleimports=
@@ -44,6 +46,9 @@ SWIG_CGAL_declare_identifier_of_template_class(Ids_iterator,SWIG_CGAL_Iterator<s
 %typemap(javaimports) Collect_ids_callback %{import java.util.Iterator;%}
 %typemap(javaimports) Box_with_id_2 %{import CGAL.Kernel.Bbox_2;%}
 %typemap(javaimports) Box_with_id_3 %{import CGAL.Kernel.Bbox_3;%}
+
+%typemap(javaimports) Collect_polyline_intersection_points %{import java.util.Iterator;%}
+%typemap(javaimports) Box_for_segment_polyline_2 %{import CGAL.Kernel.Segment_2;%}
 
 %include "SWIG_CGAL/Box_intersection_d/Box_with_id.h"
 %include "SWIG_CGAL/Box_intersection_d/Callbacks.h"
@@ -74,12 +79,16 @@ declare_box_intersection_d_box_functions(Box_with_id_2,Collect_ids_callback)
 //   name clash , has the same erasure
 //declare_box_intersection_d_box_functions(Box_with_id_3,Collect_ids_callback)
 
-
+//declare function for handling segments on polylines
+SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Box_for_segment_polyline_2>::input,Box_for_segment_polyline_2,Box_for_segment_polyline_2,Box_for_segment_polyline_2::cpp_base,SWIGTYPE_p_Box_for_segment_polyline_2,"(LCGAL/Box_intersection_d/Box_for_segment_polyline_2;)J",box_intersection_d)
+SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Point_2,import CGAL.Kernel.Point_2;)
+SWIG_CGAL_declare_identifier_of_template_class(Point_2_iterator,SWIG_CGAL_Iterator<std::vector< Point_2::cpp_base >::iterator,Point_2 >)
+declare_box_intersection_d_box_functions(Box_for_segment_polyline_2,Collect_polyline_intersection_points)
 
 /*
 SWIG_CGAL_set_wrapper_iterator_helper_input(Segment_2)
 
-%inline %{ 
+%inline %{
 #include <boost/foreach.hpp>
 #include <SWIG_CGAL/Kernel/Segment_2.h>
 
@@ -94,7 +103,7 @@ void box_intersection_d(  Wrapper_iterator_helper< Segment_2 >::input range1
 )
 {
   std::vector< Box_with_id<2> > cpp_range1, cpp_range2;
-  
+
   int i=0;
   BOOST_FOREACH(Segment_2::cpp_base& s, range1)
     cpp_range1.push_back( Box_with_id<2>(s.bbox(), i++) );

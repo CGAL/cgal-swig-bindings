@@ -30,4 +30,30 @@ struct Collect_ids_callback{
   ids(){ return Ids_iterator(ids_ptr->begin(), ids_ptr->end()); }
 };
 
+#include <SWIG_CGAL/Kernel/Point_2.h>
+
+struct Collect_polyline_intersection_points{
+  typedef SWIG_CGAL_Iterator<std::vector< Point_2::cpp_base >::iterator,Point_2> Point_2_iterator;
+  #ifndef SWIG
+  boost::shared_ptr< std::vector<Point_2::cpp_base> > pts_ptr;
+
+  Collect_polyline_intersection_points():pts_ptr(new std::vector< Point_2::cpp_base >()){}
+  template <class Box>
+  void operator()( const Box& b1, const Box& b2)
+  {
+    if (b1.polyline_id()!=b2.polyline_id())
+    {
+      CGAL::Object inter_res = CGAL::intersection(b1.segment_2(), b2.segment_2());
+
+      if ( const Point_2::cpp_base* pt_ptr = CGAL::object_cast<Point_2::cpp_base>(&inter_res) )
+        pts_ptr->push_back(*pt_ptr);
+    }
+  }
+  #endif
+  SWIG_CGAL_Iterator<std::vector< Point_2::cpp_base >::iterator,Point_2 >
+  intersection_points(){ return Point_2_iterator(pts_ptr->begin(), pts_ptr->end()); }
+};
+
+
+
 #endif //SWIG_CGAL_BOX_INTERSECTION_D_CALLBACKS_H
