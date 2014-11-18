@@ -73,3 +73,40 @@ declare_box_intersection_d_box_functions(Box_with_id_2,Collect_ids_callback)
 // Commented for now to avoid the error:
 //   name clash , has the same erasure
 //declare_box_intersection_d_box_functions(Box_with_id_3,Collect_ids_callback)
+
+
+
+/*
+SWIG_CGAL_set_wrapper_iterator_helper_input(Segment_2)
+
+%inline %{ 
+#include <boost/foreach.hpp>
+#include <SWIG_CGAL/Kernel/Segment_2.h>
+
+void dummy(Segment_2){} // look at %types
+
+void box_intersection_d(  Wrapper_iterator_helper< Segment_2 >::input range1
+                        , Wrapper_iterator_helper< Segment_2 >::input range2
+                        , Collect_ids_callback& callback
+                        , int cutoff=10
+                        , Topology topology=CLOSED
+                        , Setting setting=BIPARTITE
+)
+{
+  std::vector< Box_with_id<2> > cpp_range1, cpp_range2;
+  
+  int i=0;
+  BOOST_FOREACH(Segment_2::cpp_base& s, range1)
+    cpp_range1.push_back( Box_with_id<2>(s.bbox(), i++) );
+  BOOST_FOREACH(Segment_2::cpp_base& s, range2)
+    cpp_range2.push_back( Box_with_id<2>(s.bbox(), i++) );
+
+  CGAL::box_intersection_d( cpp_range1.begin(), cpp_range1.end(),
+                            cpp_range2.begin(), cpp_range2.end(),
+                            callback, (std::ptrdiff_t) cutoff,
+                            CGAL::enum_cast< CGAL::Box_intersection_d::Topology >(topology),
+                            CGAL::enum_cast< CGAL::Box_intersection_d::Setting >(setting)
+  );
+}
+%}
+*/
