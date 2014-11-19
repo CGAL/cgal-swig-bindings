@@ -65,11 +65,16 @@ public class test_box_intersection_d{
     range.add( new Box_for_segment_polyline_2(segments_2.get(1), 1, i++) );
     range.add( new Box_for_segment_polyline_2(segments_2.get(2), 1, i++) );
 
-    Collect_polyline_intersection_points callback_bis = new Collect_polyline_intersection_points();
+    Collect_polyline_intersection_points callback_bis = new Collect_polyline_intersection_points(2);
     CGAL_Box_intersection_d.box_self_intersection_d(range.iterator(), callback_bis);
 
-    System.out.println("Intersection points of polylines");
-    for (Point_2 p : callback_bis.intersection_points() )
+    System.out.println("Intersection points in polyline 0");
+    for (Point_2 p : callback_bis.intersection_points(0) )
+    {
+      System.out.println(p);
+    }
+    System.out.println("Intersection points in polyline 1");
+    for (Point_2 p : callback_bis.intersection_points(1) )
     {
       System.out.println(p);
     }
