@@ -116,6 +116,27 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_3_typemap_in_adv
 }
 %enddef
 
+//IN typemap for reading a vector of pair of int from an array of int
+%define SWIG_CGAL_array_of_int_to_vector_of_pair_of_int_typemap_in
+%typemap(jni) boost::shared_ptr<std::vector< std::pair<int,int> > > "jintArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr<std::vector< std::pair<int,int> > > "int[]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr<std::vector< std::pair<int,int> > > "int[]"  //replace in java function args
+%typemap(javain) boost::shared_ptr<std::vector< std::pair<int,int> > > "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) boost::shared_ptr<std::vector< std::pair<int,int> > > {
+  boost::shared_ptr<std::vector< std::pair<int,int> > > res(new std::vector< std::pair<int,int> >());
+  const jsize size = jenv->GetArrayLength($input) / 2;
+  res->reserve((const std::size_t) size);
+  jboolean is_copy;
+  jint* indices = jenv->GetIntArrayElements($input, &is_copy);
+  for (int i = 0 ; i < size ; i++){
+    res->push_back( std::pair<int,int>(indices[i*2],indices[i*2+1]));
+  }
+  jenv->ReleaseIntArrayElements($input, indices, JNI_ABORT);
+  $1=res;
+}
+%enddef
+
 //IN typemap for a vector of int from an array of int
 %define SWIG_CGAL_array_of_int_to_vector_of_int_typemap_in
 %typemap(jni) boost::shared_ptr<std::vector<int> > "jintArray"  //replace in jni class
