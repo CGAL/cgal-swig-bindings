@@ -14,7 +14,7 @@ Bbox_3  Bbox_3::operator+(const Bbox_3& b) const {return Bbox_3( get_data() + b.
 
 Bbox_3&  Bbox_3::operator+=(const Bbox_3& b)
 {
-  get_data()+=b.get_data();
+  get_data()=get_data()+b.get_data();
   return *this;
 }
 #endif
