@@ -50,6 +50,11 @@ SWIG_CGAL_declare_identifier_of_template_class(Ids_iterator,SWIG_CGAL_Iterator<s
 %typemap(javaimports) Collect_polyline_intersection_points %{import java.util.Iterator;%}
 %typemap(javaimports) Box_for_segment_polyline_2 %{import CGAL.Kernel.Segment_2;%}
 
+#ifdef SWIGJAVA
+%include "SWIG_CGAL/Java/typemaps.i"
+SWIG_CGAL_array_of_int_to_vector_of_pair_of_int_typemap_in
+#endif
+
 %include "SWIG_CGAL/Box_intersection_d/Box_with_id.h"
 %include "SWIG_CGAL/Box_intersection_d/Callbacks.h"
 %include "SWIG_CGAL/Box_intersection_d/enum.h"
@@ -79,12 +84,13 @@ declare_box_intersection_d_box_functions(Box_with_id_2,Collect_ids_callback)
 //   name clash , has the same erasure
 //declare_box_intersection_d_box_functions(Box_with_id_3,Collect_ids_callback)
 
+#ifdef SWIGJAVA
 //declare function for handling segments on polylines
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Box_for_segment_polyline_2>::input,Box_for_segment_polyline_2,Box_for_segment_polyline_2,Box_for_segment_polyline_2::cpp_base,SWIGTYPE_p_Box_for_segment_polyline_2,"(LCGAL/Box_intersection_d/Box_for_segment_polyline_2;)J",box_intersection_d)
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Point_2,import CGAL.Kernel.Point_2;)
 SWIG_CGAL_declare_identifier_of_template_class(Point_2_iterator,SWIG_CGAL_Iterator<std::vector< Point_2::cpp_base >::iterator,Point_2 >)
 declare_box_intersection_d_box_functions(Box_for_segment_polyline_2,Collect_polyline_intersection_points)
-
+#endif
 /*
 SWIG_CGAL_set_wrapper_iterator_helper_input(Segment_2)
 
