@@ -32,6 +32,7 @@ struct Collect_ids_callback{
 
 #if !defined(SWIG) || defined(SWIGJAVA)
 #include <SWIG_CGAL/Kernel/Point_2.h>
+#include <set>
 
 struct Collect_polyline_intersection_points{
   typedef SWIG_CGAL_Iterator<std::vector< Point_2::cpp_base >::iterator,Point_2> Point_2_iterator;
