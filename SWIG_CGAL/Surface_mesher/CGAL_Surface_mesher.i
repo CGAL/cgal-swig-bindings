@@ -134,3 +134,7 @@ SWIG_CGAL_import_Polyhedron_3_SWIG_wrapper
     make_surface_mesh(c2t3,surface,criteria,tag,20);
   }
 %}
+
+#ifdef SWIG_CGAL_HAS_Surface_mesher_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Surface_mesher/extensions.i"
+#endif

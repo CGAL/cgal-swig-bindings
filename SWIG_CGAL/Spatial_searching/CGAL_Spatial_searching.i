@@ -111,3 +111,7 @@ SWIG_CGAL_declare_spatial_searching_objects(Orthogonal_k,OK,Point_3,3,NN_search_
 #ifdef SWIGJAVA
 %include "SWIG_CGAL/Spatial_searching/java_extensions.i"
 #endif
+
+#ifdef SWIG_CGAL_HAS_Spatial_searching_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Spatial_searching/extensions.i"
+#endif

@@ -32,3 +32,6 @@ SWIG_CGAL_set_wrapper_iterator_helper_output(Point_2)
   #include <SWIG_CGAL/Convex_hull_2/all_includes.h>
 %}
 
+#ifdef SWIG_CGAL_HAS_Convex_hull_2_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Convex_hull_2/extensions.i"
+#endif

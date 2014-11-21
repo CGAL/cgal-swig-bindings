@@ -82,3 +82,6 @@ SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_3_Halfedge_around_vert
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Circulator,Polyhedron_3_Halfedge_handle,)
 SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_3_Halfedge_around_facet_circulator,SWIG_CGAL_Circulator< Polyhedron_3_::Halfedge_around_facet_circulator,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_> >)
 
+#ifdef SWIG_CGAL_HAS_Polyhedron_3_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Polyhedron_3/extensions.i"
+#endif

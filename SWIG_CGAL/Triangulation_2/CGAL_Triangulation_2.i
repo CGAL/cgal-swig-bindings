@@ -87,3 +87,7 @@ SWIG_CGAL_declare_constrained_Delaunay_triangulation_2(Constrained_Delaunay_tria
 
 %import "SWIG_CGAL/Triangulation_2/declare_constrained_Delaunay_triangulation_plus_2.i"
 SWIG_CGAL_declare_constrained_Delaunay_triangulation_plus_2(Constrained_Delaunay_triangulation_plus_2,CGAL_CDTplus2)
+
+#ifdef SWIG_CGAL_HAS_Triangulation_2_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Triangulation_2/extensions.i"
+#endif

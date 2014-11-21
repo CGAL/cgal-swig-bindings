@@ -119,3 +119,6 @@ Optional<Segment_2> crop_voronoi_edge(Voronoi_diagram_2_SWIG_wrapper&, Voronoi_d
   }
 %}
 
+#ifdef SWIG_CGAL_HAS_Voronoi_diagram_2_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Voronoi_diagram_2/extensions.i"
+#endif

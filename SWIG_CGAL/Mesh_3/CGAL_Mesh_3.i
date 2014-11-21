@@ -143,3 +143,7 @@ declare_global_functions_domain_criteria(Mesh_3_Complex_3_in_triangulation_3_SWI
 #ifdef SWIGJAVA
 %include "SWIG_CGAL/Mesh_3/java_extensions.i"
 #endif
+
+#ifdef SWIG_CGAL_HAS_Mesh_3_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Mesh_3/extensions.i"
+#endif

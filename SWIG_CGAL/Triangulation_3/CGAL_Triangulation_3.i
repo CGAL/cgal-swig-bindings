@@ -60,3 +60,7 @@ SWIG_CGAL_declare_Delaunay_triangulation_3(Delaunay_triangulation_3,CGAL_DT3)
 
 %import "SWIG_CGAL/Triangulation_3/declare_regular_triangulation_3.i"
 SWIG_CGAL_declare_regular_triangulation_3(Regular_triangulation_3,CGAL_RT3)
+
+#ifdef SWIG_CGAL_HAS_Triangulation_3_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Triangulation_3/extensions.i"
+#endif

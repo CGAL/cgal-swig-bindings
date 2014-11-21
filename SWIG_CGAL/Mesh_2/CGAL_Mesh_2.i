@@ -118,3 +118,7 @@ declare_refine_global_functions(Mesh_2_Constrained_Delaunay_triangulation_plus_2
 #ifdef SWIGJAVA
 %include "SWIG_CGAL/Mesh_2/java_extensions.i"
 #endif
+
+#ifdef SWIG_CGAL_HAS_Mesh_2_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Mesh_2/extensions.i"
+#endif

@@ -59,3 +59,7 @@ SWIG_CGAL_declare_identifier_of_template_class(HalfedgeDS,HalfedgeDS_wrapper<HDS
 // template instantiation of HDS decorator class
 %typemap(javaimports)                       HalfedgeDS_decorator_wrapper %{import CGAL.Kernel.Point_2;%}
 SWIG_CGAL_declare_identifier_of_template_class(HalfedgeDS_decorator,HalfedgeDS_decorator_wrapper<HDS_d>)
+
+#ifdef SWIG_CGAL_HAS_HalfedgeDS_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/HalfedgeDS/extensions.i"
+#endif

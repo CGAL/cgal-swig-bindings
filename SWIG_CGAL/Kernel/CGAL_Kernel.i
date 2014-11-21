@@ -168,3 +168,6 @@ Bounded_side bounded_side_2(Point_range_2 range,const Point_2& p);
   }
 %}
 
+#ifdef SWIG_CGAL_HAS_Kernel_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Kernel/extensions.i"
+#endif

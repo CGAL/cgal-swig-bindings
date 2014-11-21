@@ -45,3 +45,7 @@ SWIG_CGAL_set_wrapper_iterator_helper_output(Vector_3)
 %{
   #include <SWIG_CGAL/Point_set_processing_3/functions.h>
 %}
+
+#ifdef SWIG_CGAL_HAS_Point_set_processing_3_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Point_set_processing_3/extensions.i"
+#endif

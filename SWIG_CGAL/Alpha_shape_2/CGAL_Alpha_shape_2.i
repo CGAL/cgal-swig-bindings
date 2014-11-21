@@ -67,3 +67,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Alpha_shape_2_wrapper:
 
 SWIG_CGAL_declare_alpha_shape_2(Alpha_shape_2,CGAL_AS2)
 SWIG_CGAL_declare_weighted_alpha_shape_2(Weighted_alpha_shape_2,CGAL_WAS2)
+
+#ifdef SWIG_CGAL_HAS_Alpha_shape_2_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Alpha_shape_2/extensions.i"
+#endif

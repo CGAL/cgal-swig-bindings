@@ -143,4 +143,6 @@ SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Polyhedron_3_Halfedge_h
 SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Segment_3_soup,AABB_tree_wrapper<CGAL_SSP_Tree,Segment_3,int >)
 SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Triangle_3_soup,AABB_tree_wrapper<CGAL_TSP_Tree,Triangle_3,int >)
 
-
+#ifdef SWIG_CGAL_HAS_AABB_tree_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/AABB_tree/extensions.i"
+#endif

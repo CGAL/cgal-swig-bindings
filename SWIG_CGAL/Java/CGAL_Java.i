@@ -28,3 +28,7 @@ SWIG_CGAL_add_java_loadLibrary_CGAL_Java()
     return JNI_VERSION_1_2;
   }
 %}
+
+#ifdef SWIG_CGAL_HAS_Java_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Java/extensions.i"
+#endif

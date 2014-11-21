@@ -62,7 +62,7 @@ SWIG_CGAL_declare_identifier_of_template_class(Data_access_vector_2,Data_access_
 %include "SWIG_CGAL/Interpolation/declare_interpolation_functions.i"
 
 
-//=============
-
-
+#ifdef SWIG_CGAL_HAS_Interpolation_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Interpolation/extensions.i"
+#endif
 
