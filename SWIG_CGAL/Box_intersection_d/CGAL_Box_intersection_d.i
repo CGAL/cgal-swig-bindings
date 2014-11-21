@@ -60,6 +60,7 @@ SWIG_CGAL_array_of_int_to_vector_of_pair_of_int_typemap_in
 %include "SWIG_CGAL/Box_intersection_d/enum.h"
 
 
+
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Box_with_id_2>::input,Box_with_id_2,Box_with_id_2,Box_with_id_2::cpp_base,SWIGTYPE_p_Box_with_id_2,"(LCGAL/Box_intersection_d/Box_with_id_2;)J",box_intersection_d)
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Box_with_id_3>::input,Box_with_id_3,Box_with_id_3,Box_with_id_3::cpp_base,SWIGTYPE_p_Box_with_id_3,"(LCGAL/Box_intersection_d/Box_with_id_3;)J",box_intersection_d)
 #ifdef SWIGPYTHON
@@ -78,11 +79,12 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(box_self_intersection_
   #include <vector>
 %}
 
+SWIG_CGAL_declare_identifier_of_template_class(Collect_ids_callback_2,Collect_ids_callback<2>)
+SWIG_CGAL_declare_identifier_of_template_class(Collect_ids_callback_3,Collect_ids_callback<3>)
+
 %include "SWIG_CGAL/Box_intersection_d/macros.i"
-declare_box_intersection_d_box_functions(Box_with_id_2,Collect_ids_callback)
-// Commented for now to avoid the error:
-//   name clash , has the same erasure
-//declare_box_intersection_d_box_functions(Box_with_id_3,Collect_ids_callback)
+declare_box_intersection_d_box_functions(Box_with_id_2,Collect_ids_callback<2>)
+declare_box_intersection_d_box_functions(Box_with_id_3,Collect_ids_callback<3>)
 
 #ifdef SWIGJAVA
 //declare function for handling segments on polylines

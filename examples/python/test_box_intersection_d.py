@@ -1,7 +1,7 @@
 from CGAL.CGAL_Kernel import Point_2
 from CGAL.CGAL_Kernel import Segment_2
 from CGAL.CGAL_Kernel import Bbox_2
-from CGAL.CGAL_Box_intersection_d import Collect_ids_callback
+from CGAL.CGAL_Box_intersection_d import Collect_ids_callback_2
 from CGAL.CGAL_Box_intersection_d import Box_with_id_2
 from CGAL.CGAL_Box_intersection_d import Pair_of_int
 from CGAL import CGAL_Box_intersection_d
@@ -35,7 +35,7 @@ for s in segments_2:
   i+=1
 
 
-callback = Collect_ids_callback()
+callback = Collect_ids_callback_2()
 CGAL_Box_intersection_d.box_intersection_d(bboxes_1, bboxes_2, callback)
 
 offset=len(bboxes_1)

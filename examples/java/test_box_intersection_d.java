@@ -2,7 +2,7 @@ import CGAL.Kernel.Point_2;
 import CGAL.Kernel.Segment_2;
 import CGAL.Kernel.Bbox_2;
 import java.util.Vector;
-import CGAL.Box_intersection_d.Collect_ids_callback;
+import CGAL.Box_intersection_d.Collect_ids_callback_2;
 import CGAL.Box_intersection_d.CGAL_Box_intersection_d;
 import CGAL.Box_intersection_d.Box_with_id_2;
 import CGAL.Box_intersection_d.Pair_of_int;
@@ -43,7 +43,7 @@ public class test_box_intersection_d{
       ++i;
     }
 
-    Collect_ids_callback callback = new Collect_ids_callback();
+    Collect_ids_callback_2 callback = new Collect_ids_callback_2();
     CGAL_Box_intersection_d.box_intersection_d(bboxes_1.iterator(), bboxes_2.iterator(), callback);
 
     int offset=bboxes_1.size();

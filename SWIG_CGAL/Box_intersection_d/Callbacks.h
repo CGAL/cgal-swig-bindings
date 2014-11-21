@@ -13,6 +13,8 @@
 #include <utility>
 #include <SWIG_CGAL/Common/Iterator.h>
 
+// the template parameter is not needed but in java to avoid a type erasure issue with generics
+template <int DIM>
 struct Collect_ids_callback{
   typedef std::pair<int, int> Pair_of_int;
   typedef SWIG_CGAL_Iterator<std::vector< Pair_of_int >::iterator,Pair_of_int> Ids_iterator;
