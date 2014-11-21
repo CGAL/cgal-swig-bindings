@@ -86,13 +86,10 @@ SWIG_CGAL_declare_identifier_of_template_class(Collect_ids_callback_3,Collect_id
 declare_box_intersection_d_box_functions(Box_with_id_2,Collect_ids_callback<2>)
 declare_box_intersection_d_box_functions(Box_with_id_3,Collect_ids_callback<3>)
 
-#ifdef SWIGJAVA
-//declare function for handling segments on polylines
-SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Box_for_segment_polyline_2>::input,Box_for_segment_polyline_2,Box_for_segment_polyline_2,Box_for_segment_polyline_2::cpp_base,SWIGTYPE_p_Box_for_segment_polyline_2,"(LCGAL/Box_intersection_d/Box_for_segment_polyline_2;)J",box_intersection_d)
-SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Point_2,import CGAL.Kernel.Point_2;)
-SWIG_CGAL_declare_identifier_of_template_class(Point_2_iterator,SWIG_CGAL_Iterator<std::vector< Point_2::cpp_base >::iterator,Point_2 >)
-declare_box_intersection_d_box_functions(Box_for_segment_polyline_2,Collect_polyline_intersection_points)
+#ifdef SWIG_CGAL_HAS_Box_intersection_d_USER_PACKAGE
+%include "SWIG_CGAL/User_packages/Box_intersection_d/extensions.i"
 #endif
+
 /*
 SWIG_CGAL_set_wrapper_iterator_helper_input(Segment_2)
 

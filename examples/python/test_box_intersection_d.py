@@ -11,13 +11,13 @@ segments_1=[]
 segments_1.append( Segment_2(Point_2(1,2), Point_2(2,1) ) )
 segments_1.append( Segment_2(Point_2(1,3), Point_2(2,3) ) )
 segments_1.append( Segment_2(Point_2(5,2), Point_2(6,1) ) )
-    
+
 #Second set of segments
 segments_2=[]
 segments_2.append( Segment_2(Point_2(1,1), Point_2(2,2) ) )
 segments_2.append( Segment_2(Point_2(5,1), Point_2(6,2) ) )
 segments_2.append( Segment_2(Point_2(5,3), Point_2(6,3) ) )
- 
+
 
 #Create the set of bboxes of the first set
 bboxes_1=[]

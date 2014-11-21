@@ -7,9 +7,6 @@ import CGAL.Box_intersection_d.CGAL_Box_intersection_d;
 import CGAL.Box_intersection_d.Box_with_id_2;
 import CGAL.Box_intersection_d.Pair_of_int;
 
-import CGAL.Box_intersection_d.Collect_polyline_intersection_points;
-import CGAL.Box_intersection_d.Box_for_segment_polyline_2;
-
 public class test_box_intersection_d{
   public static void main(String arg[]){
 
@@ -53,31 +50,6 @@ public class test_box_intersection_d{
       System.out.println(p.getFirst()+" "+(p.getSecond()-offset));
     }
 
-    //alternative solution where we also construct the intersection points
-    Vector< Box_for_segment_polyline_2 > range = new Vector< Box_for_segment_polyline_2 >();
-    i=0;
-    for( Segment_2 s : segments_1)
-    {
-      range.add( new Box_for_segment_polyline_2(s, 0, i++) );
-    }
-
-    range.add( new Box_for_segment_polyline_2(segments_2.get(0), 0, i++) );
-    range.add( new Box_for_segment_polyline_2(segments_2.get(1), 1, i++) );
-    range.add( new Box_for_segment_polyline_2(segments_2.get(2), 1, i++) );
-
-    Collect_polyline_intersection_points callback_bis = new Collect_polyline_intersection_points(2);
-    CGAL_Box_intersection_d.box_self_intersection_d(range.iterator(), callback_bis);
-
-    System.out.println("Intersection points in polyline 0");
-    for (Point_2 p : callback_bis.intersection_points(0) )
-    {
-      System.out.println(p);
-    }
-    System.out.println("Intersection points in polyline 1");
-    for (Point_2 p : callback_bis.intersection_points(1) )
-    {
-      System.out.println(p);
-    }
   }
 }
 
