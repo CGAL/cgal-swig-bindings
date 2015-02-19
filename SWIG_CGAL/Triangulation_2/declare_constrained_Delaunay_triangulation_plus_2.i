@@ -15,8 +15,9 @@
 // --EXPOSEDNAME is the name of the class exposed by SWIG
 // --CLASSNAME_PREFIX is the prefixed of the final class exposed by SWIG (different from EXPOSEDNAME if used for a base class instantiation)
 // --CPPTYPE is the c++ type of the triangulation
-%define SWIG_CGAL_declare_constrained_Delaunay_triangulation_plus_2_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE)
-  SWIG_CGAL_declare_constrained_Delaunay_triangulation_2_internal(Internal_Constrained_Delaunay_triangulation_2_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE)
+// --MODULENAME name of the module the class will be declared
+%define SWIG_CGAL_declare_constrained_Delaunay_triangulation_plus_2_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,MODULENAME)
+  SWIG_CGAL_declare_constrained_Delaunay_triangulation_2_internal(Internal_Constrained_Delaunay_triangulation_2_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,MODULENAME)
 
   //types
   %include "std_pair.i"
@@ -46,8 +47,9 @@
 //Expose a constrained Delaunay triangulation plus 2
 // --CLASSNAME  is the name of the class exposed by SWIG
 // --CPPTYPE is the c++ type of the triangulation
-%define SWIG_CGAL_declare_constrained_Delaunay_triangulation_plus_2(CLASSNAME,CPPTYPE)
-  SWIG_CGAL_declare_constrained_Delaunay_triangulation_plus_2_internal(CLASSNAME,CLASSNAME,CPPTYPE)
+// --MODULENAME name of the module the class will be declared
+%define SWIG_CGAL_declare_constrained_Delaunay_triangulation_plus_2(CLASSNAME,CPPTYPE,MODULENAME)
+  SWIG_CGAL_declare_constrained_Delaunay_triangulation_plus_2_internal(CLASSNAME,CLASSNAME,CPPTYPE,MODULENAME)
 %enddef
 
 #endif //SWIG_CGAL_TRIANGULATION_2_DECLARE_CONSTRAINED_DELAUNAY_TRIANGULATION_2_PLUS_I

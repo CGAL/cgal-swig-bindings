@@ -15,7 +15,8 @@
 // --EXPOSEDNAME is the name of the class exposed by SWIG
 // --CLASSNAME_PREFIX is the prefixed of the final class exposed by SWIG (different from EXPOSEDNAME if used for a base class instantiation)
 // --CPPTYPE is the c++ type of the triangulation
-%define SWIG_CGAL_declare_constrained_triangulation_2_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE)
+// --MODULENAME name of the module the class will be declared
+%define SWIG_CGAL_declare_constrained_triangulation_2_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,MODULENAME)
   SWIG_CGAL_declare_triangulation_2_internal(Internal_Triangulation_2_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,Point_2,CGAL::Tag_false)
 
   //typemaps for Edge_output_iterator
@@ -24,7 +25,7 @@
   %{
   typedef std::pair<SWIG_Triangulation_2::CGAL_Face_handle< CPPTYPE,Point_2 >,int> CLASSNAME_PREFIX##_Edge;
   %}
-  SWIG_CGAL_output_iterator_typemap_in(EXPOSEDNAME##_Edge_output_iterator,CLASSNAME_PREFIX##_Edge,CLASSNAME_PREFIX##_Edge,CPPTYPE::Edge,SWIGTYPE_p_std__pairT_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t_int_t,"LCGAL/Triangulation_2/" #CLASSNAME_PREFIX "_Edge;")
+  SWIG_CGAL_output_iterator_typemap_in(EXPOSEDNAME##_Edge_output_iterator,CLASSNAME_PREFIX##_Edge,CLASSNAME_PREFIX##_Edge,CPPTYPE::Edge,SWIGTYPE_p_std__pairT_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t_int_t,"LCGAL/"#MODULENAME"/" #CLASSNAME_PREFIX "_Edge;")
   #else
   %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"  
   %define i##EXPOSEDNAME##_Triangulation_Edge  std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,Point_2>,int > %enddef
@@ -38,8 +39,9 @@
 //Expose a constrained triangulation_2
 // --CLASSNAME  is the name of the class exposed by SWIG
 // --CPPTYPE is the c++ type of the triangulation
-%define SWIG_CGAL_declare_constrained_triangulation_2(CLASSNAME,CPPTYPE)
-  SWIG_CGAL_declare_constrained_triangulation_2_internal(CLASSNAME,CLASSNAME,CPPTYPE)
+// --MODULENAME name of the module the class will be declared
+%define SWIG_CGAL_declare_constrained_triangulation_2(CLASSNAME,CPPTYPE,MODULENAME)
+  SWIG_CGAL_declare_constrained_triangulation_2_internal(CLASSNAME,CLASSNAME,CPPTYPE,MODULENAME)
 %enddef
 
 #endif //SWIG_CGAL_TRIANGULATION_2_DECLARE_CONSTRAINED_TRIANGULATION_2_I
