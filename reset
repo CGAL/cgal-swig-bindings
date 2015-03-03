@@ -1,0 +1,15 @@
+#!/bin/bash
+
+MODULES="CGAL_Kernel"
+for i in $MODULES
+do
+    rm -fv SWIG_CGAL/Kernel/"$i".py
+    rm -fv SWIG_CGAL/Kernel/"$i"_wrap.cpp
+done
+
+rm -rfv build-python
+rm -rfv build
+rm -rfv dist
+
+pip uninstall cgal-bindings
+
