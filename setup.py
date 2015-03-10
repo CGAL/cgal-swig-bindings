@@ -82,8 +82,8 @@ def find_in_paths(search_paths, search):
 
 
 
-
-OUT_DIR = 'build-python'
+# This is the directory where the CMake build puts everything by default
+OUT_DIR = os.path.abspath('build-python')
 
 PACKAGE_DIR = os.path.join(OUT_DIR,"CGAL")
 
@@ -110,7 +110,7 @@ CGAL_modules = [
     "Point_set_processing_3",       # needs eigen3
     "Polyhedron_3",
     "Spatial_searching",
-    "Surface_mesher",               # needs imageio components
+    "Surface_mesher",               # needs imageio components (CGAL was built with imageio)
     "Triangulation_2",
     "Triangulation_3",
     "Voronoi_diagram_2"
@@ -118,7 +118,8 @@ CGAL_modules = [
 
 
 INCLUDE_DIRS = ["./","SWIG_CGAL/AABB_tree/include"]
-MACROS = []
+MACROS = ['CGAL_USE_GMP', 'CGAL_USE_MPFR', 'CGAL_USE_ZLIB']
+MACROS = [(s, None) for s in MACROS]
 HEADER_PATHS, LIBRARY_PATHS = get_all_paths()
 CGAL_HEADER_PATH  = find_in_paths(HEADER_PATHS, 'cgal')
 
@@ -134,9 +135,10 @@ CGAL_CONFIG_SEARCH = filter(os.path.isdir, CGAL_CONFIG_SEARCH)
 CGAL_CONFIG_SEARCH += HEADER_PATHS
 
 
+# Use CGALConfig.make to see if it was build with imageio
 WITH_IMAGEIO = False
 cgal_config = find_in_paths(CGAL_CONFIG_SEARCH, "CGALConfig.cmake")
-if os.path.isfile(cgal_config):
+if cgal_config is not None and os.path.isfile(cgal_config):
     file = open(cgal_config)
     for line in file:
         if line.replace(" ","").replace('"',' ').lower().startswith('set(with_cgal_imageio on'):
@@ -170,11 +172,14 @@ extensions = []
 for mod_name in CGAL_modules:
     # if mod_name=="AABB_tree":   # This one has its own include directory
     #     include_dirs.append("SWIG_CGAL/AABB_tree/include")
-    e = Extension("CGAL_" + mod_name,
+    macros = MACROS[:]
+    macros.append(("_CGAL_{0}_EXPORTS".format(mod_name), None))
+    e = Extension("_CGAL_" + mod_name,
                   sources=["SWIG_CGAL/{0}/CGAL_{0}.i".format(mod_name)],
-                  swig_opts=["-c++"],
-                  define_macros=MACROS,
-                  include_dirs=INCLUDE_DIRS)
+                  swig_opts=["-c++","-outdir",PACKAGE_DIR],
+                  define_macros=macros,
+                  include_dirs=INCLUDE_DIRS,
+                  extra_compile_args=["-fPIC"])
 
     extensions.append(e)
 
@@ -185,7 +190,6 @@ setup(
     packages=['CGAL'],
     ext_package='CGAL',
     ext_modules = extensions,
-    py_modules = CGAL_modules,
     package_dir = {'': 'build-python'}
 )
 
