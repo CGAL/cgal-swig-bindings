@@ -8,6 +8,7 @@ import sys
 from ctypes.util import find_library    # Useful function for findings libs (cross platform too)
 import distutils.sysconfig
 import distutils.ccompiler
+import re
 
 def touch(fname, times=None):
     with open(fname, 'a'):
@@ -16,7 +17,7 @@ def touch(fname, times=None):
 
 
 # Find all the header and library paths
-# At least the ones to get CGAL to build
+# At least the ones relevant to CGAL
 def get_all_paths():
     def path_split(path_string):
         if os.name=='nt':
@@ -72,11 +73,11 @@ def get_all_paths():
 
 # Find a file inside the header/library search paths
 # Case insensitive
-def find_in_paths(search_paths, name):
+def find_in_paths(search_paths, search):
     for path in search_paths:
-        for header in os.listdir(path):
-            if header.lower() == name.lower():
-                return os.path.join(path, header)
+        for file in os.listdir(path):
+            if file.lower() == search.lower():
+                return os.path.join(path, file)
     return None
 
 
@@ -115,7 +116,7 @@ CGAL_modules = [
     "Voronoi_diagram_2"
 ]
 
-#
+
 INCLUDE_DIRS = ["./","SWIG_CGAL/AABB_tree/include"]
 MACROS = []
 HEADER_PATHS, LIBRARY_PATHS = get_all_paths()
@@ -124,13 +125,31 @@ CGAL_HEADER_PATH  = find_in_paths(HEADER_PATHS, 'cgal')
 if find_library('cgal') is None and CGAL_HEADER_PATH is None:
     sys.exit("You don't appear to have cgal installed")
 
-#TODO
-if find_library('imageio') is None:
+#Make some guesses as to where that CGALConfig.make file is
+CGAL_CONFIG_SEARCH = [
+    os.environ.get("CGAL_DIR", ""),
+    find_in_paths(LIBRARY_PATHS, 'cgal') or ""
+]
+CGAL_CONFIG_SEARCH = filter(os.path.isdir, CGAL_CONFIG_SEARCH)
+CGAL_CONFIG_SEARCH += HEADER_PATHS
+
+
+WITH_IMAGEIO = False
+cgal_config = find_in_paths(CGAL_CONFIG_SEARCH, "CGALConfig.cmake")
+if os.path.isfile(cgal_config):
+    file = open(cgal_config)
+    for line in file:
+        if line.replace(" ","").replace('"',' ').lower().startswith('set(with_cgal_imageio on'):
+            WITH_IMAGEIO = True
+            print "Found image IO"
+            break
+
+if not WITH_IMAGEIO:
     sys.stderr.write("ImageIO is not installed, skipping Surface_mesher\n")
     CGAL_modules.remove("Surface_mesher")
 
 
-EIGEN3_PATH = find_header_dir(HEADER_PATHS, 'eigen3')
+EIGEN3_PATH = find_in_paths(HEADER_PATHS, 'eigen3')
 if EIGEN3_PATH is None:
     sys.stderr.write("No Eigen3 found, skipping Point_set_processing_3\n")
     CGAL_modules.remove("Point_set_processing_3")
@@ -151,7 +170,7 @@ extensions = []
 for mod_name in CGAL_modules:
     # if mod_name=="AABB_tree":   # This one has its own include directory
     #     include_dirs.append("SWIG_CGAL/AABB_tree/include")
-    e = Extension("_" + mod_name,
+    e = Extension("CGAL_" + mod_name,
                   sources=["SWIG_CGAL/{0}/CGAL_{0}.i".format(mod_name)],
                   swig_opts=["-c++"],
                   define_macros=MACROS,
@@ -166,6 +185,7 @@ setup(
     packages=['CGAL'],
     ext_package='CGAL',
     ext_modules = extensions,
+    py_modules = CGAL_modules,
     package_dir = {'': 'build-python'}
 )
 
