@@ -9,26 +9,42 @@ from ctypes.util import find_library    # Useful function for findings libs (cro
 import distutils.sysconfig
 import distutils.ccompiler
 import glob
+import tempfile
+import shutil
+from textwrap import dedent
+import distutils.sysconfig
+import distutils.ccompiler
+from distutils.errors import CompileError, LinkError
 
 
 def touch(fname, times=None):
     with open(fname, 'a'):
         os.utime(fname, times)
 
+#
+# def get_header_definition(define, header, include_dirs):
+#     compiler = distutils.ccompiler.new_compiler()
+#     distutils.sysconfig.customize_compiler(compiler)
+#     header_code = dedent("""
+#     #include {h}
+#
+#     #define DELIMIT(x) "===" XSTR(x) "==="
+#     #define XSTR(x) STR(x)
+#     #define STR(x) #x
+#
+#     #pragma message(XSTR({define}))
+#
+#     int main(){}
+#     """.format(h=header))
+#
+
 # Thanks to Anthon on Stack Overflow
+# http://stackoverflow.com/questions/28843765/setup-py-check-if-non-python-library-dependency-exists/
 # Modified from his reply
 def check_gmp_function(hdirs, ldirs):
     """
     Check that gmp has mpn_sqr, which is necessary for this to work
     """
-
-    import tempfile
-    import shutil
-    from textwrap import dedent
-
-    import distutils.sysconfig
-    import distutils.ccompiler
-    from distutils.errors import CompileError, LinkError
 
     libraries = ['gmp']
 
@@ -38,7 +54,7 @@ def check_gmp_function(hdirs, ldirs):
 
     int main(int argc, char* argv[])
     {
-        mpn_sqr(0,0,1);
+        mpn_sqr(0, 0, 1);
         return 0;
     }
     """)
@@ -190,14 +206,13 @@ MACROS = [(s, None) for s in MACROS]
 HEADER_PATHS, LIBRARY_PATHS = get_all_paths()
 CGAL_HEADER_PATH  = find_in_paths(HEADER_PATHS, 'cgal')
 
-if not check_gmp_function(HEADER_PATHS, LIBRARY_PATHS):
-    sys.exit("Your GMP library seems to be missing mpn_sqr, it is probably out of date")
-
 
 for dep in ['gmp', 'mpfr', 'CGAL']:
     if compiler.find_library_file(LIBRARY_PATHS, dep) is None:
         sys.exit("You are missing the {0} library".format(dep))
 
+if not check_gmp_function(HEADER_PATHS, LIBRARY_PATHS):
+    sys.exit("Your GMP library seems to be missing mpn_sqr, it is probably out of date")
 
 #Make some guesses as to where that CGALConfig.make file is
 CGAL_CONFIG_SEARCH = [
@@ -237,6 +252,7 @@ else:
     INCLUDE_DIRS.append(EIGEN3_PATH)
     MACROS.append(('CGAL_EIGEN3_ENABLED', None))
 
+CGAL_modules = ["Kernel"]
 
 # compiler = distutils.ccompiler.new_compiler()
 # distutils.sysconfig.customize_compiler(compiler)
@@ -256,7 +272,8 @@ for mod_name in CGAL_modules:
                   swig_opts=["-c++","-outdir",PACKAGE_DIR,"-DSWIG_CGAL_{0}_MODULE".format(mod_name)],     # -DSWIG_CGAL_Surface_mesher_MODULE
                   libraries=['CGAL', 'gmp', 'mpfr'],
                   define_macros=macros,
-                  include_dirs=INCLUDE_DIRS,
+                  include_dirs=INCLUDE_DIRS + HEADER_PATHS,
+                  library_dirs=LIBRARY_PATHS,
                   extra_compile_args=["-fPIC"])
 
     extensions.append(e)
