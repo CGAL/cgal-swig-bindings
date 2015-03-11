@@ -252,7 +252,6 @@ else:
     INCLUDE_DIRS.append(EIGEN3_PATH)
     MACROS.append(('CGAL_EIGEN3_ENABLED', None))
 
-CGAL_modules = ["Kernel"]
 
 # compiler = distutils.ccompiler.new_compiler()
 # distutils.sysconfig.customize_compiler(compiler)
