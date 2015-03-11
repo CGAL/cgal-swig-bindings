@@ -1,5 +1,5 @@
 
-import setuptools
+
 from setuptools import setup
 from distutils.extension import Extension
 import os
@@ -8,12 +8,66 @@ import sys
 from ctypes.util import find_library    # Useful function for findings libs (cross platform too)
 import distutils.sysconfig
 import distutils.ccompiler
-import re
+import glob
+
 
 def touch(fname, times=None):
     with open(fname, 'a'):
         os.utime(fname, times)
 
+# Thanks to Anthon on Stack Overflow
+# Modified from his reply
+def check_gmp_function():
+    """
+    Check that gmp has mpn_sqr, which is necessary for this to work
+    """
+
+    import tempfile
+    import shutil
+
+    import distutils.sysconfig
+    import distutils.ccompiler
+    from distutils.errors import CompileError, LinkError
+
+    libraries = ['gmp']
+
+    # write a temporary .c file to compile
+    c_code = dedent("""
+    #include <gmp.h>
+
+    int main(int argc, char* argv[])
+    {
+        mpn_sqr((mp_limb_t *)0, (mp_limb_t *)0, (mp_size_t)1);
+        return 0;
+    }
+    """)
+    tmp_dir = tempfile.mkdtemp(prefix = 'tmp_gmp_')
+    bin_file_name = os.path.join(tmp_dir, 'test_gmp')
+    file_name = bin_file_name + '.c'
+    with open(file_name, 'w') as fp:
+        fp.write(c_code)
+
+    # and try to compile it
+    compiler = distutils.ccompiler.new_compiler()
+    assert isinstance(compiler, distutils.ccompiler.CCompiler)
+    distutils.sysconfig.customize_compiler(compiler)
+
+    try:
+        compiler.link_executable(
+            compiler.compile([file_name]),
+            bin_file_name,
+            libraries=libraries,
+        )
+    except CompileError:
+        print('libgmp compile error')
+        ret_val = False
+    except LinkError:
+        print('libgmp link error')
+        ret_val = False
+    else:
+        ret_val = True
+    shutil.rmtree(tmp_dir)
+    return ret_val
 
 
 # Find all the header and library paths
@@ -98,13 +152,13 @@ if not os.path.exists(initpy):
 
 # The subdirectories in SWIG_CGAL which contain swig interface files
 CGAL_modules = [
+    "Kernel",
     "AABB_tree",
     "Alpha_shape_2",
     "Box_intersection_d",
     "Convex_hull_2",
     "HalfedgeDS",
     "Interpolation",
-    "Kernel",
     "Mesh_2",
     "Mesh_3",
     "Point_set_processing_3",       # needs eigen3
@@ -116,15 +170,29 @@ CGAL_modules = [
     "Voronoi_diagram_2"
 ]
 
+compiler = distutils.ccompiler.new_compiler()
+distutils.sysconfig.customize_compiler(compiler)
+
 
 INCLUDE_DIRS = ["./","SWIG_CGAL/AABB_tree/include"]
-MACROS = ['CGAL_USE_GMP', 'CGAL_USE_MPFR', 'CGAL_USE_ZLIB']
+MACROS = ['CGAL_USE_GMP', 'CGAL_USE_MPFR', 'CGAL_USE_ZLIB', 'CGAL_Kernel_cpp_EXPORTS']
+LINKER_LIBS = ['CGAL', 'gmp', 'mpfr']
 MACROS = [(s, None) for s in MACROS]
 HEADER_PATHS, LIBRARY_PATHS = get_all_paths()
 CGAL_HEADER_PATH  = find_in_paths(HEADER_PATHS, 'cgal')
 
-if find_library('cgal') is None and CGAL_HEADER_PATH is None:
+if not check_gmp_function():
+    sys.exit("Your GMP library seems to be missing mpn_sqr, it is probably out of date")
+
+
+for dep in ['gmp', 'mpfr']:
+    if compiler.find_library_file(LIBRARY_PATHS, dep) is None:
+        sys.exit("You are missing the {0} library".format(dep))
+
+if compiler.find_library_file(LIBRARY_PATHS, 'cgal') is None or CGAL_HEADER_PATH is None:
     sys.exit("You don't appear to have cgal installed")
+
+
 
 #Make some guesses as to where that CGALConfig.make file is
 CGAL_CONFIG_SEARCH = [
@@ -144,7 +212,10 @@ if cgal_config is not None and os.path.isfile(cgal_config):
         if line.replace(" ","").replace('"',' ').lower().startswith('set(with_cgal_imageio on'):
             WITH_IMAGEIO = True
             print "Found image IO"
+            LINKER_LIBS.append('CGAL_ImageIO')
             break
+else:
+    sys.stderr.write("Couldn't find CGALConfig.cmake\n")
 
 if not WITH_IMAGEIO:
     sys.stderr.write("ImageIO is not installed, skipping Surface_mesher\n")
@@ -170,19 +241,20 @@ else:
 # Translate the names of folders into actual Extension instances
 extensions = []
 for mod_name in CGAL_modules:
-    # if mod_name=="AABB_tree":   # This one has its own include directory
-    #     include_dirs.append("SWIG_CGAL/AABB_tree/include")
     macros = MACROS[:]
     macros.append(("_CGAL_{0}_EXPORTS".format(mod_name), None))
+    source_list = ["SWIG_CGAL/{0}/CGAL_{0}.i".format(mod_name)]
+    source_list += glob.glob("SWIG_CGAL/{0}/*.cpp".format(mod_name))
+    source_list = filter(lambda s: not s.endswith('_wrap.cpp'), source_list)
     e = Extension("_CGAL_" + mod_name,
-                  sources=["SWIG_CGAL/{0}/CGAL_{0}.i".format(mod_name)],
-                  swig_opts=["-c++","-outdir",PACKAGE_DIR],
+                  sources=source_list,
+                  swig_opts=["-c++","-outdir",PACKAGE_DIR,"-DSWIG_CGAL_{0}_MODULE".format(mod_name)],     # -DSWIG_CGAL_Surface_mesher_MODULE
+                  libraries=['CGAL', 'gmp', 'mpfr'],
                   define_macros=macros,
                   include_dirs=INCLUDE_DIRS,
                   extra_compile_args=["-fPIC"])
 
     extensions.append(e)
-
 
 setup(
     name="cgal-bindings",
