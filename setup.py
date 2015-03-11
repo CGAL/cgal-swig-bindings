@@ -17,13 +17,14 @@ def touch(fname, times=None):
 
 # Thanks to Anthon on Stack Overflow
 # Modified from his reply
-def check_gmp_function():
+def check_gmp_function(hdirs, ldirs):
     """
     Check that gmp has mpn_sqr, which is necessary for this to work
     """
 
     import tempfile
     import shutil
+    from textwrap import dedent
 
     import distutils.sysconfig
     import distutils.ccompiler
@@ -37,7 +38,7 @@ def check_gmp_function():
 
     int main(int argc, char* argv[])
     {
-        mpn_sqr((mp_limb_t *)0, (mp_limb_t *)0, (mp_size_t)1);
+        mpn_sqr(0,0,1);
         return 0;
     }
     """)
@@ -51,6 +52,8 @@ def check_gmp_function():
     compiler = distutils.ccompiler.new_compiler()
     assert isinstance(compiler, distutils.ccompiler.CCompiler)
     distutils.sysconfig.customize_compiler(compiler)
+    compiler.set_include_dirs(hdirs)
+    compiler.set_library_dirs(ldirs)
 
     try:
         compiler.link_executable(
@@ -68,7 +71,6 @@ def check_gmp_function():
         ret_val = True
     shutil.rmtree(tmp_dir)
     return ret_val
-
 
 # Find all the header and library paths
 # At least the ones relevant to CGAL
@@ -90,14 +92,8 @@ def get_all_paths():
     compiler = distutils.ccompiler.new_compiler()
     distutils.sysconfig.customize_compiler(compiler)
 
-    # Only UnixCompiler has this attribute at the moment
-    # It contains all the arguments passed to the compiler, some of which are paths
-    if hasattr(compiler,'compiler_so'):
-        for arg_or_path in compiler.compiler_so:
-            if arg_or_path.startswith("-I/"):
-                header_paths.append(arg_or_path[2:])
-            if arg_or_path.startswith("-L/"):
-                library_paths.append(arg_or_path[2:])
+    # Get paths from environment variables
+    # These need to go first
     if os.name=='nt':
         # Our only hope is that they've set the %CGAL_DIR% var
         # The cgal installer does this
@@ -114,15 +110,28 @@ def get_all_paths():
         for lvar in ['LD_LIBRARY_PATH',
                      'LIBRARY_PATH']:
             library_paths += environ_path(lvar)
-        header_paths.append("/usr/include")         # Will be filtered out on Windows
-        header_paths.append("/usr/local/include")
-        library_paths.append("/usr/lib")
-        library_paths.append("/usr/lib64")
-        library_paths.append("/usr/local/lib")
-        library_paths.append("/usr/local/lib64")
+
+    
+    header_paths.append("/usr/local/include")
+    library_paths.append("/usr/local/lib")
+    library_paths.append("/usr/local/lib64")
+    header_paths.append("/usr/include")
+    library_paths.append("/usr/lib")
+    library_paths.append("/usr/lib64")
+
+    # Only UnixCompiler has this attribute at the moment
+    # It contains all the arguments passed to the compiler, some of which are paths
+    if hasattr(compiler,'compiler_so'):
+        for arg_or_path in compiler.compiler_so:
+            if arg_or_path.startswith("-I/"):
+                header_paths.append(arg_or_path[2:])
+            if arg_or_path.startswith("-L/"):
+                library_paths.append(arg_or_path[2:])
+
+
     header_paths = filter(os.path.isdir, header_paths)
     library_paths = filter(os.path.isdir, library_paths)
-    return list(set(header_paths)), list(set(library_paths))      #uniquify
+    return header_paths, library_paths
 
 
 # Find a file inside the header/library search paths
@@ -181,17 +190,13 @@ MACROS = [(s, None) for s in MACROS]
 HEADER_PATHS, LIBRARY_PATHS = get_all_paths()
 CGAL_HEADER_PATH  = find_in_paths(HEADER_PATHS, 'cgal')
 
-if not check_gmp_function():
+if not check_gmp_function(HEADER_PATHS, LIBRARY_PATHS):
     sys.exit("Your GMP library seems to be missing mpn_sqr, it is probably out of date")
 
 
-for dep in ['gmp', 'mpfr']:
+for dep in ['gmp', 'mpfr', 'CGAL']:
     if compiler.find_library_file(LIBRARY_PATHS, dep) is None:
         sys.exit("You are missing the {0} library".format(dep))
-
-if compiler.find_library_file(LIBRARY_PATHS, 'cgal') is None or CGAL_HEADER_PATH is None:
-    sys.exit("You don't appear to have cgal installed")
-
 
 
 #Make some guesses as to where that CGALConfig.make file is
