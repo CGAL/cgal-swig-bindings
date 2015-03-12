@@ -15,28 +15,53 @@ from textwrap import dedent
 import distutils.sysconfig
 import distutils.ccompiler
 from distutils.errors import CompileError, LinkError
+import re
 
 
 def touch(fname, times=None):
     with open(fname, 'a'):
         os.utime(fname, times)
 
-#
-# def get_header_definition(define, header, include_dirs):
-#     compiler = distutils.ccompiler.new_compiler()
-#     distutils.sysconfig.customize_compiler(compiler)
-#     header_code = dedent("""
-#     #include {h}
-#
-#     #define DELIMIT(x) "===" XSTR(x) "==="
-#     #define XSTR(x) STR(x)
-#     #define STR(x) #x
-#
-#     #pragma message(XSTR({define}))
-#
-#     int main(){}
-#     """.format(h=header))
-#
+
+def get_header_definition(define, header, include_dirs):
+
+    header_code = dedent("""
+    #include <HEADER_ARG>
+
+    #define DELIMIT(x) ;;;;;XSTR(x);;;;;
+    #define XSTR(x) STR(x)
+    #define STR(x) #x
+
+    DELIMIT(DEFINE_ARG)
+
+    """)
+
+    header_code = header_code.replace("HEADER_ARG", header)
+    header_code = header_code.replace("DEFINE_ARG", define)
+
+
+    compiler = distutils.ccompiler.new_compiler()
+    distutils.sysconfig.customize_compiler(compiler)
+    compiler.set_include_dirs(include_dirs)
+    tmp_dir = tempfile.mkdtemp(prefix='tmp_def_get_')
+    file_name = os.path.join(tmp_dir, 'def_get.cpp')
+    pre_out = os.path.join(tmp_dir, 'pre_out.l')
+    with open(file_name, 'w') as fp:
+        fp.write(header_code)
+
+    find = None
+    try:
+        compiler.preprocess(file_name, output_file = pre_out)
+        with open(pre_out, 'r') as f:
+            result = f.read()
+        find = re.search(r';;;;;"([^;"]*)";;;;;', result).group(1)
+    except CompileError:
+        sys.exit("Got an error trying to access " + header + ", is this library installed?")
+    finally:
+        shutil.rmtree(tmp_dir)
+
+    return find
+
 
 # Thanks to Anthon on Stack Overflow
 # http://stackoverflow.com/questions/28843765/setup-py-check-if-non-python-library-dependency-exists/
@@ -159,8 +184,6 @@ def find_in_paths(search_paths, search):
                 return os.path.join(path, file)
     return None
 
-
-
 # This is the directory where the CMake build puts everything by default
 OUT_DIR = os.path.abspath('build-python')
 
@@ -214,6 +237,16 @@ for dep in ['gmp', 'mpfr', 'CGAL']:
 if not check_gmp_function(HEADER_PATHS, LIBRARY_PATHS):
     sys.exit("Your GMP library seems to be missing mpn_sqr, it is probably out of date")
 
+gmp_version = get_header_definition('__GNU_MP_VERSION', 'gmp.h', HEADER_PATHS)
+if gmp_version is None or int(gmp_version) < 5:
+    sys.exit("Your GMP library is really old, you should update it")
+
+boost_ver = get_header_definition('BOOST_VERSION', 'boost/version.hpp', HEADER_PATHS)
+if boost_ver is None or int(boost_ver) <= 104200:
+    # Had some issues compiling with an old boost
+    sys.stderr.write("WARNING: I would highly recommend updating your boost library\n")
+
+
 #Make some guesses as to where that CGALConfig.make file is
 CGAL_CONFIG_SEARCH = [
     os.environ.get("CGAL_DIR", ""),
@@ -223,7 +256,7 @@ CGAL_CONFIG_SEARCH = filter(os.path.isdir, CGAL_CONFIG_SEARCH)
 CGAL_CONFIG_SEARCH += HEADER_PATHS
 
 
-# Use CGALConfig.make to see if it was build with imageio
+# Use CGALConfig.make to see if it was built with imageio
 WITH_IMAGEIO = False
 cgal_config = find_in_paths(CGAL_CONFIG_SEARCH, "CGALConfig.cmake")
 if cgal_config is not None and os.path.isfile(cgal_config):
