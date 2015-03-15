@@ -113,6 +113,46 @@ def check_gmp_function(hdirs, ldirs):
     shutil.rmtree(tmp_dir)
     return ret_val
 
+# Similar to has_function in ccompiler, but this works regardless of arguments
+# It assigns the function pointer to a void pointer
+# Requires a C compiler instance augmented with include and library paths
+def check_function(function, header, link_against, ccompiler):
+    code = dedent("""
+    #include <HEADER_GOES_HERE>
+
+    int main(){
+    void *p __attribute__ ((unused)) = (void*)FUNCTION_GOES_HERE;
+    }
+    """)
+
+    code=code.replace("HEADER_GOES_HERE", header)
+    code=code.replace("FUNCTION_GOES_HERE", function)
+
+    tmp_dir = tempfile.mkdtemp(prefix = 'tmp_fn_')
+    bin_file_name = os.path.join(tmp_dir, 'test_fn')
+    file_name = bin_file_name + '.cpp'
+    with open(file_name, 'w') as fp:
+        fp.write(code)
+
+    ret = True
+    try:
+        ccompiler.link_executable(
+            ccompiler.compile([file_name]),
+            bin_file_name,
+            libraries=[link_against]
+        )
+    except CompileError:
+        print function + " compiler error"
+        ret= False
+    except LinkError:
+        print function + " linker error"
+        ret = False
+    finally:
+        shutil.rmtree(tmp_dir)
+
+    return ret
+
+
 # Find all the header and library paths
 # At least the ones relevant to CGAL
 def get_all_paths():
@@ -218,8 +258,6 @@ CGAL_modules = [
     "Voronoi_diagram_2"
 ]
 
-compiler = distutils.ccompiler.new_compiler()
-distutils.sysconfig.customize_compiler(compiler)
 
 
 INCLUDE_DIRS = ["./","SWIG_CGAL/AABB_tree/include"]
@@ -229,13 +267,33 @@ MACROS = [(s, None) for s in MACROS]
 HEADER_PATHS, LIBRARY_PATHS = get_all_paths()
 CGAL_HEADER_PATH  = find_in_paths(HEADER_PATHS, 'cgal')
 
+compiler = distutils.ccompiler.new_compiler()
+distutils.sysconfig.customize_compiler(compiler)
+compiler.set_include_dirs(HEADER_PATHS)
+compiler.set_library_dirs(LIBRARY_PATHS)
 
-for dep in ['gmp', 'mpfr', 'CGAL']:
-    if compiler.find_library_file(LIBRARY_PATHS, dep) is None:
-        sys.exit("You are missing the {0} library".format(dep))
 
-if not check_gmp_function(HEADER_PATHS, LIBRARY_PATHS):
-    sys.exit("Your GMP library seems to be missing mpn_sqr, it is probably out of date")
+for library_dep in ['gmp', 'mpfr', 'CGAL', 'boost_thread-mt']:
+    if compiler.find_library_file(LIBRARY_PATHS, library_dep) is None:
+        sys.exit("You are missing the {0} library".format(library_dep))
+
+# Function, header, library to link against
+function_dependencies = [
+    ("mpn_sqr", "gmp.h", "gmp"),
+    ("boost::detail::set_tss_data", "boost/thread/tss.hpp", "boost_thread-mt"),
+]
+
+for function, header, lib in function_dependencies:
+    if not check_function(function, header, lib, compiler):
+        sys.exit("You are missing the function {0} defined in {1}".format(function, header))
+
+#
+# if not check_gmp_function(HEADER_PATHS, LIBRARY_PATHS):
+#     sys.exit("Your GMP library seems to be missing mpn_sqr, it is probably out of date")
+#
+# if not check_function("boost::detail::set_tss_data", "boost/thread/tss.hpp", "boost_thread-mt", compiler):
+#     sys.exit("Missing set_tss_data")
+
 
 gmp_version = get_header_definition('__GNU_MP_VERSION', 'gmp.h', HEADER_PATHS)
 if gmp_version is None or int(gmp_version) < 5:
