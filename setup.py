@@ -14,6 +14,7 @@ import shutil
 from textwrap import dedent
 import distutils.sysconfig
 import distutils.ccompiler
+from distutils.command.build import build as _build
 from distutils.errors import CompileError, LinkError
 import re
 
@@ -282,6 +283,17 @@ compiler.set_include_dirs(HEADER_PATHS)
 compiler.set_library_dirs(LIBRARY_PATHS)
 
 
+#For some reason it's boost_thread-mt on some systems and boost_thread on others
+#Both are the same
+BOOST_THREAD_NAME = None
+for try_name in ["boost_thread-mt","boost_thread"]:
+        if compiler.find_library_file(LIBRARY_PATHS, try_name) is not None:
+            BOOST_THREAD_NAME = try_name
+
+if BOOST_THREAD_NAME is None:
+    sys.exit("You are missing boost_thread")
+
+
 for library_dep in ['gmp', 'mpfr', 'CGAL', 'boost_thread-mt']:
     if compiler.find_library_file(LIBRARY_PATHS, library_dep) is None:
         sys.exit("You are missing the {0} library".format(library_dep))
@@ -365,6 +377,11 @@ for mod_name in CGAL_modules:
                   extra_compile_args=["-fPIC"])
 
     extensions.append(e)
+
+
+# class build_ext_first(_build):
+#     sub_commands = [()]
+
 
 setup(
     name="cgal-bindings",
