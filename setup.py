@@ -24,6 +24,9 @@ def touch(fname, times=None):
 
 
 def get_header_definition(define, header, include_dirs):
+    """
+    Pull a #define out of a header file using the preprocessor
+    """
 
     header_code = dedent("""
     #include <HEADER_ARG>
@@ -63,12 +66,13 @@ def get_header_definition(define, header, include_dirs):
     return find
 
 
-# Thanks to Anthon on Stack Overflow
-# http://stackoverflow.com/questions/28843765/setup-py-check-if-non-python-library-dependency-exists/
-# Modified from his reply
+
 def check_gmp_function(hdirs, ldirs):
     """
-    Check that gmp has mpn_sqr, which is necessary for this to work
+    Check that gmp has mpn_sqr
+    Thanks to Anthon on Stack Overflow
+    http://stackoverflow.com/questions/28843765/setup-py-check-if-non-python-library-dependency-exists/
+    Modified from his reply
     """
 
     libraries = ['gmp']
@@ -113,10 +117,15 @@ def check_gmp_function(hdirs, ldirs):
     shutil.rmtree(tmp_dir)
     return ret_val
 
-# Similar to has_function in ccompiler, but this works regardless of arguments
-# It assigns the function pointer to a void pointer
-# Requires a C compiler instance augmented with include and library paths
+
+
 def check_function(function, header, link_against, ccompiler):
+    """
+    Similar to has_function in ccompiler, but this works regardless of arguments
+    It assigns the function pointer to a void pointer
+    Requires a C compiler instance augmented with include and library paths
+    """
+
     code = dedent("""
     #include <HEADER_GOES_HERE>
 
@@ -342,16 +351,12 @@ if EIGEN3_PATH is None:
     sys.stderr.write("No Eigen3 found, skipping Point_set_processing_3\n")
     CGAL_modules.remove("Point_set_processing_3")
 else:
-    # It is possible that they've installed Eigen3 but didn't build it into CGAL
+    # We have eigen3, enable it
+    # It is stil possible that they've installed Eigen3 but didn't build it into CGAL
     # In that case...no idea
     INCLUDE_DIRS.append(EIGEN3_PATH)
     MACROS.append(('CGAL_EIGEN3_ENABLED', None))
 
-
-# compiler = distutils.ccompiler.new_compiler()
-# distutils.sysconfig.customize_compiler(compiler)
-# print compiler.compiler_so
-# sys.exit()
 
 # Translate the names of folders into actual Extension instances
 extensions = []
