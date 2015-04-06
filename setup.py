@@ -272,10 +272,17 @@ distutils.sysconfig.customize_compiler(compiler)
 compiler.set_include_dirs(HEADER_PATHS)
 compiler.set_library_dirs(LIBRARY_PATHS)
 
+# Print out all the error messages at once, instead of exiting immediately
+# That way, users can instantly see how screwed they are by getting all the errors at once
+dependencies_ok = False
 
 for library_dep in ['gmp', 'mpfr', 'CGAL', 'boost_thread-mt']:
     if compiler.find_library_file(LIBRARY_PATHS, library_dep) is None:
-        sys.exit("You are missing the {0} library".format(library_dep))
+        sys.stderr.write("You are missing the {0} library\n".format(library_dep))
+        dependencies_ok = False
+
+if not dependencies_ok:
+    sys.exit(-1)
 
 # Function, header, library to link against
 function_dependencies = [
@@ -285,24 +292,21 @@ function_dependencies = [
 
 for function, header, lib in function_dependencies:
     if not check_function(function, header, lib, compiler):
-        sys.exit("You are missing the function {0} defined in {1}".format(function, header))
-
-#
-# if not check_gmp_function(HEADER_PATHS, LIBRARY_PATHS):
-#     sys.exit("Your GMP library seems to be missing mpn_sqr, it is probably out of date")
-#
-# if not check_function("boost::detail::set_tss_data", "boost/thread/tss.hpp", "boost_thread-mt", compiler):
-#     sys.exit("Missing set_tss_data")
-
+        sys.stderr.write("You are missing the function {0} defined in {1}\n".format(function, header))
+        dependencies_ok = False
 
 gmp_version = get_header_definition('__GNU_MP_VERSION', 'gmp.h', HEADER_PATHS)
 if gmp_version is None or int(gmp_version) < 5:
-    sys.exit("Your GMP library is really old, you should update it")
+    sys.stderr.write("Your GMP library is really old, you should update it\n")
+    dependencies_ok = False
 
 boost_ver = get_header_definition('BOOST_VERSION', 'boost/version.hpp', HEADER_PATHS)
 if boost_ver is None or int(boost_ver) <= 104200:
     # Had some issues compiling with an old boost
     sys.stderr.write("WARNING: I would highly recommend updating your boost library\n")
+
+if not dependencies_ok:
+    sys.exit(-1)
 
 
 #Make some guesses as to where that CGALConfig.make file is
