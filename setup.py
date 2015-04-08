@@ -14,7 +14,7 @@ import shutil
 from textwrap import dedent
 import distutils.sysconfig
 import distutils.ccompiler
-from distutils.command.build import build as _build
+import setuptools.command.install
 from distutils.errors import CompileError, LinkError
 import re
 
@@ -284,7 +284,7 @@ compiler.set_library_dirs(LIBRARY_PATHS)
 
 # Print out all the error messages at once, instead of exiting immediately
 # That way, users can instantly see how screwed they are by getting all the errors at once
-dependencies_ok = False
+dependencies_ok = True
 
 #For some reason it's boost_thread-mt on some systems and boost_thread on others
 #Both are the same
@@ -389,17 +389,20 @@ for mod_name in CGAL_modules:
 
     extensions.append(e)
 
-
-# class build_ext_first(_build):
-#     sub_commands = [()]
+class Build_ext_first(setuptools.command.install.install):
+    def run(self):
+        self.run_command("build_ext")
+        return setuptools.command.install.install.run(self)
 
 
 setup(
     name="cgal-bindings",
-    description="Bindings so you can use certain CGAL classes in Python",
+    author_email="sciencectn@gmail.com",    # author of the setup.py? or the whole library?
+    description="Uses SWIG to generate bindings so you can use certain CGAL classes in Python.",
     packages=['CGAL'],
     ext_package='CGAL',
     ext_modules = extensions,
-    package_dir = {'': 'build-python'}
+    package_dir = {'': 'build-python'},
+    cmdclass = {'install' : Build_ext_first}
 )
 
