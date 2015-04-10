@@ -129,9 +129,12 @@ def check_function(function, header, link_against, ccompiler):
 
     code = dedent("""
     #include <HEADER_GOES_HERE>
+    #include <stdio.h>
 
     int main(){
-    void *p __attribute__ ((unused)) = (void*)FUNCTION_GOES_HERE;
+    void *p = (void*)FUNCTION_GOES_HERE;
+    printf("%p",p);
+    return 0;
     }
     """)
 
@@ -140,7 +143,7 @@ def check_function(function, header, link_against, ccompiler):
 
     tmp_dir = tempfile.mkdtemp(prefix = 'tmp_fn_')
     bin_file_name = os.path.join(tmp_dir, 'test_fn')
-    file_name = bin_file_name + '.cpp'
+    file_name = bin_file_name + '.c'
     with open(file_name, 'w') as fp:
         fp.write(code)
 
