@@ -12,6 +12,7 @@ import glob
 import tempfile
 import shutil
 from textwrap import dedent
+import subprocess
 import distutils.sysconfig
 import distutils.ccompiler
 import setuptools.command.install
@@ -67,64 +68,15 @@ def get_header_definition(define, header, include_dirs):
     return find
 
 
-
-def check_gmp_function(hdirs, ldirs):
-    """
-    Check that gmp has mpn_sqr
-    Thanks to Anthon on Stack Overflow
-    http://stackoverflow.com/questions/28843765/setup-py-check-if-non-python-library-dependency-exists/
-    Modified from his reply
-    """
-
-    libraries = ['gmp']
-
-    # write a temporary .c file to compile
-    c_code = dedent("""
-    #include <gmp.h>
-
-    int main(int argc, char* argv[])
-    {
-        mpn_sqr(0, 0, 1);
-        return 0;
-    }
-    """)
-    tmp_dir = tempfile.mkdtemp(prefix = 'tmp_gmp_')
-    bin_file_name = os.path.join(tmp_dir, 'test_gmp')
-    file_name = bin_file_name + '.c'
-    with open(file_name, 'w') as fp:
-        fp.write(c_code)
-
-    # and try to compile it
-    compiler = distutils.ccompiler.new_compiler()
-    assert isinstance(compiler, distutils.ccompiler.CCompiler)
-    distutils.sysconfig.customize_compiler(compiler)
-    compiler.set_include_dirs(hdirs)
-    compiler.set_library_dirs(ldirs)
-
-    try:
-        compiler.link_executable(
-            compiler.compile([file_name]),
-            bin_file_name,
-            libraries=libraries,
-        )
-    except CompileError:
-        print('libgmp compile error')
-        ret_val = False
-    except LinkError:
-        print('libgmp link error')
-        ret_val = False
-    else:
-        ret_val = True
-    shutil.rmtree(tmp_dir)
-    return ret_val
-
-
-
-def check_function(function, header, link_against, ccompiler):
+def check_function(function, filetype, header, link_against, ccompiler):
     """
     Similar to has_function in ccompiler, but this works regardless of arguments
     It assigns the function pointer to a void pointer
     Requires a C compiler instance augmented with include and library paths
+
+    Thanks to Anthon on Stack Overflow
+    http://stackoverflow.com/questions/28843765/setup-py-check-if-non-python-library-dependency-exists/
+    Modified from his reply
     """
 
     code = dedent("""
@@ -143,7 +95,7 @@ def check_function(function, header, link_against, ccompiler):
 
     tmp_dir = tempfile.mkdtemp(prefix = 'tmp_fn_')
     bin_file_name = os.path.join(tmp_dir, 'test_fn')
-    file_name = bin_file_name + '.c'
+    file_name = bin_file_name + filetype
     with open(file_name, 'w') as fp:
         fp.write(code)
 
@@ -300,24 +252,44 @@ if BOOST_THREAD_NAME is None:
     sys.exit("You are missing boost_thread")
 
 
-for library_dep in ['gmp', 'mpfr', 'CGAL', 'boost_thread-mt']:
+#Check for shared libraries
+for library_dep in ['gmp', 'mpfr', 'CGAL', BOOST_THREAD_NAME]:
     if compiler.find_library_file(LIBRARY_PATHS, library_dep) is None:
         sys.stderr.write("You are missing the {0} library\n".format(library_dep))
         dependencies_ok = False
 
+#Check for SWIG
+with open(os.devnull,'w') as FNULL:
+    try:
+        subprocess.call(["swig","-version"],stdout=FNULL)
+    except OSError:
+        sys.stderr.write("You are missing SWIG")
+        dependencies_ok = False
+
+
 if not dependencies_ok:
     sys.exit(-1)
 
+# Check that certain functions exist in their libraries
+# Can indicate broken or old installation
 # Function, header, library to link against
 function_dependencies = [
-    ("mpn_sqr", "gmp.h", "gmp"),
-    ("boost::detail::set_tss_data", "boost/thread/tss.hpp", "boost_thread-mt"),
+    ("mpn_sqr", "gmp.h", "gmp", ".c"),
+    ("boost::detail::set_tss_data", "boost/thread/tss.hpp", BOOST_THREAD_NAME, ".cpp"),
 ]
 
-for function, header, lib in function_dependencies:
-    if not check_function(function, header, lib, compiler):
+bad_function = False
+
+for function, header, lib, filetype in function_dependencies:
+    if not check_function(function, filetype, header, lib, compiler):
         sys.stderr.write("You are missing the function {0} defined in {1}\n".format(function, header))
+        bad_function = True
         dependencies_ok = False
+
+if bad_function:
+    sys.stderr.write("Some functions in shared libraries were missing,\
+     this likely means the library is out of date or the installation is broken")
+
 
 gmp_version = get_header_definition('__GNU_MP_VERSION', 'gmp.h', HEADER_PATHS)
 if gmp_version is None or int(gmp_version) < 5:
@@ -350,7 +322,6 @@ if cgal_config is not None and os.path.isfile(cgal_config):
     for line in file:
         if line.replace(" ","").replace('"',' ').lower().startswith('set(with_cgal_imageio on'):
             WITH_IMAGEIO = True
-            print "Found image IO"
             LINKER_LIBS.append('CGAL_ImageIO')
             break
 else:
@@ -384,11 +355,10 @@ for mod_name in CGAL_modules:
     e = Extension("_CGAL_" + mod_name,
                   sources=source_list,
                   swig_opts=["-c++","-outdir",PACKAGE_DIR,"-DSWIG_CGAL_{0}_MODULE".format(mod_name)],     # -DSWIG_CGAL_Surface_mesher_MODULE
-                  libraries=['CGAL', 'gmp', 'mpfr'],
+                  libraries=['CGAL', 'gmp', 'mpfr', BOOST_THREAD_NAME],
                   define_macros=macros,
                   include_dirs=INCLUDE_DIRS + HEADER_PATHS,
-                  library_dirs=LIBRARY_PATHS,
-                  extra_compile_args=["-fPIC"])
+                  library_dirs=LIBRARY_PATHS)
 
     extensions.append(e)
 
