@@ -287,8 +287,8 @@ for function, header, lib, filetype in function_dependencies:
         dependencies_ok = False
 
 if bad_function:
-    sys.stderr.write("Some functions in shared libraries were missing,\
-     this likely means the library is out of date or the installation is broken")
+    sys.stderr.write("Some functions in shared libraries were missing.\
+     This likely means the library is out of date or the installation is broken")
 
 
 gmp_version = get_header_definition('__GNU_MP_VERSION', 'gmp.h', HEADER_PATHS)
