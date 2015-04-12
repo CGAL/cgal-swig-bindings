@@ -18,6 +18,7 @@ import distutils.ccompiler
 import setuptools.command.install
 from distutils.errors import CompileError, LinkError
 import re
+import platform
 
 
 def touch(fname, times=None):
@@ -157,13 +158,35 @@ def get_all_paths():
                      'LIBRARY_PATH']:
             library_paths += environ_path(lvar)
 
-    
+
+    # Order is important here
     header_paths.append("/usr/local/include")
     library_paths.append("/usr/local/lib")
     library_paths.append("/usr/local/lib64")
     header_paths.append("/usr/include")
     library_paths.append("/usr/lib")
     library_paths.append("/usr/lib64")
+    
+    # If their system has ldconfig, this helps us even more
+    tmp_dir = tempfile.mkdtemp(prefix = 'tmp_ldc_')
+    file_name = os.path.join(tmp_dir, 'ldconfig_out')
+    ldconfig_out = open(file_name,'w')
+    DEVNULL = open(os.devnull,'w')
+    try:
+        subprocess.call(["ldconfig","-v"],stdout=ldconfig_out,stderr=DEVNULL)
+        ldconfig_out.close()    # flush() was not working...
+        ldconfig_out = open(file_name,'r')
+        find_dir = re.compile(r"([^\t][\w/\-\.]+)")
+        for line in ldconfig_out:
+            m = re.match(find_dir, line)
+            if m is not None:
+                library_paths.append(m.group(1))
+    except OSError:
+        pass
+    finally:
+        ldconfig_out.close()
+        shutil.rmtree(tmp_dir)
+
 
     # Only UnixCompiler has this attribute at the moment
     # It contains all the arguments passed to the compiler, some of which are paths
@@ -173,8 +196,7 @@ def get_all_paths():
                 header_paths.append(arg_or_path[2:])
             if arg_or_path.startswith("-L/"):
                 library_paths.append(arg_or_path[2:])
-
-
+    
     header_paths = filter(os.path.isdir, header_paths)
     library_paths = filter(os.path.isdir, library_paths)
     return header_paths, library_paths
@@ -263,11 +285,13 @@ with open(os.devnull,'w') as FNULL:
     try:
         subprocess.call(["swig","-version"],stdout=FNULL)
     except OSError:
-        sys.stderr.write("You are missing SWIG")
+        sys.stderr.write("You are missing SWIG\n")
         dependencies_ok = False
 
 
 if not dependencies_ok:
+    if "ubuntu" in platform.platform().lower():
+        sys.stderr.write("On Ubuntu, run: sudo apt-get install libcgal-dev libpython-dev swig\n")
     sys.exit(-1)
 
 # Check that certain functions exist in their libraries
@@ -358,7 +382,8 @@ for mod_name in CGAL_modules:
                   libraries=['CGAL', 'gmp', 'mpfr', BOOST_THREAD_NAME],
                   define_macros=macros,
                   include_dirs=INCLUDE_DIRS + HEADER_PATHS,
-                  library_dirs=LIBRARY_PATHS)
+                  library_dirs=LIBRARY_PATHS,
+                  language='c++')
 
     extensions.append(e)
 
@@ -378,4 +403,6 @@ setup(
     package_dir = {'': 'build-python'},
     cmdclass = {'install' : Build_ext_first}
 )
+
+
 
