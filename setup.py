@@ -306,7 +306,10 @@ for library_dep in ['gmp', 'mpfr', 'CGAL', BOOST_THREAD_NAME]:
         dependencies_ok = False
 
 #Check for SWIG
-dependencies_ok = dependencies_ok and check_command(["swig","-version"])
+if not check_command(["swig","-version"]):
+    dependencies_ok = False
+    sys.stderr.write("You are missing SWIG\n")
+
 
 if not dependencies_ok:
     if "ubuntu" in platform.platform().lower():
