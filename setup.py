@@ -271,7 +271,7 @@ for try_name in ["boost_thread-mt","boost_thread"]:
             BOOST_THREAD_NAME = try_name
 
 if BOOST_THREAD_NAME is None:
-    sys.exit("You are missing boost_thread")
+    sys.exit("You are missing boost-thread")
 
 
 #Check for shared libraries
