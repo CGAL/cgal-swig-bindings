@@ -312,7 +312,7 @@ for function, header, lib, filetype in function_dependencies:
 
 if bad_function:
     sys.stderr.write("Some functions in shared libraries were missing.\
-     This likely means the library is out of date or the installation is broken")
+     This likely means the library is out of date or the installation is broken\n")
 
 
 gmp_version = get_header_definition('__GNU_MP_VERSION', 'gmp.h', HEADER_PATHS)
@@ -322,7 +322,7 @@ if gmp_version is None or int(gmp_version) < 5:
 
 boost_ver = get_header_definition('BOOST_VERSION', 'boost/version.hpp', HEADER_PATHS)
 if boost_ver is None or int(boost_ver) <= 104200:
-    # Had some issues compiling with an old boost
+    # I had some issues compiling with an old boost
     sys.stderr.write("WARNING: I would highly recommend updating your boost library\n")
 
 if not dependencies_ok:
@@ -378,7 +378,7 @@ for mod_name in CGAL_modules:
     source_list = filter(lambda s: not s.endswith('_wrap.cpp'), source_list)
     e = Extension("_CGAL_" + mod_name,
                   sources=source_list,
-                  swig_opts=["-c++","-outdir",PACKAGE_DIR,"-DSWIG_CGAL_{0}_MODULE".format(mod_name)],     # -DSWIG_CGAL_Surface_mesher_MODULE
+                  swig_opts=["-c++","-outdir",PACKAGE_DIR,"-DSWIG_CGAL_{0}_MODULE".format(mod_name)],
                   libraries=['CGAL', 'gmp', 'mpfr', BOOST_THREAD_NAME],
                   define_macros=macros,
                   include_dirs=INCLUDE_DIRS + HEADER_PATHS,
@@ -395,7 +395,7 @@ class Build_ext_first(setuptools.command.install.install):
 
 setup(
     name="cgal-bindings",
-    author_email="sciencectn@gmail.com",    # author of the setup.py? or the whole library?
+    author_email="sciencectn@gmail.com",    # just the author of this setup.py
     description="Uses SWIG to generate bindings so you can use certain CGAL classes in Python.",
     packages=['CGAL'],
     ext_package='CGAL',
