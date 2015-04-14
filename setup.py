@@ -204,14 +204,35 @@ def get_all_paths():
     return header_paths, library_paths
 
 
-# Find a file inside the header/library search paths
-# Case insensitive
 def find_in_paths(search_paths, search):
+    """
+    Find a file inside the header/library search paths
+    Case insensitive
+    :param search_paths: list of folders
+    :param search: file to search for
+    :return: path to file, or None
+    """
     for path in search_paths:
         for file in os.listdir(path):
             if file.lower() == search.lower():
                 return os.path.join(path, file)
     return None
+
+def check_command(args):
+    """
+
+    :param args: list of command any any arguments
+    :return: Bool
+    """
+    r = True
+    with open(os.devnull,'w') as FNULL:
+        try:
+            subprocess.call(args,stdout=FNULL)
+        except OSError:
+            r = False
+    return r
+
+
 
 # This is the directory where the CMake build puts everything by default
 OUT_DIR = os.path.abspath('build-python')
@@ -273,23 +294,19 @@ for try_name in ["boost_thread-mt","boost_thread"]:
             BOOST_THREAD_NAME = try_name
 
 if BOOST_THREAD_NAME is None:
-    sys.exit("You are missing boost-thread")
+    sys.stderr.write("You are missing boost-thread\n")
+    dependencies_ok = False
 
 
 #Check for shared libraries
 for library_dep in ['gmp', 'mpfr', 'CGAL', BOOST_THREAD_NAME]:
-    if compiler.find_library_file(LIBRARY_PATHS, library_dep) is None:
+    if library_dep is not None and\
+                    compiler.find_library_file(LIBRARY_PATHS, library_dep) is None:
         sys.stderr.write("You are missing the {0} library\n".format(library_dep))
         dependencies_ok = False
 
 #Check for SWIG
-with open(os.devnull,'w') as FNULL:
-    try:
-        subprocess.call(["swig","-version"],stdout=FNULL)
-    except OSError:
-        sys.stderr.write("You are missing SWIG\n")
-        dependencies_ok = False
-
+dependencies_ok = dependencies_ok and check_command(["swig","-version"])
 
 if not dependencies_ok:
     if "ubuntu" in platform.platform().lower():
