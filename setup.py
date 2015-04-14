@@ -1,10 +1,11 @@
 
 
+import sys
 from setuptools import setup
 from distutils.extension import Extension
 import os
 import os.path
-import sys
+
 from ctypes.util import find_library    # Useful function for findings libs (cross platform too)
 import distutils.sysconfig
 import distutils.ccompiler
@@ -16,6 +17,7 @@ import subprocess
 import distutils.sysconfig
 import distutils.ccompiler
 import setuptools.command.install
+import setuptools.command.build_ext
 from distutils.errors import CompileError, LinkError
 import re
 import platform
@@ -393,6 +395,19 @@ class Build_ext_first(setuptools.command.install.install):
         return setuptools.command.install.install.run(self)
 
 
+class Build_ext_once(setuptools.command.build_ext.build_ext):
+    def __init__(self, *args, **kwargs):
+        # Avoiding namespace collisions...
+        self._cgal_setup_build_ext_already_ran = False
+        setuptools.command.build_ext.build_ext.__init__(self, *args, **kwargs)
+
+    def run(self):
+        # Only let build_ext run once
+        if not self._cgal_setup_build_ext_already_ran:
+            self._cgal_setup_build_ext_already_ran = True
+            return setuptools.command.build_ext.build_ext.run(self)
+
+
 setup(
     name="cgal-bindings",
     author_email="sciencectn@gmail.com",    # just the author of this setup.py
@@ -401,7 +416,7 @@ setup(
     ext_package='CGAL',
     ext_modules = extensions,
     package_dir = {'': 'build-python'},
-    cmdclass = {'install' : Build_ext_first}
+    cmdclass = {'install' : Build_ext_first, 'build_ext': Build_ext_once}
 )
 
 
