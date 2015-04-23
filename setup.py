@@ -5,8 +5,6 @@ from setuptools import setup
 from distutils.extension import Extension
 import os
 import os.path
-
-from ctypes.util import find_library    # Useful function for findings libs (cross platform too)
 import distutils.sysconfig
 import distutils.ccompiler
 import glob
@@ -360,7 +358,7 @@ CGAL_CONFIG_SEARCH = filter(os.path.isdir, CGAL_CONFIG_SEARCH)
 CGAL_CONFIG_SEARCH += HEADER_PATHS
 
 
-# Use CGALConfig.make to see if it was built with imageio
+# Use CGALConfig.cmake to see if it was built with imageio
 WITH_IMAGEIO = False
 cgal_config = find_in_paths(CGAL_CONFIG_SEARCH, "CGALConfig.cmake")
 if cgal_config is not None and os.path.isfile(cgal_config):
@@ -432,11 +430,20 @@ setup(
     name="cgal-bindings",
     author_email="sciencectn@gmail.com",    # just the author of this setup.py
     description="Uses SWIG to generate bindings so you can use certain CGAL classes in Python.",
+    url="https://github.com/CGAL/cgal-swig-bindings",
+    keywords="cgal computational geometry",
     packages=['CGAL'],
     ext_package='CGAL',
     ext_modules = extensions,
     package_dir = {'': 'build-python'},
-    cmdclass = {'install' : Build_ext_first, 'build_ext': Build_ext_once}
+    cmdclass = {'install' : Build_ext_first, 'build_ext': Build_ext_once},
+    classifiers=[
+        'Intended Audience :: Developers',
+        'Programming Language :: Python',
+        'Topic :: Scientific/Engineering :: GIS',
+        'Topic :: Scientific/Engineering :: Mathematics',
+        'Operating System :: POSIX'
+    ]
 )
 
 
