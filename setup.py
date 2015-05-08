@@ -13,6 +13,7 @@ import shutil
 from textwrap import dedent
 import subprocess
 import distutils.sysconfig
+import itertools
 import distutils.ccompiler
 import setuptools.command.install
 import setuptools.command.build_ext
@@ -354,6 +355,11 @@ CGAL_CONFIG_SEARCH = [
     os.environ.get("CGAL_DIR", ""),
     find_in_paths(LIBRARY_PATHS, 'cgal') or ""
 ]
+
+for path in itertools.product(['usr', 'usr/local', 'opt', 'opt/local'],
+                              ['share', 'lib', 'CGAL'],
+                              ['cmake', 'cmake/CGAL', 'CGAL/cmake', 'CGAL', '']):
+    CGAL_CONFIG_SEARCH.append(os.path.join(*path))
 CGAL_CONFIG_SEARCH = filter(os.path.isdir, CGAL_CONFIG_SEARCH)
 CGAL_CONFIG_SEARCH += HEADER_PATHS
 
