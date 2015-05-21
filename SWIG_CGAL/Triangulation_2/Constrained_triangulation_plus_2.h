@@ -9,19 +9,32 @@
 #define SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H
 
 #include <SWIG_CGAL/Triangulation_2/Constrained_triangulation_2.h>
-
 #include <CGAL/Constrained_triangulation_plus_2.h>  
+#include <CGAL/version.h>
 
 #ifndef SWIG
 #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
 template <class Triangulation,class Point>
 struct Iterator_helper<std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle<Triangulation,Point>,SWIG_Triangulation_2::CGAL_Vertex_handle<Triangulation,Point> > >{
   typedef SWIG_Triangulation_2::CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
-  template <class T>
-  static std::pair<Vertex_handle,Vertex_handle> convert(const T& i){
-    return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(i->first.first),Vertex_handle(i->first.second));
+
+  template <class T1, class T2>
+  static std::pair<Vertex_handle,Vertex_handle> convert(const std::pair<T1,T2>& i){
+    return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(i.first.first),Vertex_handle(i.first.second));
   }
-  
+
+  #if CGAL_VERSION_NR >= 1040600000
+  static std::pair<Vertex_handle,Vertex_handle> convert(const typename Triangulation::Constraint_id& i){
+    return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(i.second->front().vertex()),
+                                                  Vertex_handle(i.second->back().vertex()));
+  }
+  #endif
+
+  template <class Iterator>
+  static std::pair<Vertex_handle,Vertex_handle> convert(Iterator it){
+    return convert(*it);
+  }
+
   static std::pair<Vertex_handle,Vertex_handle>
   default_value(){return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(NULL),Vertex_handle(NULL));}
 };
