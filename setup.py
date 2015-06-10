@@ -109,10 +109,10 @@ def check_function(function, filetype, header, link_against, ccompiler):
             libraries=[link_against]
         )
     except CompileError:
-        print function + " compiler error"
+        print(function + " compiler error")
         ret= False
     except LinkError:
-        print function + " linker error"
+        print(function + " linker error")
         ret = False
     finally:
         shutil.rmtree(tmp_dir)
@@ -198,8 +198,8 @@ def get_all_paths():
             if arg_or_path.startswith("-L/"):
                 library_paths.append(arg_or_path[2:])
     
-    header_paths = filter(os.path.isdir, header_paths)
-    library_paths = filter(os.path.isdir, library_paths)
+    header_paths = list(filter(os.path.isdir, header_paths))
+    library_paths = list(filter(os.path.isdir, library_paths))
     return header_paths, library_paths
 
 
@@ -360,7 +360,7 @@ for path in itertools.product(['usr', 'usr/local', 'opt', 'opt/local'],
                               ['share', 'lib', 'CGAL'],
                               ['cmake', 'cmake/CGAL', 'CGAL/cmake', 'CGAL', '']):
     CGAL_CONFIG_SEARCH.append(os.path.join(*path))
-CGAL_CONFIG_SEARCH = filter(os.path.isdir, CGAL_CONFIG_SEARCH)
+CGAL_CONFIG_SEARCH = list(filter(os.path.isdir, CGAL_CONFIG_SEARCH))
 CGAL_CONFIG_SEARCH += HEADER_PATHS
 
 
@@ -401,7 +401,7 @@ for mod_name in CGAL_modules:
     macros.append(("_CGAL_{0}_EXPORTS".format(mod_name), None))
     source_list = ["SWIG_CGAL/{0}/CGAL_{0}.i".format(mod_name)]
     source_list += glob.glob("SWIG_CGAL/{0}/*.cpp".format(mod_name))
-    source_list = filter(lambda s: not s.endswith('_wrap.cpp'), source_list)
+    source_list = list(filter(lambda s: not s.endswith('_wrap.cpp'), source_list))
     e = Extension("_CGAL_" + mod_name,
                   sources=source_list,
                   swig_opts=["-c++","-outdir",PACKAGE_DIR,"-DSWIG_CGAL_{0}_MODULE".format(mod_name)],
