@@ -10,6 +10,7 @@
 
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/triple.h>
+#include <boost/type_traits/is_same.hpp>
 
 #ifndef SWIG  
 template <class T>

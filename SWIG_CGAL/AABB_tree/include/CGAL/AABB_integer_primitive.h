@@ -45,27 +45,17 @@ namespace CGAL {
 
         // constructor
     public:
-        static int& current_id(){
-          static int current_id = -1;
-          return current_id;
-        }
-    
-        static void reset_id(){
-          current_id()=-1;
-        }
-        
-        
         AABB_integer_primitive() {}
         template <class Iterator>
         AABB_integer_primitive(Iterator it)
-            : index( ++current_id() )
         {
             m_datum = *it; // copy primitive
+            index=-1;
         }
-        AABB_integer_primitive(const AABB_integer_primitive& primitive)
+        AABB_integer_primitive(const Primitive& p)
         {
-            m_datum = primitive.datum();
-            index = primitive.id();
+            m_datum = p; // copy primitive
+            index=-1;
         }
     public:
         Id& id() { return index; }
@@ -77,6 +67,11 @@ namespace CGAL {
         Point reference_point() const { return m_datum.vertex(0); }
     };
 
+  template <class Primitive, int k>
+  void update_primitive_id(AABB_integer_primitive<Primitive,k>& prim,int& counter)
+  {
+    prim.id()=++counter;
+  }
 }  // end namespace CGAL
 
 

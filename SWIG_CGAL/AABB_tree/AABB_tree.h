@@ -21,6 +21,9 @@
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 
 
+template <class Primitive>
+void update_primitive_id(const Primitive&,int&){}
+
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 template <class Primitive_object>
 struct Primitive_iterator_helper
@@ -44,6 +47,19 @@ class AABB_tree_wrapper
   //disable deep copy
   Self deepcopy();
   void deepcopy(const Self&);
+  int primitive_counter_id;
+
+  template <class InputIterator>
+  void internal_insert(InputIterator begin, InputIterator end)
+  {
+    while(begin!=end)
+    {
+      typename Tree::Primitive primitive(*begin++);
+      update_primitive_id(primitive, primitive_counter_id);
+      data.insert( primitive );
+    }
+  }
+
 public:
   #ifndef SWIG
   typedef Tree cpp_base;
@@ -61,13 +77,23 @@ public:
   typedef Optional<Primitive_id> Optional_primitive_id;
   typedef Optional<Object_and_primitive_id> Optional_object_and_primitive_id;
 
-
 //Creation
-  AABB_tree_wrapper(){}
-  AABB_tree_wrapper(Primitive_range range):data(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)){}
+  AABB_tree_wrapper(): primitive_counter_id(-1){}
+  AABB_tree_wrapper(Primitive_range range)
+    : primitive_counter_id(-1)
+  {
+    internal_insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
+  }
 //Operations  
-  void rebuild(Primitive_range range){ data.rebuild(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)); }
-  SWIG_CGAL_FORWARD_CALL_0(void,clear)
+  void rebuild(Primitive_range range){
+    clear();
+    internal_insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
+    data.build();
+  }
+  void clear(){
+    primitive_counter_id=-1;
+    data.clear();
+  }
   SWIG_CGAL_FORWARD_CALL_0(int,size)
   SWIG_CGAL_FORWARD_CALL_0(bool,empty)
 //Intersection Tests
