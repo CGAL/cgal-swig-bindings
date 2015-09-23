@@ -1,0 +1,4 @@
+recursive-include SWIG_CGAL *.i
+recursive-include SWIG_CGAL *.h
+recursive-include SWIG_CGAL *.cpp
+
