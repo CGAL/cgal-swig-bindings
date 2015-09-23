@@ -162,8 +162,10 @@ def get_all_paths():
 
     # Order is important here
     header_paths.append("/usr/local/include")
+    header_paths.append("/opt/local/include")
     library_paths.append("/usr/local/lib")
     library_paths.append("/usr/local/lib64")
+    library_paths.append("/opt/local/lib")
     header_paths.append("/usr/include")
     library_paths.append("/usr/lib")
     library_paths.append("/usr/lib64")
@@ -434,15 +436,18 @@ class Build_ext_once(setuptools.command.build_ext.build_ext):
 
 setup(
     name="cgal-bindings",
-    author_email="sciencectn@gmail.com",    # just the author of this setup.py
+    author_email="sciencectn@gmail.com",    # just the author of this setup.py, I didn't make the bindings
     description="Uses SWIG to generate bindings so you can use certain CGAL classes in Python.",
-    url="https://github.com/CGAL/cgal-swig-bindings",
+    url="https://github.com/sciencectn/cgal-bindings",
     keywords="cgal computational geometry",
     packages=['CGAL'],
     ext_package='CGAL',
     ext_modules = extensions,
     package_dir = {'': 'build-python'},
     cmdclass = {'install' : Build_ext_first, 'build_ext': Build_ext_once},
+    # package_data={'':['SWIG_CGAL/*.i, SWIG_CGAL/*/*.h']},
+    include_package_data=True,
+    version="0.0.2",
     classifiers=[
         'Intended Audience :: Developers',
         'Programming Language :: Python',
@@ -451,6 +456,4 @@ setup(
         'Operating System :: POSIX'
     ]
 )
-
-
 
