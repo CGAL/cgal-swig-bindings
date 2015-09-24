@@ -434,10 +434,15 @@ class Build_ext_once(setuptools.command.build_ext.build_ext):
             return setuptools.command.build_ext.build_ext.run(self)
 
 
+with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'DESCRIPTION.rst'), encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(
     name="cgal-bindings",
+    author="Chris Taylor",
     author_email="sciencectn@gmail.com",    # just the author of this setup.py, I didn't make the bindings
     description="Uses SWIG to generate bindings so you can use certain CGAL classes in Python.",
+    long_description=long_description,
     url="https://github.com/sciencectn/cgal-bindings",
     keywords="cgal computational geometry",
     packages=['CGAL'],
@@ -445,15 +450,18 @@ setup(
     ext_modules = extensions,
     package_dir = {'': 'build-python'},
     cmdclass = {'install' : Build_ext_first, 'build_ext': Build_ext_once},
-    # package_data={'':['SWIG_CGAL/*.i, SWIG_CGAL/*/*.h']},
     include_package_data=True,
-    version="0.0.2",
+    version="0.0.6",
     classifiers=[
         'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
         'Programming Language :: Python',
         'Topic :: Scientific/Engineering :: GIS',
         'Topic :: Scientific/Engineering :: Mathematics',
-        'Operating System :: POSIX'
+        'Operating System :: POSIX',
+        'Operating System :: Unix',
+        'Operating System :: MacOS',
+        'Programming Language :: Python :: 2.7'
     ]
 )
 
