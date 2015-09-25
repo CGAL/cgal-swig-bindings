@@ -434,7 +434,7 @@ class Build_ext_once(setuptools.command.build_ext.build_ext):
             return setuptools.command.build_ext.build_ext.run(self)
 
 
-with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'DESCRIPTION.rst'), encoding='utf-8') as f:
+with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'DESCRIPTION.rst')) as f:
     long_description = f.read()
 
 setup(
