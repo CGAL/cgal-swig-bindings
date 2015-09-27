@@ -411,6 +411,7 @@ for mod_name in CGAL_modules:
                   define_macros=macros,
                   include_dirs=INCLUDE_DIRS + HEADER_PATHS,
                   library_dirs=LIBRARY_PATHS,
+                  extra_compile_args=["-O0"],
                   language='c++')
 
     extensions.append(e)
@@ -432,7 +433,6 @@ class Build_ext_once(setuptools.command.build_ext.build_ext):
         if not self._cgal_setup_build_ext_already_ran:
             self._cgal_setup_build_ext_already_ran = True
             return setuptools.command.build_ext.build_ext.run(self)
-
 
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'DESCRIPTION.rst')) as f:
     long_description = f.read()
