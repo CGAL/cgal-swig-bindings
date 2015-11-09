@@ -7,7 +7,7 @@
 #ifndef SWIG_CGAL_AABB_TREE_TYPEDEFS_H
 #define SWIG_CGAL_AABB_TREE_TYPEDEFS_H
 
-#include  <CGAL/AABB_tree.h>
+#include <CGAL/AABB_tree.h>
 #include <CGAL/AABB_traits.h>
 #include <CGAL/AABB_polyhedron_triangle_primitive.h>
 #include <CGAL/AABB_polyhedron_segment_primitive.h>

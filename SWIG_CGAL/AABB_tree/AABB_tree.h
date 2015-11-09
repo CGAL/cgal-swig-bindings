@@ -73,7 +73,7 @@ public:
   #endif
 
   typedef std::pair<Point_3,Primitive_id> Point_and_primitive_id;
-  typedef std::pair<Object,Primitive_id>  Object_and_primitive_id;
+  typedef std::pair<Object,Primitive_id> Object_and_primitive_id;
   typedef Optional<Primitive_id> Optional_primitive_id;
   typedef Optional<Object_and_primitive_id> Optional_object_and_primitive_id;
 
@@ -138,7 +138,6 @@ public:
       return Optional_primitive_id(Primitive_id(*res));
     return Optional_primitive_id();
   }
-
   Optional_primitive_id any_intersected_primitive(const Ray_3    & query) {
     boost::optional<typename Tree::Primitive::Id> res=data.any_intersected_primitive(query.get_data());
     if (res)

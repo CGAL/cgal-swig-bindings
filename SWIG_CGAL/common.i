@@ -236,7 +236,6 @@
 //   Out_Object_cpp_base_  is the CGAL cpp type associated to Out_Object_
 //   SWIG_for_python_      python specific Out_Object_ class id
 //   SWIG_for_java_        java specific class name (should be a string)
-//   Function_name_        python specific: name of the function using the input_iterator
 #ifdef SWIGPYTHON
 %define SWIG_CGAL_output_iterator_typemap_in(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_)
   %typemap(in) Object_typemap_ {
