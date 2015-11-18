@@ -19,10 +19,28 @@
 #include <SWIG_CGAL/Kernel/Ray_3.h>
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
-
+#include <boost/shared_ptr.hpp>
 
 template <class Primitive>
 void update_primitive_id(const Primitive&,int&){}
+
+#ifndef SWIG
+//to enable insert_from_array only for soups
+template <class T>
+struct Enable_inserton_from_array{
+  typedef CGAL::Tag_false type;
+};
+
+template <>
+struct Enable_inserton_from_array<Triangle_3>{
+  typedef CGAL::Tag_true type;
+};
+
+template <>
+struct Enable_inserton_from_array<Segment_3>{
+  typedef CGAL::Tag_true type;
+};
+#endif
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 template <class Primitive_object>
@@ -60,6 +78,16 @@ class AABB_tree_wrapper
     }
   }
 
+  template <class InputIterator>
+  void internal_insert(InputIterator, InputIterator, CGAL::Tag_false)
+  {}
+
+  template <class InputIterator>
+  void internal_insert(InputIterator begin, InputIterator end, CGAL::Tag_true)
+  {
+    internal_insert(begin,end);
+  }
+
 public:
   #ifndef SWIG
   typedef Tree cpp_base;
@@ -83,6 +111,12 @@ public:
     : primitive_counter_id(-1)
   {
     internal_insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
+  }
+
+  void insert_from_array(boost::shared_ptr<std::vector<typename Primitive_object::cpp_base> > input)
+  {
+    internal_insert(input->begin(),input->end(),
+                    typename Enable_inserton_from_array<Primitive_object>::type());
   }
 //Operations  
   void rebuild(Primitive_range range){

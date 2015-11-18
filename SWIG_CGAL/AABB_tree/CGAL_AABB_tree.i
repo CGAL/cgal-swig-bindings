@@ -122,19 +122,91 @@ SWIG_CGAL_declare_generic_output_iterator(Object_and_Integer_output_iterator,Obj
 #endif
 
 //Declaration of the main classes
+%typemap(in) boost::shared_ptr<std::vector< Triangle_3::cpp_base> > {}
 %typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Polyhedron_3_Facet_handle,AABB_tree_wrapper<CGAL_PTP_Tree,Polyhedron_3_Facet_handle_SWIG_wrapper,Polyhedron_3_Facet_handle_SWIG_wrapper >)
 %typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Polyhedron_3_Halfedge_handle,AABB_tree_wrapper<CGAL_PSP_Tree,Polyhedron_3_Halfedge_handle_SWIG_wrapper,Polyhedron_3_Halfedge_handle_SWIG_wrapper >)
 %typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 
-SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Segment_3_soup,AABB_tree_wrapper<CGAL_SSP_Tree,Segment_3,int >)
-#ifdef SWIGPYTHON
-%include "SWIG_CGAL/Python/typemaps.i"
+
+%define SWIG_CGAL_array_of_array_of_double_to_vector_of_triangle_3_typemap_in
+%typemap(in) boost::shared_ptr<std::vector< Triangle_3::cpp_base> > {
+	boost::shared_ptr<std::vector< Triangle_3::cpp_base> > res(new std::vector< Triangle_3::cpp_base>());
+	if (!PySequence_Check($input)) {
+		PyErr_SetString(PyExc_ValueError,"Expected a sequence");
+		return NULL;
+	}
+        int length=PySequence_Length($input);
+	for (int l=0; l<length; l++) {          
+		PyObject* point = PySequence_GetItem($input, l);
+          
+                if (PySequence_Length(point) != 9) {
+                  PyErr_SetString(PyExc_ValueError,"Expect 9 float per triangle");
+                  return NULL;
+                }
+ 
+		const EPIC_Kernel::Point_3 p( 
+                  PyFloat_AsDouble(PySequence_GetItem(point,0)),
+                  PyFloat_AsDouble(PySequence_GetItem(point,1)),
+                  PyFloat_AsDouble(PySequence_GetItem(point,2))
+                );
+                const EPIC_Kernel::Point_3 q( 
+                  PyFloat_AsDouble(PySequence_GetItem(point,3)),
+                  PyFloat_AsDouble(PySequence_GetItem(point,4)),
+                  PyFloat_AsDouble(PySequence_GetItem(point,5))
+                );
+                const EPIC_Kernel::Point_3 r( 
+                  PyFloat_AsDouble(PySequence_GetItem(point,6)),
+                  PyFloat_AsDouble(PySequence_GetItem(point,7)),
+                  PyFloat_AsDouble(PySequence_GetItem(point,8))
+                );
+
+		res->push_back(EPIC_Kernel::Triangle_3(p, q, r));
+		Py_DECREF(point);
+	}
+	$1=res;
+}
+%enddef
+
+%define SWIG_CGAL_array_of_array_of_double_to_vector_of_segment_3_typemap_in
+%typemap(in) boost::shared_ptr<std::vector< Segment_3::cpp_base> > {
+	boost::shared_ptr<std::vector< Segment_3::cpp_base> > res(new std::vector< Segment_3::cpp_base>());
+	if (!PySequence_Check($input)) {
+		PyErr_SetString(PyExc_ValueError,"Expected a sequence");
+		return NULL;
+	}
+        int length=PySequence_Length($input);
+	for (int l=0; l<length; l++) {          
+		PyObject* point = PySequence_GetItem($input, l);
+          
+                if (PySequence_Length(point) != 6) {
+                  PyErr_SetString(PyExc_ValueError,"Expect 6 float per triangle");
+                  return NULL;
+                }
+ 
+		const EPIC_Kernel::Point_3 p( 
+                  PyFloat_AsDouble(PySequence_GetItem(point,0)),
+                  PyFloat_AsDouble(PySequence_GetItem(point,1)),
+                  PyFloat_AsDouble(PySequence_GetItem(point,2))
+                );
+                const EPIC_Kernel::Point_3 q( 
+                  PyFloat_AsDouble(PySequence_GetItem(point,3)),
+                  PyFloat_AsDouble(PySequence_GetItem(point,4)),
+                  PyFloat_AsDouble(PySequence_GetItem(point,5))
+                );
+
+		res->push_back(EPIC_Kernel::Segment_3(p, q));
+		Py_DECREF(point);
+	}
+	$1=res;
+}
+%enddef
+
 SWIG_CGAL_array_of_array_of_double_to_vector_of_triangle_3_typemap_in
-//SWIG_CGAL_array_of_array_of_double_to_iterator_of_vector_of_triangle_3_typemap_in(Primitive_iterator_helper< Triangle_3 >::input,Triangle_3,Triangle_3,Triangle_3::cpp_base,SWIGTYPE_p_Triangle_3,"(LCGAL/Kernel/Triangle_3;)J",AABB_tree_wrapper::AABB_tree_wrapper)
-#endif
 SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Triangle_3_soup,AABB_tree_wrapper<CGAL_TSP_Tree,Triangle_3,int >)
+SWIG_CGAL_array_of_array_of_double_to_vector_of_segment_3_typemap_in
+SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Segment_3_soup,AABB_tree_wrapper<CGAL_SSP_Tree,Segment_3,int >)
 
 #ifdef SWIG_CGAL_HAS_AABB_tree_USER_PACKAGE
 %include "SWIG_CGAL/User_packages/AABB_tree/extensions.i"
