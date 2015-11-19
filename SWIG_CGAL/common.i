@@ -266,7 +266,7 @@
 #endif
 //-----
 
-//exception for iterators (for next fonctions)
+//exception for iterators (for next functions)
 #ifdef SWIGPYTHON
 %include exception.i
 %exception next

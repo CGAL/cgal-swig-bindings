@@ -122,18 +122,20 @@ SWIG_CGAL_declare_generic_output_iterator(Object_and_Integer_output_iterator,Obj
 #endif
 
 //Declaration of the main classes
+%typemap(in) boost::shared_ptr<std::vector< Triangle_3::cpp_base> > {}
 %typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Polyhedron_3_Facet_handle,AABB_tree_wrapper<CGAL_PTP_Tree,Polyhedron_3_Facet_handle_SWIG_wrapper,Polyhedron_3_Facet_handle_SWIG_wrapper >)
 %typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Polyhedron_3_Halfedge_handle,AABB_tree_wrapper<CGAL_PSP_Tree,Polyhedron_3_Halfedge_handle_SWIG_wrapper,Polyhedron_3_Halfedge_handle_SWIG_wrapper >)
 %typemap(javaimports)      AABB_tree_wrapper%{import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Plane_3; import CGAL.Kernel.Ray_3; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection;%}
 
-SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Segment_3_soup,AABB_tree_wrapper<CGAL_SSP_Tree,Segment_3,int >)
 #ifdef SWIGPYTHON
 %include "SWIG_CGAL/Python/typemaps.i"
-SWIG_CGAL_array_of_array_of_double_to_vector_of_triangle_3_typemap_in
-//SWIG_CGAL_array_of_array_of_double_to_iterator_of_vector_of_triangle_3_typemap_in(Primitive_iterator_helper< Triangle_3 >::input,Triangle_3,Triangle_3,Triangle_3::cpp_base,SWIGTYPE_p_Triangle_3,"(LCGAL/Kernel/Triangle_3;)J",AABB_tree_wrapper::AABB_tree_wrapper)
+SWIG_CGAL_array_of_array6_of_double_to_vector_of_segment_3_typemap_in
+SWIG_CGAL_array_of_array9_of_double_to_vector_of_triangle_3_typemap_in
 #endif
+
+SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Segment_3_soup,AABB_tree_wrapper<CGAL_SSP_Tree,Segment_3,int >)
 SWIG_CGAL_declare_identifier_of_template_class(AABB_tree_Triangle_3_soup,AABB_tree_wrapper<CGAL_TSP_Tree,Triangle_3,int >)
 
 #ifdef SWIG_CGAL_HAS_AABB_tree_USER_PACKAGE
