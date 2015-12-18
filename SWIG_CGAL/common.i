@@ -7,7 +7,7 @@
 %define SWIG_CGAL_declare_identifier_of_template_class(Prefix,Type ... )
 %inline %{ typedef Type  Prefix##_SWIG_wrapper; %}
 %define SWIG_CGAL_import_##Prefix##_SWIG_wrapper
-  %{typedef Type  Prefix##_SWIG_wrapper; %}
+%inline %{typedef Type  Prefix##_SWIG_wrapper; %}
 %enddef
 %define  Prefix##_SWIG_wrapper_for_typemap Type %enddef
 %template (Prefix) Type;
@@ -369,13 +369,14 @@
 
 //typemaps to ease SWIG to handle correctly input and output iterator declared using Wrapper_iterator_helper class
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+%include "SWIG_CGAL/Common/Macros.h"
 //typemap for input iterator
 %define SWIG_CGAL_set_wrapper_iterator_helper_input(WRAPPER)
-  SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<WRAPPER>::input,WRAPPER,WRAPPER,WRAPPER::cpp_base,SWIGTYPE_p_##WRAPPER,"(LCGAL/Kernel/"#WRAPPER";)J",insert)
+  SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<WRAPPER>::input,WRAPPER,WRAPPER,internal::Converter<WRAPPER>::result_type,SWIGTYPE_p_##WRAPPER,"(LCGAL/Kernel/"#WRAPPER";)J",insert)
 %enddef
 //typemap for output iterator
 %define SWIG_CGAL_set_wrapper_iterator_helper_output(WRAPPER)
-  SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<WRAPPER>::output,WRAPPER,WRAPPER,WRAPPER::cpp_base,SWIGTYPE_p_##WRAPPER,"LCGAL/Kernel/"#WRAPPER";")
+  SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<WRAPPER>::output,WRAPPER,WRAPPER,internal::Converter<WRAPPER>::result_type,SWIGTYPE_p_##WRAPPER,"LCGAL/Kernel/"#WRAPPER";")
 %enddef
 #else
 //nothing need to be done for input iterator

@@ -11,8 +11,9 @@
 #include <CGAL/Polyhedron_3.h>
 
 #ifndef SWIGJAVA
+#include <CGAL/Polyhedron_items_with_id_3.h>
 #define SWIG_CGAL_FACET_SUPPORTS_PLANE
-typedef CGAL::Polyhedron_3<EPIC_Kernel>     Polyhedron_3_;
+typedef CGAL::Polyhedron_3<EPIC_Kernel, CGAL::Polyhedron_items_with_id_3>     Polyhedron_3_;
 #else
 #include "SWIG_CGAL/Java/JavaData.h"
 #include "SWIG_CGAL/Polyhedron_3/Polyhedron_items_with_id_and_info_3.h"
