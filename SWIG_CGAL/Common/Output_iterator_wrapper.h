@@ -60,6 +60,18 @@ public:
     return Iterator(this->data().begin(),this->data().end());
   }
 };
+#else
+#include <CGAL/value_type_traits.h>
+
+namespace CGAL{
+template <class Cpp_wrapper, class Cpp_base>
+struct value_type_traits<
+  boost::function_output_iterator< Container_writer<Cpp_wrapper, Cpp_base> >
+>
+{
+  typedef Cpp_base type;
+};
+} //end of namespace CGAL
 #endif
 
 #endif //SWIG_CGAL_COMMON_OUTPUT_ITERATOR_WRAPPER_H
