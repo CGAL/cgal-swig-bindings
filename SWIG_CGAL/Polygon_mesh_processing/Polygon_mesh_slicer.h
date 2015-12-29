@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------
-// Copyright (c) 2011 GeometryFactory (FRANCE)
+// Copyright (c) 2015 GeometryFactory (FRANCE)
 // Distributed under the Boost Software License, Version 1.0. (See accompany-
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 // ------------------------------------------------------------------------------ 
@@ -66,7 +66,3 @@ public:
 
 
 #endif //SWIG_CGAL_PMP_POLYGON_MESH_SLICER_H
-
-
-
-

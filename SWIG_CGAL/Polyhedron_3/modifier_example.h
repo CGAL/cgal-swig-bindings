@@ -101,8 +101,6 @@ public:
         CGAL::Polyhedron_incremental_builder_3<HDS> B( hds, true);
       
         B.begin_surface(points.size(),triples.size());
-        typedef typename HDS::Vertex   Vertex;
-        typedef typename Vertex::Point Point;
         for (Point_container::const_iterator it=points.begin();it!=points.end();++it)
           B.add_vertex(*it);
         

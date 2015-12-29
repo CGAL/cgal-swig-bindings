@@ -7,7 +7,7 @@
 %define SWIG_CGAL_declare_identifier_of_template_class(Prefix,Type ... )
 %inline %{ typedef Type  Prefix##_SWIG_wrapper; %}
 %define SWIG_CGAL_import_##Prefix##_SWIG_wrapper
-  %{typedef Type  Prefix##_SWIG_wrapper; %}
+%inline %{typedef Type  Prefix##_SWIG_wrapper; %}
 %enddef
 %define  Prefix##_SWIG_wrapper_for_typemap Type %enddef
 %template (Prefix) Type;
