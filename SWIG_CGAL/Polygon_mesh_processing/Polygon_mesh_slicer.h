@@ -2,7 +2,7 @@
 // Copyright (c) 2015 GeometryFactory (FRANCE)
 // Distributed under the Boost Software License, Version 1.0. (See accompany-
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_PMP_POLYGON_MESH_SLICER_H
@@ -50,18 +50,17 @@ public:
     : data(poly.get_data())
   {}
 
-  void slice(const Plane_3& plane)
+  void slice(const Plane_3& plane, std::vector< std::vector<Point_3> >& out)
   {
-    std::vector< std::vector<EPIC_Kernel::Point_3> > output;
-    data(plane.get_data(), std::back_inserter(output));
-    std::cout << output.size() << "\n";
+    std::vector< std::vector<EPIC_Kernel::Point_3> > cgal_out;
+    data(plane.get_data(), std::back_inserter(cgal_out));
+    out.reserve(cgal_out.size());
+    BOOST_FOREACH(const std::vector<EPIC_Kernel::Point_3>& v, cgal_out){
+      out.push_back(std::vector<Point_3>());
+      BOOST_FOREACH(const EPIC_Kernel::Point_3& p, v)
+        out.back().push_back( Point_3(p) );
+    }
   }
-  //all_intersected_primitives
-/*   #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-  void all_intersected_primitives (const Segment_3 & query, typename Primitive_iterator_helper<Primitive_id>::output out) {data.all_intersected_primitives(query.get_data(),out);}
-  #else
-  void all_intersected_primitives (const Segment_3 & query, Generic_output_iterator<Primitive_id> out) {data.all_intersected_primitives(query.get_data(),out);}
-  #endif */
 };
 
 

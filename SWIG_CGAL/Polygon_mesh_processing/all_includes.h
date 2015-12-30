@@ -9,5 +9,6 @@
 
 #include <SWIG_CGAL/Polygon_mesh_processing/Side_of_triangle_mesh.h>
 #include <SWIG_CGAL/Polygon_mesh_processing/Polygon_mesh_slicer.h>
+#include <SWIG_CGAL/Polygon_mesh_processing/utils.h>
 
 #endif //SWIG_CGAL_POLYGON_MESH_PROCESSING_ALL_INCLUDES_H

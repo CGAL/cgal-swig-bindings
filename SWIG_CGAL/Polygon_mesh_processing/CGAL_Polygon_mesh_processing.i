@@ -80,6 +80,15 @@ SWIG_CGAL_declare_identifier_of_template_class(Facet_pair,std::pair<Polyhedron_3
     %{ import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle; %}
 SWIG_CGAL_declare_identifier_of_template_class(Halfedge_pair,std::pair<Polyhedron_3_Halfedge_handle_SWIG_wrapper,Polyhedron_3_Halfedge_handle_SWIG_wrapper>)
 
+%include "std_vector.i"
+%typemap(javaimports) std::vector<Point_3>
+  %{ import CGAL.Kernel.Point_3; %}
+
+%template(Point_3_Vector) std::vector<Point_3>;
+%template(Int_Vector) std::vector<int>;
+%template(Polygon_Vector) std::vector< std::vector<int> >;
+
+
 //includes
 %{
   #include <CGAL/polygon_mesh_processing.h>
@@ -287,7 +296,7 @@ SWIG_CGAL_set_wrapper_iterator_helper_output(Vector_3)
   }
 
 //
-// Predicate Functions and Classes
+// Predicate Functions
 //   CGAL::Polygon_mesh_processing::does_self_intersect()
   bool does_self_intersect(Polyhedron_3_SWIG_wrapper& P)
   {
@@ -316,7 +325,21 @@ SWIG_CGAL_set_wrapper_iterator_helper_output(Vector_3)
   {
     PMP::reverse_face_orientations(CGAL::make_range(face_range), P.get_data());
   }
-//   CGAL::Polygon_mesh_processing::orient_polygon_soup() TODO
+//   CGAL::Polygon_mesh_processing::orient_polygon_soup()
+  bool orient_polygon_soup(std::vector<Point_3>& points,
+                           std::vector< std::vector<int> >& polygons)
+  {
+    std::size_t nb_pts = points.size();
+    std::vector< Point_3::cpp_base > cgal_points;
+    cgal_points.reserve(nb_pts);
+    BOOST_FOREACH(const Point_3& pt, points)
+      cgal_points.push_back( pt.get_data() );
+    bool res = PMP::orient_polygon_soup(cgal_points, polygons);
+    if (cgal_points.size()>nb_pts)
+      for (std::size_t i=nb_pts;i<cgal_points.size();++i)
+        points.push_back( Point_3(cgal_points[i]) );
+    return res;
+  }
 //
 // Combinatorial Repairing Functions
 //   CGAL::Polygon_mesh_processing::stitch_borders()
@@ -329,7 +352,19 @@ SWIG_CGAL_set_wrapper_iterator_helper_output(Vector_3)
   {
     PMP::stitch_borders(P.get_data(), hedges);
   }
-//   CGAL::Polygon_mesh_processing::polygon_soup_to_polygon_mesh() TODO
+//   CGAL::Polygon_mesh_processing::polygon_soup_to_polygon_mesh()
+  void polygon_soup_to_polygon_mesh(const std::vector<Point_3>& points,
+                                    const std::vector< std::vector<int> >& polygons,
+                                    Polyhedron_3_SWIG_wrapper& P)
+  {
+    std::size_t nb_pts = points.size();
+    std::vector< Point_3::cpp_base > cgal_points;
+    cgal_points.reserve(nb_pts);
+    BOOST_FOREACH(const Point_3& pt, points)
+      cgal_points.push_back( pt.get_data() );
+    PMP::polygon_soup_to_polygon_mesh(cgal_points, polygons, P.get_data());
+  }
+
 #if CGAL_VERSION_NR >= 1040800000
 //   CGAL::Polygon_mesh_processing::remove_isolated_vertices() (4.8)
 void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
@@ -453,7 +488,6 @@ int keep_large_connected_components(Polyhedron_3_SWIG_wrapper& P,
   {
     PMP::remove_connected_components(P.get_data(),
                                      CGAL::make_range(components_to_remove));
-
   }
   void remove_connected_components(Polyhedron_3_SWIG_wrapper& P,
                                  Integer_range components_to_remove,
