@@ -166,10 +166,11 @@ SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper< int >::output,int,
 %types(Vector_3*,Vector_3);//needed so that the identifier SWIGTYPE_p_Vector_3 is generated
 SWIG_CGAL_set_wrapper_iterator_helper_output(Vector_3)
 
+// get the definition of CGAL_VERSION_NR
+%include "CGAL/version.h"
 
 %inline %{
   #ifndef SWIG
-  #warning CGAL_VERSION_NR is not defined for SWIG
   namespace PMP=CGAL::Polygon_mesh_processing;
   namespace params=CGAL::Polygon_mesh_processing::parameters;
   #endif
