@@ -114,7 +114,7 @@ SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Halfedg
                                     Polyhedron_3_Halfedge_handle,
                                     Polyhedron_3_Halfedge_handle_SWIG_wrapper::cpp_base,
                                     SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t,
-                                    "(LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;)J",XXXXXXXXXXXXXXXXXXXXXXXXXX)
+                                    "(LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;)J",XXXXXXXXXXXXXXXXXXXXXXXXXX)
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Vertex_handle_SWIG_wrapper>::input,
                                     Polyhedron_3_Vertex_handle_SWIG_wrapper,
                                     Polyhedron_3_Vertex_handle,
@@ -126,8 +126,8 @@ SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Halfedge_pair_SWIG_w
                                     Halfedge_pair,
                                     internal::Converter<Halfedge_pair_SWIG_wrapper>::result_type,
                                     SWIGTYPE_p_std__pairT_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t_t,
-                                    "(LCGAL/Polygon_mesh_processing/Polyhedron_3_Halfedge_pair;)J",XXXXXXXXXXXXXXXXXXXXXXXXXX)
-SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper< int >::input,int,Integer,int,swig_types[0],"Ljava/lang/Integer;",keep_connected_components)
+                                    "(LCGAL/Polygon_mesh_processing/Halfedge_pair;)J",XXXXXXXXXXXXXXXXXXXXXXXXXX)
+SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper< int >::input,int,Integer,int,swig_types[0],"(Ljava/lang/Integer;)J",keep_connected_components)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(remove_connected_components)
 #endif

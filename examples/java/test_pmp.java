@@ -58,10 +58,8 @@ public class test_pmp {
     flist.clear();
     for (Polyhedron_3_Facet_handle fh : P.facets())
       flist.add(fh);
-
-    System.out.println("  XXX Please uncomment me");
-//    CGAL_Polygon_mesh_processing.isotropic_remeshing(
-//      P, flist.iterator(),0.25, 3, hlist.iterator(), false);
+    CGAL_Polygon_mesh_processing.isotropic_remeshing(
+      P, flist.iterator(),0.25, 3, hlist.iterator(), false);
     P.write_to_file("iso_remesh.off");
     flist.clear();
     for (Polyhedron_3_Facet_handle fh : P.facets())
@@ -77,8 +75,7 @@ public class test_pmp {
     hlist.clear();
     for (Polyhedron_3_Halfedge_handle hh : P.halfedges())
       hlist.add(hh);
-    System.out.println("  XXX Please uncomment me");
-    //CGAL_Polygon_mesh_processing.split_long_edges(P,hlist.iterator(),0.1);
+    CGAL_Polygon_mesh_processing.split_long_edges(P,hlist.iterator(),0.1);
   }
 
   public static void test_hole_filling_functions()
@@ -181,8 +178,7 @@ public class test_pmp {
     while(!h2.vertex().point().equals(new Point_3(0,0,0))){ h2=h2.next();}
     LinkedList<Halfedge_pair> hpairs = new LinkedList<Halfedge_pair>();
     hpairs.add( new Halfedge_pair(h1,h2) );
-    System.out.println("  XXX Please uncomment me");
-    // CGAL_Polygon_mesh_processing.stitch_borders(P, hpairs.iterator());
+    CGAL_Polygon_mesh_processing.stitch_borders(P, hpairs.iterator());
 
 // polygon_soup_to_polygon_mesh
     P = new Polyhedron_3();
@@ -251,13 +247,13 @@ public class test_pmp {
     LinkedList<Integer> cc_to_keep=new LinkedList<Integer>();
     cc_to_keep.add(0);
     System.out.println("  XXX Please uncomment me");
-    // CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep.iterator(), cc_facet_ids.iterator());
+    CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep.iterator(), cc_facet_ids.iterator());
 // remove_connected_components
     CGAL_Polygon_mesh_processing.remove_connected_components(P,flist.iterator());
     if (!P.empty()) throw new AssertionError("Pb 3");
     P=get_poly();
     System.out.println("  XXX Please uncomment me");
-    // CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep.iterator(), cc_facet_ids.iterator());
+    CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep.iterator(), cc_facet_ids.iterator());
     // if (!P.empty()) throw new AssertionError("Pb 4");
   }
 
