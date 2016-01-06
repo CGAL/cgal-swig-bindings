@@ -347,6 +347,12 @@ SWIG_CGAL_set_wrapper_iterator_helper_output(Vector_3)
                                     CGAL::make_range(third_points),
                                     out);
   }
+  void triangulate_hole_polyline 	(Point_3_range points,
+                                   Integer_triple_output_iterator out)
+  {
+    PMP::triangulate_hole_polyline( CGAL::make_range(points),
+                                    out);
+  }
 
 //
 // Predicate Functions
@@ -601,6 +607,7 @@ int keep_large_connected_components(Polyhedron_3_SWIG_wrapper& P,
                         Halfedge_output_iterator out,
                         Polyhedron_3_SWIG_wrapper& P)
   {
+    CGAL::set_halfedgeds_items_id(P.get_data());
     PMP::border_halfedges(facet_range, out, P.get_data());
   }
 #endif // CGAL 4.8 or later
