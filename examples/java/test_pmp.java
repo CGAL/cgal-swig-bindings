@@ -6,6 +6,7 @@ import CGAL.Polygon_mesh_processing.Halfedge_pair;
 import CGAL.Polygon_mesh_processing.Integer_triple;
 import CGAL.Polygon_mesh_processing.Point_3_Vector;
 import CGAL.Polygon_mesh_processing.Polygon_Vector;
+import CGAL.Polygon_mesh_processing.Polylines;
 import CGAL.Polygon_mesh_processing.Int_Vector;
 
 import CGAL.Polyhedron_3.Polyhedron_3;
@@ -13,8 +14,10 @@ import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle;
 import CGAL.Polyhedron_3.Polyhedron_3_Facet_handle;
 import CGAL.Polyhedron_3.Polyhedron_3_Vertex_handle;
 import CGAL.Kernel.Point_3;
+import CGAL.Kernel.Plane_3;
 import CGAL.Kernel.Vector_3;
 import CGAL.Kernel.Bbox_3;
+import CGAL.Kernel.Bounded_side;
 
 import java.util.LinkedList;
 
@@ -302,11 +305,25 @@ public class test_pmp {
   public static void test_polygon_mesh_slicer()
   {
     System.out.println("Testing Polygon_mesh_slicer...");
+    Polyhedron_3 P=get_poly();
+    Polygon_mesh_slicer slicer = new Polygon_mesh_slicer(P);
+    Polylines slice = new Polylines();
+    slicer.slice(new Plane_3(1,0,0,-0.5), slice);
+    if (slice.size()!=1) throw new AssertionError("Incorrect size");
+    if (slice.get(0).size()==0) throw new AssertionError("no points created");
   }
 
   public static void test_side_of_triangle_mesh()
   {
     System.out.println("Testing Side_of_triangle_mesh...");
+    Polyhedron_3 P=get_poly();
+    Side_of_triangle_mesh f = new Side_of_triangle_mesh(P);
+    if (f.bounded_side(new Point_3(0.25,0.25,0.25))!=Bounded_side.ON_BOUNDED_SIDE )
+      throw new AssertionError("Pt should be on bounded side");
+    if (f.bounded_side(new Point_3(0,0,0))!=Bounded_side.ON_BOUNDARY )
+      throw new AssertionError("Pt should be on boundary");
+    if (f.bounded_side(new Point_3(4,0,0))!=Bounded_side.ON_UNBOUNDED_SIDE )
+      throw new AssertionError("Pt should be on unbounded side");
   }
 
   public static void main(String arg[]){
