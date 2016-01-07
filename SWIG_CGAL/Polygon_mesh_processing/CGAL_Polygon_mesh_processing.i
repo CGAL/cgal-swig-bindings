@@ -108,28 +108,39 @@ SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Facet_h
                                     Polyhedron_3_Facet_handle,
                                     Polyhedron_3_Facet_handle_SWIG_wrapper::cpp_base,
                                     SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t,
-                                    "(LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;)J",XXXXXXXXXXXXXXXXXXXXXXXXXX)
+                                    "(LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;)J",
+                                    refine)
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Halfedge_handle_SWIG_wrapper>::input,
                                     Polyhedron_3_Halfedge_handle_SWIG_wrapper,
                                     Polyhedron_3_Halfedge_handle,
                                     Polyhedron_3_Halfedge_handle_SWIG_wrapper::cpp_base,
                                     SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t,
-                                    "(LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;)J",XXXXXXXXXXXXXXXXXXXXXXXXXX)
+                                    "(LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;)J",
+                                    isotropic_remeshing)
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Vertex_handle_SWIG_wrapper>::input,
                                     Polyhedron_3_Vertex_handle_SWIG_wrapper,
                                     Polyhedron_3_Vertex_handle,
                                     Polyhedron_3_Vertex_handle_SWIG_wrapper::cpp_base,
                                     SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Vertex_handleT_Polyhedron_3__t,
-                                    "(LCGAL/Polyhedron_3/Polyhedron_3_Vertex_handle;)J",XXXXXXXXXXXXXXXXXXXXXXXXXX)
+                                    "(LCGAL/Polyhedron_3/Polyhedron_3_Vertex_handle;)J",
+                                    fair)
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Halfedge_pair_SWIG_wrapper>::input,
                                     Halfedge_pair_SWIG_wrapper,
                                     Halfedge_pair,
                                     internal::Converter<Halfedge_pair_SWIG_wrapper>::result_type,
                                     SWIGTYPE_p_std__pairT_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t_t,
-                                    "(LCGAL/Polygon_mesh_processing/Halfedge_pair;)J",XXXXXXXXXXXXXXXXXXXXXXXXXX)
+                                    "(LCGAL/Polygon_mesh_processing/Halfedge_pair;)J",
+                                    stitch_borders)
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper< int >::input,int,Integer,int,swig_types[0],"(Ljava/lang/Integer;)J",keep_connected_components)
 #ifdef SWIGPYTHON
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(split_long_edges)
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(reverse_face_orientations)
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(compute_vertex_normal)
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(compute_face_normal)
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(remove_connected_components)
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(keep_connected_components)
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(area)
+SWIG_CGAL_input_iterator_typemap_in_python_extra_function(border_halfedges)
 #endif
 // typemaps for output iterators
 SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Facet_handle_SWIG_wrapper>::output,
@@ -529,7 +540,7 @@ int keep_large_connected_components(Polyhedron_3_SWIG_wrapper& P,
     PMP::keep_connected_components(P.get_data(),
                                    CGAL::make_range(components_to_keep));
   }
-  void keep_connected_components(Polyhedron_3_SWIG_wrapper& P,
+  /*void keep_connected_components(Polyhedron_3_SWIG_wrapper& P,
                                  Integer_range components_to_keep,
                                  Integer_range fcm)
   {
@@ -539,7 +550,7 @@ int keep_large_connected_components(Polyhedron_3_SWIG_wrapper& P,
     PMP::keep_connected_components(P.get_data(),
                                    CGAL::make_range(components_to_keep),
                                    pmap);
-  }
+  }*/
 
 //   CGAL::Polygon_mesh_processing::remove_connected_components()
   void remove_connected_components(Polyhedron_3_SWIG_wrapper& P,
@@ -548,7 +559,7 @@ int keep_large_connected_components(Polyhedron_3_SWIG_wrapper& P,
     PMP::remove_connected_components(P.get_data(),
                                      CGAL::make_range(components_to_remove));
   }
-  void remove_connected_components(Polyhedron_3_SWIG_wrapper& P,
+  /*void remove_connected_components(Polyhedron_3_SWIG_wrapper& P,
                                  Integer_range components_to_remove,
                                  Integer_range fcm)
   {
@@ -558,7 +569,7 @@ int keep_large_connected_components(Polyhedron_3_SWIG_wrapper& P,
     PMP::remove_connected_components(P.get_data(),
                                    CGAL::make_range(components_to_remove),
                                    pmap);
-  }
+  }*/
 //
 #if CGAL_VERSION_NR >= 1040800000
 // Geometric Measure functions

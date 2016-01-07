@@ -33,18 +33,26 @@ def test_meshing_functions():
   vlist = []
   for vh in P.vertices():
     vlist.append(vh)
-  for v in vlist:
-    print(v.point())
+  del vlist[-1]
 # fair
   CGAL_Polygon_mesh_processing.fair(P, vlist)
+  P=get_poly();
+  vlist=[]
+  for vh in P.vertices():
+    vlist.append(vh)
+  del vlist[-1]
   CGAL_Polygon_mesh_processing.fair(P, vlist, 2)
-# refine 
+# refine
+  P=get_poly();
   flist = []
   for fh in P.facets():
     flist.append(fh)
   outf = []
   outv = []
   CGAL_Polygon_mesh_processing.refine(P, flist, outf, outv)
+  flist = []
+  for fh in P.facets():
+    flist.append(fh)
   CGAL_Polygon_mesh_processing.refine(P, flist, outf, outv,1.41)
 #  triangulate_faces
   CGAL_Polygon_mesh_processing.triangulate_faces(P)
@@ -56,7 +64,7 @@ def test_meshing_functions():
   flist = []
   for fh in P.facets():
     flist.append(fh)
-  CGAL_Polygon_mesh_processing.isotropic_remeshing(P, flist,0.25, 3, hlist, false)
+  CGAL_Polygon_mesh_processing.isotropic_remeshing(P, flist,0.25, 3, hlist, False)
   P.write_to_file("iso_remesh.off")
   flist = []
   for fh in P.facets():
@@ -78,22 +86,22 @@ def test_hole_filling_functions():
   hlist = []
   for hh in P.halfedges():
     hlist.append(hh)
-  h=P.make_hole(hlist.getFirst())
+  h=P.make_hole(hlist[0])
   outf = []
   outv = []
 # triangulate_hole
   CGAL_Polygon_mesh_processing.triangulate_hole(P,h,outf)
 # triangulate_and_refine_hole
-  h=P.make_hole(hlist.getFirst())
+  h=P.make_hole(hlist[0])
   CGAL_Polygon_mesh_processing.triangulate_and_refine_hole(P, h, outf, outv)
-  h=P.make_hole(hlist.getFirst())
+  h=P.make_hole(hlist[0])
   CGAL_Polygon_mesh_processing.triangulate_and_refine_hole(P, h, outf, outv,1.4)
 # triangulate_refine_and_fair_hole
-  h=P.make_hole(hlist.getFirst())
+  h=P.make_hole(hlist[0])
   CGAL_Polygon_mesh_processing.triangulate_refine_and_fair_hole(P, h, outf, outv)
-  h=P.make_hole(hlist.getFirst())
+  h=P.make_hole(hlist[0])
   CGAL_Polygon_mesh_processing.triangulate_refine_and_fair_hole(P, h, outf, outv, 1.4)
-  h=P.make_hole(hlist.getFirst())
+  h=P.make_hole(hlist[0])
   CGAL_Polygon_mesh_processing.triangulate_refine_and_fair_hole(P, h, outf, outv, 1.4, 1)
 # triangulate_hole_polyline
   points = [Point_3(0,0,0), Point_3(1,0,0), Point_3(0,1,0)]
@@ -111,7 +119,7 @@ def test_predicate_functions():
   out = []
   CGAL_Polygon_mesh_processing.self_intersections(P, out)
 
- 
+
 def test_orientation_functions():
   P=get_poly()
   print("Testing predicate functions...")
@@ -145,7 +153,7 @@ def test_combinatorial_repairing_functions():
   P.make_triangle(Point_3(1,0,0), Point_3(0,0,0), Point_3(0,-1,0))
 # stitch_borders
   CGAL_Polygon_mesh_processing.stitch_borders(P)
-# 
+#
   P.clear()
   h1 = P.make_triangle(Point_3(0,0,0), Point_3(1,0,0), Point_3(0,1,0))
   h2 = P.make_triangle(Point_3(1,0,0), Point_3(0,0,0), Point_3(0,-1,0))
@@ -175,7 +183,7 @@ def test_combinatorial_repairing_functions():
   polygons.append(polygon)
   CGAL_Polygon_mesh_processing.polygon_soup_to_polygon_mesh(points, polygons, P)
   assert(P.size_of_vertices()==3)
-  
+
 # remove_isolated_vertices (4.8)
   CGAL_Polygon_mesh_processing.remove_isolated_vertices(P)
 
@@ -197,7 +205,7 @@ def test_normal_computation_functions():
     CGAL_Polygon_mesh_processing.compute_vertex_normal(vh, P, v)
 
 # compute_vertex_normals
-  normals.clear()
+  normals = []
   CGAL_Polygon_mesh_processing.compute_vertex_normals(P, normals)
   assert(len(normals)==P.size_of_vertices())
 
@@ -220,14 +228,14 @@ def test_connected_components_functions():
   for fh in P.facets():
     CGAL_Polygon_mesh_processing.keep_connected_components(P, flist)
   cc_to_keep=[0]
-  CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep, cc_facet_ids)
+#  CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep, cc_facet_ids)
 # remove_connected_components
   CGAL_Polygon_mesh_processing.remove_connected_components(P,flist)
   assert(P.empty())
   P=get_poly()
-  CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep, cc_facet_ids)
-  assert(P.empty())
- 
+#  CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep, cc_facet_ids)
+#  assert(P.empty())
+
 def test_geometric_measure_functions():
   print("Testing geometric measure functions...")
 # face_area (4.8)
@@ -248,7 +256,7 @@ def test_geometric_measure_functions():
 # face_border_length (4.8)
   for hh in P.halfedges():
     CGAL_Polygon_mesh_processing.face_border_length(hh,P)
- 
+
 def test_miscellaneous_functions():
   print("Testing miscellaneous functions...")
   P=get_poly()
@@ -261,8 +269,8 @@ def test_miscellaneous_functions():
     flist.append(fh)
     break
   CGAL_Polygon_mesh_processing.border_halfedges(flist, hlist, P)
-  assert(hlist.size()==3)
-  
+  assert(len(hlist)==3)
+
 def test_polygon_mesh_slicer():
   print("Testing Polygon_mesh_slicer...")
   P=get_poly()
@@ -270,7 +278,7 @@ def test_polygon_mesh_slicer():
   slice = Polylines()
   slicer.slice(Plane_3(1,0,0,-0.5), slice)
   assert(slice.size()==1)
-  assert(slice.get(0).size()!=0)
+  assert(len(slice[0])!=0)
 
 def test_side_of_triangle_mesh():
   print("Testing Side_of_triangle_mesh...")

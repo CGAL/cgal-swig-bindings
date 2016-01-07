@@ -36,17 +36,27 @@ public class test_pmp {
     Polyhedron_3 P=get_poly();
     LinkedList<Polyhedron_3_Vertex_handle> vlist = new LinkedList<Polyhedron_3_Vertex_handle>();
     for (Polyhedron_3_Vertex_handle vh : P.vertices())
-      vlist.add(vh);
+      vlist.add(vh.clone());
+    vlist.pop();
 // fair
     CGAL_Polygon_mesh_processing.fair(P, vlist.iterator());
+    P=get_poly();
+    vlist.clear();
+    for (Polyhedron_3_Vertex_handle vh : P.vertices())
+      vlist.add(vh.clone());
+    vlist.pop();
     CGAL_Polygon_mesh_processing.fair(P, vlist.iterator(),2);
 // refine
+    P=get_poly();
     LinkedList<Polyhedron_3_Facet_handle> flist = new LinkedList<Polyhedron_3_Facet_handle>();
     for (Polyhedron_3_Facet_handle fh : P.facets())
-      flist.add(fh);
+      flist.add(fh.clone());
     LinkedList<Polyhedron_3_Facet_handle> outf = new LinkedList<Polyhedron_3_Facet_handle>();
     LinkedList<Polyhedron_3_Vertex_handle> outv = new LinkedList<Polyhedron_3_Vertex_handle>();
     CGAL_Polygon_mesh_processing.refine(P, flist.iterator(), outf, outv);
+    flist.clear();
+    for (Polyhedron_3_Facet_handle fh : P.facets())
+      flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.refine(P, flist.iterator(), outf, outv,1.41);
 // triangulate_faces
     CGAL_Polygon_mesh_processing.triangulate_faces(P);
@@ -54,27 +64,27 @@ public class test_pmp {
     P=get_poly();
     LinkedList<Polyhedron_3_Halfedge_handle> hlist = new LinkedList<Polyhedron_3_Halfedge_handle>();
     for (Polyhedron_3_Halfedge_handle hh : P.halfedges())
-      hlist.add(hh);
+      hlist.add(hh.clone());
     flist.clear();
     for (Polyhedron_3_Facet_handle fh : P.facets())
-      flist.add(fh);
+      flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.isotropic_remeshing(
       P, flist.iterator(),0.25, 3, hlist.iterator(), false);
     P.write_to_file("iso_remesh.off");
     flist.clear();
     for (Polyhedron_3_Facet_handle fh : P.facets())
-      flist.add(fh);
+      flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.isotropic_remeshing(
       P, flist.iterator(),0.25, 3);
     flist.clear();
     for (Polyhedron_3_Facet_handle fh : P.facets())
-       flist.add(fh);
+       flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.isotropic_remeshing(
       P, flist.iterator(),0.25);
 // split_long_edges
     hlist.clear();
     for (Polyhedron_3_Halfedge_handle hh : P.halfedges())
-      hlist.add(hh);
+      hlist.add(hh.clone());
     CGAL_Polygon_mesh_processing.split_long_edges(P,hlist.iterator(),0.1);
   }
 
@@ -84,7 +94,7 @@ public class test_pmp {
     Polyhedron_3 P=get_poly();
     LinkedList<Polyhedron_3_Halfedge_handle> hlist = new LinkedList<Polyhedron_3_Halfedge_handle>();
     for (Polyhedron_3_Halfedge_handle hh : P.halfedges())
-      hlist.add(hh);
+      hlist.add(hh.clone());
     Polyhedron_3_Halfedge_handle h=P.make_hole(hlist.getFirst());
     LinkedList<Polyhedron_3_Facet_handle> outf = new LinkedList<Polyhedron_3_Facet_handle>();
     LinkedList<Polyhedron_3_Vertex_handle> outv = new LinkedList<Polyhedron_3_Vertex_handle>();
@@ -139,7 +149,7 @@ public class test_pmp {
     CGAL_Polygon_mesh_processing.reverse_face_orientations(P);
     LinkedList<Polyhedron_3_Facet_handle> flist = new LinkedList<Polyhedron_3_Facet_handle>();
     for (Polyhedron_3_Facet_handle fh : P.facets())
-      flist.add(fh);
+      flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.reverse_face_orientations(flist.iterator(),P);
 //   orient_polygon_soup
     Point_3_Vector points = new Point_3_Vector();
@@ -246,14 +256,12 @@ public class test_pmp {
       CGAL_Polygon_mesh_processing.keep_connected_components(P, flist.iterator());
     LinkedList<Integer> cc_to_keep=new LinkedList<Integer>();
     cc_to_keep.add(0);
-    System.out.println("  XXX Please uncomment me");
-    CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep.iterator(), cc_facet_ids.iterator());
+//    CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep.iterator(), cc_facet_ids.iterator());
 // remove_connected_components
     CGAL_Polygon_mesh_processing.remove_connected_components(P,flist.iterator());
     if (!P.empty()) throw new AssertionError("Pb 3");
     P=get_poly();
-    System.out.println("  XXX Please uncomment me");
-    CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep.iterator(), cc_facet_ids.iterator());
+//    CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep.iterator(), cc_facet_ids.iterator());
     // if (!P.empty()) throw new AssertionError("Pb 4");
   }
 
@@ -267,7 +275,7 @@ public class test_pmp {
 // area (4.8)
     LinkedList<Polyhedron_3_Facet_handle> flist = new LinkedList<Polyhedron_3_Facet_handle>();
     for (Polyhedron_3_Facet_handle fh : P.facets())
-      flist.add(fh);
+      flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.area(flist.iterator(),P);
     CGAL_Polygon_mesh_processing.area(P);
 // volume (4.8)
@@ -290,7 +298,7 @@ public class test_pmp {
 // border_halfedges (4.8)
     LinkedList<Polyhedron_3_Facet_handle> flist = new LinkedList<Polyhedron_3_Facet_handle>();
     for (Polyhedron_3_Facet_handle fh : P.facets()){
-      flist.add(fh);
+      flist.add(fh.clone());
       break;
     }
     CGAL_Polygon_mesh_processing.border_halfedges(flist.iterator(), hlist, P);
