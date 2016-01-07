@@ -99,7 +99,6 @@ SWIG_CGAL_declare_identifier_of_template_class(Halfedge_pair,std::pair<Polyhedro
   #include <iostream>
 %}
 
-
 %types(Point_3*,Point_3);//needed so that the identifier SWIGTYPE_p_Point_3 is generated
 // typemaps for input iterators
 SWIG_CGAL_set_wrapper_iterator_helper_input(Point_3)
@@ -131,7 +130,7 @@ SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Halfedge_pair_SWIG_w
                                     SWIGTYPE_p_std__pairT_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t_t,
                                     "(LCGAL/Polygon_mesh_processing/Halfedge_pair;)J",
                                     stitch_borders)
-SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper< int >::input,int,Integer,int,swig_types[0],"(Ljava/lang/Integer;)J",keep_connected_components)
+
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(split_long_edges)
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(reverse_face_orientations)
@@ -177,11 +176,18 @@ SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper< int >::output,int,
 %types(Vector_3*,Vector_3);//needed so that the identifier SWIGTYPE_p_Vector_3 is generated
 SWIG_CGAL_set_wrapper_iterator_helper_output(Vector_3)
 
+%include "SWIG_CGAL/typemaps.i"
+SWIG_CGAL_array_of_int_to_vector_of_int_typemap_in
+SWIG_CGAL_vector_of_int_to_array_of_int_typemap_out
+#ifdef SWIGPYTHON
+SWIG_CGAL_python_vector_of_int_typecheck
+#endif
 // get the definition of CGAL_VERSION_NR
 %include "CGAL/version.h"
 
 %inline %{
   #ifndef SWIG
+  #include <boost/shared_ptr.hpp>
   namespace PMP=CGAL::Polygon_mesh_processing;
   namespace params=CGAL::Polygon_mesh_processing::parameters;
   #endif
@@ -191,7 +197,6 @@ SWIG_CGAL_set_wrapper_iterator_helper_output(Vector_3)
   typedef Wrapper_iterator_helper<Polyhedron_3_Halfedge_handle_SWIG_wrapper>::input Halfedge_range;
   typedef Wrapper_iterator_helper<Halfedge_pair_SWIG_wrapper>::input Halfedge_pair_range;
   typedef Wrapper_iterator_helper<Point_3>::input Point_3_range;
-  typedef Wrapper_iterator_helper<int>::input Integer_range;
   // output iterators
   typedef Wrapper_iterator_helper<Polyhedron_3_Vertex_handle_SWIG_wrapper>::output Vertex_output_iterator;
   typedef Wrapper_iterator_helper<Polyhedron_3_Halfedge_handle_SWIG_wrapper>::output Halfedge_output_iterator;
@@ -505,18 +510,15 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
     PMP::connected_component(seed_face.get_data(), P.get_data(), out);
   }
 //   CGAL::Polygon_mesh_processing::connected_components()
-  int connected_components(Polyhedron_3_SWIG_wrapper& P,
-                           Integer_output_iterator out)
+  boost::shared_ptr<std::vector<int> >
+  connected_components(Polyhedron_3_SWIG_wrapper& P)
   {
     CGAL::set_halfedgeds_items_id(P.get_data());
-    std::vector<int> cc_ids(P.size_of_facets());
+    boost::shared_ptr<std::vector<int> > cc_ids( new std::vector<int>(P.size_of_facets()) );
     typedef Polyhedron_3_SWIG_wrapper::cpp_base::Facet_handle Facet_handle;
-    Int_from_id_pmap<Facet_handle> pmap(cc_ids);
-    int res=PMP::connected_components(P.get_data(), pmap);
-    // we could simply drop cc_ids...
-    BOOST_FOREACH(Facet_handle fh, faces(P.get_data()))
-      *out++=cc_ids[fh->id()];
-    return res;
+    Int_from_id_pmap<Facet_handle> pmap(*cc_ids);
+    PMP::connected_components(P.get_data(), pmap);
+    return cc_ids;
   }
 //   CGAL::Polygon_mesh_processing::keep_large_connected_components()
 int keep_large_connected_components(Polyhedron_3_SWIG_wrapper& P,
@@ -540,17 +542,17 @@ int keep_large_connected_components(Polyhedron_3_SWIG_wrapper& P,
     PMP::keep_connected_components(P.get_data(),
                                    CGAL::make_range(components_to_keep));
   }
-  /*void keep_connected_components(Polyhedron_3_SWIG_wrapper& P,
-                                 Integer_range components_to_keep,
-                                 Integer_range fcm)
+  void keep_connected_components(Polyhedron_3_SWIG_wrapper& P,
+                                 boost::shared_ptr<std::vector<int> > components_to_keep,
+                                 boost::shared_ptr<std::vector<int> > fcm)
   {
-    std::vector<int> cc_ids(fcm.first, fcm.second);
+    CGAL::set_halfedgeds_items_id(P.get_data());
     typedef Polyhedron_3_SWIG_wrapper::cpp_base::Facet_handle Facet_handle;
-    Int_from_id_pmap<Facet_handle> pmap(cc_ids);
+    Int_from_id_pmap<Facet_handle> pmap(*fcm);
     PMP::keep_connected_components(P.get_data(),
-                                   CGAL::make_range(components_to_keep),
+                                   *components_to_keep,
                                    pmap);
-  }*/
+  }
 
 //   CGAL::Polygon_mesh_processing::remove_connected_components()
   void remove_connected_components(Polyhedron_3_SWIG_wrapper& P,
@@ -559,17 +561,17 @@ int keep_large_connected_components(Polyhedron_3_SWIG_wrapper& P,
     PMP::remove_connected_components(P.get_data(),
                                      CGAL::make_range(components_to_remove));
   }
-  /*void remove_connected_components(Polyhedron_3_SWIG_wrapper& P,
-                                 Integer_range components_to_remove,
-                                 Integer_range fcm)
+  void remove_connected_components(Polyhedron_3_SWIG_wrapper& P,
+                                 boost::shared_ptr<std::vector<int> > components_to_remove,
+                                 boost::shared_ptr<std::vector<int> > fcm)
   {
-    std::vector<int> cc_ids(fcm.first, fcm.second);
+    CGAL::set_halfedgeds_items_id(P.get_data());
     typedef Polyhedron_3_SWIG_wrapper::cpp_base::Facet_handle Facet_handle;
-    Int_from_id_pmap<Facet_handle> pmap(cc_ids);
+    Int_from_id_pmap<Facet_handle> pmap(*fcm);
     PMP::remove_connected_components(P.get_data(),
-                                   CGAL::make_range(components_to_remove),
-                                   pmap);
-  }*/
+                                     *components_to_remove,
+                                     pmap);
+  }
 //
 #if CGAL_VERSION_NR >= 1040800000
 // Geometric Measure functions

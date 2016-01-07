@@ -244,9 +244,8 @@ public class test_pmp {
     for(Polyhedron_3_Facet_handle fh : P.facets())
       CGAL_Polygon_mesh_processing.connected_component(fh,P,flist);
 // connected_components
-    LinkedList<Integer> cc_facet_ids=new LinkedList<Integer>();
-    int k = CGAL_Polygon_mesh_processing.connected_components(P,cc_facet_ids);
-    if (k!=1) throw new AssertionError("Pb 2");
+    int[] cc_facet_ids=CGAL_Polygon_mesh_processing.connected_components(P);
+    if (cc_facet_ids.length!=P.size_of_facets()) throw new AssertionError("Pb 2");
 // keep_large_connected_components
     CGAL_Polygon_mesh_processing.keep_large_connected_components(P,1);
 // keep_largest_connected_components
@@ -254,15 +253,15 @@ public class test_pmp {
 // keep_connected_components
     for(Polyhedron_3_Facet_handle fh : P.facets())
       CGAL_Polygon_mesh_processing.keep_connected_components(P, flist.iterator());
-    LinkedList<Integer> cc_to_keep=new LinkedList<Integer>();
-    cc_to_keep.add(0);
-//    CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep.iterator(), cc_facet_ids.iterator());
+    int[] cc_to_keep = new int[1];
+    cc_to_keep[0]=0;
+    CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep, cc_facet_ids);
 // remove_connected_components
     CGAL_Polygon_mesh_processing.remove_connected_components(P,flist.iterator());
     if (!P.empty()) throw new AssertionError("Pb 3");
     P=get_poly();
-//    CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep.iterator(), cc_facet_ids.iterator());
-    // if (!P.empty()) throw new AssertionError("Pb 4");
+    CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep, cc_facet_ids);
+    if (!P.empty()) throw new AssertionError("Pb 4");
   }
 
   public static void test_geometric_measure_functions()

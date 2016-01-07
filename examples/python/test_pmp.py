@@ -217,9 +217,8 @@ def test_connected_components_functions():
   for fh in P.facets():
     CGAL_Polygon_mesh_processing.connected_component(fh,P,flist)
 # connected_components
-  cc_facet_ids=[]
-  k = CGAL_Polygon_mesh_processing.connected_components(P,cc_facet_ids)
-  assert(k==1)
+  cc_facet_ids=CGAL_Polygon_mesh_processing.connected_components(P)
+  assert(len(cc_facet_ids)==P.size_of_facets())
 # keep_large_connected_components
   CGAL_Polygon_mesh_processing.keep_large_connected_components(P,1)
 # keep_largest_connected_components
@@ -228,13 +227,13 @@ def test_connected_components_functions():
   for fh in P.facets():
     CGAL_Polygon_mesh_processing.keep_connected_components(P, flist)
   cc_to_keep=[0]
-#  CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep, cc_facet_ids)
+  CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep, cc_facet_ids)
 # remove_connected_components
   CGAL_Polygon_mesh_processing.remove_connected_components(P,flist)
   assert(P.empty())
   P=get_poly()
-#  CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep, cc_facet_ids)
-#  assert(P.empty())
+  CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep, cc_facet_ids)
+  assert(P.empty())
 
 def test_geometric_measure_functions():
   print("Testing geometric measure functions...")

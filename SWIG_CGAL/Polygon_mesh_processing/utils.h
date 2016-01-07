@@ -39,10 +39,12 @@ struct Int_from_id_pmap{
   Int_from_id_pmap(std::vector<int>& v) : ids(v) {}
 
   friend int get(Int_from_id_pmap<Handle> map, Handle h){
-     return map.ids[h->id()];
+    CGAL_assertion(h->id()<map.ids.size());
+    return map.ids[h->id()];
   }
   friend void put(Int_from_id_pmap<Handle> map, Handle h, int v){
-     map.ids[h->id()]=v;
+    CGAL_assertion(h->id()<map.ids.size());
+    map.ids[h->id()]=v;
   }
 };
 
