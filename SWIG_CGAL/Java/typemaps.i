@@ -65,36 +65,6 @@ SWIG_CGAL_array_of_double_to_vector_of_point_3_typemap_in_advanced(EPIC_Kernel)
 SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_3_typemap_in_advanced(EPIC_Kernel)
 %enddef
 
-//IN typemap for reading vector of points from an array of array of double
-%define SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in
-%typemap(jni) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "jobjectArray"  //replace in jni class
-%typemap(jtype) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "double[][]"   //replace in java wrapping class
-%typemap(jstype) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "double[][]"  //replace in java function args
-%typemap(javain) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > "$javainput" //replace in java function call to wrapped function
-
-%typemap(in) boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > {
-  boost::shared_ptr<std::vector< std::vector<EPIC_Kernel::Point_2> > > res(new std::vector< std::vector<EPIC_Kernel::Point_2> >());
-
-  const jsize size_of_lines = jenv->GetArrayLength($input);
-  res->resize(size_of_lines);
-
-  jboolean is_copy;
-
-  for (jsize l=0;l<size_of_lines;++l){
-    jdoubleArray line = (jdoubleArray) jenv->GetObjectArrayElement($input,l);
-
-    const jsize size = jenv->GetArrayLength(line) / 2;
-    (*res)[l].reserve((const std::size_t) size);
-    jdouble* points = jenv->GetDoubleArrayElements(line, &is_copy);
-    for (int i = 0 ; i < size ; i++){
-      (*res)[l].push_back(EPIC_Kernel::Point_2(points[i*2],points[i*2+1]));
-    }
-    jenv->ReleaseDoubleArrayElements(line, points, JNI_ABORT);
-  }
-  $1=res;
-}
-%enddef
-
 //IN typemap for reading a vector of triple of int from an array of int
 %define SWIG_CGAL_array_of_int_to_vector_of_triple_of_int_typemap_in
 %typemap(jni) boost::shared_ptr<std::vector<boost::tuple<int,int,int> > > "jintArray"  //replace in jni class
@@ -196,6 +166,69 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_3_typemap_in_adv
     res->push_back(indices[i]);
   }
   jenv->ReleaseDoubleArrayElements($input, indices, JNI_ABORT);
+  $1=res;
+}
+%enddef
+
+// IN typemap from an array of 9-uple of double to vector of triangles
+%define SWIG_CGAL_array_of_array9_of_double_to_vector_of_triangle_3_typemap_in
+%typemap(jni) boost::shared_ptr< std::vector<Triangle_3::cpp_base>  > "jobjectArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr< std::vector<Triangle_3::cpp_base>  > "double[][]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr< std::vector<Triangle_3::cpp_base>  > "double[][]"  //replace in java function args
+%typemap(javain) boost::shared_ptr< std::vector<Triangle_3::cpp_base>  > "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) boost::shared_ptr< std::vector<Triangle_3::cpp_base>  > {
+  boost::shared_ptr< std::vector<Triangle_3::cpp_base> > res(new std::vector<Triangle_3::cpp_base>());
+
+  const jsize nb_arrays = jenv->GetArrayLength($input);
+  res->resize(nb_arrays);
+
+  jboolean is_copy;
+
+  for (jsize l=0;l<nb_arrays;++l){
+    jdoubleArray line = (jdoubleArray) jenv->GetObjectArrayElement($input,l);
+    if (jenv->GetArrayLength(line)!=9){
+      throw std::runtime_error("Arrays must be of size 9");
+    }
+    jdouble* points = jenv->GetDoubleArrayElements(line, &is_copy);
+    EPIC_Kernel::Point_3 p1(points[0],points[1],points[2]);
+    EPIC_Kernel::Point_3 p2(points[3],points[4],points[5]);
+    EPIC_Kernel::Point_3 p3(points[6],points[7],points[8]);
+
+    (*res)[l]=Triangle_3::cpp_base(p1,p2,p3);
+    jenv->ReleaseDoubleArrayElements(line, points, JNI_ABORT);
+  }
+  $1=res;
+}
+%enddef
+
+// IN typemap from an array of 6-uple of double to vector of triangles
+%define SWIG_CGAL_array_of_array6_of_double_to_vector_of_segment_3_typemap_in
+%typemap(jni) boost::shared_ptr< std::vector<Segment_3::cpp_base> > "jobjectArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr< std::vector<Segment_3::cpp_base> > "double[][]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr< std::vector<Segment_3::cpp_base> > "double[][]"  //replace in java function args
+%typemap(javain) boost::shared_ptr< std::vector<Segment_3::cpp_base> > "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) boost::shared_ptr< std::vector<Segment_3::cpp_base> > {
+  boost::shared_ptr< std::vector<Segment_3::cpp_base> > res(new std::vector<Segment_3::cpp_base>());
+
+  const jsize nb_arrays = jenv->GetArrayLength($input);
+  res->resize(nb_arrays);
+
+  jboolean is_copy;
+
+  for (jsize l=0;l<nb_arrays;++l){
+    jdoubleArray line = (jdoubleArray) jenv->GetObjectArrayElement($input,l);
+    if (jenv->GetArrayLength(line)!=6){
+      throw std::runtime_error("Arrays must be of size 6");
+    }
+    jdouble* points = jenv->GetDoubleArrayElements(line, &is_copy);
+    EPIC_Kernel::Point_3 p1(points[0],points[1],points[2]);
+    EPIC_Kernel::Point_3 p2(points[3],points[4],points[5]);
+
+    (*res)[l]=Segment_3::cpp_base(p1,p2);
+    jenv->ReleaseDoubleArrayElements(line, points, JNI_ABORT);
+  }
   $1=res;
 }
 %enddef

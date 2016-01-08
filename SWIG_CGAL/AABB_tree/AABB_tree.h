@@ -103,10 +103,12 @@ public:
     internal_insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
   }
 //Operations
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   void insert_from_array(boost::shared_ptr<std::vector<typename Primitive_object::cpp_base> > input){
     internal_insert(input->begin(),input->end(),
                     typename Enable_inserton_from_array<Primitive_object>::type());
   }
+  #endif
   void rebuild(Primitive_range range){
     clear();
     internal_insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
@@ -219,7 +221,3 @@ public:
 
 
 #endif //SWIG_CGAL_AABB_TREE_AABB_TREE_H
-
-
-
-

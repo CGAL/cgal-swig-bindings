@@ -28,7 +28,9 @@
     res->push_back( PyLong_AsLong(o));
     Py_DECREF(o);
   }
+%enddef
 
+// IN typemap from an array of 9-uple of double to vector of triangles
 %define SWIG_CGAL_array_of_array9_of_double_to_vector_of_triangle_3_typemap_in
 %typemap(in) boost::shared_ptr<std::vector< Triangle_3::cpp_base> > {
 	boost::shared_ptr<std::vector< Triangle_3::cpp_base> > res(new std::vector< Triangle_3::cpp_base>());
@@ -68,6 +70,7 @@
 }
 %enddef
 
+// IN typemap from an array of 6-uple of double to vector of triangles
 %define SWIG_CGAL_array_of_array6_of_double_to_vector_of_segment_3_typemap_in
 %typemap(in) boost::shared_ptr<std::vector< Segment_3::cpp_base> > {
 	boost::shared_ptr<std::vector< Segment_3::cpp_base> > res(new std::vector< Segment_3::cpp_base>());
