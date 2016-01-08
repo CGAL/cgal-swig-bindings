@@ -63,8 +63,8 @@ public:
     if (m_iterator!=NULL){ Py_INCREF(m_iterator); }
     if (m_item!=NULL) { Py_INCREF(m_item);  }
   }
-    
-  Input_iterator_wrapper(PyObject * container,swig_type_info* tinfo):m_iterator(NULL),m_item(NULL),m_type(tinfo)
+  Input_iterator_wrapper(PyObject * container,swig_type_info* tinfo)
+    :m_iterator(NULL),m_item(NULL),m_type(tinfo)
   {
     m_iterator=PyObject_GetIter(container);
     

@@ -19,15 +19,31 @@
 #include <SWIG_CGAL/Kernel/Ray_3.h>
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
-
+#include <boost/shared_ptr.hpp>
 
 template <class Primitive>
 void update_primitive_id(const Primitive&,int&){}
 
+
+#ifndef SWIG
+//to enable insert_from_array only for soups
+template <class T>
+struct Enable_inserton_from_array{
+  typedef CGAL::Tag_false type;
+};
+template <>
+struct Enable_inserton_from_array<Triangle_3>{
+  typedef CGAL::Tag_true type;
+};
+template <>
+struct Enable_inserton_from_array<Segment_3>{
+  typedef CGAL::Tag_true type;
+};
+#endif
+
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 template <class Primitive_object>
-struct Primitive_iterator_helper
-{
+struct Primitive_iterator_helper{
   typedef std::pair<Input_iterator_wrapper<Primitive_object,typename internal::Converter<Primitive_object>::result_type>,
                     Input_iterator_wrapper<Primitive_object,typename internal::Converter<Primitive_object>::result_type> >                      input;
   typedef boost::function_output_iterator< Container_writer<Primitive_object,typename internal::Converter<Primitive_object>::result_type > >     output;
@@ -50,15 +66,19 @@ class AABB_tree_wrapper
   int primitive_counter_id;
 
   template <class InputIterator>
-  void internal_insert(InputIterator begin, InputIterator end)
-  {
-    while(begin!=end)
-    {
+  void internal_insert(InputIterator begin, InputIterator end){
+    while(begin!=end){
       typename Tree::Primitive primitive(*begin++);
       update_primitive_id(primitive, primitive_counter_id);
       data.insert( primitive );
     }
   }
+  template <class InputIterator>
+  void internal_insert(InputIterator begin, InputIterator end, CGAL::Tag_true){
+    internal_insert(begin,end);
+  }
+  template <class InputIterator>
+  void internal_insert(InputIterator, InputIterator, CGAL::Tag_false){}
 
 public:
   #ifndef SWIG
@@ -73,18 +93,20 @@ public:
   #endif
 
   typedef std::pair<Point_3,Primitive_id> Point_and_primitive_id;
-  typedef std::pair<Object,Primitive_id>  Object_and_primitive_id;
+  typedef std::pair<Object,Primitive_id> Object_and_primitive_id;
   typedef Optional<Primitive_id> Optional_primitive_id;
   typedef Optional<Object_and_primitive_id> Optional_object_and_primitive_id;
 
 //Creation
-  AABB_tree_wrapper(): primitive_counter_id(-1){}
-  AABB_tree_wrapper(Primitive_range range)
-    : primitive_counter_id(-1)
-  {
+  AABB_tree_wrapper():primitive_counter_id(-1){}
+  AABB_tree_wrapper(Primitive_range range):primitive_counter_id(-1){
     internal_insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
   }
-//Operations  
+//Operations
+  void insert_from_array(boost::shared_ptr<std::vector<typename Primitive_object::cpp_base> > input){
+    internal_insert(input->begin(),input->end(),
+                    typename Enable_inserton_from_array<Primitive_object>::type());
+  }
   void rebuild(Primitive_range range){
     clear();
     internal_insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
@@ -126,20 +148,19 @@ public:
       return Optional_primitive_id(Primitive_id(*res));
     return Optional_primitive_id();
   }
-  Optional_primitive_id any_intersected_primitive(const Triangle_3 & query) {
+  Optional_primitive_id any_intersected_primitive(const Triangle_3& query) {
     boost::optional<typename Tree::Primitive::Id> res=data.any_intersected_primitive(query.get_data());
     if (res)
       return Optional_primitive_id(Primitive_id(*res));
     return Optional_primitive_id();
   }
-  Optional_primitive_id any_intersected_primitive(const Plane_3 & query) {
+  Optional_primitive_id any_intersected_primitive(const Plane_3   & query) {
     boost::optional<typename Tree::Primitive::Id> res=data.any_intersected_primitive(query.get_data());
     if (res)
       return Optional_primitive_id(Primitive_id(*res));
     return Optional_primitive_id();
   }
-
-  Optional_primitive_id any_intersected_primitive(const Ray_3    & query) {
+  Optional_primitive_id any_intersected_primitive(const Ray_3     & query) {
     boost::optional<typename Tree::Primitive::Id> res=data.any_intersected_primitive(query.get_data());
     if (res)
       return Optional_primitive_id(Primitive_id(*res));
@@ -147,29 +168,25 @@ public:
   }
 //Intersections
   //any_intersection
-  Optional_object_and_primitive_id any_intersection(const Segment_3& query)
-  {
+  Optional_object_and_primitive_id any_intersection(const Segment_3 & query){
     boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> > res=data.any_intersection(query.get_data());
     if (res)
       return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
     return Optional_object_and_primitive_id();
   }
-  Optional_object_and_primitive_id any_intersection(const Plane_3& query)
-  {
+  Optional_object_and_primitive_id any_intersection(const Triangle_3& query){
     boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> > res=data.any_intersection(query.get_data());
     if (res)
       return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
     return Optional_object_and_primitive_id();
   }
-  Optional_object_and_primitive_id any_intersection(const Triangle_3& query)
-  {
+  Optional_object_and_primitive_id any_intersection(const Plane_3   & query){
     boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> > res=data.any_intersection(query.get_data());
     if (res)
       return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
     return Optional_object_and_primitive_id();
   }
-  Optional_object_and_primitive_id any_intersection(const Ray_3& query)
-  {
+  Optional_object_and_primitive_id any_intersection(const Ray_3     & query){
     boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> > res=data.any_intersection(query.get_data());
     if (res)
       return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
@@ -178,13 +195,13 @@ public:
   //all_intersections
   #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE  
   void all_intersections (const Segment_3  & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
-  void all_intersections (const Plane_3    & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   void all_intersections (const Triangle_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
+  void all_intersections (const Plane_3    & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   void all_intersections (const Ray_3      & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   #else
   void all_intersections (const Segment_3  & query, Generic_output_iterator< std::pair<Object,Primitive_id> > out) {data.all_intersections(query.get_data(),out);}
-  void all_intersections (const Plane_3    & query, Generic_output_iterator< std::pair<Object,Primitive_id> > out) {data.all_intersections(query.get_data(),out);}
   void all_intersections (const Triangle_3 & query, Generic_output_iterator< std::pair<Object,Primitive_id> > out) {data.all_intersections(query.get_data(),out);}
+  void all_intersections (const Plane_3    & query, Generic_output_iterator< std::pair<Object,Primitive_id> > out) {data.all_intersections(query.get_data(),out);}
   void all_intersections (const Ray_3      & query, Generic_output_iterator< std::pair<Object,Primitive_id> > out) {data.all_intersections(query.get_data(),out);} 
   #endif
   
