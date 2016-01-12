@@ -229,7 +229,7 @@ def test_connected_components_functions():
   cc_to_keep=[0]
   CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep, cc_facet_ids)
 # remove_connected_components
-  CGAL_Polygon_mesh_processing.remove_connected_components(P,flist)
+  CGAL_Polygon_mesh_processing.remove_connected_components(flist,P)
   assert(P.empty())
   P=get_poly()
   CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep, cc_facet_ids)
