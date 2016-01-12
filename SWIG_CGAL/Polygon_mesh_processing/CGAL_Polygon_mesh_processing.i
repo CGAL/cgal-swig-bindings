@@ -573,8 +573,8 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
 //   CGAL::Polygon_mesh_processing::remove_connected_components()
   #if CGAL_VERSION_NR >= 1040800000
   // desactivated in 4.7 due to a bug in CGAL
-  void remove_connected_components( Facet_range components_to_remove,
-                                    Polyhedron_3_SWIG_wrapper& P)
+  void remove_connected_components( Polyhedron_3_SWIG_wrapper& P,
+                                    Facet_range components_to_remove)
   {
     PMP::remove_connected_components(P.get_data(),
                                      CGAL::make_range(components_to_remove));

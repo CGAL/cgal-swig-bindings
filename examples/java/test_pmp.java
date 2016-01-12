@@ -257,7 +257,7 @@ public class test_pmp {
     cc_to_keep[0]=0;
     CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep, cc_facet_ids);
 // remove_connected_components
-    CGAL_Polygon_mesh_processing.remove_connected_components(flist.iterator(), P);
+    CGAL_Polygon_mesh_processing.remove_connected_components(P, flist.iterator());
     if (!P.empty()) throw new AssertionError("Pb 3");
     P=get_poly();
     CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep, cc_facet_ids);
