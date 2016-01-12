@@ -69,23 +69,23 @@ public class test_pmp {
     for (Polyhedron_3_Facet_handle fh : P.facets())
       flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.isotropic_remeshing(
-      P, flist.iterator(),0.25, 3, hlist.iterator(), false);
+      flist.iterator(), 0.25, P, 3, hlist.iterator(), false);
     P.write_to_file("iso_remesh.off");
     flist.clear();
     for (Polyhedron_3_Facet_handle fh : P.facets())
       flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.isotropic_remeshing(
-      P, flist.iterator(),0.25, 3);
+      flist.iterator(), 0.25, P, 3);
     flist.clear();
     for (Polyhedron_3_Facet_handle fh : P.facets())
        flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.isotropic_remeshing(
-      P, flist.iterator(),0.25);
+      flist.iterator(),0.25, P);
 // split_long_edges
     hlist.clear();
     for (Polyhedron_3_Halfedge_handle hh : P.halfedges())
       hlist.add(hh.clone());
-    CGAL_Polygon_mesh_processing.split_long_edges(P,hlist.iterator(),0.1);
+    CGAL_Polygon_mesh_processing.split_long_edges(hlist.iterator(), 0.1, P);
   }
 
   public static void test_hole_filling_functions()
@@ -257,7 +257,7 @@ public class test_pmp {
     cc_to_keep[0]=0;
     CGAL_Polygon_mesh_processing.keep_connected_components(P, cc_to_keep, cc_facet_ids);
 // remove_connected_components
-    CGAL_Polygon_mesh_processing.remove_connected_components(P,flist.iterator());
+    CGAL_Polygon_mesh_processing.remove_connected_components(flist.iterator(), P);
     if (!P.empty()) throw new AssertionError("Pb 3");
     P=get_poly();
     CGAL_Polygon_mesh_processing.remove_connected_components(P, cc_to_keep, cc_facet_ids);
@@ -300,7 +300,7 @@ public class test_pmp {
       flist.add(fh.clone());
       break;
     }
-    CGAL_Polygon_mesh_processing.border_halfedges(flist.iterator(), hlist, P);
+    CGAL_Polygon_mesh_processing.border_halfedges(flist.iterator(), P, hlist);
     if (hlist.size()!=3)
       throw new AssertionError("Pb 1");
   }

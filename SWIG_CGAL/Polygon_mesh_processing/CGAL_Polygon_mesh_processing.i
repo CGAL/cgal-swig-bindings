@@ -257,9 +257,9 @@ SWIG_CGAL_python_vector_of_int_typecheck
   }
 #if CGAL_VERSION_NR >= 1040800000
 //   CGAL::Polygon_mesh_processing::isotropic_remeshing() (4.8)
-  void isotropic_remeshing(Polyhedron_3_SWIG_wrapper& P,
-                           Facet_range facet_range,
+  void isotropic_remeshing(Facet_range facet_range,
                            double target_edge_length,
+                           Polyhedron_3_SWIG_wrapper& P,
                            int number_of_iterations,
                            Halfedge_range constraints,
                            bool protect_constraints=false)
@@ -270,40 +270,40 @@ SWIG_CGAL_python_vector_of_int_typecheck
     BOOST_FOREACH(Polyhedron::Halfedge_handle h, constraints)
       constrained_edges.insert(std::make_pair(edge(h,P.get_data()),true));
     CGAL::set_halfedgeds_items_id(P.get_data());
-    PMP::isotropic_remeshing(P.get_data(), facet_range, target_edge_length,
+    PMP::isotropic_remeshing(facet_range, target_edge_length, P.get_data(),
                              params::number_of_iterations(number_of_iterations).
                              edge_is_constrained_map(
                               boost::make_assoc_property_map(constrained_edges)).
                               protect_constraints(protect_constraints)
                               );
   }
-  void isotropic_remeshing(Polyhedron_3_SWIG_wrapper& P,
-                           Facet_range facet_range,
+  void isotropic_remeshing(Facet_range facet_range,
                            double target_edge_length,
+                           Polyhedron_3_SWIG_wrapper& P,
                            int number_of_iterations)
   {
     CGAL::set_halfedgeds_items_id(P.get_data());
-    PMP::isotropic_remeshing(P.get_data(), facet_range, target_edge_length,
+    PMP::isotropic_remeshing(facet_range, target_edge_length, P.get_data(),
                              params::number_of_iterations(number_of_iterations));
   }
-  void isotropic_remeshing(Polyhedron_3_SWIG_wrapper& P,
-                           Facet_range facet_range,
-                           double target_edge_length)
+  void isotropic_remeshing(Facet_range facet_range,
+                           double target_edge_length,
+                           Polyhedron_3_SWIG_wrapper& P)
   {
     CGAL::set_halfedgeds_items_id(P.get_data());
-    PMP::isotropic_remeshing(P.get_data(), facet_range, target_edge_length);
+    PMP::isotropic_remeshing(facet_range, target_edge_length, P.get_data());
   }
 //   CGAL::Polygon_mesh_processing::split_long_edges() (4.8)
-  void split_long_edges(Polyhedron_3_SWIG_wrapper& P,
-		                    Halfedge_range halfedge_range,
-                        const double& max_length)
+  void split_long_edges(Halfedge_range halfedge_range,
+                        const double& max_length,
+                        Polyhedron_3_SWIG_wrapper& P)
   {
     typedef Polyhedron_3_SWIG_wrapper::cpp_base Polyhedron;
     typedef boost::graph_traits<Polyhedron>::edge_descriptor edge_descriptor;
     std::vector<edge_descriptor> edges;
     BOOST_FOREACH(Polyhedron::Halfedge_handle h, halfedge_range)
       edges.push_back(edge(h,P.get_data()));
-    PMP::split_long_edges(P.get_data(), edges, max_length);
+    PMP::split_long_edges(edges, max_length, P.get_data());
   }
 //
 #endif // CGAL 4.8 or later
@@ -573,8 +573,8 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
 //   CGAL::Polygon_mesh_processing::remove_connected_components()
   #if CGAL_VERSION_NR >= 1040800000
   // desactivated in 4.7 due to a bug in CGAL
-  void remove_connected_components(Polyhedron_3_SWIG_wrapper& P,
-                                   Facet_range components_to_remove)
+  void remove_connected_components( Facet_range components_to_remove,
+                                    Polyhedron_3_SWIG_wrapper& P)
   {
     PMP::remove_connected_components(P.get_data(),
                                      CGAL::make_range(components_to_remove));
@@ -636,11 +636,11 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
   }
 //   CGAL::Polygon_mesh_processing::border_halfedges() (4.8)
   void border_halfedges(Facet_range facet_range,
-                        Halfedge_output_iterator out,
-                        Polyhedron_3_SWIG_wrapper& P)
+                        Polyhedron_3_SWIG_wrapper& P,
+                        Halfedge_output_iterator out)
   {
     CGAL::set_halfedgeds_items_id(P.get_data());
-    PMP::border_halfedges(facet_range, out, P.get_data());
+    PMP::border_halfedges(facet_range, P.get_data(), out);
   }
 #endif // CGAL 4.8 or later
 

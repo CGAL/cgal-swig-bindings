@@ -64,21 +64,21 @@ def test_meshing_functions():
   flist = []
   for fh in P.facets():
     flist.append(fh)
-  CGAL_Polygon_mesh_processing.isotropic_remeshing(P, flist,0.25, 3, hlist, False)
+  CGAL_Polygon_mesh_processing.isotropic_remeshing(flist, 0.25, P, 3, hlist, False)
   P.write_to_file("iso_remesh.off")
   flist = []
   for fh in P.facets():
     flist.append(fh)
-  CGAL_Polygon_mesh_processing.isotropic_remeshing(P, flist,0.25, 3)
+  CGAL_Polygon_mesh_processing.isotropic_remeshing(flist, 0.25, P, 3)
   flist = []
   for fh in P.facets():
     flist.append(fh)
-  CGAL_Polygon_mesh_processing.isotropic_remeshing(P, flist,0.25)
+  CGAL_Polygon_mesh_processing.isotropic_remeshing(flist, 0.25, P)
 # split_long_edges
   hlist = []
   for hh in P.halfedges():
     hlist.append(hh)
-  CGAL_Polygon_mesh_processing.split_long_edges(P,hlist,0.1)
+  CGAL_Polygon_mesh_processing.split_long_edges(hlist,0.1,P)
 
 def test_hole_filling_functions():
   print("Testing hole filling functions...")
@@ -267,7 +267,7 @@ def test_miscellaneous_functions():
   for fh in P.facets():
     flist.append(fh)
     break
-  CGAL_Polygon_mesh_processing.border_halfedges(flist, hlist, P)
+  CGAL_Polygon_mesh_processing.border_halfedges(flist, P, hlist)
   assert(len(hlist)==3)
 
 def test_polygon_mesh_slicer():
