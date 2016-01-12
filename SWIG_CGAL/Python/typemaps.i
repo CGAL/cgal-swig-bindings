@@ -28,6 +28,7 @@
     res->push_back( PyLong_AsLong(o));
     Py_DECREF(o);
   }
+}
 %enddef
 
 // IN typemap from an array of 9-uple of double to vector of triangles
