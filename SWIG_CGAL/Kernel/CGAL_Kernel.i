@@ -12,6 +12,7 @@ Decl_void_type()
 
 
 SWIG_CGAL_add_java_loadLibrary(CGAL_Kernel)
+SWIG_CGAL_package_common()
 
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Common/Iterator.h"

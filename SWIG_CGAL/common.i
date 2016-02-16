@@ -40,7 +40,17 @@
   // always load CGAL_Java to get JNI_OnLoad called
   SWIG_CGAL_add_java_loadLibrary_CGAL_Java()  
 %enddef
-  
+
+// general macro that defines useful instructions for all packages
+#ifdef SWIG_CGAL_NO_FINALIZE
+  %define SWIG_CGAL_package_common()
+    %typemap(javafinalize) SWIGTYPE ""
+  %enddef
+#else
+  %define SWIG_CGAL_package_common()
+  %enddef
+#endif
+
 //macro function to define proper java iterators
 #ifdef SWIGJAVA
 #if SWIG_VERSION > 0x020005

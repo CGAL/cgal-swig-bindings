@@ -112,6 +112,7 @@ if ( CGAL_FOUND )
       MESSAGE(STATUS "CGAL-SWIG Java libraries and files will be respectively written in ${JAVALIBPATH} and ${JAVA_OUTDIR_PREFIX}/CGAL.")
     endif()
 
+    MESSAGE(STATUS "Now adding packages")
     add_subdirectory(SWIG_CGAL/Kernel)
     add_subdirectory(SWIG_CGAL/Java)
     add_subdirectory(SWIG_CGAL/Triangulation_3)

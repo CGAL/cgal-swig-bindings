@@ -11,6 +11,7 @@
 Decl_void_type()
 
 SWIG_CGAL_add_java_loadLibrary(CGAL_Alpha_shape_2)
+SWIG_CGAL_package_common()
 
 #define CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
 
