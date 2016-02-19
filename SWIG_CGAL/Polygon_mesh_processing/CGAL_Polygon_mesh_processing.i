@@ -203,7 +203,22 @@ SWIG_CGAL_python_vector_of_int_typecheck
   }
   #endif // CGAL 4.7
 
-  #endif
+  struct Is_constrained_map{
+    typedef boost::graph_traits<Polyhedron_3_SWIG_wrapper::cpp_base>::edge_descriptor key_type;
+    const std::set<key_type>& m_set;
+    typedef boost::readable_property_map_tag category;
+    typedef bool value_type;
+    typedef bool reference;
+
+    Is_constrained_map(const std::set<key_type>& set_) : m_set(set_) {}
+
+    friend bool get(const Is_constrained_map& map, const key_type& k)
+    {
+      return map.m_set.count(k);
+    }
+  };
+
+  #endif // SWIG
   // input iterators
   typedef Wrapper_iterator_helper<Polyhedron_3_Vertex_handle_SWIG_wrapper>::input Vertex_range;
   typedef Wrapper_iterator_helper<Polyhedron_3_Facet_handle_SWIG_wrapper>::input Facet_range;
@@ -284,14 +299,14 @@ SWIG_CGAL_python_vector_of_int_typecheck
   {
     typedef Polyhedron_3_SWIG_wrapper::cpp_base Polyhedron;
     typedef boost::graph_traits<Polyhedron>::edge_descriptor edge_descriptor;
-    std::map<edge_descriptor,bool> constrained_edges;
+    std::set<edge_descriptor> constrained_edges;
     BOOST_FOREACH(Polyhedron::Halfedge_handle h, constraints)
-      constrained_edges.insert(std::make_pair(edge(h,P.get_data()),true));
+      constrained_edges.insert(edge(h,P.get_data()));
     CGAL::set_halfedgeds_items_id(P.get_data());
     PMP::isotropic_remeshing(facet_range, target_edge_length, P.get_data(),
                              params::number_of_iterations(number_of_iterations).
                              edge_is_constrained_map(
-                              boost::make_assoc_property_map(constrained_edges)).
+                              Is_constrained_map(constrained_edges)).
                               protect_constraints(protect_constraints)
                               );
   }
