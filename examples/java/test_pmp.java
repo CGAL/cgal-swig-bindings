@@ -58,8 +58,14 @@ public class test_pmp {
     for (Polyhedron_3_Facet_handle fh : P.facets())
       flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.refine(P, flist.iterator(), outf, outv,1.41);
+    flist.clear();
+    for (Polyhedron_3_Facet_handle fh : P.facets())
+      flist.add(fh.clone());
+// triangulate_face (4.8)
+    CGAL_Polygon_mesh_processing.triangulate_face(flist.getFirst(), P);
 // triangulate_faces
     CGAL_Polygon_mesh_processing.triangulate_faces(P);
+    CGAL_Polygon_mesh_processing.triangulate_faces(flist.iterator(),P); // (4.8)
 // isotropic_remeshing (4.8)
     P=get_poly();
     LinkedList<Polyhedron_3_Halfedge_handle> hlist = new LinkedList<Polyhedron_3_Halfedge_handle>();

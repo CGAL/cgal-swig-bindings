@@ -251,12 +251,29 @@ SWIG_CGAL_python_vector_of_int_typecheck
     PMP::refine(P.get_data(), facet_range, facet_output, vertex_output,
                 params::fairing_continuity(density_control_factor));
   }
+
+#if CGAL_VERSION_NR >= 1040800000
+// CGAL::Polygon_mesh_processing::triangulate_face()
+  void triangulate_face(Polyhedron_3_Facet_handle_SWIG_wrapper& face,
+		                    Polyhedron_3_SWIG_wrapper& P)
+  {
+    PMP::triangulate_face(face.get_data(), P.get_data());
+  }
+#endif //CGAL 4.8 or later
+
 //   CGAL::Polygon_mesh_processing::triangulate_faces()
   void triangulate_faces(Polyhedron_3_SWIG_wrapper& P)
   {
     PMP::triangulate_faces(P.get_data());
   }
+
 #if CGAL_VERSION_NR >= 1040800000
+  void triangulate_faces (Facet_range facet_range,
+                          Polyhedron_3_SWIG_wrapper& P)
+  {
+    PMP::triangulate_faces(facet_range, P.get_data());
+  }
+
 //   CGAL::Polygon_mesh_processing::isotropic_remeshing() (4.8)
   void isotropic_remeshing(Facet_range facet_range,
                            double target_edge_length,
