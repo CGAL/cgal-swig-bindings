@@ -24,8 +24,46 @@ import java.util.LinkedList;
 import java.util.Vector;
 
 public class test_aabb {
+  public static void test_insert_from_array(){
+    System.out.println("test_insert_from_array");
+    double[] s1 = {1,2,3,6,4,5};
+    double[] s2 = {1,2,3,16,41,51};
+    double[] s3 = {1,2,3,65,45,5};
+    double[] s4 = {1,2,3,64,44,5};
+
+    double[][] segments = {s1, s2, s3, s4};
+
+    AABB_tree_Segment_3_soup tree_seg = new AABB_tree_Segment_3_soup();
+    tree_seg.insert_from_array(segments);
+    if (tree_seg.size()!=4) throw new AssertionError("invalid size");
+
+    Segment_3 s=new Segment_3(new Point_3(1,2,3),new Point_3(0,0,0));
+    if (tree_seg.do_intersect(s))
+      System.out.println(" OK");
+    else
+      throw new AssertionError("do_intersect should return true");
+
+    double [] t1 = {0,0,0,0,0,1,0,0,-1};
+    double [] t2 = {0,0,0,0,0,1,0,1,-1};
+    double [] t3 = {0,0,0,0,0,1,0,2,-1};
+    double [] t4 = {0,0,0,0,0,1,0,3,-1};
+
+    double[][] triangles = {t1, t2, t3, t4};
+
+    AABB_tree_Triangle_3_soup tree_tri = new AABB_tree_Triangle_3_soup();
+    tree_tri.insert_from_array(triangles);
+    if (tree_tri.size()!=4) throw new AssertionError("invalid size");
+
+    if (tree_seg.do_intersect(s))
+      System.out.println(" OK");
+    else
+      throw new AssertionError("do_intersect should return true");
+
+  }
+
   public static void main(String arg[]){
     System.out.println("Testing");
+    test_insert_from_array();
 
     LinkedList<Segment_3> segments = new LinkedList<Segment_3>();
     segments.add(new Segment_3(new Point_3(1,2,3),new Point_3(6,4,5)));

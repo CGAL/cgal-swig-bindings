@@ -39,8 +39,8 @@ struct Converter{
   typedef typename T::cpp_base  result_type;
   static const bool is_reference=true;
   
-  static const result_type&  convert(const T& t){return t.get_data();}
-  static result_type& convert(T& t){return t.get_data();}
+  static const result_type& convert(const T& t){return t.get_data();}
+  static       result_type& convert(      T& t){return t.get_data();}
 };
 
 template <class T>

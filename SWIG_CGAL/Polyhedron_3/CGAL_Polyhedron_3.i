@@ -11,6 +11,7 @@
 Decl_void_type()
 
 SWIG_CGAL_add_java_loadLibrary(CGAL_Polyhedron_3)
+SWIG_CGAL_package_common()
 
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
@@ -19,12 +20,14 @@ SWIG_CGAL_add_java_loadLibrary(CGAL_Polyhedron_3)
 %{ 
 #include <SWIG_CGAL/Polyhedron_3/all_includes.h> 
 %}
+#ifdef SWIG_CGAL_Polyhedron_MODULE
 #ifdef SWIGJAVA
 %include "SWIG_CGAL/Polyhedron_3/java_extensions.i"
 #endif
 
 #ifdef SWIGPYTHON
 %include "SWIG_CGAL/Polyhedron_3/python_extensions.i"
+#endif
 #endif
 
 //include files

@@ -24,9 +24,16 @@
 #include <CGAL/IO/write_xyz_points.h>
 #include <CGAL/IO/write_off_points.h>
 
+
+#if CGAL_VERSION_NR >= 1040800000
+#define DFT <CGAL::Sequential_tag>
+#else
+#define DFT
+#endif
+
 double compute_average_spacing(Wrapper_iterator_helper<Point_3>::input point_range, int k)
 {
-  return CGAL::compute_average_spacing(point_range.first, point_range.second, k);
+  return CGAL::compute_average_spacing DFT (point_range.first, point_range.second, k);
 }
 
 /// Simplification functions
@@ -108,7 +115,7 @@ void jet_smooth_point_set (Wrapper_iterator_helper<Point_3>::input point_range,u
   points.reserve(nb_pts);
   for (std::size_t i=0; i<nb_pts; ++i) points.push_back( *points_ptr[i] );
 //CGAL function call
-  CGAL::jet_smooth_point_set(points.begin(), points.end(), nb_neighbors, degree_fitting, degree_monge);
+  CGAL::jet_smooth_point_set DFT (points.begin(), points.end(), nb_neighbors, degree_fitting, degree_monge);
 //copy the points back into the original points
   for (std::size_t i=0; i<nb_pts; ++i) *points_ptr[i] = points[i];
 }
@@ -124,7 +131,7 @@ void jet_estimate_normals (Wrapper_iterator_helper<Point_3>::input point_range, 
 
   CGAL::First_of_pair_property_map< std::pair<Point_3::cpp_base, Vector_3::cpp_base > > point_pmap;
   CGAL::Second_of_pair_property_map< std::pair<Point_3::cpp_base, Vector_3::cpp_base > > normal_pmap;
-  CGAL::jet_estimate_normals(input.begin(), input.end(), point_pmap, normal_pmap, k, degree_fitting );
+  CGAL::jet_estimate_normals DFT (input.begin(), input.end(), point_pmap, normal_pmap, k, degree_fitting );
 
   //copy the normal inside the output iterator
   std::size_t nb_pts=input.size();
@@ -173,7 +180,7 @@ void pca_estimate_normals (Wrapper_iterator_helper<Point_3>::input point_range, 
 
   CGAL::First_of_pair_property_map< std::pair<Point_3::cpp_base, Vector_3::cpp_base > > point_pmap;
   CGAL::Second_of_pair_property_map< std::pair<Point_3::cpp_base, Vector_3::cpp_base > > normal_pmap;
-  CGAL::pca_estimate_normals(input.begin(), input.end(), point_pmap, normal_pmap, k);
+  CGAL::pca_estimate_normals DFT (input.begin(), input.end(), point_pmap, normal_pmap, k);
 
   //copy the normal inside the output iterator
   std::size_t nb_pts=input.size();
@@ -314,7 +321,6 @@ bool write_xyz_points_and_normals (const char* fname, Wrapper_iterator_helper<Po
                                               point_pmap, normal_pmap );
 }
 
-
-
+#undef DFT
 
 #endif //SWIG_CGAL_POINT_SET_PROCESSING_3_H

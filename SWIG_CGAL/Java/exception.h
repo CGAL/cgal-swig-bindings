@@ -15,15 +15,15 @@
  
 bool throwJavaException(const char* msg)
 {
-  jclass exception = JNU_GetEnv()->FindClass("java/lang/Exception");
+  jclass exception = JNU_GetEnv()->FindClass("CGAL/Java/SWIGCGALException");
   if(!exception) {
-    std::cerr << "Cannot find class \"java.lang.Exception\","
+    std::cerr << "Cannot find class \"CGAL.Java.SWIGCGALException\","
               << " and cannot throw java exception!\n";
   }
   else if(JNU_GetEnv()->ThrowNew(exception, msg) != 0)
   {
     std::cerr << 
-      "Call to JNU_GetEnv()->ThrowNew(JNU_GetEnv()->FindClass(\"java.lang.Exception\"), msg)"
+      "Call to JNU_GetEnv()->ThrowNew(JNU_GetEnv()->FindClass(\"CGAL.Java.SWIGCGALException\"), msg)"
       " failed\n";
   }
   else {
@@ -32,7 +32,7 @@ bool throwJavaException(const char* msg)
   std::cerr << "msg is:\n" << msg << "\n";
   return false;
 }
-#endif
+#endif // SWIG
 
 
 #define JNI_THROW_ON_ERROR(JOBJECT,METHOD,WITH) \

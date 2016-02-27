@@ -11,6 +11,7 @@
 Decl_void_type()
 
 SWIG_CGAL_add_java_loadLibrary_CGAL_Java()
+SWIG_CGAL_package_common()
 
 //include files
 %{
