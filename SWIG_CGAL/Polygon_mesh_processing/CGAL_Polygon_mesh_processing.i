@@ -687,6 +687,22 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
 
 %}
 
+#ifdef SWIGJAVA
+SWIG_CGAL_array_of_double_to_vector_of_point_3_typemap_in
+SWIG_CGAL_array_of_int_to_vector_of_vector_of_int_typemap_in
+
+%inline
+%{
+#include <boost/shared_ptr.hpp>
+void polygon_soup_to_polygon_mesh(boost::shared_ptr< std::vector<EPIC_Kernel::Point_3> > points,
+                                  boost::shared_ptr< std::vector< std::vector<int> > > polygons,
+                                  Polyhedron_3_SWIG_wrapper& P)
+{
+  CGAL::Polygon_mesh_processing::polygon_soup_to_polygon_mesh(*points, *polygons, P.get_data());
+}
+%}
+#endif
+
 #ifdef SWIG_CGAL_HAS_Polygon_mesh_processing_USER_PACKAGE
 %include "SWIG_CGAL/User_packages/Polygon_mesh_processing/extensions.i"
 #endif

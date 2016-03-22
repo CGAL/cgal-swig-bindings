@@ -213,6 +213,12 @@ public class test_pmp {
     CGAL_Polygon_mesh_processing.polygon_soup_to_polygon_mesh(points, polygons, P);
     if (P.size_of_vertices()!=3)
       throw new AssertionError("Pb 0");
+    P = new Polyhedron_3();
+    double [] pt_array = {0,0,0,0,1,0,1,0,0};
+    int [] id_array = {0,1,2};
+    CGAL_Polygon_mesh_processing.polygon_soup_to_polygon_mesh(pt_array, id_array, P);
+    if (P.size_of_vertices()!=3)
+      throw new AssertionError("Pb 0 bis");
 // remove_isolated_vertices (4.8)
     CGAL_Polygon_mesh_processing.remove_isolated_vertices(P);
   }
