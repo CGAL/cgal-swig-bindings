@@ -205,16 +205,24 @@ SWIG_CGAL_python_vector_of_int_typecheck
 
   struct Is_constrained_map{
     typedef boost::graph_traits<Polyhedron_3_SWIG_wrapper::cpp_base>::edge_descriptor key_type;
-    const std::set<key_type>& m_set;
+    std::set<key_type>& m_set;
     typedef boost::readable_property_map_tag category;
     typedef bool value_type;
     typedef bool reference;
 
-    Is_constrained_map(const std::set<key_type>& set_) : m_set(set_) {}
+    Is_constrained_map(std::set<key_type>& set_) : m_set(set_) {}
 
     friend bool get(const Is_constrained_map& map, const key_type& k)
     {
       return map.m_set.count(k);
+    }
+
+    friend void put(const Is_constrained_map& map, const key_type& k, value_type b)
+    {
+      if (b)
+        map.m_set.insert(k);
+      else
+        map.m_set.erase(k);
     }
   };
 
@@ -678,6 +686,22 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
 #endif // CGAL 4.8 or later
 
 %}
+
+#ifdef SWIGJAVA
+SWIG_CGAL_array_of_double_to_vector_of_point_3_typemap_in
+SWIG_CGAL_array_of_int_to_vector_of_vector_of_int_typemap_in
+
+%inline
+%{
+#include <boost/shared_ptr.hpp>
+void polygon_soup_to_polygon_mesh(boost::shared_ptr< std::vector<EPIC_Kernel::Point_3> > points,
+                                  boost::shared_ptr< std::vector< std::vector<int> > > polygons,
+                                  Polyhedron_3_SWIG_wrapper& P)
+{
+  CGAL::Polygon_mesh_processing::polygon_soup_to_polygon_mesh(*points, *polygons, P.get_data());
+}
+%}
+#endif
 
 #ifdef SWIG_CGAL_HAS_Polygon_mesh_processing_USER_PACKAGE
 %include "SWIG_CGAL/User_packages/Polygon_mesh_processing/extensions.i"
