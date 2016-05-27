@@ -19,7 +19,7 @@ MACRO(ADD_SWIG_CGAL_LIBRARY libname)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${COMMON_LIBRARIES_PATH}")
   EXTRACT_CPP_AND_LIB_FILES(${ARGN}) 
   add_library(${libname} SHARED ${object_files})
-  target_link_libraries(${libname} ${libstolinkwith})
+  target_link_libraries(${libname} ${libstolinkwith} ${Boost_LIBRARIES})
 ENDMACRO()
 
 MACRO(ADD_SWIG_CGAL_JAVA_MODULE packagename)
