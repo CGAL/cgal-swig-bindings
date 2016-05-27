@@ -11,6 +11,7 @@ option ( LINK_PYTHON_LIBRARY "Link against python libraries" ON )
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/SWIG_CGAL_Macros.cmake)
 
+find_package(Boost COMPONENTS system thread REQUIRED)
 find_package(CGAL QUIET COMPONENTS ImageIO)
 find_package(SWIG REQUIRED)
 option( BUILD_PYTHON "Build Python bindings" ON )
