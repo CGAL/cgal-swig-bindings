@@ -1,6 +1,6 @@
 SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
 
-find_package(Eigen3 3.1.0)
+find_package(Eigen3 3.3.0)
 
 if (EIGEN3_FOUND)
   include( ${EIGEN3_USE_FILE} )
@@ -10,5 +10,5 @@ if (EIGEN3_FOUND)
   ADD_SWIG_CGAL_PYTHON_MODULE ( Point_set_processing_3 ${LIBSTOLINKWITH} )
   ADD_SWIG_CGAL_RUBY_MODULE   ( Point_set_processing_3 ${LIBSTOLINKWITH} )
 else()
-    message(STATUS "NOTICE: Point_set_processing_3 bindings requires Eigen version 3.1 or greater, and will not be compiled.")
+    message(STATUS "NOTICE: Point_set_processing_3 bindings requires Eigen version 3.3 or greater, and will not be compiled.")
 endif()
