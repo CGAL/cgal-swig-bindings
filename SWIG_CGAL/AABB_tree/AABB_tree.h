@@ -211,6 +211,10 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(double,squared_distance,Point_3)
   SWIG_CGAL_FORWARD_CALL_1(Point_3,closest_point,Point_3)
   SWIG_CGAL_FORWARD_CALL_1(Point_and_primitive_id,closest_point_and_primitive,Point_3)
+  Point_and_primitive_id closest_point_and_primitive(double x, double y, double z)
+  {
+    return Point_and_primitive_id(SWIG_CGAL_extract_data(this->get_data()).closest_point_and_primitive(Point_3::cpp_base(x,y,z)));
+  }
 //Accelerating the Distance Queries
   SWIG_CGAL_FORWARD_CALL_0(bool,accelerate_distance_queries)
   SWIG_CGAL_FORWARD_CALL_2(double,squared_distance,Point_3,Point_3)
