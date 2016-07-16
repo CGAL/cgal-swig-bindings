@@ -80,27 +80,39 @@ if ( CGAL_FOUND )
     else()  
       message(STATUS "BUILD_JAVA is set to OFF: no CGAL-bindings for Java will be generated.")
     endif()
-    
+
     SET (COMMON_LIBRARIES_PATH "${CMAKE_CURRENT_BINARY_DIR}/lib" CACHE PATH "Path where libraries common to all target languages are created.")
-    
+
     if (RUBY_FOUND)
       SET (RUBY_OUTDIR_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/build-ruby" CACHE PATH "RUBY specific files output directory prefix: the CGAL directory will contain Ruby generated files and libraries.")
-      
       LINK_DIRECTORIES("${RUBY_OUTDIR_PREFIX}/CGAL")
       MESSAGE(STATUS "Found Ruby libs.")
       MESSAGE(STATUS "CGAL-SWIG Ruby files and libraries will be written in ${RUBY_OUTDIR_PREFIX}/CGAL.")
     endif()
     if (PYTHONLIBS_FOUND)
-      if ( PYTHON_EXECUTABLE )
+      set (PYTHON_OUTDIR_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/build-python" CACHE PATH "PYTHON specific files output directory prefix: the CGAL directory will contain Python generated files and libraries.")
+      configure_file (SWIG_CGAL/files/__init__.py "${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py" @ONLY)
+      if (PYTHON_EXECUTABLE)
         file (GLOB python_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/python/*.py" )
         foreach(python_file ${python_files})
           cgal_python_test(${python_file})
         endforeach()
+
+        execute_process (COMMAND ${PYTHON_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
+                         OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
+                         RESULT_VARIABLE _exit_code
+                         OUTPUT_STRIP_TRAILING_WHITESPACE )
+
+        if (NOT ${_exit_code})
+          get_filename_component (_ABS_PYTHON_MODULE_PATH ${_ABS_PYTHON_MODULE_PATH} ABSOLUTE)
+          file (RELATIVE_PATH _REL_PYTHON_MODULE_PATH ${CMAKE_INSTALL_PREFIX} ${_ABS_PYTHON_MODULE_PATH})
+          set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
+          install (FILES ${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
+        else ()
+          message (SEND_ERROR "Could not run ${PYTHON_EXECUTABLE}")
+        endif ()
       endif ()
-      SET (PYTHON_OUTDIR_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/build-python" CACHE PATH "PYTHON specific files output directory prefix: the CGAL directory will contain Python generated files and libraries.")
-      SET(PYTHON_INSTALL_PREFIX_DEBUG "${CMAKE_INSTALL_PREFIX}/cgal-bindings_d/CGAL")
-      SET(PYTHON_INSTALL_PREFIX_RELEASE "${CMAKE_INSTALL_PREFIX}/cgal-bindings/CGAL")
-      configure_file(SWIG_CGAL/files/__init__.py "${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py" @ONLY)
+
       LINK_DIRECTORIES("${PYTHON_OUTDIR_PREFIX}/CGAL")
       MESSAGE(STATUS "Found Python libs.")
       MESSAGE(STATUS "CGAL-SWIG Python files and libraries will be written in ${PYTHON_OUTDIR_PREFIX}/CGAL.")
