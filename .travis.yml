@@ -1,0 +1,37 @@
+language: cpp
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    packages:
+    - libmpfr-dev
+    - libboost-atomic-dev
+    - libboost-chrono-dev
+    - libboost-date-time-dev
+    - libboost-system-dev
+    - libboost-thread-dev
+    - libeigen3-dev
+    - swig
+    - python-dev
+    - python-numpy
+    - python3-dev
+    - python3-numpy
+
+install:
+  - wget https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-4.8.1/CGAL-4.8.1.tar.xz
+  - tar xf CGAL-4.8.1.tar.xz
+  - pushd CGAL-4.8.1
+  - cmake -DCMAKE_INSTALL_PREFIX=/usr .
+  - make -j2
+  - sudo make install
+  - popd
+
+script:
+  - cmake -DCMAKE_INSTALL_PREFIX=~/.local/
+    -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so
+    -DPYTHON_EXECUTABLE=/usr/bin/python .
+  - make install -j2 && ctest -j2 --output-on-failure
+  - cmake -DPYTHON_INCLUDE_DIR=/usr/include/python3.4m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.4m.so
+    -DPYTHON_EXECUTABLE=/usr/bin/python3 .
+  - make install -j2 && ctest -j2 --output-on-failure
