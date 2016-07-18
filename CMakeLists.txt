@@ -98,9 +98,11 @@ if ( CGAL_FOUND )
       set (PYTHON_OUTDIR_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/build-python" CACHE PATH "PYTHON specific files output directory prefix: the CGAL directory will contain Python generated files and libraries.")
       configure_file (SWIG_CGAL/files/__init__.py "${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py" @ONLY)
       if (PYTHON_EXECUTABLE)
-        file (GLOB python_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/python/*.py" )
-        foreach(python_file ${python_files})
-          cgal_python_test(${python_file})
+        file (GLOB python_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/python/*.py")
+        # exclude blocking matplotlib plotting example
+        list (REMOVE_ITEM python_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/python/polygonal_triangulation.py)
+        foreach (python_file ${python_files})
+          cgal_python_test (${python_file})
         endforeach()
 
         execute_process (COMMAND ${PYTHON_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
