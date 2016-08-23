@@ -24,11 +24,8 @@ option( BUILD_JAVA "Build Java bindings" ON )
 option( BUILD_RUBY "Build Ruby bindings" OFF )
 
 enable_testing ()
-macro ( cgal_python_test TESTNAME_SRC )
-  get_filename_component(TESTNAME ${TESTNAME_SRC} NAME_WE)
-  add_test( ${TESTNAME} ${PYTHON_EXECUTABLE} ${TESTNAME_SRC} )
-  set_tests_properties ( ${TESTNAME} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_OUTDIR_PREFIX};DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/examples/data" )
-endmacro ()
+add_custom_target (tests)
+
 
 if ( CGAL_FOUND )
   include( ${CGAL_USE_FILE} )
@@ -101,9 +98,11 @@ if ( CGAL_FOUND )
         file (GLOB python_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/python/*.py")
         # exclude blocking matplotlib plotting example
         list (REMOVE_ITEM python_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/python/polygonal_triangulation.py)
-        foreach (python_file ${python_files})
-          cgal_python_test (${python_file})
-        endforeach()
+        foreach (TESTNAME_SRC ${python_files})
+          get_filename_component (TESTNAME ${TESTNAME_SRC} NAME_WE)
+          add_test (NAME pythontest_${TESTNAME} COMMAND ${PYTHON_EXECUTABLE} ${TESTNAME_SRC})
+          set_tests_properties (pythontest_${TESTNAME} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_OUTDIR_PREFIX};DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/examples/data")
+        endforeach ()
 
         execute_process (COMMAND ${PYTHON_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
                          OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
@@ -129,6 +128,26 @@ if ( CGAL_FOUND )
       SET (JAVALIBPATH "${JAVA_OUTDIR_PREFIX}/lib")
       MESSAGE(STATUS "Found JNI: JNI include dirs ${JAVA_INCLUDE_PATH} ${JAVA_INCLUDE_PATH2}.")
       MESSAGE(STATUS "CGAL-SWIG Java libraries and files will be respectively written in ${JAVALIBPATH} and ${JAVA_OUTDIR_PREFIX}/CGAL.")
+
+      find_package (Java)
+      if (JAVA_FOUND)
+        file (GLOB java_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/java/*.java")
+        # FIXME: these fail
+        foreach (TESTNAME test_pmp test_mesh_2 test_mesh_3 mesh_polyhedral_domain Point_set_processing_3_test Mesh2Criteria Mesh3FacetCriteria Mesh3CellCriteria)
+          list (REMOVE_ITEM java_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/java/${TESTNAME}.java)
+        endforeach ()
+
+        foreach (TESTNAME_SRC ${java_files})
+          get_filename_component(TESTNAME ${TESTNAME_SRC} NAME_WE)
+          add_custom_target (javatest_${TESTNAME}
+            COMMAND ${Java_JAVAC_EXECUTABLE} ${TESTNAME_SRC} -d ${JAVA_OUTDIR_PREFIX}
+            WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
+          add_dependencies (tests javatest_${TESTNAME})
+          add_test (NAME javatest_${TESTNAME} COMMAND ${Java_JAVA_EXECUTABLE} ${TESTNAME} WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
+          set_tests_properties (javatest_${TESTNAME} PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=${JAVALIBPATH}")
+        endforeach ()
+
+      endif ()
     endif()
 
     MESSAGE(STATUS "Now adding packages")
