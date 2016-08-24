@@ -133,7 +133,7 @@ if ( CGAL_FOUND )
       if (JAVA_FOUND)
         file (GLOB java_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/java/*.java")
         # FIXME: these fail
-        foreach (TESTNAME test_pmp test_mesh_2 test_mesh_3 mesh_polyhedral_domain Point_set_processing_3_test Mesh2Criteria Mesh3FacetCriteria Mesh3CellCriteria)
+        foreach (TESTNAME test_mesh_2 test_mesh_3)
           list (REMOVE_ITEM java_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/java/${TESTNAME}.java)
         endforeach ()
 
