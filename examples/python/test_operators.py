@@ -36,6 +36,7 @@ def test_2d():
   assertion( v2*2 == Vector_2(2,4),11 )
   assertion( 2*v2 == Vector_2(2,4),"11 bis" )
   assertion( v1/2 == Vector_2(0.5,0.5),12 )
+  assertion( v1/2.0 == Vector_2(0.5,0.5),12 )
   assertion( -v2 ==  Vector_2(-1,-2) ,13 )
   assertion( v2 !=  v1 ,14 )
 
@@ -79,6 +80,7 @@ def test_3d():
   assertion( v2*2 == Vector_3(2,4,0),11 )
   assertion( 2*v2 == Vector_3(2,4,0),"11 bis" )
   assertion( v1/2 == Vector_3(0.5,0.5,0),12 )
+  assertion( v1/2.0 == Vector_3(0.5,0.5,0),12 )
   assertion( -v2 ==  Vector_3(-1,-2,0) ,13 )    
   assertion( v2 !=  v1 ,14 )
 
