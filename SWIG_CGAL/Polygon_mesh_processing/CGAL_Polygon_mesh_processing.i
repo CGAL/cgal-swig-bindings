@@ -205,24 +205,27 @@ SWIG_CGAL_python_vector_of_int_typecheck
 
   struct Is_constrained_map{
     typedef boost::graph_traits<Polyhedron_3_SWIG_wrapper::cpp_base>::edge_descriptor key_type;
-    std::set<key_type>& m_set;
+    std::set<key_type>* m_set;
     typedef boost::readable_property_map_tag category;
     typedef bool value_type;
     typedef bool reference;
 
-    Is_constrained_map(std::set<key_type>& set_) : m_set(set_) {}
+    Is_constrained_map() : m_set(NULL) {}
+    Is_constrained_map(std::set<key_type>& set_) : m_set(&set_) {}
 
     friend bool get(const Is_constrained_map& map, const key_type& k)
     {
-      return map.m_set.count(k);
+      CGAL_assertion(map.m_set != NULL);
+      return map.m_set->count(k);
     }
 
     friend void put(const Is_constrained_map& map, const key_type& k, value_type b)
     {
+      CGAL_assertion(map.m_set != NULL);
       if (b)
-        map.m_set.insert(k);
+        map.m_set->insert(k);
       else
-        map.m_set.erase(k);
+        map.m_set->erase(k);
     }
   };
 
@@ -311,7 +314,7 @@ SWIG_CGAL_python_vector_of_int_typecheck
     BOOST_FOREACH(Polyhedron::Halfedge_handle h, constraints)
       constrained_edges.insert(edge(h,P.get_data()));
     CGAL::set_halfedgeds_items_id(P.get_data());
-    PMP::isotropic_remeshing(facet_range, target_edge_length, P.get_data(),
+    PMP::isotropic_remeshing(make_range(facet_range), target_edge_length, P.get_data(),
                              params::number_of_iterations(number_of_iterations).
                              edge_is_constrained_map(
                               Is_constrained_map(constrained_edges)).
@@ -324,7 +327,7 @@ SWIG_CGAL_python_vector_of_int_typecheck
                            int number_of_iterations)
   {
     CGAL::set_halfedgeds_items_id(P.get_data());
-    PMP::isotropic_remeshing(facet_range, target_edge_length, P.get_data(),
+    PMP::isotropic_remeshing(make_range(facet_range), target_edge_length, P.get_data(),
                              params::number_of_iterations(number_of_iterations));
   }
   void isotropic_remeshing(Facet_range facet_range,
@@ -332,7 +335,7 @@ SWIG_CGAL_python_vector_of_int_typecheck
                            Polyhedron_3_SWIG_wrapper& P)
   {
     CGAL::set_halfedgeds_items_id(P.get_data());
-    PMP::isotropic_remeshing(facet_range, target_edge_length, P.get_data());
+    PMP::isotropic_remeshing(make_range(facet_range), target_edge_length, P.get_data());
   }
 //   CGAL::Polygon_mesh_processing::split_long_edges() (4.8)
   void split_long_edges(Halfedge_range halfedge_range,
@@ -681,7 +684,7 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
                         Halfedge_output_iterator out)
   {
     CGAL::set_halfedgeds_items_id(P.get_data());
-    PMP::border_halfedges(facet_range, P.get_data(), out);
+    PMP::border_halfedges(make_range(facet_range), P.get_data(), out);
   }
 #endif // CGAL 4.8 or later
 
