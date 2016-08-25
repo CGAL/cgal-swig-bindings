@@ -132,20 +132,28 @@ if ( CGAL_FOUND )
       find_package (Java)
       if (JAVA_FOUND)
         file (GLOB java_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/java/*.java")
-        # FIXME: these fail
-        foreach (TESTNAME test_pmp test_mesh_2 test_mesh_3 mesh_polyhedral_domain Point_set_processing_3_test Mesh2Criteria Mesh3FacetCriteria Mesh3CellCriteria)
+
+        set (dependencies Mesh2Criteria Mesh3FacetCriteria Mesh3CellCriteria)
+        set (dependencies_files)
+        foreach (TESTNAME ${dependencies})
+          list (APPEND dependencies_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/java/${TESTNAME}.java)
+        endforeach ()
+        foreach (TESTNAME ${dependencies})
           list (REMOVE_ITEM java_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/java/${TESTNAME}.java)
         endforeach ()
 
         foreach (TESTNAME_SRC ${java_files})
           get_filename_component(TESTNAME ${TESTNAME_SRC} NAME_WE)
           add_custom_target (javatest_${TESTNAME}
-            COMMAND ${Java_JAVAC_EXECUTABLE} ${TESTNAME_SRC} -d ${JAVA_OUTDIR_PREFIX}
+            COMMAND ${Java_JAVAC_EXECUTABLE} ${TESTNAME_SRC} ${dependencies_files} -d ${JAVA_OUTDIR_PREFIX}
             WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
           add_dependencies (tests javatest_${TESTNAME})
           add_test (NAME javatest_${TESTNAME} COMMAND ${Java_JAVA_EXECUTABLE} ${TESTNAME} WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
           set_tests_properties (javatest_${TESTNAME} PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=${JAVALIBPATH}")
         endforeach ()
+
+        # tests load files from source dir, eg: ../data/oni.xyz
+        file (COPY examples/data DESTINATION ${JAVA_OUTDIR_PREFIX}/..)
 
       endif ()
     endif()
