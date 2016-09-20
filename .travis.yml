@@ -22,7 +22,7 @@ addons:
 install:
   - git clone https://github.com/CGAL/cgal.git
   - cd cgal
-  - git checkout releases/CGAL-4.8.1
+  - git checkout releases/CGAL-4.9
   - cmake -DCMAKE_INSTALL_PREFIX=/usr .
   - make -j2
   - sudo make install
