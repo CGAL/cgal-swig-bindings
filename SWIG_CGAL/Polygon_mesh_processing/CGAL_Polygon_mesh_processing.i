@@ -314,7 +314,9 @@ SWIG_CGAL_python_vector_of_int_typecheck
     BOOST_FOREACH(Polyhedron::Halfedge_handle h, constraints)
       constrained_edges.insert(edge(h,P.get_data()));
     CGAL::set_halfedgeds_items_id(P.get_data());
-    PMP::isotropic_remeshing(make_range(facet_range), target_edge_length, P.get_data(),
+    // isotropic_remeshing requires a ForwardIterator
+    std::vector<Polyhedron_3_SWIG_wrapper::cpp_base::Face_handle> faces(facet_range.first, facet_range.second);
+    PMP::isotropic_remeshing(faces, target_edge_length, P.get_data(),
                              params::number_of_iterations(number_of_iterations).
                              edge_is_constrained_map(
                               Is_constrained_map(constrained_edges)).
@@ -327,7 +329,9 @@ SWIG_CGAL_python_vector_of_int_typecheck
                            int number_of_iterations)
   {
     CGAL::set_halfedgeds_items_id(P.get_data());
-    PMP::isotropic_remeshing(make_range(facet_range), target_edge_length, P.get_data(),
+    // isotropic_remeshing requires a ForwardIterator
+    std::vector<Polyhedron_3_SWIG_wrapper::cpp_base::Face_handle> faces(facet_range.first, facet_range.second);
+    PMP::isotropic_remeshing(faces, target_edge_length, P.get_data(),
                              params::number_of_iterations(number_of_iterations));
   }
   void isotropic_remeshing(Facet_range facet_range,
@@ -335,6 +339,8 @@ SWIG_CGAL_python_vector_of_int_typecheck
                            Polyhedron_3_SWIG_wrapper& P)
   {
     CGAL::set_halfedgeds_items_id(P.get_data());
+    // isotropic_remeshing requires a ForwardIterator
+    std::vector<Polyhedron_3_SWIG_wrapper::cpp_base::Face_handle> faces(facet_range.first, facet_range.second);
     PMP::isotropic_remeshing(make_range(facet_range), target_edge_length, P.get_data());
   }
 //   CGAL::Polygon_mesh_processing::split_long_edges() (4.8)
