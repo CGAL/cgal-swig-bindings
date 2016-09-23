@@ -118,6 +118,12 @@ public:
     throw Stop_iteration();
     return Iterator_helper<Value_type>::default_value();
   }
+
+  Value_type __next__()
+  {
+    return next();
+  }
+
   #else
 
   #ifdef SWIGJAVA

@@ -289,6 +289,17 @@
       SWIG_fail;
     }
 }
+
+%exception __next__
+{
+  try{
+      $action
+    }
+    catch(Stop_iteration){//TODO: throw a specify exception
+      SWIG_SetErrorObj(PyExc_StopIteration, SWIG_Py_Void());
+      SWIG_fail;
+    }
+}
 #endif
 
 //Special treatment for enum in java

@@ -129,6 +129,10 @@ const Null_vector NULL_VECTOR = Null_vector();
 %pythoncode %{
 Vector_2.__rmul__ = Vector_2.__mul__
 Vector_3.__rmul__ = Vector_3.__mul__
+Vector_2.__idiv__ = Vector_2.__div__
+Vector_3.__idiv__ = Vector_3.__div__
+Vector_2.__truediv__ = Vector_2.__div__
+Vector_3.__truediv__ = Vector_3.__div__
 %}
 #endif
 

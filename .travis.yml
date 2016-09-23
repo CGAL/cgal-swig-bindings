@@ -1,0 +1,38 @@
+language: generic
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    packages:
+    - libmpfr-dev
+    - libboost-atomic-dev
+    - libboost-chrono-dev
+    - libboost-date-time-dev
+    - libboost-system-dev
+    - libboost-thread-dev
+    - libeigen3-dev
+    - swig
+    - python-dev
+    - python-numpy
+    - python3-dev
+    - python3-numpy
+    - openjdk-7-jdk
+
+install:
+  - git clone https://github.com/CGAL/cgal.git
+  - cd cgal
+  - git checkout releases/CGAL-4.9
+  - cmake -DCMAKE_INSTALL_PREFIX=/usr .
+  - make -j2
+  - sudo make install
+  - cd ..
+
+script:
+  - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+  - cmake -DCMAKE_INSTALL_PREFIX=~/.local/
+    -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so -DPYTHON_EXECUTABLE=/usr/bin/python .
+  - make install -j2 && make tests -j2 && ctest -j2 --output-on-failure
+  - cmake -DBUILD_JAVA=OFF
+    -DPYTHON_INCLUDE_DIR=/usr/include/python3.4m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.4m.so -DPYTHON_EXECUTABLE=/usr/bin/python3 .
+  - make install -j2 && ctest -j2 --output-on-failure

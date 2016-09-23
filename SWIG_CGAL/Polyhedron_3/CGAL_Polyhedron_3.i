@@ -20,7 +20,7 @@ SWIG_CGAL_package_common()
 %{ 
 #include <SWIG_CGAL/Polyhedron_3/all_includes.h> 
 %}
-#ifdef SWIG_CGAL_Polyhedron_MODULE
+#ifdef SWIG_CGAL_Polyhedron_3_MODULE
 #ifdef SWIGJAVA
 %include "SWIG_CGAL/Polyhedron_3/java_extensions.i"
 #endif
