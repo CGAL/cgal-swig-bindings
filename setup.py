@@ -200,8 +200,8 @@ def get_all_paths():
             if arg_or_path.startswith("-L/"):
                 library_paths.append(arg_or_path[2:])
     
-    header_paths = list(filter(os.path.isdir, header_paths))
-    library_paths = list(filter(os.path.isdir, library_paths))
+    header_paths = list(set(filter(os.path.isdir, header_paths)))
+    library_paths = list(set(filter(os.path.isdir, library_paths)))
     return header_paths, library_paths
 
 
@@ -397,6 +397,8 @@ else:
     MACROS.append(('CGAL_EIGEN3_ENABLED', None))
 
 
+header_paths_as_args = ["-I" + p for p in HEADER_PATHS]
+
 # Translate the names of folders into actual Extension instances
 extensions = []
 for mod_name in CGAL_modules:
@@ -407,12 +409,12 @@ for mod_name in CGAL_modules:
     source_list = list(filter(lambda s: not s.endswith('_wrap.cpp'), source_list))
     e = Extension("_CGAL_" + mod_name,
                   sources=source_list,
-                  swig_opts=["-c++","-outdir",PACKAGE_DIR,"-DSWIG_CGAL_{0}_MODULE".format(mod_name)],
+                  swig_opts=["-c++","-outdir",PACKAGE_DIR,"-DSWIG_CGAL_{0}_MODULE".format(mod_name)] +
+                            header_paths_as_args,
                   libraries=['CGAL', 'gmp', 'mpfr', BOOST_THREAD_NAME],
                   define_macros=macros,
                   include_dirs=INCLUDE_DIRS + HEADER_PATHS,
                   library_dirs=LIBRARY_PATHS,
-                  extra_compile_args=["-O0"],
                   language='c++')
 
     extensions.append(e)
@@ -425,7 +427,7 @@ class Build_ext_first(setuptools.command.install.install):
 
 class Build_ext_once(setuptools.command.build_ext.build_ext):
     def __init__(self, *args, **kwargs):
-        # Avoiding namespace collisions...
+        # Remember whether build_ext already went
         self._cgal_setup_build_ext_already_ran = False
         setuptools.command.build_ext.build_ext.__init__(self, *args, **kwargs)
 
