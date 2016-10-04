@@ -4,7 +4,6 @@ from CGAL.CGAL_Kernel import Polygon_2
 from CGAL.CGAL_Kernel import Point_2
 
 from CGAL import CGAL_Polyline_simplification_2
-from CGAL.CGAL_Polyline_simplification_2 import CGAL_Polyline_simplification_2
 from CGAL.CGAL_Polyline_simplification_2 import Stop_below_count_ratio_threshold
 from CGAL.CGAL_Polyline_simplification_2 import Squared_distance_cost
 from CGAL.CGAL_Polyline_simplification_2 import PS2_Constrained_Delaunay_triangulation_plus_2
@@ -45,10 +44,10 @@ polyline3.append( Point_2( 2, 4) )
 polyline3.append( Point_2(-1, 4) )
 
 cdt = PS2_Constrained_Delaunay_triangulation_plus_2()
-cid1 = cdt.insert_constraint(polyline1.iterator())
-cid2 = cdt.insert_constraint(polyline2.iterator())
+cid1 = cdt.insert_constraint(polyline1)
+cid2 = cdt.insert_constraint(polyline2)
 # consider polyline3 as closed
-cid3 = cdt.insert_constraint(polyline3.iterator(),true)
+cid3 = cdt.insert_constraint(polyline3,True)
 
 #simplify only one polyline
 CGAL_Polyline_simplification_2.simplify(cdt, cid1, Squared_distance_cost(), Stop_below_count_ratio_threshold(0.5)) #simplify only
