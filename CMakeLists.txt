@@ -197,6 +197,8 @@ if ( CGAL_FOUND )
       endif(EIGEN3_FOUND)
     endif()
 
+    add_subdirectory(SWIG_CGAL/Polyline_simplification_2)
+
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/SWIG_CGAL/User_packages/CMakeLists.txt")
       MESSAGE(STATUS "Found SWIG_CGAL/User_packages/CMakeLists.txt, user packages will be built.")
       add_subdirectory(SWIG_CGAL/User_packages)

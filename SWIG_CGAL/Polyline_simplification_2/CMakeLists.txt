@@ -1,0 +1,5 @@
+SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
+
+ADD_SWIG_CGAL_JAVA_MODULE   (Polyline_simplification_2 ${LIBSTOLINKWITH})
+ADD_SWIG_CGAL_PYTHON_MODULE (Polyline_simplification_2 ${LIBSTOLINKWITH} )
+ADD_SWIG_CGAL_RUBY_MODULE   (Polyline_simplification_2 ${LIBSTOLINKWITH} )
