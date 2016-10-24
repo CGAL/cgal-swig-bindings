@@ -124,7 +124,7 @@ struct Construct_face_graph
 
   Construct_face_graph&
   operator*() { return *this; }
-  Construct_face_graph
+  Construct_face_graph&
   operator++(int) { return *this; }
   
   Point_iterator points_begin()
