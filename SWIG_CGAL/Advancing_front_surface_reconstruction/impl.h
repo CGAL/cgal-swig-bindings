@@ -184,12 +184,12 @@ void afsr_reconstruction(PointIterator point_begin, PointIterator point_end,
   afsr_write_indices(out, sr);
 }
 
-template <class Kernel, class PointIterator, class Polyhedron_wrapper>
+template <class Kernel, class PointIterator, class Polyhedron>
 void afsr_reconstruction_poly(PointIterator point_begin, PointIterator point_end, 
-                              Polyhedron_wrapper& out,
+                              Polyhedron& out,
                               double radius_ratio_bound, double beta)
 {
-  Construct_face_graph<typename Polyhedron_wrapper::cpp_base> cfg(out.get_data(), point_begin, point_end);
+  Construct_face_graph<Polyhedron> cfg(out, point_begin, point_end);
   CGAL::advancing_front_surface_reconstruction(cfg.points_begin(), cfg.points_end(), cfg, radius_ratio_bound, beta);
 }
 

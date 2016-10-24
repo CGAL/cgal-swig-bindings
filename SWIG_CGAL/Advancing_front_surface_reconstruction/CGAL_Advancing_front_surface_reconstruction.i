@@ -67,7 +67,7 @@ void advancing_front_surface_reconstruction(Wrapper_iterator_helper<Point_3>::in
     double radius_ratio_bound = 5,
     double beta = 0.52)
   {
-    afsr_reconstruction_poly<EPIC_Kernel>(points.first, points.second, P, radius_ratio_bound, beta);
+    afsr_reconstruction_poly<EPIC_Kernel>(points.first, points.second, P.get_data(), radius_ratio_bound, beta);
   }
 %}
 
