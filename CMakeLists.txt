@@ -186,6 +186,7 @@ if ( CGAL_FOUND )
     add_subdirectory(SWIG_CGAL/HalfedgeDS)
     add_subdirectory(SWIG_CGAL/Point_set_processing_3)
     add_subdirectory(SWIG_CGAL/Box_intersection_d)
+    add_subdirectory(SWIG_CGAL/Advancing_front_surface_reconstruction)
 
     if ("${CGAL_MAJOR_VERSION}" STRGREATER "3" AND "${CGAL_MINOR_VERSION}" STRGREATER "6")
       find_package(Eigen3 3.2.0) #(requires 3.2.0 or greater)
