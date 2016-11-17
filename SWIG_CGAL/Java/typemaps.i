@@ -185,6 +185,45 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 }
 %enddef
 
+//IN typemap for a array of int from a IntBuffer
+%define SWIG_CGAL_DirectIntBuffer_to_int_array_typemap_in
+%typemap(jni) int* "jobject"  //replace in jni class
+%typemap(jtype) int* "IntBuffer"   //replace in java wrapping class
+%typemap(jstype) int* "IntBuffer"  //replace in java function args
+%typemap(javain) int* "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) int* {
+  $1 = (int*)jenv->GetDirectBufferAddress($input);
+}
+%enddef
+
+//IN typemap for a array of int from a DoubleBuffer
+%define SWIG_CGAL_DirectDoubleBuffer_to_int_array_typemap_in
+%typemap(jni) double* "jobject"  //replace in jni class
+%typemap(jtype) double* "DoubleBuffer"   //replace in java wrapping class
+%typemap(jstype) double* "DoubleBuffer"  //replace in java function args
+%typemap(javain) double* "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) double* {
+  $1 = (double*)jenv->GetDirectBufferAddress($input);
+}
+%enddef
+
+//IN typemap for a array of int from a DoubleBuffer
+%define SWIG_CGAL_DirectDoubleBuffer_with_size_to_int_array_typemap_in
+%typemap(jni) std::pair<double*,int> "jobject"  //replace in jni class
+%typemap(jtype) std::pair<double*,int> "DoubleBuffer"   //replace in java wrapping class
+%typemap(jstype) std::pair<double*,int> "DoubleBuffer"  //replace in java function args
+%typemap(javain) std::pair<double*,int> "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) std::pair<double*,int> {
+  double* array = (double*)jenv->GetDirectBufferAddress($input);
+  int size = jenv->GetDirectBufferCapacity($input);
+  $1 = std::pair<double*,int>(array, size);
+}
+%enddef
+
+
 //IN typemap for a vector of float from an array of double
 %define SWIG_CGAL_array_of_float_to_vector_of_float_typemap_in
 %typemap(jni) boost::shared_ptr<std::vector<float> > "jfloatArray"  //replace in jni class
