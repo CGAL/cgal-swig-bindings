@@ -344,6 +344,22 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 }
 %enddef
 
+//OUT typemap for std::pair<double, double> to double[]
+%define SWIG_CGAL_double_pair_to_array_of_double_typemap_out
+%typemap(jni) std::pair<double, double> "jdoubleArray"  //replace in jni class
+%typemap(jtype) std::pair<double, double> "double[]"   //replace in java wrapping class
+%typemap(jstype) std::pair<double, double> "double[]"  //replace in java function args
+%typemap(javaout) std::pair<double, double> "{return $jnicall;}" //replace in java function call to wrapped function
+
+%typemap(out) std::pair<double, double> {
+  jdoubleArray jarray = jenv->NewDoubleArray(2);
+  jenv->SetDoubleArrayRegion(jarray, 0, 1, &($1.first));
+  jenv->SetDoubleArrayRegion(jarray, 1, 1, &($1.second));
+  $result=jarray;
+}
+%enddef
+
+
 //OUT typemap for writting segments into a java array
 %define SWIG_CGAL_vector_of_segment_3_to_array_of_double_typemap_out
 %typemap(jni) boost::shared_ptr<std::vector<EPIC_Kernel::Segment_3> > "jdoubleArray"  //replace in jni class
