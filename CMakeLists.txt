@@ -104,20 +104,22 @@ if ( CGAL_FOUND )
           set_tests_properties (pythontest_${TESTNAME} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_OUTDIR_PREFIX};DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/examples/data")
         endforeach ()
 
-        execute_process (COMMAND ${PYTHON_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
-                         OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
-                         RESULT_VARIABLE _exit_code
-                         OUTPUT_STRIP_TRAILING_WHITESPACE )
+        if (NOT DEFINED PYTHON_MODULE_PATH)
+          execute_process (COMMAND ${PYTHON_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
+                          OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
+                          RESULT_VARIABLE _exit_code
+                          OUTPUT_STRIP_TRAILING_WHITESPACE )
 
-        if (NOT ${_exit_code})
-          get_filename_component (_ABS_PYTHON_MODULE_PATH ${_ABS_PYTHON_MODULE_PATH} ABSOLUTE)
-          file (RELATIVE_PATH _REL_PYTHON_MODULE_PATH ${CMAKE_INSTALL_PREFIX} ${_ABS_PYTHON_MODULE_PATH})
-          set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
-          install (FILES ${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
-        else ()
-          message (SEND_ERROR "Could not run ${PYTHON_EXECUTABLE}")
+          if (NOT ${_exit_code})
+            get_filename_component (_ABS_PYTHON_MODULE_PATH ${_ABS_PYTHON_MODULE_PATH} ABSOLUTE)
+            file (RELATIVE_PATH _REL_PYTHON_MODULE_PATH ${CMAKE_INSTALL_PREFIX} ${_ABS_PYTHON_MODULE_PATH})
+            set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
+          else ()
+            message (SEND_ERROR "Could not run ${PYTHON_EXECUTABLE}")
+          endif ()
         endif ()
-      endif ()
+      endif()
+      install (FILES ${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
 
       LINK_DIRECTORIES("${PYTHON_OUTDIR_PREFIX}/CGAL")
       MESSAGE(STATUS "Found Python libs.")
