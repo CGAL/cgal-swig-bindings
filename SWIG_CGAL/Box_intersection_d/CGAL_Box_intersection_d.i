@@ -21,6 +21,7 @@ SWIG_CGAL_package_common()
 //include files
 %{
   #include <SWIG_CGAL/Common/Iterator.h>
+  #include <vector>
 %}
 
 %pragma(java) jniclassimports=
@@ -77,7 +78,6 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(box_self_intersection_
   #include <SWIG_CGAL/Box_intersection_d/enum.h>
   #include <SWIG_CGAL/Common/Wrapper_iterator_helper.h>
   #include <CGAL/box_intersection_d.h>
-  #include <vector>
 %}
 
 SWIG_CGAL_declare_identifier_of_template_class(Collect_ids_callback_2,Collect_ids_callback<2>)
