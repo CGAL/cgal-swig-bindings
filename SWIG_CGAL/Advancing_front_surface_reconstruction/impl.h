@@ -7,7 +7,7 @@
 #include <CGAL/property_map.h>
 
 
-#if CGAL_VERSION_NR < 1040901000
+#if CGAL_VERSION_NR < 1040900000
 namespace CGAL {
 
 template <class PropertyMap>
