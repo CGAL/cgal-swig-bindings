@@ -38,7 +38,7 @@ SWIG_CGAL_package_common()
 %include "SWIG_CGAL/Triangulation_2/Constrained_triangulation_plus_2.h"
 %include "SWIG_CGAL/Triangulation_2/triangulation_handles.h"
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Segment_2;  import CGAL.Kernel.Triangle_2;  import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Polygon_2; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Segment_2;  import CGAL.Kernel.Triangle_2;  import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
 
 //References
 %include "SWIG_CGAL/Triangulation_2/Reference_wrappers.i"
@@ -65,6 +65,8 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Constrained_triangulat
 //nothing to do for Point_2 and Point_3 ranges, already done in the kernel
 SWIG_CGAL_declare_identifier_of_template_class(Constraint_input_iterator,Generic_input_iterator< std::pair<Point_2,Point_2> >)
 #endif //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
+
+SWIG_CGAL_set_wrapper_iterator_helper_input(Point_2)
 
 //local Object class: we cannot use the class from Kernel module as CGAL::Object uses RTTI
 #ifdef SWIG_CGAL_Triangulation_2_MODULE

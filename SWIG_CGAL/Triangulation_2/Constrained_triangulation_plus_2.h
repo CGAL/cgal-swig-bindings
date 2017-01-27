@@ -2,14 +2,16 @@
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // Distributed under the Boost Software License, Version 1.0. (See accompany-
 // ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H
 #define SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H
 
 #include <SWIG_CGAL/Triangulation_2/Constrained_triangulation_2.h>
-#include <CGAL/Constrained_triangulation_plus_2.h>  
+#include <SWIG_CGAL/Kernel/Polygon_2.h>
+#include <CGAL/Constrained_triangulation_plus_2.h>
+#include <SWIG_CGAL/Common/Wrapper_iterator_helper.h>
 #include <CGAL/version.h>
 
 #ifndef SWIG
@@ -40,13 +42,26 @@ struct Iterator_helper<std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle<Triang
 };
 #endif
 
+template <class CDTP2_cpp>
+struct Constraint_id_wrapper{
+  #ifndef SWIG
+  typedef typename CDTP2_cpp::Constraint_id cpp_base;
+  cpp_base data;
+  cpp_base& get_data(){ return data; }
+  const cpp_base& get_data() const { return data; }
+  Constraint_id_wrapper(const cpp_base& base): data(base) {}
+  Constraint_id_wrapper(){} // needed by SWIG
+  #endif
+};
+
+
 template <class CDT_plus_2, class Vertex_handle>
 class CDTP_context{
   typename CDT_plus_2::Context data;
   typedef CDTP_context<CDT_plus_2,Vertex_handle> Self;
   //disable deep copy
   Self deepcopy();
-  void deepcopy(const Self&);  
+  void deepcopy(const Self&);
 public:
   #ifndef SWIG
   typedef typename CDT_plus_2::Context cpp_base;
@@ -54,7 +69,7 @@ public:
         cpp_base& get_data()       {return data;}
   CDTP_context(const cpp_base& p):data(p){}
   #endif
-  typedef SWIG_CGAL_Iterator<typename CDT_plus_2::Vertices_in_constraint_iterator,Vertex_handle>  Vertices_in_constraint_iterator;    
+  typedef SWIG_CGAL_Iterator<typename CDT_plus_2::Vertices_in_constraint_iterator,Vertex_handle>  Vertices_in_constraint_iterator;
   CDTP_context(){}
   Vertices_in_constraint_iterator vertices() {return Vertices_in_constraint_iterator(data.vertices_begin(),data.vertices_end());}
   Vertices_in_constraint_iterator current() {return Vertices_in_constraint_iterator(data.current(),data.vertices_end());}
@@ -66,7 +81,7 @@ class Constrained_triangulation_plus_2_wrapper: public Base_triangulation_wrappe
 {
   typedef Base_triangulation_wrapper Base;
 public:
-  #ifndef SWIG  
+  #ifndef SWIG
   typedef typename Base_triangulation_wrapper::cpp_base                 cpp_base;
   #endif
   typedef std::pair<Vertex_handle,Vertex_handle>                        Constraint_handle;
@@ -96,6 +111,32 @@ public:
 //Deep copy
   typedef Constrained_triangulation_plus_2_wrapper<Cpp_base,Base_triangulation_wrapper,Vertex_handle> Self;
   Self deepcopy() const {return Self(this->get_data());}
+
+  Constraint_id_wrapper<Cpp_base>
+  insert_constraint(const Polygon_2& p)
+  {
+    return this->get_data().insert_constraint(p.get_data());
+  }
+
+  Constraint_id_wrapper<Cpp_base>
+  insert_constraint(Wrapper_iterator_helper<Point_2>::input input, bool closed=false)
+  {
+    return this->get_data().insert_constraint(input.first, input.second, closed);
+  }
+
+  SWIG_CGAL_Iterator<typename Cpp_base::Vertices_in_constraint_iterator, SWIG_Triangulation_2::CGAL_Vertex_handle <Cpp_base,Point_2> >
+  vertices_in_constraint(Constraint_id_wrapper<Cpp_base> cid)
+  {
+    return SWIG_CGAL_Iterator<typename Cpp_base::Vertices_in_constraint_iterator, SWIG_Triangulation_2::CGAL_Vertex_handle <Cpp_base,Point_2> >(
+      this->get_data().vertices_in_constraint_begin(cid.get_data()),
+      this->get_data().vertices_in_constraint_end(cid.get_data()) );
+  }
+
+  int remove_points_without_corresponding_vertex(Constraint_id_wrapper<Cpp_base> cid)
+  {
+    return this->get_data().remove_points_without_corresponding_vertex(cid.get_data());
+  }
+
 };
 
 #endif //SWIG_CGAL_TRIANGULATION_2_CONSTRAINED_TRIANGULATION_PLUS_2_H

@@ -64,8 +64,8 @@ if ( CGAL_FOUND )
       message(STATUS "BUILD_RUBY is set to OFF: no CGAL-bindings for Ruby will be generated.")
     endif()
     if (${BUILD_PYTHON})
-      FIND_PACKAGE(PythonLibs)
       find_package(PythonInterp)
+      FIND_PACKAGE(PythonLibs)
       if (NOT PYTHONLIBS_FOUND)
         SET(BUILD_PYTHON OFF)
         message(WARNING "Python has not been found, CGAL-bindings for Python will not be generated.")
@@ -104,20 +104,22 @@ if ( CGAL_FOUND )
           set_tests_properties (pythontest_${TESTNAME} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_OUTDIR_PREFIX};DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/examples/data")
         endforeach ()
 
-        execute_process (COMMAND ${PYTHON_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
-                         OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
-                         RESULT_VARIABLE _exit_code
-                         OUTPUT_STRIP_TRAILING_WHITESPACE )
+        if (NOT DEFINED PYTHON_MODULE_PATH)
+          execute_process (COMMAND ${PYTHON_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
+                          OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
+                          RESULT_VARIABLE _exit_code
+                          OUTPUT_STRIP_TRAILING_WHITESPACE )
 
-        if (NOT ${_exit_code})
-          get_filename_component (_ABS_PYTHON_MODULE_PATH ${_ABS_PYTHON_MODULE_PATH} ABSOLUTE)
-          file (RELATIVE_PATH _REL_PYTHON_MODULE_PATH ${CMAKE_INSTALL_PREFIX} ${_ABS_PYTHON_MODULE_PATH})
-          set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
-          install (FILES ${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
-        else ()
-          message (SEND_ERROR "Could not run ${PYTHON_EXECUTABLE}")
+          if (NOT ${_exit_code})
+            get_filename_component (_ABS_PYTHON_MODULE_PATH ${_ABS_PYTHON_MODULE_PATH} ABSOLUTE)
+            file (RELATIVE_PATH _REL_PYTHON_MODULE_PATH ${CMAKE_INSTALL_PREFIX} ${_ABS_PYTHON_MODULE_PATH})
+            set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
+          else ()
+            message (SEND_ERROR "Could not run ${PYTHON_EXECUTABLE}")
+          endif ()
         endif ()
-      endif ()
+      endif()
+      install (FILES ${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
 
       LINK_DIRECTORIES("${PYTHON_OUTDIR_PREFIX}/CGAL")
       MESSAGE(STATUS "Found Python libs.")
@@ -186,6 +188,7 @@ if ( CGAL_FOUND )
     add_subdirectory(SWIG_CGAL/HalfedgeDS)
     add_subdirectory(SWIG_CGAL/Point_set_processing_3)
     add_subdirectory(SWIG_CGAL/Box_intersection_d)
+    add_subdirectory(SWIG_CGAL/Advancing_front_surface_reconstruction)
 
     if ("${CGAL_MAJOR_VERSION}" STRGREATER "3" AND "${CGAL_MINOR_VERSION}" STRGREATER "6")
       find_package(Eigen3 3.2.0) #(requires 3.2.0 or greater)
@@ -196,6 +199,8 @@ if ( CGAL_FOUND )
         MESSAGE(STATUS "Eigen 3.2 or later was not found, Polygon_mesh_processing bindings will not be available")
       endif(EIGEN3_FOUND)
     endif()
+
+    add_subdirectory(SWIG_CGAL/Polyline_simplification_2)
 
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/SWIG_CGAL/User_packages/CMakeLists.txt")
       MESSAGE(STATUS "Found SWIG_CGAL/User_packages/CMakeLists.txt, user packages will be built.")
