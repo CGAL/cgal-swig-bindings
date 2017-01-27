@@ -7,7 +7,7 @@ For details, refer to the [wiki](https://github.com/CGAL/cgal-swig-bindings/wiki
 
 # Installation
 Simply use pip:
-`pip install cgal-bindings`
+`pip -v install cgal-bindings`
 
 This completely replaces the Cmake build, so either use setup.py or Cmake. 
 
