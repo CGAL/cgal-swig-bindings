@@ -253,6 +253,7 @@ if not os.path.exists(initpy):
 CGAL_modules = [
     "Kernel",
     "AABB_tree",
+    "Advancing_front_surface_reconstruction",
     "Alpha_shape_2",
     "Box_intersection_d",
     "Convex_hull_2",
@@ -262,6 +263,7 @@ CGAL_modules = [
     "Mesh_3",
     "Point_set_processing_3",       # needs eigen3
     "Polygon_mesh_processing",
+    "Polyline_simplification_2",
     "Polyhedron_3",
     "Spatial_searching",
     "Surface_mesher",               # needs imageio components (CGAL was built with imageio)
@@ -454,7 +456,7 @@ setup(
     package_dir = {'': 'build-python'},
     cmdclass = {'install' : Build_ext_first, 'build_ext': Build_ext_once},
     include_package_data=True,
-    version="0.0.8",
+    version="0.0.9",
     classifiers=[
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
