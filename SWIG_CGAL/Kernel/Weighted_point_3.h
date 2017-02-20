@@ -11,14 +11,23 @@
 #include <sstream>
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
-
+#if CGAL_VERSION_NR > 1041000000
+#include <CGAL/Weighted_point_3.h>
+#else
 #include <CGAL/Weighted_point.h>
+#endif
 
 class SWIG_CGAL_KERNEL_DECL Weighted_point_3{
-  CGAL::Weighted_point<EPIC_Kernel::Point_3,double> data;
+public:
+  #if CGAL_VERSION_NR > 1041000000
+  typedef CGAL::Weighted_point_3<EPIC_Kernel> cpp_base;
+  #else
+  typedef CGAL::Weighted_point<EPIC_Kernel::Point_3,double> cpp_base;
+  #endif
+private:
+  cpp_base data;
 public:
   #ifndef SWIG
-  typedef CGAL::Weighted_point<EPIC_Kernel::Point_3,double> cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
   Weighted_point_3(const cpp_base& base):data(base){}
