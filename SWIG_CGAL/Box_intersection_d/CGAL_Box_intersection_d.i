@@ -40,6 +40,7 @@ SWIG_CGAL_package_common()
 
 
 %include "std_pair.i"
+%include "std_vector.i"
 SWIG_CGAL_declare_identifier_of_template_class(Pair_of_int,std::pair<int,int>)
 
 SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,Pair_of_int,)
