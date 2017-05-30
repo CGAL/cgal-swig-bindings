@@ -2,6 +2,12 @@ language: generic
 sudo: required
 dist: trusty
 
+env:
+  matrix:
+    - CGAL_VER=4.8
+    - CGAL_VER=4.9
+#    - env: CGAL_VER=4.10
+
 addons:
   apt:
     packages:
@@ -22,7 +28,7 @@ addons:
 install:
   - git clone https://github.com/CGAL/cgal.git
   - cd cgal
-  - git checkout releases/CGAL-4.9
+  - git checkout releases/CGAL-${CGAL_VER}
   - cmake -DCMAKE_INSTALL_PREFIX=/usr .
   - make -j2
   - sudo make install
