@@ -6,7 +6,7 @@ env:
   matrix:
     - CGAL_VER=4.8
     - CGAL_VER=4.9
-#    - env: CGAL_VER=4.10
+    - env: CGAL_VER=4.10
 
 addons:
   apt:
