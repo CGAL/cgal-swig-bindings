@@ -457,7 +457,7 @@ setup(
     package_dir = {'': 'build-python'},
     cmdclass = {'install' : Build_ext_first, 'build_ext': Build_ext_once},
     include_package_data=True,
-    version="0.0.9",
+    version="1.1",
     classifiers=[
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
