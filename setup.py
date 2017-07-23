@@ -169,7 +169,8 @@ def get_all_paths():
     header_paths.append("/usr/include")
     library_paths.append("/usr/lib")
     library_paths.append("/usr/lib64")
-    
+    library_paths.append("/usr/lib/x86_64-linux-gnu/")
+
     # If their system has ldconfig, this helps us even more
     tmp_dir = tempfile.mkdtemp(prefix = 'tmp_ldc_')
     file_name = os.path.join(tmp_dir, 'ldconfig_out')
@@ -199,7 +200,7 @@ def get_all_paths():
                 header_paths.append(arg_or_path[2:])
             if arg_or_path.startswith("-L/"):
                 library_paths.append(arg_or_path[2:])
-    
+
     header_paths = list(set(filter(os.path.isdir, header_paths)))
     library_paths = list(set(filter(os.path.isdir, library_paths)))
     return header_paths, library_paths
