@@ -21,7 +21,7 @@
   SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Vertex_handle,import CGAL.Kernel.Weighted_point_2;)
   SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Hidden_vertices_iterator,SWIG_CGAL_Iterator<CPPTYPE::Hidden_vertices_iterator,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Weighted_point_2> >)
 
-  %typemap(javaimports)          Regular_triangulation_2_wrapper%{import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Oriented_side; import java.util.Iterator; import java.util.Collection;%}
+  %typemap(javaimports)          Regular_triangulation_2_wrapper%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Oriented_side; import java.util.Iterator; import java.util.Collection;%}
   SWIG_CGAL_declare_identifier_of_template_class(EXPOSEDNAME,Regular_triangulation_2_wrapper<CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Weighted_point_2>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,Weighted_point_2> >)
 %enddef
 

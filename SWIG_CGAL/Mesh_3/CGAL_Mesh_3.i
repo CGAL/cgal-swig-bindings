@@ -16,6 +16,8 @@ SWIG_CGAL_package_common()
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 
+%include "CGAL/version.h"
+
 //include files
 %{
   #define SWIG_CGAL_NO_TRIANGULATION_STRING_OUTPUT //I/O are broken for C3T3 triangulation
@@ -53,7 +55,7 @@ SWIG_CGAL_declare_identifier_of_template_class(Mesh_3_Badness,Optional< std::pai
 
 %import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
       
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Collection; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Collection; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
 
 //extends Cell and vertex handles of Regular triangulation
 %extend SWIG_Triangulation_3::CGAL_Cell_handle<MT_PMD,Weighted_point_3>{
@@ -63,8 +65,15 @@ SWIG_CGAL_declare_identifier_of_template_class(Mesh_3_Badness,Optional< std::pai
   void set_facet_on_surface(int i,std::pair<int,int> p){$self->get_data()->set_surface_index(i,p);}
   bool is_facet_visited(int i){return $self->get_data()->is_facet_visited(i);}
   void set_facet_visited(int i){$self->get_data()->set_facet_visited(i);}
+#ifndef SWIG
+#if CGAL_VERSION_NR < 1041101000
   Weighted_point_3 get_facet_surface_center(int i){return Weighted_point_3($self->get_data()->get_facet_surface_center(i));}
   void set_facet_surface_center(int i,const Weighted_point_3& p) {return $self->get_data()->set_facet_surface_center(i,p.get_data());}
+#else
+  Point_3 get_facet_surface_center(int i){return Point_3($self->get_data()->get_facet_surface_center(i));}
+  void set_facet_surface_center(int i,const Point_3& p) {return $self->get_data()->set_facet_surface_center(i,p.get_data());}
+#endif
+#endif
 }
 %extend SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>{
   int in_dimension() {return $self->get_data()->in_dimension();}

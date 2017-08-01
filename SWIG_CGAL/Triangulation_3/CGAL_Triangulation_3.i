@@ -17,6 +17,8 @@ SWIG_CGAL_package_common()
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 %include "SWIG_CGAL/Common/Iterator.h"
 
+%include "CGAL/version.h"
+
 //include files
 %{
   #include <SWIG_CGAL/Triangulation_3/Object.h>

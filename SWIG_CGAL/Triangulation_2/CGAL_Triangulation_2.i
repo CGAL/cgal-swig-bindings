@@ -21,6 +21,8 @@ SWIG_CGAL_package_common()
 %include "SWIG_CGAL/Triangulation_2/java_extensions.i"
 #endif
 
+%include "CGAL/version.h"
+
 //include files
 %{
   #include <SWIG_CGAL/Triangulation_2/Object.h>
