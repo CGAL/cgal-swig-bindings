@@ -4,6 +4,7 @@ from CGAL.CGAL_Mesh_2 import Mesh_2_Constrained_Delaunay_triangulation_2
 from CGAL.CGAL_Mesh_2 import Mesh_2_Constrained_Delaunay_triangulation_2_Vertex_handle
 from CGAL.CGAL_Mesh_2 import Delaunay_mesh_size_criteria_2
 from CGAL.CGAL_Mesh_2 import Default_Delaunay_mesher_2
+from CGAL.CGAL_Mesh_2 import Mesh_2_parameters
 from CGAL import CGAL_Mesh_2
 
 
@@ -27,6 +28,8 @@ mesher.refine_mesh();
 
 print("Number of vertices: ", cdt.number_of_vertices() )
 print("Run Lloyd optimization...")
-CGAL_Mesh_2.cgal_lloyd_optimize_mesh_2(cdt, 0, 10)
+params = Mesh_2_parameters();
+params.set_max_iteration_number(10)
+CGAL_Mesh_2.lloyd_optimize_mesh_2(cdt, params)
 print("done.")
 print("Number of vertices: ", cdt.number_of_vertices() )

@@ -119,10 +119,8 @@ declare_refine_global_functions(Mesh_2_Constrained_Delaunay_triangulation_plus_2
 
 %include "CGAL/version.h"
 #if CGAL_VERSION_NR > 1040601000
-%inline %{
-enum Mesh_optimization_return_code { BOUND_REACHED = 0,TIME_LIMIT_REACHED,CANT_IMPROVE_ANYMORE,CONVERGENCE_REACHED,MAX_ITERATION_NUMBER_REACHED};
-%}
-
+%typemap(javaimports)  Mesh_2_parameters %{import CGAL.Kernel.Point_2; import java.util.Iterator;%}
+%include "SWIG_CGAL/Mesh_2/parameters.h"
 declare_lloyd_2_global_functions(Mesh_2_Constrained_Delaunay_triangulation_2_SWIG_wrapper)
 declare_lloyd_2_global_functions(Mesh_2_Constrained_Delaunay_triangulation_plus_2_SWIG_wrapper)
 #endif
