@@ -12,7 +12,7 @@
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <CGAL/Triangulation_2.h>
 #include <CGAL/Delaunay_triangulation_2.h>
-#if CGAL_VERSION_NR < 1041101000
+#if CGAL_VERSION_NR < 1041100000
 #include <CGAL/Regular_triangulation_euclidean_traits_2.h>
 #endif
 #include <CGAL/Regular_triangulation_2.h>
@@ -35,7 +35,7 @@ typedef CGAL::Delaunay_triangulation_2<EPIC_Kernel,TDS_DT2>                 CGAL
 #else
 typedef CGAL::Delaunay_triangulation_2<EPIC_Kernel>                         CGAL_DT2;
 #endif
-#if CGAL_VERSION_NR < 1041101000
+#if CGAL_VERSION_NR < 1041100000
 typedef CGAL::Regular_triangulation_euclidean_traits_2<EPIC_Kernel>         CGAL_regular_traits;
 #else
 typedef EPIC_Kernel CGAL_regular_traits;

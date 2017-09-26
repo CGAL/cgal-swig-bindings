@@ -29,7 +29,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(int,number_of_hidden_vertices)
   Hidden_vertices_iterator hidden_vertices() {return Hidden_vertices_iterator(this->get_data().hidden_vertices_begin(),this->get_data().hidden_vertices_end());}
 // Dual power diagram
-#if CGAL_VERSION_NR < 1041101000
+#if CGAL_VERSION_NR < 1041100000
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Weighted_point_2,weighted_circumcenter,Face_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Weighted_point_2,dual,Face_handle)
 #else

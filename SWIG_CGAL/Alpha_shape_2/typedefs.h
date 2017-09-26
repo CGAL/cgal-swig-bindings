@@ -9,7 +9,7 @@
 
 #include <SWIG_CGAL/Alpha_shape_2/config.h>
 #include <CGAL/Alpha_shape_2.h>
-#if CGAL_VERSION_NR < 1041101000
+#if CGAL_VERSION_NR < 1041100000
 #include <CGAL/Weighted_alpha_shape_euclidean_traits_2.h>
 #endif
 #include <CGAL/Regular_triangulation_2.h>
@@ -34,7 +34,7 @@ typedef CGAL::Triangulation_data_structure_2<CGAL_AS_vb,CGAL_AS_fb>     CGAL_AS_
 typedef CGAL::Delaunay_triangulation_2<EPIC_Kernel,CGAL_AS_Tds>         CGAL_DT2;
 typedef CGAL::Alpha_shape_2<CGAL_DT2>                                   CGAL_AS2;
 //typedefs for Weighted_alpha_shape_2 
-#if CGAL_VERSION_NR < 1041101000
+#if CGAL_VERSION_NR < 1041100000
 typedef CGAL::Weighted_alpha_shape_euclidean_traits_2<EPIC_Kernel>      CGAL_WAS_Gt;
 #else
 typedef EPIC_Kernel CGAL_WAS_Gt;

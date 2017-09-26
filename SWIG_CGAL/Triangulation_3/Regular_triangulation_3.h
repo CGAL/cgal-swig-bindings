@@ -44,7 +44,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_2(Bounded_side,side_of_power_circle,Facet,Weighted_point_3)
   SWIG_CGAL_FORWARD_CALL_3(Bounded_side,side_of_power_circle,Cell_handle,int,Weighted_point_3)
   SWIG_CGAL_FORWARD_CALL_2(Bounded_side,side_of_power_segment,Cell_handle,Weighted_point_3)
-#if CGAL_VERSION_NR < 1041101000
+#if CGAL_VERSION_NR < 1041100000
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,nearest_power_vertex,Weighted_point_3)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,nearest_power_vertex,Weighted_point_3,Cell_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,nearest_power_vertex_in_cell,Weighted_point_3,Cell_handle)
@@ -59,7 +59,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(bool,is_Gabriel,Edge)
   SWIG_CGAL_FORWARD_CALL_1(bool,is_Gabriel,Vertex_handle)
 //Power diagram
-#if CGAL_VERSION_NR < 1041101000
+#if CGAL_VERSION_NR < 1041100000
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Weighted_point_3,dual,Cell_handle)
 #else
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_3,dual,Cell_handle)
