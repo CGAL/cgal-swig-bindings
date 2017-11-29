@@ -679,11 +679,18 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
   }
 //
 // Miscellaneous
+#if CGAL_VERSION_NR < 1041001000
 //   CGAL::Polygon_mesh_processing::bbox_3() (4.8)
   Bbox_3 bbox_3(Polyhedron_3_SWIG_wrapper& P)
   {
     return Bbox_3( PMP::bbox_3(P.get_data()));
   }
+#else
+  Bbox_3 bbox(Polyhedron_3_SWIG_wrapper& P)
+  {
+    return Bbox_3( PMP::bbox(P.get_data()));
+  }
+#endif
 //   CGAL::Polygon_mesh_processing::border_halfedges() (4.8)
   void border_halfedges(Facet_range facet_range,
                         Polyhedron_3_SWIG_wrapper& P,
