@@ -259,8 +259,8 @@ def test_geometric_measure_functions():
 def test_miscellaneous_functions():
   print("Testing miscellaneous functions...")
   P=get_poly()
-# bbox_3 (4.8)
-  CGAL_Polygon_mesh_processing.bbox_3(P)
+# bbox (4.8)
+#  CGAL_Polygon_mesh_processing.bbox(P)
   hlist = []
 # border_halfedges (4.8)
   flist = []

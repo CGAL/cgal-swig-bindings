@@ -303,8 +303,8 @@ public class test_pmp {
   {
     System.out.println("Testing miscellaneous functions...");
     Polyhedron_3 P=get_poly();
-// bbox_3 (4.8)
-    CGAL_Polygon_mesh_processing.bbox_3(P);
+// bbox (4.8)
+//    CGAL_Polygon_mesh_processing.bbox(P);
     LinkedList<Polyhedron_3_Halfedge_handle> hlist = new LinkedList<Polyhedron_3_Halfedge_handle>();
 // border_halfedges (4.8)
     LinkedList<Polyhedron_3_Facet_handle> flist = new LinkedList<Polyhedron_3_Facet_handle>();
