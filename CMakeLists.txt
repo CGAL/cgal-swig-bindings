@@ -178,6 +178,7 @@ if ( CGAL_FOUND )
     add_subdirectory(SWIG_CGAL/Mesh_2)
     add_subdirectory(SWIG_CGAL/Interpolation)
     add_subdirectory(SWIG_CGAL/Convex_hull_2)
+    add_subdirectory(SWIG_CGAL/Convex_hull_3)
     #filter Voronoi diagram bindings
     find_path(CGAL_VOR_BASIC_H "CGAL/Voronoi_diagram_2/basic.h"  ${CGAL_INCLUDE_DIRS} NO_DEFAULT_PATH)
     if ("${CGAL_VOR_BASIC_H}" STREQUAL "CGAL_VOR_BASIC_H-NOTFOUND")
