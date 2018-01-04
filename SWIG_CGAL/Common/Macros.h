@@ -20,6 +20,7 @@
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/is_reference.hpp>
 #include <boost/functional/hash.hpp>
 
 //Functor for SWIG_CGAL_FORWARD_CALL_N
