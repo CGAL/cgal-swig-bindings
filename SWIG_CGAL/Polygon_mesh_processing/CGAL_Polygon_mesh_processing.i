@@ -490,7 +490,7 @@ SWIG_CGAL_python_vector_of_int_typecheck
   void stitch_borders(Polyhedron_3_SWIG_wrapper& P,
                       Halfedge_pair_range hedges)
   {
-    PMP::stitch_borders(P.get_data(), hedges);
+    PMP::stitch_borders(P.get_data(), CGAL::make_range(hedges));
   }
 //   CGAL::Polygon_mesh_processing::polygon_soup_to_polygon_mesh()
   void polygon_soup_to_polygon_mesh(const std::vector<Point_3>& points,
