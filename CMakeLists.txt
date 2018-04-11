@@ -201,6 +201,14 @@ if ( CGAL_FOUND )
       endif(EIGEN3_FOUND)
     endif()
 
+    if (CGAL_VERSION VERSION_GREATER 4.10)
+      if (EIGEN3_FOUND)
+        add_subdirectory(SWIG_CGAL/Polygon_mesh)
+      else()
+        MESSAGE(STATUS "Eigen 3.2 or later was not found, Polygon_mesh bindings will not be available")
+      endif(EIGEN3_FOUND)
+    endif()
+
     add_subdirectory(SWIG_CGAL/Polyline_simplification_2)
 
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/SWIG_CGAL/User_packages/CMakeLists.txt")

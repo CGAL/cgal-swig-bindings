@@ -1,0 +1,23 @@
+find_package(Eigen3 3.2.0) #(requires 3.2.0 or greater)
+if (EIGEN3_FOUND)
+  include( ${EIGEN3_USE_FILE} )
+
+  if (CGAL_VERSION VERSION_LESS 4.12)
+    include_directories(BEFORE CGAL_patched_before_4.12/include)
+  endif()
+  include_directories(BEFORE include)
+  SET (OBJECT_FILES "include/PolygonMeshJNILink.cpp")
+  add_swig_cgal_library( CGAL_Polygon_mesh_cpp ${OBJECT_FILES} )
+
+  SET (LIBSTOLINKWITH CGAL_Polygon_mesh_cpp)
+  ADD_SWIG_CGAL_JAVA_MODULE  (Polygon_mesh ${LIBSTOLINKWITH})
+
+  if (${BUILD_JAVA})
+    file(GLOB javafiles ${CMAKE_CURRENT_SOURCE_DIR}/java/*.java)
+    FOREACH(javafile ${javafiles})
+      FILE(COPY ${javafile} DESTINATION ${JAVA_OUTDIR_PREFIX}/CGAL/Polygon_mesh)
+    endforeach()
+  endif()
+else()
+  MESSAGE(STATUS "Eigen 3.2 or later was not found, PolygonMesh bindings will not be compiled")
+endif(EIGEN3_FOUND)
