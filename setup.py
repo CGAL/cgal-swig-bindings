@@ -131,10 +131,41 @@ def get_all_paths():
         return path_string.split(sep)
 
     def environ_path(environ_var):
+        """
+        Expand an environment variable containing a path to its
+        :param environ_var:
+        :return:
+        """
         if environ_var in os.environ:
             return path_split(os.environ[environ_var])
         else:
             return []
+
+    def attempt_ldconfig(ldconfig_path):
+        """
+        If their system has ldconfig, use it to discover more library paths
+        :return:
+        """
+        library_paths = []
+        tmp_dir = tempfile.mkdtemp(prefix='tmp_ldc_')
+        file_name = os.path.join(tmp_dir, 'ldconfig_out')
+        ldconfig_out = open(file_name, 'w')
+        DEVNULL = open(os.devnull, 'w')
+        try:
+            subprocess.call([ldconfig_path, "-v"], stdout=ldconfig_out, stderr=DEVNULL)
+            ldconfig_out.close()  # flush() was not working...
+            ldconfig_out = open(file_name, 'r')
+            find_dir = re.compile(r"([^\t][\w/\-\.]+)")
+            for line in ldconfig_out:
+                m = re.match(find_dir, line)
+                if m is not None:
+                    library_paths.append(m.group(1))
+        except OSError:
+            pass
+        finally:
+            ldconfig_out.close()
+            shutil.rmtree(tmp_dir)
+        return library_paths
 
     header_paths, library_paths = [], []
     compiler = distutils.ccompiler.new_compiler()
@@ -169,27 +200,11 @@ def get_all_paths():
     header_paths.append("/usr/include")
     library_paths.append("/usr/lib")
     library_paths.append("/usr/lib64")
-    library_paths.append("/usr/lib/x86_64-linux-gnu/")
 
-    # If their system has ldconfig, this helps us even more
-    tmp_dir = tempfile.mkdtemp(prefix = 'tmp_ldc_')
-    file_name = os.path.join(tmp_dir, 'ldconfig_out')
-    ldconfig_out = open(file_name,'w')
-    DEVNULL = open(os.devnull,'w')
-    try:
-        subprocess.call(["ldconfig","-v"],stdout=ldconfig_out,stderr=DEVNULL)
-        ldconfig_out.close()    # flush() was not working...
-        ldconfig_out = open(file_name,'r')
-        find_dir = re.compile(r"([^\t][\w/\-\.]+)")
-        for line in ldconfig_out:
-            m = re.match(find_dir, line)
-            if m is not None:
-                library_paths.append(m.group(1))
-    except OSError:
-        pass
-    finally:
-        ldconfig_out.close()
-        shutil.rmtree(tmp_dir)
+    library_paths += attempt_ldconfig("ldconfig")
+
+    # ldconfig is not in PATH for non-root users on debian-like systems
+    library_paths += attempt_ldconfig("/sbin/ldconfig")
 
 
     # Only UnixCompiler has this attribute at the moment
@@ -201,6 +216,7 @@ def get_all_paths():
             if arg_or_path.startswith("-L/"):
                 library_paths.append(arg_or_path[2:])
 
+    # Purge duplicates and paths that don't exist
     header_paths = list(set(filter(os.path.isdir, header_paths)))
     library_paths = list(set(filter(os.path.isdir, library_paths)))
     return header_paths, library_paths
