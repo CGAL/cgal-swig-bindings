@@ -54,7 +54,7 @@
   SWIG_CGAL_declare_generic_output_iterator(CLASSNAME_PREFIX##_Edge_output_iterator,CLASSNAME_PREFIX##_Edge_output_iterator_nested_iterator,CLASSNAME_PREFIX##_iEdge)
   #endif
   //Triangulation
-  %typemap(javaimports)  Triangulation_3_wrapper%{import CGAL.Kernel.POINT_TYPE;import CGAL.Kernel.Segment_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Tetrahedron_3; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Bounded_side; import java.util.Iterator; import java.util.Collection;%}
+  %typemap(javaimports)  Triangulation_3_wrapper%{import CGAL.Kernel.Point_3; import CGAL.Kernel.POINT_TYPE;import CGAL.Kernel.Segment_3; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Tetrahedron_3; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Bounded_side; import java.util.Iterator; import java.util.Collection;%}
   SWIG_CGAL_declare_identifier_of_template_class(EXPOSEDNAME,Triangulation_3_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,WTAG,MEMHOLDER >)
 
 

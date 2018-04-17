@@ -11,5 +11,6 @@
 #include <SWIG_CGAL/Mesh_2/Delaunay_mesher_2.h>
 #include <SWIG_CGAL/Mesh_2/Criteria.h>
 #include <SWIG_CGAL/Mesh_2/Triangulation_conformer_2.h>
+#include <SWIG_CGAL/Mesh_2/parameters.h>
 
 #endif //SWIG_CGAL_MESH_2_ALL_INCLUDES_H

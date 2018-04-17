@@ -38,4 +38,43 @@
   %}
 %enddef
 
+%define declare_lloyd_2_global_functions(MESHWRAPPER)
+  %inline %{
+    Mesh_optimization_return_code
+    lloyd_optimize_mesh_2  ( MESHWRAPPER& t)
+    {
+      return CGAL::enum_cast< Mesh_optimization_return_code >(
+        CGAL::lloyd_optimize_mesh_2(t.get_data())
+      );
+    }
+
+    Mesh_optimization_return_code
+    lloyd_optimize_mesh_2  (MESHWRAPPER& t,
+                            const Mesh_2_parameters& params)
+    {
+      if (params.seeds_provided())
+        return CGAL::enum_cast< Mesh_optimization_return_code >(
+          CGAL::lloyd_optimize_mesh_2(t.get_data(),
+                                      CGAL::parameters::time_limit = params.get_time_limit(),
+                                      CGAL::parameters::max_iteration_number = params.get_max_iteration_number(),
+                                      CGAL::parameters::convergence = params.get_convergence(),
+                                      CGAL::parameters::freeze_bound = params.get_freeze_bound(),
+                                      CGAL::parameters::seeds_begin = params.get_seeds().first,
+                                      CGAL::parameters::seeds_end = params.get_seeds().second,
+                                      CGAL::parameters::mark = params.get_mark())
+        );
+
+      return CGAL::enum_cast< Mesh_optimization_return_code >(
+        CGAL::lloyd_optimize_mesh_2(t.get_data(),
+                                    CGAL::parameters::time_limit = params.get_time_limit(),
+                                    CGAL::parameters::max_iteration_number = params.get_max_iteration_number(),
+                                    CGAL::parameters::convergence = params.get_convergence(),
+                                    CGAL::parameters::freeze_bound = params.get_freeze_bound(),
+                                    CGAL::parameters::mark = params.get_mark())
+      );
+    }
+
+  %}
+%enddef
+
 #endif //SWIG_CGAL_MESH_2_DECLARE_MACROS_I

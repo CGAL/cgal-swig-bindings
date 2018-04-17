@@ -116,6 +116,15 @@ declare_conforming_global_functions(Mesh_2_Constrained_Delaunay_triangulation_pl
 declare_refine_global_functions(Mesh_2_Constrained_Delaunay_triangulation_2_SWIG_wrapper, Criteria_wrapper<DM2_C>)
 declare_refine_global_functions(Mesh_2_Constrained_Delaunay_triangulation_plus_2_SWIG_wrapper, Criteria_wrapper<DM2_C_plus>)
 
+
+%include "CGAL/version.h"
+#if CGAL_VERSION_NR > 1040601000
+%typemap(javaimports)  Mesh_2_parameters %{import CGAL.Kernel.Point_2; import java.util.Iterator;%}
+%include "SWIG_CGAL/Mesh_2/parameters.h"
+declare_lloyd_2_global_functions(Mesh_2_Constrained_Delaunay_triangulation_2_SWIG_wrapper)
+declare_lloyd_2_global_functions(Mesh_2_Constrained_Delaunay_triangulation_plus_2_SWIG_wrapper)
+#endif
+
 #ifdef SWIGJAVA
 %include "SWIG_CGAL/Mesh_2/java_extensions.i"
 #endif
