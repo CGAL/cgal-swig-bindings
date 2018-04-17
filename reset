@@ -11,5 +11,5 @@ rm -rfv build-python
 rm -rfv build
 rm -rfv dist
 
-pip uninstall cgal-bindings
+pip3 uninstall cgal-bindings
 

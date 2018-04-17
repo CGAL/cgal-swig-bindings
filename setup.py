@@ -274,6 +274,7 @@ CGAL_modules = [
     "Alpha_shape_2",
     "Box_intersection_d",
     "Convex_hull_2",
+    "Convex_hull_3",
     "HalfedgeDS",
     "Interpolation",
     "Mesh_2",
