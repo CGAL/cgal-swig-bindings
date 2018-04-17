@@ -10,7 +10,6 @@
 
 #include <SWIG_CGAL/Triangulation_2/Triangulation_2.h>
 
-#include <CGAL/Regular_triangulation_euclidean_traits_2.h>
 #include <CGAL/Regular_triangulation_2.h>
 
 
@@ -29,9 +28,14 @@ public:
 // Access functions
   SWIG_CGAL_FORWARD_CALL_0(int,number_of_hidden_vertices)
   Hidden_vertices_iterator hidden_vertices() {return Hidden_vertices_iterator(this->get_data().hidden_vertices_begin(),this->get_data().hidden_vertices_end());}
-// Dual power diagram    
+// Dual power diagram
+#if CGAL_VERSION_NR < 1041100000
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Weighted_point_2,weighted_circumcenter,Face_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Weighted_point_2,dual,Face_handle)
+#else
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,weighted_circumcenter,Face_handle)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,dual,Face_handle)
+#endif
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Edge)
 // Predicates
   SWIG_CGAL_FORWARD_CALL_2(Oriented_side,power_test,Face_handle,Weighted_point_2)

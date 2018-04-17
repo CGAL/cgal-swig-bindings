@@ -20,6 +20,8 @@ SWIG_CGAL_package_common()
 %import  "SWIG_CGAL/Triangulation_2/Reference_wrappers.i"
 %include "SWIG_CGAL/Common/Iterator.h"
 
+%include "CGAL/version.h"
+
 //include files
 %{
   #include <SWIG_CGAL/Kernel/typedefs.h>

@@ -7,6 +7,7 @@ env:
     - CGAL_VER=4.8
     - CGAL_VER=4.9
     - CGAL_VER=4.10
+    - CGAL_VER=4.11
 
 addons:
   apt:

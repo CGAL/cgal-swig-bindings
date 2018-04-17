@@ -266,6 +266,31 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 }
 %enddef
 
+//IN typemap for a vector of planes from an array of double
+%define SWIG_CGAL_array_of_double_to_vector_of_planes_typemap_in
+%typemap(jni) boost::shared_ptr<std::vector<EPIC_Kernel::Plane_3> > "jdoubleArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr<std::vector<EPIC_Kernel::Plane_3> > "double[]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr<std::vector<EPIC_Kernel::Plane_3> > "double[]"  //replace in java function args
+%typemap(javain) boost::shared_ptr<std::vector<EPIC_Kernel::Plane_3> > "$javainput" //replace in java function call to wrapped function
+
+%typemap(in) boost::shared_ptr<std::vector<EPIC_Kernel::Plane_3> > {
+  boost::shared_ptr<std::vector<EPIC_Kernel::Plane_3> > res(
+    new std::vector<EPIC_Kernel::Plane_3>());
+  const jsize size = jenv->GetArrayLength($input) / 4;
+  res->reserve((const std::size_t) size);
+  jboolean is_copy;
+  jdouble* indices = jenv->GetDoubleArrayElements($input, &is_copy);
+  for (int i = 0 ; i < size ; i++){
+    res->push_back(EPIC_Kernel::Plane_3(indices[4*i],
+                                        indices[4*i+1],
+                                        indices[4*i+2],
+                                        indices[4*i+3]));
+  }
+  jenv->ReleaseDoubleArrayElements($input, indices, JNI_ABORT);
+  $1=res;
+}
+%enddef
+
 // IN typemap from an array of 9-uple of double to vector of triangles
 %define SWIG_CGAL_array_of_array9_of_double_to_vector_of_triangle_3_typemap_in
 %typemap(jni) boost::shared_ptr< std::vector<Triangle_3::cpp_base>  > "jobjectArray"  //replace in jni class

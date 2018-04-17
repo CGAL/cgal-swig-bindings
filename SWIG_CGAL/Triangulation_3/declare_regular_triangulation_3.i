@@ -20,7 +20,7 @@
   SWIG_CGAL_declare_triangulation_3_internal(Internal_Triangulation_3_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,Weighted_point_3,CGAL::Tag_true,MEMHOLDER)
 
 
-  %typemap(javaimports)          Regular_triangulation_3_wrapper%{import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Bounded_side; import java.util.Iterator; import java.util.Collection;%}  
+  %typemap(javaimports)          Regular_triangulation_3_wrapper%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Bounded_side; import java.util.Iterator; import java.util.Collection;%}  
   SWIG_CGAL_declare_identifier_of_template_class(EXPOSEDNAME,Regular_triangulation_3_wrapper<CPPTYPE,SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,Weighted_point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,Weighted_point_3>,MEMHOLDER >)
 %enddef
 
