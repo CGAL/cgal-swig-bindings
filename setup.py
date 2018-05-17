@@ -485,6 +485,7 @@ setup(
         'Operating System :: Unix',
         'Operating System :: MacOS',
         'Programming Language :: Python :: 2.7'
+        'Programming Language :: Python :: 3.6'
     ]
 )
 
