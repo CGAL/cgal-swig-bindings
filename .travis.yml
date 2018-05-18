@@ -9,7 +9,7 @@ python:
   - "3.6"
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME"=="osx" ]]; then brew update && brew bundle; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew bundle; fi
 
 addons:
   apt:
