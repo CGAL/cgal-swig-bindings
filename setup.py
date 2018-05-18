@@ -308,8 +308,8 @@ compiler.set_library_dirs(LIBRARY_PATHS)
 # That way, users can instantly see how screwed they are by getting all the errors at once
 dependencies_ok = True
 
-#For some reason it's boost_thread-mt on some systems and boost_thread on others
-#Both are the same
+# For some reason it's boost_thread-mt on some systems and boost_thread on others
+# Both are the same
 BOOST_THREAD_NAME = None
 for try_name in ["boost_thread-mt","boost_thread"]:
         if compiler.find_library_file(LIBRARY_PATHS, try_name) is not None:
