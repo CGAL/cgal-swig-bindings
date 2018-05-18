@@ -8,12 +8,17 @@ python:
   - "2.7"
   - "3.6"
 
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew bundle; fi
+matrix:
+  exclude:
+  - os: osx
+    python: "2.7"
+  - os: osx
+    python: "2.7"
 
 addons:
   apt:
     packages:
+    - libcgal-dev
     - libmpfr-dev
     - libboost-atomic-dev
     - libboost-chrono-dev
