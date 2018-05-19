@@ -30,6 +30,7 @@ before_install:
     # See https://docs.travis-ci.com/user/osx-ci-environment/#A-note-on-upgrading-packages.
     # I didn't do this above because it works and I'm lazy.
     brew outdated pyenv || brew upgrade pyenv
+    brew bundle
     # virtualenv doesn't work without pyenv knowledge. venv in Python 3.3
     # doesn't provide Pip by default. So, use `pyenv-virtualenv <https://github.com/yyuu/pyenv-virtualenv/blob/master/README.md>`_.
     brew install pyenv-virtualenv
