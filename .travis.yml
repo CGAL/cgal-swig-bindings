@@ -1,4 +1,4 @@
-language: generic
+language: python
 sudo: required
 os:
   - osx
@@ -56,7 +56,7 @@ addons:
     - python3-numpy
 
 install:
-  - pip -v install .
+  - python setup.py -v install
 
 script:
   - test.sh

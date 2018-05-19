@@ -318,9 +318,10 @@ if BOOST_THREAD_NAME is None:
     sys.stderr.write("You are missing boost-thread\n")
     dependencies_ok = False
 
+LIBRARY_DEPENDENCIES=['gmp', 'mpfr', 'CGAL', BOOST_THREAD_NAME]
 
 #Check for shared libraries
-for library_dep in ['gmp', 'mpfr', 'CGAL', BOOST_THREAD_NAME]:
+for library_dep in LIBRARY_DEPENDENCIES:
     if library_dep is not None and\
                     compiler.find_library_file(LIBRARY_PATHS, library_dep) is None:
         sys.stderr.write("You are missing the {0} library\n".format(library_dep))
@@ -339,10 +340,11 @@ if not dependencies_ok:
 
 # Check that certain functions exist in their libraries
 # Can indicate broken or old installation
-# Function, header, library to link against
+# (Function, header, library to link against, filetype)
 function_dependencies = [
     ("mpn_sqr", "gmp.h", "gmp", ".c"),
     ("boost::detail::set_tss_data", "boost/thread/tss.hpp", BOOST_THREAD_NAME, ".cpp"),
+    ("boost::system::system_category","boost/system/error_code.hpp","boost_system",".cpp")
 ]
 
 bad_function = False
@@ -373,7 +375,7 @@ if not dependencies_ok:
 
 
 #Make some guesses as to where that CGALConfig.make file is
-CGAL_CONFIG_SEARCH = [
+cgal_config_search = [
     os.environ.get("CGAL_DIR", ""),
     find_in_paths(LIBRARY_PATHS, 'cgal') or ""
 ]
@@ -381,14 +383,14 @@ CGAL_CONFIG_SEARCH = [
 for path in itertools.product(['usr', 'usr/local', 'opt', 'opt/local'],
                               ['share', 'lib', 'CGAL'],
                               ['cmake', 'cmake/CGAL', 'CGAL/cmake', 'CGAL', '']):
-    CGAL_CONFIG_SEARCH.append(os.path.join(*path))
-CGAL_CONFIG_SEARCH = list(filter(os.path.isdir, CGAL_CONFIG_SEARCH))
-CGAL_CONFIG_SEARCH += HEADER_PATHS
+    cgal_config_search.append(os.path.join(*path))
+cgal_config_search = list(filter(os.path.isdir, cgal_config_search))
+cgal_config_search += HEADER_PATHS
 
 
 # Use CGALConfig.cmake to see if it was built with imageio
 WITH_IMAGEIO = False
-cgal_config = find_in_paths(CGAL_CONFIG_SEARCH, "CGALConfig.cmake")
+cgal_config = find_in_paths(cgal_config_search, "CGALConfig.cmake")
 if cgal_config is not None and os.path.isfile(cgal_config):
     file = open(cgal_config)
     for line in file:
@@ -430,7 +432,7 @@ for mod_name in CGAL_modules:
                   sources=source_list,
                   swig_opts=["-c++","-outdir",PACKAGE_DIR,"-DSWIG_CGAL_{0}_MODULE".format(mod_name)] +
                             header_paths_as_args,
-                  libraries=['CGAL', 'gmp', 'mpfr', BOOST_THREAD_NAME],
+                  libraries=LIBRARY_DEPENDENCIES,
                   define_macros=macros,
                   include_dirs=INCLUDE_DIRS + HEADER_PATHS,
                   library_dirs=LIBRARY_PATHS,
