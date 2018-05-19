@@ -290,6 +290,7 @@ CGAL_modules = [
     "Voronoi_diagram_2"
 ]
 
+cgal_version = get_header_definition("CGAL_VERSION","CGAL/version.h")
 
 
 INCLUDE_DIRS = ["./","SWIG_CGAL/AABB_tree/include"]
