@@ -318,7 +318,7 @@ if BOOST_THREAD_NAME is None:
     sys.stderr.write("You are missing boost-thread\n")
     dependencies_ok = False
 
-LIBRARY_DEPENDENCIES=['gmp', 'mpfr', 'CGAL', BOOST_THREAD_NAME]
+LIBRARY_DEPENDENCIES=['gmp', 'mpfr', 'CGAL', BOOST_THREAD_NAME, 'boost_system']
 
 #Check for shared libraries
 for library_dep in LIBRARY_DEPENDENCIES:
