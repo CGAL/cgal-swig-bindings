@@ -59,4 +59,4 @@ install:
   - travis_wait 90 python setup.py -v install
 
 script:
-  - test.sh
+  - ./test.sh
