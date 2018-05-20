@@ -56,7 +56,7 @@ addons:
     - python3-numpy
 
 install:
-  - travis wait 30 python setup.py -v install
+  - travis_wait 30 python setup.py -v install
 
 script:
   - test.sh
