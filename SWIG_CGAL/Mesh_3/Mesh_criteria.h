@@ -103,11 +103,12 @@ public:
   typedef typename Triangulation::Cell_handle Cell_handle;
   typedef std::pair<int,double> Cell_quality;
   typedef boost::optional<Cell_quality> Cell_badness;
+  typedef Cell_badness Is_cell_bad;
   
   Java_cell_criteria(Caller& call):caller(call){}
-  Cell_badness operator()(Cell_handle c) const {
-    return caller.run(c);
-  }
+  template <class RT>
+  Cell_badness operator()(const RT&, Cell_handle c) const { return caller.run(c); }
+  Cell_badness operator()(Cell_handle c) const { return caller.run(c); }
 };
 
 template <class Triangulation,class Caller>
@@ -118,9 +119,12 @@ public:
   typedef typename Triangulation::Cell_handle Cell_handle;
   typedef std::pair<int,double> Facet_quality;
   typedef boost::optional<Facet_quality> Facet_badness;
+  typedef Facet_badness Is_facet_bad;
 
   Java_facet_criteria(Caller& call):caller(call){}
   Facet_badness operator()(const Facet& f) const {return caller.run(f);}
+  template <class RT>
+  Facet_badness operator()(const RT&, const Facet& f) const {return caller.run(f);}
   Facet_badness operator()(Cell_handle c,int i) const { return (*this)(f(c,i));}
 };
 

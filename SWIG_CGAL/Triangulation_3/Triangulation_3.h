@@ -86,11 +86,17 @@ public:
   void share_ownership(Memory_holder mh){own_triangulation=false; mem_holder=mh;}
   //constructor used by inheriting classes  
   template <class PointIterator>
-  Triangulation_3_wrapper(PointIterator first,PointIterator end):data_ptr(new cpp_base(first,end)){}
+  Triangulation_3_wrapper(PointIterator first,PointIterator end):data_ptr(new cpp_base())
+  {
+    data_ptr->insert(first,end);
+  }
   #endif
   Triangulation_3_wrapper():data_ptr(new cpp_base()),own_triangulation(true){}
   ~Triangulation_3_wrapper(){if (own_triangulation) delete data_ptr;}
-  Triangulation_3_wrapper(Point_range range):data_ptr(new cpp_base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range))){}
+  Triangulation_3_wrapper(Point_range range):data_ptr(new cpp_base())
+  {
+    data_ptr->insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
+  }
   
   typedef Triangulation_3_wrapper<Triangulation,Point,Vertex_handle,Cell_handle,Weighted_tag,Memory_holder> Self;
   typedef std::pair<Cell_handle,int>             Facet;

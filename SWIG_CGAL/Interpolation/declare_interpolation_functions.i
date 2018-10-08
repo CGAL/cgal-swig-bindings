@@ -64,10 +64,11 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(sibson_c1_interpolatio
   void sibson_gradient_fitting_nn_2(const Delaunay_triangulation_2_SWIG_wrapper& dt, Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>& gradients, const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values){
     CGAL::sibson_gradient_fitting_nn_2(dt.get_data(),std::inserter(gradients.get_map(),gradients.get_map().begin()),function_values.get_data(),CGAL::Interpolation_gradient_fitting_traits_2<EPIC_Kernel>());
   }
-  
-  void sibson_gradient_fitting_rn_2(const Regular_triangulation_2_SWIG_wrapper& rt, Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>& gradients, const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values){
-    CGAL::sibson_gradient_fitting_rn_2(rt.get_data(),std::inserter(gradients.get_map(),gradients.get_map().begin()),function_values.get_data(),CGAL::Interpolation_gradient_fitting_traits_2<EPIC_Kernel>());
-  }
+
+// disabled as API was fixed in CGAL 4.13 (cheap fix instead of fixing the type of the map used)
+//  void sibson_gradient_fitting_rn_2(const Regular_triangulation_2_SWIG_wrapper& rt, Data_access_wrapper<I_DA_PV2,Weighted_point_2,Vector_2>& gradients, const //Data_access_wrapper<I_DA_PD,Weighted_point_2,double>& function_values){
+//    CGAL::sibson_gradient_fitting_rn_2(rt.get_data(),std::inserter(gradients.get_map(),gradients.get_map().begin()),function_values.get_data(),CGAL::Interpolation_gradient_fitting_traits_2<EPIC_Kernel>());
+//  }
 %}
 
 #endif //SWIG_CGAL_INTERPOLATION_DECLARE_INTERPOLATION_FUNCTIONS_H
