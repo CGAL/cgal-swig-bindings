@@ -32,10 +32,12 @@ install:
   - git clone https://github.com/CGAL/cgal.git
   - cd cgal
   - git checkout releases/CGAL-${CGAL_VER}
-  - cmake -DCMAKE_INSTALL_PREFIX=/usr .
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
   - make -j2
   - sudo make install
-  - cd ..
+  - cd ../..
 
 script:
   - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
