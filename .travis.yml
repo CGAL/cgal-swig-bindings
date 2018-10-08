@@ -34,16 +34,16 @@ install:
   - git checkout releases/CGAL-${CGAL_VER}
   - mkdir build
   - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+  - cmake -DCMAKE_INSTALL_PREFIX=/usr -DCGAL_BUILD_TYPE=Release ..
   - make -j2
   - sudo make install
   - cd ../..
 
 script:
   - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-  - cmake -DCMAKE_INSTALL_PREFIX=~/.local/
+  - cmake -DCGAL_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/
     -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so -DPYTHON_EXECUTABLE=/usr/bin/python .
   - make install -j2 && make tests -j2 && ctest -j2 --output-on-failure
-  - cmake -DBUILD_JAVA=OFF
+  - cmake -DCGAL_BUILD_TYPE=Release -DBUILD_JAVA=OFF
     -DPYTHON_INCLUDE_DIR=/usr/include/python3.4m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.4m.so -DPYTHON_EXECUTABLE=/usr/bin/python3 .
   - make install -j2 && ctest -j2 --output-on-failure
