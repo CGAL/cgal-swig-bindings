@@ -10,7 +10,7 @@
 
 #include <CGAL/export/helpers.h>
 
-#ifdef  SWIG_CGAL_MESH_3_EXPORT
+#ifdef  CGAL_Mesh_3_cpp_EXPORTS
 #define SWIG_CGAL_MESH_3_DECL CGAL_DLL_EXPORT
 #else
 #define SWIG_CGAL_MESH_3_DECL CGAL_DLL_IMPORT

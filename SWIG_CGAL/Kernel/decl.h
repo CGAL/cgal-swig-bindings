@@ -10,7 +10,7 @@
 
 #include <CGAL/export/helpers.h>
 
-#ifdef  SWIG_CGAL_KERNEL_EXPORT
+#ifdef  CGAL_Kernel_cpp_EXPORTS
 #define SWIG_CGAL_KERNEL_DECL CGAL_DLL_EXPORT
 #else
 #define SWIG_CGAL_KERNEL_DECL CGAL_DLL_IMPORT

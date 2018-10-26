@@ -10,7 +10,7 @@
 
 #include <CGAL/export/helpers.h>
 
-#ifdef  SWIG_CGAL_TRIANGULATION_2_EXPORT
+#ifdef  CGAL_Triangulation_2_cpp_EXPORTS
 #define SWIG_CGAL_TRIANGULATION_2_DECL CGAL_DLL_EXPORT
 #else
 #define SWIG_CGAL_TRIANGULATION_2_DECL CGAL_DLL_IMPORT

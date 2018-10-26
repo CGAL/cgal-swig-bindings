@@ -10,7 +10,7 @@
 
 #include <CGAL/export/helpers.h>
 
-#ifdef  SWIG_CGAL_ALPHA_SHAPE_2_EXPORT
+#ifdef  CGAL_Alpha_shape_2_cpp_EXPORTS
 #define SWIG_CGAL_ALPHA_SHAPE_2_DECL CGAL_DLL_EXPORT
 #else
 #define SWIG_CGAL_ALPHA_SHAPE_2_DECL CGAL_DLL_IMPORT

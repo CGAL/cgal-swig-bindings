@@ -10,7 +10,7 @@
 
 #include <CGAL/export/helpers.h>
 
-#ifdef  SWIG_CGAL_AABB_TREE_EXPORT
+#ifdef  CGAL_AABB_tree_cpp_EXPORTS
 #define SWIG_CGAL_AABB_TREE_DECL CGAL_DLL_EXPORT
 #else
 #define SWIG_CGAL_AABB_TREE_DECL CGAL_DLL_IMPORT
