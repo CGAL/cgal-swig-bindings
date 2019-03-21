@@ -1,17 +1,26 @@
 language: generic
 sudo: required
 dist: trusty
+os:
+  - linux
+  - osx
 
 env:
-  matrix:
-    - CGAL_VER=4.8
-    - CGAL_VER=4.9
-    - CGAL_VER=4.10
-    - CGAL_VER=4.11
-    - CGAL_VER=4.12
-    - CGAL_VER=4.13
+  - CGAL_VER=4.8
+  - CGAL_VER=4.9
+  - CGAL_VER=4.10
+  - CGAL_VER=4.11
+  - CGAL_VER=4.12
+  - CGAL_VER=4.13
 
 addons:
+  homebrew:
+    packages:
+      - mpfr
+      - gmp
+      - boost
+      - cmake
+      - swig
   apt:
     packages:
     - libmpfr-dev
