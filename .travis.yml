@@ -4,12 +4,13 @@ dist: trusty
 
 env:
   matrix:
-    - CGAL_VER=4.8
-    - CGAL_VER=4.9
-    - CGAL_VER=4.10
-    - CGAL_VER=4.11
-    - CGAL_VER=4.12
-    - CGAL_VER=4.13
+    - CGAL_VER=releases/CGAL-4.8
+    - CGAL_VER=releases/CGAL-4.9
+    - CGAL_VER=releases/CGAL-4.10
+    - CGAL_VER=releases/CGAL-4.11
+    - CGAL_VER=releases/CGAL-4.12
+    - CGAL_VER=releases/CGAL-4.13
+    - CGAL_VER=master
 
 addons:
   apt:
@@ -31,7 +32,7 @@ addons:
 install:
   - git clone https://github.com/CGAL/cgal.git
   - cd cgal
-  - git checkout releases/CGAL-${CGAL_VER}
+  - git checkout ${CGAL_VER}
   - mkdir build
   - cd build
   - cmake -DCMAKE_INSTALL_PREFIX=/usr -DCGAL_BUILD_TYPE=Release ..
