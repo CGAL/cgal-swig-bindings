@@ -12,8 +12,6 @@ if (POLICY CMP0042)
   cmake_policy (SET CMP0042 NEW)
 endif()
 
-option ( LINK_PYTHON_LIBRARY "Link against python libraries" ON )
-
 if (POLICY CMP0078)
   cmake_policy (SET CMP0078 NEW)
 endif()
