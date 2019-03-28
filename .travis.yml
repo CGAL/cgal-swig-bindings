@@ -30,9 +30,8 @@ addons:
     - openjdk-7-jdk
 
 install:
-  - git clone https://github.com/CGAL/cgal.git
+  - git clone --depth 1 -b ${CGAL_VER} https://github.com/CGAL/cgal.git
   - cd cgal
-  - git checkout ${CGAL_VER}
   - mkdir build
   - cd build
   - cmake -DCMAKE_INSTALL_PREFIX=/usr -DCGAL_BUILD_TYPE=Release ..
