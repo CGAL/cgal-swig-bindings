@@ -23,6 +23,7 @@ addons:
       - boost
       - cmake
       - swig
+      - homebrew/cask/java
   apt:
     packages:
     - libmpfr-dev
