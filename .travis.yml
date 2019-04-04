@@ -22,7 +22,9 @@ addons:
       - gmp
       - boost
       - cmake
+      - eigen
       - swig
+      - numpy
       - homebrew/cask/java
   apt:
     packages:
