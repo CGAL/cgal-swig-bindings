@@ -28,7 +28,7 @@ addons:
     - python-numpy
     - python3-dev
     - python3-numpy
-    - openjdk-7-jdk
+    - openjdk-8-jdk
 
 install:
   - git clone --depth 1 -b ${CGAL_VER} https://github.com/CGAL/cgal.git
