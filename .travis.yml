@@ -46,5 +46,5 @@ script:
     -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so -DPYTHON_EXECUTABLE=/usr/bin/python .
   - make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure
   - cmake -DCGAL_BUILD_TYPE=Release -DBUILD_JAVA=OFF
-    -DPYTHON_INCLUDE_DIR=/usr/include/python3.4m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.4m.so -DPYTHON_EXECUTABLE=/usr/bin/python3 .
+    -DPYTHON_INCLUDE_DIR=/usr/include/python3.5m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.5m.so -DPYTHON_EXECUTABLE=/usr/bin/python3 .
   - make -j2 VERBOSE=1 && make install -j2 && ctest -j2 --output-on-failure
