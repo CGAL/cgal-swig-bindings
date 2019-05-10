@@ -27,6 +27,7 @@ addons:
     - libeigen3-dev
     - swig
     - openjdk-8-jdk
+    - libgl1-mesa-dev
 
 install:
   - pip install numpy
