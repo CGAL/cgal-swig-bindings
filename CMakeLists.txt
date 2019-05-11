@@ -16,6 +16,10 @@ if (POLICY CMP0078)
   cmake_policy (SET CMP0078 NEW)
 endif()
 
+if (POLICY CMP0086)
+  cmake_policy (SET CMP0086 NEW)
+endif()
+
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/SWIG_CGAL_Macros.cmake)
 
 find_package(CGAL QUIET COMPONENTS ImageIO)
