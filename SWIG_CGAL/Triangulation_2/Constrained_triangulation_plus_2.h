@@ -87,7 +87,7 @@ public:
   typedef std::pair<Vertex_handle,Vertex_handle>                        Constraint_handle;
   typedef CDTP_context<Cpp_base,Vertex_handle>                          Context;
 
-  typedef SWIG_CGAL_Iterator<typename Cpp_base::Constraint_iterator,Constraint_handle>          Constraint_iterator;
+  typedef SWIG_CGAL_Iterator<typename Cpp_base::Constraint_iterator,Constraint_id_wrapper<Cpp_base> >          Constraint_iterator;
   typedef SWIG_CGAL_Iterator<typename Cpp_base::Subconstraint_iterator,Constraint_handle>       Subconstraint_iterator;
   typedef SWIG_CGAL_Iterator<typename Cpp_base::Vertices_in_constraint_iterator,Vertex_handle>  Vertices_in_constraint_iterator;
   typedef SWIG_CGAL_Iterator<typename Cpp_base::Context_iterator,Context>                       Context_iterator;

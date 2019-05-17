@@ -22,10 +22,11 @@
   //types
   %include "std_pair.i"
   SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Constraint,std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle <CPPTYPE,Point_2>,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2> >)
+  SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Constraint_id,Constraint_id_wrapper<CPPTYPE>)
 
   //Iterators
-  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Constraint,)
-  SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Constraint_iterator,SWIG_CGAL_Iterator<CPPTYPE::Constraint_iterator,std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle <CPPTYPE,Point_2>,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2> > >)
+  SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Constraint_id,)
+  SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Constraint_iterator,SWIG_CGAL_Iterator<CPPTYPE::Constraint_iterator,Constraint_id_wrapper<CPPTYPE> >)
 
   SWIG_CGAL_set_as_java_iterator(SWIG_CGAL_Iterator,CLASSNAME_PREFIX##_Constraint,)
   SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Subconstraint_iterator,SWIG_CGAL_Iterator<CPPTYPE::Subconstraint_iterator,std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle <CPPTYPE,Point_2>,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2> > >)
@@ -40,7 +41,7 @@
   %typemap(javaimports)          Constrained_triangulation_plus_2_wrapper%{import CGAL.Kernel.Point_2; import java.util.Iterator; import java.util.Collection; import CGAL.Triangulation_2.Constraint; import CGAL.Kernel.Polygon_2; %}
   SWIG_CGAL_declare_identifier_of_template_class(EXPOSEDNAME,Constrained_triangulation_plus_2_wrapper<CPPTYPE, Constrained_Delaunay_triangulation_2_wrapper< CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,Point_2> >,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2> >)
   SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Context,CDTP_context<CPPTYPE, SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2> >)
-  SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME_PREFIX##_Constraint_id,Constraint_id_wrapper<CPPTYPE>)
+
 
 %enddef
 
