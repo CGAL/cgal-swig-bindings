@@ -174,7 +174,10 @@ public:
     //boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> >
     boost::optional<typename Tree::template Intersection_and_primitive_id<Segment_3::cpp_base>::Type > res=data.any_intersection(query.get_data());
     if (res)
+    {
+      Object_and_primitive_id(std::make_pair(res->first, res->second));
       return Optional_object_and_primitive_id(Object_and_primitive_id(*res));
+    }
     return Optional_object_and_primitive_id();
   }
   Optional_object_and_primitive_id any_intersection(const Triangle_3& query){
