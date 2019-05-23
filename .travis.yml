@@ -6,7 +6,6 @@ python:
   - "3.7"
 os:
   - linux
-  - osx
 
 env:
   - CGAL_VER=releases/CGAL-4.8
@@ -17,6 +16,24 @@ env:
   - CGAL_VER=releases/CGAL-4.13
   - CGAL_VER=releases/CGAL-4.14
   - CGAL_VER=master
+
+matrix:
+  include:
+  - name: "Python 3.7.2 on macOS CGAL-4.13"
+    os: osx
+    env: CGAL_VER=releases/CGAL-4.13
+    osx_image: xcode10.2
+    language: shell
+  - name: "Python 3.7.2 on macOS CGAL-4.14"
+    os: osx
+    env: CGAL_VER=releases/CGAL-4.14
+    osx_image: xcode10.2
+    language: shell
+  - name: "Python 3.7.2 on macOS CGAL-master"
+    os: osx
+    env: CGAL_VER=master
+    osx_image: xcode10.2
+    language: shell
 
 addons:
   homebrew:
