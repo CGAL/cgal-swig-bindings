@@ -12,11 +12,12 @@
 
 #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
+#include <CGAL/Iterator_range.h>
 
 template <class Wrapper>
 struct Wrapper_iterator_helper{
   typedef typename internal::Converter<Wrapper>::result_type Base;
-  typedef std::pair<Input_iterator_wrapper<Wrapper,Base>,Input_iterator_wrapper<Wrapper,Base> > input;
+  typedef CGAL::Iterator_range<Input_iterator_wrapper<Wrapper,Base> > input;
   typedef boost::function_output_iterator< Container_writer<Wrapper,Base> >                                       output;
 };
 #else

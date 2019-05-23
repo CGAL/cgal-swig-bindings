@@ -12,6 +12,7 @@ import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Face_handl
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Edge;
 import CGAL.Triangulation_2.Constraint;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Constraint;
+import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Constraint_id;
 import CGAL.Triangulation_2.Constrained_Delaunay_triangulation_plus_2_Context;
 import CGAL.Triangulation_2.Locate_type;
 import CGAL.Kernel.Ref_int;
@@ -90,22 +91,27 @@ public class test_t2 {
     System.out.println("Nb contexts "+nb_ctxt);    
     
     int j=0;
-    for (Constrained_Delaunay_triangulation_plus_2_Constraint cdtp_sc : t.subconstraints()){
+    for (Constrained_Delaunay_triangulation_plus_2_Constraint cdtp_sc : t.subconstraints())
+    {
       ++j;
+    }
+    System.out.println("Nb subconstrained edges "+j);
+
+    for(Constrained_Delaunay_triangulation_plus_2_Constraint_id   cdtp_cid : t.constraints())
+    {
       int k=0;
-      for (Constrained_Delaunay_triangulation_plus_2_Vertex_handle vh : t.vertices_in_constraint(cdtp_sc.getFirst(),cdtp_sc.getSecond()) )
+      for (Constrained_Delaunay_triangulation_plus_2_Vertex_handle vh : t.vertices_in_constraint(cdtp_cid) )
         ++k;
       System.out.println("Nb subvertices "+k);
     }    
-    System.out.println("Nb subconstrained edges "+j);
 
    
     int i=0;
-    for (Constrained_Delaunay_triangulation_plus_2_Constraint cdtp_c : t.constraints()){
+    for (Constrained_Delaunay_triangulation_plus_2_Constraint_id cdtp_c : t.constraints()){
       ++i;
     }
     System.out.println("Nb constrained edges "+i);
-    
+
     
     System.out.println("Test setting a Integer to facets");
     double dbl=0.;
