@@ -33,7 +33,13 @@
 
 double compute_average_spacing(Wrapper_iterator_helper<Point_3>::input point_range, int k)
 {
-  return CGAL::compute_average_spacing DFT (point_range.first, point_range.second, k);
+  return CGAL::compute_average_spacing DFT (
+      #if CGAL_VERSION_MAJOR < 5
+        point_range.begin(), point_range.end(),
+      #else
+        point_range,
+      #endif
+         k);
 }
 
 /// Simplification functions
@@ -51,7 +57,13 @@ int grid_simplify_point_set ( Wrapper_iterator_helper<Point_3>::input point_rang
   for (std::size_t i=0; i<nb_pts; ++i) points.push_back( *points_ptr[i] );
 //CGAL function call
   std::vector<Point_3::cpp_base>::iterator result =
-    CGAL::grid_simplify_point_set(points.begin(), points.end(), epsilon);
+    CGAL::grid_simplify_point_set(
+      #if CGAL_VERSION_MAJOR < 5
+        points.begin(), points.end(),
+      #else
+        points,
+      #endif
+        epsilon);
 //copy the points back into the original points
   for (std::size_t i=0; i<nb_pts; ++i) *points_ptr[i] = points[i];
 
@@ -72,7 +84,13 @@ int random_simplify_point_set ( Wrapper_iterator_helper<Point_3>::input point_ra
   for (std::size_t i=0; i<nb_pts; ++i) points.push_back( *points_ptr[i] );
 //CGAL function call
   std::vector<Point_3::cpp_base>::iterator result =
-    CGAL::random_simplify_point_set(points.begin(), points.end(), removed_percentage);
+    CGAL::random_simplify_point_set(
+      #if CGAL_VERSION_MAJOR < 5
+        points.begin(), points.end(),
+      #else
+        points,
+      #endif
+         removed_percentage);
 //copy the points back into the original points
   for (std::size_t i=0; i<nb_pts; ++i) *points_ptr[i] = points[i];
 
@@ -94,7 +112,12 @@ int remove_outliers (Wrapper_iterator_helper<Point_3>::input point_range, int k,
   for (std::size_t i=0; i<nb_pts; ++i) points.push_back( *points_ptr[i] );
 //CGAL function call
   std::vector<Point_3::cpp_base>::iterator result =
-    CGAL::remove_outliers(points.begin(), points.end(), k, threshold_percent);
+      #if CGAL_VERSION_MAJOR < 5
+      CGAL::remove_outliers(points.begin(), points.end(), k, threshold_percent);
+      #else
+        CGAL::remove_outliers(
+        points, k, CGAL::parameters::threshold_percent(threshold_percent));
+      #endif
 //copy the points back into the original points
   for (std::size_t i=0; i<nb_pts; ++i) *points_ptr[i] = points[i];
 
@@ -115,7 +138,13 @@ void jet_smooth_point_set (Wrapper_iterator_helper<Point_3>::input point_range,u
   points.reserve(nb_pts);
   for (std::size_t i=0; i<nb_pts; ++i) points.push_back( *points_ptr[i] );
 //CGAL function call
-  CGAL::jet_smooth_point_set DFT (points.begin(), points.end(), nb_neighbors, degree_fitting, degree_monge);
+#if CGAL_VERSION_MAJOR < 5
+  CGAL::jet_smooth_point_set DFT (points.begin(), points.end(),
+        nb_neighbors, degree_fitting, degree_monge);
+      #else
+  CGAL::jet_smooth_point_set DFT (points,
+        nb_neighbors,CGAL::parameters::degree_fitting(degree_fitting).degree_monge(degree_monge));
+      #endif
 //copy the points back into the original points
   for (std::size_t i=0; i<nb_pts; ++i) *points_ptr[i] = points[i];
 }
@@ -131,7 +160,11 @@ void jet_estimate_normals (Wrapper_iterator_helper<Point_3>::input point_range, 
 
   CGAL::First_of_pair_property_map< std::pair<Point_3::cpp_base, Vector_3::cpp_base > > point_pmap;
   CGAL::Second_of_pair_property_map< std::pair<Point_3::cpp_base, Vector_3::cpp_base > > normal_pmap;
-  CGAL::jet_estimate_normals DFT (input.begin(), input.end(), point_pmap, normal_pmap, k, degree_fitting );
+#if CGAL_VERSION_MAJOR < 5
+      CGAL::jet_estimate_normals DFT (input.begin(), input.end(), point_pmap, normal_pmap, k, degree_fitting );
+#else
+  CGAL::jet_estimate_normals DFT (input, k, CGAL::parameters::point_map(point_pmap).normal_map(normal_pmap).degree_fitting(degree_fitting));
+#endif
 
   //copy the normal inside the output iterator
   std::size_t nb_pts=input.size();
@@ -157,7 +190,11 @@ int mst_orient_normals (Wrapper_iterator_helper<Point_3>::input point_range, Wra
   CGAL::Second_of_pair_property_map< std::pair<Point_3::cpp_base, Vector_3::cpp_base > > normal_pmap;
 
   std::vector< std::pair<Point_3::cpp_base, Vector_3::cpp_base> >::iterator result =
-    CGAL::mst_orient_normals(input.begin(), input.end(), point_pmap, normal_pmap, k);
+#if CGAL_VERSION_MAJOR < 5
+      CGAL::mst_orient_normals(input.begin(), input.end(), point_pmap, normal_pmap, k);
+#else
+      CGAL::mst_orient_normals(input, k, CGAL::parameters::point_map(point_pmap).normal_map(normal_pmap));
+#endif
 
   //copy the normal inside the output iterator
   std::size_t nb_pts=input.size();
@@ -180,7 +217,11 @@ void pca_estimate_normals (Wrapper_iterator_helper<Point_3>::input point_range, 
 
   CGAL::First_of_pair_property_map< std::pair<Point_3::cpp_base, Vector_3::cpp_base > > point_pmap;
   CGAL::Second_of_pair_property_map< std::pair<Point_3::cpp_base, Vector_3::cpp_base > > normal_pmap;
+#if CGAL_VERSION_MAJOR < 5
   CGAL::pca_estimate_normals DFT (input.begin(), input.end(), point_pmap, normal_pmap, k);
+#else
+  CGAL::pca_estimate_normals DFT (input, k, CGAL::parameters::point_map(point_pmap).normal_map(normal_pmap));
+#endif
 
   //copy the normal inside the output iterator
   std::size_t nb_pts=input.size();

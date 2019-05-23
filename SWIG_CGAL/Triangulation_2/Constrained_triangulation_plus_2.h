@@ -87,7 +87,7 @@ public:
   typedef std::pair<Vertex_handle,Vertex_handle>                        Constraint_handle;
   typedef CDTP_context<Cpp_base,Vertex_handle>                          Context;
 
-  typedef SWIG_CGAL_Iterator<typename Cpp_base::Constraint_iterator,Constraint_handle>          Constraint_iterator;
+  typedef SWIG_CGAL_Iterator<typename Cpp_base::Constraint_iterator,Constraint_id_wrapper<Cpp_base> >          Constraint_iterator;
   typedef SWIG_CGAL_Iterator<typename Cpp_base::Subconstraint_iterator,Constraint_handle>       Subconstraint_iterator;
   typedef SWIG_CGAL_Iterator<typename Cpp_base::Vertices_in_constraint_iterator,Vertex_handle>  Vertices_in_constraint_iterator;
   typedef SWIG_CGAL_Iterator<typename Cpp_base::Context_iterator,Context>                       Context_iterator;
@@ -100,12 +100,11 @@ public:
   #ifndef SWIG
   Constrained_triangulation_plus_2_wrapper(const cpp_base& cbase):Base(cbase){}
   #endif
-  SWIG_CGAL_FORWARD_CALL_2(void,remove_constraint,Vertex_handle,Vertex_handle)
+  SWIG_CGAL_FORWARD_CALL_1(void,remove_constraint,Constraint_id_wrapper<Cpp_base>)
 // Queries
   SWIG_CGAL_FORWARD_CALL_2(int,number_of_enclosing_constraints,Vertex_handle,Vertex_handle)
   Constraint_iterator constraints(){return Constraint_iterator( this->get_data().constraints_begin(),this->get_data().constraints_end() );}
   Subconstraint_iterator subconstraints(){return Subconstraint_iterator( this->get_data().subconstraints_begin(),this->get_data().subconstraints_end() );}
-  Vertices_in_constraint_iterator vertices_in_constraint(const Vertex_handle& va,const Vertex_handle& vb){ return Vertices_in_constraint_iterator(this->get_data().vertices_in_constraint_begin(va.get_data(),vb.get_data()),this->get_data().vertices_in_constraint_end(va.get_data(),vb.get_data()));}
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Context,context,Vertex_handle,Vertex_handle)
   Context_iterator contexts(const Vertex_handle& va,Vertex_handle& vb) {return Context_iterator(this->get_data().contexts_begin(va.get_data(),vb.get_data()),this->get_data().contexts_end(va.get_data(),vb.get_data()));}
 //Deep copy

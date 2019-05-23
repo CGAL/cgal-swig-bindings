@@ -1,19 +1,22 @@
-language: generic
+language: python
 sudo: required
-dist: trusty
+dist: xenial
+python:
+  - "2.7"
+  - "3.7"
 os:
   - linux
   - osx
 
 env:
-  matrix:
-    - CGAL_VER=releases/CGAL-4.8
-    - CGAL_VER=releases/CGAL-4.9
-    - CGAL_VER=releases/CGAL-4.10
-    - CGAL_VER=releases/CGAL-4.11
-    - CGAL_VER=releases/CGAL-4.12
-    - CGAL_VER=releases/CGAL-4.13
-    - CGAL_VER=master
+  - CGAL_VER=releases/CGAL-4.8
+  - CGAL_VER=releases/CGAL-4.9
+  - CGAL_VER=releases/CGAL-4.10
+  - CGAL_VER=releases/CGAL-4.11
+  - CGAL_VER=releases/CGAL-4.12
+  - CGAL_VER=releases/CGAL-4.13
+  - CGAL_VER=releases/CGAL-4.14
+  - CGAL_VER=master
 
 addons:
   homebrew:
@@ -36,27 +39,21 @@ addons:
     - libboost-thread-dev
     - libeigen3-dev
     - swig
-    - python-dev
-    - python-numpy
-    - python3-dev
-    - python3-numpy
-    - openjdk-7-jdk
+    - openjdk-8-jdk
+    - libgl1-mesa-dev
 
 install:
+  - pip install numpy
   - git clone --depth 1 -b ${CGAL_VER} https://github.com/CGAL/cgal.git
   - cd cgal
   - mkdir build
   - cd build
-  - cmake -DCGAL_BUILD_TYPE=Release ..
-  - make -j2
+  - cmake -DCMAKE_INSTALL_PREFIX=/usr -DCGAL_BUILD_TYPE=Release ..
+  - make -j2 VERBOSE=1
   - sudo make install
   - cd ../..
 
 script:
   - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-  - cmake -DCGAL_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/
-    -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so -DPYTHON_EXECUTABLE=/usr/bin/python .
-  - make install -j2 && make tests -j2 && ctest -j2 --output-on-failure
-  - cmake -DCGAL_BUILD_TYPE=Release -DBUILD_JAVA=OFF
-    -DPYTHON_INCLUDE_DIR=/usr/include/python3.4m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.4m.so -DPYTHON_EXECUTABLE=/usr/bin/python3 .
-  - make install -j2 && ctest -j2 --output-on-failure
+  - cmake -DCGAL_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ .
+  - make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure
