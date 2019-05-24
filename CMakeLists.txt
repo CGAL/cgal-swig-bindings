@@ -147,7 +147,8 @@ if ( CGAL_FOUND )
             WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
           add_dependencies (tests javatest_${TESTNAME})
           add_test (NAME javatest_${TESTNAME} COMMAND ${Java_JAVA_EXECUTABLE} ${TESTNAME} WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
-          set_tests_properties (javatest_${TESTNAME} PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=${JAVALIBPATH}")
+          set_tests_properties (javatest_${TESTNAME} PROPERTIES
+            ENVIRONMENT "LD_LIBRARY_PATH=${JAVALIBPATH};DYLD_LIBRARY_PATH=${JAVALIBPATH}")
         endforeach ()
 
         # tests load files from source dir, eg: ../data/oni.xyz
