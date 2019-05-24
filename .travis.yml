@@ -65,7 +65,7 @@ install:
   - cd cgal
   - mkdir build
   - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX=/usr -DCGAL_BUILD_TYPE=Release ..
+  - cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCGAL_BUILD_TYPE=Release ..
   - make -j2 VERBOSE=1
   - sudo make install
   - cd ../..
