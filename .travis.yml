@@ -4,6 +4,8 @@ dist: xenial
 python:
   - "2.7"
   - "3.7"
+os:
+  - linux
 
 env:
   - CGAL_VER=releases/CGAL-4.8
@@ -15,7 +17,32 @@ env:
   - CGAL_VER=releases/CGAL-4.14
   - CGAL_VER=master
 
+matrix:
+  include:
+  - os: osx
+    env: CGAL_VER=releases/CGAL-4.13
+    osx_image: xcode10.2
+    language: shell
+  - os: osx
+    env: CGAL_VER=releases/CGAL-4.14
+    osx_image: xcode10.2
+    language: shell
+  - os: osx
+    env: CGAL_VER=master
+    osx_image: xcode10.2
+    language: shell
+
 addons:
+  homebrew:
+    packages:
+      - mpfr
+      - gmp
+      - boost
+      - cmake
+      - eigen
+      - swig
+      - numpy
+      - homebrew/cask/java
   apt:
     packages:
     - libmpfr-dev
@@ -35,7 +62,7 @@ install:
   - cd cgal
   - mkdir build
   - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX=/usr -DCGAL_BUILD_TYPE=Release ..
+  - cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCGAL_BUILD_TYPE=Release ..
   - make -j2 VERBOSE=1
   - sudo make install
   - cd ../..
