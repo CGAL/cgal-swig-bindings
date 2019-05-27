@@ -18,15 +18,6 @@ public class test_dt3 {
   public static void main(String arg[]){
   Delaunay_triangulation_3 t=new Delaunay_triangulation_3();
     
-  Delaunay_triangulation_3_Vertex_handle v1=t.insert(new Point_3(1,1,1));
-  Delaunay_triangulation_3_Vertex_handle v2=t.insert(new Point_3(1,1,15),v1);
-  Delaunay_triangulation_3_Vertex_handle v3=t.insert(new Point_3(154,11,5),v2.cell());
-  Delaunay_triangulation_3_Vertex_handle v4=t.insert(new Point_3(14,0,45)); 
-  
-  Point_3 a_point= t.point(v1);
-    
-  t.clear();
-    
   LinkedList<Point_3> lsti=new LinkedList<Point_3>();
   lsti.add(new Point_3(1,1,1));
   lsti.add(new Point_3(1,1,15));
@@ -35,6 +26,15 @@ public class test_dt3 {
   t.insert(lsti.iterator());
   System.out.println("insert range OK");   
   
+  t.clear();
+    
+  Delaunay_triangulation_3_Vertex_handle v1=t.insert(new Point_3(1,1,1));
+  Delaunay_triangulation_3_Vertex_handle v2=t.insert(new Point_3(1,1,15),v1);
+  Delaunay_triangulation_3_Vertex_handle v3=t.insert(new Point_3(154,11,5),v2.cell());
+  Delaunay_triangulation_3_Vertex_handle v4=t.insert(new Point_3(14,0,45)); 
+  
+  Point_3 a_point= t.point(v1);
+    
   Delaunay_triangulation_3 tbis=new Delaunay_triangulation_3(lsti.iterator());
   System.out.println("create with range OK");   
   System.out.println(tbis.number_of_vertices());   
