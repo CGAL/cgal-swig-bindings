@@ -65,6 +65,9 @@ public class test_pmp {
     CGAL_Polygon_mesh_processing.triangulate_face(flist.getFirst(), P);
 // triangulate_faces
     CGAL_Polygon_mesh_processing.triangulate_faces(P);
+    flist.clear();
+    for (Polyhedron_3_Facet_handle fh : P.facets())
+      flist.add(fh.clone());
     CGAL_Polygon_mesh_processing.triangulate_faces(flist.iterator(),P); // (4.8)
 // isotropic_remeshing (4.8)
     P=get_poly();
