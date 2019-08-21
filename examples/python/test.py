@@ -3,6 +3,8 @@ from CGAL import CGAL_Triangulation_3
 from CGAL import CGAL_Kernel
 from CGAL.CGAL_Kernel import Point_2
 from CGAL.CGAL_Kernel import Triangle_2
+from CGAL.CGAL_Kernel import COLLINEAR
+from CGAL.CGAL_Kernel import POSITIVE
 
 t=CGAL_Triangulation_3 .Delaunay_triangulation_3()
 l=[]
@@ -49,3 +51,15 @@ print(object.get_Segment_2())
 #  t.incident_facets(v,mylist)
 #  print(len(mylist))
 #  mylist=[]
+
+p1=CGAL_Kernel.Point_3(0,0,0)
+p2=CGAL_Kernel.Point_3(1,0,0)
+p3=CGAL_Kernel.Point_3(1,1,0)
+p4=CGAL_Kernel.Point_3(0,1,0)
+p4b=CGAL_Kernel.Point_3(0,1,1)
+
+o1 = CGAL_Kernel.orientation(p1,p2,p3,p4)
+o2 = CGAL_Kernel.orientation(p1,p2,p3,p4b)
+
+assert( COLLINEAR == o1 )
+assert( POSITIVE == o2 )

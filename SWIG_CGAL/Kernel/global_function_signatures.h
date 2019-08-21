@@ -245,7 +245,6 @@ SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_AND_FILTER_CALL_GF_2(Object,intersection
 //area
 SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(double,area,Point_2,Point_2,Point_2)
 
-
 //centroid
 SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(Point_2, centroid, Point_2, Point_2, Point_2)
 SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_4(Point_2, centroid, Point_2, Point_2, Point_2, Point_2)
@@ -260,6 +259,21 @@ SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(Vector_3,cross_product,Vector_
 SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(double,determinant,Vector_3,Vector_3,Vector_3)
 SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(double,determinant,Vector_2,Vector_2)
 
+// collinear
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(bool,collinear, Point_2, Point_2, Point_2)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(bool,collinear, Point_3, Point_3, Point_3)
+
+// left_turn
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(bool,left_turn, Point_2, Point_2, Point_2)
+
+// right_turn
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(bool,right_turn, Point_2, Point_2, Point_2)
+
+// orientation
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(Orientation,orientation, Point_2, Point_2, Point_2)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(Orientation,orientation, Vector_2, Vector_2)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_4(Orientation,orientation, Point_3, Point_3, Point_3, Point_3)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(Orientation,orientation, Vector_3, Vector_3, Vector_3)
 
 //All kernel global functions
 // angle
@@ -268,7 +282,6 @@ SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(double,determinant,Vector_2,Ve
 // barycenter
 // bisector
 // circumcenter
-// collinear
 // collinear_are_ordered_along_line
 // collinear_are_strictly_ordered_along_line
 // compare_distance_to_point
@@ -299,7 +312,6 @@ SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(double,determinant,Vector_2,Ve
 // has_smaller_distance_to_point
 // has_smaller_signed_distance_to_line
 // has_smaller_signed_distance_to_plane
-// left_turn
 // lexicographically_xyz_smaller
 // lexicographically_xyz_smaller_or_equal
 // lexicographically_xy_larger
@@ -315,13 +327,11 @@ SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(double,determinant,Vector_2,Ve
 // operator*
 // opposite
 // orthogonal_vector
-// orientation
 // parallel
 // quotient_cartesian_to_homogeneous
 // radical_plane
 // radical_line
 // rational_rotation_approximation
-// right_turn
 // side_of_bounded_circle
 // side_of_bounded_sphere
 // side_of_oriented_circle
