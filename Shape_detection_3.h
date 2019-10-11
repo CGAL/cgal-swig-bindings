@@ -65,6 +65,20 @@ public:
 
 
 //Creation
+  /*
+    Uninitialized Constructor:
+      Creates a new shape-detector without a data set
+  */
+  Shape_detection_3_wrapper()
+  {
+    shape_detection.template add_shape_factory<Shape_type>();
+  }
+
+  /*
+    Initialized Constructor:
+      Creates a new shape-detector with an initial set of data
+      Detects shapes within the set of data
+  */
   Shape_detection_3_wrapper(Pwn_vector points) 
   { 
     shape_detection.set_input(points);
@@ -77,8 +91,6 @@ public:
   {
     shape_detection.clear();
   }
-
-
 
 
 //Accessors
