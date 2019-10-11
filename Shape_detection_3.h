@@ -17,6 +17,7 @@
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/IO/read_xyz_points.h>
 #include <CGAL/Point_with_normal_3.h>
+#include <SWIG_CGAL/Common/Iterator.h>
 #include <CGAL/property_map.h>
 
 #include <CGAL/Shape_detection_3.h>
@@ -43,7 +44,7 @@ typedef CGAL::Shape_detection_3::Region_growing<Traits>      Region_growing;
 typedef CGAL::Shape_detection_3::Plane<Traits>               Plane;
 
 
-template <class ShapeType>
+template <class Shape_type>
 class Shape_detection_3_wrapper{
 
 /*
@@ -57,18 +58,63 @@ Efficient_ransac shape_detection;
 */
 public:
 
+
+//Type Defintions
+
+  typedef SWIG_CGAL_Iterator<Efficient_ransac::Shape_range, Shape_type>   Shape_iterator;
+
+
 //Creation
   Shape_detection_3_wrapper(Pwn_vector points) 
   { 
     shape_detection.set_input(points);
-    shape_detection.template add_shape_factory<ShapeType>();
+    shape_detection.template add_shape_factory<Shape_type>();
     shape_detection.detect(); 
   }
 
+//Destruction
+  ~Shape_detection_3_wrapper()
+  {
+    shape_detection.clear();
+  }
+
+
+
+
 //Accessors
-  countShapes() {return shape_detection.shapes().end() - shape_detection.shapes().begin(); }
+
+  /* countShapes():
+        Returns number of unique shapes within the given point set
+  */
+  unsigned int countShapes() {return shape_detection.shapes().end() - shape_detection.shapes().begin(); }
+
+
 
 //Iterators
+
+  /* getShapes():
+        Returns detected shapes sorted by largest to smallest in size
+  */
+  Shape_iterator getShapes() {return shape_detection.shapes().begin();}
+
+//Mutators
+
+  /*  SetPoints():
+        Takes a vector of unsorted points and sets the current shape_detection to that set of points
+  */
+  void setPoints(Pwn_vector p) {shape_detection.set_input(p);}
+
+  /*  detect():
+        Detects shapes using the current set of points
+  */
+  void detect() {shape_detection.detect();}
+
+  /*  clearShapes():
+        Clears data set in shape detection object
+  */
+  void clear() {shape_detection.clear();}
+  
+
 
 };
 
