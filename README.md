@@ -1,7 +1,9 @@
 
 #  Shape_detection_3
 
-This repository contains C++ TO Python bindings for CGAL's Shape_detection_3 library.
+**Version: 0.0.2**
+
+C++ to Python bindings for CGAL's Shape_detection_3 library.
 
 
 **Table of Contents**
@@ -36,20 +38,20 @@ This repository contains C++ TO Python bindings for CGAL's Shape_detection_3 lib
 [ ]$  echo "add_subdirectory(Shape_detection_3)" > CMakeLists.txt
 [ ]$  cd ../.. 
 [ ]$  cmake .
-[ ]$  make**Mutators**
+[ ]$  make
 ```
 
 ###  Usage
 
-**NOTE:**  Shape_detection_3 is templated, and requires a Shape_Type on creation.
+**NOTE:**  Shape_detection_3 is templated, and requires CGAL type `Shape_type` as parameter.
 
 #### Constructors
-*  `Shape_detection_3()`    --  Creates a shape detection object without set of points
+*  `Shape_detection_3()`    --  Creates an uninitialized shape detection object
 *  `Shape_detection_3(p)`   --  Creates a shape detection object using `p` as set of points
 
 
 ####  Accessors
-*  `s.getShapes()`   --  Returns iterator detected shapes in shape detection object (`s`)
+*  `s.getShapes()`   --  Returns iterator detected shapes in `s`
 
 
 ####  Mutators
