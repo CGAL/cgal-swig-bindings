@@ -35,7 +35,8 @@ C++ to Python bindings for CGAL's Shape_detection_3 library.
 
 ```bash
 [ ]$  mkdir cgal-swig-bindings/SWIG_CGAL/User_packages && cd cgal-swig-bindings/SWIG_CGAL/User_packages
-[ ]$  echo "add_subdirectory(Shape_detection_3)" > CMakeLists.txt
+[ ]$  echo "add_subdirectory(Shape_detection_3)" >> CMakeLists.txt
+[ ]$  git clone https://github.com/CodyFagley/Shape_detection_3
 [ ]$  cd ../.. 
 [ ]$  cmake .
 [ ]$  make
