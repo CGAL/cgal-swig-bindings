@@ -17,15 +17,18 @@
 
 
 //  Define CGAL Module
-%module CGAL_Shape_detection_3
+%module (package="CGAL") CGAL_Shape_detection_3
 
-//  Standard API imports
 %include "SWIG_CGAL/common.i"
-%import  "SWIG_CGAL/Common/Macros.h" //C++ macros that helps wrapping CGAL classes
-
-//  Allow 'void' data type
 Decl_void_type()
 
+SWIG_CGAL_package_common()
+
+//  Standard API imports
+%import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
+%import  "SWIG_CGAL/Common/Macros.h" //C++ macros that helps wrapping CGAL classes
+
+
 %{
-#include <SWIG_CGAL/Shape_detection_3/all_includes.h> 
+#include <SWIG_CGAL/Shape_detection_3/all_includes.h>
 %}
