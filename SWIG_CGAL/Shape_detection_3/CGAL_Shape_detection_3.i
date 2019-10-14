@@ -8,11 +8,11 @@
 /*
   Python Interface for CGAL's Shape Detection Algorithm
 
-  This interface contains functions for detecting 3-dimensional 
+  This interface contains functions for detecting 3-dimensional
   shapes within an unsorted point cloud (e.g. vertex vector).
 
   Includes support for:
-      * Efficient RANSAC 
+      * Efficient RANSAC
 */
 
 
@@ -26,7 +26,6 @@
 //  Allow 'void' data type
 Decl_void_type()
 
-%{ 
-#include <SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h> 
+%{
+#include <SWIG_CGAL/Shape_detection_3/all_includes.h> 
 %}
-
