@@ -8,27 +8,25 @@
 /*
   Python Interface for CGAL's Shape Detection Algorithm
 
-  This interface contains functions for detecting 3-dimensional
+  This interface contains functions for detecting 3-dimensional 
   shapes within an unsorted point cloud (e.g. vertex vector).
 
   Includes support for:
-      * Efficient RANSAC
+      * Efficient RANSAC 
 */
 
 
 //  Define CGAL Module
-%module (package="CGAL") CGAL_Shape_detection_3
-
-%include "SWIG_CGAL/common.i"
-Decl_void_type()
-
-SWIG_CGAL_package_common()
+%module CGAL_Shape_detection_3
 
 //  Standard API imports
-%import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
+%include "SWIG_CGAL/common.i"
 %import  "SWIG_CGAL/Common/Macros.h" //C++ macros that helps wrapping CGAL classes
 
+//  Allow 'void' data type
+Decl_void_type()
 
-%{
-#include <SWIG_CGAL/Shape_detection_3/all_includes.h>
+%{ 
+#include <SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h> 
 %}
+
