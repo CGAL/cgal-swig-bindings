@@ -102,6 +102,8 @@ MACRO(ADD_SWIG_CGAL_PYTHON_MODULE packagename)
       set_target_properties (${MODULENAME}_python PROPERTIES OUTPUT_NAME ${MODULENAME})
     endif ()
     if (WIN32)
+      #pyd files must NOT be in a /Release or a /Debug directory, or their import path will be wrong.
+       set_target_properties (${SWIG_MODULE_${MODULENAME}_python_REAL_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${PYTHON_OUTDIR_PREFIX}/CGAL/$<$<CONFIG:Release>:>")
       swig_link_libraries (${MODULENAME}_python ${PYTHON_LIBRARIES})
     elseif (APPLE)
       set_target_properties(${SWIG_MODULE_${MODULENAME}_python_REAL_NAME} PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
