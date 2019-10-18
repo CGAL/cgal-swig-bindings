@@ -1,0 +1,50 @@
+name: Windows Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-2016
+    strategy:
+      max-parallel: 4
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Radar
+      run: |
+        dir C:/Miniconda/Library/bin
+
+    - name: Setup Conda
+      run: |
+        echo ::add-path::C:/Miniconda;
+        echo ::add-path::C:/Miniconda/condabin;
+        echo ::add-path::C:/Miniconda/Library/bin;
+        echo ::add-path::C:/Miniconda/DLLs;
+        echo ::add-path::C:/vcpkg/installed/x64-windows/bin;
+
+    - name: Install dependencies
+      run: |
+        conda install -y -c anaconda swig
+        C:\Miniconda\python.exe -m pip install --upgrade pip
+        C:\Miniconda\python.exe -m pip install numpy
+
+    - name: Set up CGAL
+      env:
+        VCPKG_DEFAULT_TRIPLET: "x64-windows"
+      run: |
+        vcpkg install boost-ptr-container
+        vcpkg install cgal
+        echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/lib/Release;
+        echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/build-python;
+        echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/build-python/CGAL;
+
+    - name: Build Tests
+      run: |
+        mkdir build
+        cd build
+        cmake -G "Visual Studio 15 2017" -T"v140" -A x64 -DCMAKE_TOOLCHAIN_FILE="C:/vcpkg/scripts/buildsystems/vcpkg.cmake" -DBUILD_JAVA=OFF -DBUILD_PYTHON=ON -DBUILD_TESTING=ON -DCMAKE_PREFIX_PATH="C:/Miniconda/Library" ..
+        cmake --build . --config Release
+        ctest -C Release -j8 -VV
