@@ -35,5 +35,6 @@ Decl_void_type()
 
 //SWIG_CGAL_declare_identifier_of_template_class(Shape_detection_3_Shape_iterator, SWIG_CGAL_Iterator<Efficient_ransac::Shape_range<Plane>, Plane>)
 
-SWIG_CGAL_declare_identifier_of_template_class(Shape_detection_3, Shape_detection_3_wrapper<Efficient_ransac, Plane, EPIC_Kernel::Point_3, EPIC_Kernel::Vector_3>)
+SWIG_CGAL_declare_identifier_of_template_class(Shape_detection_3, Shape_detection_3_wrapper<Efficient_ransac, Plane, Kernel::Point_3, Kernel::Vector_3>)
+
 

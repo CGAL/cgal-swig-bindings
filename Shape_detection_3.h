@@ -67,6 +67,8 @@ public:
   
   void setPoints(Pwn_vector points) { data_ptr->set_input(points); }
 
+  void addPointWithNormal(Pwn pwn) { points.push_back(pwn); }
+
 
 //  Accessors
 
@@ -82,7 +84,11 @@ public:
 
 //  Interface Utilities
 
-  Point_with_normal pointWithNormal(Point p, Vector v)
+  Point Point_3(float x, float y, float z) { return Point(x, y, z); }
+
+  Vector Vector_3(float x, float y, float z) { return Vector(x, y, z); }
+
+  Pwn Point_with_normal(Point p, Vector v)
   {
     return std::pair<Point, Vector>(p, v);
   }
