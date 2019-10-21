@@ -1,7 +1,7 @@
 
 #  Shape_detection_3
 
-**Version: 0.0.3**
+**Version: 0.1.0**
 
 C++ to Python bindings for CGAL's Shape_detection_3 library.
 
@@ -55,6 +55,9 @@ v = s.Vector_3(0, 1, 0)
 pwn = s.Point_with_normal(p, v)
 s.addPointWithNormal(pwn)
 s.detect()
+
+count  = s.countShapes()
+shapes = s.getShapes()  #  TODO
 ```
 
 ###  Methods
@@ -77,6 +80,6 @@ s.detect()
 
 
 ###  Utilities
-*  `s.Point_3(x, y, z)`  --  Builds recognizable 3D Point
-*  `s.Vector_3`(x, y, z) --  Builds recognizable 3D Vector
+*  `s.Point_3(x, y, z)`  --  Builds recognizable 3D Point in Cartesian Space
+*  `s.Vector_3(x, y, z)` --  Builds recognizable 3D Vector in Cartesian Space
 *  `s.Point_with_normal(p, v)`  --  Builds recognizable Vertex from Point and Normal Vector
