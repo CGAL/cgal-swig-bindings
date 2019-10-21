@@ -54,4 +54,4 @@ s.detect()
 
 print "Check:\n"
 
-print s.countShapes()
+#print s.countShapes()

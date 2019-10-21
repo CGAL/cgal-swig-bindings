@@ -5,6 +5,7 @@
 
 C++ to Python bindings for CGAL's Shape_detection_3 library.
 
+**NOTE:  Currently leaks ~1 MB per point/vector per run**
 
 **Table of Contents**
 *  [Prerequisites](#prerequisites)
