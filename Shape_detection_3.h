@@ -34,6 +34,7 @@ class Shape_detection_3_wrapper
 
 protected:
   Shape_detection* data_ptr;
+  boost::shared_ptr<std::vector<boost::shared_ptr<Shape_type> > > shapes_ptr;
   Pwn_vector points;
 
 
@@ -77,10 +78,10 @@ public:
     return (data_ptr->shapes().end() - data_ptr->shapes().begin());
   }
 
+  
+
 //  Interators
   
-  //typedef SWIG_CGAL_Iterator<Shape_detection::Shape_range<Shape_type>, Shape_type> Shape_range;
-
 
 //  Interface Utilities
 
