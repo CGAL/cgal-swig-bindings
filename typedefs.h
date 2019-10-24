@@ -27,6 +27,4 @@ typedef CGAL::Shape_detection_3::Shape_detection_traits
 typedef CGAL::Shape_detection_3::Efficient_RANSAC<Traits>     Efficient_ransac;
 typedef CGAL::Shape_detection_3::Plane<Traits>                Plane;
 
-typedef Efficient_ransac::Shape_range                         Shapes;
-
 #endif

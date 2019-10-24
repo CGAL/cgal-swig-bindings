@@ -33,7 +33,9 @@ Decl_void_type()
 %include "SWIG_CGAL/User_packages/Shape_detection_3/Shape_detection_3.h"
 
 
+//SWIG_CGAL_declare_identifier_of_template_class(Shape_iterator, CGAL_Shape_handle<Efficient_ransac, Plane>)
 
+//  Main Class
 SWIG_CGAL_declare_identifier_of_template_class(Shape_detection_3, Shape_detection_3_wrapper<Efficient_ransac, Plane, Kernel::Point_3, Kernel::Vector_3>)
 
 

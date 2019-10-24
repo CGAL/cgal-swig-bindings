@@ -19,6 +19,7 @@
 
 #include <SWIG_CGAL/Kernel/typedefs.h>
 #include <SWIG_CGAL/Common/Iterator.h>
+#include <CGAL/Iterator_range.h>
 
 #include <SWIG_CGAL/User_packages/Shape_detection_3/typedefs.h>
 
@@ -34,11 +35,12 @@ class Shape_detection_3_wrapper
 
 protected:
   Shape_detection* data_ptr;
-  boost::shared_ptr<std::vector<boost::shared_ptr<Shape_type> > > shapes_ptr;
   Pwn_vector points;
 
 
 public: 
+  typedef typename std::vector<boost::shared_ptr<Shape_type> >::const_iterator shape_vector;
+  typedef CGAL::Iterator_range<shape_vector> shape_range;
 
   #ifndef SWIG
     typedef Shape_detection cpp_base;
@@ -64,24 +66,27 @@ public:
 
 //  Mutators
 
-  void detect() { data_ptr->detect(); }
+  void detect() { data_ptr->detect(); /*Shapes() = data_ptr->shapes();*/ }
   
   void setPoints(Pwn_vector points) { data_ptr->set_input(points); }
 
   void addPointWithNormal(Pwn pwn) { points.push_back(pwn); }
 
 
+//  Iterators
+
+/*
+  TODO:  getShapes() has an inconsistancy.
+
+      CGAL::make_range<blah blah> creates planar iterator, whereas data_ptr->shapes() is generalized for Shape_type
+*/
+//  shape_range getShapes() { return CGAL::make_range<shape_vector>(data_ptr->shapes().begin(), data_ptr->shapes().end()); }
+
+
 //  Accessors
 
-  int countShapes()
-  {
-    return (data_ptr->shapes().end() - data_ptr->shapes().begin());
-  }
+  //int count() { return std::distance(data_ptr->shapes().end(), data_ptr->shapes().begin()); }
 
-  
-
-//  Interators
-  
 
 //  Interface Utilities
 
@@ -95,6 +100,9 @@ public:
   }
 
 };
+
+
+
 
 
 #endif
