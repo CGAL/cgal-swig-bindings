@@ -55,9 +55,9 @@ s.detect()
 
 shapes = s.iterator()
 
-#print ("\n\n")
-#print ("Check:  " + shapes.count())
-#print ("\n\n")
+print ("\n\n")
+print ("Check:  " + shapes.count())
+print ("\n\n")
 
 
 #print s.countShapes()

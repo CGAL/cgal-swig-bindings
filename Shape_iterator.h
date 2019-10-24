@@ -14,7 +14,6 @@ class Shape_iterator_wrapper
 {
 protected:
   Shape_detection* data_ptr;
-  boost::shared_ptr<Shape_range> shapes;
 
 public: 
   #ifndef SWIG
@@ -28,12 +27,13 @@ public:
   Shape_iterator_wrapper(Shape_detection* ptr)
   {
     data_ptr = ptr;
-    *shapes = ptr->shapes();
   }
 
-  int count() { return shapes->end() - shapes->begin(); }
-  
+//  Accessors
+  int count() { return data_ptr->shapes().end() - data_ptr->shapes().begin(); }
 
+
+  //Shape_range* Shapes() { return data_ptr->shapes(); }
 };
 
 
