@@ -1,7 +1,7 @@
 
 #  Shape_detection_3
 
-**Version: 0.1.0**
+**Version: 0.1.2**
 
 C++ to Python bindings for CGAL's Shape_detection_3 library.
 

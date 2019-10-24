@@ -21,6 +21,7 @@
 #include <SWIG_CGAL/Common/Iterator.h>
 #include <CGAL/Iterator_range.h>
 
+#include <SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h>
 #include <SWIG_CGAL/User_packages/Shape_detection_3/typedefs.h>
 
 #include <boost/shared_ptr.hpp>
@@ -29,7 +30,7 @@
 /*
   MAIN SHAPE DETECTION CLASS
 */
-template <class Shape_detection, class Shape_type, class Point, class Vector>
+template <class Shape_detection, class Shape_type, class Point, class Vector, class Shape_range>
 class Shape_detection_3_wrapper
 {
 
@@ -75,17 +76,12 @@ public:
 
 //  Iterators
 
-/*
-  TODO:  getShapes() has an inconsistancy.
-
-      CGAL::make_range<blah blah> creates planar iterator, whereas data_ptr->shapes() is generalized for Shape_type
-*/
-//  shape_range getShapes() { return CGAL::make_range<shape_vector>(data_ptr->shapes().begin(), data_ptr->shapes().end()); }
-
 
 //  Accessors
 
   //int count() { return std::distance(data_ptr->shapes().end(), data_ptr->shapes().begin()); }
+
+  Shape_iterator_wrapper<Shape_detection, Shape_range> iterator() { return Shape_iterator_wrapper<Shape_detection, Shape_range>(data_ptr); }
 
 
 //  Interface Utilities
