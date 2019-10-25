@@ -16,10 +16,9 @@
 //  Shape Detection Library
 #include <CGAL/Shape_detection_3.h>
 
-
 #include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/Iterator.h>
-#include <CGAL/Iterator_range.h>
 
 #include <SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h>
 #include <SWIG_CGAL/User_packages/Shape_detection_3/typedefs.h>
@@ -30,36 +29,32 @@
 /*
   MAIN SHAPE DETECTION CLASS
 */
-template <class Shape_detection, class Shape_type, class Point, class Vector, class Shape_range>
+template <class Shape_detection, class Shape_type, class Point, class Vector>
 class Shape_detection_3_wrapper
 {
+  boost::shared_ptr<Shape_detection> data_ptr;
 
 protected:
-  Shape_detection* data_ptr;
   Pwn_vector points;
 
 
 public: 
-  typedef typename std::vector<boost::shared_ptr<Shape_type> >::const_iterator shape_vector;
-  typedef CGAL::Iterator_range<shape_vector> shape_range;
 
   #ifndef SWIG
     typedef Shape_detection cpp_base;
     const cpp_base& get_data() const {return *data_ptr;}
     const cpp_base& get_data()       {return *data_ptr;}
+    boost::shared_ptr<cpp_base> shared_ptr() {return data_ptr;}
     Shape_detection_3_wrapper(const cpp_base& base):data_ptr(new cpp_base(base)) {}
   #endif
 
 //  Constructors
   Shape_detection_3_wrapper():data_ptr(new cpp_base())
   {
-    data_ptr = new Shape_detection;
     data_ptr->template add_shape_factory<Shape_type>();
   }
-  ~Shape_detection_3_wrapper(){delete data_ptr;}
   Shape_detection_3_wrapper(Pwn_vector p):data_ptr(new cpp_base())
   {
-    data_ptr = new Shape_detection;
     data_ptr->template add_shape_factory<Shape_type>();
     data_ptr->set_input(p);
   }
@@ -76,12 +71,15 @@ public:
 
 //  Iterators
 
+  typedef SWIG_CGAL_Iterator<typename Shape_detection::Shape_range, Shape_type> Shape_iterator;
+
+  Shape_iterator shapes() {return Shape_iterator(get_data().shapes().begin(), get_data().shapes().end());}
 
 //  Accessors
 
   //int count() { return std::distance(data_ptr->shapes().end(), data_ptr->shapes().begin()); }
 
-  Shape_iterator_wrapper<Shape_detection, Shape_range> iterator() { return Shape_iterator_wrapper<Shape_detection, Shape_range>(data_ptr); }
+  //Shape_iterator_wrapper<Shape_detection> iterator() { return Shape_iterator_wrapper<Shape_detection, Shape_type>(data_ptr); }
 
 
 //  Interface Utilities

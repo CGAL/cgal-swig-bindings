@@ -8,32 +8,33 @@
 #ifndef CGAL_SWIG_SHAPE_ITERATOR_H
 #define CGAL_SWIG_SHAPE_ITERATOR_H
 
+#include <CGAL/Shape_detection_3.h>
+#include <SWIG_CGAL/Common/Macros.h>
 
-template <class Shape_detection, class Shape_range>
+template <class Shape_detection>
 class Shape_iterator_wrapper
 {
 protected:
-  Shape_detection* data_ptr;
+  boost::shared_ptr<Shape_detection> data;
 
 public: 
   #ifndef SWIG
-    typedef Shape_detection cpp_base;
-    const cpp_base& get_data() const {return *data_ptr;}
-    const cpp_base& get_data()       {return *data_ptr;}
-    Shape_iterator_wrapper(const cpp_base& base):data_ptr(new cpp_base(base)) {}
+  typedef boost::shared_ptr<Shape_detection> cpp_base;
+  Shape_iterator_wrapper(cpp_base h):data(h){}
+  const cpp_base& get_data() const {return data;}
+        cpp_base& get_data()       {return data;}
   #endif
+  typedef Shape_iterator_wrapper<Shape_detection> Self;
 
-//  Constructors
-  Shape_iterator_wrapper(Shape_detection* ptr)
-  {
-    data_ptr = ptr;
-  }
+  //Shape_iterator_wrapper(boost::shared_ptr<Shape_detection> ptr) {data = ptr;}
+  
+  Shape_iterator_wrapper():data(NULL){}
+  
+//Operations
+  SWIG_CGAL_FORWARD_CALL_AND_REF_0(Shape_iterator_wrapper, shapes)
 
-//  Accessors
-  int count() { return data_ptr->shapes().end() - data_ptr->shapes().begin(); }
+  //int count(){ return data->shapes().end() - data->shapes().begin(); }
 
-
-  //Shape_range* Shapes() { return data_ptr->shapes(); }
 };
 
 
