@@ -13,19 +13,23 @@ jobs:
       with:
         fetch-depth: 1
 
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+
     - name: Setup Conda
       run: |
-        echo ::add-path::C:/Miniconda;
         echo ::add-path::C:/Miniconda/condabin;
         echo ::add-path::C:/Miniconda/Library/bin;
-        echo ::add-path::C:/Miniconda/DLLs;
+
 
     - name: Install dependencies
       run: |
         conda install -y -c anaconda swig
         conda install -y -c conda-forge cgal-cpp
         C:\Miniconda\python.exe -m pip install --upgrade pip
-        C:\Miniconda\python.exe -m pip install numpy
+        pip install numpy
 
     - name: Build Tests
       run: |
@@ -34,8 +38,6 @@ jobs:
         cmake -G "Visual Studio 15 2017" -T"v140" -A x64 -DBUILD_JAVA=OFF -DBUILD_PYTHON=ON -DBUILD_TESTING=ON -DCMAKE_PREFIX_PATH="C:/Miniconda/Library" ..
         cmake --build . --config Release
         echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/lib/Release;
-        echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/build-python;
-        echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/build-python/CGAL;
 
     - name: Run Tests
       run: |
