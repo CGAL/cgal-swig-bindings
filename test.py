@@ -52,12 +52,8 @@ s.addPointWithNormal(pwn8)
 
 s.detect()
 
+shapes = s.shapes()
 
-shapes = s.iterator()
-
-print ("\n\n")
-print ("Check:  " + shapes.count())
-print ("\n\n")
+#print (shapes.count() + " shapes were found\n")
 
 
-#print s.countShapes()

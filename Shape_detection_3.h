@@ -22,6 +22,7 @@
 #include <CGAL/Iterator_range.h>
 
 #include <SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h>
+#include <SWIG_CGAL/User_packages/Shape_detection_3/Shape_iterator.h>
 #include <SWIG_CGAL/User_packages/Shape_detection_3/typedefs.h>
 
 #include <boost/shared_ptr.hpp>
@@ -30,7 +31,7 @@
 /*
   MAIN SHAPE DETECTION CLASS
 */
-template <class Shape_detection, class Shape_type, class Point, class Vector, class Shape_range>
+template <class Shape_detection, class Shape_type, class Point, class Vector>
 class Shape_detection_3_wrapper
 {
 
@@ -38,10 +39,7 @@ protected:
   Shape_detection* data_ptr;
   Pwn_vector points;
 
-
 public: 
-  typedef typename std::vector<boost::shared_ptr<Shape_type> >::const_iterator shape_vector;
-  typedef CGAL::Iterator_range<shape_vector> shape_range;
 
   #ifndef SWIG
     typedef Shape_detection cpp_base;
@@ -64,7 +62,6 @@ public:
     data_ptr->set_input(p);
   }
 
-
 //  Mutators
 
   void detect() { data_ptr->detect(); /*Shapes() = data_ptr->shapes();*/ }
@@ -73,15 +70,17 @@ public:
 
   void addPointWithNormal(Pwn pwn) { points.push_back(pwn); }
 
-
+  
 //  Iterators
+  typedef typename Shape_detection::Shape Shape;
+  typedef SWIG_CGAL_Iterator<Shape_iterator_wrapper<Shape_detection>,Shape>     Shape_iterator;
 
+  Shape_iterator_wrapper<Shape_detection> shapes() 
+    { return Shape_iterator_wrapper<Shape_detection>(data_ptr);  }
+
+  //Shape_iterator shapes()
 
 //  Accessors
-
-  //int count() { return std::distance(data_ptr->shapes().end(), data_ptr->shapes().begin()); }
-
-  Shape_iterator_wrapper<Shape_detection, Shape_range> iterator() { return Shape_iterator_wrapper<Shape_detection, Shape_range>(data_ptr); }
 
 
 //  Interface Utilities

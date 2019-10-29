@@ -1,39 +1,49 @@
 /*
   Shape_iterator.h
   Teton Simulation
-  Authored on   October 24, 2019
-  Last Modified October 24, 2019
+  Authored on   October 28, 2019
+  Last modified October 28, 2019
 */
 
-#ifndef CGAL_SWIG_SHAPE_ITERATOR_H
-#define CGAL_SWIG_SHAPE_ITERATOR_H
+#ifndef SWIG_CGAL_SHAPE_ITERATOR_H
+#define SWIG_CGAL_SHAPE_ITERATOR_H
+
+#include <CGAL/Shape_detection_3.h>
+#include <CGAL/Iterator_range.h>
+#include <SWIG_CGAL/Common/Macros.h>
 
 
-template <class Shape_detection, class Shape_range>
+template <class Shape_detection>
 class Shape_iterator_wrapper
 {
+  //  TYPE DEFINITIONS
+public:
+  typedef Shape_iterator_wrapper<Shape_detection> Self;
+  typedef typename Shape_detection::Shape Shape;
+
 protected:
-  Shape_detection* data_ptr;
+  typename Shape_detection::Shape_range data;
+
 
 public: 
   #ifndef SWIG
-    typedef Shape_detection cpp_base;
-    const cpp_base& get_data() const {return *data_ptr;}
-    const cpp_base& get_data()       {return *data_ptr;}
-    Shape_iterator_wrapper(const cpp_base& base):data_ptr(new cpp_base(base)) {}
+    typedef typename Shape_detection::Shape_range cpp_base;
+    Shape_iterator_wrapper(cpp_base h):data(h){}
+    const cpp_base& get_data() const {return data;}
+          cpp_base& get_data()       {return data;}
   #endif
 
-//  Constructors
-  Shape_iterator_wrapper(Shape_detection* ptr)
-  {
-    data_ptr = ptr;
-  }
+  Shape_iterator_wrapper(Shape_detection* data_ptr):data(data_ptr->shapes()){}
 
 //  Accessors
-  int count() { return data_ptr->shapes().end() - data_ptr->shapes().begin(); }
+
+  SWIG_CGAL_FORWARD_CALL_0(int,count)
+  //SWIG_CGAL_FORWARD_CALL_AND_REF_0(Shape_iterator_wrapper, shapes)
 
 
-  //Shape_range* Shapes() { return data_ptr->shapes(); }
+//Deep copy
+  Self deepcopy() const {return Self(data);}
+  void deepcopy(const Self& other){data=other.get_data();}
 };
 
 
