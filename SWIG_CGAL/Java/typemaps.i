@@ -364,7 +364,17 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 %typemap(out) boost::shared_ptr<std::vector<int> > {
   const jsize size = $1->size();
   jintArray jInts = jenv->NewIntArray(size);
+
+%#if defined(__CYGWIN__) || defined(__MINGW32__) || defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(__WINDOWS__)
+  std::vector<jint> tmp;
+  tmp.resize(size);
+  for (int i = 0 ; i < size; ++i){
+    tmp[i]=(*result)[i];
+  }
+  jenv->SetIntArrayRegion(jInts, 0, size, &((tmp)[0]));
+%#else
   jenv->SetIntArrayRegion(jInts, 0, size, &((*$1)[0]));
+%#endif
   $result=jInts;
 }
 %enddef
