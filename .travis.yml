@@ -41,6 +41,7 @@ addons:
       - cmake
       - eigen
       - swig
+      - python
       - numpy
       - homebrew/cask/java
   apt:
@@ -57,6 +58,8 @@ addons:
     - libgl1-mesa-dev
 
 install:
+  - PATH=/usr/local/opt/python/libexec:$PATH
+  - export PATH
   - pip install numpy
   - git clone --depth 1 -b ${CGAL_VER} https://github.com/CGAL/cgal.git
   - cd cgal
@@ -69,5 +72,5 @@ install:
 
 script:
   - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-  - cmake -DCGAL_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ .
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ .
   - make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure
