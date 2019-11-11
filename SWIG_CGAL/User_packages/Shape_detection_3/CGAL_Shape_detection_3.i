@@ -22,11 +22,22 @@
 //  Standard API imports
 %include "SWIG_CGAL/common.i"
 %import  "SWIG_CGAL/Common/Macros.h" //C++ macros that helps wrapping CGAL classes
-
-//  Allow 'void' data type
+%import  "SWIG_CGAL/Common/Iterator.h"
 Decl_void_type()
 
+%include "SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h"
 %{ 
 #include <SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h> 
 %}
+%include "SWIG_CGAL/User_packages/Shape_detection_3/Shape_iterator.h"
+%include "SWIG_CGAL/User_packages/Shape_detection_3/Shape_detection_3.h"
+
+
+//  Shape Iterator
+SWIG_CGAL_declare_identifier_of_template_class(Shape_handle,Shape_iterator_wrapper<Efficient_ransac>)
+//SWIG_CGAL_declare_identifier_of_template_class(Shape_iterator,SWIG_CGAL_Iterator<Efficient_ransac, Shape_iterator_wrapper<Efficient_ransac> >)
+
+//  Main Class
+SWIG_CGAL_declare_identifier_of_template_class(Shape_detection_3, Shape_detection_3_wrapper<Efficient_ransac, Plane, Kernel::Point_3, Kernel::Vector_3>)
+
 

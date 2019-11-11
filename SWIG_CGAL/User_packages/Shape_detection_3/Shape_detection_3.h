@@ -14,120 +14,90 @@
 
 
 //  Shape Detection Library
-#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
-#include <CGAL/IO/read_xyz_points.h>
-#include <CGAL/Point_with_normal_3.h>
-#include <SWIG_CGAL/Common/Iterator.h>
-#include <CGAL/property_map.h>
-
 #include <CGAL/Shape_detection_3.h>
-#include <vector>
-
-using namespace std;
-using namespace CGAL;
 
 
-/*
-  Shape Detection Type Definitions
-*/
-typedef CGAL::Exact_predicates_inexact_constructions_kernel  Kernel;
-typedef std::pair<Kernel::Point_3, Kernel::Vector_3>         Point_with_normal;
-typedef std::vector<Point_with_normal>                       Pwn_vector;
-typedef CGAL::First_of_pair_property_map<Point_with_normal>  Point_map;
-typedef CGAL::Second_of_pair_property_map<Point_with_normal> Normal_map;
-// In Shape_detection_traits the basic types, i.e., Point and Vector types
-// as well as iterator type and property maps, are defined.
-typedef CGAL::Shape_detection_3::Shape_detection_traits
-  <Kernel, Pwn_vector, Point_map, Normal_map>                Traits;
-typedef CGAL::Shape_detection_3::Efficient_RANSAC<Traits>    Efficient_ransac;
-typedef CGAL::Shape_detection_3::Region_growing<Traits>      Region_growing;
-typedef CGAL::Shape_detection_3::Plane<Traits>               Plane;
+#include <SWIG_CGAL/Kernel/typedefs.h>
+#include <SWIG_CGAL/Common/Iterator.h>
+#include <CGAL/Iterator_range.h>
 
+#include <SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h>
+#include <SWIG_CGAL/User_packages/Shape_detection_3/Shape_iterator.h>
+#include <SWIG_CGAL/User_packages/Shape_detection_3/typedefs.h>
 
-template <class Shape_type>
-class Shape_detection_3_wrapper{
-
-/*
-  Private Variables
-*/
-Efficient_ransac shape_detection;
+#include <boost/shared_ptr.hpp>
 
 
 /*
-  Public Functions
+  MAIN SHAPE DETECTION CLASS
 */
-public:
+template <class Shape_detection, class Shape_type, class Point, class Vector>
+class Shape_detection_3_wrapper
+{
 
+protected:
+  Shape_detection* data_ptr;
+  Pwn_vector points;
 
-//Type Defintions
+public: 
 
-  typedef SWIG_CGAL_Iterator<Efficient_ransac::Shape_range, Shape_type>   Shape_iterator;
+  #ifndef SWIG
+    typedef Shape_detection cpp_base;
+    const cpp_base& get_data() const {return *data_ptr;}
+    const cpp_base& get_data()       {return *data_ptr;}
+    Shape_detection_3_wrapper(const cpp_base& base):data_ptr(new cpp_base(base)) {}
+  #endif
 
-
-//Creation
-  /*
-    Uninitialized Constructor:
-      Creates a new shape-detector without a data set
-  */
-  Shape_detection_3_wrapper()
+//  Constructors
+  Shape_detection_3_wrapper():data_ptr(new cpp_base())
   {
-    shape_detection.template add_shape_factory<Shape_type>();
+    data_ptr = new Shape_detection;
+    data_ptr->template add_shape_factory<Shape_type>();
   }
-
-  /*
-    Initialized Constructor:
-      Creates a new shape-detector with an initial set of data
-      Detects shapes within the set of data
-  */
-  Shape_detection_3_wrapper(Pwn_vector points) 
-  { 
-    shape_detection.set_input(points);
-    shape_detection.template add_shape_factory<Shape_type>();
-    shape_detection.detect(); 
-  }
-
-//Destruction
-  ~Shape_detection_3_wrapper()
+  ~Shape_detection_3_wrapper(){delete data_ptr;}
+  Shape_detection_3_wrapper(Pwn_vector p):data_ptr(new cpp_base())
   {
-    shape_detection.clear();
+    data_ptr = new Shape_detection;
+    data_ptr->template add_shape_factory<Shape_type>();
+    data_ptr->set_input(p);
   }
 
+//  Mutators
 
-//Accessors
-
-  /* countShapes():
-        Returns number of unique shapes within the given point set
-  */
-  unsigned int countShapes() {return shape_detection.shapes().end() - shape_detection.shapes().begin(); }
-
-
-
-//Iterators
-
-  /* getShapes():
-        Returns detected shapes sorted by largest to smallest in size
-  */
-  Shape_iterator getShapes() {return shape_detection.shapes().begin();}
-
-//Mutators
-
-  /*  SetPoints():
-        Takes a vector of unsorted points and sets the current shape_detection to that set of points
-  */
-  void setPoints(Pwn_vector p) {shape_detection.set_input(p);}
-
-  /*  detect():
-        Detects shapes using the current set of points
-  */
-  void detect() {shape_detection.detect();}
-
-  /*  clearShapes():
-        Clears data set in shape detection object
-  */
-  void clear() {shape_detection.clear();}
+  void detect() { data_ptr->detect(); /*Shapes() = data_ptr->shapes();*/ }
   
+  void setPoints(Pwn_vector points) { data_ptr->set_input(points); }
 
+  void addPointWithNormal(Pwn pwn) { points.push_back(pwn); }
+
+  
+//  Iterators
+  typedef typename Shape_detection::Shape Shape;
+  typedef SWIG_CGAL_Iterator<Shape_iterator_wrapper<Shape_detection>,Shape>     Shape_iterator;
+
+  Shape_iterator_wrapper<Shape_detection> shapes() 
+    { return Shape_iterator_wrapper<Shape_detection>(data_ptr);  }
+
+  //Shape_iterator shapes()
+
+//  Accessors
+
+
+//  Interface Utilities
+
+  Point Point_3(float x, float y, float z) { return Point(x, y, z); }
+
+  Vector Vector_3(float x, float y, float z) { return Vector(x, y, z); }
+
+  Pwn Point_with_normal(Point p, Vector v)
+  {
+    return std::pair<Point, Vector>(p, v);
+  }
 
 };
+
+
+
+
 
 #endif
