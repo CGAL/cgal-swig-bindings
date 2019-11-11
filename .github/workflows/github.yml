@@ -1,0 +1,45 @@
+name: Windows Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-2016
+    strategy:
+      max-parallel: 4
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+
+    - name: Setup Conda
+      run: |
+        echo ::add-path::C:/Miniconda/condabin;
+        echo ::add-path::C:/Miniconda/Library/bin;
+
+
+    - name: Install dependencies
+      run: |
+        conda install -y -c anaconda swig
+        conda install -y -c conda-forge cgal-cpp
+        C:\Miniconda\python.exe -m pip install --upgrade pip
+        pip install numpy
+
+    - name: Build Tests
+      run: |
+        mkdir build
+        cd build
+        cmake -G "Visual Studio 15 2017" -T"v140" -A x64 -DBUILD_JAVA=OFF -DBUILD_PYTHON=ON -DBUILD_TESTING=ON -DCMAKE_PREFIX_PATH="C:/Miniconda/Library" ..
+        cmake --build . --config Release
+        echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/lib/Release;
+
+    - name: Run Tests
+      run: |
+        cd build
+        ctest -C Release -j8 -VV
