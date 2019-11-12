@@ -17,6 +17,7 @@ SWIG_CGAL_package_common()
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 %include "SWIG_CGAL/Common/Iterator.h"
 
+%ignore CGAL_VERSION
 %include "CGAL/version.h"
 
 //include files

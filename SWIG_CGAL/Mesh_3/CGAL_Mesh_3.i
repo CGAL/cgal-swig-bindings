@@ -16,6 +16,7 @@ SWIG_CGAL_package_common()
 %import  "SWIG_CGAL/Common/Macros.h"
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 
+%ignore CGAL_VERSION
 %include "CGAL/version.h"
 
 //include files

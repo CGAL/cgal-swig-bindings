@@ -184,6 +184,7 @@ SWIG_CGAL_vector_of_int_to_array_of_int_typemap_out
 SWIG_CGAL_python_vector_of_int_typecheck
 #endif
 // get the definition of CGAL_VERSION_NR
+%ignore CGAL_VERSION
 %include "CGAL/version.h"
 
 %inline %{
