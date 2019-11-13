@@ -67,12 +67,12 @@ install:
   - cd cgal
   - mkdir build
   - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCGAL_BUILD_TYPE=Release ..
+  - cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release ..
   - make -j2 VERBOSE=1
   - sudo make install
   - cd ../..
 
 script:
   - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-  - cmake -DCGAL_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ .
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ .
   - make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure
