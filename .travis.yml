@@ -22,19 +22,19 @@ matrix:
   include:
   - os: osx
     env: CGAL_VER=releases/CGAL-4.13
-    osx_image: xcode10.2
+    osx_image: xcode11.2
     language: shell
   - os: osx
     env: CGAL_VER=releases/CGAL-4.14
-    osx_image: xcode10.2
+    osx_image: xcode11.2
     language: shell
   - os: osx
     env: CGAL_VER=releases/CGAL-5.0
-    osx_image: xcode10.2
+    osx_image: xcode11.2
     language: shell
   - os: osx
     env: CGAL_VER=master
-    osx_image: xcode10.2
+    osx_image: xcode11.2
     language: shell
 
 addons:
