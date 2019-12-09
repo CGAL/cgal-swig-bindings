@@ -48,6 +48,7 @@ addons:
       - swig
       - numpy
       - homebrew/cask/java
+      - python
   apt:
     packages:
     - libmpfr-dev
