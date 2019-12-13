@@ -1,23 +1,23 @@
 
-language: python
-sudo: required
-dist: xenial
-python:
-  - "2.7"
-  - "3.7"
-os:
-  - linux
-
-env:
-  - CGAL_VER=releases/CGAL-4.8
-  - CGAL_VER=releases/CGAL-4.9
-  - CGAL_VER=releases/CGAL-4.10
-  - CGAL_VER=releases/CGAL-4.11
-  - CGAL_VER=releases/CGAL-4.12
-  - CGAL_VER=releases/CGAL-4.13
-  - CGAL_VER=releases/CGAL-4.14
-  - CGAL_VER=releases/CGAL-5.0
-  - CGAL_VER=master
+#language: python
+#sudo: required
+#dist: xenial
+#python:
+#  - "2.7"
+#  - "3.7"
+#os:
+#  - linux
+#
+#env:
+#  - CGAL_VER=releases/CGAL-4.8
+#  - CGAL_VER=releases/CGAL-4.9
+#  - CGAL_VER=releases/CGAL-4.10
+#  - CGAL_VER=releases/CGAL-4.11
+#  - CGAL_VER=releases/CGAL-4.12
+#  - CGAL_VER=releases/CGAL-4.13
+#  - CGAL_VER=releases/CGAL-4.14
+#  - CGAL_VER=releases/CGAL-5.0
+#  - CGAL_VER=master
 
 matrix:
   include:
@@ -61,18 +61,18 @@ addons:
       - numpy
       - homebrew/cask/java
       - python
-  apt:
-    packages:
-    - libmpfr-dev
-    - libboost-atomic-dev
-    - libboost-chrono-dev
-    - libboost-date-time-dev
-    - libboost-system-dev
-    - libboost-thread-dev
-    - libeigen3-dev
-    - swig
-    - openjdk-8-jdk
-    - libgl1-mesa-dev
+#  apt:
+#    packages:
+#    - libmpfr-dev
+#    - libboost-atomic-dev
+#    - libboost-chrono-dev
+#    - libboost-date-time-dev
+#    - libboost-system-dev
+#    - libboost-thread-dev
+#    - libeigen3-dev
+#    - swig
+#    - openjdk-8-jdk
+#    - libgl1-mesa-dev
 
 install:
   - pip install numpy
