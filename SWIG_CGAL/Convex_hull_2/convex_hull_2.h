@@ -23,11 +23,16 @@ void  ch_bykat (Point_range range, Point_output_iterator result){ CGAL::ch_bykat
 void  ch_eddy (Point_range range, Point_output_iterator result){ CGAL::ch_eddy( SWIG_CGAL::get_begin(range), SWIG_CGAL::get_end(range), result ); }
 void  ch_graham_andrew (Point_range range, Point_output_iterator result){ CGAL::ch_graham_andrew( SWIG_CGAL::get_begin(range), SWIG_CGAL::get_end(range), result ); }
 void  ch_melkman (Point_range range, Point_output_iterator result){ CGAL::ch_melkman( SWIG_CGAL::get_begin(range), SWIG_CGAL::get_end(range), result ); }
-void  ch_jarvis (Point_range range, Point_output_iterator result){ CGAL::ch_jarvis( SWIG_CGAL::get_begin(range), SWIG_CGAL::get_end(range), result ); }
 void  lower_hull_points_2 (Point_range range, Point_output_iterator result){ CGAL::lower_hull_points_2( SWIG_CGAL::get_begin(range), SWIG_CGAL::get_end(range), result ); }
 void  upper_hull_points_2 (Point_range range, Point_output_iterator result){ CGAL::upper_hull_points_2( SWIG_CGAL::get_begin(range), SWIG_CGAL::get_end(range), result ); }
 
 //using forward or bidirectionnal iterators
+void  ch_jarvis (Point_range range, Point_output_iterator result)
+{
+  std::vector<Point_2::cpp_base> points(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
+  CGAL::ch_jarvis( points.begin(), points.end(), result ); 
+}
+
 void  ch_akl_toussaint (Point_range range, Point_output_iterator result){ 
   //the function requires a forward iterator so we copy it....
   std::vector<Point_2::cpp_base> points(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
