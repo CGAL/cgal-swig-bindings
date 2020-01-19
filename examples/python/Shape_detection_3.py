@@ -1,7 +1,3 @@
-
-import sys
-sys.path.append('/usr/lib/python3.7')
-
 import CGAL
 from CGAL import CGAL_Shape_detection_3
 
@@ -55,5 +51,3 @@ s.detect()
 shapes = s.shapes()
 
 #print (shapes.count() + " shapes were found\n")
-
-
