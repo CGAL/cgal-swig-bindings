@@ -21,9 +21,9 @@
 #include <SWIG_CGAL/Common/Iterator.h>
 #include <CGAL/Iterator_range.h>
 
-#include <SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h>
-#include <SWIG_CGAL/User_packages/Shape_detection_3/Shape_iterator.h>
-#include <SWIG_CGAL/User_packages/Shape_detection_3/typedefs.h>
+#include <SWIG_CGAL/Shape_detection_3/all_includes.h>
+#include <SWIG_CGAL/Shape_detection_3/Shape_iterator.h>
+#include <SWIG_CGAL/Shape_detection_3/typedefs.h>
 
 #include <boost/shared_ptr.hpp>
 

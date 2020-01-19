@@ -12,9 +12,9 @@
 #ifndef SWIG_CGAL_SHAPE_DETECTION_3_ALL_INCLUDES_H
 #define SWIG_CGAL_SHAPE_DETECTION_3_ALL_INCLUDES_H
 
-#include <SWIG_CGAL/User_packages/Shape_detection_3/typedefs.h>
-#include <SWIG_CGAL/User_packages/Shape_detection_3/Shape_iterator.h>
-#include <SWIG_CGAL/User_packages/Shape_detection_3/Shape_detection_3.h>
+#include <SWIG_CGAL/Shape_detection_3/typedefs.h>
+#include <SWIG_CGAL/Shape_detection_3/Shape_iterator.h>
+#include <SWIG_CGAL/Shape_detection_3/Shape_detection_3.h>
 
 
 #endif

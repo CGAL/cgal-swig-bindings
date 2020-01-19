@@ -25,12 +25,12 @@
 %import  "SWIG_CGAL/Common/Iterator.h"
 Decl_void_type()
 
-%include "SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h"
+%include "SWIG_CGAL/Shape_detection_3/all_includes.h"
 %{ 
-#include <SWIG_CGAL/User_packages/Shape_detection_3/all_includes.h> 
+#include <SWIG_CGAL/Shape_detection_3/all_includes.h> 
 %}
-%include "SWIG_CGAL/User_packages/Shape_detection_3/Shape_iterator.h"
-%include "SWIG_CGAL/User_packages/Shape_detection_3/Shape_detection_3.h"
+%include "SWIG_CGAL/Shape_detection_3/Shape_iterator.h"
+%include "SWIG_CGAL/Shape_detection_3/Shape_detection_3.h"
 
 
 //  Shape Iterator
