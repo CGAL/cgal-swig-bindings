@@ -37,7 +37,7 @@ public:
 
 //  Accessors
 
-  SWIG_CGAL_FORWARD_CALL_0(int,count)
+  //SWIG_CGAL_FORWARD_CALL_0(int, count)
   //SWIG_CGAL_FORWARD_CALL_AND_REF_0(Shape_iterator_wrapper, shapes)
 
 
