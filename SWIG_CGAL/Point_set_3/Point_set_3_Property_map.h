@@ -61,7 +61,7 @@ public:
 
   typedef CGAL_Property_map<Point_set_base, Type> Self;
 
-  CGAL_Property_map() : data() { }
+  CGAL_Property_map() : data(), valid(false) { }
 
   Type get (int idx) const { return data[idx]; }
   void set (int idx, const Type& t) { data[idx] = CppType<Type>::get_data(t); }

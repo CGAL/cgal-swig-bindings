@@ -33,14 +33,7 @@ import java.util.Collection;
 %};
 
 %types(Point_3*,Point_3);//needed so that the identifier SWIGTYPE_p_Point_3 is generated
-SWIG_CGAL_set_wrapper_iterator_helper_input(Point_3)
 %types(Vector_3*,Vector_3);//needed so that the identifier SWIGTYPE_p_Vector_3 is generated
-SWIG_CGAL_set_wrapper_iterator_helper_input(Vector_3)
-
-//  typemaps for output iterator of Point_3
-SWIG_CGAL_set_wrapper_iterator_helper_output(Point_3)
-//  typemaps for output iterator of Point_3
-SWIG_CGAL_set_wrapper_iterator_helper_output(Vector_3)
 
 %include "SWIG_CGAL/Point_set_processing_3/functions.h"
 
