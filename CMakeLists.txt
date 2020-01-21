@@ -142,13 +142,15 @@ if ( CGAL_FOUND )
 
         foreach (TESTNAME_SRC ${java_files})
           get_filename_component(TESTNAME ${TESTNAME_SRC} NAME_WE)
-          add_custom_target (javatest_${TESTNAME}
-            COMMAND ${Java_JAVAC_EXECUTABLE} ${TESTNAME_SRC} ${dependencies_files} -d ${JAVA_OUTDIR_PREFIX}
-            WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
-          add_dependencies (tests javatest_${TESTNAME})
-          add_test (NAME javatest_${TESTNAME} COMMAND ${Java_JAVA_EXECUTABLE} ${TESTNAME} WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
-          set_tests_properties (javatest_${TESTNAME} PROPERTIES
-            ENVIRONMENT "LD_LIBRARY_PATH=${JAVALIBPATH};DYLD_LIBRARY_PATH=${JAVALIBPATH}")
+          if(CGAL_ImageIO_FOUND OR NOT "${TESTNAME}" STREQUAL "test_surface_mesher")
+            add_custom_target (javatest_${TESTNAME}
+              COMMAND ${Java_JAVAC_EXECUTABLE} ${TESTNAME_SRC} ${dependencies_files} -d ${JAVA_OUTDIR_PREFIX}
+              WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
+            add_dependencies (tests javatest_${TESTNAME})
+            add_test (NAME javatest_${TESTNAME} COMMAND ${Java_JAVA_EXECUTABLE} ${TESTNAME} WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
+            set_tests_properties (javatest_${TESTNAME} PROPERTIES
+              ENVIRONMENT "LD_LIBRARY_PATH=${JAVALIBPATH};DYLD_LIBRARY_PATH=${JAVALIBPATH}")
+          endif()
         endforeach ()
 
         # tests load files from source dir, eg: ../data/oni.xyz

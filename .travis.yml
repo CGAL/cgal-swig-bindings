@@ -45,6 +45,7 @@ addons:
       - cmake
       - eigen
       - swig
+      - python
       - numpy
       - homebrew/cask/java
       - python
@@ -62,6 +63,8 @@ addons:
     - libgl1-mesa-dev
 
 install:
+  - PATH=/usr/local/opt/python/libexec:$PATH
+  - export PATH
   - pip install numpy
   - git clone --depth 1 -b ${CGAL_VER} https://github.com/CGAL/cgal.git
   - cd cgal

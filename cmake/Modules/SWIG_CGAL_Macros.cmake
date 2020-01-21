@@ -62,6 +62,8 @@ MACRO(ADD_SWIG_CGAL_JAVA_MODULE packagename)
     else()
       SWIG_ADD_LIBRARY(${MODULENAME} LANGUAGE java SOURCES ${INTERFACE_FILES} ${source_files})
     endif()
+    #don't split dlls with configuration dependent generators
+    set_target_properties (${MODULENAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${JAVA_OUTDIR_PREFIX}/lib$<$<CONFIG:Release>:>")
     #link all modules with CGAL_Java_cpp as many if not all need it for the iterators for example
     SWIG_LINK_LIBRARIES(${MODULENAME} ${libstolinkwith} CGAL_Java_cpp)
   endif()
