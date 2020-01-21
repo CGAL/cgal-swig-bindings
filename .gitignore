@@ -1,0 +1,19 @@
+# CMake - https://github.com/github/gitignore/blob/master/CMake.gitignore
+
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# CMake - commonly used build place
+build/
+
+# Visual Studio Code
+.vscode/
