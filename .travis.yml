@@ -1,3 +1,4 @@
+
 language: python
 sudo: required
 dist: xenial
@@ -21,21 +22,19 @@ env:
 matrix:
   include:
   - os: osx
-    env: CGAL_VER=releases/CGAL-4.13
-    osx_image: xcode10.2
+    env:
+      - CGAL_VER=releases/CGAL-5.0
+      - PATH="/usr/local/opt/python/libexec/bin:$PATH"
+    osx_image: xcode11.3
     language: shell
+    python: 3.7
   - os: osx
-    env: CGAL_VER=releases/CGAL-4.14
-    osx_image: xcode10.2
+    env: 
+      - CGAL_VER=master
+      - PATH="/usr/local/opt/python/libexec/bin:$PATH"
+    osx_image: xcode11.3
     language: shell
-  - os: osx
-    env: CGAL_VER=releases/CGAL-5.0
-    osx_image: xcode10.2
-    language: shell
-  - os: osx
-    env: CGAL_VER=master
-    osx_image: xcode10.2
-    language: shell
+    python: 3.7
 
 addons:
   homebrew:
@@ -48,6 +47,7 @@ addons:
       - swig
       - numpy
       - homebrew/cask/java
+      - python
   apt:
     packages:
     - libmpfr-dev
