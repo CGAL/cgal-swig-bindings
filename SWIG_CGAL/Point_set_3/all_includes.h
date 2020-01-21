@@ -10,6 +10,6 @@
 
 #include <SWIG_CGAL/Point_set_3/typedefs.h>
 #include <SWIG_CGAL/Point_set_3/Point_set_3.h>
-//#include <SWIG_CGAL/Point_set_3/Point_set_3_Index.h>
+#include <SWIG_CGAL/Point_set_3/Point_set_3_Property_map.h>
 
 #endif //SWIG_CGAL_POINT_SET_3_ALL_INCLUDES_H

@@ -369,6 +369,25 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 }
 %enddef
 
+//OUT typemap for vector of string into a java array
+%define SWIG_CGAL_vector_of_string_to_array_of_string_typemap_out
+%typemap(jni) boost::shared_ptr<std::vector<std::string> > "jobjectArray"  //replace in jni class
+%typemap(jtype) boost::shared_ptr<std::vector<std::string> > "String[]"   //replace in java wrapping class
+%typemap(jstype) boost::shared_ptr<std::vector<std::string> > "String[]"  //replace in java function args
+%typemap(javaout) boost::shared_ptr<std::vector<std::string> > "{return $jnicall;}" //replace in java function call to wrapped function
+
+%typemap(out) boost::shared_ptr<std::vector<std::string> > {
+  const jsize size = $1->size();
+  jclass myClass = jenv->FindClass("java/lang/String");
+  jobjectArray jstrings = jenv->NewObjectArray(size, myClass, NULL);
+  for (std::size_t i=0;i<$1->size();++i){
+    jstring str = jenv->NewStringUTF((*$1)[i].c_str());
+    jenv->SetObjectArrayElement(jstrings, i, str);
+  }
+  $result=jstrings;
+}
+%enddef
+
 //OUT typemap for std::pair<double, double> to double[]
 %define SWIG_CGAL_double_pair_to_array_of_double_typemap_out
 %typemap(jni) std::pair<double, double> "jdoubleArray"  //replace in jni class

@@ -10,6 +10,7 @@
 #include <SWIG_CGAL/Common/Wrapper_iterator_helper.h>
 #include <SWIG_CGAL/Kernel/Point_3.h>
 #include <SWIG_CGAL/Kernel/Vector_3.h>
+#include <SWIG_CGAL/Point_set_3/Point_set_3.h>
 
 #include <CGAL/compute_average_spacing.h>
 #include <CGAL/grid_simplify_point_set.h>
@@ -30,6 +31,11 @@
 #else
 #define DFT
 #endif
+
+double compute_average_spacing(Point_set_3_wrapper<CGAL_PS3> point_set, int k)
+{
+  return CGAL::compute_average_spacing DFT (point_set.get_data(), k);
+}
 
 double compute_average_spacing(Wrapper_iterator_helper<Point_3>::input point_range, int k)
 {

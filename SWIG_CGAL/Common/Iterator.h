@@ -87,10 +87,10 @@ struct Iterator_helper<double>{
 };
 
 template<>
-struct Iterator_helper<unsigned int>{
+struct Iterator_helper<int>{
   template <class T>
-  static unsigned int convert(const T& i){  return *i; }
-  static unsigned int default_value(){return (unsigned int)(-1);}
+  static int convert(const T& i){  return *i; }
+  static int default_value(){return -1;}
 };
 
 #endif
