@@ -22,6 +22,11 @@
 #include <sstream>
 #include <fstream>
 
+template <typename Point_set_base, typename T>
+struct Nested_iterator_helper
+{
+  typedef typename Point_set_base::template Property_range<T>::const_iterator type;
+};
 
 template <typename Point_set_base>
 class Point_set_3_wrapper
@@ -43,10 +48,8 @@ public:
   typedef SWIG_CGAL_Iterator<typename Point_set_base::Point_range::const_iterator, Point_3> Point_iterator;
   typedef SWIG_CGAL_Iterator<typename Point_set_base::Vector_range::const_iterator, Vector_3> Vector_iterator;
 
-  // typedef SWIG_CGAL_Iterator<typename Point_set_base::template Property_range<int>::const_iterator, int> Int_iterator;
-  // typedef SWIG_CGAL_Iterator<typename Point_set_base::template Property_range<double>::const_iterator, double> Float_iterator;
-  typedef SWIG_CGAL_Iterator<typename Point_set_base::Int_range::const_iterator, int> Int_iterator;
-  typedef SWIG_CGAL_Iterator<typename Point_set_base::Double_range::const_iterator, double> Float_iterator;
+  typedef SWIG_CGAL_Iterator<typename Nested_iterator_helper<Point_set_base, int>::type, int> Int_iterator;
+  typedef SWIG_CGAL_Iterator<typename Nested_iterator_helper<Point_set_base, double>::type, double> Float_iterator;
 
   typedef SWIG_Point_set_3::CGAL_Property_map<Point_set_base, Point_3> Point_map;
   typedef SWIG_Point_set_3::CGAL_Property_map<Point_set_base, Vector_3> Vector_map;
@@ -168,10 +171,17 @@ public:
   
   SWIG_CGAL_FORWARD_CALL_0(std::string, info)
 
-  Int_iterator range (Int_map map) { return Int_iterator (get_data().range(map.get_data()).begin(),
-                                                          get_data().range(map.get_data()).end()); }
-  Float_iterator range (Float_map map) { return Float_iterator (get_data().range(map.get_data()).begin(),
-                                                                get_data().range(map.get_data()).end()); }
+  Int_iterator range (Int_map map)
+  {
+    return Int_iterator (get_data().range(map.get_data()).begin(),
+                         get_data().range(map.get_data()).end());
+  }
+
+  Float_iterator range (Float_map map)
+  {
+    return Float_iterator (get_data().range(map.get_data()).begin(),
+                           get_data().range(map.get_data()).end());
+  }
   
   Point_iterator points() const { return Point_iterator (get_data().points().begin(), get_data().points().end()); }
   Vector_iterator normals() const { return Vector_iterator (get_data().normals().begin(), get_data().normals().end()); }

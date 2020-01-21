@@ -35,10 +35,8 @@ SWIG_CGAL_declare_identifier_of_template_class(Point_set_3,Point_set_3_wrapper< 
 SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_iterator,SWIG_CGAL_Iterator<typename CGAL_PS3::const_iterator, int>)
 SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_Point_iterator,SWIG_CGAL_Iterator<typename CGAL_PS3::Point_range::const_iterator, Point_3>)
 SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_Vector_iterator,SWIG_CGAL_Iterator<typename CGAL_PS3::Vector_range::const_iterator, Vector_3>)
-SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_Int_iterator,SWIG_CGAL_Iterator<typename CGAL_PS3::Int_range::const_iterator, int>)
-SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_Float_iterator,SWIG_CGAL_Iterator<typename CGAL_PS3::Double_range::const_iterator, double>)
-/* SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_Int_iterator,SWIG_CGAL_Iterator<typename CGAL_PS3::template Property_range<int>::const_iterator, int>) */
-/* SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_Float_iterator,SWIG_CGAL_Iterator<typename CGAL_PS3::template Property_range<double>::const_iterator, double>) */
+SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_Int_iterator,SWIG_CGAL_Iterator<Nested_iterator_helper<CGAL_PS3, int>::type, int>)
+SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_Float_iterator,SWIG_CGAL_Iterator<Nested_iterator_helper<CGAL_PS3, double>::type, double>)
 
 SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_Point_map,SWIG_Point_set_3::CGAL_Property_map<CGAL_PS3, Point_3>)
 SWIG_CGAL_declare_identifier_of_template_class(Point_set_3_Vector_map,SWIG_Point_set_3::CGAL_Property_map<CGAL_PS3, Vector_3>)
