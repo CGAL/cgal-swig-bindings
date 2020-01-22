@@ -18,7 +18,7 @@ points.insert_range([ 2., 4., 5., 2, 3, 4 ])
 # Iterate and display points
 print("Point set:")
 for p in points.points():
-    print(" * " + str(p))
+    print(" *", p)
     
 # With normal
 points.add_normal_map()
