@@ -21,6 +21,8 @@ SWIG_CGAL_package_common()
 %pragma(java) jniclassimports=%{
 import CGAL.Kernel.Point_3;
 import CGAL.Kernel.Vector_3;
+import CGAL.Point_set_3.Point_set_3;
+import CGAL.Point_set_3.Point_set_3_Int_map;
 import java.util.Iterator;
 import java.util.Collection;
 %}
@@ -28,6 +30,8 @@ import java.util.Collection;
 %pragma(java) moduleimports=%{
 import CGAL.Kernel.Point_3;
 import CGAL.Kernel.Vector_3;
+import CGAL.Point_set_3.Point_set_3;
+import CGAL.Point_set_3.Point_set_3_Int_map;
 import java.util.Iterator;
 import java.util.Collection;
 %};
