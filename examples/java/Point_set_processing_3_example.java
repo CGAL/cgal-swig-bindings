@@ -5,7 +5,7 @@ import CGAL.Point_set_processing_3.CGAL_Point_set_processing_3;
 
 import java.util.Vector;
 
-public class Point_set_processing_3_test{
+public class Point_set_processing_3_example{
   public static void main(String arg[]){
 
     String datafile = "../data/oni.xyz";
