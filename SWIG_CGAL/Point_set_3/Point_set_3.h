@@ -334,5 +334,17 @@ private:
 
 };
 
+namespace CGAL { namespace Point_set_processing_3 {
+
+template <typename T> class GetFt;
+
+template <typename Point_set_base>
+class GetFT<Point_set_3_wrapper<Point_set_base> >
+{
+public:
+  typedef double type;
+};
+} }
+
 #endif // SWIG_CGAL_POINT_SET_3_POINT_SET_3_H
 

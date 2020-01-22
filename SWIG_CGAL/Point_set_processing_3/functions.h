@@ -66,17 +66,15 @@ void edge_aware_upsample_point_set (Point_set_3_wrapper<CGAL_PS3> point_set,
      number_of_output_points(number_of_output_points));
 }
 
-#if 0 // Bug because the CGAL::estimate[...] function is called with the wrapper
 int estimate_global_k_neighbor_scale (Point_set_3_wrapper<CGAL_PS3> point_set)
 {
-  return CGAL::estimate_global_k_neighbor_scale (point_set.get_data(), point_set.get_data().parameters());
+  return CGAL::estimate_global_k_neighbor_scale (point_set.get_data());
 }
 
 double estimate_global_range_scale (Point_set_3_wrapper<CGAL_PS3> point_set)
 {
   return CGAL::estimate_global_range_scale (point_set.get_data(), point_set.get_data().parameters());
 }
-#endif
 
 // TODO if needed: estimate local scales
 
@@ -166,17 +164,13 @@ void remove_outliers (Point_set_3_wrapper<CGAL_PS3> point_set, int k,
 // TODO: structure_point_set() if/once Shape_detection is wrapped
 
 void vcm_estimate_normals (Point_set_3_wrapper<CGAL_PS3> point_set,
-                           double offset_radius, double convolution_radius)
+                           double offset_radius, double convolution_radius, int k = 0)
 {
   point_set.get_data().add_normal_map();
-  CGAL::vcm_estimate_normals (point_set.get_data(), offset_radius, convolution_radius);
-}
-
-void vcm_estimate_normals (Point_set_3_wrapper<CGAL_PS3> point_set,
-                           double offset_radius, int k)
-{
-  point_set.get_data().add_normal_map();
-  CGAL::vcm_estimate_normals (point_set.get_data(), offset_radius, (unsigned int)k);
+  if (k == 0)
+    CGAL::vcm_estimate_normals (point_set.get_data(), offset_radius, convolution_radius);
+  else
+    CGAL::vcm_estimate_normals (point_set.get_data(), offset_radius, (unsigned int)k);
 }
 
 void wlop_simplify_and_regularize_point_set (Point_set_3_wrapper<CGAL_PS3> input,
