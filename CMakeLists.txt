@@ -186,6 +186,7 @@ if ( CGAL_FOUND )
     add_subdirectory(SWIG_CGAL/HalfedgeDS)
     add_subdirectory(SWIG_CGAL/Point_set_3)
     add_subdirectory(SWIG_CGAL/Point_set_processing_3)
+    add_subdirectory(SWIG_CGAL/Shape_detection)
     add_subdirectory(SWIG_CGAL/Box_intersection_d)
     add_subdirectory(SWIG_CGAL/Advancing_front_surface_reconstruction)
 
