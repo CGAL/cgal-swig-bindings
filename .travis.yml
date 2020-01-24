@@ -9,13 +9,6 @@ os:
   - linux
 
 env:
-  - CGAL_VER=releases/CGAL-4.8
-  - CGAL_VER=releases/CGAL-4.9
-  - CGAL_VER=releases/CGAL-4.10
-  - CGAL_VER=releases/CGAL-4.11
-  - CGAL_VER=releases/CGAL-4.12
-  - CGAL_VER=releases/CGAL-4.13
-  - CGAL_VER=releases/CGAL-4.14
   - CGAL_VER=releases/CGAL-5.0
   - CGAL_VER=master
 
