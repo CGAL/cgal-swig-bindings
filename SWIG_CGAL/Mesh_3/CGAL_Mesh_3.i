@@ -66,13 +66,8 @@ SWIG_CGAL_declare_identifier_of_template_class(Mesh_3_Badness,Optional< std::pai
   bool is_facet_visited(int i){return $self->get_data()->is_facet_visited(i);}
   void set_facet_visited(int i){$self->get_data()->set_facet_visited(i);}
 #ifndef SWIG
-#if CGAL_VERSION_NR < 1041100000
-  Weighted_point_3 get_facet_surface_center(int i){return Weighted_point_3($self->get_data()->get_facet_surface_center(i));}
-  void set_facet_surface_center(int i,const Weighted_point_3& p) {return $self->get_data()->set_facet_surface_center(i,p.get_data());}
-#else
   Point_3 get_facet_surface_center(int i){return Point_3($self->get_data()->get_facet_surface_center(i));}
   void set_facet_surface_center(int i,const Point_3& p) {return $self->get_data()->set_facet_surface_center(i,p.get_data());}
-#endif
 #endif
 }
 %extend SWIG_Triangulation_3::CGAL_Vertex_handle<MT_PMD,Weighted_point_3>{

@@ -192,17 +192,6 @@ SWIG_CGAL_python_vector_of_int_typecheck
   namespace PMP=CGAL::Polygon_mesh_processing;
   namespace params=CGAL::Polygon_mesh_processing::parameters;
 
-  #if CGAL_VERSION_NR < 1040800000
-  namespace CGAL{
-    template <typename T>
-    Iterator_range<T>
-    make_range(const std::pair<T,T>& p)
-    {
-      return Iterator_range<T>(p.first,p.second);
-    }
-  }
-  #endif // CGAL 4.7
-
   struct Is_constrained_map{
     typedef boost::graph_traits<Polyhedron_3_SWIG_wrapper::cpp_base>::edge_descriptor key_type;
     std::set<key_type>* m_set;
@@ -278,14 +267,12 @@ SWIG_CGAL_python_vector_of_int_typecheck
                 params::fairing_continuity(density_control_factor));
   }
 
-#if CGAL_VERSION_NR >= 1040800000
 // CGAL::Polygon_mesh_processing::triangulate_face()
   void triangulate_face(Polyhedron_3_Facet_handle_SWIG_wrapper& face,
 		                    Polyhedron_3_SWIG_wrapper& P)
   {
     PMP::triangulate_face(face.get_data(), P.get_data());
   }
-#endif //CGAL 4.8 or later
 
 //   CGAL::Polygon_mesh_processing::triangulate_faces()
   void triangulate_faces(Polyhedron_3_SWIG_wrapper& P)
@@ -293,7 +280,6 @@ SWIG_CGAL_python_vector_of_int_typecheck
     PMP::triangulate_faces(P.get_data());
   }
 
-#if CGAL_VERSION_NR >= 1040800000
   void triangulate_faces (Facet_range facet_range,
                           Polyhedron_3_SWIG_wrapper& P)
   {
@@ -356,7 +342,7 @@ SWIG_CGAL_python_vector_of_int_typecheck
     PMP::split_long_edges(edges, max_length, P.get_data());
   }
 //
-#endif // CGAL 4.8 or later
+
 // Hole Filling Functions
 //   CGAL::Polygon_mesh_processing::triangulate_hole()
   void triangulate_hole(Polyhedron_3_SWIG_wrapper& P,
@@ -425,15 +411,13 @@ SWIG_CGAL_python_vector_of_int_typecheck
                                     CGAL::make_range(third_points),
                                     out);
   }
-  #if CGAL_VERSION_NR >= 1040800000
-  // not activated in 4.7 due to a bug in CGAL
+
   void triangulate_hole_polyline 	(Point_3_range points,
                                    Integer_triple_output_iterator out)
   {
     PMP::triangulate_hole_polyline( CGAL::make_range(points),
                                     out);
   }
-  #endif // CGAL 4.8 or later
 
 //
 // Predicate Functions
@@ -505,13 +489,12 @@ SWIG_CGAL_python_vector_of_int_typecheck
     PMP::polygon_soup_to_polygon_mesh(cgal_points, polygons, P.get_data());
   }
 
-#if CGAL_VERSION_NR >= 1040800000
-//   CGAL::Polygon_mesh_processing::remove_isolated_vertices() (4.8)
-void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
-{
-  PMP::remove_isolated_vertices(P.get_data());
-}
-#endif // CGAL 4.8 or later
+  //   CGAL::Polygon_mesh_processing::remove_isolated_vertices() (4.8)
+  void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
+  {
+    PMP::remove_isolated_vertices(P.get_data());
+  }
+
 //
 // Normal Computation Functions
 //   CGAL::Polygon_mesh_processing::compute_face_normal()
@@ -585,7 +568,7 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
     PMP::connected_components(P.get_data(), pmap);
     return cc_ids;
   }
-#if CGAL_VERSION_NR >= 1040800000
+
   //   CGAL::Polygon_mesh_processing::keep_large_connected_components() (4.8)
   int keep_large_connected_components(Polyhedron_3_SWIG_wrapper& P,
                                       int threshold_components_to_keep)
@@ -593,7 +576,7 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
     return PMP::keep_large_connected_components(P.get_data(),
                                                 threshold_components_to_keep);
   }
-#endif // CGAL 4.8 or later
+
 //   CGAL::Polygon_mesh_processing::keep_largest_connected_components()
   int keep_largest_connected_components(Polyhedron_3_SWIG_wrapper& P,
                                         int nb_components_to_keep)
@@ -621,15 +604,14 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
   }
 
 //   CGAL::Polygon_mesh_processing::remove_connected_components()
-  #if CGAL_VERSION_NR >= 1040800000
-  // desactivated in 4.7 due to a bug in CGAL
+
   void remove_connected_components( Polyhedron_3_SWIG_wrapper& P,
                                     Facet_range components_to_remove)
   {
     PMP::remove_connected_components(P.get_data(),
                                      CGAL::make_range(components_to_remove));
   }
-  #endif // CGAL 4.8 or later
+
   void remove_connected_components(Polyhedron_3_SWIG_wrapper& P,
                                  boost::shared_ptr<std::vector<int> > components_to_remove,
                                  boost::shared_ptr<std::vector<int> > fcm)
@@ -642,7 +624,7 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
                                      pmap);
   }
 //
-#if CGAL_VERSION_NR >= 1040800000
+
 // Geometric Measure functions
 //   CGAL::Polygon_mesh_processing::face_area()
   double face_area(Polyhedron_3_Facet_handle_SWIG_wrapper& face,
@@ -679,18 +661,11 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
   }
 //
 // Miscellaneous
-#if CGAL_VERSION_NR < 1041001000
-//   CGAL::Polygon_mesh_processing::bbox_3() (4.8)
-  Bbox_3 bbox_3(Polyhedron_3_SWIG_wrapper& P)
-  {
-    return Bbox_3( PMP::bbox_3(P.get_data()));
-  }
-#else
   Bbox_3 bbox(Polyhedron_3_SWIG_wrapper& P)
   {
     return Bbox_3( PMP::bbox(P.get_data()));
   }
-#endif
+
 //   CGAL::Polygon_mesh_processing::border_halfedges() (4.8)
   void border_halfedges(Facet_range facet_range,
                         Polyhedron_3_SWIG_wrapper& P,
@@ -699,7 +674,6 @@ void remove_isolated_vertices(Polyhedron_3_SWIG_wrapper& P)
     CGAL::set_halfedgeds_items_id(P.get_data());
     PMP::border_halfedges(make_range(facet_range), P.get_data(), out);
   }
-#endif // CGAL 4.8 or later
 
 %}
 

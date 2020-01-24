@@ -188,11 +188,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_2(int,mirror_index,Face_handle,int)
   SWIG_CGAL_FORWARD_CALL_1(int,ccw,int)
   SWIG_CGAL_FORWARD_CALL_1(int,cw,int)
-#if CGAL_VERSION_NR < 1041100000
-  SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point,circumcenter,Face_handle)
-#else
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,circumcenter,Face_handle)
-#endif
+
 // Setting
   SWIG_CGAL_FORWARD_CALL_1(void,set_infinite_vertex,Vertex_handle)
 // Checking

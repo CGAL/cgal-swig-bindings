@@ -6,31 +6,6 @@
 #include <boost/iterator/transform_iterator.hpp>
 #include <CGAL/property_map.h>
 
-
-#if CGAL_VERSION_NR < 1040900000
-namespace CGAL {
-
-template <class PropertyMap>
-struct Property_map_to_unary_function{
-  typedef typename boost::property_traits<PropertyMap>::key_type argument_type;
-  typedef typename boost::property_traits<PropertyMap>::reference result_type;
-
-  PropertyMap map;
-  Property_map_to_unary_function(PropertyMap m=PropertyMap())
-    : map(m)
-  {}
-
-  template <class KeyType>
-  result_type
-  operator()(const KeyType& a) const
-  {
-    return get(map,a);
-  }
-};
-
-}
-#endif
-
 template <class Kernel>
 struct Auto_count : 
   public 

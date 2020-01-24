@@ -25,12 +25,10 @@ struct Iterator_helper<std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle<Triang
     return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(i.first.first),Vertex_handle(i.first.second));
   }
 
-  #if CGAL_VERSION_NR >= 1040600000
   static std::pair<Vertex_handle,Vertex_handle> convert(const typename Triangulation::Constraint_id& i){
     return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(i.second->front().vertex()),
                                                   Vertex_handle(i.second->back().vertex()));
   }
-  #endif
 
   template <class Iterator>
   static std::pair<Vertex_handle,Vertex_handle> convert(Iterator it){
