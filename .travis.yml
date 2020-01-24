@@ -16,39 +16,8 @@ env:
   - CGAL_VER=releases/CGAL-4.12
   - CGAL_VER=releases/CGAL-4.13
   - CGAL_VER=releases/CGAL-4.14
-  - CGAL_VER=releases/CGAL-5.0
-  - CGAL_VER=master
-
-matrix:
-  include:
-  - os: osx
-    env:
-      - CGAL_VER=releases/CGAL-5.0
-      - PATH="/usr/local/opt/python/libexec/bin:$PATH"
-    osx_image: xcode11.3
-    language: shell
-    python: 3.7
-  - os: osx
-    env: 
-      - CGAL_VER=master
-      - PATH="/usr/local/opt/python/libexec/bin:$PATH"
-    osx_image: xcode11.3
-    language: shell
-    python: 3.7
 
 addons:
-  homebrew:
-    packages:
-      - mpfr
-      - gmp
-      - boost
-      - cmake
-      - eigen
-      - swig
-      - python
-      - numpy
-      - homebrew/cask/java
-      - python
   apt:
     packages:
     - libmpfr-dev
@@ -79,3 +48,4 @@ script:
   - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
   - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ .
   - make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure
+s
