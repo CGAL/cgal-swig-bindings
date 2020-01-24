@@ -85,6 +85,14 @@ struct Iterator_helper<double>{
   static double convert(const T& i){  return *i; }
   static double default_value(){return 0.;}
 };
+
+template<>
+struct Iterator_helper<int>{
+  template <class T>
+  static int convert(const T& i){  return *i; }
+  static int default_value(){return -1;}
+};
+
 #endif
 
 
