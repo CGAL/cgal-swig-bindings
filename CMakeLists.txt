@@ -37,6 +37,18 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
 
   include( ${CGAL_USE_FILE} )
 
+  find_package( TBB QUIET )
+  if(TBB_FOUND)
+    if(NOT TARGET Threads::Threads)
+      find_package(Threads REQUIRED)
+    endif()
+    include_directories(${TBB_INCLUDE_DIRS})
+    add_definitions( -DNOMINMAX -DCGAL_LINKED_WITH_TBB )
+  else()
+    message( STATUS "NOTICE: Intel TBB was not found. Parallelism will be disabled." )
+  endif()
+
+
   if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     if(CMAKE_COMPILER_IS_GNUCXX)
       message (STATUS "Release mode with g++: using -fno-strict-aliasing flags")

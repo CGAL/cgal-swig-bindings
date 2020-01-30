@@ -23,6 +23,10 @@ if (EIGEN3_FOUND AND Boost_SERIALIZATION_FOUND AND Boost_IOSTREAMS_FOUND)
       ${Boost_SERIALIZATION_LIBRARY}
       ${Boost_IOSTREAMS_LIBRARY})
   endif()
+
+  if (TBB_FOUND)
+    set(LIBSTOLINKWITH ${LIBSTOLINKWITH} TBB::tbb TBB::tbbmalloc Threads::Threads)
+  endif()
   
   # Modules
   ADD_SWIG_CGAL_JAVA_MODULE   ( Classification ${LIBSTOLINKWITH} )
