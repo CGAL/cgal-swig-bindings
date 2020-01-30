@@ -114,6 +114,9 @@ public:
     Cpp_iterator cur_,
     Cpp_iterator end_
   ):cur(cur_),end(end_){}
+
+  Cpp_iterator get_cur() const { return cur; }
+  Cpp_iterator get_end() const { return end; }
   #endif
     
   #ifdef SWIGPYTHON

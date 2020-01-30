@@ -190,6 +190,7 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
     add_subdirectory(SWIG_CGAL/Point_set_3)
     add_subdirectory(SWIG_CGAL/Point_set_processing_3)
     add_subdirectory(SWIG_CGAL/Shape_detection)
+    add_subdirectory(SWIG_CGAL/Classification)
     add_subdirectory(SWIG_CGAL/Box_intersection_d)
     add_subdirectory(SWIG_CGAL/Advancing_front_surface_reconstruction)
 
