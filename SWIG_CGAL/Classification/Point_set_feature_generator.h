@@ -78,6 +78,36 @@ class Point_set_feature_generator_wrapper
 {
   SWIG_CGAL_INIT_WRAPPER_CLASS (Generator_base, data_sptr);
 
+#ifndef SWIG
+  class Color_map
+  {
+    typename Point_set_3_wrapper<CGAL_PS3>::Int_map r, g, b;
+
+  public:
+
+    typedef typename CGAL_PS3::Index key_type;
+    typedef CGAL::Color value_type;
+    typedef CGAL::Color reference;
+    typedef boost::readable_property_map_tag category;
+
+    Color_map() { }
+    
+    Color_map (typename Point_set_3_wrapper<CGAL_PS3>::Int_map r,
+               typename Point_set_3_wrapper<CGAL_PS3>::Int_map g,
+               typename Point_set_3_wrapper<CGAL_PS3>::Int_map b)
+      : r(r), g(g), b(b) { }
+
+    friend reference get (const Color_map& map, const key_type& idx)
+    {
+      return CGAL::Color ((unsigned char)(get(map.r.get_data(), idx)),
+                          (unsigned char)(get(map.g.get_data(), idx)),
+                          (unsigned char)(get(map.b.get_data(), idx)));
+    }
+  };
+#endif
+
+  Color_map color_map;
+
 public:
 
   Point_set_feature_generator_wrapper (Point_set_3_wrapper<CGAL_PS3> point_set,
@@ -104,7 +134,8 @@ public:
                                       typename Point_set_3_wrapper<CGAL_PS3>::Int_map green_map,
                                       typename Point_set_3_wrapper<CGAL_PS3>::Int_map blue_map)
   {
-    // TODO
+    color_map = Color_map (red_map, green_map, blue_map);
+    data_sptr->generate_color_based_features (features.get_data(), color_map);
   }
 
   void generate_echo_based_features (Feature_set features,

@@ -27,6 +27,14 @@ features.begin_parallel_additions()
 generator.generate_point_based_features(features)
 if points.has_normal_map():
     generator.generate_normal_based_features(features, points.normal_map())
+
+if points.has_int_map("red") and points.has_int_map("green") and points.has_int_map("blue"):
+    generator.generate_color_based_features(features,
+                                            points.int_map("red"),
+                                            points.int_map("green"),
+                                            points.int_map("blue"))
+
+    
 features.end_parallel_additions()
 
 print("10 first features are:")
