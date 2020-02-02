@@ -9,10 +9,12 @@ os:
   - linux
 
 env:
-  - CGAL_VER=releases/CGAL-5.0
-  - CGAL_VER=master
-  - CGAL_PYTHON_EXAMPLES=examples/python
-  - PYCODESTYLE_CONVENTIONS="--max-line-length=120"
+  jobs:
+    - CGAL_VER=releases/CGAL-5.0
+    - CGAL_VER=master
+  global:
+    - CGAL_PYTHON_EXAMPLES=examples/python
+    - PYCODESTYLE_CONVENTIONS="--max-line-length=120"
 
 matrix:
   include:
