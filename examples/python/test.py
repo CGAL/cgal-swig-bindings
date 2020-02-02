@@ -6,35 +6,35 @@ from CGAL.CGAL_Kernel import Triangle_2
 from CGAL.CGAL_Kernel import COLLINEAR
 from CGAL.CGAL_Kernel import POSITIVE
 
-t = CGAL_Triangulation_3 .Delaunay_triangulation_3()
-l = []
-l.append(CGAL_Kernel.Point_3(1, 1, 1))
-l.append(CGAL_Kernel.Point_3(2, 2, 2))
-l.append(CGAL_Kernel.Point_3(441, 41, 84))
-l.append(CGAL_Kernel.Point_3(1, 1, 8))
-t.insert(l)
+triangulation = CGAL_Triangulation_3 .Delaunay_triangulation_3()
+list_of_weighted_points = []
+list_of_weighted_points.append(CGAL_Kernel.Point_3(1, 1, 1))
+list_of_weighted_points.append(CGAL_Kernel.Point_3(2, 2, 2))
+list_of_weighted_points.append(CGAL_Kernel.Point_3(441, 41, 84))
+list_of_weighted_points.append(CGAL_Kernel.Point_3(1, 1, 8))
+triangulation.insert(list_of_weighted_points)
 print("OK")
-l.append(1)
+list_of_weighted_points.append(1)
 try:
-    t.insert(l)
-except:
+    triangulation.insert(list_of_weighted_points)
+except Exception:
     print("list does not contains only points")
 try:
-    t.insert(3)
-except:
+    triangulation.insert(3)
+except Exception:
     print("Not a list")
 
 all_adjacent_vertices = []
 v = 0
-for p in t.finite_vertices():
-    t.finite_adjacent_vertices(p, all_adjacent_vertices)
+for p in triangulation.finite_vertices():
+    triangulation.finite_adjacent_vertices(p, all_adjacent_vertices)
     v = p
     print(p.point())
 
 print("length of all_adjacent_vertices ", len(all_adjacent_vertices))
 try:
-    t.adjacent_vertices(v, 3)
-except:
+    triangulation.adjacent_vertices(v, 3)
+except Exception:
     print("Not a list")
 
 t1 = Triangle_2(Point_2(0, 0), Point_2(1, 0), Point_2(0, 1))
