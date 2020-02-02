@@ -81,7 +81,7 @@ if __name__ == "__main__":
         # makes sense to offer some form of visualisation directly
         try:
             import matplotlib.pyplot as plt
-        except:
+        except Exception:
             print('plotting of triangulation not supported')
             return
 
