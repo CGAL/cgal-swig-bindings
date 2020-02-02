@@ -66,8 +66,8 @@ tree2 = AABB_tree_Triangle_3_soup(lst)
 
 s = Segment_3(Point_3(-0.5, -0.5, 0.5), Point_3(0.5, 0.5, 0.5))
 
-l = []
-tree2.all_intersected_primitives(s, l)
+primitives = []
+tree2.all_intersected_primitives(s, primitives)
 
-for i in l:
-    print(i)
+for primitive in primitives:
+    print(primitive)
