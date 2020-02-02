@@ -9,7 +9,7 @@ list_of_weighted_points.append(Weighted_point_3(Point_3(1, 1, 1), 34))
 list_of_weighted_points.append(Weighted_point_3(Point_3(1, 56, 2), 334))
 list_of_weighted_points.append(Weighted_point_3(Point_3(1, 3, 1), 3))
 list_of_weighted_points.append(Weighted_point_3(Point_3(1, 1, 33), 4))
-triangulation.insert(l)
+triangulation.insert(list_of_weighted_points)
 print("OK")
 list_of_weighted_points.append(1)
 try:
