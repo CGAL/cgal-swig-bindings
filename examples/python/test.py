@@ -46,9 +46,9 @@ print(object.get_Segment_2())
 # test for memory leak: infinite loop
 # mylist=[]
 # while 1:
-#  t.adjacent_vertices(v,mylist)
-#  t.incident_edges(v,mylist)
-#  t.incident_facets(v,mylist)
+#  triangulation.adjacent_vertices(v,mylist)
+#  triangulation.incident_edges(v,mylist)
+#  triangulation.incident_facets(v,mylist)
 #  print(len(mylist))
 #  mylist=[]
 
