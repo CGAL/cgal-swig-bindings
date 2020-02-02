@@ -13,7 +13,7 @@ triangulation.insert(l)
 print("OK")
 list_of_weighted_points.append(1)
 try:
-    triangulation.insert(l)
+    triangulation.insert(list_of_weighted_points)
 except Exception:
     print("list does not contains only points")
 try:
@@ -23,7 +23,7 @@ except Exception:
 
 all_adjacent_vertices = []
 v = 0
-for p in t.finite_vertices():
+for p in triangulation.finite_vertices():
     triangulation.finite_adjacent_vertices(p, all_adjacent_vertices)
     v = p
     print(p.point())
