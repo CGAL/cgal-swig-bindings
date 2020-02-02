@@ -32,7 +32,7 @@ edge_aware_upsample_point_set(points, number_of_output_points=2000)
 print(points.size(), "points after upsampling")
 
 avg_space = compute_average_spacing(points, k)
-print ("Average point spacing is", avg_space)
+print("Average point spacing is", avg_space)
 
 print("Running wlop_simplify_and_regularize_point_set...")
 wlop_point_set = Point_set_3()

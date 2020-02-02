@@ -71,7 +71,7 @@ if intensity.is_valid():
 
     # Displaying intensity through indices
     for idx in points.indices():
-        print (" * Intensity(", idx, ") =", intensity.get(idx))
+        print(" * Intensity(", idx, ") =", intensity.get(idx))
 
     # Displaying intensity as a range
     print("Intensity range:")
