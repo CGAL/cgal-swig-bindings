@@ -11,6 +11,6 @@ assert decorator.is_valid()
 
 n = 0
 for h in hds.halfedges():
-  n+=1
+    n += 1
 
 assert n == 4

@@ -5,6 +5,7 @@ from __future__ import print_function
 from CGAL.CGAL_Kernel import Point_2
 from CGAL.CGAL_Triangulation_2 import Constrained_Delaunay_triangulation_2
 
+
 class FaceInfo2(object):
     def __init__(self):
         self.nesting_level = -1
@@ -12,13 +13,14 @@ class FaceInfo2(object):
     def in_domain(self):
         return (self.nesting_level % 2) != 1
 
+
 def mark_domains(ct, start_face, index, edge_border, face_info):
     if face_info[start_face].nesting_level != -1:
         return
-    queue = [ start_face ]
+    queue = [start_face]
     while queue != []:
         fh = queue[0]     # queue.front
-        queue = queue[1:] # queue.pop_front
+        queue = queue[1:]  # queue.pop_front
         if face_info[fh].nesting_level == -1:
             face_info[fh].nesting_level = index
             for i in range(3):
@@ -29,6 +31,7 @@ def mark_domains(ct, start_face, index, edge_border, face_info):
                         edge_border.append(e)
                     else:
                         queue.append(n)
+
 
 def mark_domain(cdt):
     """Find a mapping that can be tested to see if a face is in a domain
@@ -51,21 +54,23 @@ def mark_domain(cdt):
     mark_domains(cdt, cdt.infinite_face(), index+1, border, face_info)
     while border != []:
         e = border[0]       # border.front
-        border = border[1:] # border.pop_front
+        border = border[1:]  # border.pop_front
         n = e[0].neighbor(e[1])
         if face_info[n].nesting_level == -1:
             lvl = face_info[e[0]].nesting_level+1
             mark_domains(cdt, n, lvl, border, face_info)
     return face_info
 
+
 def insert_polygon(cdt, polygon):
     if not polygon:
         return
 
-    handles = [ cdt.insert(polypt) for polypt in polygon ]
+    handles = [cdt.insert(polypt) for polypt in polygon]
     for i in range(len(polygon)-1):
         cdt.insert_constraint(handles[i], handles[i+1])
     cdt.insert_constraint(handles[-1], handles[0])
+
 
 if __name__ == "__main__":
 
@@ -80,22 +85,22 @@ if __name__ == "__main__":
             print('plotting of triangulation not supported')
             return
 
-        def rescale_plot(ax, scale = 1.1):
+        def rescale_plot(ax, scale=1.1):
             xmin, xmax = ax.get_xlim()
             ymin, ymax = ax.get_ylim()
             xmid = (xmin+xmax)/2.0
             ymid = (ymin+ymax)/2.0
             xran = xmax - xmid
             yran = ymax - ymid
-            ax.set_xlim( xmid - xran*scale, xmid + xran*scale )
-            ax.set_ylim( ymid - yran*scale, ymid + yran*scale )
+            ax.set_xlim(xmid - xran*scale, xmid + xran*scale)
+            ax.set_ylim(ymid - yran*scale, ymid + yran*scale)
 
         def plot_edge(edge, *args):
             edge_seg = cdt.segment(edge)
-            pts = [ edge_seg.source(), edge_seg.target() ]
-            xs = [ pts[0].x(), pts[1].x() ]
-            ys = [ pts[0].y(), pts[1].y() ]
-            plt.plot( xs, ys, *args )
+            pts = [edge_seg.source(), edge_seg.target()]
+            xs = [pts[0].x(), pts[1].x()]
+            ys = [pts[0].y(), pts[1].y()]
+            plt.plot(xs, ys, *args)
 
         plt.hold(True)
         for edge in cdt.finite_edges():
@@ -106,7 +111,6 @@ if __name__ == "__main__":
                     plot_edge(edge, 'b-')
         rescale_plot(plt.gca())
         plt.show()
-
 
     def main():
         # Construct two non-intersecting nested polygons

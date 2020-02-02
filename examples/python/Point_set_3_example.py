@@ -13,23 +13,23 @@ idx = points.insert()
 print("Point", idx, "inserted =", points.point(idx))
 idx = points.insert(Point_3(0, 1, 2))
 print("Point", idx, "inserted =", points.point(idx))
-points.insert_range([ 2., 4., 5., 2, 3, 4 ])
+points.insert_range([2., 4., 5., 2, 3, 4])
 
 # Iterate and display points
 print("Point set:")
 for p in points.points():
     print(" *", p)
-    
+
 # With normal
 points.add_normal_map()
-idx = points.insert(Point_3(6, 7, 8), Vector_3 (1, 1, 1))
+idx = points.insert(Point_3(6, 7, 8), Vector_3(1, 1, 1))
 print("Point", idx, "inserted = (", points.point(idx), "), (", points.normal(idx), ")")
 
 # Access/modification through normal map
 normal_map = points.normal_map()
 if normal_map.is_valid:
     print("Normal 3 =", normal_map.get(3))
-    normal_map.set(2, Vector_3 (1, 2, 3))
+    normal_map.set(2, Vector_3(1, 2, 3))
     print("Normal 2 =", normal_map.get(2))
 
 # Iterate and display normals
@@ -64,7 +64,7 @@ if intensity.is_valid():
 
     # Display properties
     print("Point set has the following properties:", points.properties())
-    
+
     print("Setting intensity(1)=1.25 and intensity(8)=0.5")
     intensity.set(1, 1.25)
     intensity.set(3, 0.5)
@@ -91,13 +91,13 @@ print(datafile, "has the following properties:", (points.properties()))
 # Writing the point set to different formats
 print("Writing output to xyz...")
 if not points.write("test.xyz"):
-    print("Cannot write test.xyz") # this sould NOT be displayed
+    print("Cannot write test.xyz")  # this sould NOT be displayed
 print("Writing output to off...")
 if not points.write("test.off"):
-    print("Cannot write test.off") # this sould NOT be displayed
+    print("Cannot write test.off")  # this sould NOT be displayed
 print("Writing output to ply...")
 if not points.write("test.ply"):
-    print("Cannot write test.ply") # this sould NOT be displayed
+    print("Cannot write test.ply")  # this sould NOT be displayed
 print("Trying to write output to doc...")
 if not points.write("test.doc"):
-    print("Cannot write test.doc") # this should be displayed
+    print("Cannot write test.doc")  # this should be displayed

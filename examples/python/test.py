@@ -6,60 +6,60 @@ from CGAL.CGAL_Kernel import Triangle_2
 from CGAL.CGAL_Kernel import COLLINEAR
 from CGAL.CGAL_Kernel import POSITIVE
 
-t=CGAL_Triangulation_3 .Delaunay_triangulation_3()
-l=[]
-l.append(CGAL_Kernel.Point_3(1,1,1))
-l.append(CGAL_Kernel.Point_3(2,2,2))
-l.append(CGAL_Kernel.Point_3(441,41,84))
-l.append(CGAL_Kernel.Point_3(1,1,8))
+t = CGAL_Triangulation_3 .Delaunay_triangulation_3()
+l = []
+l.append(CGAL_Kernel.Point_3(1, 1, 1))
+l.append(CGAL_Kernel.Point_3(2, 2, 2))
+l.append(CGAL_Kernel.Point_3(441, 41, 84))
+l.append(CGAL_Kernel.Point_3(1, 1, 8))
 t.insert(l)
 print("OK")
 l.append(1)
 try:
-  t.insert(l)
+    t.insert(l)
 except:
-  print("list does not contains only points")
+    print("list does not contains only points")
 try:
-  t.insert(3)
+    t.insert(3)
 except:
-  print("Not a list")
+    print("Not a list")
 
-all_adjacent_vertices=[]
-v=0
+all_adjacent_vertices = []
+v = 0
 for p in t.finite_vertices():
-  t.finite_adjacent_vertices(p,all_adjacent_vertices)
-  v=p
-  print(p.point())
+    t.finite_adjacent_vertices(p, all_adjacent_vertices)
+    v = p
+    print(p.point())
 
-print("length of all_adjacent_vertices ",len(all_adjacent_vertices))
+print("length of all_adjacent_vertices ", len(all_adjacent_vertices))
 try:
-  t.adjacent_vertices(v,3)
+    t.adjacent_vertices(v, 3)
 except:
-  print("Not a list")
+    print("Not a list")
 
-t1=Triangle_2(Point_2(0,0),Point_2(1,0),Point_2(0,1))
-t2=Triangle_2(Point_2(1,1),Point_2(1,0),Point_2(0,1))
-object = CGAL_Kernel.intersection(t1,t2)
+t1 = Triangle_2(Point_2(0, 0), Point_2(1, 0), Point_2(0, 1))
+t2 = Triangle_2(Point_2(1, 1), Point_2(1, 0), Point_2(0, 1))
+object = CGAL_Kernel.intersection(t1, t2)
 assert object.is_Segment_2()
 print(object.get_Segment_2())
 
-#test for memory leak: infinite loop
-#mylist=[]
-#while 1:
+# test for memory leak: infinite loop
+# mylist=[]
+# while 1:
 #  t.adjacent_vertices(v,mylist)
 #  t.incident_edges(v,mylist)
 #  t.incident_facets(v,mylist)
 #  print(len(mylist))
 #  mylist=[]
 
-p1=CGAL_Kernel.Point_3(0,0,0)
-p2=CGAL_Kernel.Point_3(1,0,0)
-p3=CGAL_Kernel.Point_3(1,1,0)
-p4=CGAL_Kernel.Point_3(0,1,0)
-p4b=CGAL_Kernel.Point_3(0,1,1)
+p1 = CGAL_Kernel.Point_3(0, 0, 0)
+p2 = CGAL_Kernel.Point_3(1, 0, 0)
+p3 = CGAL_Kernel.Point_3(1, 1, 0)
+p4 = CGAL_Kernel.Point_3(0, 1, 0)
+p4b = CGAL_Kernel.Point_3(0, 1, 1)
 
-o1 = CGAL_Kernel.orientation(p1,p2,p3,p4)
-o2 = CGAL_Kernel.orientation(p1,p2,p3,p4b)
+o1 = CGAL_Kernel.orientation(p1, p2, p3, p4)
+o2 = CGAL_Kernel.orientation(p1, p2, p3, p4b)
 
-assert( COLLINEAR == o1 )
-assert( POSITIVE == o2 )
+assert(COLLINEAR == o1)
+assert(POSITIVE == o2)
