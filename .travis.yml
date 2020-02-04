@@ -9,8 +9,12 @@ os:
   - linux
 
 env:
-  - CGAL_VER=releases/CGAL-5.0
-  - CGAL_VER=master
+  jobs:
+    - CGAL_VER=releases/CGAL-5.0
+    - CGAL_VER=master
+  global:
+    - CGAL_PYTHON_EXAMPLES=examples/python
+    - PYCODESTYLE_CONVENTIONS="--max-line-length=120"
 
 matrix:
   include:
@@ -59,6 +63,7 @@ install:
   - PATH=/usr/local/opt/python/libexec:$PATH
   - export PATH
   - pip install numpy
+  - pip install pycodestyle
   - git clone --depth 1 -b ${CGAL_VER} https://github.com/CGAL/cgal.git
   - cd cgal
   - mkdir build
@@ -69,6 +74,7 @@ install:
   - cd ../..
 
 script:
+  - pycodestyle --show-source --show-pep8 $PYCODESTYLE_CONVENTIONS $CGAL_PYTHON_EXAMPLES || pycodestyle --statistics $PYCODESTYLE_CONVENTIONS -qq $CGAL_PYTHON_EXAMPLES
   - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
   - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ .
   - make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure

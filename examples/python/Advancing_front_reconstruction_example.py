@@ -10,12 +10,11 @@ from CGAL.CGAL_Advancing_front_surface_reconstruction import *
 
 points = Point_set_3("../data/oni.xyz")
 if points.empty():
-  stderr.write("Error: cannot read file ../data/oni.xyz\n")
-  exit()
+    stderr.write("Error: cannot read file ../data/oni.xyz\n")
+    exit()
 
 P = Polyhedron_3()
 
-advancing_front_surface_reconstruction(points, P);
+advancing_front_surface_reconstruction(points, P)
 
-P.write_to_file("oni.off");
-
+P.write_to_file("oni.off")
