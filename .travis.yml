@@ -42,18 +42,22 @@ addons:
       - numpy
       - homebrew/cask/java
       - python
+      - tbb
   apt:
     packages:
     - libmpfr-dev
     - libboost-atomic-dev
     - libboost-chrono-dev
     - libboost-date-time-dev
+    - libboost-iostreams-dev
+    - libboost-serialization-dev
     - libboost-system-dev
     - libboost-thread-dev
     - libeigen3-dev
     - swig
     - openjdk-8-jdk
     - libgl1-mesa-dev
+    - libtbb-dev
 
 install:
   - PATH=/usr/local/opt/python/libexec:$PATH
