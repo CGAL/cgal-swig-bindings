@@ -34,11 +34,10 @@ if points.has_int_map("red") and points.has_int_map("green") and points.has_int_
                                             points.int_map("green"),
                                             points.int_map("blue"))
 
-    
 features.end_parallel_additions()
 
 print("10 first features are:")
-for idx in range(min(10,features.size())):
+for idx in range(min(10, features.size())):
     print(" Feature", idx, ":", features.get(idx).name())
 
 classification = points.int_map("label")
@@ -53,7 +52,7 @@ for idx in points.indices():
 
 print("Training random forest classifier...")
 classifier = ETHZ_Random_forest_classifier(labels, features)
-classifier.train(points.range(training), num_trees = 50, max_depth = 30)
+classifier.train(points.range(training), num_trees=50, max_depth=30)
 
 print("Saving classifier's trained configuration...")
 classifier.save_configuration("trained_random_forest.gz")
@@ -62,27 +61,26 @@ classifier.save_configuration("trained_random_forest.gz")
 if len(sys.argv) > 1:
     if sys.argv[1] == "-g" or sys.argv[1] == "--graphcut":
         print("Classifying with graphcut...")
-        classify_with_graphcut (points, labels, classifier,
-                                generator.neighborhood().k_neighbor_query(6),
-                                0.5, # strength of graphcut
-                                12, ## nb subdivisions (speed up)
-                                classification)
+        classify_with_graphcut(points, labels, classifier,
+                               generator.neighborhood().k_neighbor_query(6),
+                               0.5,  # strength of graphcut
+                               12,   # nb subdivisions (speed up)
+                               classification)
     elif sys.argv[1] == "s" or sys.argv[1] == "--smoothing":
         print("Classifying with local smoothing...")
-        classify_with_local_smoothing (points, labels, classifier,
-                                    generator.neighborhood().k_neighbor_query(6),
-                                       classification)
+        classify_with_local_smoothing(points, labels, classifier,
+                                      generator.neighborhood().k_neighbor_query(6),
+                                      classification)
     else:
-        print ("Unknown option", sys.argv[1])
+        print("Unknown option", sys.argv[1])
         exit(-1)
 else:
     print("Classifying...")
-    classify (points, labels, classifier, classification)
+    classify(points, labels, classifier, classification)
 
 
 print("Writing output...")
 points.write("classified.ply")
-
 
 
 print("Evaluation:")
@@ -94,7 +92,7 @@ print(" * Mean IoU =", evaluation.mean_intersection_over_union())
 
 print("Per label evaluation:")
 
-for label in [ ground, vegetation, building ]:
+for label in [ground, vegetation, building]:
     print(" *", label.name(), ": precision =", evaluation.precision(label),
           "; recall =", evaluation.recall(label),
           "; iou =", evaluation.intersection_over_union(label))
