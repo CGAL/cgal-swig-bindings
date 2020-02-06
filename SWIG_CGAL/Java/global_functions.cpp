@@ -20,7 +20,7 @@ JNIEnv * JNU_GetEnv() {
   assert(get_cached_jvm()!=NULL);
   jint rc = get_cached_jvm()->GetEnv((void **)&env, JNI_VERSION_1_2);
   if (rc == JNI_EDETACHED)
-    throw std::runtime_error("current thread not attached");
+    rc = get_cached_jvm()->AttachCurrentThreadAsDaemon((void**)&env, nullptr);
   if (rc == JNI_EVERSION)
     throw std::runtime_error("jni version not supported");
   return env;
