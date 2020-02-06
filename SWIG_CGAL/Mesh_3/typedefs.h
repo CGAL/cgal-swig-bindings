@@ -56,7 +56,13 @@ public:
 typedef CGAL::Mesh_3::Robust_intersection_traits_3<EPIC_Kernel>           RIT3;
 typedef SWIG_CGAL_Triangle_accessor_3<Polyhedron_3_,EPIC_Kernel,RIT3>     SGTA3;
 typedef CGAL::Polyhedral_mesh_domain_3<Polyhedron_3_, RIT3,SGTA3>         PMD;
-typedef CGAL::Mesh_triangulation_3<PMD>::type                             MT_PMD;
+
+#ifdef CGAL_LINKED_WITH_TBB
+typedef CGAL::Mesh_triangulation_3<PMD, EPIC_Kernel, CGAL::Parallel_tag>::type MT_PMD;
+#else
+typedef CGAL::Mesh_triangulation_3<PMD>::type                                  MT_PMD;
+#endif
+
 typedef CGAL::Mesh_complex_3_in_triangulation_3<MT_PMD>                   C3T3_PMD;
 // Criteria
 typedef CGAL::Mesh_criteria_3<MT_PMD>                                     DMC;
