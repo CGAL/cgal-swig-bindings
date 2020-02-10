@@ -40,7 +40,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake -G "Visual Studio 15 2017" -T"v140" -A x64 -DBUILD_JAVA=ON -DBUILD_PYTHON=ON -DBUILD_TESTING=ON -DCMAKE_PREFIX_PATH="C:/Miniconda/Library" ..
+        cmake -G "Visual Studio 15 2017" -T"v140" -A x64 -DBUILD_JAVA=ON -DBUILD_PYTHON=ON -DBUILD_TESTING=ON -DCMAKE_PREFIX_PATH="C:/Miniconda/Library"  -DBUILD_SHARED_LIBS=ON ..
         cmake --build . --config Release
         cmake --build . --config Release --target tests
         echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/lib/Release;
