@@ -269,4 +269,24 @@ SWIG_CGAL_extract_data(T& t)
                                internal::Converter<IN_TYPE_6>::convert(c6)));\
   }
 
+// Macro to ease the initialization of wrapper classes
+#ifdef SWIG
+
+#define SWIG_CGAL_INIT_WRAPPER_CLASS(BASE, PTR_NAME) \
+  protected:                                         \
+  std::shared_ptr<BASE> PTR_NAME;
+
+#else
+
+#define SWIG_CGAL_INIT_WRAPPER_CLASS(BASE, PTR_NAME) \
+  protected:                                         \
+  std::shared_ptr<BASE> PTR_NAME;                    \
+  public:                                            \
+  typedef BASE cpp_base;                             \
+  const cpp_base& get_data() const { return *PTR_NAME; } \
+        cpp_base& get_data()       { return *PTR_NAME; } \
+  std::shared_ptr<cpp_base> shared_ptr() { return PTR_NAME; }
+
+#endif
+
 #endif //SWIG_CGAL_MACROS_H
