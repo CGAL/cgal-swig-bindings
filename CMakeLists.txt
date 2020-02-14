@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.12)
 
 PROJECT(CGAL-bindings)
 
@@ -73,9 +73,8 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
       message(STATUS "BUILD_RUBY is set to OFF: no CGAL-bindings for Ruby will be generated.")
     endif()
     if (${BUILD_PYTHON})
-      find_package(PythonInterp)
-      find_package(PythonLibs)
-      if (NOT PYTHONLIBS_FOUND)
+      find_package(Python COMPONENTS Interpreter Development)
+      if (NOT Python_LIBRARIES_FOUND)
         SET(BUILD_PYTHON OFF)
         message(WARNING "Python has not been found, CGAL-bindings for Python will not be generated.")
       endif()
@@ -103,18 +102,18 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
     if (BUILD_PYTHON)
       set (PYTHON_OUTDIR_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/build-python" CACHE PATH "PYTHON specific files output directory prefix: the CGAL directory will contain Python generated files and libraries.")
       configure_file (SWIG_CGAL/files/__init__.py "${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py" @ONLY)
-      if (PYTHON_EXECUTABLE)
+      if (Python_EXECUTABLE)
         file (GLOB python_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/python/*.py")
         # exclude blocking matplotlib plotting example
         list (REMOVE_ITEM python_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/python/polygonal_triangulation.py)
         foreach (TESTNAME_SRC ${python_files})
           get_filename_component (TESTNAME ${TESTNAME_SRC} NAME_WE)
-          add_test (NAME pythontest_${TESTNAME} COMMAND ${PYTHON_EXECUTABLE} ${TESTNAME_SRC})
+          add_test (NAME pythontest_${TESTNAME} COMMAND ${Python_EXECUTABLE} ${TESTNAME_SRC})
           set_tests_properties (pythontest_${TESTNAME} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_OUTDIR_PREFIX};DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/examples/data")
         endforeach ()
 
         if (NOT DEFINED PYTHON_MODULE_PATH)
-          execute_process (COMMAND ${PYTHON_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
+          execute_process (COMMAND ${Python_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
                           OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
                           RESULT_VARIABLE _exit_code
                           OUTPUT_STRIP_TRAILING_WHITESPACE )
@@ -124,7 +123,7 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
             file (RELATIVE_PATH _REL_PYTHON_MODULE_PATH ${CMAKE_INSTALL_PREFIX} ${_ABS_PYTHON_MODULE_PATH})
             set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
           else ()
-            message (SEND_ERROR "Could not run ${PYTHON_EXECUTABLE}")
+            message (SEND_ERROR "Could not run ${Python_EXECUTABLE}")
           endif ()
         endif ()
       endif()
