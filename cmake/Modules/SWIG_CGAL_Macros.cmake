@@ -87,7 +87,7 @@ MACRO(ADD_SWIG_CGAL_PYTHON_MODULE packagename)
 
   #Build bindings for python
   if(PYTHONLIBS_FOUND)
-    INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_DIRS})
+    INCLUDE_DIRECTORIES(${Python_INCLUDE_DIRS})
     SET (CMAKE_SWIG_OUTDIR "${PYTHON_OUTDIR_PREFIX}/CGAL")
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../User_packages/${packagename}/extensions.i")
       SET(CMAKE_SWIG_FLAGS  -DSWIG_CGAL_${packagename}_MODULE -DSWIG_CGAL_HAS_${packagename}_USER_PACKAGE)
