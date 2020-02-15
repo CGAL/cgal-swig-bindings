@@ -106,11 +106,18 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
         file (GLOB python_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/python/*.py")
         # exclude blocking matplotlib plotting example
         list (REMOVE_ITEM python_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/python/polygonal_triangulation.py)
+        # exclude Intel TBB dependent example
+        list (REMOVE_ITEM python_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/python/Classification_example.py)
         foreach (TESTNAME_SRC ${python_files})
           get_filename_component (TESTNAME ${TESTNAME_SRC} NAME_WE)
           add_test (NAME pythontest_${TESTNAME} COMMAND ${Python_EXECUTABLE} ${TESTNAME_SRC})
           set_tests_properties (pythontest_${TESTNAME} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_OUTDIR_PREFIX};DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/examples/data")
         endforeach ()
+      endif()
+      if(NOT CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+          set(PYTHON_MODULE_PATH "${CMAKE_INSTALL_PREFIX}${Python_SITEARCH}" CACHE PATH "Path to modules after installation")
+      else()
+          set(PYTHON_MODULE_PATH "${Python_SITEARCH}" CACHE PATH "Path to modules after installation")
       endif()
       install (FILES ${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
 
