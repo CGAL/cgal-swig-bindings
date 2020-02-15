@@ -35,7 +35,7 @@ if (EIGEN3_FOUND AND Boost_SERIALIZATION_FOUND AND Boost_IOSTREAMS_FOUND)
   
   # Test
   add_test (NAME pythontest_Classification
-            COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/examples/python/Classification_example.py)
+            COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/examples/python/Classification_example.py)
   set_tests_properties (pythontest_Classification PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_OUTDIR_PREFIX};DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/examples/data")
 else()
   if (NOT EIGEN3_FOUND)
