@@ -106,6 +106,8 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
         file (GLOB python_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/python/*.py")
         # exclude blocking matplotlib plotting example
         list (REMOVE_ITEM python_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/python/polygonal_triangulation.py)
+        # exclude Intel TBB dependent example
+        list (REMOVE_ITEM python_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/python/Classification_example.py)
         foreach (TESTNAME_SRC ${python_files})
           get_filename_component (TESTNAME ${TESTNAME_SRC} NAME_WE)
           add_test (NAME pythontest_${TESTNAME} COMMAND ${Python_EXECUTABLE} ${TESTNAME_SRC})

@@ -32,6 +32,11 @@ if (EIGEN3_FOUND AND Boost_SERIALIZATION_FOUND AND Boost_IOSTREAMS_FOUND)
   ADD_SWIG_CGAL_JAVA_MODULE   ( Classification ${LIBSTOLINKWITH} )
   ADD_SWIG_CGAL_PYTHON_MODULE ( Classification ${LIBSTOLINKWITH} "-keyword" )
   ADD_SWIG_CGAL_RUBY_MODULE   ( Classification ${LIBSTOLINKWITH} )
+  
+  # Test
+  add_test (NAME pythontest_Classification
+            COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/examples/python/Classification_example.py)
+  set_tests_properties (pythontest_Classification PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_OUTDIR_PREFIX};DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/examples/data")
 else()
   if (NOT EIGEN3_FOUND)
     message(STATUS "NOTICE: Classification bindings requires Eigen version 3.1 or greater, and will not be compiled.")
