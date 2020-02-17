@@ -53,16 +53,16 @@ nb_planes = 0
 nb_spheres = 0
 nb_tori = 0
 for s in shapes:
-    type = s.split()[1]
-    if type == "cone":
+    _type = s.split()[1]
+    if _type == "cone":
         nb_cones += 1
-    if type == "cylinder":
+    if _type == "cylinder":
         nb_cylinders += 1
-    if type == "planes":
+    if _type == "planes":
         nb_planes += 1
-    if type == "spheres":
+    if _type == "spheres":
         nb_spheres += 1
-    if type == "torus":
+    if _type == "torus":
         nb_tori += 1
 print("Number of shapes by type:")
 print(" *", nb_cones, "cone(s)")
