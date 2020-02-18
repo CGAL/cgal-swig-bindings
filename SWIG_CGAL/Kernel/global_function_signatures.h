@@ -275,6 +275,13 @@ SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(Orientation,orientation, Vecto
 SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_4(Orientation,orientation, Point_3, Point_3, Point_3, Point_3)
 SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_3(Orientation,orientation, Vector_3, Vector_3, Vector_3)
 
+
+//bisector
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(Line_2, bisector, Point_2, Point_2)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(Line_2, bisector, Line_2, Line_2)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(Plane_3, bisector, Point_3, Point_3)
+SWIG_CGAL_KERNEL_DECL SWIG_CGAL_FORWARD_CALL_GF_2(Plane_3, bisector, Plane_3, Plane_3)
+
 //All kernel global functions
 // angle
 // are_ordered_along_line
