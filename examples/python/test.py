@@ -65,7 +65,7 @@ plane = CGAL_Kernel.bisector(p1, p2)
 print(plane)
 
 line = CGAL_Kernel.bisector(CGAL_Kernel.Point_2(0, 0), CGAL_Kernel.Point_2(1, 1))
-print (line)
+print(line)
 
 assert(COLLINEAR == o1)
 assert(POSITIVE == o2)
