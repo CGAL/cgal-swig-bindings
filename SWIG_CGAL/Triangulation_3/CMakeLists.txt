@@ -1,4 +1,7 @@
 SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
+if (TBB_FOUND)
+  set(LIBSTOLINKWITH ${LIBSTOLINKWITH} TBB::tbb TBB::tbbmalloc Threads::Threads)
+endif()
 
 # cpp common library
 ADD_SWIG_CGAL_LIBRARY(CGAL_Triangulation_3_cpp Object.cpp ${LIBSTOLINKWITH})
