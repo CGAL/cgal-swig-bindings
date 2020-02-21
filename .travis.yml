@@ -35,6 +35,7 @@ matrix:
 
 addons:
   homebrew:
+    update: true
     packages:
       - mpfr
       - gmp
