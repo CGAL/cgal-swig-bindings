@@ -8,7 +8,20 @@ import os
 datadir = os.environ.get('DATADIR', '../data')
 datafile = datadir+'/cube.pwn'
 
-points = Point_set_3(datafile)
+# Creating an empty set of points and their normals
+points = Point_set_3()
+
+point_normal_file = open(datafile, "rb")
+point_normal_lines = point_normal_file.readlines()
+
+for line in point_normal_lines:
+    print(line)
+    line = [float(entry) for entry in line.split()]
+    px, py, pz, nx, ny, nz = line
+    point_location = Point_3(px, py, pz)
+    point_normal = Vector_3(nx, ny, nz)
+    points.insert(point_location, point_normal)
+
 print(points.size(), "points read")
 
 print("Detecting planes with region growing (sphere query)")
