@@ -10,19 +10,27 @@ datafile = datadir+'/cube.pwn'
 
 # Creating an empty set of points and their normals
 points = Point_set_3()
+points.add_normal_map()
 
 point_normal_file = open(datafile, "rb")
 point_normal_lines = point_normal_file.readlines()
 
 for line in point_normal_lines:
-    print(line)
     line = [float(entry) for entry in line.split()]
     px, py, pz, nx, ny, nz = line
     point_location = Point_3(px, py, pz)
     point_normal = Vector_3(nx, ny, nz)
     points.insert(point_location, point_normal)
 
-print(points.size(), "points read")
+print(points.size(), "points read from Python")
+
+# NOTE: The following lines remove the content in our point set
+#       and reload the contents directly from our file. 
+points.clear()
+points.read(datafile)
+
+print(points.size(), "points read from file")
+# NOTE END
 
 print("Detecting planes with region growing (sphere query)")
 plane_map = points.add_int_map("plane_index")
