@@ -27,7 +27,7 @@ print("Point", idx, "inserted = (", points.point(idx), "), (", points.normal(idx
 
 # Access/modification through normal map
 normal_map = points.normal_map()
-if normal_map.is_valid:
+if normal_map.is_valid():
     print("Normal 3 =", normal_map.get(3))
     normal_map.set(2, Vector_3(1, 2, 3))
     print("Normal 2 =", normal_map.get(2))
