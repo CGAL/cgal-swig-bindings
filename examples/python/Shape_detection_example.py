@@ -28,7 +28,7 @@ for line in point_normal_lines:
 print(points.size(), "points read from Python")
 
 # NOTE: The following lines remove the content in our point set
-#       and reload the contents directly from our file. 
+#       and reload the contents directly from our file.
 points.clear()
 points.read(datafile)
 
