@@ -31,11 +31,12 @@ option( BUILD_RUBY "Build Ruby bindings" OFF )
 
 enable_testing ()
 add_custom_target (tests)
-
+SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 
 if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
 
   include( ${CGAL_USE_FILE} )
+
 
   find_package( TBB QUIET )
   if(TBB_FOUND)
