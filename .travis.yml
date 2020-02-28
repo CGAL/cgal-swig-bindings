@@ -79,6 +79,7 @@ install:
 
 script:
   - pycodestyle --show-source --show-pep8 $PYCODESTYLE_CONVENTIONS $CGAL_PYTHON_EXAMPLES || pycodestyle --statistics $PYCODESTYLE_CONVENTIONS -qq $CGAL_PYTHON_EXAMPLES
-  - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ -DPython_FIND_VERSION_MAJOR=$(python -c "import sys; print(sys.version_info.major)") .
-  - make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure
+#  - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+#  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ -DPython_FIND_VERSION_MAJOR=$(python -c "import sys; print(sys.version_info.major)") .
+#  - make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure
+  - python setup.py bdist_wheel
