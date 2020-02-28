@@ -65,8 +65,6 @@ addons:
     - libtbb-dev
 
 install:
-  - PATH=/usr/local/opt/python/libexec:$PATH
-  - export PATH
   - pip install numpy
   - pip install pycodestyle
   - git clone --depth 1 -b ${CGAL_VER} https://github.com/CGAL/cgal.git
@@ -81,5 +79,5 @@ install:
 script:
   - pycodestyle --show-source --show-pep8 $PYCODESTYLE_CONVENTIONS $CGAL_PYTHON_EXAMPLES || pycodestyle --statistics $PYCODESTYLE_CONVENTIONS -qq $CGAL_PYTHON_EXAMPLES
   - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ .
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ -DPython_FIND_VERSION_MAJOR=$(python -c "import sys; print(sys.version_info.major)") .
   - make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure
