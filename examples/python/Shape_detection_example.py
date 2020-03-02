@@ -58,17 +58,17 @@ for s in shapes:
         nb_cones += 1
     if _type == "cylinder":
         nb_cylinders += 1
-    if _type == "planes":
+    if _type == "plane":
         nb_planes += 1
-    if _type == "spheres":
+    if _type == "sphere":
         nb_spheres += 1
     if _type == "torus":
         nb_tori += 1
 print("Number of shapes by type:")
 print(" *", nb_cones, "cone(s)")
 print(" *", nb_cylinders, "cylinder(s)")
-print(" *", nb_planes, "planes(s)")
-print(" *", nb_spheres, "spheres(s)")
+print(" *", nb_planes, "plane(s)")
+print(" *", nb_spheres, "sphere(s)")
 print(" *", nb_tori, "torus/i")
 
 print("Recovering inliers of first shape")
