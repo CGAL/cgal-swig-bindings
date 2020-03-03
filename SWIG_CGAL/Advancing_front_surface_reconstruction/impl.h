@@ -1,3 +1,8 @@
+// ------------------------------------------------------------------------------
+// Copyright (c) 2014 GeometryFactory (FRANCE)
+// SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
+// ------------------------------------------------------------------------------
+
 #ifndef SWIG_CGAL_ADVANCING_FRONT_SURFACE_RECONSTRUCTION_IMPL_H
 #define SWIG_CGAL_ADVANCING_FRONT_SURFACE_RECONSTRUCTION_IMPL_H
 

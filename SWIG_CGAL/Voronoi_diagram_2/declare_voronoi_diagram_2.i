@@ -1,3 +1,8 @@
+// ------------------------------------------------------------------------------
+// Copyright (c) 2014 GeometryFactory (FRANCE)
+// SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
+// ------------------------------------------------------------------------------
+
 %define declare_voronoi_diagram_2(WRAPPER_PREFIX,CPP_BASE,SITE_WRAPPER,TRIANGULATION_WRAPPER)
   //Voronoi handles
   %typemap(javaimports)  Voronoi_vertex_wrapper_2 %{ import CGAL.Kernel.Point_2; import CGAL.Triangulation_2.TRIANGULATION_WRAPPER##_Face_handle; import CGAL.Triangulation_2.TRIANGULATION_WRAPPER##_Vertex_handle; %}

@@ -1,3 +1,8 @@
+// ------------------------------------------------------------------------------
+// Copyright (c) 2014 GeometryFactory (FRANCE)
+// SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
+// ------------------------------------------------------------------------------
+
 %module CGAL_Advancing_front_surface_reconstruction
 
 %include "SWIG_CGAL/common.i"
