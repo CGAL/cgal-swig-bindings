@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
-%module (package="CGAL") CGAL_Shape_detection
+%define SD_DOCSTRING
+"SWIG wrapper for the CGAL Shape Detection package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=SD_DOCSTRING) CGAL_Shape_detection
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

@@ -3,7 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------
 
-%module CGAL_Advancing_front_surface_reconstruction
+%define AFSR_DOCSTRING
+"SWIG wrapper for the CGAL Advancing Front Surface Reconstruction package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=AFSR_DOCSTRING) CGAL_Advancing_front_surface_reconstruction
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

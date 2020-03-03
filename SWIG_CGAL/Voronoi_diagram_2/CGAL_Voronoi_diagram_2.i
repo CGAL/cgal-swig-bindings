@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
-%module (package="CGAL") CGAL_Voronoi_diagram_2
+%define VD2_DOCSTRING
+"SWIG wrapper for the CGAL 2D Voronoi Diagram Adaptor package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=VD2_DOCSTRING) CGAL_Voronoi_diagram_2
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

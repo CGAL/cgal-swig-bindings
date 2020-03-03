@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
-%module (package="CGAL") CGAL_Spatial_searching
+%define DDSS_DOCSTRING
+"SWIG wrapper for the CGAL dD Spatial Searching package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=DDSS_DOCSTRING) CGAL_Spatial_searching
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

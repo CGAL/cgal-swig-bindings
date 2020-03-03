@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
-%module (package="CGAL") CGAL_Triangulation_3
+%define T3_DOCSTRING
+"SWIG wrapper for the CGAL 3D Triangulation package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=T3_DOCSTRING) CGAL_Triangulation_3
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

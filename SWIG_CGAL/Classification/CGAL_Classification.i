@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
-%module (package="CGAL") CGAL_Classification
+%define CLASSIFICATION_DOCSTRING
+"SWIG wrapper for the CGAL Classification package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=CLASSIFICATION_DOCSTRING) CGAL_Classification
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
-%module (package="CGAL") CGAL_Point_set_3
+%define PS3_DOCSTRING
+"SWIG wrapper for the CGAL 3D Point Set package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=PS3_DOCSTRING) CGAL_Point_set_3
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

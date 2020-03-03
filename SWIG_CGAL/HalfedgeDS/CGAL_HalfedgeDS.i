@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------
 
-
-%module (package="CGAL") CGAL_HalfedgeDS
+%define HDS_DOCSTRING
+"SWIG wrapper for the CGAL Halfedge Data Structure package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=HDS_DOCSTRING) CGAL_HalfedgeDS
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

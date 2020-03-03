@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
-%module (package="CGAL") CGAL_AABB_tree
+%define AABB_DOCSTRING
+"SWIG wrapper for the CGAL 3D Fast Intersection and Distance Computation package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=AABB_DOCSTRING) CGAL_AABB_tree
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

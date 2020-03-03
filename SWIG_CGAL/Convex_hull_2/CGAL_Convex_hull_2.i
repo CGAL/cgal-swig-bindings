@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
-%module (package="CGAL") CGAL_Convex_hull_2
+%define CH2_DOCSTRING
+"SWIG wrapper for the CGAL 2D Convex Hull package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=CH2_DOCSTRING) CGAL_Convex_hull_2
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

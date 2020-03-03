@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
-%module (package="CGAL") CGAL_Alpha_shape_2
+%define AS2_DOCSTRING
+"SWIG wrapper for the CGAL 2D Alpha Shapes package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=AS2_DOCSTRING) CGAL_Alpha_shape_2
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

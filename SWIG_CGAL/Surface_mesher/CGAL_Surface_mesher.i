@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
-%module (package="CGAL") CGAL_Surface_mesher
+%define SURFACE_MESHER_DOCSTRING
+"SWIG wrapper for the CGAL 3D Surface Mesh Generation package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=SURFACE_MESHER_DOCSTRING) CGAL_Surface_mesher
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

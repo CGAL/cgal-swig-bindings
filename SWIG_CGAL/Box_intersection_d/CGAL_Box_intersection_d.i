@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------
 
-
-%module (package="CGAL") CGAL_Box_intersection_d
+%define BID_DOCSTRING
+"SWIG wrapper for the CGAL Intersecting Sequences of dD Iso-oriented Boxes package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=BID_DOCSTRING) CGAL_Box_intersection_d
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

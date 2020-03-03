@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------
 
-
-%module (package="CGAL") CGAL_Polygon_mesh_processing
+%define PMP_DOCSTRING
+"SWIG wrapper for the CGAL Polygon Mesh Processing package provided under the GPL-3.0+ license"
+%enddef
+%module (package="CGAL", docstring=PMP_DOCSTRING) CGAL_Polygon_mesh_processing
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

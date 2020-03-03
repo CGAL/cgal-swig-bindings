@@ -3,7 +3,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------
 
-%module CGAL_Polyline_simplification_2
+%define POLYLINE_SIMPL_DOCSTRING
+"SWIG wrapper for the CGAL 2D Polyline Simplification package provided under the GPL-3.0+ license"
+%enddef
+%module(package="CGAL", docstring=POLYLINE_SIMPL_DOCSTRING) CGAL_Polyline_simplification_2
 
 %include "SWIG_CGAL/common.i"
 Decl_void_type()

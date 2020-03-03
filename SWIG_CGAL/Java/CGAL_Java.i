@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // ------------------------------------------------------------------------------ 
 
-
 %module (package="CGAL") CGAL_Java
 
 %include "SWIG_CGAL/common.i"
