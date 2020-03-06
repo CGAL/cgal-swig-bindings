@@ -56,18 +56,18 @@ SWIG_CGAL_import_Polyhedron_3_SWIG_wrapper
 typedef Wrapper_iterator_helper<Point_3>::input       Point_range;
 typedef Wrapper_iterator_helper<Plane_3>::input       Plane_range;
 
-void convex_hull_3(Point_range range, Polyhedron_3_SWIG_wrapper& P)
+void convex_hull_3(Point_range& range, Polyhedron_3_SWIG_wrapper& P)
 {
   CGAL::convex_hull_3(range.first, range.second, P.get_data());
 }
 
-void halfspace_intersection_3(Plane_range range, Polyhedron_3_SWIG_wrapper& P)
+void halfspace_intersection_3(Plane_range& range, Polyhedron_3_SWIG_wrapper& P)
 {
   std::vector<Plane_3::cpp_base> planes(range.first, range.second);
   CGAL::halfspace_intersection_3(planes.begin(), planes.end(), P.get_data());
 }
 
-void halfspace_intersection_3(Plane_range range, Polyhedron_3_SWIG_wrapper& P, Point_3& pt)
+void halfspace_intersection_3(Plane_range& range, Polyhedron_3_SWIG_wrapper& P, Point_3& pt)
 {
   std::vector<Plane_3::cpp_base> planes(range.first, range.second);
   CGAL::halfspace_intersection_3(planes.begin(), planes.end(), P.get_data(), pt.get_data());
