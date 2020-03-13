@@ -115,11 +115,32 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
           set_tests_properties (pythontest_${TESTNAME} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_OUTDIR_PREFIX};DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/examples/data")
         endforeach ()
       endif()
-      if(NOT CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-          set(PYTHON_MODULE_PATH "${CMAKE_INSTALL_PREFIX}/python_install" CACHE PATH "Path to modules after installation")
-      else()
-          set(PYTHON_MODULE_PATH "${Python_SITEARCH}" CACHE PATH "Path to modules after installation")
+      if (NOT DEFINED PYTHON_MODULE_PATH)
+        execute_process (COMMAND ${Python_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
+                        OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
+                        RESULT_VARIABLE _exit_code
+                        OUTPUT_STRIP_TRAILING_WHITESPACE )
+
+        if (NOT ${_exit_code})
+          get_filename_component (_ABS_PYTHON_MODULE_PATH ${_ABS_PYTHON_MODULE_PATH} ABSOLUTE)
+          file (RELATIVE_PATH _REL_PYTHON_MODULE_PATH ${CMAKE_INSTALL_PREFIX} ${_ABS_PYTHON_MODULE_PATH})
+          set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
+        else ()
+          message (SEND_ERROR "Could not run ${Python_EXECUTABLE}")
+        endif ()
       endif()
+      #if not, libs will be installed in python/lib64/python/CGAL instead of python/CGAL
+     if(${INSTALL_FROM_SETUP})
+       set (PYTHON_MODULE_PATH ".")
+     endif()
+
+     #TEMP : this part is kept in case the windows installation is broken.
+     # if(NOT CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+     #     set(PYTHON_MODULE_PATH "${CMAKE_INSTALL_PREFIX}/python_install" CACHE PATH "Path to modules after installation")
+     # else()
+     #     set(PYTHON_MODULE_PATH "${Python_SITEARCH}" CACHE PATH "Path to modules after installation")
+      #endif()
+
       install (FILES ${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
 
       LINK_DIRECTORIES("${PYTHON_OUTDIR_PREFIX}/CGAL")

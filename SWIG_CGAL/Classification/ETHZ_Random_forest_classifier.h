@@ -34,7 +34,6 @@ public:
 #endif
   }
 
-
   void save_configuration (const std::string& filename) const
   {
 #if defined(CGAL_LINKED_WITH_BOOST_IOSTREAMS) && \

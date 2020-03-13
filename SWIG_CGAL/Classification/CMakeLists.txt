@@ -39,7 +39,6 @@ if (EIGEN3_FOUND )
   ADD_SWIG_CGAL_JAVA_MODULE   ( Classification ${LIBSTOLINKWITH} )
   ADD_SWIG_CGAL_PYTHON_MODULE ( Classification ${LIBSTOLINKWITH} "-keyword" )
   ADD_SWIG_CGAL_RUBY_MODULE   ( Classification ${LIBSTOLINKWITH} )
-
 else()
     message(STATUS "NOTICE: Classification bindings requires Eigen version 3.1 or greater, and will not be compiled.")
 endif()

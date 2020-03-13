@@ -2,9 +2,13 @@
 language: python
 sudo: required
 dist: xenial
+services:
+  - docker
 python:
   - "2.7"
+  - "3.6"
   - "3.7"
+  - "3.8"
 os:
   - linux
 
@@ -15,27 +19,55 @@ env:
   global:
     - CGAL_PYTHON_EXAMPLES=examples/python
     - PYCODESTYLE_CONVENTIONS="--max-line-length=120"
+    - secure: "P9rIQLGC4P0eVExaEoLWpL9KazW9Mxi/UUXIXNE5mGklGBf5VAxrlJe85q41Fvh3TFChn+u4wZqRlrNGK9v5m41m4WBJNawmo/LTDwmclJGm0lwQT1R0/uJ1UUcrfF/tHXx5+Gvs/M9GBHn/+IqqJ0d45SxHj1m7qLoTifstzqyybaR3RTmHg+O+ciA/nxSMkzWqX3Lv7nA+ECZLmFNxNlCWQwcoF+w0yTfepIPzw0o3bnxUNbbSqMISLLmV8tXUrkrELt2g0kuz19oJ9b8C7cu/1ai+KBSeRYsRdGC9KYzfsZBiA1XOAnfIEsbCh3o81FNY1QuCjAu4yQAjMdCLsKmrj5Nmic0gQubwqmhK8hnLrrPnRqQz8U6bMspL77VQHWbr+SfAdc7rfN7sPr0x+3/m23UHetsX7GgKie8+1jn5cJtO09ijNS0siAXjUAZQiwHLziOZ20CTx9AXm3BHoAUFHRc03DkIm79zg8MfjBtag+MpGCSIzutvr1AB/VB8dBh4+3HK6P/CFgvPtAWM1MV2YT0wLNnfzYQO3ixC3RMGA8ih0tN75d4o+gLPMPunIOlPhsxhhwGmCwy/nNNEenU++kMuTWLqtWg7kwjqTWhijaG8dFv0lsS2Rg+T8Yf4BnDnFrGDmpxBICv6PVyRgkzXr1K6mjWwWz5YAMJaqMg="
 
 matrix:
   include:
   - os: osx
     env:
       - CGAL_VER=releases/CGAL-5.0
-      - PATH="/usr/local/opt/python/libexec/bin:$PATH"
+      - MB_PYTHON_VERSION=3.8
+    osx_image: xcode11.3
+    language: shell
+    python: 3.8
+  - os: osx
+    env:
+      - CGAL_VER=master
+      - MB_PYTHON_VERSION=3.8
+    osx_image: xcode11.3
+    language: shell
+    python: 3.8
+  - os: osx
+    env:
+      - CGAL_VER=releases/CGAL-5.0
+      - MB_PYTHON_VERSION=3.6
+    osx_image: xcode11.3
+    language: shell
+    python: 3.6
+  - os: osx
+    env:
+      - CGAL_VER=master
+      - MB_PYTHON_VERSION=3.6
+    osx_image: xcode11.3
+    language: shell
+    python: 3.6
+  - os: osx
+    env:
+      - CGAL_VER=releases/CGAL-5.0
+      - MB_PYTHON_VERSION=3.7
     osx_image: xcode11.3
     language: shell
     python: 3.7
   - os: osx
-    env: 
+    env:
       - CGAL_VER=master
-      - PATH="/usr/local/opt/python/libexec/bin:$PATH"
+      - MB_PYTHON_VERSION=3.7
     osx_image: xcode11.3
     language: shell
     python: 3.7
 
 addons:
   homebrew:
-    update: true
     packages:
       - mpfr
       - gmp
@@ -43,10 +75,8 @@ addons:
       - cmake
       - eigen
       - swig
-      - python
       - numpy
       - homebrew/cask/java
-      - python
       - tbb
   apt:
     packages:
@@ -64,22 +94,24 @@ addons:
     - libgl1-mesa-dev
     - libtbb-dev
 
-install:
-  - cmake --version
-  - pip install numpy
-  - pip install pycodestyle
+before_install:
+  - echo $PATH
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then  source osx_utils.sh && get_macpython_environment $MB_PYTHON_VERSION; fi
+  - python -m pip install --upgrade pip
+  - python -m pip --version
+  - python -m pip install numpy twine
+  - python -m pip install pycodestyle
   - git clone --depth 1 -b ${CGAL_VER} https://github.com/CGAL/cgal.git
   - cd cgal
   - mkdir build
   - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release ..
+  - cmake -DCMAKE_INSTALL_PREFIX=/cgal -DCMAKE_BUILD_TYPE=Release ..
   - make -j2 VERBOSE=1
   - sudo make install
   - cd ../..
+#docker image can be found at https://github.com/maxGimeno/cgal-python-wheel
+install:
+  - bash travis_install.sh
 
 script:
-  - pycodestyle --show-source --show-pep8 $PYCODESTYLE_CONVENTIONS $CGAL_PYTHON_EXAMPLES || pycodestyle --statistics $PYCODESTYLE_CONVENTIONS -qq $CGAL_PYTHON_EXAMPLES
-#  - export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-#  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ -DPython_FIND_VERSION_MAJOR=$(python -c "import sys; print(sys.version_info.major)") .
-#  - make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure
-  - python setup.py bdist_wheel
+  - bash travis.sh

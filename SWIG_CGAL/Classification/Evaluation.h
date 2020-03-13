@@ -15,7 +15,6 @@
 #include <SWIG_CGAL/Classification/Range_wrapper.h>
 
 
-
 template <typename Evaluation_base, typename Label_set>
 class Evaluation_wrapper
 {
