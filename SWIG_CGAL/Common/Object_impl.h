@@ -21,6 +21,7 @@
 #include <SWIG_CGAL/Kernel/Triangle_3.h>
 #include <SWIG_CGAL/Kernel/Ray_2.h>
 #include <SWIG_CGAL/Kernel/Ray_3.h>
+#include <SWIG_CGAL/Kernel/Polygon_2.h>
 
 
 #include <CGAL/Object.h>
@@ -59,7 +60,18 @@ public:
   SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Plane_3)
   SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Ray_2)
   SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Ray_3)
-//Predicate    
+// special cases
+  bool is_Polygon_2(){
+    return data.is<std::vector<Point_2::cpp_base> >();
+  }
+  Polygon_2 get_Polygon_2() {
+    const std::vector<Point_2::cpp_base>* points =
+      CGAL::object_cast<std::vector<Point_2::cpp_base> >(&data);
+    if (points != nullptr)
+      return Polygon_2( Polygon_2::cpp_base(points->begin(), points->end()) );
+    return Polygon_2();
+  }
+//Predicate
   SWIG_CGAL_FORWARD_CALL_0(bool,empty)
 };
 
