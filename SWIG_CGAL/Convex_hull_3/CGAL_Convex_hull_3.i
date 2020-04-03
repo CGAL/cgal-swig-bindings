@@ -52,11 +52,13 @@ SWIG_CGAL_set_wrapper_iterator_helper_input(Plane_3)
 SWIG_CGAL_import_Polyhedron_3_SWIG_wrapper
 
 
+%rename(convex_hull_3) ch3_impl; // workaround CGAL function being called by lookup
+
 %inline %{
 typedef Wrapper_iterator_helper<Point_3>::input       Point_range;
 typedef Wrapper_iterator_helper<Plane_3>::input       Plane_range;
 
-void convex_hull_3(Point_range range, Polyhedron_3_SWIG_wrapper& P)
+void ch3_impl(Point_range range, Polyhedron_3_SWIG_wrapper& P)
 {
   CGAL::convex_hull_3(range.first, range.second, P.get_data());
 }
