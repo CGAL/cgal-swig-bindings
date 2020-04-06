@@ -26,7 +26,7 @@ matrix:
     language: shell
     python: 3.7
   - os: osx
-    env: 
+    env:
       - CGAL_VER=master
       - PATH="/usr/local/opt/python/libexec/bin:$PATH"
     osx_image: xcode11.3
