@@ -10,7 +10,6 @@ os:
 
 env:
   jobs:
-    - CGAL_VER=releases/CGAL-5.0
     - CGAL_VER=master
   global:
     - CGAL_PYTHON_EXAMPLES=examples/python
@@ -20,7 +19,8 @@ matrix:
   include:
   - os: osx
     env:
-      - CGAL_VER=releases/CGAL-5.0
+      #- CGAL_VER=releases/CGAL-5.0
+      - CGAL_VER=master
       - PATH="/usr/local/opt/python/libexec/bin:$PATH"
     osx_image: xcode11.3
     language: shell
