@@ -17,7 +17,7 @@ template <typename Classifier_base, typename Label_set, typename Feature_set>
 class ETHZ_Random_forest_classifier_wrapper
 {
   SWIG_CGAL_INIT_WRAPPER_CLASS (Classifier_base, data_sptr);
-  
+
 public:
 
   ETHZ_Random_forest_classifier_wrapper (Label_set labels,
@@ -31,17 +31,20 @@ public:
     data_sptr->train (Range_wrapper(ground_truth), reset_trees, num_trees, max_depth);
   }
 
+#if defined(CGAL_LINKED_WITH_BOOST_IOSTREAMS) && \
+  defined(CGAL_LINKED_WITH_BOOST_SERIALIZATION)
   void save_configuration (const std::string& filename) const
   {
     std::ofstream ofile (filename);
     data_sptr->save_configuration (ofile);
   }
-  
+
   void load_configuration (const std::string& filename)
   {
     std::ifstream ifile (filename);
     data_sptr->load_configuration (ifile);
   }
+#endif
 };
 
 #endif // SWIG_CGAL_CLASSIFICATION_ETHZ_RANDOM_FOREST_CLASSIFIER_H
