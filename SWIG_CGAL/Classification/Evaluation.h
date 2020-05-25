@@ -11,8 +11,6 @@
 
 #include <SWIG_CGAL/Point_set_3/Point_set_3.h>
 
-#include <SWIG_CGAL/Classification/Range_wrapper.h>
-
 template <typename Evaluation_base, typename Label_set>
 class Evaluation_wrapper
 {
@@ -23,7 +21,9 @@ public:
   Evaluation_wrapper (Label_set labels,
                       typename Point_set_3_wrapper<CGAL_PS3>::Int_iterator ground_truth,
                       typename Point_set_3_wrapper<CGAL_PS3>::Int_iterator result)
-    : data_sptr (new Evaluation_base (labels.get_data(), Range_wrapper(ground_truth), Range_wrapper(result)))
+    : data_sptr (new Evaluation_base (labels.get_data(),
+                                      CGAL::make_range(ground_truth.get_cur(), ground_truth.get_end()),
+                                      CGAL::make_range(result.get_cur(), result.get_end())))
   {
 
   }

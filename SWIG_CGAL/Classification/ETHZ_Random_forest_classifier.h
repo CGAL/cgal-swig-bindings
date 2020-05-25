@@ -11,8 +11,6 @@
 
 #include <SWIG_CGAL/Point_set_3/Point_set_3.h>
 
-#include <SWIG_CGAL/Classification/Range_wrapper.h>
-
 template <typename Classifier_base, typename Label_set, typename Feature_set>
 class ETHZ_Random_forest_classifier_wrapper
 {
@@ -28,7 +26,8 @@ public:
   void train (typename Point_set_3_wrapper<CGAL_PS3>::Int_iterator ground_truth,
               bool reset_trees = true, int num_trees = 25, int max_depth = 20)
   {
-    data_sptr->train (Range_wrapper(ground_truth), reset_trees, num_trees, max_depth);
+    data_sptr->train (CGAL::make_range(ground_truth.get_cur(), ground_truth.get_end()),
+                      reset_trees, num_trees, max_depth);
   }
 
 #if defined(CGAL_LINKED_WITH_BOOST_IOSTREAMS) && \
