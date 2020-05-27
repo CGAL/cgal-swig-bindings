@@ -30,20 +30,31 @@ public:
                       reset_trees, num_trees, max_depth);
   }
 
-#if defined(CGAL_LINKED_WITH_BOOST_IOSTREAMS) && \
-  defined(CGAL_LINKED_WITH_BOOST_SERIALIZATION)
+
   void save_configuration (const std::string& filename) const
   {
+#if defined(CGAL_LINKED_WITH_BOOST_IOSTREAMS) && \
+  defined(CGAL_LINKED_WITH_BOOST_SERIALIZATION)
     std::ofstream ofile (filename);
     data_sptr->save_configuration (ofile);
+#else
+    CGAL_USE(filename);
+    std::cerr<<"ERROR: You need boost::iostreams and boost::serialization to use this function. "<<std::endl;
+#endif
+
   }
 
   void load_configuration (const std::string& filename)
   {
+#if defined(CGAL_LINKED_WITH_BOOST_IOSTREAMS) && \
+  defined(CGAL_LINKED_WITH_BOOST_SERIALIZATION)
     std::ifstream ifile (filename);
     data_sptr->load_configuration (ifile);
-  }
+#else
+    CGAL_USE(filename);
+    std::cerr<<"ERROR: You need boost::iostreams and boost::serialization to use this function. "<<std::endl;
 #endif
+  }
 };
 
 #endif // SWIG_CGAL_CLASSIFICATION_ETHZ_RANDOM_FOREST_CLASSIFIER_H
