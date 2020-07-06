@@ -22,6 +22,7 @@ from CGAL.CGAL_Kernel import Vector_3
 from CGAL.CGAL_Kernel import Bbox_3
 from CGAL.CGAL_Kernel import ON_BOUNDARY, ON_UNBOUNDED_SIDE, ON_BOUNDED_SIDE
 
+
 def get_poly():
     P = Polyhedron_3()
     P.make_tetrahedron(Point_3(1, 0, 0), Point_3(0, 0, 1), Point_3(0, 0, 0), Point_3(0, 1, 0))
@@ -296,7 +297,6 @@ def test_side_of_triangle_mesh():
     assert(f.bounded_side(Point_3(0.25, 0.25, 0.25)) == ON_BOUNDED_SIDE)
     assert(f.bounded_side(Point_3(0, 0, 0)) == ON_BOUNDARY)
     assert(f.bounded_side(Point_3(4, 0, 0)) == ON_UNBOUNDED_SIDE)
-
 
 
 test_meshing_functions()
