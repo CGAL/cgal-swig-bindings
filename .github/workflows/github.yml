@@ -38,7 +38,7 @@ jobs:
         pip install numpy
 
     - name: Install CGAL
-      run: |	      run: |
+      run: |
         # ==-Install CGAL Master-==
         echo "Cloning CGAL"
         git clone https://github.com/CGAL/cgal.git C:\cgal
