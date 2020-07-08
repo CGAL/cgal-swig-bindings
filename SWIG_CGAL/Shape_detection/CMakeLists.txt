@@ -4,7 +4,9 @@ find_package(Eigen3 3.1.0)
 
 if (EIGEN3_FOUND)
   include( ${EIGEN3_USE_FILE} )
-
+  if (TBB_FOUND)
+    set(LIBSTOLINKWITH ${LIBSTOLINKWITH} TBB::tbb TBB::tbbmalloc Threads::Threads)
+  endif()
   # Modules
   ADD_SWIG_CGAL_JAVA_MODULE   ( Shape_detection ${LIBSTOLINKWITH} )
   ADD_SWIG_CGAL_PYTHON_MODULE ( Shape_detection ${LIBSTOLINKWITH} "-keyword" )

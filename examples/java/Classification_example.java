@@ -22,7 +22,7 @@ public class Classification_example{
     Label ground = labels.add("ground");
     Label vegetation = labels.add("vegetation");
     Label building = labels.add("building");
-    
+
     System.out.println("Computing feature...");
 
     Feature_set features = new Feature_set();
@@ -93,7 +93,7 @@ public class Classification_example{
 
     System.out.println("Writing output...");
     points.write("classified.ply");
-    
+
     System.out.println("Evaluation:");
     Evaluation evaluation = new Evaluation(labels, points.range(training), points.range(classification));
 

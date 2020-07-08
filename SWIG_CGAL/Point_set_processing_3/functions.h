@@ -153,8 +153,13 @@ void remove_outliers (Point_set_3_wrapper<CGAL_PS3> point_set, int k,
                       double threshold_percent = 10.,
                       double threshold_distance = 0.)
 {
-  point_set.get_data().remove_from
-    (CGAL::remove_outliers (point_set.get_data(), k,
+  point_set.get_data().remove_from(
+#if  ! defined SWIG && (CGAL_VERSION_MAJOR < 5  || (CGAL_VERSION_MAJOR ==5 && CGAL_VERSION_MINOR <1))
+      CGAL::remove_outliers
+#else
+      CGAL::remove_outliers<Concurrency_tag>
+#endif
+     (point_set.get_data(), k,
                             point_set.get_data().parameters().neighbor_radius(neighbor_radius).
                             threshold_percent(threshold_percent).
                             threshold_distance(threshold_distance)));

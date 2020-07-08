@@ -7,6 +7,8 @@ jobs:
     runs-on: windows-2016
     strategy:
       max-parallel: 4
+      matrix:
+        cgal_branch: [master, releases/CGAL-5.0-branch]
 
     steps:
     - uses: actions/checkout@v1
@@ -28,23 +30,45 @@ jobs:
         echo ::add-path::C:/Miniconda/condabin;
         echo ::add-path::C:/Miniconda/Library/bin;
 
-
     - name: Install dependencies
       run: |
         conda install -y -c anaconda swig
-        conda install -y -c conda-forge cgal-cpp
+        conda install -y -c conda-forge cgal-cpp --only-deps
         C:\Miniconda\python.exe -m pip install --upgrade pip
         pip install numpy
 
+    - name: Install CGAL and LAStools
+      run: |
+        # ==-Install CGAL-==
+        echo "Cloning CGAL"
+        git clone -b ${{ matrix.cgal_branch }} https://github.com/CGAL/cgal.git --depth 1 C:\cgal
+        cd C:\cgal
+        git branch
+        echo "CGAL cloned"
+        # ==-Install LAStools-==
+        git clone https://github.com/CGAL/LAStools.git --depth 1 C:\LAStools
+        cd C:\LAStools
+        mkdir build
+         cd C:\LAStools\build
+        cmake -G "Visual Studio 15 2017 Win64" C:\LAStools -DCMAKE_INSTALL_PREFIX=C:/Miniconda/Library
+        cmake --build . --config Release
+        cmake --install . --config Release
+        #fix error in installation
+        mv C:/Miniconda/Library/lib/las.dll C:/Miniconda/Library/bin/las.dll
+        mv C:/Miniconda/Library/include/LASlib/* C:/Miniconda/Library/include/
+        mv C:/Miniconda/Library/include/LASzip/* C:/Miniconda/Library/include/
+        
     - name: Build Tests
       run: |
+        set -e
         mkdir build
         cd build
-        cmake -G "Visual Studio 15 2017" -T"v140" -A x64 -DBUILD_JAVA=ON -DBUILD_PYTHON=ON -DBUILD_TESTING=ON -DCMAKE_PREFIX_PATH="C:/Miniconda/Library"  -DBUILD_SHARED_LIBS=ON ..
+        cmake -G "Visual Studio 15 2017" -T"v140" -A x64 -DBUILD_JAVA=ON -DBUILD_PYTHON=ON -DBUILD_TESTING=ON -DCMAKE_PREFIX_PATH="C:/Miniconda/Library"  -DBUILD_SHARED_LIBS=ON -DCGAL_DIR="C:/cgal" ..
         cmake --build . --config Release
         cmake --build . --config Release --target tests
         echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/lib/Release;
         echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/build-java/lib/;
+      shell: bash
 
     - name: Run Tests
       run: |
