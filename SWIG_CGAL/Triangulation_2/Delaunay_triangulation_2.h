@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_TRIANGULATION_2_DELAUNAY_TRIANGULATION_2_H
@@ -32,18 +32,21 @@ public:
   Delaunay_triangulation_2_wrapper(const cpp_base& base) : Base(base) {}
   #endif
   Delaunay_triangulation_2_wrapper() : Base() {}
-//Queries    
+//Displacement
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,move_if_no_collision,Vertex_handle,Point_2)
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,move,Vertex_handle,Point_2)
+//Queries
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,nearest_vertex,Point_2,Face_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,nearest_vertex,Point_2)
   void get_conflicts_and_boundary(const Point_2& p,Face_output_iterator fout,Edge_output_iterator eout,const Face_handle& start) const
   {
     this->get_data().get_conflicts_and_boundary(p.get_data(),fout,eout,start.get_data());
   }
-  void get_conflicts(const Point_2& p,Face_output_iterator fout,const Face_handle& start) const 
+  void get_conflicts(const Point_2& p,Face_output_iterator fout,const Face_handle& start) const
   {
     this->get_data().get_conflicts(p.get_data(),fout,start.get_data());
   }
-    
+
   void get_boundary_of_conflicts(const Point_2& p, Edge_output_iterator out, Face_handle start) const
   {
     this->get_data().get_boundary_of_conflicts(p.get_data(),out,start.get_data());
@@ -65,5 +68,3 @@ public:
 //   Object   dt.dual ( Edge_iterator ei)
 //   template < class Stream>
 //   Stream&   dt.draw_dual ( Stream & ps)
-
-
