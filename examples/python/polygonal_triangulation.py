@@ -102,7 +102,6 @@ if __name__ == "__main__":
             ys = [pts[0].y(), pts[1].y()]
             plt.plot(xs, ys, *args)
 
-        plt.hold(True)
         for edge in cdt.finite_edges():
             if cdt.is_constrained(edge):
                 plot_edge(edge, 'r-')
