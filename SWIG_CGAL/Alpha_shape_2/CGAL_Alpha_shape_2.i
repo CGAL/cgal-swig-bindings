@@ -56,7 +56,7 @@ SWIG_CGAL_declare_identifier_of_template_class(Vertex_range,std::pair<double,dou
 %include "SWIG_CGAL/Common/triple.h"
 SWIG_CGAL_declare_identifier_of_template_class(Face_Interval_3,SWIG_CGAL::Triple<double,double,double>)
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Ref_int; import CGAL.Triangulation_2.Ref_Locate_type_2; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Triangle_2; import CGAL.Kernel.Segment_2;  import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Ref_int; import CGAL.Triangulation_2.Ref_Locate_type_2; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Triangle_2; import CGAL.Kernel.Segment_2; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemap for point input iterator
