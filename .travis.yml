@@ -96,7 +96,7 @@ addons:
 
 before_install:
   - echo $PATH
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then  source osx_utils.sh && get_macpython_environment $MB_PYTHON_VERSION; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then  source .integration/osx_utils.sh && get_macpython_environment $MB_PYTHON_VERSION; fi #osx_utils taken from https://github.com/matthew-brett/multibuild/
   - python -m pip install --upgrade pip
   - python -m pip --version
   - python -m pip install numpy twine
@@ -111,7 +111,7 @@ before_install:
   - cd ../..
 #docker image can be found at https://github.com/maxGimeno/cgal-python-wheel
 install:
-  - bash travis_install.sh
+  - bash .integration/travis_install.sh
 
 script:
-  - bash travis.sh
+  - bash .integration/travis.sh
