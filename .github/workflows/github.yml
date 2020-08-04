@@ -123,7 +123,7 @@ jobs:
           python.exe $py_file || exit 1
         done
         cd ../..
-        twine upload -r testpypi dist/*  -u "maxgimeno" -p ${{ secrets.TPPPW }} --non-interactive --skip-existing
+        twine upload -r testpypi dist/*  -u "cgal" -p ${{ secrets.TPPPW }} --non-interactive --skip-existing
       shell: bash
 
 #    - name: Upload wheel
