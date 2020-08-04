@@ -1,0 +1,132 @@
+name: Windows Tests
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: windows-2016
+    strategy:
+      max-parallel: 4
+      matrix:
+        cgal_branch: [master]
+        python_minor_version: [6, 7, 8]
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Set up Python 3.${{ matrix.python_minor_version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.${{ matrix.python_minor_version }}
+            
+        
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8        
+
+    - name: Setup Conda
+      run: |
+        echo ::add-path::C:/Miniconda/condabin;
+        echo ::add-path::C:/Miniconda/Library/bin;
+
+    - name: Install dependencies
+      run: |
+        conda install -y -c anaconda swig
+        conda install -y -c conda-forge bzip2
+        conda install -y -c conda-forge zlib
+        conda install -y -c conda-forge eigen
+        conda install -y -c conda-forge mpfr
+        conda install -y -c conda-forge mpir
+        #conda install -y -c conda-forge cgal-cpp --only-deps
+        python.exe -m pip install --upgrade pip
+        pip install numpy
+        pip install wheel
+        pip install twine
+
+
+    - name: Install CGAL and other dependencies
+      run: |
+        # ==- Install Boost -==
+        #$Env:BOOST_ROOT_1_72_0/lib/*.dll C:\Miniconda\Library\bin
+        echo ::add-path::$Env:BOOST_ROOT_1_72_0;
+        echo ::add-path::$Env:pythonLocation;
+
+        # ==-Install CGAL-==
+        echo "Cloning CGAL"
+        git clone https://github.com/CGAL/cgal.git C:\cgal
+        cd C:\cgal
+        #git checkout releases/CGAL-5.0.2
+        echo "CGAL cloned"
+
+        # ==-Install LAStools-==
+        git clone https://github.com/CGAL/LAStools.git C:\LAStools
+        cd C:\LAStools
+        mkdir build
+        cd C:\LAStools\build
+        cmake -G "Visual Studio 15 2017 Win64" C:\LAStools -DCMAKE_INSTALL_PREFIX=C:/Miniconda/Library
+        cmake --build . --config Release
+        cmake --install . --config Release
+        #fix error in installation
+        mv C:/Miniconda/Library/lib/las.dll C:/Miniconda/Library/bin/las.dll
+        mv C:/Miniconda/Library/include/LASlib/* C:/Miniconda/Library/include/
+        mv C:/Miniconda/Library/include/LASzip/* C:/Miniconda/Library/include/
+
+        # ==-Install TBB-==
+        #$WebClient = New-Object System.Net.WebClient
+        #$WebClient.DownloadFile("https://github.com/oneapi-src/oneTBB/releases/download/2019_U9/tbb2019_20191006oss_win.zip", "C:\tbb.zip")
+        #Expand-Archive C:\tbb.zip C:\
+        #rm C:\tbb2019_20191006oss\bin\intel64\vc14\*_debug*
+        #rm C:\tbb2019_20191006oss\lib\intel64\vc14\*_debug*
+        #mv C:\tbb2019_20191006oss\bin\intel64\vc14\*.dll C:\Miniconda\Library\bin
+        #cd C:\tbb2019_20191006oss
+        #C:\tbb2019_20191006oss\bin\tbbvars.bat intel64 vs2015
+        #mv include\* C:\Miniconda\Library\include
+        #mv lib\intel64\vc14\* C:\Miniconda\Library\lib
+
+
+
+    - name: Check Installation
+      run: |
+        echo "Path content : $Env:PATH"
+        #echo "C:\boost_1_69_0\lib content"
+        #ls C:\boost_1_69_0\lib
+
+#    - name: Build Tests
+#      run: |
+#        mkdir build
+#        cd build
+#        cmake -G "Visual Studio 15 2017" -T"v140" -A x64 -DBUILD_JAVA=ON -DBUILD_PYTHON=ON -DBUILD_TESTING=ON -DCMAKE_PREFIX_PATH="C:/Miniconda/Library"  -DBUILD_SHARED_LIBS=ON ..
+#        cmake --build . --config Release
+#        cmake --build . --config Release --target tests
+#        echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/lib/Release;
+#        echo ::add-path::D:/a/cgal-swig-bindings/cgal-swig-bindings/build/build-java/lib/;
+#
+#    - name: Run Tests
+#      run: |
+#        cd build
+#        ctest -C Release -j8 -VV
+
+    - name: Test Setup
+      run: |
+        python.exe setup.py bdist_wheel --cmake-prefix-path="C:/Miniconda/Library" --boost-root="$Env:BOOST_ROOT_1_72_0" --generator="Visual Studio 15 2017 Win64" --cgal-dir=C:/cgal --python-root="$pythonLocation"
+        pip install dist/*
+      shell: bash
+
+    - name: Test Installation
+      run: |
+        set -e
+        cd examples/python
+        for py_file in *.py; do
+          python.exe $py_file || exit 1
+        done
+      shell: bash
+
+#    - name: Upload wheel
+#      uses: actions/upload-artifact@v1
+#      if: failure()
+#      with:
+#        name: wheel
+#        path: dist/cgal-5.0.2-cp37-cp37m-win_amd64.whl

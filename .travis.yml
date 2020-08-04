@@ -18,6 +18,9 @@ env:
   - CGAL_PYTHON_EXAMPLES=examples/python
   - PYCODESTYLE_CONVENTIONS="--max-line-length=120"
   - secure: LJapS6f/ZojkerZ6me1RHnPC3QAqivtsM0F3pnp8QRcala4PRGn8BIG7CfSrWYEy1RmmniWCNzS5CHsP6qLrAKtYeTNSdbSomx0uhatwXVTlllcDsyAwenqCgtGXejJ4T0HmRi8meURPjhJ77UMmvpfL3vqqfFpW0hYZsDEd/sA=
+  include:
+    if: type = push
+    env: DO_UPLOAD="TRUE"
 matrix:
   include:
   - os: osx
@@ -90,7 +93,7 @@ addons:
     - libgl1-mesa-dev
     - libtbb-dev
 before_install:
-- echo $PATH
+- echo $DO_UPLOAD
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then  source .integration/osx_utils.sh && get_macpython_environment
   $MB_PYTHON_VERSION; fi
 - python -m pip install --upgrade pip
