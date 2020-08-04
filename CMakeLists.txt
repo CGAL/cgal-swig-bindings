@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.12)
 
 PROJECT(CGAL-bindings)
 
@@ -31,11 +31,12 @@ option( BUILD_RUBY "Build Ruby bindings" OFF )
 
 enable_testing ()
 add_custom_target (tests)
-
+SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 
 if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
 
   include( ${CGAL_USE_FILE} )
+
 
   find_package( TBB QUIET )
   if(TBB_FOUND)
@@ -73,9 +74,8 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
       message(STATUS "BUILD_RUBY is set to OFF: no CGAL-bindings for Ruby will be generated.")
     endif()
     if (${BUILD_PYTHON})
-      find_package(PythonInterp)
-      find_package(PythonLibs)
-      if (NOT PYTHONLIBS_FOUND)
+      find_package(Python COMPONENTS Interpreter Development)
+      if (NOT Python_FOUND)
         SET(BUILD_PYTHON OFF)
         message(WARNING "Python has not been found, CGAL-bindings for Python will not be generated.")
       endif()
@@ -103,31 +103,44 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
     if (BUILD_PYTHON)
       set (PYTHON_OUTDIR_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/build-python" CACHE PATH "PYTHON specific files output directory prefix: the CGAL directory will contain Python generated files and libraries.")
       configure_file (SWIG_CGAL/files/__init__.py "${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py" @ONLY)
-      if (PYTHON_EXECUTABLE)
-        file (GLOB python_files "${CMAKE_CURRENT_SOURCE_DIR}/examples/python/*.py")
+      if (Python_EXECUTABLE)
+        file (GLOB python_files "${CMAKE_SOURCE_DIR}/examples/python/*.py")
         # exclude blocking matplotlib plotting example
-        list (REMOVE_ITEM python_files ${CMAKE_CURRENT_SOURCE_DIR}/examples/python/polygonal_triangulation.py)
+        list (REMOVE_ITEM python_files ${CMAKE_SOURCE_DIR}/examples/python/polygonal_triangulation.py)
+        # exclude Intel TBB dependent example
+        list (REMOVE_ITEM python_files ${CMAKE_SOURCE_DIR}/examples/python/Classification_example.py)
         foreach (TESTNAME_SRC ${python_files})
           get_filename_component (TESTNAME ${TESTNAME_SRC} NAME_WE)
-          add_test (NAME pythontest_${TESTNAME} COMMAND ${PYTHON_EXECUTABLE} ${TESTNAME_SRC})
+          add_test (NAME pythontest_${TESTNAME} COMMAND ${Python_EXECUTABLE} ${TESTNAME_SRC})
           set_tests_properties (pythontest_${TESTNAME} PROPERTIES ENVIRONMENT "PYTHONPATH=${PYTHON_OUTDIR_PREFIX};DATADIR=${CMAKE_CURRENT_SOURCE_DIR}/examples/data")
         endforeach ()
+      endif()
+      if (NOT DEFINED PYTHON_MODULE_PATH)
+        execute_process (COMMAND ${Python_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
+                        OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
+                        RESULT_VARIABLE _exit_code
+                        OUTPUT_STRIP_TRAILING_WHITESPACE )
 
-        if (NOT DEFINED PYTHON_MODULE_PATH)
-          execute_process (COMMAND ${PYTHON_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
-                          OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
-                          RESULT_VARIABLE _exit_code
-                          OUTPUT_STRIP_TRAILING_WHITESPACE )
-
-          if (NOT ${_exit_code})
-            get_filename_component (_ABS_PYTHON_MODULE_PATH ${_ABS_PYTHON_MODULE_PATH} ABSOLUTE)
-            file (RELATIVE_PATH _REL_PYTHON_MODULE_PATH ${CMAKE_INSTALL_PREFIX} ${_ABS_PYTHON_MODULE_PATH})
-            set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
-          else ()
-            message (SEND_ERROR "Could not run ${PYTHON_EXECUTABLE}")
-          endif ()
+        if (NOT ${_exit_code})
+          get_filename_component (_ABS_PYTHON_MODULE_PATH ${_ABS_PYTHON_MODULE_PATH} ABSOLUTE)
+          file (RELATIVE_PATH _REL_PYTHON_MODULE_PATH ${CMAKE_INSTALL_PREFIX} ${_ABS_PYTHON_MODULE_PATH})
+          set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
+        else ()
+          message (SEND_ERROR "Could not run ${Python_EXECUTABLE}")
         endif ()
       endif()
+      #if not, libs will be installed in python/lib64/python/CGAL instead of python/CGAL
+     if(${INSTALL_FROM_SETUP})
+       set (PYTHON_MODULE_PATH ".")
+     endif()
+
+     #TEMP : this part is kept in case the windows installation is broken.
+     # if(NOT CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+     #     set(PYTHON_MODULE_PATH "${CMAKE_INSTALL_PREFIX}/python_install" CACHE PATH "Path to modules after installation")
+     # else()
+     #     set(PYTHON_MODULE_PATH "${Python_SITEARCH}" CACHE PATH "Path to modules after installation")
+      #endif()
+
       install (FILES ${PYTHON_OUTDIR_PREFIX}/CGAL/__init__.py DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
 
       LINK_DIRECTORIES("${PYTHON_OUTDIR_PREFIX}/CGAL")

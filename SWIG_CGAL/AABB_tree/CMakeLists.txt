@@ -1,4 +1,7 @@
 SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
+if (TBB_FOUND)
+  set(LIBSTOLINKWITH ${LIBSTOLINKWITH} TBB::tbb TBB::tbbmalloc Threads::Threads)
+endif()
 include_directories(include)
 if (TBB_FOUND)
   set(LIBSTOLINKWITH ${LIBSTOLINKWITH} TBB::tbb TBB::tbbmalloc Threads::Threads)

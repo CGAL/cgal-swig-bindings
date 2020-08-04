@@ -6,7 +6,6 @@ from CGAL.CGAL_Kernel import Segment_3
 from CGAL.CGAL_Polyhedron_3 import Polyhedron_3
 from CGAL.CGAL_AABB_tree import AABB_tree_Polyhedron_3_Facet_handle
 
-
 p = Point_3(1.0, 0.0, 0.0)
 q = Point_3(0.0, 1.0, 0.0)
 r = Point_3(0.0, 0.0, 1.0)
