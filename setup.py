@@ -284,7 +284,7 @@ class my_build_ext(build_ext_orig):
       else:
         lib_ext='.so'
       import os.path
-      shutil.copyfile(os.path.join('', './build/build-python/'+ext.name+lib_ext), self.get_ext_fullpath(ext.name))
+      shutil.copyfile(os.path.join('.', 'build','build-python',ext.name+lib_ext), self.get_ext_fullpath(ext.name))
 
 
     def run(self):
@@ -352,7 +352,8 @@ class my_build_ext(build_ext_orig):
           cmake_args.append('-DCMAKE_PREFIX_PATH='+self.cmake_prefix_path)
         if self.python_root is not None:
           cmake_args.append('-DPython_ROOT_DIR='+self.python_root)
-          cmake_args.append('-DPython_EXECUTABLE='+self.python_root+'/bin/python')
+          if sys.platform != 'win32'or sys.platform == 'cygwin':
+            cmake_args.append('-DPython_EXECUTABLE='+os.path.join(self.python_root, 'bin','python'))
           
         cmake_args.append('-DINSTALL_FROM_SETUP=ON')
         cmake_args.append('-DBoost_LIB_DIAGNOSTIC_DEFINITIONS=TRUE')
