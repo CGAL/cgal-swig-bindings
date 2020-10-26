@@ -33,9 +33,8 @@ print("first intersected primitive index: " + str(first_intersected_primitive.va
 first_intersection = tree.first_intersection(ray_query)
 intersected_object = first_intersection.value()[0]
 if intersected_object.is_Point_3():
-	print("intersected point: " + str(intersected_object.get_Point_3()))
+    print("intersected point: " + str(intersected_object.get_Point_3()))
 elif intersected_object.is_Segment_3():
-	print("intersected segment: " + str(intersected_object.get_Segment_3()))
+    print("intersected segment: " + str(intersected_object.get_Segment_3()))
 else:
-	print("Unknown intersected point type")
-
+    print("Unknown intersected point type")
