@@ -29,8 +29,8 @@ jobs:
 
     - name: Setup Conda
       run: |
-        echo ::add-path::C:/Miniconda/condabin;
-        echo ::add-path::C:/Miniconda/Library/bin;
+        echo "C:/Miniconda/condabin" >> $GITHUB_PATH
+        echo "C:/Miniconda/Library/bin" >> $GITHUB_PATH
 
     - name: Install dependencies
       run: |
@@ -51,8 +51,8 @@ jobs:
       run: |
         # ==- Install Boost -==
         #$Env:BOOST_ROOT_1_72_0/lib/*.dll C:\Miniconda\Library\bin
-        echo ::add-path::$Env:BOOST_ROOT_1_72_0;
-        echo ::add-path::$Env:pythonLocation;
+        echo "$Env:BOOST_ROOT_1_72_0" >> $GITHUB_PATH
+        echo "$Env:$Env:pythonLocation" >> $GITHUB_PATH
 
         # ==-Install CGAL-==
         echo "Cloning CGAL"
