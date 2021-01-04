@@ -305,6 +305,7 @@ class my_build_ext(build_ext_orig):
         if self.install_dir is not None:
             cmake_args.append('-DCMAKE_INSTALL_PREFIX='+self.install_dir)
         if self.cgal_dir is not None:
+            print("CGAK DIR IS NOT NONE")
             cmake_args.append('-DCGAL_DIR='+self.cgal_dir)
         if self.boost_dir is not None:
             cmake_args.append('-DBoost_INCLUDE_DIR='+self.boost_dir)
@@ -354,7 +355,7 @@ class my_build_ext(build_ext_orig):
           cmake_args.append('-DPython_ROOT_DIR='+self.python_root)
           if sys.platform != 'win32'or sys.platform == 'cygwin':
             cmake_args.append('-DPython_EXECUTABLE='+os.path.join(self.python_root, 'bin','python'))
-          
+
         cmake_args.append('-DINSTALL_FROM_SETUP=ON')
         cmake_args.append('-DBoost_LIB_DIAGNOSTIC_DEFINITIONS=TRUE')
         cmake_args.append('-DBoost_DEBUG=TRUE')
