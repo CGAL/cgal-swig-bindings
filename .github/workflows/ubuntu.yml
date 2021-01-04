@@ -51,3 +51,6 @@ jobs:
 
     - name: Test Installation
       run: bash .integration/travis.sh ${{ runner.os }}
+      env:
+        CGAL_PYTHON_EXAMPLES: examples/python
+        PYCODESTYLE_CONVENTIONS: "--max-line-length=120"
