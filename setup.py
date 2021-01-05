@@ -305,7 +305,6 @@ class my_build_ext(build_ext_orig):
         if self.install_dir is not None:
             cmake_args.append('-DCMAKE_INSTALL_PREFIX='+self.install_dir)
         if self.cgal_dir is not None:
-            print("CGAK DIR IS NOT NONE")
             cmake_args.append('-DCGAL_DIR='+self.cgal_dir)
         if self.boost_dir is not None:
             cmake_args.append('-DBoost_INCLUDE_DIR='+self.boost_dir)

@@ -22,7 +22,7 @@ endif()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/SWIG_CGAL_Macros.cmake)
 
-find_package(CGAL REQUIRED OPTIONAL COMPONENTS ImageIO)
+find_package(CGAL REQUIRED OPTIONAL_COMPONENTS ImageIO)
 find_package(SWIG REQUIRED)
 option( BUILD_PYTHON "Build Python bindings" ON )
 option( BUILD_JAVA "Build Java bindings" ON )

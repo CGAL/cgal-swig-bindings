@@ -20,7 +20,7 @@ elif [ $(python -c "import sys; print(sys.version_info.major)") = "3" ]  && [ "$
   cd examples/python
   for test_file in ./*.py; do python $test_file; done
   cd ../..
-  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ -DBUILD_PYTHON=OFF .
+  cmake -DCGAL_DIR=/usr/local/opt/cgal/lib/cmake/CGAL -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local/ -DBUILD_PYTHON=OFF .
   make -j2 VERBOSE=1 && make install -j2 && make tests -j2 VERBOSE=1 && ctest -j2 --output-on-failure
   if [ -n "$DO_UPLOAD" ]; then
     twine upload -r testpypi fixed_wheel/*  -u "cgal" -p "$CGALTestPyPiPassword" --non-interactive --skip-existing
