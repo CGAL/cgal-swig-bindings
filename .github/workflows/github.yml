@@ -14,7 +14,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        cgal_branch: [master]
+        cgal_branch: [v5.1, v5.2, master]
         python_minor_version: [6, 7, 8]
 
     steps:
@@ -62,7 +62,7 @@ jobs:
 
         # ==-Install CGAL-==
         echo "Cloning CGAL"
-        git clone https://github.com/CGAL/cgal.git C:\cgal
+        git clone --depth 1 -b ${{ matrix.cgal_branch }} https://github.com/CGAL/cgal.git C:\cgal
         cd C:\cgal
         #git checkout releases/CGAL-5.0.2
         echo "CGAL cloned"

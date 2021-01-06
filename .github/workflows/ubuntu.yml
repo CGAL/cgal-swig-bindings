@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        cgal_branch: [master]
+        cgal_branch: [v5.1, v5.2, master]
         python_minor_version: [6, 7, 8]
 
     steps:
@@ -42,7 +42,7 @@ jobs:
 
     - name: Install CGAL and other dependencies
       run: |
-        git clone --depth 1 -b v5.1 https://github.com/CGAL/cgal.git
+        git clone --depth 1 -b ${{ matrix.cgal_branch }} https://github.com/CGAL/cgal.git
         cd cgal
         mkdir build
         cd build
