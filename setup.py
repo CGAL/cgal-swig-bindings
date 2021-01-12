@@ -354,7 +354,7 @@ class my_build_ext(build_ext_orig):
           cmake_args.append('-DPython_ROOT_DIR='+self.python_root)
           if sys.platform != 'win32'or sys.platform == 'cygwin':
             cmake_args.append('-DPython_EXECUTABLE='+os.path.join(self.python_root, 'bin','python'))
-          
+
         cmake_args.append('-DINSTALL_FROM_SETUP=ON')
         cmake_args.append('-DBoost_LIB_DIAGNOSTIC_DEFINITIONS=TRUE')
         cmake_args.append('-DBoost_DEBUG=TRUE')

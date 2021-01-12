@@ -1,6 +1,12 @@
 name: Windows Tests
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+
 
 jobs:
   build:
@@ -8,7 +14,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        cgal_branch: [master]
+        cgal_branch: [v5.1, v5.2, master]
         python_minor_version: [6, 7, 8]
 
     steps:
@@ -20,12 +26,12 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.${{ matrix.python_minor_version }}
-            
-        
+
+
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
-        java-version: 1.8        
+        java-version: 1.8
 
     - name: Setup Conda
       run: |
@@ -34,7 +40,6 @@ jobs:
 
     - name: Install dependencies
       run: |
-
         conda install -y -c anaconda swig
         conda install -y -c conda-forge bzip2
         conda install -y -c conda-forge zlib
@@ -57,7 +62,7 @@ jobs:
 
         # ==-Install CGAL-==
         echo "Cloning CGAL"
-        git clone https://github.com/CGAL/cgal.git C:\cgal
+        git clone --depth 1 -b ${{ matrix.cgal_branch }} https://github.com/CGAL/cgal.git C:\cgal
         cd C:\cgal
         #git checkout releases/CGAL-5.0.2
         echo "CGAL cloned"
@@ -123,6 +128,10 @@ jobs:
         for py_file in *.py; do
           python.exe $py_file || exit 1
         done
+        if [ ${{ github.event_name }} = 'push' ]; then
+          cd ../..
+          twine upload -r testpypi dist/*  -u "cgal" -p ${{ secrets.TPPPW }} --non-interactive --skip-existing
+        fi
       shell: bash
 
 #    - name: Upload wheel
