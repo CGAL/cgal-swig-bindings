@@ -130,7 +130,7 @@ jobs:
         done
         if [ ${{ github.event_name }} = 'push' ]; then
           cd ../..
-          twine upload -r testpypi dist/*  -u "cgal" -p ${{ secrets.TPPPW }} --non-interactive --skip-existing
+          twine upload -r testpypi dist/*  -u "cgal" -p ${{ secrets.TEST_PYPI_PASSWORD }} --non-interactive --skip-existing
         fi
       shell: bash
 
