@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        cgal_branch: [v5.1, v5.2, master]
+        cgal_branch: [v5.1, v5.2, v5.3, master]
         python_minor_version: [6, 7, 8]
 
     steps:
