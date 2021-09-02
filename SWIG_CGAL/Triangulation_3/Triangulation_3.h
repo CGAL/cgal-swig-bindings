@@ -96,6 +96,7 @@ public:
   {
     data_ptr->insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
   }
+  Triangulation_3_wrapper(const Triangulation_3_wrapper& self) = default;
   
   typedef Triangulation_3_wrapper<Triangulation,Point,Vertex_handle,Cell_handle,Weighted_tag,Memory_holder> Self;
   typedef std::pair<Cell_handle,int>             Facet;
