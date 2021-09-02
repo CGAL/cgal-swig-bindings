@@ -25,7 +25,7 @@ public:
   Modifier_base(void* ptr):data(static_cast<cpp_base*>(ptr)){}
   //the storage of modifier is handled by this class
   #endif    
-  Modifier_base():data(NULL){} //should not be used (only to not exposed void* to SWIG)
+  Modifier_base():data(nullptr){} //should not be used (only to not exposed void* to SWIG)
 };
 
 template <class Polyhedron_base,class Cpp_modifier>

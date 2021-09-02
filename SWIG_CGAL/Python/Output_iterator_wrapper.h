@@ -31,7 +31,7 @@ public:
   void operator()(const Cpp_base& new_base) {
     Cpp_base* result = new Cpp_base(new_base);
     PyObject* py_object= SWIG_NewPointerObj(SWIG_as_voidptr(result), type, 1);
-    assert(py_object!=NULL);
+    assert(py_object!=nullptr);
     PyList_Append(list,py_object);
     Py_DECREF(py_object);
   }
@@ -57,7 +57,7 @@ public:
   void operator()(int new_base) {
     
     PyObject* py_object=PyInt_FromLong(new_base);
-    assert(py_object!=NULL);
+    assert(py_object!=nullptr);
     PyList_Append(list,py_object);
     Py_DECREF(py_object);
   }

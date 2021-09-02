@@ -32,8 +32,8 @@ namespace internal{
     static typename internal::Converter<Type>::result_type
     convert_to_cpp(jclass output_class,jmethodID get_output_id,jobject res)
     {
-      assert(output_class!=NULL);
-      assert(get_output_id!=NULL);
+      assert(output_class!=nullptr);
+      assert(get_output_id!=nullptr);
       jlong jcpp=(jlong) JNU_GetEnv()->CallStaticObjectMethod(output_class,get_output_id,res);
       JNI_THROW_ON_ERROR((void*) jcpp,CallStaticObjectMethod," ")
       return internal::Converter<Type>::convert( *reinterpret_cast<Type*>(jcpp) );
@@ -55,8 +55,8 @@ namespace internal{
     convert_to_cpp(jclass output_class,jmethodID get_output_id,jobject res)
     {
       //convert the result back to c++
-      assert(output_class!=NULL);
-      assert(get_output_id!=NULL);
+      assert(output_class!=nullptr);
+      assert(get_output_id!=nullptr);
       int val=static_cast<int> ( JNU_GetEnv()->CallIntMethod(res,get_output_id) );
       return CGAL::enum_cast<typename internal::Converter<Type>::result_type>( val );
     }
@@ -167,8 +167,8 @@ public:
     //create the wrapper object
     Input_wrapper*  cpp_wrapper=new Input_wrapper(input);
     //create the java corresponding object
-    assert( input_class !=NULL );
-    assert( input_cst_id !=NULL );
+    assert( input_class !=nullptr );
+    assert( input_cst_id !=nullptr );
     jobject input_in_java = JNU_GetEnv()->NewObject(input_class,input_cst_id, (jlong) cpp_wrapper,true);
     JNI_THROW_ON_ERROR(input_in_java,NewObject," ")
     
@@ -203,7 +203,7 @@ class Java_caller_code_2
   
   void cleanup()
   {
-    if (ref_counter!=NULL && --(*ref_counter)==0){
+    if (ref_counter!=nullptr && --(*ref_counter)==0){
       delete ref_counter;
       JNU_GetEnv()->DeleteGlobalRef(java_predicate);
       JNU_GetEnv()->DeleteGlobalRef(input_class_1);
@@ -229,7 +229,7 @@ class Java_caller_code_2
     ++(*ref_counter);
   }
 public:
-  Java_caller_code_2():ref_counter(NULL){}
+  Java_caller_code_2():ref_counter(nullptr){}
 
   Java_caller_code_2(jobject jobj,const char* fname, const char* input_type_1, const char* input_type_2,const char* output_type)
   :ref_counter(new int(1))
@@ -298,8 +298,8 @@ public:
     //create the wrapper object 2
     Input_wrapper_2*  cpp_wrapper_2=new Input_wrapper_2(input);
     //create the java corresponding object
-    assert( input_class_2 !=NULL );
-    assert( input_cst_id_2 !=NULL );
+    assert( input_class_2 !=nullptr );
+    assert( input_cst_id_2 !=nullptr );
     jobject input_in_java = JNU_GetEnv()->NewObject(input_class_2,input_cst_id_2, (jlong) cpp_wrapper_2,true);
     JNI_THROW_ON_ERROR(input_in_java,NewObject," ")
     //call java method
@@ -315,16 +315,16 @@ public:
     //create the wrapper object 1
     Input_wrapper_1*  cpp_wrapper_1=new Input_wrapper_1(input_1);
     //create the java corresponding object
-    assert( input_class_1 !=NULL );
-    assert( input_cst_id_1 !=NULL );
+    assert( input_class_1 !=nullptr );
+    assert( input_cst_id_1 !=nullptr );
     jobject input_in_java_1 = JNU_GetEnv()->NewObject(input_class_1,input_cst_id_1, (jlong) cpp_wrapper_1,true);
     JNI_THROW_ON_ERROR(input_in_java_1,NewObject," ")
     
     //create the wrapper object 2
     Input_wrapper_2*  cpp_wrapper_2=new Input_wrapper_2(input_2);
     //create the java corresponding object
-    assert( input_class_2 !=NULL );
-    assert( input_cst_id_2 !=NULL );
+    assert( input_class_2 !=nullptr );
+    assert( input_cst_id_2 !=nullptr );
     jobject input_in_java_2 = JNU_GetEnv()->NewObject(input_class_2,input_cst_id_2, (jlong) cpp_wrapper_2,true);
     JNI_THROW_ON_ERROR(input_in_java_2,NewObject," ")
     

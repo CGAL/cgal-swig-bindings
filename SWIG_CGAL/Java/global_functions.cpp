@@ -10,13 +10,13 @@
 #include <iostream>
 
 JavaVM* & get_cached_jvm(){
-  static JavaVM* cached_jvm = NULL;
+  static JavaVM* cached_jvm = nullptr;
   return cached_jvm;
 }
 
 JNIEnv * JNU_GetEnv() {
   JNIEnv *env;
-  assert(get_cached_jvm()!=NULL);
+  assert(get_cached_jvm()!=nullptr);
   jint rc = get_cached_jvm()->GetEnv((void **)&env, JNI_VERSION_1_2);
   if (rc == JNI_EDETACHED)
     rc = get_cached_jvm()->AttachCurrentThreadAsDaemon((void**)&env, nullptr);

@@ -50,7 +50,7 @@ public:
   typedef Voronoi_face_wrapper_2<VD_2,Delaunay_vertex_handle_wrapper, Delaunay_face_handle_wrapper> Face_wrapper;
 
 //Creation
-  Voronoi_vertex_wrapper_2():data(NULL){}    
+  Voronoi_vertex_wrapper_2():data(nullptr){}    
 //Access Methods
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Halfedge_wrapper,halfedge)
   SWIG_CGAL_FORWARD_CALL_0(int,degree)
@@ -87,7 +87,7 @@ public:
   typedef Voronoi_halfedge_wrapper_2<VD_2,Delaunay_vertex_handle_wrapper, Delaunay_face_handle_wrapper> Halfedge_wrapper;
   typedef SWIG_CGAL_Circulator< typename VD_2::Ccb_halfedge_circulator, Halfedge_wrapper > Ccb_halfedge_circulator;
 //Creation
-  Voronoi_face_wrapper_2():data(NULL){}    
+  Voronoi_face_wrapper_2():data(nullptr){}    
 //Access Methods
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Halfedge_wrapper,halfedge)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Ccb_halfedge_circulator,outer_ccb)
@@ -123,7 +123,7 @@ public:
   typedef std::pair<Delaunay_face_handle_wrapper,int> Delaunay_edge;
   typedef SWIG_CGAL_Circulator< typename VD_2::Ccb_halfedge_circulator, Self > Ccb_halfedge_circulator;
 //Creation
-  Voronoi_halfedge_wrapper_2():data(NULL){}    
+  Voronoi_halfedge_wrapper_2():data(nullptr){}    
 //Access Methods
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Self,twin)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Self,opposite)

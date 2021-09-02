@@ -28,7 +28,7 @@ public:
   typedef CGAL_Cell_handle<Triangulation,Point> Cell_handle;
   typedef CGAL_Vertex_handle<Triangulation,Point> Self;
 //Creation
-  CGAL_Vertex_handle():data(NULL){}
+  CGAL_Vertex_handle():data(nullptr){}
 //Modifiers  
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point,point)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Cell_handle,cell)
@@ -63,7 +63,7 @@ public:
   typedef CGAL_Cell_handle<Triangulation,Point> Cell_handle;
   typedef CGAL_Cell_handle<Triangulation,Point> Self;
 //Creation
-  CGAL_Cell_handle():data(NULL){}
+  CGAL_Cell_handle():data(nullptr){}
 //Modifiers
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,vertex,int)
   SWIG_CGAL_FORWARD_CALL_1(int,index,Vertex_handle)

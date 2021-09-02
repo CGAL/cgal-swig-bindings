@@ -35,6 +35,6 @@ bool throwJavaException(const char* msg)
 
 
 #define JNI_THROW_ON_ERROR(JOBJECT,METHOD,WITH) \
-  if (JOBJECT==NULL) throw std::runtime_error(std::string("Error in " #METHOD " -- ")+WITH);
+  if (JOBJECT==nullptr) throw std::runtime_error(std::string("Error in " #METHOD " -- ")+WITH);
 
 #endif //SWIG_CGAL_JAVA_EXCEPTION_H

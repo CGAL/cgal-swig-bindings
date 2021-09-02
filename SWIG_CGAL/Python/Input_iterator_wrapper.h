@@ -31,21 +31,21 @@ public boost::iterator_facade<
   friend class boost::iterator_core_access;
 
   void update_with_next_point(){
-    if (m_item!=NULL){ Py_DECREF(m_item); }
+    if (m_item!=nullptr){ Py_DECREF(m_item); }
     m_item = PyIter_Next(m_iterator);
-    if ( m_item!=NULL ){
+    if ( m_item!=nullptr ){
       void* ret=0;
       int res = SWIG_ConvertPtr(m_item, &ret, m_type,  0  | 0);
       if (!SWIG_IsOK(res)) {// object is not of correct type
         SWIG_SetErrorMsg(PyExc_TypeError, "object is of incorrect type.");
-        m_current_ptr=NULL;
+        m_current_ptr=nullptr;
         throw Bad_element_type();
         return;
       }
       m_current_ptr=reinterpret_cast<Cpp_wrapper*> (ret);
     }
     else
-      m_current_ptr=NULL;
+      m_current_ptr=nullptr;
   }
   
   PyObject* m_iterator;
@@ -55,41 +55,41 @@ public boost::iterator_facade<
   
   
 public:
-  Input_iterator_wrapper():m_iterator(NULL),m_item(NULL),m_current_ptr(NULL){}
+  Input_iterator_wrapper():m_iterator(nullptr),m_item(nullptr),m_current_ptr(nullptr){}
   Input_iterator_wrapper(const Input_iterator_wrapper& other)
     :m_iterator(other.m_iterator),m_item(other.m_item),m_current_ptr(other.m_current_ptr),m_type(other.m_type)
   {
-    if (m_iterator!=NULL){ Py_INCREF(m_iterator); }
-    if (m_item!=NULL) { Py_INCREF(m_item);  }
+    if (m_iterator!=nullptr){ Py_INCREF(m_iterator); }
+    if (m_item!=nullptr) { Py_INCREF(m_item);  }
   }
   Input_iterator_wrapper(PyObject * container,swig_type_info* tinfo)
-    :m_iterator(NULL),m_item(NULL),m_type(tinfo)
+    :m_iterator(nullptr),m_item(nullptr),m_type(tinfo)
   {
     m_iterator=PyObject_GetIter(container);
     
     //only for function with overload !!!
     if (!(PyIter_Check(m_iterator)) ){
       SWIG_SetErrorMsg(PyExc_TypeError, "Not an iterator.");
-      if (m_iterator!=NULL) {Py_DECREF(m_iterator); m_iterator=NULL;}
+      if (m_iterator!=nullptr) {Py_DECREF(m_iterator); m_iterator=nullptr;}
       throw Not_an_iterator();
     }
     update_with_next_point();
   }
   ~Input_iterator_wrapper(){
-    if (m_iterator!=NULL){ Py_DECREF(m_iterator); }
-    if (m_item!=NULL) { Py_DECREF(m_item);  }
+    if (m_iterator!=nullptr){ Py_DECREF(m_iterator); }
+    if (m_item!=nullptr) { Py_DECREF(m_item);  }
   }
   Input_iterator_wrapper&  operator=(const Input_iterator_wrapper& other){
     //cleanup
-    if (m_iterator!=NULL){ Py_DECREF(m_iterator); }
-    if (m_item!=NULL) { Py_DECREF(m_item);  }
+    if (m_iterator!=nullptr){ Py_DECREF(m_iterator); }
+    if (m_item!=nullptr) { Py_DECREF(m_item);  }
     //copy
     m_iterator=other.m_iterator;
     m_item=other.m_item;
     m_current_ptr=other.m_current_ptr;
     m_type=other.m_type;
-    if (m_iterator!=NULL){ Py_INCREF(m_iterator); }
-    if (m_item!=NULL) { Py_INCREF(m_item);  }
+    if (m_iterator!=nullptr){ Py_INCREF(m_iterator); }
+    if (m_item!=nullptr) { Py_INCREF(m_item);  }
     return *this;
   }
   
@@ -128,14 +128,14 @@ public boost::iterator_facade<
       if (!SWIG_IsOK(res)) {// object in list is not of correct type
         SWIG_SetErrorMsg(PyExc_TypeError, "List contains at least one object with incorrect type.");
         throw Bad_element_type();
-        m_current_ptr=NULL;
+        m_current_ptr=nullptr;
         return;
       }
       m_current_ptr=reinterpret_cast<Cpp_wrapper*> (ret); 
       ++current;
     }
     else
-      m_current_ptr=NULL;
+      m_current_ptr=nullptr;
   }
   
   PyObject* list;
@@ -147,7 +147,7 @@ public boost::iterator_facade<
 public:
   
 
-  Input_iterator_wrapper_for_lists():m_current_ptr(NULL){}
+  Input_iterator_wrapper_for_lists():m_current_ptr(nullptr){}
   Input_iterator_wrapper_for_lists(PyObject * list_,swig_type_info* tinfo):list(list_),m_type(tinfo)
   {
     

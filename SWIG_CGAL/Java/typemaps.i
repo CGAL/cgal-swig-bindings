@@ -388,7 +388,7 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 %typemap(out) boost::shared_ptr<std::vector<std::string> > {
   const jsize size = $1->size();
   jclass myClass = jenv->FindClass("java/lang/String");
-  jobjectArray jstrings = jenv->NewObjectArray(size, myClass, NULL);
+  jobjectArray jstrings = jenv->NewObjectArray(size, myClass, nullptr);
   for (std::size_t i=0;i<$1->size();++i){
     jstring str = jenv->NewStringUTF((*$1)[i].c_str());
     jenv->SetObjectArrayElement(jstrings, i, str);

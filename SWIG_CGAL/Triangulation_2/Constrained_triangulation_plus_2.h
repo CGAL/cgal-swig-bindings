@@ -35,7 +35,7 @@ struct Iterator_helper<std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle<Triang
   }
 
   static std::pair<Vertex_handle,Vertex_handle>
-  default_value(){return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(NULL),Vertex_handle(NULL));}
+  default_value(){return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(nullptr),Vertex_handle(nullptr));}
 };
 #endif
 

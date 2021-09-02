@@ -17,7 +17,7 @@ struct Ref_counted_jdata{
   jclass it_class,pt_class;
   int* counter;
   
-  Ref_counted_jdata():jiterator(NULL),counter(new int(1)){}
+  Ref_counted_jdata():jiterator(nullptr),counter(new int(1)){}
   
   Ref_counted_jdata(jobject jit):counter(new int(1))
   {
@@ -32,7 +32,7 @@ struct Ref_counted_jdata{
     if (--(*counter) == 0)
     {
       delete counter;
-      if (jiterator!=NULL){
+      if (jiterator!=nullptr){
         JNU_GetEnv()->DeleteGlobalRef(jiterator);
         JNU_GetEnv()->DeleteGlobalRef(it_class);
         JNU_GetEnv()->DeleteGlobalRef(pt_class);
@@ -116,36 +116,36 @@ public boost::iterator_facade<
         getCPtr_id=JNU_GetEnv()->GetStaticMethodID(rc.pt_class, "getCPtr",signature.c_str());
         JNI_THROW_ON_ERROR(getCPtr_id,GetStaticMethodID,std::string("getCPtr ")+signature)
       }
-      assert(getCPtr_id!=NULL);
-      assert(rc.pt_class!=NULL);
+      assert(getCPtr_id!=nullptr);
+      assert(rc.pt_class!=nullptr);
       jlong jpt=(jlong) JNU_GetEnv()->CallStaticObjectMethod(rc.pt_class,getCPtr_id,jpoint);
       JNI_THROW_ON_ERROR((void*) jpt,CallStaticObjectMethod," ")
       current_ptr = (Cpp_wrapper*) jpt;
       
     }
     else{
-      current_ptr=NULL;
+      current_ptr=nullptr;
     }
   }
   
 public:
   
 
-  Input_iterator_wrapper():current_ptr(NULL){}
+  Input_iterator_wrapper():current_ptr(nullptr){}
   Input_iterator_wrapper(const jobject& jiterator_,const char* sign):signature(sign),rc(jiterator_)
   {
-    assert(rc.it_class!=NULL);
+    assert(rc.it_class!=nullptr);
     hasnext_id=JNU_GetEnv()->GetMethodID(rc.it_class, "hasNext", "()Z");
     JNI_THROW_ON_ERROR(hasnext_id,GetMethodID,"hasNext ()Z");
     next_id=JNU_GetEnv()->GetMethodID(rc.it_class, "next","()Ljava/lang/Object;");
     JNI_THROW_ON_ERROR(next_id,GetMethodID,"next ()Ljava/lang/Object;");
-    getCPtr_id=NULL;
-    rc.pt_class=NULL;
+    getCPtr_id=nullptr;
+    rc.pt_class=nullptr;
     update_with_next_point(true);
   }
 
   
-  void increment(){assert(current_ptr!=NULL); update_with_next_point();}
+  void increment(){assert(current_ptr!=nullptr); update_with_next_point();}
   bool equal(const Input_iterator_wrapper & other) const{ return current_ptr==other.current_ptr; }
   
   typename Deref::result_type dereference() const { return Deref::dereference(current_ptr); }

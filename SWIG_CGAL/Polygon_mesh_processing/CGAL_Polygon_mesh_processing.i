@@ -200,18 +200,18 @@ SWIG_CGAL_python_vector_of_int_typecheck
     typedef bool value_type;
     typedef bool reference;
 
-    Is_constrained_map() : m_set(NULL) {}
+    Is_constrained_map() : m_set(nullptr) {}
     Is_constrained_map(std::set<key_type>& set_) : m_set(&set_) {}
 
     friend bool get(const Is_constrained_map& map, const key_type& k)
     {
-      CGAL_assertion(map.m_set != NULL);
+      CGAL_assertion(map.m_set != nullptr);
       return map.m_set->count(k);
     }
 
     friend void put(const Is_constrained_map& map, const key_type& k, value_type b)
     {
-      CGAL_assertion(map.m_set != NULL);
+      CGAL_assertion(map.m_set != nullptr);
       if (b)
         map.m_set->insert(k);
       else
