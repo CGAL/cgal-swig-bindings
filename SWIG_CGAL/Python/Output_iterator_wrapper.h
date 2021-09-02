@@ -7,7 +7,7 @@
 #ifndef SWIG_CGAL_PYTHON_OUTPUT_ITERATOR_WRAPPER_H
 #define SWIG_CGAL_PYTHON_OUTPUT_ITERATOR_WRAPPER_H
 
-#include <boost/function_output_iterator.hpp>
+#include <boost/iterator/function_output_iterator.hpp>
 #include <SWIG_CGAL/Python/exceptions.h>
 
 template<class Cpp_wrapper,class Cpp_base>

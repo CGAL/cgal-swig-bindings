@@ -7,7 +7,7 @@
 #ifndef SWIG_CGAL_JAVA_OUTPUT_ITERATOR_WRAPPER_H
 #define SWIG_CGAL_JAVA_OUTPUT_ITERATOR_WRAPPER_H
 
-#include <boost/function_output_iterator.hpp>
+#include <boost/iterator/function_output_iterator.hpp>
 #include <SWIG_CGAL/Java/global_functions.h>
 #include <SWIG_CGAL/Java/exception.h>
 

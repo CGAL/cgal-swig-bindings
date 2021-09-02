@@ -12,7 +12,7 @@
 #include <CGAL/Gray_level_image_3.h>
 #include <CGAL/Implicit_surface_3.h>
 #include <CGAL/IO/Complex_2_in_triangulation_3_file_writer.h>
-#include <CGAL/IO/output_surface_facets_to_polyhedron.h>
+#include <CGAL/IO/facets_in_complex_2_to_triangle_mesh.h>
   
 typedef CGAL::Surface_mesh_default_triangulation_3                      C2T3_DT;
 typedef CGAL::Complex_2_in_triangulation_3<C2T3_DT>                     C2T3;

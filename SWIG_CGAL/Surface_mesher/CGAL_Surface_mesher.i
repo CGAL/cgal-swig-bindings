@@ -112,9 +112,15 @@ SWIG_CGAL_import_Polyhedron_3_SWIG_wrapper
     else  CGAL::output_surface_facets_to_off(outfile,c2t3.get_data());
   }
   
+  // deprecated
   void output_surface_facets_to_polyhedron(const Complex_2_in_triangulation_3_SWIG_wrapper& c2t3,Polyhedron_3_SWIG_wrapper& poly)
   {
-    CGAL::output_surface_facets_to_polyhedron( c2t3.get_data(),poly.get_data() );
+    CGAL:: facets_in_complex_2_to_triangle_mesh(c2t3.get_data(),poly.get_data() );
+  }
+
+  void facets_in_complex_2_to_triangle_mesh(const Complex_2_in_triangulation_3_SWIG_wrapper& c2t3,Polyhedron_3_SWIG_wrapper& poly)
+  {
+    CGAL:: facets_in_complex_2_to_triangle_mesh(c2t3.get_data(),poly.get_data() );
   }
 
   void  make_surface_mesh(Complex_2_in_triangulation_3_SWIG_wrapper& c2t3,const Implicit_surface_3_wrapper<IS_GLI_3,Gray_level_image_3_wrapper<GLI_3> >& surface,const Surface_mesh_criteria_3_wrapper<SMDC_3>& criteria, Surface_mesher_tag tag,int nb)
