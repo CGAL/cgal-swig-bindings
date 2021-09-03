@@ -3,7 +3,7 @@ name: Windows Tests
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -14,7 +14,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        cgal_branch: [v5.1, v5.2, master]
+        cgal_branch: [v5.1.5, v5.2.3, v5.3, master]
         python_minor_version: [6, 7, 8]
 
     steps:
