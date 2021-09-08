@@ -56,8 +56,15 @@ jobs:
     - name: Install CGAL and other dependencies
       run: |
         # ==- Install Boost -==
-        #$Env:BOOST_ROOT_1_72_0/lib/*.dll C:\Miniconda\Library\bin
-        echo "$Env:BOOST_ROOT_1_72_0" >> $env:GITHUB_PATH
+        # Use the boost-1.72.0-win32-msvc14.1-x86_64.tar.gz for Windows 2016
+        $url = "https://github.com/actions/boost-versions/releases/download/1.72.0-20200608.4/boost-1.72.0-win32-msvc14.2-x86_64.tar.gz"
+        (New-Object System.Net.WebClient).DownloadFile($url, "$env:TEMP\boost.tar.gz")
+        7z.exe x "$env:TEMP\boost.tar.gz" -o"$env:TEMP\boostArchive" -y | Out-Null
+        7z.exe x "$env:TEMP\boostArchive" -o"$env:TEMP\boost" -y | Out-Null
+        Push-Location -Path "$env:TEMP\boost"
+        Invoke-Expression .\setup.ps1
+
+        echo "C:\\hostedtoolcache\\windows\\Boost\\1.72.0\\x86_64" >> $env:GITHUB_PATH
         echo "$Env:pythonLocation" >> $env:GITHUB_PATH
 
         # ==-Install CGAL-==
@@ -97,8 +104,6 @@ jobs:
     - name: Check Installation
       run: |
         echo "Path content : $Env:PATH"
-        #echo "C:\boost_1_69_0\lib content"
-        #ls C:\boost_1_69_0\lib
 
 #    - name: Build Tests
 #      run: |
@@ -117,7 +122,7 @@ jobs:
 
     - name: Test Setup
       run: |
-        python.exe setup.py bdist_wheel --cmake-prefix-path="C:/Miniconda/Library" --boost-root="$Env:BOOST_ROOT_1_72_0" --generator="Visual Studio 15 2017 Win64" --cgal-dir=C:/cgal --python-root="$pythonLocation"
+        python.exe setup.py bdist_wheel --cmake-prefix-path="C:/Miniconda/Library" --boost-root="C:\\hostedtoolcache\\windows\\Boost\\1.72.0\\x86_64" --generator="Visual Studio 15 2017 Win64" --cgal-dir=C:/cgal --python-root="$pythonLocation"
         pip install dist/*
       shell: bash
 
