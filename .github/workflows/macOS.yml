@@ -15,7 +15,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        cgal_branch: [v5.3, master]
+        cgal_branch: [v5.1.5, v5.2.3, v5.3, master]
         python_minor_version: [6, 7, 8]
 
 
@@ -37,7 +37,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-       brew install  mpfr gmp boost eigen swig homebrew/cask/java tbb
+       brew install  mpfr gmp boost eigen swig homebrew/cask/java
+       if [ "${{ matrix.cgal_branch }}" = master ]; then
+         brew install tbb
+       else
+         brew install tbb@2020
+       fi
        python -m pip install --upgrade pip
        python -m pip --version
        python -m pip install numpy twine pycodestyle
