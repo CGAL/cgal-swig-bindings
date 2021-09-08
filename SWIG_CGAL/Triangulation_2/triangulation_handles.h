@@ -23,7 +23,7 @@ public:
         cpp_base& get_data()       {return data;}
   #endif
 //Creation
-  CGAL_Vertex_handle():data(NULL){}
+  CGAL_Vertex_handle():data(nullptr){}
   #ifndef SWIG
   CGAL_Vertex_handle(typename Triangulation::Vertex_handle v):data(v){}
   #endif
@@ -51,7 +51,7 @@ public:
   typedef CGAL_Face_handle<Triangulation,Point> Self;
   typedef CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
 
-  CGAL_Face_handle():data(NULL){}
+  CGAL_Face_handle():data(nullptr){}
   #ifndef SWIG
   typedef typename Triangulation::Face_handle cpp_base;
   CGAL_Face_handle(typename Triangulation::Face_handle v):data(v){}

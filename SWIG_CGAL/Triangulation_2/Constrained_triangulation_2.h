@@ -9,7 +9,7 @@
 
 #include <SWIG_CGAL/Triangulation_2/Triangulation_2.h>
 
-#include <boost/function_output_iterator.hpp>
+#include <boost/iterator/function_output_iterator.hpp>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 #include <CGAL/Constrained_triangulation_2.h>
 

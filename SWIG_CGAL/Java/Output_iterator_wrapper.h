@@ -7,7 +7,7 @@
 #ifndef SWIG_CGAL_JAVA_OUTPUT_ITERATOR_WRAPPER_H
 #define SWIG_CGAL_JAVA_OUTPUT_ITERATOR_WRAPPER_H
 
-#include <boost/function_output_iterator.hpp>
+#include <boost/iterator/function_output_iterator.hpp>
 #include <SWIG_CGAL/Java/global_functions.h>
 #include <SWIG_CGAL/Java/exception.h>
 
@@ -22,7 +22,7 @@ class Container_writer{
     if (--(*ref_counter) == 0)
     {
       delete ref_counter;
-      if (container!=NULL ){
+      if (container!=nullptr ){
         JNU_GetEnv()->DeleteGlobalRef(container);
         JNU_GetEnv()->DeleteGlobalRef(cont_class);
         JNU_GetEnv()->DeleteGlobalRef(obj_class);
@@ -41,7 +41,7 @@ class Container_writer{
   }
 public:
 
-  Container_writer():container(NULL),cont_class(NULL),obj_class(NULL),ref_counter(new int(1)){}
+  Container_writer():container(nullptr),cont_class(nullptr),obj_class(nullptr),ref_counter(new int(1)){}
   Container_writer(jobject container_,const char* name):ref_counter(new int(1))
   {
     container = JNU_GetEnv()->NewGlobalRef( container_ );
@@ -97,7 +97,7 @@ class Container_writer<T,T>{\
     if (--(*ref_counter) == 0)\
     {\
       delete ref_counter;\
-      if (container!=NULL ){\
+      if (container!=nullptr ){\
         JNU_GetEnv()->DeleteGlobalRef(container);\
         JNU_GetEnv()->DeleteGlobalRef(cont_class);\
         JNU_GetEnv()->DeleteGlobalRef(obj_class);\
@@ -116,7 +116,7 @@ class Container_writer<T,T>{\
   }\
 public:\
 \
-  Container_writer():container(NULL),cont_class(NULL),obj_class(NULL),ref_counter(new int(1)){}\
+  Container_writer():container(nullptr),cont_class(nullptr),obj_class(nullptr),ref_counter(new int(1)){}\
   Container_writer(jobject container_,const char* name):ref_counter(new int(1))\
   {\
     container = JNU_GetEnv()->NewGlobalRef( container_ );\

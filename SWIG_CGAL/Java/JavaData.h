@@ -24,7 +24,7 @@ class SWIG_CGAL_JAVA_DECL JavaData {
   Self deepcopy();
   void deepcopy(const Self&);  
 public:  
-  JavaData (jobject ref = NULL);
+  JavaData (jobject ref = nullptr);
   ~JavaData();
 #ifndef SWIG
   JavaData(const JavaData & d);
@@ -33,9 +33,9 @@ public:
 //  void init_empty_object()
 //  {
 //    jclass objclass=JNU_GetEnv()->FindClass("java/lang/Object");
-//    assert(objclass!=NULL);
+//    assert(objclass!=nullptr);
 //    jmethodID init_id=JNU_GetEnv()->GetMethodID(objclass,"<init>","()V");
-//    assert(init_id!=NULL);
+//    assert(init_id!=nullptr);
 //    init(JNU_GetEnv()->NewObject(objclass,init_id));
 //  }
 #endif

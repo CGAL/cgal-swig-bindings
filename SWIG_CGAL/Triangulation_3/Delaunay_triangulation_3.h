@@ -40,7 +40,7 @@ public:
 
 //Creation
   Delaunay_triangulation_3_wrapper():Base(){}
-  Delaunay_triangulation_3_wrapper(const Delaunay_triangulation_3_wrapper& dt):Base(static_cast<const Base&>(dt)){};
+  Delaunay_triangulation_3_wrapper(const Delaunay_triangulation_3_wrapper& dt) = default;
   Delaunay_triangulation_3_wrapper(Point_range range):Base(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range)){}
 //Point moving
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,move,Vertex_handle,Point_3);

@@ -17,10 +17,13 @@ template < class HDS_cpp >
 class HalfedgeDS_wrapper
 {
   boost::shared_ptr<HDS_cpp> data_sptr;
+
 public:
   typedef HDSVertex_wrapper<HDS_cpp>   Vertex_wrapper;
   typedef HDSHalfedge_wrapper<HDS_cpp> Hedge_wrapper;
   typedef HDSFace_wrapper<HDS_cpp>     Face_wrapper;
+
+  typedef HalfedgeDS_wrapper<HDS_cpp> Self;
 
   //iterator types
   typedef SWIG_CGAL_Iterator<typename HDS_cpp::Vertex_iterator,Vertex_wrapper>  Vertex_range;
@@ -40,7 +43,7 @@ public:
 //Construction
   HalfedgeDS_wrapper():data_sptr(new cpp_base()){};
   HalfedgeDS_wrapper(int v, int h, int f):data_sptr( new cpp_base(v,h,f) ){}
-  HalfedgeDS_wrapper( const HalfedgeDS_wrapper& hds2):data_sptr( new cpp_base(hds2.get_data()) ){}
+  HalfedgeDS_wrapper( const Self& hds2):data_sptr( new cpp_base(hds2.get_data()) ){}
 
   SWIG_CGAL_FORWARD_CALL_3(void,reserve,int,int,int)
 // Access Member Functions
@@ -101,12 +104,18 @@ public:
   Halfedge_range border_halfedges(){ return Halfedge_range(get_data().border_halfedges_begin(), get_data().halfedges_end()); }
 
 //Deep copy
-  typedef HalfedgeDS_wrapper<HDS_cpp> Self;
   Self deepcopy() const {return Self(get_data());}
   void deepcopy(const Self& other){get_data()=other.get_data();}
 //For convenience add the modifier mechanism
   void delegate(General_modifier<HDS_cpp> modifier){modifier(get_data());}
 
+  #ifndef SWIG
+  Self& operator=(const Self& other)
+  {
+    data_sptr = boost::shared_ptr<HDS_cpp>( new cpp_base(other.get_data()) );
+    return *this;
+  }
+  #endif
 };
 
 #endif //SWIG_CGAL_HALFEDGEDS_HALFEDGEDS_H

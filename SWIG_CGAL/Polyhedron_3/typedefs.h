@@ -19,18 +19,4 @@ typedef CGAL::Polyhedron_3<EPIC_Kernel, CGAL::Polyhedron_items_with_id_3>     Po
 typedef CGAL::Polyhedron_3<EPIC_Kernel,CGAL::Polyhedron_items_with_id_and_info_3<JavaData> > Polyhedron_3_;
 #endif //SWIGJAVA
 
-#ifndef SWIG
-//workaround for the CGAL is_iterator that detect
-//the polyhedron class as an iterator
-#include <CGAL/is_iterator.h>
-namespace CGAL{
-  namespace internal{
-  template <>
-  struct is_iterator_<Polyhedron_3_>{
-    enum {value=false};
-  };
-} }
-#endif
-
-
 #endif //SWIG_CGAL_POLYHEDRON_3_TYPEDEFS_H

@@ -12,7 +12,6 @@
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Lazy_exact_nt.h>
 #include <CGAL/Cartesian_converter.h>
-#include <CGAL/internal/Exact_type_selector.h>
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel EPIC_Kernel;
 

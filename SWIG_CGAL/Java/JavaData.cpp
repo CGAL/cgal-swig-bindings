@@ -10,31 +10,31 @@
 #include <SWIG_CGAL/Java/JavaData.h>
 
 void JavaData::init(jobject obj){
-  if (obj!=NULL){
+  if (obj!=nullptr){
     cnt=new int(1);
     data = JNU_GetEnv()->NewGlobalRef(obj);
   }
   else
-    data = NULL;
+    data = nullptr;
 }
 
 void JavaData::copy(const JavaData& d){
   cnt = d.cnt;
   data = d.data;
-  if (d.data!=NULL)
+  if (d.data!=nullptr)
     ++(*cnt);    
 }
 
 void JavaData::clean(){
-  if (data != NULL){
+  if (data != nullptr){
     --(*cnt);
     if ((*cnt) == 0) {
       JNU_GetEnv()->DeleteGlobalRef(data);
       delete cnt;
-      cnt=NULL;
+      cnt=nullptr;
     }
   }
-  data=NULL;
+  data=nullptr;
 }
 
 JavaData::JavaData (jobject obj) { 
@@ -64,7 +64,7 @@ bool JavaData::operator<(const JavaData& d) const {
 jobject JavaData::get_data(){return data;}
 
 void JavaData::set_data(jobject n){
-  if (data!=NULL)
+  if (data!=nullptr)
     clean();
   init(n);
 }

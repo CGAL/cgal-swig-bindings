@@ -65,7 +65,7 @@ public:
   typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_facet_circulator,CGAL_Halfedge_handle<Polyhedron_base> >  Halfedge_around_facet_circulator;
   typedef CGAL_Halfedge_handle<Polyhedron_base> Self;
 
-  CGAL_Halfedge_handle():data(NULL){}
+  CGAL_Halfedge_handle():data(nullptr){}
 //Operations
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(CGAL_Halfedge_handle,opposite)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(CGAL_Halfedge_handle,next)
@@ -116,7 +116,7 @@ public:
   typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_facet_circulator,CGAL_Halfedge_handle<Polyhedron_base> >  Halfedge_around_facet_circulator;
   typedef CGAL_Vertex_handle<Polyhedron_base> Self;
         
-  CGAL_Vertex_handle():data(NULL){}
+  CGAL_Vertex_handle():data(nullptr){}
 
 //Operations available if Supports_vertex_point is CGAL::Tag_true
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Point_3,point)
@@ -155,7 +155,7 @@ public:
   typedef SWIG_CGAL_Circulator<typename Polyhedron_base::Halfedge_around_facet_circulator,CGAL_Halfedge_handle<Polyhedron_base> >  Halfedge_around_facet_circulator;
   typedef CGAL_Facet_handle<Polyhedron_base> Self;
 
-  CGAL_Facet_handle():data(NULL){}
+  CGAL_Facet_handle():data(nullptr){}
 //Operations available if Supports_facet_plane is CGAL::Tag_true
   #ifdef SWIG_CGAL_FACET_SUPPORTS_PLANE
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Plane_3,plane)

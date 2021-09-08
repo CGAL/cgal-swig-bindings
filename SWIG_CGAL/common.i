@@ -160,7 +160,7 @@
   //check that the input is an iterator
   %typemap(typecheck,precedence=0) Object_typemap_ {
     PyObject* iter=PyObject_GetIter($input);
-    if (iter!=NULL){
+    if (iter!=nullptr){
       Py_DECREF(iter);
       $1=1;
     }
