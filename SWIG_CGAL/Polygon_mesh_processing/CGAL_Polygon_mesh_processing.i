@@ -22,8 +22,8 @@ SWIG_CGAL_package_common()
 //include files
 %{
   #include <SWIG_CGAL/Common/Iterator.h>
-  #include  <SWIG_CGAL/Polyhedron_3/all_includes.h>
-  #include  <SWIG_CGAL/Polygon_mesh_processing/all_includes.h>
+  #include <SWIG_CGAL/Polyhedron_3/all_includes.h>
+  #include <SWIG_CGAL/Polygon_mesh_processing/all_includes.h>
 %}
 
 %pragma(java) jniclassimports=
@@ -95,6 +95,7 @@ SWIG_CGAL_declare_identifier_of_template_class(Halfedge_pair,std::pair<Polyhedro
 //includes
 %{
   #include <CGAL/polygon_mesh_processing.h>
+  #include <CGAL/Polygon_mesh_processing/clip.h>
   #include <SWIG_CGAL/Common/Wrapper_iterator_helper.h>
   #include <SWIG_CGAL/Common/triple.h>
   #include <SWIG_CGAL/Polygon_mesh_processing/utils.h>
@@ -667,6 +668,48 @@ SWIG_CGAL_python_vector_of_int_typecheck
     return Bbox_3( PMP::bbox(P.get_data()));
   }
 
+//
+// Corefinement based
+  void corefine(Polyhedron_3_SWIG_wrapper& A, Polyhedron_3_SWIG_wrapper& B)
+  {
+    PMP::corefine(A.get_data(), B.get_data());
+  }
+
+  bool corefine_and_compute_union(Polyhedron_3_SWIG_wrapper& A, Polyhedron_3_SWIG_wrapper& B, Polyhedron_3_SWIG_wrapper& out)
+  {
+    return PMP::corefine_and_compute_union(A.get_data(), B.get_data(), out.get_data());
+  }
+
+  bool corefine_and_compute_intersection(Polyhedron_3_SWIG_wrapper& A, Polyhedron_3_SWIG_wrapper& B, Polyhedron_3_SWIG_wrapper& out)
+  {
+    return PMP::corefine_and_compute_intersection(A.get_data(), B.get_data(), out.get_data());
+  }
+
+  bool corefine_and_compute_difference(Polyhedron_3_SWIG_wrapper& A, Polyhedron_3_SWIG_wrapper& B, Polyhedron_3_SWIG_wrapper& out)
+  {
+    return PMP::corefine_and_compute_difference(A.get_data(), B.get_data(), out.get_data());
+  }
+
+  bool clip(Polyhedron_3_SWIG_wrapper& A, Polyhedron_3_SWIG_wrapper& B)
+  {
+    return PMP::clip(A.get_data(), B.get_data());
+  }
+
+  bool clip(Polyhedron_3_SWIG_wrapper& A, Plane_3& plane)
+  {
+    return PMP::clip(A.get_data(), plane.get_data());
+  }
+
+  void split(Polyhedron_3_SWIG_wrapper& A, Polyhedron_3_SWIG_wrapper& B)
+  {
+    PMP::split(A.get_data(), B.get_data());
+  }
+
+  void split(Polyhedron_3_SWIG_wrapper& A, Plane_3& plane)
+  {
+    PMP::split(A.get_data(), plane.get_data());
+  }
+
 //   CGAL::Polygon_mesh_processing::border_halfedges() (4.8)
   void border_halfedges(Facet_range facet_range,
                         Polyhedron_3_SWIG_wrapper& P,
@@ -675,7 +718,7 @@ SWIG_CGAL_python_vector_of_int_typecheck
     CGAL::set_halfedgeds_items_id(P.get_data());
     PMP::border_halfedges(make_range(facet_range), P.get_data(), out);
   }
-
+  
 %}
 
 #ifdef SWIGJAVA

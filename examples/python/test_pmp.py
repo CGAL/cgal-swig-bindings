@@ -23,6 +23,10 @@ from CGAL.CGAL_Kernel import Bbox_3
 from CGAL.CGAL_Kernel import ON_BOUNDARY, ON_UNBOUNDED_SIDE, ON_BOUNDED_SIDE
 
 
+import os
+datadir = os.environ.get('DATADIR', '../data')
+
+
 def get_poly():
     P = Polyhedron_3()
     P.make_tetrahedron(Point_3(1, 0, 0), Point_3(0, 0, 1), Point_3(0, 0, 0), Point_3(0, 1, 0))
@@ -298,15 +302,24 @@ def test_side_of_triangle_mesh():
     assert(f.bounded_side(Point_3(0, 0, 0)) == ON_BOUNDARY)
     assert(f.bounded_side(Point_3(4, 0, 0)) == ON_UNBOUNDED_SIDE)
 
+def test_coref():
+  f1 = datadir+'/elephant.off'
+  f2 = datadir+'/sphere.off'
+  P = Polyhedron_3(f1)
+  Q = Polyhedron_3(f2)
+  U = Polyhedron_3()
+  CGAL_Polygon_mesh_processing.corefine_and_compute_union(P,Q,U)
+  U.write_to_file("union.off")
 
-test_meshing_functions()
-test_hole_filling_functions()
-test_predicate_functions()
-test_orientation_functions()
-test_combinatorial_repairing_functions()
-test_normal_computation_functions()
-test_connected_components_functions()
-test_geometric_measure_functions()
-test_miscellaneous_functions()
-test_polygon_mesh_slicer()
-test_side_of_triangle_mesh()
+#~ test_meshing_functions()
+#~ test_hole_filling_functions()
+#~ test_predicate_functions()
+#~ test_orientation_functions()
+#~ test_combinatorial_repairing_functions()
+#~ test_normal_computation_functions()
+#~ test_connected_components_functions()
+#~ test_geometric_measure_functions()
+#~ test_miscellaneous_functions()
+#~ test_polygon_mesh_slicer()
+#~ test_side_of_triangle_mesh()
+test_coref()
