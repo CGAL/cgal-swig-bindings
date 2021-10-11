@@ -700,6 +700,7 @@ SWIG_CGAL_python_vector_of_int_typecheck
     return PMP::clip(A.get_data(), plane.get_data());
   }
 
+#if CGAL_VERSION_MAJOR ==5 && CGAL_VERSION_MINOR >= 1
   void split(Polyhedron_3_SWIG_wrapper& A, Polyhedron_3_SWIG_wrapper& B)
   {
     PMP::split(A.get_data(), B.get_data());
@@ -709,6 +710,7 @@ SWIG_CGAL_python_vector_of_int_typecheck
   {
     PMP::split(A.get_data(), plane.get_data());
   }
+#endif
 
 //   CGAL::Polygon_mesh_processing::border_halfedges() (4.8)
   void border_halfedges(Facet_range facet_range,
