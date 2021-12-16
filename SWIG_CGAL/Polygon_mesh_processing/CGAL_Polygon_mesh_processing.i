@@ -409,16 +409,16 @@ SWIG_CGAL_python_vector_of_int_typecheck
   		                             Point_3_range third_points,
                                    Integer_triple_output_iterator out)
   {
-    PMP::triangulate_hole_polyline( CGAL::make_range(points),
-                                    CGAL::make_range(third_points),
-                                    out);
+    std::vector<Point_3::cpp_base> pts(points.begin(), points.end());
+    std::vector<Point_3::cpp_base> tpts(third_points.begin(), third_points.end());
+    PMP::triangulate_hole_polyline( pts, tpts, out);
   }
 
   void triangulate_hole_polyline 	(Point_3_range points,
                                    Integer_triple_output_iterator out)
   {
-    PMP::triangulate_hole_polyline( CGAL::make_range(points),
-                                    out);
+    std::vector<Point_3::cpp_base> pts(points.begin(), points.end());
+    PMP::triangulate_hole_polyline( pts, out);
   }
 
 //
