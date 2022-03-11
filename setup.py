@@ -134,6 +134,7 @@ def get_option_pairs():
          ('cmake_prefix_path','cmake_prefix_path'),
          ('generator', 'generator'),
          ('python_root', 'python_root'),
+         ('python', 'python'),
          ('cmake', 'cmake')}
   return values
 
@@ -163,6 +164,7 @@ def init_values(obj):
   obj.generator= None
   obj.cmake= None
   obj.python_root= None
+  obj.python= None
 
 class BuildWheelCommand(bdist_wheel):
   user_options = bdist_wheel.user_options + get_options()
@@ -350,6 +352,8 @@ class my_build_ext(build_ext_orig):
             cmake_args.append('-DZLIB_LIBRARIES='+self.zlib_lib)
         if self.cmake_prefix_path is not None:
           cmake_args.append('-DCMAKE_PREFIX_PATH='+self.cmake_prefix_path)
+        if self.python is not None:
+          cmake_args.append('-DPython_EXECUTABLE='+self.python)
         if self.python_root is not None:
           cmake_args.append('-DPython_ROOT_DIR='+self.python_root)
           if sys.platform != 'win32'or sys.platform == 'cygwin':
