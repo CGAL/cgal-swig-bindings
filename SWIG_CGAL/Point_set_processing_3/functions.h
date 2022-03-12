@@ -31,6 +31,8 @@ typedef CGAL::Parallel_tag Concurrency_tag;
 typedef CGAL::Sequential_tag Concurrency_tag;
 #endif
 
+namespace CGAL_SWIG {
+
 void bilateral_smooth_point_set (Point_set_3_wrapper<CGAL_PS3> point_set, int k,
                                  double neighbor_radius = 0.,
                                  double sharpness_angle = 30.)
@@ -193,5 +195,6 @@ void wlop_simplify_and_regularize_point_set (Point_set_3_wrapper<CGAL_PS3> input
      require_uniform_sampling(require_uniform_sampling));
 }
 
+} // end namespace CGAL_SWIG
 
 #endif //SWIG_CGAL_POINT_SET_PROCESSING_3_H
