@@ -105,6 +105,7 @@ def get_options():
            ('zlib-lib=', None, 'Specify the path to the zlib library file.'),
            ('cmake-prefix-path=', None, 'Specify the path to a directory that can be used as CMAKE_PREFIX_PATH, that would contain all headers and libraries. '),
            ('generator=', None, 'The generator to use for cmake.'),
+           ('python-executable=', None, 'The path to the python executable.'),
            ('python-root=', None, 'The path to the python root directory.'),
            ('cmake=', None, 'Specify the path to the cmake executable.')
          ]
