@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 1
       - name: Copy Conda environment file
         run: |
-          cp .integration/conda-env-test.yml ${{ env.RUNNER_TEMP }}/conda-env-test.yml
+          cp .integration/conda-env-test.yml ${RUNNER_TEMP}/conda-env-test.yml
 
       - uses: conda-incubator/setup-miniconda@v2
         with:
