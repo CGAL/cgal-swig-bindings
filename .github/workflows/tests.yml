@@ -44,6 +44,7 @@ jobs:
           java-version: 1.8
 
       - name: Install dependencies
+        shell: bash -l {0}
         run: |
           $CONDA/bin/conda install -n test -y -c conda-forge 'boost-cpp>=1.77' bzip2 zlib eigen mpfr mpir tbb numpy wheel twine swig
 
