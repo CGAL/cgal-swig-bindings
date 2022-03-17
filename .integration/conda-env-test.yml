@@ -1,0 +1,16 @@
+name: test
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - boost-cpp>=1.77.0
+  - mpir
+  - zlib
+  - eigen
+  - mpfr
+  - numpy
+  - twine
+  - swig
+  - tbb
+  - wheel
+  - bzip2
