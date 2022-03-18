@@ -79,7 +79,7 @@ jobs:
         cd C:\LAStools
         mkdir build
         cd C:\LAStools\build
-        cmake -G "Visual Studio 16 2019 Win64" C:\LAStools -DCMAKE_INSTALL_PREFIX=C:/Miniconda/Library
+        cmake -G "Visual Studio 16 2019" C:\LAStools -DCMAKE_INSTALL_PREFIX=C:/Miniconda/Library
         cmake --build . --config Release
         cmake --install . --config Release
         #fix error in installation
@@ -122,7 +122,7 @@ jobs:
 
     - name: Test Setup
       run: |
-        python.exe setup.py bdist_wheel --cmake-prefix-path="C:/Miniconda/Library" --boost-root="C:\\hostedtoolcache\\windows\\Boost\\1.72.0\\x86_64" --generator="Visual Studio 16 2019 Win64" --cgal-dir=C:/cgal --python-root="$pythonLocation"
+        python.exe setup.py bdist_wheel --cmake-prefix-path="C:/Miniconda/Library" --boost-root="C:\\hostedtoolcache\\windows\\Boost\\1.72.0\\x86_64" --generator="Visual Studio 16 2019" --cgal-dir=C:/cgal --python-root="$pythonLocation"
         pip install dist/*
       shell: bash
 
