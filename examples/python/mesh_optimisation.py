@@ -7,7 +7,6 @@ from CGAL.CGAL_Mesh_2 import Default_Delaunay_mesher_2
 from CGAL.CGAL_Mesh_2 import Mesh_2_parameters
 from CGAL import CGAL_Mesh_2
 
-
 cdt = Mesh_2_Constrained_Delaunay_triangulation_2()
 va = cdt.insert(Point_2(-2, 0))
 vb = cdt.insert(Point_2(0, -2))

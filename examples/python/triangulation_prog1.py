@@ -22,7 +22,7 @@ vc = t.incident_vertices(t.infinite_vertex())
 if vc.hasNext():
     done = vc.next()
     iter = Triangulation_2_Vertex_handle()
-    while(1):
+    while (1):
         iter = vc.next()
         print(iter.point())
         if iter == done:

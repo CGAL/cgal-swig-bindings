@@ -15,7 +15,6 @@ t = Constrained_Delaunay_triangulation_plus_2(constraints)
 
 print("Nb vertices ", t.number_of_vertices())
 
-
 v1 = t.insert(Point_2(1, 2))
 v2 = t.insert(Point_2(3, 2))
 v3 = t.insert(Point_2(3, 44))
@@ -38,7 +37,6 @@ for e in lst:
 print("Try point range insertion")
 t.insert(lst)
 
-
 edges = []
 
 for v in t.finite_vertices():
@@ -47,15 +45,13 @@ for v in t.finite_vertices():
 rf = Ref_Constrained_Delaunay_triangulation_plus_2_Face_handle()
 ri = Ref_int()
 t.is_edge(edges[0][0].vertex(t.cw(edges[0][1])),
-          edges[0][0].vertex(t.ccw(edges[0][1])),
-          rf, ri)
-assert(rf.object() == edges[0][0] or rf.object() == edges[0][0].neighbor(edges[1]))
-
+          edges[0][0].vertex(t.ccw(edges[0][1])), rf, ri)
+assert (rf.object() == edges[0][0]
+        or rf.object() == edges[0][0].neighbor(edges[1]))
 
 print("Nb incident constraints ", len(edges))
 
 print(t.number_of_vertices())
-
 
 for v in t.finite_vertices():
     print(v.point())

@@ -19,7 +19,7 @@ def mark_domains(ct, start_face, index, edge_border, face_info):
         return
     queue = [start_face]
     while queue != []:
-        fh = queue[0]     # queue.front
+        fh = queue[0]  # queue.front
         queue = queue[1:]  # queue.pop_front
         if face_info[fh].nesting_level == -1:
             face_info[fh].nesting_level = index
@@ -51,13 +51,13 @@ def mark_domain(cdt):
         face_info[face] = FaceInfo2()
     index = 0
     border = []
-    mark_domains(cdt, cdt.infinite_face(), index+1, border, face_info)
+    mark_domains(cdt, cdt.infinite_face(), index + 1, border, face_info)
     while border != []:
-        e = border[0]       # border.front
+        e = border[0]  # border.front
         border = border[1:]  # border.pop_front
         n = e[0].neighbor(e[1])
         if face_info[n].nesting_level == -1:
-            lvl = face_info[e[0]].nesting_level+1
+            lvl = face_info[e[0]].nesting_level + 1
             mark_domains(cdt, n, lvl, border, face_info)
     return face_info
 
@@ -67,8 +67,8 @@ def insert_polygon(cdt, polygon):
         return
 
     handles = [cdt.insert(polypt) for polypt in polygon]
-    for i in range(len(polygon)-1):
-        cdt.insert_constraint(handles[i], handles[i+1])
+    for i in range(len(polygon) - 1):
+        cdt.insert_constraint(handles[i], handles[i + 1])
     cdt.insert_constraint(handles[-1], handles[0])
 
 
@@ -88,12 +88,12 @@ if __name__ == "__main__":
         def rescale_plot(ax, scale=1.1):
             xmin, xmax = ax.get_xlim()
             ymin, ymax = ax.get_ylim()
-            xmid = (xmin+xmax)/2.0
-            ymid = (ymin+ymax)/2.0
+            xmid = (xmin + xmax) / 2.0
+            ymid = (ymin + ymax) / 2.0
             xran = xmax - xmid
             yran = ymax - ymid
-            ax.set_xlim(xmid - xran*scale, xmid + xran*scale)
-            ax.set_ylim(ymid - yran*scale, ymid + yran*scale)
+            ax.set_xlim(xmid - xran * scale, xmid + xran * scale)
+            ax.set_ylim(ymid - yran * scale, ymid + yran * scale)
 
         def plot_edge(edge, *args):
             edge_seg = cdt.segment(edge)
@@ -113,12 +113,7 @@ if __name__ == "__main__":
 
     def main():
         # Construct two non-intersecting nested polygons
-        polygon1 = [
-            Point_2(0, 0),
-            Point_2(2, 0),
-            Point_2(2, 2),
-            Point_2(0, 2)
-        ]
+        polygon1 = [Point_2(0, 0), Point_2(2, 0), Point_2(2, 2), Point_2(0, 2)]
 
         polygon2 = [
             Point_2(0.5, 0.5),

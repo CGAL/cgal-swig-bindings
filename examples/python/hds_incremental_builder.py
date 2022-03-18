@@ -19,11 +19,11 @@ m.add_vertex_to_facet(1)
 m.add_vertex_to_facet(2)
 m.end_facet()
 
-
 hds = HalfedgeDS()
 # create the triangle in P
 hds.delegate(m)
-print("(v,f,e) = ", hds.size_of_vertices(), hds.size_of_faces(), divmod(hds.size_of_halfedges(), 2)[0])
+print("(v,f,e) = ", hds.size_of_vertices(), hds.size_of_faces(),
+      divmod(hds.size_of_halfedges(), 2)[0])
 
 # clear the modifier
 m.clear()
@@ -39,6 +39,7 @@ m.end_facet()
 
 # append a triangle incident to the existing one
 hds.delegate(m)
-print("(v,f,e) = ", hds.size_of_vertices(), hds.size_of_faces(), divmod(hds.size_of_halfedges(), 2)[0])
+print("(v,f,e) = ", hds.size_of_vertices(), hds.size_of_faces(),
+      divmod(hds.size_of_halfedges(), 2)[0])
 
 assert HalfedgeDS_decorator(hds).is_valid()

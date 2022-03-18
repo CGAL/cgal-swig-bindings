@@ -12,7 +12,7 @@ for z in range(0, 5):
     for y in range(0, 5):
         for x in range(0, 5):
             p = Point_3(x, y, z)
-            w = (x+y-z*y*x)*2.0  # let's say this is the weight.
+            w = (x + y - z * y * x) * 2.0  # let's say this is the weight.
             P.append(Weighted_point_3(p, w))
             number_of_points += 1
 
@@ -31,6 +31,5 @@ count = 0
 while T.number_of_vertices() > 0:
     T.remove(T.finite_vertices().next())
     count += 1
-
 
 assert count == number_of_points

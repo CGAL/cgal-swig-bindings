@@ -6,7 +6,6 @@ from CGAL.CGAL_Triangulation_3 import Ref_Locate_type_3
 from CGAL.CGAL_Triangulation_3 import VERTEX
 from CGAL.CGAL_Kernel import Ref_int
 
-
 L = []
 L.append(Point_3(0, 0, 0))
 L.append(Point_3(1, 0, 0))
@@ -35,8 +34,7 @@ c = T.locate(p, lt, li, lj)
 assert lt.object() == VERTEX
 assert c.vertex(li.object()).point() == p
 
-
-v = c.vertex((li.object()+1) & 3)
+v = c.vertex((li.object() + 1) & 3)
 nc = c.neighbor(li.object())
 
 nli = Ref_int()

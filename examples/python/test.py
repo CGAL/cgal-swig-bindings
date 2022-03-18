@@ -6,7 +6,7 @@ from CGAL.CGAL_Kernel import Triangle_2
 from CGAL.CGAL_Kernel import COLLINEAR
 from CGAL.CGAL_Kernel import POSITIVE
 
-triangulation = CGAL_Triangulation_3 .Delaunay_triangulation_3()
+triangulation = CGAL_Triangulation_3.Delaunay_triangulation_3()
 list_of_weighted_points = []
 list_of_weighted_points.append(CGAL_Kernel.Point_3(1, 1, 1))
 list_of_weighted_points.append(CGAL_Kernel.Point_3(2, 2, 2))
@@ -70,8 +70,9 @@ o2 = CGAL_Kernel.orientation(p1, p2, p3, p4b)
 plane = CGAL_Kernel.bisector(p1, p2)
 print(plane)
 
-line = CGAL_Kernel.bisector(CGAL_Kernel.Point_2(0, 0), CGAL_Kernel.Point_2(1, 1))
+line = CGAL_Kernel.bisector(CGAL_Kernel.Point_2(0, 0),
+                            CGAL_Kernel.Point_2(1, 1))
 print(line)
 
-assert(COLLINEAR == o1)
-assert(POSITIVE == o2)
+assert (COLLINEAR == o1)
+assert (POSITIVE == o2)

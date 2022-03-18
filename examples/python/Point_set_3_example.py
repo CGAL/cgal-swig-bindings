@@ -3,8 +3,9 @@ from CGAL.CGAL_Kernel import Vector_3
 from CGAL.CGAL_Point_set_3 import Point_set_3
 
 import os
+
 datadir = os.environ.get('DATADIR', '../data')
-datafile = datadir+'/oni.xyz'
+datafile = datadir + '/oni.xyz'
 
 points = Point_set_3()
 
@@ -23,7 +24,8 @@ for p in points.points():
 # With normal
 points.add_normal_map()
 idx = points.insert(Point_3(6, 7, 8), Vector_3(1, 1, 1))
-print("Point", idx, "inserted = (", points.point(idx), "), (", points.normal(idx), ")")
+print("Point", idx, "inserted = (", points.point(idx), "), (",
+      points.normal(idx), ")")
 
 # Access/modification through normal map
 normal_map = points.normal_map()
@@ -40,22 +42,26 @@ for n in points.normals():
 # Removal
 print("Removing point at index 2...")
 points.remove(2)
-print("Point set has", points.size(), "point(s) and", points.garbage_size(), "garbage point(s)")
+print("Point set has", points.size(), "point(s) and", points.garbage_size(),
+      "garbage point(s)")
 
 # Iterate and display points+normals through indices
 print("Point set:")
 for idx in points.indices():
-    print(" (", idx, ") Point = (", points.point(idx), "), Normal = (", points.normal(idx), ")")
+    print(" (", idx, ") Point = (", points.point(idx), "), Normal = (",
+          points.normal(idx), ")")
 
 # Removing points only puts them in garbage, we can display it too
 print("Garbage:")
 for idx in points.garbage():
-    print(" (", idx, ") Point = (", points.point(idx), "), Normal = (", points.normal(idx), ")")
+    print(" (", idx, ") Point = (", points.point(idx), "), Normal = (",
+          points.normal(idx), ")")
 
 # Collect the garbage and remove them for good if we don't need them anymore
 print("Collecting garbage...")
 points.collect_garbage()
-print("Point set has", points.size(), "point(s) and", points.garbage_size(), "garbage point(s)")
+print("Point set has", points.size(), "point(s) and", points.garbage_size(),
+      "garbage point(s)")
 
 # Dynamic property addition
 print("Adding intensity map...")
@@ -85,7 +91,8 @@ if intensity.is_valid():
 print("Clearing and reading", datafile)
 points.clear()
 points.read(datafile)
-print(datafile, "has", points.size(), "point(s) and", points.garbage_size(), "garbage point(s)")
+print(datafile, "has", points.size(), "point(s) and", points.garbage_size(),
+      "garbage point(s)")
 print(datafile, "has the following properties:", (points.properties()))
 
 # Writing the point set to different formats

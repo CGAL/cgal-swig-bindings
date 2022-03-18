@@ -16,7 +16,6 @@ CGAL_Convex_hull_2.convex_hull_2(L, result)
 for p in result:
     print(p)
 
-
 L.append(Point_2(2, 2))
 n = Point_2()
 

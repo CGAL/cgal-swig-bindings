@@ -21,7 +21,6 @@ CGAL_Convex_hull_3.convex_hull_3(pts, res)
 print("convex hull has ", res.size_of_vertices(), " vertices")
 print("is strongly convex: ", CGAL_Convex_hull_3.is_strongly_convex_3(res))
 
-
 planes = []
 planes.append(Plane_3(-1, 0, 0, 0))
 planes.append(Plane_3(1, 0, 0, -1))

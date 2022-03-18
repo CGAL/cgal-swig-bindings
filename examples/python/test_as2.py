@@ -8,7 +8,6 @@ from CGAL.CGAL_Alpha_shape_2 import Alpha_shape_2_Vertex_handle
 from CGAL.CGAL_Alpha_shape_2 import Alpha_shape_2_Face_handle
 from CGAL.CGAL_Alpha_shape_2 import Face_Interval_3
 
-
 lst = []
 lst.append(Point_2(0, 0))
 lst.append(Point_2(0, 4))
@@ -22,10 +21,8 @@ t2 = Alpha_shape_2(lst, 0)
 t.clear()
 t.make_alpha_shape(lst)
 
-
 for d in t.alpha():
     print(d)
-
 
 for v in t.finite_vertices():
     type = t.classify(v)
@@ -40,13 +37,11 @@ for v in t.finite_vertices():
     elif type == EXTERIOR:
         print("EXTERIOR")
 
-
 for f in t.finite_faces():
     i = f.get_ranges(0)
     print(i.first)
     print(i.second)
     print(i.third)
-
 
 was = Weighted_alpha_shape_2()
 lst_wp = []
