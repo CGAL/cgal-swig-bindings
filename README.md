@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/CGAL/cgal-swig-bindings.svg?branch=master)](https://travis-ci.com/CGAL/cgal-swig-bindings)
+![GitHub branch checks state](https://img.shields.io/github/checks-status/CGAL/cgal-swig-bindings/main)
 
 # cgal-bindings
 CGAL bindings using SWIG
