@@ -68,4 +68,4 @@ jobs:
           export CMAKE_PREFIX_PATH=$($CONDA/bin/conda env list --json | jq -r '.envs | .[] | select(test("test"))')
           echo CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
           cmake -S $PWD -B $HOME/build-cgal-swig-bindings -DCMAKE_INSTALL_PREFIX=$HOME/.local  -DCGAL_DIR=$HOME/.local -DCMAKE_BUILD_TYPE=Release #--debug-find
-          cmake --build $HOME/build-cgal-swig-bindings --target install -j$(nproc)
+          cmake --build $HOME/build-cgal-swig-bindings --target install --config Release -j$(nproc)
