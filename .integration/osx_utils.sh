@@ -1,62 +1,25 @@
-#.. _license:
-#
-#*********************
-#Copyright and License
-#*********************
-#
-#The multibuild package, including all examples, code snippets and attached
-#documentation is covered by the 2-clause BSD license.
-#
-#    Copyright (c) 2013-2019, Matt Terry and Matthew Brett; all rights
-#    reserved.
-#
-#    Redistribution and use in source and binary forms, with or without
-#    modification, are permitted provided that the following conditions are
-#    met:
-#
-#    1. Redistributions of source code must retain the above copyright notice,
-#    this list of conditions and the following disclaimer.
-#
-#    2. Redistributions in binary form must reproduce the above copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the distribution.
-#
-#    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
-#    IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-#    THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-#    PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
-#    CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-#    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-#    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-#    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-#    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-#    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-#    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 #!/bin/bash
 # Use with ``source osx_utils.sh``
 set -e
-set -x
+
 # Get our own location on this filesystem, load common utils
 MULTIBUILD_DIR=$(dirname "${BASH_SOURCE[0]}")
 source $MULTIBUILD_DIR/common_utils.sh
 
 MACPYTHON_URL=https://www.python.org/ftp/python
 MACPYTHON_PY_PREFIX=/Library/Frameworks/Python.framework/Versions
-MACPYTHON_DEFAULT_OSX="10.9"
-MB_PYTHON_OSX_VER=${MB_PYTHON_OSX_VER:-$MACPYTHON_DEFAULT_OSX}
-GET_PIP_URL=https://bootstrap.pypa.io/get-pip.py
-DOWNLOADS_SDIR=downloads
 WORKING_SDIR=working
 
-# As of 20 Oct 2019 - latest Python of each version with binary download
+# As of 7 December 2021 - latest Python of each version with binary download
 # available.
 # See: https://www.python.org/downloads/mac-osx/
-LATEST_2p7=2.7.17
+LATEST_2p7=2.7.18
 LATEST_3p5=3.5.4
 LATEST_3p6=3.6.8
-LATEST_3p7=3.7.5
-LATEST_3p8=3.8.0
+LATEST_3p7=3.7.9
+LATEST_3p8=3.8.10
+LATEST_3p9=3.9.9
+LATEST_3p10=3.10.1
 
 
 function check_python {
@@ -113,18 +76,54 @@ function fill_pyver {
         echo $ver
     elif [ $ver == 2 ] || [ $ver == "2.7" ]; then
         echo $LATEST_2p7
-    elif [ $ver == 3 ] || [ $ver == "3.7" ]; then
+    elif [ $ver == 3 ] || [ $ver == "3.10" ]; then
+        echo $LATEST_3p10
+    elif [ $ver == "3.9" ]; then
+        echo $LATEST_3p9
+    elif [ $ver == "3.8" ]; then
+        echo $LATEST_3p8
+    elif [ $ver == "3.7" ]; then
         echo $LATEST_3p7
     elif [ $ver == "3.6" ]; then
         echo $LATEST_3p6
     elif [ $ver == "3.5" ]; then
         echo $LATEST_3p5
-    elif [ $ver == "3.8" ]; then
-        echo $LATEST_3p8
     else
         echo "Can't fill version $ver" 1>&2
         exit 1
     fi
+}
+
+function macpython_sdk_list_for_version {
+    # return a list of SDK targets supported for a given CPython version
+    # Parameters
+    #   $py_version (python version in major.minor.extra format)
+    # eg
+    #  macpython_sdks_for_version 2.7.15
+    #  >> 10.6 10.9
+    local _ver=$(fill_pyver $1)
+    local _major=${_ver%%.*}
+    local _return
+
+    if [ "$(uname -m)" = "arm64" ]; then
+        _return="11.0"
+    elif [ "$_major" -eq "2" ]; then
+        [ $(lex_ver $_ver) -lt $(lex_ver 2.7.18) ] && _return="10.6"
+        [ $(lex_ver $_ver) -ge $(lex_ver 2.7.15) ] && _return="$_return 10.9"
+    elif [ "$_major" -eq "3" ]; then
+        [ $(lex_ver $_ver) -lt $(lex_ver 3.8)    ] && _return="10.6"
+        [ $(lex_ver $_ver) -ge $(lex_ver 3.6.5)  ] && _return="$_return 10.9"
+    else
+        echo "Error version=${_ver}, expecting 2.x or 3.x" 1>&2
+        exit 1
+    fi
+    echo $_return
+}
+
+function macpython_sdk_for_version {
+    # assumes the output of macpython_sdk_list_for_version is a list
+    # of SDK versions XX.Y in sorted order, eg "10.6 10.9" or "10.9"
+    echo $(macpython_sdk_list_for_version $1) | awk -F' ' '{print $NF}'
 }
 
 function pyinst_ext_for_version {
@@ -154,15 +153,28 @@ function pyinst_fname_for_version {
     # Parameters
     #   $py_version (Python version in major.minor.extra format)
     #   $py_osx_ver: {major.minor | not defined}
-    #       if defined, the macOS version that Python is built for, e.g.
-    #       "10.6" or "10.9", if not defined, uses the default
-    #       MACPYTHON_DEFAULT_OSX
-    #       Note: this is the version the Python is built for, and hence
-    #       the min version supported, NOT the version of the current system
+    #       if defined, the minimum macOS SDK version that Python is
+    #       built for, eg: "10.6" or "10.9", if not defined, infers
+    #       this from $py_version using macpython_sdk_for_version
     local py_version=$1
-    local py_osx_ver=${2:-$MACPYTHON_DEFAULT_OSX}
     local inst_ext=$(pyinst_ext_for_version $py_version)
-    echo "python-${py_version}-macosx${py_osx_ver}.${inst_ext}"
+    # Use the universal2 installer if we are on arm64
+    # universal2 installer for python 3.8 needs macos 11.0 to run on
+    # and therefore x86_64 builds use the intel only installer.
+    # Note that intel only installer can create universal2 wheels, but
+    # creates intel only wheels by default. When PLAT=universal2
+    # we set the env variable _PYTHON_HOST_PLATFORM to change this
+    # default.
+    if [ "$(uname -m)" == "arm64" ] || [ $(lex_ver $py_version) -ge $(lex_ver 3.10.0) ]; then
+      if [ "$py_version" == "3.9.1" ]; then
+        echo "python-${py_version}-macos11.0.${inst_ext}"
+      else
+        echo "python-${py_version}-macos11.${inst_ext}"
+      fi
+    else
+      local py_osx_ver=${2:-$(macpython_sdk_for_version $py_version)}
+      echo "python-${py_version}-macosx${py_osx_ver}.${inst_ext}"
+    fi
 }
 
 function get_macpython_arch {
@@ -175,7 +187,7 @@ function get_macpython_arch {
     # Note: MUST only be called after the version of Python used to build the
     # target wheel has been installed and is on the path
     local distutils_plat=${1:-$(get_distutils_platform)}
-    if [[ $distutils_plat =~ macosx-(10\.[0-9]+)-(.*) ]]; then
+    if [[ $distutils_plat =~ macosx-(1[0-9]\.[0-9]+)-(.*) ]]; then
         echo ${BASH_REMATCH[2]}
     else
         echo "Error parsing macOS distutils platform '$distutils_plat'"
@@ -193,7 +205,7 @@ function get_macpython_osx_ver {
     # Note: MUST only be called after the version of Python used to build the
     # target wheel has been installed and is on the path
     local distutils_plat=${1:-$(get_distutils_platform)}
-    if [[ $distutils_plat =~ macosx-(10\.[0-9]+)-(.*) ]]; then
+    if [[ $distutils_plat =~ macosx-(1[0-9]\.[0-9]+)-(.*) ]]; then
         echo ${BASH_REMATCH[1]}
     else
         echo "Error parsing macOS distutils platform '$distutils_plat'"
@@ -235,7 +247,7 @@ function macpython_impl_for_version {
     #         "pypy-5.4" for PyPy
     local version=$1
     check_var $1
-    if [[ "$version" =~ pypy-([0-9\.]+) ]]; then
+    if [[ "$version" =~ ^pypy ]]; then
         echo pp
     elif [[ "$version" =~ ([0-9\.]+) ]]; then
         echo cp
@@ -263,17 +275,17 @@ function install_macpython {
     # Install Python and set $PYTHON_EXE to the installed executable
     # Parameters:
     #     $version : [implementation-]major[.minor[.patch]]
-    #         The Python implementation to install, e.g. "3.6" or "pypy-5.4"
+    #         The Python implementation to install, e.g. "3.6", "pypy-5.4" or "pypy3.6-7.2"
     #     $py_osx_ver: {major.minor | not defined}
     #       if defined, the macOS version that CPython is built for, e.g.
     #       "10.6" or "10.9". Ignored for PyPy
     local version=$1
     local py_osx_ver=$2
     local impl=$(macpython_impl_for_version $version)
-    local stripped_ver=$(strip_macpython_ver_prefix $version)
     if [[ "$impl" == "pp" ]]; then
-        install_mac_pypy $stripped_ver
+        install_pypy $version
     elif [[ "$impl" == "cp" ]]; then
+        local stripped_ver=$(strip_macpython_ver_prefix $version)
         install_mac_cpython $stripped_ver $py_osx_ver
     else
         echo "Unexpected Python impl: ${impl}"
@@ -297,56 +309,26 @@ function install_mac_cpython {
     local py_stripped=$(strip_ver_suffix $py_version)
     local py_inst=$(pyinst_fname_for_version $py_version $py_osx_ver)
     local inst_path=$DOWNLOADS_SDIR/$py_inst
+    local retval=""
     mkdir -p $DOWNLOADS_SDIR
-    curl $MACPYTHON_URL/$py_stripped/${py_inst} > $inst_path
+    # exit early on curl errors, but don't let it exit the shell
+    cmd_notexit curl -f $MACPYTHON_URL/$py_stripped/${py_inst} > $inst_path || retval=$?
+    if [ ${retval:-0} -ne 0 ]; then
+      echo "Python download failed! Check ${py_inst} exists on the server."
+      exit $retval
+    fi
+
     if [ "${py_inst: -3}" == "dmg" ]; then
         hdiutil attach $inst_path -mountpoint /Volumes/Python
         inst_path=/Volumes/Python/Python.mpkg
     fi
     sudo installer -pkg $inst_path -target /
-    local py_mm=${py_version:0:3}
+    local py_mm=${py_version%.*}
     PYTHON_EXE=$MACPYTHON_PY_PREFIX/$py_mm/bin/python$py_mm
     # Install certificates for Python 3.6
     local inst_cmd="/Applications/Python ${py_mm}/Install Certificates.command"
     if [ -e "$inst_cmd" ]; then
         sh "$inst_cmd"
-    fi
-}
-
-function install_mac_pypy {
-    # Installs pypy.org PyPy
-    # Parameter $version
-    # Version given in major or major.minor or major.minor.micro e.g
-    # "3" or "3.7" or "3.7.1".
-    # sets $PYTHON_EXE variable to python executable
-    local py_version=$(fill_pypy_ver $1)
-    local py_build=$(get_pypy_build_prefix $py_version)$py_version-osx64
-    local py_zip=$py_build.tar.bz2
-    local zip_path=$DOWNLOADS_SDIR/$py_zip
-    mkdir -p $DOWNLOADS_SDIR
-    wget -nv $PYPY_URL/${py_zip} -P $DOWNLOADS_SDIR
-    untar $zip_path
-    PYTHON_EXE=$(realpath $py_build/bin/pypy)
-}
-
-function install_pip {
-    # Generic install pip
-    # Gets needed version from version implied by $PYTHON_EXE
-    # Installs pip into python given by $PYTHON_EXE
-    # Assumes pip will be installed into same directory as $PYTHON_EXE
-    check_python
-    mkdir -p $DOWNLOADS_SDIR
-    local py_mm=`get_py_mm`
-    local get_pip_path=$DOWNLOADS_SDIR/get-pip.py
-    curl $GET_PIP_URL > $get_pip_path
-    # Travis VMS now install pip for system python by default - force install
-    # even if installed already.
-    sudo $PYTHON_EXE $get_pip_path --ignore-installed $pip_args
-    PIP_CMD="sudo $(dirname $PYTHON_EXE)/pip$py_mm"
-    # Append pip_args if present (avoiding trailing space cf using variable
-    # above).
-    if [ -n "$pip_args" ]; then
-        PIP_CMD="$PIP_CMD $pip_args"
     fi
 }
 
@@ -391,9 +373,6 @@ function remove_travis_ve_pip {
 
 function set_py_vars {
     # Used by terryfy project; left here for back-compatibility
-    pushd $(dirname $PYTHON_EXE)
-    ln -s $PYTHON_EXE python
-    popd
     export PATH="`dirname $PYTHON_EXE`:$PATH"
     export PYTHON_EXE PIP_CMD
 }
@@ -419,17 +398,30 @@ function get_macpython_environment {
     local venv_dir=$2
     local py_osx_ver=${3:-$MB_PYTHON_OSX_VER}
 
-    #remove_travis_ve_pip
+    if [ "$USE_CCACHE" == "1" ]; then
+        activate_ccache
+    fi
+
+    remove_travis_ve_pip
     install_macpython $version $py_osx_ver
-    install_pip
+    PIP_CMD="$PYTHON_EXE -m pip"
+    # Python 3.5 no longer compatible with latest pip
+    if [ "$(get_py_mm)" == "3.5" ]; then
+        # https://stackoverflow.com/a/29751768/1939576
+        curl -LO https://bootstrap.pypa.io/pip/3.5/get-pip.py
+        $PYTHON_EXE get-pip.py
+        rm get-pip.py
+    else
+        $PYTHON_EXE -m ensurepip
+        $PIP_CMD install --upgrade pip
+    fi
 
     if [ -n "$venv_dir" ]; then
         install_virtualenv
         make_workon_venv $venv_dir
-        set_py_vars
         source $venv_dir/bin/activate
     else
-        set_py_vars
+        export PATH="`dirname $PYTHON_EXE`:$PATH"
     fi
     export PYTHON_EXE PIP_CMD
 }
@@ -448,7 +440,7 @@ function repair_wheelhouse {
 function install_pkg_config {
     # Install pkg-config avoiding error from homebrew
     # See :
-    # https://github.com/matthew-brett/multibuild/issues/24#issue-221951587
+    # https://github.com/multi-build/multibuild/issues/24#issue-221951587
     command -v pkg-config > /dev/null 2>&1 || brew install pkg-config
 }
 
@@ -460,4 +452,100 @@ function activate_ccache {
 
     # Prove to the developer that ccache is activated
     echo "Using C compiler: $(which clang)"
+}
+
+function macos_intel_native_build_setup {
+    # Setup native build for single arch x86_64 wheels
+    export PLAT="x86_64"
+    export _PYTHON_HOST_PLATFORM="macosx-${MB_PYTHON_OSX_VER}-x86_64"
+    export CFLAGS+=" -arch x86_64"
+    export CXXFLAGS+=" -arch x86_64"
+    export ARCHFLAGS+=" -arch x86_64"
+    export CPPFLAGS+=" -arch x86_64"
+    export LDFLAGS+=" -arch x86_64"
+}
+
+function macos_intel_cross_build_setup {
+    echo "universal2 builds on arm64 are not supported yet."
+    exit 1
+}
+
+function macos_arm64_cross_build_setup {
+    # Setup cross build for single arch arm_64 wheels
+    export PLAT="arm64"
+    export BUILD_PREFIX=/opt/arm64-builds
+    sudo mkdir -p $BUILD_PREFIX/lib $BUILD_PREFIX/include
+    sudo chown -R $USER $BUILD_PREFIX
+    update_env_for_build_prefix
+    export _PYTHON_HOST_PLATFORM="macosx-11.0-arm64"
+    export CFLAGS+=" -arch arm64"
+    export CXXFLAGS+=" -arch arm64"
+    export CPPFLAGS+=" -arch arm64"
+    export ARCHFLAGS+=" -arch arm64"
+    export FCFLAGS+=" -arch arm64"
+    export FC=$FC_ARM64
+    export F90=${F90_ARM64:-${FC}}
+    export F77=${F77_ARM64:-${FC}}
+    export MACOSX_DEPLOYMENT_TARGET="11.0"
+    export CROSS_COMPILING=1
+    export LDFLAGS+=" -arch arm64 -L$BUILD_PREFIX/lib -Wl,-rpath,$BUILD_PREFIX/lib ${FC_ARM64_LDFLAGS:-}"
+    # This would automatically let autoconf know that we are cross compiling for arm64 darwin
+    export host_alias="aarch64-apple-darwin20.0.0"
+}
+
+function macos_arm64_native_build_setup {
+    # Setup native build for single arch arm_64 wheels
+    export PLAT="arm64"
+    # We don't want universal2 builds and only want an arm64 build
+    export _PYTHON_HOST_PLATFORM="macosx-11.0-arm64"
+    export ARCHFLAGS+="-arch arm64"
+    $@
+}
+
+function fuse_macos_intel_arm64 {
+    local wheelhouse=$(abspath ${WHEEL_SDIR:-wheelhouse})
+    local py_osx_ver=$(echo ${MB_PYTHON_OSX_VER} | sed "s/\./_/g")
+    mkdir -p tmp_fused_wheelhouse
+    for whl in $wheelhouse/*.whl; do
+       if [[ "$whl" == *macosx_${py_osx_ver}_x86_64.whl ]]; then
+           whl_base=$(echo $whl | rev | cut -c 23- | rev)
+           if [[ -f "${whl_base}macosx_11_0_arm64.whl" ]]; then
+               delocate-fuse $whl "${whl_base}macosx_11_0_arm64.whl" -w tmp_fused_wheelhouse
+               mv tmp_fused_wheelhouse/$(basename $whl) $wheelhouse/$(basename ${whl_base})macosx_${py_osx_ver}_universal2.whl
+               # Since we want one wheel that's installable for testing we are deleting the *_x86_64 wheel.
+               # We are not deleting arm64 wheel because the size is lower and homebrew/conda-forge python
+               # will use them by default
+               rm $whl
+           fi
+       fi
+    done
+}
+
+function wrap_wheel_builder {
+    if [[ "${PLAT:-}" == "universal2" ]]; then
+        if [[ "$(uname -m)" == "arm64" ]]; then
+            (macos_intel_cross_build_setup && $@)
+            rm -rf *-stamp
+            (macos_arm64_native_build_setup && $@)
+        else
+            (macos_intel_native_build_setup && $@)
+            rm -rf *-stamp
+            (macos_arm64_cross_build_setup && $@)
+        fi
+        fuse_macos_intel_arm64
+    elif [[ "${PLAT:-}" == "arm64" ]]; then
+        if [[ "$(uname -m)" == "arm64" ]]; then
+            (macos_arm64_native_build_setup && $@)
+        else
+            (macos_arm64_cross_build_setup && $@)
+        fi
+    elif [[ "${PLAT:-}" == "x86_64" ]]; then
+        if [[ "$(uname -m)" == "x86_64" ]]; then
+            (macos_intel_native_build_setup && $@)
+        else
+            (macos_intel_cross_build_setup && $@)
+        fi
+    else
+        $@
+    fi
 }

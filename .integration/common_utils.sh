@@ -1,39 +1,3 @@
-#.. _license:
-#
-#*********************
-#Copyright and License
-#*********************
-#
-#The multibuild package, including all examples, code snippets and attached
-#documentation is covered by the 2-clause BSD license.
-#
-#    Copyright (c) 2013-2019, Matt Terry and Matthew Brett; all rights
-#    reserved.
-#
-#    Redistribution and use in source and binary forms, with or without
-#    modification, are permitted provided that the following conditions are
-#    met:
-#
-#    1. Redistributions of source code must retain the above copyright notice,
-#    this list of conditions and the following disclaimer.
-#
-#    2. Redistributions in binary form must reproduce the above copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the distribution.
-#
-#    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
-#    IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-#    THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-#    PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
-#    CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-#    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-#    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-#    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-#    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-#    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-#    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
 #!/bin/bash
 # Utilities for both OSX and Docker Linux
 # Python should be on the PATH
@@ -48,7 +12,29 @@ COMMON_UTILS_SOURCED=1
 set -e
 
 MULTIBUILD_DIR=$(dirname "${BASH_SOURCE[0]}")
-if [ $(uname) == "Darwin" ]; then IS_OSX=1; fi
+DOWNLOADS_SDIR=downloads
+PYPY_URL=https://downloads.python.org/pypy
+# For back-compatibility.  We use the "ensurepip" module now
+# instead of get-pip.py
+GET_PIP_URL=https://bootstrap.pypa.io/get-pip.py
+
+# Unicode width, default 32. Used here and in travis_linux_steps.sh
+# In docker_build_wrap.sh it is passed in when calling "docker run"
+# The docker test images also use it when choosing the python to run
+# with, so it is passed in when calling "docker run" for tests.
+UNICODE_WIDTH=${UNICODE_WIDTH:-32}
+
+# Default Manylinux version
+MB_ML_VER=${MB_ML_VER:-2014}
+
+if [ $(uname) == "Darwin" ]; then
+  IS_MACOS=1; IS_OSX=1;
+else
+  # In the manylinux_2_24 image, based on Debian9, "python" is not installed
+  # so link in something for the various system calls before PYTHON_EXE is set
+  which python || export PATH=/opt/python/cp39-cp39/bin:$PATH
+fi
+
 
 # Work round bug in travis xcode image described at
 # https://github.com/direnv/direnv/issues/210
@@ -81,7 +67,7 @@ function stop_spinner {
     if [ ! -n "$MB_SPINNER_PID" ]; then
         return
     fi
-    
+
     kill $MB_SPINNER_PID
     unset MB_SPINNER_PID
 
@@ -89,15 +75,18 @@ function stop_spinner {
 }
 
 function abspath {
+    # Can work with any Python; need not be our installed Python.
     python -c "import os.path; print(os.path.abspath('$1'))"
 }
 
 function relpath {
     # Path of first input relative to second (or $PWD if not specified)
+    # Can work with any Python; need not be our installed Python.
     python -c "import os.path; print(os.path.relpath('$1','${2:-$PWD}'))"
 }
 
 function realpath {
+    # Can work with any Python; need not be our installed Python.
     python -c "import os; print(os.path.realpath('$1'))"
 }
 
@@ -138,7 +127,7 @@ alias gh-clone=gh_clone
 function set_opts {
     # Set options from input options string (in $- format).
     local opts=$1
-    local chars="exhimBH"
+    local chars="exhmBH"
     for (( i=0; i<${#chars}; i++ )); do
         char=${chars:$i:1}
         [ -n "${opts//[^${char}]/}" ] && set -$char || set +$char
@@ -153,14 +142,48 @@ function suppress {
     # Set -e stuff agonized over in
     # https://unix.stackexchange.com/questions/296526/set-e-in-a-subshell
     local tmp=$(mktemp tmp.XXXXXXXXX) || return
-    local opts=$-
+    local errexit_set
     echo "Running $@"
+    if [[ $- = *e* ]]; then errexit_set=true; fi
     set +e
-    ( set_opts $opts ; $@  > "$tmp" 2>&1 ) ; ret=$?
+    ( if [[ -n $errexit_set ]]; then set -e; fi; "$@"  > "$tmp" 2>&1 ) ; ret=$?
     [ "$ret" -eq 0 ] || cat "$tmp"
     rm -f "$tmp"
-    set_opts $opts
+    if [[ -n $errexit_set ]]; then set -e; fi
     return "$ret"
+}
+
+function expect_return {
+  # Run a command, succeeding (returning 0) only if the commend returns a specified code
+  # Parameters
+  #   retcode   expected return code (which may be zero)
+  #   command   the command called
+  #
+  #   any further arguments are passed to the called command
+  #
+  # Returns 1 if called with less than 2 arguments
+  (( $# < 2 )) && echo "Must have at least 2 arguments" && return 1
+  local retcode=$1
+  local retval
+  ( "${@:2}" ) || retval=$?
+  [[ $retcode == ${retval:-0} ]] && return 0
+  return ${retval:-1}
+}
+
+function cmd_notexit {
+    # wraps a command, capturing its return code and preventing it
+    # from exiting the shell. Handles -e / +e modes.
+    # Parameters
+    #    cmd - command
+    #    any further parameters are passed to the wrapped command
+    # If called without an argument, it will exit the shell with an error
+    local cmd=$1
+    if [ -z "$cmd" ];then echo "no command"; exit 1; fi
+    if [[ $- = *e* ]]; then errexit_set=true; fi
+    set +e
+    ("${@:1}") ; retval=$?
+    [[ -n $errexit_set ]] && set -e
+    return $retval
 }
 
 function rm_mkdir {
@@ -180,14 +203,29 @@ function untar {
         gz|tgz) tar -zxf $in_fname ;;
         bz2) tar -jxf $in_fname ;;
         zip) unzip -qq $in_fname ;;
-        xz) unxz -c $in_fname | tar -xf ;;
+        xz) if [ -n "$IS_MACOS" ]; then
+              tar -xf $in_fname
+            else
+              if [[ ! $(type -P "unxz") ]]; then
+                echo xz must be installed to uncompress file; exit 1
+              fi
+              unxz -c $in_fname | tar -xf -
+            fi ;;
         *) echo Did not recognize extension $extension; exit 1 ;;
     esac
 }
 
 function install_rsync {
-    if [ -z "$IS_OSX" ]; then
-        [[ $(type -P rsync) ]] || yum install -y rsync
+    # install rsync via package manager
+    if [ -n "$IS_MACOS" ]; then
+        # macOS. The colon in the next line is the null command
+        :
+    elif [[ $MB_ML_VER == "_2_24" ]]; then
+        # debian:9 based distro
+        [[ $(type -P rsync) ]] || apt-get install -y rsync
+    else
+        # centos based distro
+        [[ $(type -P rsync) ]] || yum_install rsync
     fi
 }
 
@@ -205,6 +243,12 @@ function fetch_unpack {
     if [ -z "$url" ];then echo "url not defined"; exit 1; fi
     local archive_fname=${2:-$(basename $url)}
     local arch_sdir="${ARCHIVE_SDIR:-archives}"
+    if [ -z "$IS_MACOS" ]; then
+        local extension=${archive_fname##*.}
+        if [ "$extension" == "xz" ]; then
+            ensure_xz
+        fi
+    fi
     # Make the archive directory in case it doesn't exist
     mkdir -p $arch_sdir
     local out_archive="${arch_sdir}/${archive_fname}"
@@ -287,26 +331,32 @@ function bdist_wheel_cmd {
     # fixed with bdist_wheel:
     # https://github.com/warner/python-versioneer/issues/121
     local abs_wheelhouse=$1
-    python setup.py bdist_wheel
+    check_python
+    $PYTHON_EXE setup.py bdist_wheel
     cp dist/*.whl $abs_wheelhouse
+}
+
+function wrap_wheel_builder {
+    # Wrapper for build commands, overwritten by macOS for universal2 or arm64 wheel building
+    $@
 }
 
 function build_pip_wheel {
     # Standard wheel building command with pip wheel
-    build_wheel_cmd "pip_wheel_cmd" $@
+    wrap_wheel_builder build_wheel_cmd "pip_wheel_cmd" $@
 }
 
 function build_bdist_wheel {
     # Wheel building with bdist_wheel. See bdist_wheel_cmd
-    build_wheel_cmd "bdist_wheel_cmd" $@
+    wrap_wheel_builder build_wheel_cmd "bdist_wheel_cmd" $@
 }
 
 function build_wheel {
     # Set default building method to pip
-    build_pip_wheel $@
+    wrap_wheel_builder build_pip_wheel $@
 }
 
-function build_index_wheel {
+function build_index_wheel_cmd {
     # Builds wheel from some index, usually pypi
     #
     # Parameters:
@@ -337,19 +387,34 @@ function build_index_wheel {
     repair_wheelhouse $wheelhouse
 }
 
+function build_index_wheel {
+    wrap_wheel_builder build_index_wheel_cmd $@
+}
+
 function pip_opts {
     [ -n "$MANYLINUX_URL" ] && echo "--find-links $MANYLINUX_URL"
 }
 
+function get_os {
+    # Report OS as given by uname
+    # Use any Python that comes to hand.
+    python -c 'import platform; print(platform.uname()[0])'
+}
+
 function get_platform {
     # Report platform as given by uname
+    # Use any Python that comes to hand.
     python -c 'import platform; print(platform.uname()[4])'
 }
+
+if [ "$(get_platform)" == x86_64 ] || \
+    [ "$(get_platform)" == i686 ]; then IS_X86=1; fi
 
 function get_distutils_platform {
     # Report platform as given by distutils get_platform.
     # This is the platform tag that pip will use.
-    python -c "import distutils.util; print(distutils.util.get_platform())"
+    check_python
+    $PYTHON_EXE -c "import distutils.util; print(distutils.util.get_platform())"
 }
 
 function install_wheel {
@@ -362,14 +427,24 @@ function install_wheel {
     #     TEST_DEPENDS  (optional, default "")
     #     MANYLINUX_URL (optional, default "") (via pip_opts function)
     local wheelhouse=$(abspath ${WHEEL_SDIR:-wheelhouse})
+    check_pip
     if [ -n "$TEST_DEPENDS" ]; then
         while read TEST_DEPENDENCY; do
-            pip install $(pip_opts) $@ $TEST_DEPENDENCY
+            $PIP_CMD install $(pip_opts) $@ $TEST_DEPENDENCY
         done <<< "$TEST_DEPENDS"
     fi
+
+    check_python
+    check_pip
+
+    $PIP_CMD install packaging
+    local supported_wheels=$($PYTHON_EXE $MULTIBUILD_DIR/supported_wheels.py $wheelhouse/*.whl)
+    if [ -z "$supported_wheels" ]; then
+        echo "ERROR: no supported wheels found"
+        exit 1
+    fi
     # Install compatible wheel
-    pip install $(pip_opts) $@ \
-        $(python $MULTIBUILD_DIR/supported_wheels.py $wheelhouse/*.whl)
+    $PIP_CMD install $(pip_opts) $@ $supported_wheels
 }
 
 function install_run {
@@ -398,12 +473,7 @@ function fill_submodule {
     (cd "$repo_dir" && git remote set-url origin $origin_url)
 }
 
-PYPY_URL=https://bitbucket.org/pypy/pypy/downloads
-
-# As of 2019-10-15, the latest verions of PyPy.
-LATEST_PP_4p0=4.0.1
-LATEST_PP_4=$LATEST_PP_4p0
-
+# The latest versions of PyPy.
 LATEST_PP_5p0=5.0.1
 LATEST_PP_5p1=5.1.1
 LATEST_PP_5p3=5.3.1
@@ -420,7 +490,8 @@ LATEST_PP_6=$LATEST_PP_6p0
 LATEST_PP_7p0=7.0.0
 LATEST_PP_7p1=7.1.1
 LATEST_PP_7p2=7.2.0
-LATEST_PP_7=$LATEST_PP_7p2
+LATEST_PP_7p3=7.3.3
+LATEST_PP_7=$LATEST_PP_7p3
 
 function unroll_version {
     # Convert major or major.minor format to major.minor.micro using the above
@@ -441,6 +512,54 @@ function unroll_version {
     fi
 }
 
+function install_pypy {
+    # Installs pypy.org PyPy
+    # Parameter $version
+    # Version given in major or major.minor or major.minor.micro e.g
+    # "3" or "3.7" or "3.7.1".
+    # Uses $PLAT
+    # sets $PYTHON_EXE variable to python executable
+
+    local version=$1
+    case "$PLAT" in
+    "x86_64")  if [ -n "$IS_MACOS" ]; then
+                   suffix="osx64";
+               else
+                   suffix="linux64";
+               fi;;
+    "i686")    suffix="linux32";;
+    "ppc64le") suffix="ppc64le";;
+    "s390x")    suffix="s390x";;
+    "aarch64")  suffix="aarch64";;
+    *) echo unknown platform "$PLAT"; exit 1;;
+    esac
+
+    # Need to convert pypy-7.2 to pypy2.7-v7.2.0 and pypy3.6-7.3 to pypy3.6-v7.3.0
+    local prefix=$(get_pypy_build_prefix $version)
+    # since prefix is pypy3.6v7.2 or pypy2.7v7.2, grab the 4th (0-index) letter
+    local major=${prefix:4:1}
+    # get the pypy version 7.2.0
+    local py_version=$(fill_pypy_ver $(echo $version | cut -f2 -d-))
+
+    local py_build=$prefix$py_version-$suffix
+    local py_zip=$py_build.tar.bz2
+    local zip_path=$DOWNLOADS_SDIR/$py_zip
+    mkdir -p $DOWNLOADS_SDIR
+    wget -nv $PYPY_URL/${py_zip} -P $DOWNLOADS_SDIR
+    untar $zip_path
+    # bug/feature: pypy package for pypy3 only has bin/pypy3 :(
+    if [ "$major" == "3" ] && [ ! -x "$py_build/bin/pypy" ]; then
+        ln $py_build/bin/pypy3 $py_build/bin/pypy
+    fi
+    PYTHON_EXE=$(realpath $py_build/bin/pypy)
+    $PYTHON_EXE -mensurepip
+    $PYTHON_EXE -mpip install --upgrade pip setuptools wheel
+    if [ "$major" == "3" ] && [ ! -x "$py_build/bin/pip" ]; then
+        ln $py_build/bin/pip3 $py_build/bin/pip
+    fi
+    PIP_CMD=pip
+}
+
 function fill_pypy_ver {
     # Convert major or major.minor format to major.minor.micro
     # Parameters:
@@ -453,9 +572,13 @@ function fill_pypy_ver {
 function get_pypy_build_prefix {
     # Return the file prefix of a PyPy file
     # Parameters:
-    #   $version : pypy2 version number
+    #   $version : pypy version number, for example pypy-7.2 or pypy3.6-7.2
     local version=$1
-    if [[ $version =~ ([0-9]+)\.([0-9]+) ]]; then
+    if [[ $version =~ pypy([0-9]+)\.([0-9]+)-([0-9]+)\.([0-9]+) ]]; then
+        local py_major=${BASH_REMATCH[1]}
+        local py_minor=${BASH_REMATCH[2]}
+        echo "pypy$py_major.$py_minor-v"
+    elif [[ $version =~ ([0-9]+)\.([0-9]+) ]]; then
         local major=${BASH_REMATCH[1]}
         local minor=${BASH_REMATCH[2]}
         if (( $major > 6 )); then
@@ -466,7 +589,7 @@ function get_pypy_build_prefix {
             echo "pypy-"
         fi
     else
-        echo "error: expected version number, got $1" 1>&2
+        echo "error: expected version like pypy-7.2 or pypy3.6-7.2, got $1" 1>&2
         exit 1
     fi
 }
@@ -487,4 +610,82 @@ retry () {
         return 1
     }
     return 0
+}
+
+function install_pip {
+    # Generic install pip
+    echo "Deprecated - please see pip installs within the individual"
+    echo "install functions for each Python type."
+    echo "Multibuild itself no longer uses this function."
+    # Gets needed version from version implied by $PYTHON_EXE
+    # Installs pip into python given by $PYTHON_EXE
+    # Assumes pip will be installed into same directory as $PYTHON_EXE
+    check_python
+    mkdir -p $DOWNLOADS_SDIR
+    local py_mm=`get_py_mm`
+    local get_pip_path=$DOWNLOADS_SDIR/get-pip.py
+    curl $GET_PIP_URL > $get_pip_path
+    # Travis VMS now install pip for system python by default - force install
+    # even if installed already.
+    $PYTHON_EXE $get_pip_path --ignore-installed $pip_args
+    PIP_CMD=$(dirname $PYTHON_EXE)/pip$py_mm
+    if [ "$USER" != "root" ]; then
+        # inside a docker, there is no sudo but the user is already root
+        PIP_CMD="sudo $PIP_CMD"
+    fi
+    # Append pip_args if present (avoiding trailing space cf using variable
+    # above).
+    if [ -n "$pip_args" ]; then
+        PIP_CMD="$PIP_CMD $pip_args"
+    fi
+}
+
+function check_python {
+    if [ -z "$PYTHON_EXE" ]; then
+        echo "PYTHON_EXE variable not defined"
+        exit 1
+    fi
+}
+
+function check_pip {
+    if [ -z "$PIP_CMD" ]; then
+        echo "PIP_CMD variable not defined"
+        exit 1
+    fi
+}
+
+function get_py_mm {
+    check_python
+    $PYTHON_EXE -c "import sys; print('{0}.{1}'.format(*sys.version_info[0:2]))"
+}
+
+function cpython_path {
+    # Return path to cpython given
+    # * version (of form "2.7")
+    # * u_width ("16" or "32" default "32")
+    #
+    # For back-compatibility "u" as u_width also means "32"
+    local py_ver="${1:-2.7}"
+    local abi_suff=m
+    local u_width="${2:-${UNICODE_WIDTH}}"
+    local u_suff=u
+    # Python 3.8 and up no longer uses the PYMALLOC 'm' suffix
+    # https://github.com/pypa/wheel/pull/303
+    if [ $(lex_ver $py_ver) -ge $(lex_ver 3.8) ]; then
+        abi_suff=""
+    fi
+    # Back-compatibility
+    if [ "$u_width" == "u" ]; then u_width=32; fi
+    # For Python >= 3.4, "u" suffix not meaningful
+    if [ $(lex_ver $py_ver) -ge $(lex_ver 3.4) ] ||
+        [ "$u_width" == "16" ]; then
+        u_suff=""
+    elif [ "$u_width" == "" ]; then
+        u_width="32"
+    elif [ "$u_width" != "32" ]; then
+        echo "Incorrect u_width value $u_width"
+        exit 1
+    fi
+    local no_dots=$(echo $py_ver | tr -d .)
+    echo "/opt/python/cp${no_dots}-cp${no_dots}$abi_suff${u_suff}"
 }
