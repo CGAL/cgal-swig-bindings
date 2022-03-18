@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     strategy:
       max-parallel: 4
       matrix:
