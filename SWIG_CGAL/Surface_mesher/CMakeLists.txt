@@ -1,4 +1,7 @@
 SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
+if (TBB_FOUND)
+  set(LIBSTOLINKWITH ${LIBSTOLINKWITH} TBB::tbb TBB::tbbmalloc Threads::Threads)
+endif()
 
 # cpp common library
 add_swig_cgal_library(CGAL_Surface_mesher_cpp Object.cpp ${LIBSTOLINKWITH})
