@@ -304,6 +304,7 @@ class my_build_ext(build_ext_orig):
         if sys.platform == 'win32' or sys.platform == 'cygwin':
             cmake_args.append('-DCMAKE_DISABLE_FIND_PACKAGE_boost_serialization=TRUE ')
             cmake_args.append('-DCMAKE_DISABLE_FIND_PACKAGE_boost_iostreams=TRUE ')
+            cmake_args.append('-DBoost_LIB_DIAGNOSTIC_DEFINITIONS=TRUE')
 
         if self.install_dir is not None:
             cmake_args.append('-DCMAKE_INSTALL_PREFIX='+self.install_dir)
@@ -361,7 +362,6 @@ class my_build_ext(build_ext_orig):
             cmake_args.append('-DPython_EXECUTABLE='+os.path.join(self.python_root, 'bin','python'))
 
         cmake_args.append('-DINSTALL_FROM_SETUP=ON')
-        cmake_args.append('-DBoost_LIB_DIAGNOSTIC_DEFINITIONS=TRUE')
         cmake_args.append('-DBoost_DEBUG=TRUE')
 
 
