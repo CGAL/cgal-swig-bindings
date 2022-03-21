@@ -6,7 +6,6 @@ if [ $(python -c "import sys; print(sys.version_info.major)") = "3" ] && [ "$1" 
 elif [ $(python -c "import sys; print(sys.version_info.major)") = "3" ] && [ "$1" = "macOS" ]; then
   which python
   python -m pip install delocate
-  python setup.py bdist_wheel --cgal-dir=/usr/local/opt/cgal/lib/cmake/CGAL --keep-temp --python-root=/Library/Frameworks/Python.framework/Versions/$MB_PYTHON_VERSION
+  python setup.py bdist_wheel --cgal-dir=/usr/local/opt/cgal/lib/cmake/CGAL
   delocate-wheel -w fixed_wheel dist/*.whl 
 fi
-
