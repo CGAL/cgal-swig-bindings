@@ -63,9 +63,9 @@ jobs:
 
     - name: Test Installation
       run: |
-        if [ ${{ github.event_name }} = 'push' ]; then
-          export DO_UPLOAD="TRUE"
-        fi
+        # if [ ${{ github.event_name }} = 'push' ]; then
+        #   export DO_UPLOAD="TRUE"
+        # fi
         bash .integration/travis.sh ${{ runner.os }} ${{ secrets.TEST_PYPI_PASSWORD }}
       env:
         CGAL_PYTHON_EXAMPLES: examples/python
