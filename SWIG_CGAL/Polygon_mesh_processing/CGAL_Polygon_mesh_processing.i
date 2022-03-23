@@ -49,6 +49,7 @@ import CGAL.Polyhedron_3.Polyhedron_3_Vertex_handle;
 import CGAL.Polyhedron_3.Polyhedron_3_Halfedge_handle;
 import CGAL.Kernel.Point_3;
 import CGAL.Kernel.Vector_3;
+import CGAL.Kernel.Plane_3;
 import CGAL.Kernel.Bbox_3;
 %};
 

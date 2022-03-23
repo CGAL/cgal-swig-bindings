@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.18) # For FindPython.cmake Development.Module
 
 PROJECT(CGAL-bindings)
 
@@ -31,7 +31,8 @@ option( BUILD_RUBY "Build Ruby bindings" OFF )
 
 enable_testing ()
 add_custom_target (tests)
-SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+set(CMAKE_INSTALL_NAME_DIR "@loader_path/../lib") # for macOS
 
 if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
 
@@ -74,7 +75,7 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
       message(STATUS "BUILD_RUBY is set to OFF: no CGAL-bindings for Ruby will be generated.")
     endif()
     if (${BUILD_PYTHON})
-      find_package(Python COMPONENTS Interpreter Development)
+      find_package(Python COMPONENTS Interpreter Development.Module)
       if (NOT Python_FOUND)
         SET(BUILD_PYTHON OFF)
         message(WARNING "Python has not been found, CGAL-bindings for Python will not be generated.")

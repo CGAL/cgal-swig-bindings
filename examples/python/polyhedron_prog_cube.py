@@ -6,7 +6,8 @@ from CGAL.CGAL_Kernel import Point_3
 def make_cube_3(P):
     # appends a cube of size [0,1]^3 to the polyhedron P.
     assert P.is_valid()
-    h = P.make_tetrahedron(Point_3(1, 0, 0), Point_3(0, 0, 1), Point_3(0, 0, 0), Point_3(0, 1, 0))
+    h = P.make_tetrahedron(Point_3(1, 0, 0), Point_3(0, 0, 1),
+                           Point_3(0, 0, 0), Point_3(0, 1, 0))
     g = h.next().opposite().next()
     P.split_edge(h.next())
     P.split_edge(g.next())

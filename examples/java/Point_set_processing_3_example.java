@@ -29,7 +29,7 @@ public class Point_set_processing_3_example{
     CGAL_Point_set_processing_3.jet_smooth_point_set(points,3*k);
 
     System.out.println("Running edge_aware_upsample_point_set...");
-    CGAL_Point_set_processing_3.edge_aware_upsample_point_set(points);
+    CGAL_Point_set_processing_3.edge_aware_upsample_point_set(points, 30, 1, -1, 2000);
     System.out.println(points.size() + " points after upsampling");
 
     avg_space = CGAL_Point_set_processing_3.compute_average_spacing(points,k);

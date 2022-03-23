@@ -19,10 +19,10 @@ def test_insert_from_array():
 
     tree_seg = AABB_tree_Segment_3_soup()
     tree_seg.insert_from_array(segments)
-    assert(tree_seg.size() == 4)
+    assert (tree_seg.size() == 4)
 
     s = Segment_3(Point_3(1, 2, 3), Point_3(0, 0, 0))
-    assert(tree_seg.do_intersect(s))
+    assert (tree_seg.do_intersect(s))
 
     t1 = [0, 0, 0, 0, 0, 1, 0, 0, -1]
     t2 = [0, 0, 0, 0, 0, 1, 0, 1, -1]
@@ -33,15 +33,16 @@ def test_insert_from_array():
 
     tree_tri = AABB_tree_Triangle_3_soup()
     tree_tri.insert_from_array(triangles)
-    assert(tree_tri.size() == 4)
+    assert (tree_tri.size() == 4)
 
-    assert(tree_seg.do_intersect(s))
+    assert (tree_seg.do_intersect(s))
 
 
 test_insert_from_array()
 
 poly = Polyhedron_3()
-poly.make_tetrahedron(Point_3(0, 0, 0), Point_3(1, 0, 0), Point_3(0, 1, 0), Point_3(0, 0, 1))
+poly.make_tetrahedron(Point_3(0, 0, 0), Point_3(1, 0, 0), Point_3(0, 1, 0),
+                      Point_3(0, 0, 1))
 tree = AABB_tree_Polyhedron_3_Facet_handle()
 
 lst = []
@@ -60,7 +61,6 @@ for f in poly.facets():
     p3 = f.halfedge().next().next().vertex().point()
     t = Triangle_3(p1, p2, p3)
     lst.append(t)
-
 
 tree2 = AABB_tree_Triangle_3_soup(lst)
 

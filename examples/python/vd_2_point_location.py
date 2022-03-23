@@ -33,8 +33,7 @@ points.append(Point_2(350, 0))
 
 vd = Voronoi_diagram_2(points)
 
-assert(vd.is_valid())
-
+assert (vd.is_valid())
 
 queries = []
 queries.append(Point_2(0, 0))
@@ -68,13 +67,15 @@ for p in queries:
             if lr.is_face_handle():
                 f = lr.get_face_handle()
                 print("face.")
-                print("The vertices of the Voronoi face are (in counterclockwise order):")
+                print(
+                    "The vertices of the Voronoi face are (in counterclockwise order):"
+                )
                 ec_start = f.outer_ccb()
 
                 if ec_start.hasNext():
                     done = ec_start.next()
                     iter = Voronoi_diagram_2_Halfedge_handle()
-                    while(1):
+                    while (1):
                         iter = ec_start.next()
                         print_endpoint(iter, False)
                         if iter == done:

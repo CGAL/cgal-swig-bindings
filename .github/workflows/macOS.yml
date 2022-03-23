@@ -7,11 +7,9 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
-env:
-  DEVELOPER_DIR: /Applications/Xcode_11.3.app/Contents/Developer
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     strategy:
       max-parallel: 4
       matrix:

@@ -30,9 +30,11 @@ print("Number of vertices before: ", cdt.number_of_vertices())
 # make it conforming Delaunay
 CGAL_Mesh_2.make_conforming_Delaunay_2(cdt)
 
-print("Number of vertices after make_conforming_Delaunay_2: ", cdt.number_of_vertices())
+print("Number of vertices after make_conforming_Delaunay_2: ",
+      cdt.number_of_vertices())
 
 # then make it conforming Gabriel
 CGAL_Mesh_2.make_conforming_Gabriel_2(cdt)
 
-print("Number of vertices after make_conforming_Gabriel_2: ", cdt.number_of_vertices())
+print("Number of vertices after make_conforming_Gabriel_2: ",
+      cdt.number_of_vertices())

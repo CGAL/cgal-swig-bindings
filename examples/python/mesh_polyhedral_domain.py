@@ -6,8 +6,9 @@ from CGAL.CGAL_Mesh_3 import Default_mesh_criteria
 from CGAL import CGAL_Mesh_3
 
 import os
+
 datadir = os.environ.get('DATADIR', '../data')
-datafile = datadir+'/elephant.off'
+datafile = datadir + '/elephant.off'
 
 # Create input polyhedron
 polyhedron = Polyhedron_3(datafile)
@@ -18,7 +19,8 @@ params = Mesh_3_parameters()
 
 # Mesh criteria (no cell_size set)
 criteria = Default_mesh_criteria()
-criteria.facet_angle(25).facet_size(0.15).facet_distance(0.008).cell_radius_edge_ratio(3)
+criteria.facet_angle(25).facet_size(0.15).facet_distance(
+    0.008).cell_radius_edge_ratio(3)
 # Mesh generation
 c3t3 = CGAL_Mesh_3.make_mesh_3(domain, criteria, params)
 

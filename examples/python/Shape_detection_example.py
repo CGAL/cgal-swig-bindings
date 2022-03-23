@@ -5,8 +5,9 @@ from CGAL.CGAL_Point_set_3 import Point_set_3
 from CGAL.CGAL_Shape_detection import *
 
 import os
+
 datadir = os.environ.get('DATADIR', '../data')
-datafile = datadir+'/cube.pwn'
+datafile = datadir + '/cube.pwn'
 
 points = Point_set_3(datafile)
 print(points.size(), "points read")
@@ -28,20 +29,28 @@ for s in range(min(len(planes), 10)):
 
 print("Detecting cylinders with efficient RANSAC")
 cylinder_map = points.add_int_map("cylinder_index")
-cylinders = efficient_RANSAC(points, cylinder_map, planes=False, cylinders=True)
+cylinders = efficient_RANSAC(points,
+                             cylinder_map,
+                             planes=False,
+                             cylinders=True)
 print(len(cylinders), "cylinders(s) detected, first 10 cylinders are:")
 for s in range(min(len(cylinders), 10)):
     print(" *", s, ":", cylinders[s])
 
-print("Detecting everything possible with efficient RANSAC (custom parameters)")
+print(
+    "Detecting everything possible with efficient RANSAC (custom parameters)")
 shape_map = points.add_int_map("shape_index")
-shapes = efficient_RANSAC(points, shape_map,
+shapes = efficient_RANSAC(points,
+                          shape_map,
                           min_points=5,
                           epsilon=1.,
                           cluster_epsilon=1.2,
                           normal_threshold=0.85,
-                          planes=True, cylinders=True,
-                          spheres=True, cones=True, tori=True)
+                          planes=True,
+                          cylinders=True,
+                          spheres=True,
+                          cones=True,
+                          tori=True)
 print(len(shapes), "shapes(s) detected, first 10 shapes are:")
 for s in range(min(len(shapes), 10)):
     print(" *", s, ":", shapes[s])

@@ -18,11 +18,11 @@ m.add_vertex_to_facet(1)
 m.add_vertex_to_facet(2)
 m.end_facet()
 
-
 P = Polyhedron_3()
 # create the triangle in P
 P.delegate(m)
-print("(v,f,e) = ", P.size_of_vertices(), P.size_of_facets(), divmod(P.size_of_halfedges(), 2)[0])
+print("(v,f,e) = ", P.size_of_vertices(), P.size_of_facets(),
+      divmod(P.size_of_halfedges(), 2)[0])
 
 # clear the modifier
 m.clear()
@@ -38,6 +38,7 @@ m.end_facet()
 
 # append a triangle incident to the existing one
 P.delegate(m)
-print("(v,f,e) = ", P.size_of_vertices(), P.size_of_facets(), divmod(P.size_of_halfedges(), 2)[0])
+print("(v,f,e) = ", P.size_of_vertices(), P.size_of_facets(),
+      divmod(P.size_of_halfedges(), 2)[0])
 
 assert P.is_valid()
