@@ -1,4 +1,4 @@
-![GitHub branch checks state](https://img.shields.io/github/checks-status/CGAL/cgal-swig-bindings/main)
+[![GitHub branch checks state](https://github.com/CGAL/cgal-swig-bindings/actions/workflows/tests.yml/badge.svg)](https://github.com/CGAL/cgal-swig-bindings/actions)
 
 # cgal-bindings
 CGAL bindings using SWIG
