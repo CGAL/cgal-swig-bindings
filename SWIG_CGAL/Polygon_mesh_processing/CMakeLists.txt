@@ -1,4 +1,4 @@
-SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
+SET (LIBSTOLINKWITH CGAL_Kernel_cpp CGAL::Eigen3_support)
 if (TBB_FOUND)
   set(LIBSTOLINKWITH ${LIBSTOLINKWITH} TBB::tbb TBB::tbbmalloc Threads::Threads)
 endif()

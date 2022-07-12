@@ -3,8 +3,8 @@ SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
 find_package(Eigen3 3.1.0)
 
 if (EIGEN3_FOUND)
-  include( ${EIGEN3_USE_FILE} )
-
+  include(CGAL_Eigen3_support)
+  set(LIBSTOLINKWITH ${LIBSTOLINKWITH} CGAL::Eigen3_support)
   if (TBB_FOUND)
     set(LIBSTOLINKWITH ${LIBSTOLINKWITH} TBB::tbb TBB::tbbmalloc Threads::Threads)
   endif()
