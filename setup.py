@@ -165,7 +165,7 @@ def init_values(obj):
   obj.generator= None
   obj.cmake= None
   obj.python_root= None
-  obj.python_executable= None
+  obj.python_executable= sys.executable
 
 class BuildWheelCommand(bdist_wheel):
   user_options = bdist_wheel.user_options + get_options()
