@@ -391,7 +391,7 @@ class my_build_ext(build_ext_orig):
 
 
 setup(name='cgal',
-      version='5.1.0',
+      version='5.4.1',
       author="CGAL Project",
       description="CGAL bindings, allowing to use some of the CGAL library in python.",
       long_description="The CGAL Bindings project allows to use some packages of CGAL, the Computational Algorithms Library with python. This project is still experimental and more packages will be added. For more information, please visit https://github.com/CGAL/cgal-swig-bindings/wiki.",
