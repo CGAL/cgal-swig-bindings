@@ -371,7 +371,7 @@ class my_build_ext(build_ext_orig):
           ]
         else:
           build_args = [
-          '--', '-j4'
+          '--', '-j{}'.format(os.cpu_count())
           ]
         self.cmake_cmd= 'cmake'
         if self.cmake is not None:
