@@ -100,7 +100,7 @@ jobs:
               ;;
             macOS)
               CGAL_DIR=$HOME/.local python -m pip wheel -v .
-              delocate-wheel -w fixed_wheel cgal-.whl
+              delocate-wheel -w fixed_wheel cgal-*.whl
               rm cgal-*.whl
               cp fixed_wheel/*.whl .
               ;;
