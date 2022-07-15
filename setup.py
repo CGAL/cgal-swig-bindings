@@ -297,6 +297,7 @@ class my_build_ext(build_ext_orig):
         build_temp.mkdir(parents=True, exist_ok=True)
         config = 'Release'
         cmake_args = [
+            '--debug-find',
             '-DBUILD_JAVA=OFF',
             '-DBUILD_PYTHON=ON',
             '-DCMAKE_BUILD_TYPE=Release',

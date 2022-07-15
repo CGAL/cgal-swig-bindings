@@ -93,11 +93,13 @@ jobs:
             Linux)
               docker pull cgal/python-wheel:manylinux2014
               docker run --rm -v$HOME/.local:/cgal -v${PWD}:/cgal-bindings -ePYTHON_VERSION_MINOR=$(python -c "import sys; print(sys.version_info.minor)") cgal/python-wheel:manylinux2014
+              rm cgal-*.whl
               cp wheelhouse/*.whl .
               ;;
             macOS)
               CGAL_DIR=$HOME/.local python -m pip wheel -v .
               delocate-wheel -w fixed_wheel cgal-.whl
+              rm cgal-*.whl
               cp fixed_wheel/*.whl .
               ;;
             Windows)
