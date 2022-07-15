@@ -61,6 +61,7 @@ jobs:
           popd
 
       - name: Compile CGAL SWIG Bindings
+        if: false
         shell: bash -l {0}
         run: |
           set -ex
@@ -106,6 +107,7 @@ jobs:
               CGAL_DIR=$HOME/.local python -m pip wheel -v .
               ;;
           esac
+          unzip -l cgal-*whl
 
       - name: Install wheel and test it
         shell: bash -l {0}
