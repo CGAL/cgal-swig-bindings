@@ -91,10 +91,16 @@ jobs:
           mkdir -p build/build-python/CGAL
           case ${{ runner.os }} in
             Linux)
-              docker run --rm -v$HOME/cgal:/cgal -v${PWD}:/cgal-bindings -ePYTHON_VERSION_MINOR=$(python -c "import sys; print(sys.version_info.minor)") cgal/python-wheel:manylinux2014
+              docker pull cgal/python-wheel:manylinux2014
+              docker run --rm -v$HOME/.local:/cgal -v${PWD}:/cgal-bindings -ePYTHON_VERSION_MINOR=$(python -c "import sys; print(sys.version_info.minor)") cgal/python-wheel:manylinux2014
               cp wheelhouse/*.whl .
               ;;
-            *)
+            macOS)
+              CGAL_DIR=$HOME/.local python -m pip wheel -v .
+              delocate-wheel -w fixed_wheel cgal-.whl
+              cp fixed_wheel/*.whl .
+              ;;
+            Windows)
               CGAL_DIR=$HOME/.local python -m pip wheel -v .
               ;;
           esac
@@ -103,7 +109,7 @@ jobs:
         shell: bash -l {0}
         run: |
           set -ex
-          python -m pip install cgal*.whl
+          python -m pip install cgal-*.whl
           cd examples/python
           for i in *.py; do
             python $i
