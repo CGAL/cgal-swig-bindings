@@ -11,11 +11,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        cgal_branch: [5.3.x-branch, 5.4.x-branch, master]
+        cgal_branch: [v5.4.1, 5.4.x-branch, 5.5.x-branch, master]
         # cgal_branch: [v5.4]
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ['3.7', '3.8', '3.9', '3.10']
-        #  python-version: ["3.10"]
+        # python-version: ["3.10"]
 
     steps:
       - uses: actions/checkout@v2
@@ -49,6 +49,7 @@ jobs:
       - name: Install CGAL
         shell: bash -l {0}
         run: |
+          set -xe
           pushd $HOME
           git clone --depth 1 -b ${{ matrix.cgal_branch }} https://github.com/CGAL/cgal.git
           cd cgal
@@ -62,10 +63,48 @@ jobs:
       - name: Compile CGAL SWIG Bindings
         shell: bash -l {0}
         run: |
-          set -x
-          set -e
+          set -ex
           mkdir $HOME/build-cgal-swig-bindings
           export CMAKE_PREFIX_PATH=$($CONDA/bin/conda env list --json | jq -r '.envs | .[] | select(test("test"))')
           echo CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
           cmake -S $PWD -B $HOME/build-cgal-swig-bindings -DCMAKE_INSTALL_PREFIX=$HOME/.local  -DCGAL_DIR=$HOME/.local -DCMAKE_BUILD_TYPE=Release #--debug-find
           cmake --build $HOME/build-cgal-swig-bindings --target install --config Release -j$(nproc)
+
+      - name: pycodestyle
+        shell: bash -l {0}
+        env:
+          CGAL_PYTHON_EXAMPLES: examples/python
+          PYCODESTYLE_CONVENTIONS: "--max-line-length=120"
+        run: |
+          pycodestyle --show-source --show-pep8 $PYCODESTYLE_CONVENTIONS $CGAL_PYTHON_EXAMPLES || pycodestyle --statistics $PYCODESTYLE_CONVENTIONS -qq $CGAL_PYTHON_EXAMPLES
+
+      - name: Build local wheel
+        shell: bash -l {0}
+        run: |
+          set -ex
+          export CMAKE_PREFIX_PATH=$($CONDA/bin/conda env list --json | jq -r '.envs | .[] | select(test("test"))')
+          CGAL_VERSION=$(perl -lan -e 'if(/CGAL_VERSION /) { $v=@F[2]; $v =~ s/-.*//; print "$v" }' $HOME/.local/include/CGAL/version.h)
+          CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d')
+          CGAL_PYTHON_MODULE_VERSION=$CGAL_VERSION-$CGAL_SWIG_BINDINGS_VERSION
+          echo Create package version $CGAL_PYTHON_MODULE_VERSION
+          export CGAL_PYTHON_MODULE_VERSION
+          mkdir -p build/build-python/CGAL
+          case ${{ runner.os }} in
+            Linux)
+              docker run --rm -v$HOME/cgal:/cgal -v${PWD}:/cgal-bindings -ePYTHON_VERSION_MINOR=$(python -c "import sys; print(sys.version_info.minor)") cgal/python-wheel:manylinux2014
+              cp wheelhouse/*.whl .
+              ;;
+            *)
+              CGAL_DIR=$HOME/.local python -m pip wheel -v .
+              ;;
+          esac
+
+      - name: Install wheel and test it
+        shell: bash -l {0}
+        run: |
+          set -ex
+          python -m pip install cgal*.whl
+          cd examples/python
+          for i in *.py; do
+            python $i
+          done
