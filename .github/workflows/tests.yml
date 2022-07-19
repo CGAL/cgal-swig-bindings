@@ -14,7 +14,7 @@ jobs:
         #cgal_branch: [v5.4.1, 5.4.x-branch, 5.5.x-branch, master]
         cgal_branch: [v5.5]
         #os: [ubuntu-latest, macos-latest, windows-latest]
-        os: [macos-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
         #python-version: ['3.7', '3.8', '3.9', '3.10']
         python-version: ["3.10"]
 
