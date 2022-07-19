@@ -152,7 +152,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          path: cgal-whl
+          path: cgal-*.whl
 
   upload:
     name: Upload to PyPi and create release
