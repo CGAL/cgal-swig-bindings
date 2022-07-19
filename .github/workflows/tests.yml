@@ -94,7 +94,7 @@ jobs:
           case ${{ runner.os }} in
             Linux)
               docker pull cgal/python-wheel:manylinux2014
-              docker run --rm -v$HOME/.local:/cgal -v${PWD}:/cgal-bindings -ePYTHON_VERSION_MINOR=$(python -c "import sys; print(sys.version_info.minor)") cgal/python-wheel:manylinux2014
+              docker run --rm -v$HOME/.local:/cgal -v${PWD}:/cgal-bindings -eCGAL_PYTHON_MODULE_VERSION=$CGAL_PYTHON_MODULE_VERSION -ePYTHON_VERSION_MINOR=$(python -c "import sys; print(sys.version_info.minor)") cgal/python-wheel:manylinux2014
               rm cgal-*.whl
               cp wheelhouse/*.whl .
               ;;
