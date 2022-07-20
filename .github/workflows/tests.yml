@@ -32,7 +32,7 @@ jobs:
           pip install setuptools wheel twine
           mkdir -p build/build-python/CGAL
           CGAL_VERSION=$LATEST_CGAL_VERSION
-          CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d')
+          CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d%H%M')
           CGAL_PYTHON_MODULE_VERSION=$CGAL_VERSION-$CGAL_SWIG_BINDINGS_VERSION
           export CGAL_PYTHON_MODULE_VERSION
           python3 setup.py sdist
@@ -121,7 +121,7 @@ jobs:
           set -ex
           export CMAKE_PREFIX_PATH=$($CONDA/bin/conda env list --json | jq -r '.envs | .[] | select(test("test"))')
           CGAL_VERSION=$(perl -lan -e 'if(/CGAL_VERSION /) { $v=@F[2]; $v =~ s/-.*//; print "$v" }' $HOME/.local/include/CGAL/version.h)
-          CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d')
+          CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d%H%M')
           CGAL_PYTHON_MODULE_VERSION=$CGAL_VERSION-$CGAL_SWIG_BINDINGS_VERSION
           echo Create package version $CGAL_PYTHON_MODULE_VERSION
           export CGAL_PYTHON_MODULE_VERSION
