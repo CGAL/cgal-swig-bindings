@@ -159,7 +159,7 @@ jobs:
           done
 
       - uses: actions/upload-artifact@v2
-        if: endsWith(matrix.cgal_branch, env.LATEST_CGAL_VERSION}
+        if: endsWith(matrix.cgal_branch, env.LATEST_CGAL_VERSION)
         with:
           path: cgal-*.whl
 
