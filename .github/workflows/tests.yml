@@ -98,7 +98,6 @@ jobs:
           popd
 
       - name: Compile CGAL SWIG Bindings
-        if: false
         shell: bash -l {0}
         run: |
           set -ex
