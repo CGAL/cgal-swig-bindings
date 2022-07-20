@@ -158,11 +158,12 @@ jobs:
           done
 
       - uses: actions/upload-artifact@v2
+        if: ${{ matrix.cgal_branch }} == v${{env.LATEST_CGAL_VERSION}}
         with:
           path: cgal-*.whl
 
   upload:
-    name: Upload to PyPi and create release
+    name: Upload to PyPi
     runs-on: ubuntu-latest
     needs: [sdist, build-and-test-wheels]
     steps:
