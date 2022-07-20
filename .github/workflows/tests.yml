@@ -6,6 +6,9 @@ on:
       - main
   pull_request:
 
+env:
+  LATEST_CGAL_VERSION: '5.5'
+
 jobs:
   sdist:
     name: Create Source Distribution
@@ -28,6 +31,10 @@ jobs:
         run: |
           pip install setuptools wheel twine
           mkdir -p build/build-python/CGAL
+          CGAL_VERSION=$LATEST_CGAL_VERSION
+          CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d')
+          CGAL_PYTHON_MODULE_VERSION=$CGAL_VERSION-$CGAL_SWIG_BINDINGS_VERSION
+          export CGAL_PYTHON_MODULE_VERSION
           python3 setup.py sdist
 
       - uses: actions/upload-artifact@v2
