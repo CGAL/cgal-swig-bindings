@@ -154,7 +154,7 @@ jobs:
           set -ex
           python -m venv cgal_venv
           case ${{ runner.os }} in
-            Windows) cgal_venv/bin/activate
+            Windows) cgal_venv/Scripts/activate
                       ;;
             *) source cgal_venv/bin/activate
           esac
