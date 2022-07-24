@@ -152,6 +152,8 @@ jobs:
         shell: bash -l {0}
         run: |
           set -ex
+          python -m venv cgal_venv
+          source cgal_venv/bin/activate
           python -m pip install cgal-*.whl
           cd examples/python
           for i in *.py; do
