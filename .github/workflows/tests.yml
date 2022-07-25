@@ -47,8 +47,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cgal_branch: [v5.5, 5.5.x-branch, master]
-        #cgal_branch: [5.5.x-branch]
+        #cgal_branch: [v5.5, 5.5.x-branch, master]
+        cgal_branch: [v5.5]
         os: [ubuntu-latest, macos-latest, windows-latest]
         #os: [windows-latest]
         #os: [ubuntu-latest]
@@ -136,8 +136,8 @@ jobs:
               ;;
             macOS)
               CGAL_DIR=$HOME/.local python -m pip wheel -v .
-              DYLD_LIBRARY_PATH=$HOME/.local/lib:$CMAKE_PREFIX_PATH/lib:$DYLD_LIBRARY_PATH
-              export DYLD_LIBRARY_PATH
+              DYLD_FALLBACK_LIBRARY_PATH=$HOME/.local/lib:$CMAKE_PREFIX_PATH/lib:$DYLD_FALLBACK_LIBRARY_PATH
+              export DYLD_FALLBACK_LIBRARY_PATH
               delocate-wheel -w fixed_wheel cgal-*.whl
               rm cgal-*.whl
               cp fixed_wheel/*.whl .
