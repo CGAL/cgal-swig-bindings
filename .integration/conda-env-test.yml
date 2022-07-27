@@ -14,5 +14,6 @@ dependencies:
   - pycodestyle
   - swig
   - tbb
+  - tbb-devel
   - wheel
   - bzip2
