@@ -39,7 +39,7 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
   include( ${CGAL_USE_FILE} )
 
 
-  find_package( TBB QUIET )
+  find_package( TBB )
   if(TBB_FOUND)
     if(NOT TARGET Threads::Threads)
       find_package(Threads REQUIRED)
