@@ -135,9 +135,9 @@ jobs:
               cp wheelhouse/*.whl .
               ;;
             macOS)
+              LDFLAGS="-rpath ${CMAKE_PREFIX_PATH}/lib"
+              export LDFLAGS
               CGAL_DIR=$HOME/.local python -m pip wheel -v .
-              DYLD_FALLBACK_LIBRARY_PATH=$HOME/.local/lib:$CMAKE_PREFIX_PATH/lib:$DYLD_FALLBACK_LIBRARY_PATH
-              export DYLD_FALLBACK_LIBRARY_PATH
               delocate-wheel -w fixed_wheel cgal-*.whl
               rm cgal-*.whl
               cp fixed_wheel/*.whl .
