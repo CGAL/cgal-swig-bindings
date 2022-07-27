@@ -103,8 +103,9 @@ jobs:
         run: |
           set -ex
           mkdir $HOME/build-cgal-swig-bindings
-          export CMAKE_PREFIX_PATH=$($CONDA/bin/conda env list --json | jq -r '.envs | .[] | select(test("test"))')
-          echo CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
+          export CONDA_ENV_DIR=$(conda env list --json | jq -r '.envs | .[] | select(test("test"))')
+          echo CONDA_ENV_DIR=${CONDA_ENV_DIR}
+          export CMAKE_PREFIX_PATH=${CONDA_ENV_DIR}:$HOME/.local
           cmake -S $PWD -B $HOME/build-cgal-swig-bindings -DCMAKE_INSTALL_PREFIX=$HOME/.local  -DCGAL_DIR=$HOME/.local -DCMAKE_BUILD_TYPE=Release #--debug-find
           cmake --build $HOME/build-cgal-swig-bindings --target install --config Release -j$(nproc)
 
@@ -120,7 +121,8 @@ jobs:
         shell: bash -l {0}
         run: |
           set -ex
-          export CMAKE_PREFIX_PATH=$($CONDA/bin/conda env list --json | jq -r '.envs | .[] | select(test("test"))')
+          export CONDA_ENV_DIR=$(conda env list --json | jq -r '.envs | .[] | select(test("test"))')
+          export CMAKE_PREFIX_PATH=${CONDA_ENV_DIR}:$HOME/.local
           CGAL_VERSION=$(perl -lan -e 'if(/CGAL_VERSION /) { $v=@F[2]; $v =~ s/-.*//; print "$v" }' $HOME/.local/include/CGAL/version.h)
           CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d%H%M')
           CGAL_PYTHON_MODULE_VERSION=$CGAL_VERSION-$CGAL_SWIG_BINDINGS_VERSION
@@ -135,7 +137,7 @@ jobs:
               cp wheelhouse/*.whl .
               ;;
             macOS)
-              LDFLAGS="-rpath ${CMAKE_PREFIX_PATH}/lib"
+              LDFLAGS="-rpath ${CONDA_ENV_DIR}/lib"
               export LDFLAGS
               CGAL_DIR=$HOME/.local python -m pip wheel -v .
               delocate-wheel -w fixed_wheel cgal-*.whl
