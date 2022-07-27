@@ -106,8 +106,9 @@ jobs:
           git clone --depth 1 https://github.com/CGAL/LAStools.git
           cd LAStools
           mkdir build
-          cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release -j$(nproc)
-          cmake  --install build --config Release
+          cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release -j$(nproc)
+          cmake --install build --config Release
           cd ..
           rm -rf LAStools
           popd
