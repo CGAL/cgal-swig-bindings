@@ -147,7 +147,7 @@ jobs:
               cp wheelhouse/*.whl .
               ;;
             macOS)
-              cp $HOME/.local/lib/liblas.dylib ${CONDA_ENV_DIR}/lib
+              cp -a $HOME/.local/lib/liblas.dylib ${CONDA_ENV_DIR}/lib
               LDFLAGS="-rpath ${CONDA_ENV_DIR}/lib"
               export LDFLAGS
               CGAL_DIR=$HOME/.local python -m pip wheel -v .
