@@ -123,6 +123,7 @@ jobs:
           mv $HOME/.local/include/LASlib/*.hpp $HOME/.local/include/
           [ -d $HOME/.local/bin ] || mkdir $HOME/.local/bin
           [ -f $HOME/.local/lib/las.dll ] && mv $HOME/.local/lib/las.dll $HOME/.local/bin/
+          [ -f $HOME/.local/lib/liblas.dylib ] && install_name_tool -id '@rpath/liblas.dylib' $HOME/.local/lib/liblas.dylib
           popd
 
       - name: Build local wheel
