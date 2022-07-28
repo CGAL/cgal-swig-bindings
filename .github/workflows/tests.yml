@@ -140,7 +140,7 @@ jobs:
         run: |
           set -ex
           CONDA_ENV_DIR=$(conda env list --json | jq -r '.envs | .[] | select(test("test"))')
-          [ -d "$CONDA_ENV_DIR/Library" ] && CONDA_ENV_DIR="$CONDA_ENV_DIR/Library"
+          [ -d "$CONDA_ENV_DIR/Library" ] && CONDA_ENV_DIR="$CONDA_ENV_DIR/Library" # for Windows miniconda
           export CONDA_ENV_DIR
           export PATH=$CONDA_ENV_DIR/bin:$PATH
           export CMAKE_PREFIX_PATH=${CONDA_ENV_DIR}:$HOME/.local
