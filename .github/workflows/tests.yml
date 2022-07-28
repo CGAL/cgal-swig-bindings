@@ -139,7 +139,10 @@ jobs:
         shell: bash -l {0}
         run: |
           set -ex
-          export CONDA_ENV_DIR=$(conda env list --json | jq -r '.envs | .[] | select(test("test"))')
+          CONDA_ENV_DIR=$(conda env list --json | jq -r '.envs | .[] | select(test("test"))')
+          [ -d "$CONDA_ENV_DIR/Library" ] && CONDA_ENV_DIR="$CONDA_ENV_DIR/Library"
+          export CONDA_ENV_DIR
+          export PATH=$CONDA_ENV_DIR/bin:$PATH
           export CMAKE_PREFIX_PATH=${CONDA_ENV_DIR}:$HOME/.local
           CGAL_VERSION=$(perl -lan -e 'if(/CGAL_VERSION /) { $v=@F[2]; $v =~ s/-.*//; print "$v" }' $HOME/.local/include/CGAL/version.h)
           CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d%H%M')
