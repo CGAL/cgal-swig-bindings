@@ -300,6 +300,7 @@ class my_build_ext(build_ext_orig):
             '-DBUILD_JAVA=OFF',
             '-DBUILD_PYTHON=ON',
             '-DCMAKE_BUILD_TYPE=Release',
+            '--debug-find',
         ]
         if sys.platform == 'win32' or sys.platform == 'cygwin':
             cmake_args.append('-DCMAKE_DISABLE_FIND_PACKAGE_boost_serialization=TRUE ')
