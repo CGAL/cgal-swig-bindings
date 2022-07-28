@@ -158,6 +158,8 @@ jobs:
             Windows)
               LIB=${CONDA_ENV_DIR}\\lib
               CGAL_DIR=$HOME/.local
+              CXXFLAGS=-D__TBB_NO_IMPLICIT_LINKAGE
+              export CXXFLAGS
               export LIB
               export CGAL_DIR
               python -m pip wheel -v .
