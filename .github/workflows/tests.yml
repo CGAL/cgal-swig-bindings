@@ -121,6 +121,7 @@ jobs:
           rm -rf LAStools
           mv $HOME/.local/include/LASzip/*.hpp $HOME/.local/include/
           mv $HOME/.local/include/LASlib/*.hpp $HOME/.local/include/
+          [ -d $HOME/.local/bin ] || mkdir $HOME/.local/bin
           [ -f $HOME/.local/lib/las.dll ] && mv $HOME/.local/lib/las.dll $HOME/.local/bin/
           popd
 
