@@ -84,6 +84,14 @@ jobs:
       #   run: |
       #     $CONDA/bin/conda install -n test -y -c conda-forge 'boost-cpp>=1.77' bzip2 zlib eigen mpfr mpir tbb numpy wheel twine swig
 
+      - name: pycodestyle
+        shell: bash -l {0}
+        env:
+          CGAL_PYTHON_EXAMPLES: examples/python
+          PYCODESTYLE_CONVENTIONS: "--max-line-length=120"
+        run: |
+          pycodestyle --show-source --show-pep8 $PYCODESTYLE_CONVENTIONS $CGAL_PYTHON_EXAMPLES || pycodestyle --statistics $PYCODESTYLE_CONVENTIONS -qq $CGAL_PYTHON_EXAMPLES
+
       - name: Install CGAL
         shell: bash -l {0}
         run: |
@@ -115,25 +123,6 @@ jobs:
           mv $HOME/.local/include/LASlib/*.hpp $HOME/.local/include/
           [ -f $HOME/.local/lib/las.dll] && mv $HOME/.local/lib/las.dll $HOME/.local/bin/
           popd
-
-      - name: Compile CGAL SWIG Bindings
-        shell: bash -l {0}
-        run: |
-          set -ex
-          mkdir $HOME/build-cgal-swig-bindings
-          export CONDA_ENV_DIR=$(conda env list --json | jq -r '.envs | .[] | select(test("test"))')
-          echo CONDA_ENV_DIR=${CONDA_ENV_DIR}
-          export CMAKE_PREFIX_PATH=${CONDA_ENV_DIR}:$HOME/.local
-          cmake -S $PWD -B $HOME/build-cgal-swig-bindings -DCMAKE_INSTALL_PREFIX=$HOME/.local  -DCGAL_DIR=$HOME/.local -DCMAKE_BUILD_TYPE=Release #--debug-find
-          cmake --build $HOME/build-cgal-swig-bindings --target install --config Release -j$(nproc)
-
-      - name: pycodestyle
-        shell: bash -l {0}
-        env:
-          CGAL_PYTHON_EXAMPLES: examples/python
-          PYCODESTYLE_CONVENTIONS: "--max-line-length=120"
-        run: |
-          pycodestyle --show-source --show-pep8 $PYCODESTYLE_CONVENTIONS $CGAL_PYTHON_EXAMPLES || pycodestyle --statistics $PYCODESTYLE_CONVENTIONS -qq $CGAL_PYTHON_EXAMPLES
 
       - name: Build local wheel
         shell: bash -l {0}
