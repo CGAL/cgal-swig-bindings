@@ -165,7 +165,7 @@ def init_values(obj):
   obj.generator= None
   obj.cmake= None
   obj.python_root= None
-  obj.python_executable= None
+  obj.python_executable= sys.executable
 
 class BuildWheelCommand(bdist_wheel):
   user_options = bdist_wheel.user_options + get_options()
@@ -396,7 +396,8 @@ setup(name='cgal',
       description="CGAL bindings, allowing to use some of the CGAL library in python.",
       long_description="The CGAL Bindings project allows to use some packages of CGAL, the Computational Algorithms Library with python. This project is still experimental and more packages will be added. For more information, please visit https://github.com/CGAL/cgal-swig-bindings/wiki.",
       packages=['CGAL'],
-      package_dir = {'CGAL': 'build/build-python/CGAL'},
+      package_dir = { 'CGAL': '.' },
+      #package_dir = {'CGAL': 'build/build-python/CGAL'},
       url="https://github.com/CGAL/cgal-swig-bindings",
       python_requires='>=3.6',
       classifiers = [

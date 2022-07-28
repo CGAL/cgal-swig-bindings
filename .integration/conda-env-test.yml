@@ -10,7 +10,10 @@ dependencies:
   - mpfr
   - numpy
   - twine
+  - delocate
+  - pycodestyle
   - swig
   - tbb
+  - tbb-devel
   - wheel
   - bzip2

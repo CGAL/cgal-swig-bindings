@@ -6,16 +6,54 @@ on:
       - main
   pull_request:
 
+env:
+  LATEST_CGAL_VERSION: '5.5'
+
 jobs:
-  build:
+  sdist:
+    name: Create Source Distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Upgrade pip
+        run: |
+          python3 -m pip install --upgrade pip
+
+      - name: Create Source Distribution
+        run: |
+          pip install setuptools wheel twine
+          mkdir -p build/build-python/CGAL
+          CGAL_VERSION=$LATEST_CGAL_VERSION
+          CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d%H%M')
+          CGAL_PYTHON_MODULE_VERSION=$CGAL_VERSION-$CGAL_SWIG_BINDINGS_VERSION
+          export CGAL_PYTHON_MODULE_VERSION
+          python3 setup.py sdist
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: dist/*.tar.gz
+
+  build-and-test-wheels:
+    name: Create and Test Wheels
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        cgal_branch: [5.3.x-branch, 5.4.x-branch, master]
-        # cgal_branch: [v5.4]
+        cgal_branch: [v5.5, 5.5.x-branch, master]
+        #cgal_branch: [v5.5]
         os: [ubuntu-latest, macos-latest, windows-latest]
+        #os: [windows-latest]
+        #os: [ubuntu-latest]
         python-version: ['3.7', '3.8', '3.9', '3.10']
-        #  python-version: ["3.10"]
+        #python-version: ["3.9"]
 
     steps:
       - uses: actions/checkout@v2
@@ -36,19 +74,28 @@ jobs:
       - name: Conda info
         shell: bash -l {0}
         run: conda info
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
+      # - name: Set up JDK 1.8
+      #   uses: actions/setup-java@v1
+      #   with:
+      #     java-version: 1.8
 
       # - name: Install dependencies
       #   shell: bash -l {0}
       #   run: |
       #     $CONDA/bin/conda install -n test -y -c conda-forge 'boost-cpp>=1.77' bzip2 zlib eigen mpfr mpir tbb numpy wheel twine swig
 
+      - name: pycodestyle
+        shell: bash -l {0}
+        env:
+          CGAL_PYTHON_EXAMPLES: examples/python
+          PYCODESTYLE_CONVENTIONS: "--max-line-length=120"
+        run: |
+          pycodestyle --show-source --show-pep8 $PYCODESTYLE_CONVENTIONS $CGAL_PYTHON_EXAMPLES || pycodestyle --statistics $PYCODESTYLE_CONVENTIONS -qq $CGAL_PYTHON_EXAMPLES
+
       - name: Install CGAL
         shell: bash -l {0}
         run: |
+          set -xe
           pushd $HOME
           git clone --depth 1 -b ${{ matrix.cgal_branch }} https://github.com/CGAL/cgal.git
           cd cgal
@@ -59,13 +106,108 @@ jobs:
           rm -rf cgal
           popd
 
-      - name: Compile CGAL SWIG Bindings
+      - name: Install LASTools
         shell: bash -l {0}
         run: |
-          set -x
-          set -e
-          mkdir $HOME/build-cgal-swig-bindings
-          export CMAKE_PREFIX_PATH=$($CONDA/bin/conda env list --json | jq -r '.envs | .[] | select(test("test"))')
-          echo CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
-          cmake -S $PWD -B $HOME/build-cgal-swig-bindings -DCMAKE_INSTALL_PREFIX=$HOME/.local  -DCGAL_DIR=$HOME/.local -DCMAKE_BUILD_TYPE=Release #--debug-find
-          cmake --build $HOME/build-cgal-swig-bindings --target install --config Release -j$(nproc)
+          set -xe
+          pushd $HOME
+          git clone --depth 1 https://github.com/CGAL/LAStools.git
+          cd LAStools
+          mkdir build
+          cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release -j$(nproc)
+          cmake --install build --config Release
+          cd ..
+          rm -rf LAStools
+          mv $HOME/.local/include/LASzip/*.hpp $HOME/.local/include/
+          mv $HOME/.local/include/LASlib/*.hpp $HOME/.local/include/
+          [ -d $HOME/.local/bin ] || mkdir $HOME/.local/bin
+          [ -f $HOME/.local/lib/las.dll ] && mv $HOME/.local/lib/las.dll $HOME/.local/bin/
+          [ -f $HOME/.local/lib/liblas.dylib ] && install_name_tool -id '@rpath/liblas.dylib' $HOME/.local/lib/liblas.dylib
+          popd
+
+      - name: Build local wheel
+        shell: bash -l {0}
+        run: |
+          set -ex
+          CONDA_ENV_DIR=$(conda env list --json | jq -r '.envs | .[] | select(test("test"))')
+          [ -d "$CONDA_ENV_DIR/Library" ] && CONDA_ENV_DIR="$CONDA_ENV_DIR\\Library" # for Windows miniconda
+          export CONDA_ENV_DIR
+          export PATH=$CONDA_ENV_DIR/bin:$HOME/.local/bin:$PATH
+          case ${{ runner.os }} in
+            Windows)
+              export CMAKE_PREFIX_PATH=${CONDA_ENV_DIR}';'$(cygpath -w $HOME/.local)
+              ;;
+            *) export CMAKE_PREFIX_PATH=${CONDA_ENV_DIR}:$HOME/.local
+          esac
+          CGAL_VERSION=$(perl -lan -e 'if(/CGAL_VERSION /) { $v=@F[2]; $v =~ s/-.*//; print "$v" }' $HOME/.local/include/CGAL/version.h)
+          CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d%H%M')
+          CGAL_PYTHON_MODULE_VERSION=$CGAL_VERSION-$CGAL_SWIG_BINDINGS_VERSION
+          echo Create package version $CGAL_PYTHON_MODULE_VERSION
+          export CGAL_PYTHON_MODULE_VERSION
+          mkdir -p build/build-python/CGAL
+          case ${{ runner.os }} in
+            Linux)
+              docker pull cgal/python-wheel:manylinux2014
+              docker run --rm -v$HOME/.local:/cgal -v${PWD}:/cgal-bindings -eCGAL_PYTHON_MODULE_VERSION=$CGAL_PYTHON_MODULE_VERSION -ePYTHON_VERSION_MINOR=$(python -c "import sys; print(sys.version_info.minor)") cgal/python-wheel:manylinux2014
+              rm cgal-*.whl
+              cp wheelhouse/*.whl .
+              ;;
+            macOS)
+              LDFLAGS="-rpath ${CONDA_ENV_DIR}/lib -rpath $HOME/.local/lib"
+              export LDFLAGS
+              CGAL_DIR=$HOME/.local python -m pip wheel -v .
+              delocate-wheel -w fixed_wheel cgal-*.whl
+              rm cgal-*.whl
+              cp fixed_wheel/*.whl .
+              ;;
+            Windows)
+              LIB=${CONDA_ENV_DIR}\\lib
+              CGAL_DIR=$HOME/.local
+              CXXFLAGS=-D__TBB_NO_IMPLICIT_LINKAGE
+              export CXXFLAGS
+              export LIB
+              export CGAL_DIR
+              python -m pip wheel -v .
+              ;;
+          esac
+          unzip -l cgal-*whl
+
+      - name: Install wheel and test it
+        shell: bash -l {0}
+        run: |
+          set -ex
+          python -m venv cgal_venv
+          case ${{ runner.os }} in
+            Windows) cgal_venv/Scripts/activate
+                      ;;
+            *) source cgal_venv/bin/activate
+          esac
+          python -m pip install cgal-*.whl
+          cd examples/python
+          for i in *.py; do
+            python $i
+          done
+
+      - uses: actions/upload-artifact@v2
+        if: endsWith(matrix.cgal_branch, env.LATEST_CGAL_VERSION)
+        with:
+          path: cgal-*.whl
+
+  upload:
+    name: Upload to PyPi
+    runs-on: ubuntu-latest
+    needs: [sdist, build-and-test-wheels]
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: dist
+
+      - name: upload
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          pip install  twine
+          python3 -m twine upload --repository testpypi dist/*
