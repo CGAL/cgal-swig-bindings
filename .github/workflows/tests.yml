@@ -133,7 +133,12 @@ jobs:
           [ -d "$CONDA_ENV_DIR/Library" ] && CONDA_ENV_DIR="$CONDA_ENV_DIR\\Library" # for Windows miniconda
           export CONDA_ENV_DIR
           export PATH=$CONDA_ENV_DIR/bin:$HOME/.local/bin:$PATH
-          export CMAKE_PREFIX_PATH=${CONDA_ENV_DIR}';'$(cygpath -w $HOME/.local)
+          case ${{ runner.os }} in
+            Windows)
+              export CMAKE_PREFIX_PATH=${CONDA_ENV_DIR}';'$(cygpath -w $HOME/.local)
+              ;;
+            *) export CMAKE_PREFIX_PATH=${CONDA_ENV_DIR}:$HOME/.local
+          esac
           CGAL_VERSION=$(perl -lan -e 'if(/CGAL_VERSION /) { $v=@F[2]; $v =~ s/-.*//; print "$v" }' $HOME/.local/include/CGAL/version.h)
           CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d%H%M')
           CGAL_PYTHON_MODULE_VERSION=$CGAL_VERSION-$CGAL_SWIG_BINDINGS_VERSION
