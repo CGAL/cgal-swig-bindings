@@ -156,7 +156,7 @@ jobs:
               cp fixed_wheel/*.whl .
               ;;
             Windows)
-              LIB=${CONDA_ENV_DIR}\\lib;$LIB CGAL_DIR=$HOME/.local python -m pip wheel -v .
+              LIB=${CONDA_ENV_DIR}\\lib CGAL_DIR=$HOME/.local python -m pip wheel -v .
               ;;
           esac
           unzip -l cgal-*whl
