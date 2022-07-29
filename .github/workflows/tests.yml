@@ -1,4 +1,4 @@
-name: cross-platform tests
+name: CI Tests
 
 on:
   push:
