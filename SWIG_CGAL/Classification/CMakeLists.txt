@@ -3,14 +3,6 @@ SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
 find_package(Eigen3 3.1.0)
 
 find_package( Boost OPTIONAL_COMPONENTS serialization iostreams )
-if( WIN32 )
-# to avoid a warning with old cmake
-  set(_Boost_BZIP2_HEADERS             "boost/iostreams/filter/bzip2.hpp")
-  set(_Boost_ZLIB_HEADERS              "boost/iostreams/filter/zlib.hpp")
-  find_package( Boost OPTIONAL_COMPONENTS bzip2 zlib)
-else()
-  find_package(ZLIB QUIET)
-endif()
 
 if(Boost_SERIALIZATION_FOUND AND Boost_IOSTREAMS_FOUND)
   if(TARGET Boost::serialization AND TARGET Boost::iostreams)

@@ -312,8 +312,6 @@ class my_build_ext(build_ext_orig):
             '-DCMAKE_BUILD_TYPE=Release',
         ]
         if sys.platform == 'win32' or sys.platform == 'cygwin':
-            cmake_args.append('-DCMAKE_DISABLE_FIND_PACKAGE_boost_serialization=TRUE ')
-            cmake_args.append('-DCMAKE_DISABLE_FIND_PACKAGE_boost_iostreams=TRUE ')
             cmake_args.append('-DBoost_LIB_DIAGNOSTIC_DEFINITIONS=TRUE')
 
         if self.install_dir is not None:
