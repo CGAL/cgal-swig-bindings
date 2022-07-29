@@ -15,6 +15,16 @@ from distutils.command.build import build
 from wheel.bdist_wheel import bdist_wheel
 
 
+# [
+#   'boost_iostreams',
+# 'boost_serialization',
+# 'gmp',
+# 'gmpxx',
+# 'mpfr',
+# 'tbb',
+# 'tbbmalloc',
+# 'z'
+# ]
 
 dependencies_list = ['gmp', 'mpfr', 'mpir.dll', 'boost_serialization', 'boost_iostreams', 'boost_zlib', 'boost_bzip2', 'tbb.dll', 'tbbmalloc', 'las.dll', 'zlib.dll', 'boost_regex']
 
