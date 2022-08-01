@@ -172,6 +172,7 @@ jobs:
               ;;
           esac
           unzip -l cgal-*whl
+          python -m twine check cgal-*whl
 
       - name: Install wheel and test it
         shell: bash -l {0}

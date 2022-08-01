@@ -4,7 +4,6 @@ import glob
 import shutil
 
 import sys
-from distutils.core import setup
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext as build_ext_orig
@@ -403,6 +402,7 @@ setup(name='cgal',
       author="CGAL Project",
       description="CGAL bindings, allowing to use some of the CGAL library in python.",
       long_description="The CGAL Bindings project allows to use some packages of CGAL, the Computational Algorithms Library with python. This project is still experimental and more packages will be added. For more information, please visit https://github.com/CGAL/cgal-swig-bindings/wiki.",
+      long_description_content_type="text/markdown",
       packages=['CGAL'],
       package_dir = { 'CGAL': '.' },
       #package_dir = {'CGAL': 'build/build-python/CGAL'},
