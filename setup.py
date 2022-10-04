@@ -75,7 +75,7 @@ CGAL_modules = [
     'Mesh_3',
     'Surface_mesher',
     'Triangulation_2',
-    'Triangulation_3'
+    'Triangulation_3',
     'Alpha_wrap_3'
 ]
 
