@@ -14,11 +14,11 @@ datadir = os.environ.get('DATADIR', '../data')
 
 # test with a mesh as input
 P = Polyhedron_3(datadir + '/elephant.off')
-Q = Polyhedron_3();
+Q = Polyhedron_3()
 CGAL_Alpha_wrap_3.alpha_wrap_3(P, 0.1, 0.01, Q)
 Q.write_to_file("elephant_alpha_wrapped.off")
 
-#test with a soup as input
+# test with a soup as input
 points = Point_3_Vector()
 points.reserve(3)
 points.append(Point_3(0, 0, 0))
@@ -34,7 +34,6 @@ polygons.append(polygon)
 CGAL_Alpha_wrap_3.alpha_wrap_3(points, polygons, 0.1, 0.01, Q)
 Q.write_to_file("soup_wrapped.off")
 
-#test with a point set as input
+# test with a point set as input
 CGAL_Alpha_wrap_3.alpha_wrap_3(points, 0.1, 0.5, Q)
 Q.write_to_file("points_wrapped.off")
-
