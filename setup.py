@@ -76,6 +76,7 @@ CGAL_modules = [
     'Surface_mesher',
     'Triangulation_2',
     'Triangulation_3'
+    'Alpha_wrap_3'
 ]
 
 extensions = []
