@@ -211,7 +211,7 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
         run: |
           pip install  twine
-          python3 -m twine upload --repository testpypi dist/*
+          python3 -m twine upload --verbose --repository testpypi dist/*
 
       - name: upload to PyPI
         if: github.event_name == 'push' && github.ref_name == 'main'
