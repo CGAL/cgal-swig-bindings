@@ -7,7 +7,7 @@ on:
   pull_request:
 
 env:
-  LATEST_CGAL_VERSION: '5.5'
+  LATEST_CGAL_VERSION: '5.5.1'
 
 jobs:
   sdist:
