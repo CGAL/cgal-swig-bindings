@@ -206,6 +206,7 @@ jobs:
           path: dist
 
       - name: upload to TestPyPI
+        if: github.event_name == 'push' && github.ref_name == 'main'
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
