@@ -7,7 +7,7 @@ on:
   pull_request:
 
 env:
-  LATEST_CGAL_VERSION: '5.5'
+  LATEST_CGAL_VERSION: '5.5.1'
 
 jobs:
   sdist:
@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 1
 
       - name: Install Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
@@ -37,23 +37,23 @@ jobs:
           export CGAL_PYTHON_MODULE_VERSION
           python3 setup.py sdist
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           path: dist/*.tar.gz
 
   build-and-test-wheels:
-    name: Create and Test Wheels
+    name: Wheel
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        cgal_branch: [v5.5, 5.5.x-branch, master]
+        cgal_branch: [v5.5.1, 5.5.x-branch, master]
         #cgal_branch: [v5.5]
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
+        #python-version: ["3.9"]
         os: [ubuntu-latest, macos-latest, windows-latest]
         #os: [windows-latest]
         #os: [ubuntu-latest]
-        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
-        #python-version: ["3.9"]
 
     steps:
       - uses: actions/checkout@v2
@@ -190,7 +190,7 @@ jobs:
             python $i
           done
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: endsWith(matrix.cgal_branch, env.LATEST_CGAL_VERSION)
         with:
           path: cgal-*.whl
@@ -200,18 +200,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: [sdist, build-and-test-wheels]
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: artifact
           path: dist
 
       - name: upload to TestPyPI
+        if: github.event_name == 'push' && github.ref_name == 'main'
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
         run: |
           pip install  twine
-          python3 -m twine upload --repository testpypi dist/*
+          python3 -m twine upload --verbose --repository testpypi dist/*
 
       - name: upload to PyPI
         if: github.event_name == 'push' && github.ref_name == 'main'

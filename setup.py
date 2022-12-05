@@ -116,7 +116,7 @@ def get_options():
            ('cmake-prefix-path=', None, 'Specify the path to a directory that can be used as CMAKE_PREFIX_PATH, that would contain all headers and libraries. '),
            ('generator=', None, 'The generator to use for cmake.'),
            ('python-executable=', None, 'The path to the python executable.'),
-           ('python-root=', None, 'The path to the python root directory.'),
+           ('python-root=', None, 'The path to the Python root directory.'),
            ('cmake=', None, 'Specify the path to the cmake executable.')
          ]
 
@@ -401,8 +401,8 @@ class my_build_ext(build_ext_orig):
 setup(name='cgal',
       version=os.environ.get('CGAL_PYTHON_MODULE_VERSION') or '5.4.1',
       author="CGAL Project",
-      description="CGAL bindings, allowing to use some of the CGAL library in python.",
-      long_description="The CGAL Bindings project allows to use some packages of CGAL, the Computational Algorithms Library with python. This project is still experimental and more packages will be added. For more information, please visit https://github.com/CGAL/cgal-swig-bindings/wiki.",
+      description="CGAL bindings, allowing to use some of the CGAL library in Python.",
+      long_description="The CGAL Bindings project allows to use some packages of CGAL, the Computational Algorithms Library with Python. This project is still experimental and more packages will be added. For more information, please visit https://github.com/CGAL/cgal-swig-bindings/wiki.",
       long_description_content_type="text/markdown",
       packages=['CGAL'],
       package_dir = { 'CGAL': '.' },
