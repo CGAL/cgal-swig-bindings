@@ -71,6 +71,13 @@ public:
       return Polygon_2( Polygon_2::cpp_base(points->begin(), points->end()) );
     return Polygon_2();
   }
+  bool is_vector_point_3() {
+    return data.is<std::vector<Point_3::cpp_base> >();
+  }
+  std::vector<Point_3> get_vector_point_3() {
+    const std::vector<Point_3::cpp_base>* points = CGAL::object_cast<std::vector<Point_3::cpp_base> >(&data);
+    return std::vector<Point_3>(points->begin(), points->end());
+  }
 //Predicate
   SWIG_CGAL_FORWARD_CALL_0(bool,empty)
 };

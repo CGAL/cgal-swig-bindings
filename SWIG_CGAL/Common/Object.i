@@ -20,6 +20,11 @@
 %}
 #endif
 
+%include "std_vector.i"
+%typemap(javaimports) std::vector<Point_3>
+  %{ import CGAL.Kernel.Point_3; %}
+%template(Point_3_Vector) std::vector<Point_3>;
+
 #define SWIG_CGAL_DECLARE_FCT_IS_AND_GET(TYPE) \
   bool is_##TYPE(); \
   TYPE get_##TYPE();
@@ -41,4 +46,6 @@ public:
   SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Ray_3)
   SWIG_CGAL_DECLARE_FCT_IS_AND_GET(Polygon_2)
   SWIG_CGAL_FORWARD_CALL_0(bool,empty)
+  bool is_vector_point_3();
+  std::vector<Point_3> get_vector_point_3();
 };

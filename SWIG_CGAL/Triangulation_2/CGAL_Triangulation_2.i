@@ -41,7 +41,7 @@ SWIG_CGAL_package_common()
 %include "SWIG_CGAL/Triangulation_2/Constrained_triangulation_plus_2.h"
 %include "SWIG_CGAL/Triangulation_2/triangulation_handles.h"
 
-%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Polygon_2; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Segment_2;  import CGAL.Kernel.Triangle_2;  import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
+%pragma(java) jniclassimports=%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Polygon_2; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Weighted_point_2; import CGAL.Kernel.Segment_2;  import CGAL.Kernel.Triangle_2; import CGAL.Kernel.Point_3; import java.util.Iterator; import java.util.Collection; import CGAL.Java.JavaData;%}
 
 //References
 %include "SWIG_CGAL/Triangulation_2/Reference_wrappers.i"

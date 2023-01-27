@@ -16,7 +16,7 @@
 // --CPPTYPE is the c++ type of the triangulation
 // --MODULENAME name of the module the class will be declared
 %define SWIG_CGAL_declare_constrained_triangulation_2_internal(EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,MODULENAME)
-  SWIG_CGAL_declare_triangulation_2_internal(Internal_Triangulation_2_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,Point_2,CGAL::Tag_false)
+  SWIG_CGAL_declare_triangulation_2_internal(IT2_##EXPOSEDNAME,CLASSNAME_PREFIX,CPPTYPE,Point_2,CGAL::Tag_false)
 
   //typemaps for Edge_output_iterator
   #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
