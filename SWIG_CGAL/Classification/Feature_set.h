@@ -13,10 +13,11 @@ template <typename Feature_base>
 class Feature_wrapper
 {
   SWIG_CGAL_INIT_WRAPPER_CLASS (Feature_base, data_sptr);
-
 public:
-
+#ifndef SWIG
   Feature_wrapper (Feature_base base) : data_sptr (new Feature_base(base)) { }
+#endif
+  Feature_wrapper () : data_sptr (nullptr) {}
 
   std::string name() const { return (*data_sptr)->name(); }
   void set_name (const std::string& name) { (*data_sptr)->set_name (name); }
@@ -48,7 +49,7 @@ public:
     data_sptr->end_parallel_additions();
 #endif
   }
-  
+
   SWIG_CGAL_FORWARD_CALL_0(void, clear)
   SWIG_CGAL_FORWARD_CALL_0(int, size)
 
