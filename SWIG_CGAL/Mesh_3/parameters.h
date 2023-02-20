@@ -2,7 +2,7 @@
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_MESH_3_PARAMETERS_H
@@ -45,9 +45,9 @@ public:
     lloyd_time_limit=time_limit;
     lloyd_max_iteration_number=max_iteration_number;
     lloyd_convergence=convergence;
-    lloyd_freeze_bound=freeze_bound;    
+    lloyd_freeze_bound=freeze_bound;
   }
-  
+
   void set_odt(double time_limit,int max_iteration_number,double convergence,double freeze_bound)
   {
     odt_set=true;
@@ -61,14 +61,14 @@ public:
   {
     perturb_set=true;
     perturb_time_limit=time_limit;
-    perturb_sliver_bound=sliver_bound;    
+    perturb_sliver_bound=sliver_bound;
   }
 
   void set_exude(double time_limit,double sliver_bound)
   {
     exude_set=true;
     exude_time_limit=time_limit;
-    exude_sliver_bound=sliver_bound;    
+    exude_sliver_bound=sliver_bound;
   }
 //Deep copy
   typedef Mesh_3_parameters Self;
@@ -76,28 +76,28 @@ public:
   void deepcopy(const Self& other){*this=other;}
 //internal
   #ifndef SWIG
-  CGAL::parameters::internal::Lloyd_options get_lloyd_parameters() const
+  decltype(auto) get_lloyd_parameters() const
   {
     return lloyd_set?
       CGAL::parameters::lloyd(lloyd_time_limit,lloyd_max_iteration_number,lloyd_convergence,lloyd_freeze_bound):
       CGAL::parameters::no_lloyd();
   }
-  
-  CGAL::parameters::internal::Odt_options get_odt_parameters() const
+
+  decltype(auto) get_odt_parameters() const
   {
     return odt_set?
       CGAL::parameters::odt(odt_time_limit,odt_max_iteration_number,odt_convergence,odt_freeze_bound):
       CGAL::parameters::no_odt();
   }
-  
-  CGAL::parameters::internal::Perturb_options get_perturb_parameters() const
+
+  decltype(auto) get_perturb_parameters() const
   {
     return perturb_set?
       CGAL::parameters::perturb(perturb_time_limit,perturb_sliver_bound):
       CGAL::parameters::no_perturb();
   }
-  
-  CGAL::parameters::internal::Exude_options get_exude_parameters() const
+
+  decltype(auto) get_exude_parameters() const
   {
     return exude_set?
       CGAL::parameters::exude(exude_time_limit,exude_sliver_bound):
