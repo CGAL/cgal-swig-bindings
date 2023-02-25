@@ -24,7 +24,6 @@ MACRO(ADD_SWIG_CGAL_LIBRARY libname)
   EXTRACT_CPP_AND_LIB_FILES(${ARGN})
   add_library(${libname} SHARED ${source_files})
   target_link_libraries(${libname} ${libstolinkwith})
-  set_target_properties(${libname} PROPERTIES INSTALL_NAME_DIR "@loader_path")
 
   install (TARGETS ${libname} RUNTIME DESTINATION bin
                               LIBRARY DESTINATION lib${LIB_SUFFIX}
@@ -112,7 +111,7 @@ MACRO(ADD_SWIG_CGAL_PYTHON_MODULE packagename)
     if (WIN32)
       swig_link_libraries (${MODULENAME}_python Python::Module)
     elseif (APPLE)
-      set_target_properties(${SWIG_MODULE_${MODULENAME}_python_REAL_NAME} PROPERTIES LINK_FLAGS "-undefined dynamic_lookup" INSTALL_NAME_DIR "@loader_path/../../../lib")
+      set_target_properties(${SWIG_MODULE_${MODULENAME}_python_REAL_NAME} PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
     endif ()
     # .pyd/.so files must NOT be in a /Release or a /Debug directory, or their import path will be wrong.
     set_target_properties (${SWIG_MODULE_${MODULENAME}_python_REAL_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${PYTHON_OUTDIR_PREFIX}/CGAL$<$<CONFIG:Release>:>")
