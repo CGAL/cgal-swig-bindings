@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_MESH_3_DECLARE_GLOBAL_FUNCTIONS_I
@@ -31,18 +31,23 @@
 %inline  %{
   Mesh_optimization_return_code perturb_mesh_3 (  C3T3& c3t3,const DOMAIN& domain,double time_limit,double sliver_bound)
   {
-    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::perturb_mesh_3(c3t3.get_data(),domain.get_data(),time_limit,sliver_bound) );
-  } 
-    
+    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::perturb_mesh_3(c3t3.get_data(),domain.get_data(),
+      CGAL::parameters::time_limit=time_limit,CGAL::parameters::sliver_bound=sliver_bound) );
+  }
+
   Mesh_optimization_return_code lloyd_optimize_mesh_3 ( C3T3& c3t3,const DOMAIN& domain,double time_limit,int max_iteration_number,double convergence,double freeze_bound)
   {
-    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::lloyd_optimize_mesh_3(c3t3.get_data(),domain.get_data(),time_limit,max_iteration_number,convergence,freeze_bound) );
+    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::lloyd_optimize_mesh_3(c3t3.get_data(),domain.get_data(),
+      CGAL::parameters::time_limit=time_limit,CGAL::parameters::max_iteration_number=max_iteration_number,
+      CGAL::parameters::convergence=convergence,CGAL::parameters::freeze_bound=freeze_bound) );
   }
 
   Mesh_optimization_return_code odt_optimize_mesh_3 (C3T3& c3t3,const DOMAIN& domain,double time_limit,std::size_t max_iteration_number,double convergence,double freeze_bound)
   {
-    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::odt_optimize_mesh_3(c3t3.get_data(),domain.get_data(),time_limit,max_iteration_number,convergence,freeze_bound) );
-  }  
+    return CGAL::enum_cast< Mesh_optimization_return_code >( CGAL::odt_optimize_mesh_3(c3t3.get_data(),domain.get_data(),
+      CGAL::parameters::time_limit=time_limit,CGAL::parameters::max_iteration_number=max_iteration_number,
+      CGAL::parameters::convergence=convergence,CGAL::parameters::freeze_bound=freeze_bound) );
+  }
 %}
 %enddef //end declare_global_functions_domain
 

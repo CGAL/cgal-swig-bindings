@@ -9,32 +9,29 @@
 
 #include <SWIG_CGAL/Common/Macros.h>
 #include <SWIG_CGAL/Common/triple.h>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 
-#ifndef SWIG  
+#ifndef SWIG
 template <class T>
 struct Iterator_helper{
-  
+
   template <class Iterator>
-  static T convert(const Iterator& it,typename boost::enable_if< 
-                                                      boost::is_same<
+  static T convert(const Iterator& it,typename std::enable_if<
+                                                      std::is_same<
                                                         typename internal::Converter<T>::result_type,
                                                         typename std::iterator_traits<Iterator>::value_type
-                                                      >
+                                                      >::value
                                               >::type* =0)
   {
     return T(*it);
   }
 
   template <class Ti>
-  static T convert(const Ti& i,typename boost::enable_if< 
-                                    boost::is_same< 
-                                      boost::false_type,
-                                      typename boost::is_same<
+  static T convert(const Ti& i,typename std::enable_if<
+                                      !std::is_same<
                                         typename internal::Converter<T>::result_type,
                                         typename std::iterator_traits<Ti>::value_type
-                                      >::type
-                                    >
+                                      >::value
                                   >::type* =0)
   {
     return T(i);

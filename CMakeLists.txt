@@ -31,8 +31,11 @@ option( BUILD_RUBY "Build Ruby bindings" OFF )
 
 enable_testing ()
 add_custom_target (tests)
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-set(CMAKE_INSTALL_NAME_DIR "@loader_path/../lib") # for macOS
+if(APPLE)
+  set(CMAKE_INSTALL_RPATH "@loader_path;@loader_path/../lib;@loader_path/../../..")
+else()
+  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+endif()
 
 if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
 

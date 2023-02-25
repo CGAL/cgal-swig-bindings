@@ -24,6 +24,7 @@ MACRO(ADD_SWIG_CGAL_LIBRARY libname)
   EXTRACT_CPP_AND_LIB_FILES(${ARGN})
   add_library(${libname} SHARED ${source_files})
   target_link_libraries(${libname} ${libstolinkwith})
+
   install (TARGETS ${libname} RUNTIME DESTINATION bin
                               LIBRARY DESTINATION lib${LIB_SUFFIX}
                               ARCHIVE DESTINATION lib${LIB_SUFFIX})
