@@ -1,24 +1,6 @@
 cmake_minimum_required(VERSION 3.18) # For FindPython.cmake Development.Module
 
-PROJECT(CGAL-bindings)
-
-if(POLICY CMP0017)
-# New policy in cmake-2.8.3
-  cmake_policy(SET CMP0017 NEW)
-endif()
-
-if (POLICY CMP0042)
-  # Set MACOSX_RPATH to ON
-  cmake_policy (SET CMP0042 NEW)
-endif()
-
-if (POLICY CMP0078)
-  cmake_policy (SET CMP0078 NEW)
-endif()
-
-if (POLICY CMP0086)
-  cmake_policy (SET CMP0086 NEW)
-endif()
+project(CGAL-bindings)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/SWIG_CGAL_Macros.cmake)
 

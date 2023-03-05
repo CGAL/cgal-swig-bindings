@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  LATEST_CGAL_VERSION: '5.5.1'
+  LATEST_CGAL_VERSION: '5.5.2'
 
 jobs:
   sdist:
@@ -48,7 +48,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cgal_branch: [v5.5.1, 5.5.x-branch, master]
+        cgal_branch: [v5.5.2, 5.5.x-branch, master]
         #cgal_branch: [v5.5]
         python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
         #python-version: ["3.9"]
