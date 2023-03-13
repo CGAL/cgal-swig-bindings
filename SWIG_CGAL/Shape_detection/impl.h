@@ -12,7 +12,11 @@
 
 #include <CGAL/Shape_detection/Efficient_RANSAC.h>
 #include <CGAL/Shape_detection/Region_growing/Region_growing.h>
+#if CGAL_VERSION_NR >= 1050600900
+#include <CGAL/Shape_detection/Region_growing/Point_set.h>
+#else
 #include <CGAL/Shape_detection/Region_growing/Region_growing_on_point_set.h>
+#endif
 
 #include <boost/iterator/function_output_iterator.hpp>
 
@@ -26,6 +30,35 @@ region_growing_impl (Point_set_3_wrapper<CGAL_PS3> point_set,
                      double normal_treshold,
                      NeighborQuery& neighbor_query)
 {
+#if CGAL_VERSION_NR >= 1050600900
+  typedef CGAL::Shape_detection::Point_set::Least_squares_plane_fit_region_for_point_set<CGAL_PS3> Region_type;
+  typedef CGAL::Shape_detection::Region_growing<NeighborQuery, Region_type> Region_growing;
+
+  // Init map for unassigned points to be -1
+  for (int& idx : plane_map.get_data())
+    idx = -1;
+
+  double angle = 180 * std::acos(normal_treshold) / CGAL_PI;
+  Region_type region_type =
+    CGAL::Shape_detection::Point_set::make_least_squares_plane_fit_region(
+                           point_set.get_data(),
+                           CGAL::parameters::maximum_distance(epsilon).
+                           maximum_angle(angle).
+                           minimum_region_size(min_points));
+  Region_growing region_growing (point_set.get_data(), neighbor_query, region_type);
+
+  int plane_idx = 0;
+  region_growing.detect
+    (boost::make_function_output_iterator
+     ([&](const std::pair<typename Region_type::Primitive,std::vector<typename Region_type::Item>>& primitive_and_region)
+      {
+        for (std::size_t idx : primitive_and_region.second)
+          plane_map.set(*(point_set.get_data().begin() + idx), plane_idx);
+        ++ plane_idx;
+      }));
+
+  return plane_idx;
+#else
   typedef CGAL::Shape_detection::Point_set::Least_squares_plane_fit_region
     <EPIC_Kernel, CGAL_PS3, CGAL_PS3::Point_map, CGAL_PS3::Vector_map>
     Region_type;
@@ -53,6 +86,7 @@ region_growing_impl (Point_set_3_wrapper<CGAL_PS3> point_set,
       }));
 
   return plane_idx;
+#endif
 }
 #endif
 
@@ -71,7 +105,7 @@ region_growing (Point_set_3_wrapper<CGAL_PS3> point_set,
                                       point_set.get_data().points().end());
     double bbox_diagonal =
       CGAL::sqrt((bbox.xmax() - bbox.xmin()) * (bbox.xmax() - bbox.xmin())
-                 + (bbox.ymax() - bbox.ymin()) * (bbox.ymax() - bbox.ymin()) 
+                 + (bbox.ymax() - bbox.ymin()) * (bbox.ymax() - bbox.ymin())
                  + (bbox.zmax() - bbox.zmin()) * (bbox.zmax() - bbox.zmin()));
 
     if (epsilon == -1)
@@ -79,13 +113,32 @@ region_growing (Point_set_3_wrapper<CGAL_PS3> point_set,
     if (cluster_epsilon == -1)
       cluster_epsilon = 0.01 * bbox_diagonal;
   }
-  
+#if CGAL_VERSION_NR >= 1050600900
+  if (k == 0)
+  {
+   typedef CGAL::Shape_detection::Point_set::Sphere_neighbor_query_for_point_set<CGAL_PS3> Neighbor_query;
+
+    Neighbor_query neighbor_query =
+      CGAL::Shape_detection::Point_set::make_sphere_neighbor_query(
+        point_set.get_data(), CGAL::parameters::sphere_radius(cluster_epsilon));
+    return region_growing_impl (point_set, plane_map, min_points, epsilon, normal_treshold, neighbor_query);
+  }
+  else
+  {
+    typedef CGAL::Shape_detection::Point_set::K_neighbor_query_for_point_set<CGAL_PS3> Neighbor_query;
+
+    Neighbor_query neighbor_query =
+      CGAL::Shape_detection::Point_set::make_k_neighbor_query(
+        point_set.get_data(), CGAL::parameters::k_neighbors(k));
+    return region_growing_impl (point_set, plane_map, min_points, epsilon, normal_treshold, neighbor_query);
+  }
+#else
   if (k == 0)
   {
    typedef CGAL::Shape_detection::Point_set::Sphere_neighbor_query
       <EPIC_Kernel, CGAL_PS3, CGAL_PS3::Point_map>
       Neighbor_query;
-    
+
     Neighbor_query neighbor_query (point_set.get_data(), cluster_epsilon, point_set.get_data().point_map());
     return region_growing_impl (point_set, plane_map, min_points, epsilon, normal_treshold, neighbor_query);
   }
@@ -94,10 +147,13 @@ region_growing (Point_set_3_wrapper<CGAL_PS3> point_set,
     typedef CGAL::Shape_detection::Point_set::K_neighbor_query
       <EPIC_Kernel, CGAL_PS3, CGAL_PS3::Point_map>
       Neighbor_query;
-    
+
     Neighbor_query neighbor_query (point_set.get_data(), k, point_set.get_data().point_map());
     return region_growing_impl (point_set, plane_map, min_points, epsilon, normal_treshold, neighbor_query);
   }
+
+#endif
+
   return 0;
 }
 
@@ -152,7 +208,7 @@ efficient_RANSAC (Point_set_3_wrapper<CGAL_PS3> point_set,
   // Fill shape map
   boost::shared_ptr<std::vector<std::string> > output
     (new std::vector<std::string>());
-  
+
 
   for (boost::shared_ptr<Efficient_ransac::Shape> shape : ransac.shapes())
   {
