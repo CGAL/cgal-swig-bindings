@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_TRIANGULATION_2_TRIANGULATION_2_H
@@ -51,7 +51,7 @@ class Triangulation_2_wrapper
   BOOST_STATIC_ASSERT( (boost::is_same<Weighted_tag,typename Triangulation::Weighted_tag>::value) );
   #endif
 
-  
+
 protected :
   boost::shared_ptr<Triangulation> data_sptr;
 public:
@@ -84,12 +84,12 @@ public:
   boost::shared_ptr<cpp_base> shared_ptr() {return data_sptr;}
   #endif
 
-// Creation 
+// Creation
   SWIG_CGAL_FORWARD_CALL_0(void, clear)
   SWIG_CGAL_FORWARD_CALL_0(int, dimension)
   SWIG_CGAL_FORWARD_CALL_0(int, number_of_vertices)
   SWIG_CGAL_FORWARD_CALL_0(int, number_of_faces)
-// Access Functions  
+// Access Functions
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Face_handle,infinite_face)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Vertex_handle,infinite_vertex)
   SWIG_CGAL_FORWARD_CALL_AND_REF_0(Vertex_handle,finite_vertex)
@@ -136,7 +136,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_1(Face_handle,locate,Point)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Face_handle,locate,Point,Face_handle)
   SWIG_CGAL_FORWARD_CALL_2(Oriented_side,oriented_side,Face_handle,Point)
-  SWIG_CGAL_FORWARD_CALL_2(Oriented_side,side_of_oriented_circle,Face_handle,Point)  
+  SWIG_CGAL_FORWARD_CALL_2(Oriented_side,side_of_oriented_circle,Face_handle,Point)
   Face_handle locate(const Point& query, Reference_wrapper<SWIG_Triangulation_2::Locate_type>& lt, Reference_wrapper<int>& li,Face_handle hint=Face_handle()) const {
     typename cpp_base::Locate_type cgal_lt;
     typename Face_handle::cpp_base res = get_data().locate(query.get_data(),cgal_lt,li.object(),hint.get_data());
@@ -144,7 +144,7 @@ public:
     return Face_handle(res);
   }
 // Modifiers
-//  SWIG_CGAL_FORWARD_CALL_2(void,flip,Face_handle,int) TODO: ambiguous call in CDT (their exist an overload with Face_handle&) 
+//  SWIG_CGAL_FORWARD_CALL_2(void,flip,Face_handle,int) TODO: ambiguous call in CDT (their exist an overload with Face_handle&)
 #ifndef CGAL_DO_NOT_DEFINE_FOR_ALPHA_SHAPE_2
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Vertex_handle,insert,Point)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Vertex_handle,insert,Point,Face_handle)
@@ -163,7 +163,7 @@ public:
   int insert(Point_range range){
     return get_data().insert(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));
   }
-#endif  
+#endif
 // Traversal of the Triangulation
   Finite_vertices_iterator finite_vertices(){return Finite_vertices_iterator(get_data().finite_vertices_begin(),get_data().finite_vertices_end());}
   Finite_edges_iterator finite_edges(){return Finite_edges_iterator(get_data().finite_edges_begin(),get_data().finite_edges_end());}
