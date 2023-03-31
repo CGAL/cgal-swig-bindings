@@ -1,19 +1,38 @@
+# Name of the environment
 name: test
+
+# Channels where the packages will be searched for
 channels:
   - conda-forge
   - defaults
+
+# List of dependencies required by the environment
 dependencies:
+  # boost-cpp version 1.77 or later is required
   - boost-cpp>=1.77.0
+  # mpir is required
   - mpir
+  # zlib is required
   - zlib
+  # eigen is required
   - eigen
+  # mpfr is required
   - mpfr
+  # numpy is required
   - numpy
+  # twine is required for package publishing
   - twine
+  # delocate is required for macOS wheel building
   - delocate
+  # pycodestyle is required for code style checking
   - pycodestyle
+  # swig is required for C++/Python interface generation
   - swig
+  # tbb is required
   - tbb
+  # tbb-devel is required
   - tbb-devel
+  # wheel is required for Python package building
   - wheel
+  # bzip2 is required
   - bzip2
