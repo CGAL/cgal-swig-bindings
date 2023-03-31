@@ -29,11 +29,8 @@ generator.generate_point_based_features(features)
 if points.has_normal_map():
     generator.generate_normal_based_features(features, points.normal_map())
 
-if points.has_int_map("red") and points.has_int_map(
-        "green") and points.has_int_map("blue"):
-    generator.generate_color_based_features(features, points.int_map("red"),
-                                            points.int_map("green"),
-                                            points.int_map("blue"))
+if points.has_int_map("red") and points.has_int_map("green") and points.has_int_map("blue"):
+    generator.generate_color_based_features(features, points.int_map("red"), points.int_map("green"), points.int_map("blue"))
 
 features.end_parallel_additions()
 
@@ -73,8 +70,7 @@ if len(sys.argv) > 1:
     elif sys.argv[1] == "s" or sys.argv[1] == "--smoothing":
         print("Classifying with local smoothing...")
         classify_with_local_smoothing(
-            points, labels, classifier,
-            generator.neighborhood().k_neighbor_query(6), classification)
+            points, labels, classifier, generator.neighborhood().k_neighbor_query(6), classification)
     else:
         print("Unknown option", sys.argv[1])
         exit(-1)
@@ -86,16 +82,22 @@ print("Writing output...")
 points.write("classified.ply")
 
 print("Evaluation:")
-evaluation = Evaluation(labels, points.range(training),
-                        points.range(classification))
+evaluation = Evaluation(labels, points.range(training), points.range(classification))
 
 print(" * Accuracy =", evaluation.accuracy())
 print(" * Mean F1 score =", evaluation.mean_f1_score())
 print(" * Mean IoU =", evaluation.mean_intersection_over_union())
 
 print("Per label evaluation:")
+for label in [ground, vegetation, building]:
+    print(" *", label.name(), ": precision =", evaluation.precision(label), "; recall =", evaluation.recall(label), "; iou =", evaluation.intersection_over_union(label))
+print(" * Mean IoU =", evaluation.mean_intersection_over_union())
+
+print("Per label evaluation:")
 
 for label in [ground, vegetation, building]:
-    print(" *", label.name(), ": precision =", evaluation.precision(label),
-          "; recall =", evaluation.recall(label), "; iou =",
-          evaluation.intersection_over_union(label))
+print(" *", label.name(), ": precision =", evaluation.precision(label),
+"; recall =", evaluation.recall(label), "; iou =",
+evaluation.intersection_over_union(label))
+
+print("Done!")
