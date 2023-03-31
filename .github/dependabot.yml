@@ -4,3 +4,18 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    update:
+      strategy: "auto"
+      commit-message: "chore(deps): update GitHub Actions packages"
+      pull-request:
+        title: "chore(deps): update GitHub Actions packages"
+        body: |
+          Automatic update of GitHub Actions packages.
+
+          Please review and merge this PR if the updates are acceptable.
+        labels:
+          - "dependencies"
+          - "github actions"
+        reviewers:
+          - "user1"
+          - "user2"
