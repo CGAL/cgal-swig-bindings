@@ -40,6 +40,9 @@ if not intersection.empty():
     if object.is_Point_3():
         print("intersection object is a point")
 
+    elif object.is_Segment_3():
+        print("intersection object is a segment")
+
 # computes all intersections with segment query (as pairs object - primitive_id)
 intersections = []
 tree.all_intersections(segment_query, intersections)
