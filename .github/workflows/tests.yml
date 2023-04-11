@@ -6,6 +6,8 @@ on:
       - main
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * 1"
 
 env:
   LATEST_CGAL_VERSION: '5.5.2'
