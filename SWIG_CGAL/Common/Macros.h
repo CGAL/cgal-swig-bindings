@@ -137,7 +137,7 @@ struct SWIG_CGAL_Extract_data<T,false>
 {
   typedef T reference;
   reference operator()(T t){
-    CGAL_static_assertion(boost::is_reference<T>::value);
+    static_assert(boost::is_reference<T>::value, "error");
     return t;
   }
 };
