@@ -11,17 +11,16 @@
 #include <boost/iterator/transform_iterator.hpp>
 #include <CGAL/property_map.h>
 
+#include <utility>
+
 template <class Kernel>
-struct Auto_count : 
-  public 
-      std::unary_function< const typename Kernel::Point_3&,
-                           std::pair<typename Kernel::Point_3,int> >
+struct Auto_count
 {
-  mutable int i;
-  Auto_count() : i(0){}
+  mutable int i = 0;
+
   std::pair<typename Kernel::Point_3,int>
   operator()(const typename Kernel::Point_3& p) const {
-    return std::make_pair(p,i++);
+    return { p, i++ };
   }
 };
 
