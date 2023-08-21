@@ -210,7 +210,7 @@ efficient_RANSAC (Point_set_3_wrapper<CGAL_PS3> point_set,
     (new std::vector<std::string>());
 
 
-  for (boost::shared_ptr<Efficient_ransac::Shape> shape : ransac.shapes())
+  for (auto shape : ransac.shapes())
   {
     for (std::size_t idx : shape->indices_of_assigned_points())
       shape_map.set(*(point_set.get_data().begin() + idx), int(output->size()));
