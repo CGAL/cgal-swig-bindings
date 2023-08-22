@@ -218,6 +218,10 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
       endif(EIGEN3_FOUND)
     endif()
 
+    if(CGAL_VERSION VERSION_GREATER_EQUAL 6.0 AND CMAKE_CXX_COMPILER_ID STREQUAL AppleClang)
+      target_compile_options(CGAL_Kernel_cpp PUBLIC -mmacosx-version-min=10.13)
+    endif()
+
     add_subdirectory(SWIG_CGAL/Polyline_simplification_2)
 
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/SWIG_CGAL/User_packages/CMakeLists.txt")

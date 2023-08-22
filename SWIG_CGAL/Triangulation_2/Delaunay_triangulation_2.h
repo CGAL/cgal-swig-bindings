@@ -13,6 +13,28 @@
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <SWIG_CGAL/Common/Output_iterator_wrapper.h>
 
+
+#ifndef SWIG
+#if CGAL_VERSION_NR >= 1060000000
+#include <variant>
+namespace Dt2_internal {
+  template <typename Type, class... Args>
+  static auto get_if(std::variant<Args...>* variant) {
+    return std::get_if<Type>(variant);
+  }
+}
+#else // CGAL < 6.0
+#include <boost/variant/variant.hpp>
+#include <boost/variant/get.hpp>
+namespace Dt2_internal {
+  template <typename Type, class... Args>
+  static auto get_if(boost::variant<Args...>* variant) {
+    return boost::get<Type>(variant);
+  }
+}
+#endif // CGAL < 6.0
+#endif // not SWIG
+
 template <class Triangulation,class Vertex_handle, class Face_handle>
 class Delaunay_triangulation_2_wrapper: public Triangulation_2_wrapper<Triangulation,Point_2,Vertex_handle,Face_handle,CGAL::Tag_false>
 {
@@ -51,7 +73,8 @@ public:
   {
     this->get_data().get_boundary_of_conflicts(p.get_data(),out,start.get_data());
   }
-// Voronoi diagram
+
+  // Voronoi diagram
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Point_2,dual,Face_handle)
   SWIG_CGAL_FORWARD_CALL_AND_REF_1(Object,dual,Edge)
   Segment_2 dual(const Edge& e, const Iso_rectangle_2& ir)
@@ -62,21 +85,21 @@ public:
     {
       auto res = CGAL::intersection(*ss,ir.get_data());
       if (!res) return EPIC_Kernel::Segment_2(EPIC_Kernel::Point_2(0,0), EPIC_Kernel::Point_2(0,0));
-      if (const EPIC_Kernel::Segment_2* s = boost::get<EPIC_Kernel::Segment_2>(&(*res)))
+      if (const EPIC_Kernel::Segment_2* s = Dt2_internal::get_if<EPIC_Kernel::Segment_2>(&(*res)))
         return *s;
     }
     if (const EPIC_Kernel::Line_2* l = CGAL::object_cast<EPIC_Kernel::Line_2>(&d))
     {
       auto res = CGAL::intersection(*l,ir.get_data());
       if (!res) return EPIC_Kernel::Segment_2(EPIC_Kernel::Point_2(0,0), EPIC_Kernel::Point_2(0,0));
-      if (const EPIC_Kernel::Segment_2* s = boost::get<EPIC_Kernel::Segment_2>(&(*res)))
+      if (const EPIC_Kernel::Segment_2* s = Dt2_internal::get_if<EPIC_Kernel::Segment_2>(&(*res)))
         return *s;
     }
     const EPIC_Kernel::Ray_2* r = CGAL::object_cast<EPIC_Kernel::Ray_2>(&d);
     CGAL_assertion(r);
     auto res = CGAL::intersection(*r,ir.get_data());
     if (res)
-      if (const EPIC_Kernel::Segment_2* s = boost::get<EPIC_Kernel::Segment_2>(&(*res)))
+      if (const EPIC_Kernel::Segment_2* s = Dt2_internal::get_if<EPIC_Kernel::Segment_2>(&(*res)))
         return *s;
     return EPIC_Kernel::Segment_2(EPIC_Kernel::Point_2(0,0), EPIC_Kernel::Point_2(0,0));
   }

@@ -13,7 +13,7 @@ CTestTestfile.cmake
 _deps
 
 # CMake - commonly used build place
-build/
+build*/
 
 # Visual Studio Code
 .vscode/
