@@ -17,7 +17,7 @@ jobs:
     name: Create Source Distribution
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
@@ -60,7 +60,7 @@ jobs:
         #os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - uses: conda-incubator/setup-miniconda@v2
