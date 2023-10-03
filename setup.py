@@ -7,10 +7,9 @@ import sys
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext as build_ext_orig
-from distutils.command.build_py import build_py as build_py_orig
-from distutils.command.install import install
-from distutils.command.install_lib import install_lib
-from distutils.command.build import build
+from setuptools.command.install import install
+from setuptools.command.install_lib import install_lib
+from setuptools.command.build import build
 from wheel.bdist_wheel import bdist_wheel
 
 
