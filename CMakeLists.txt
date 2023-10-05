@@ -102,16 +102,12 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
         endforeach ()
       endif()
       if (NOT DEFINED PYTHON_MODULE_PATH)
-        execute_process (COMMAND ${Python_EXECUTABLE} -c "from distutils import sysconfig; print(sysconfig.get_python_lib(plat_specific=True, prefix='${CMAKE_INSTALL_PREFIX}'))"
-                        OUTPUT_VARIABLE _ABS_PYTHON_MODULE_PATH
+        execute_process (COMMAND ${Python_EXECUTABLE} -c "import sysconfig; print(sysconfig.get_path('platlib').removeprefix('/usr/local').removeprefix(sysconfig.get_config_var('base')).removeprefix(sysconfig.get_config_var('platbase')).removeprefix(sysconfig.get_config_var('installed_base')).removeprefix('/'))"
+                        OUTPUT_VARIABLE PYTHON_MODULE_PATH
                         RESULT_VARIABLE _exit_code
                         OUTPUT_STRIP_TRAILING_WHITESPACE )
 
-        if (NOT ${_exit_code})
-          get_filename_component (_ABS_PYTHON_MODULE_PATH ${_ABS_PYTHON_MODULE_PATH} ABSOLUTE)
-          file (RELATIVE_PATH _REL_PYTHON_MODULE_PATH ${CMAKE_INSTALL_PREFIX} ${_ABS_PYTHON_MODULE_PATH})
-          set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
-        else ()
+        if (${_exit_code})
           message (SEND_ERROR "Could not run ${Python_EXECUTABLE}")
         endif ()
       endif()
