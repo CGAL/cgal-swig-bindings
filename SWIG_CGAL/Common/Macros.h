@@ -14,11 +14,7 @@
 #include <SWIG_CGAL/Common/triple.h>
 #include <CGAL/utility.h>
 #include <CGAL/assertions.h>
-#if(CGAL_VERSION_MAJOR ==5 && CGAL_VERSION_MINOR <6)
-#include <CGAL/is_iterator.h>
-#else
 #include <CGAL/type_traits/is_iterator.h>
-#endif
 
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/remove_cv.hpp>
