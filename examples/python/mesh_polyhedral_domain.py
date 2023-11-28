@@ -16,6 +16,8 @@ polyhedron = Polyhedron_3(datafile)
 # Create domain
 domain = Polyhedral_mesh_domain_3(polyhedron)
 params = Mesh_3_parameters()
+params.no_exude()
+params.no_perturb()
 
 # Mesh criteria (no cell_size set)
 criteria = Default_mesh_criteria()

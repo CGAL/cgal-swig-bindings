@@ -35,7 +35,7 @@
   SWIG_CGAL_declare_##REG_OR_DEL##_triangulation_2_internal(Internal_##REG_OR_DEL##_##CLASSNAME,CLASSNAME,CPPTYPE)
 
   //Alpha shape
-  %typemap(javaimports)          Alpha_shape_2_wrapper%{import CGAL.Kernel.POINT_TYPE; import java.util.Iterator; import java.util.Collection;%}
+  %typemap(javaimports)          Alpha_shape_2_wrapper%{import CGAL.Kernel.POINT_TYPE; import CGAL.Kernel.Iso_rectangle_2; import java.util.Iterator; import java.util.Collection;%}
   SWIG_CGAL_declare_identifier_of_template_class(CLASSNAME,Alpha_shape_2_wrapper<CPPTYPE,POINT_TYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE>,WTAG,BASE_WRAPPER <CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,POINT_TYPE> > >)
   
   //typemaps for iterators

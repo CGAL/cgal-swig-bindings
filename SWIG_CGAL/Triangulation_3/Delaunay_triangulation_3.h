@@ -70,7 +70,7 @@ public:
     return ret;
   }
   void deepcopy(const Self& other){
-    this->deepcopy(other);
+    static_cast<Base*>(this)->deepcopy(other);
   }
 };
 
