@@ -70,6 +70,16 @@ public:
     exude_time_limit=time_limit;
     exude_sliver_bound=sliver_bound;
   }
+
+  void no_exude()
+  {
+    exude_set=false;
+  }
+
+  void no_perturb()
+  {
+    perturb_set=false;
+  }
 //Deep copy
   typedef Mesh_3_parameters Self;
   Self deepcopy() const {return Self(*this);}
