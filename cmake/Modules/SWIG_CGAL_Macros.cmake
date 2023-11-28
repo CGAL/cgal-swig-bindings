@@ -23,7 +23,7 @@ MACRO(ADD_SWIG_CGAL_LIBRARY libname)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${COMMON_LIBRARIES_PATH}")
   EXTRACT_CPP_AND_LIB_FILES(${ARGN})
   add_library(${libname} SHARED ${source_files})
-  target_link_libraries(${libname} ${libstolinkwith})
+  target_link_libraries(${libname} PRIVATE CGAL::CGAL ${libstolinkwith})
 
   install (TARGETS ${libname} RUNTIME DESTINATION bin
                               LIBRARY DESTINATION lib${LIB_SUFFIX}
@@ -49,7 +49,7 @@ MACRO(ADD_SWIG_CGAL_JAVA_MODULE packagename)
     #recover cpp files to be compiled
     EXTRACT_CPP_AND_LIB_FILES(${ARGN})
 
-    SET_SOURCE_FILES_PROPERTIES(${INTERFACE_FILES} PROPERTIES CPLUSPLUS ON)
+    SET_SOURCE_FILES_PROPERTIES(${INTERFACE_FILES} PROPERTIES CPLUSPLUS ON USE_TARGET_INCLUDE_DIRECTORIES ON)
 
     #Build bindings for java
     INCLUDE_DIRECTORIES(BEFORE ${JAVA_INCLUDE_PATH} ${JAVA_INCLUDE_PATH2})
@@ -63,15 +63,11 @@ MACRO(ADD_SWIG_CGAL_JAVA_MODULE packagename)
     SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${JAVALIBPATH})
     SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${JAVALIBPATH})
     SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${JAVALIBPATH})
-    if(${CMAKE_VERSION} VERSION_LESS "3.8.0")
-      SWIG_ADD_MODULE(${MODULENAME} java ${INTERFACE_FILES} ${source_files})
-    else()
-      SWIG_ADD_LIBRARY(${MODULENAME} LANGUAGE java SOURCES ${INTERFACE_FILES} ${source_files})
-    endif()
+    SWIG_ADD_LIBRARY(${MODULENAME} LANGUAGE java SOURCES ${INTERFACE_FILES} ${source_files})
     #don't split dlls with configuration dependent generators
     set_target_properties (${MODULENAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${JAVA_OUTDIR_PREFIX}/lib$<$<CONFIG:Release>:>")
     #link all modules with CGAL_Java_cpp as many if not all need it for the iterators for example
-    SWIG_LINK_LIBRARIES(${MODULENAME} ${libstolinkwith} CGAL_Java_cpp)
+    target_link_libraries(${MODULENAME} PUBLIC CGAL::CGAL ${libstolinkwith} CGAL_Java_cpp)
   endif()
 ENDMACRO(ADD_SWIG_CGAL_JAVA_MODULE)
 
@@ -84,7 +80,7 @@ MACRO(ADD_SWIG_CGAL_PYTHON_MODULE packagename)
   #recover cpp files to be compiled
   EXTRACT_CPP_AND_LIB_FILES(${ARGN})
 
-  SET_SOURCE_FILES_PROPERTIES(${INTERFACE_FILES} PROPERTIES CPLUSPLUS ON)
+  SET_SOURCE_FILES_PROPERTIES(${INTERFACE_FILES} PROPERTIES CPLUSPLUS ON USE_TARGET_INCLUDE_DIRECTORIES ON)
 
   #Build bindings for python
   if(BUILD_PYTHON)
@@ -102,12 +98,7 @@ MACRO(ADD_SWIG_CGAL_PYTHON_MODULE packagename)
 
     SWIG_ADD_LIBRARY(${MODULENAME}_python LANGUAGE python SOURCES ${INTERFACE_FILES} ${source_files})
 
-    if (CMAKE_VERSION VERSION_LESS 3.13)
-      set_target_properties (${SWIG_MODULE_${MODULENAME}_python_REAL_NAME} PROPERTIES OUTPUT_NAME ${MODULENAME})
-      set_target_properties (${SWIG_MODULE_${MODULENAME}_python_REAL_NAME} PROPERTIES PREFIX "_")
-    else ()
-      set_target_properties (${MODULENAME}_python PROPERTIES OUTPUT_NAME ${MODULENAME})
-    endif ()
+    set_target_properties (${MODULENAME}_python PROPERTIES OUTPUT_NAME ${MODULENAME})
     if (WIN32)
       swig_link_libraries (${MODULENAME}_python Python::Module)
     elseif (APPLE)
@@ -115,13 +106,9 @@ MACRO(ADD_SWIG_CGAL_PYTHON_MODULE packagename)
     endif ()
     # .pyd/.so files must NOT be in a /Release or a /Debug directory, or their import path will be wrong.
     set_target_properties (${SWIG_MODULE_${MODULENAME}_python_REAL_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${PYTHON_OUTDIR_PREFIX}/CGAL$<$<CONFIG:Release>:>")
-    swig_link_libraries (${MODULENAME}_python ${libstolinkwith})
+    swig_link_libraries (${MODULENAME}_python  CGAL::CGAL ${libstolinkwith})
     install (FILES ${PYTHON_OUTDIR_PREFIX}/CGAL/${MODULENAME}.py DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
-    if (CMAKE_VERSION VERSION_LESS 3.13)
-      install (TARGETS ${SWIG_MODULE_${MODULENAME}_python_REAL_NAME} DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
-    else ()
-      install (TARGETS ${MODULENAME}_python DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
-    endif ()
+    install (TARGETS ${MODULENAME}_python DESTINATION ${PYTHON_MODULE_PATH}/CGAL)
   endif()
 ENDMACRO(ADD_SWIG_CGAL_PYTHON_MODULE)
 
@@ -133,7 +120,7 @@ MACRO(ADD_SWIG_CGAL_RUBY_MODULE packagename)
   #recover cpp files to be compiled
   EXTRACT_CPP_AND_LIB_FILES(${ARGN})
 
-  SET_SOURCE_FILES_PROPERTIES(${INTERFACE_FILES} PROPERTIES CPLUSPLUS ON)
+  SET_SOURCE_FILES_PROPERTIES(${INTERFACE_FILES} PROPERTIES CPLUSPLUS ON USE_TARGET_INCLUDE_DIRECTORIES ON)
 
   #Build bindings for ruby
   if(RUBY_FOUND)
@@ -147,18 +134,9 @@ MACRO(ADD_SWIG_CGAL_RUBY_MODULE packagename)
     SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${RUBY_OUTDIR_PREFIX}/CGAL")
     SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${RUBY_OUTDIR_PREFIX}/CGAL")
     SET(CMAKE_MODULE_OUTPUT_DIRECTORY "${RUBY_OUTDIR_PREFIX}/CGAL")
-    if(${CMAKE_VERSION} VERSION_LESS "3.8.0")
-      SWIG_ADD_MODULE(${MODULENAME}_ruby ruby ${INTERFACE_FILES} ${source_files})
-    else()
-      SWIG_ADD_LIBRARY(${MODULENAME}_ruby LANGUAGE ruby SOURCES ${INTERFACE_FILES} ${source_files})
-    endif()
-    if (CMAKE_VERSION VERSION_LESS 3.13)
-      set_target_properties (${SWIG_MODULE_${MODULENAME}_ruby_REAL_NAME} PROPERTIES OUTPUT_NAME ${MODULENAME})
-      set_target_properties (${SWIG_MODULE_${MODULENAME}_ruby_REAL_NAME} PROPERTIES PREFIX "_")
-    else ()
-      set_target_properties (${MODULENAME}_ruby PROPERTIES OUTPUT_NAME ${MODULENAME})
-    endif ()
-    SWIG_LINK_LIBRARIES(${MODULENAME}_ruby ${libstolinkwith} ${RUBY_LIBRARY})
+    SWIG_ADD_LIBRARY(${MODULENAME}_ruby LANGUAGE ruby SOURCES ${INTERFACE_FILES} ${source_files})
+    set_target_properties (${MODULENAME}_ruby PROPERTIES OUTPUT_NAME ${MODULENAME})
+    SWIG_LINK_LIBRARIES(${MODULENAME}_ruby CGAL::CGAL ${libstolinkwith} ${RUBY_LIBRARY})
   endif()
 ENDMACRO(ADD_SWIG_CGAL_RUBY_MODULE)
 
