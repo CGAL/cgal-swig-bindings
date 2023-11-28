@@ -30,7 +30,7 @@
   SWIG_CGAL_declare_generic_output_iterator(EXPOSEDNAME##_Face_handle_output_iterator,EXPOSEDNAME##_Face_handle_output_iterator_nested_iterator,iSWIG_##EXPOSEDNAME##_Face_wrapper)
   #endif
 
-  %typemap(javaimports)          Delaunay_triangulation_2_wrapper%{import CGAL.Kernel.Point_2; import java.util.Iterator; import java.util.Collection;%}
+  %typemap(javaimports)          Delaunay_triangulation_2_wrapper%{import CGAL.Kernel.Point_2; import CGAL.Kernel.Segment_2; import CGAL.Kernel.Iso_rectangle_2; import java.util.Iterator; import java.util.Collection;%}
   SWIG_CGAL_declare_identifier_of_template_class(EXPOSEDNAME,Delaunay_triangulation_2_wrapper<CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,Point_2> >)
 %enddef
 

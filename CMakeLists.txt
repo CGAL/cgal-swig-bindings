@@ -20,10 +20,6 @@ else()
 endif()
 
 if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
-
-  include( ${CGAL_USE_FILE} )
-
-
   find_package( TBB )
   if(TBB_FOUND)
     if(NOT TARGET Threads::Threads)
@@ -165,7 +161,7 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
           get_filename_component(TESTNAME ${TESTNAME_SRC} NAME_WE)
           if(CGAL_ImageIO_FOUND OR NOT "${TESTNAME}" STREQUAL "test_surface_mesher")
             add_custom_target (javatest_${TESTNAME}
-              COMMAND ${Java_JAVAC_EXECUTABLE} ${TESTNAME_SRC} ${dependencies_files} -d ${JAVA_OUTDIR_PREFIX}
+              COMMAND  ${CMAKE_COMMAND} -E env "LD_LIBRARY_PATH=${JAVALIBPATH}" "DYLD_LIBRARY_PATH=${JAVALIBPATH}" ${Java_JAVAC_EXECUTABLE} ${TESTNAME_SRC} ${dependencies_files} -d ${JAVA_OUTDIR_PREFIX}
               WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
             add_dependencies (tests javatest_${TESTNAME})
             add_test (NAME javatest_${TESTNAME} COMMAND ${Java_JAVA_EXECUTABLE} ${TESTNAME} WORKING_DIRECTORY ${JAVA_OUTDIR_PREFIX})
