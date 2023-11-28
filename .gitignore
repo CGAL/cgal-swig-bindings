@@ -11,6 +11,9 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+cgal.egg-info/
+*.whl
+examples/java/error.txt
 
 # CMake - commonly used build place
 build*/
