@@ -40,7 +40,7 @@ jobs:
           export CGAL_PYTHON_MODULE_VERSION
           python3 setup.py sdist
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: dist/*.tar.gz
 
@@ -196,7 +196,7 @@ jobs:
             python $i
           done
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: endsWith(matrix.cgal_branch, env.LATEST_CGAL_VERSION)
         with:
           path: cgal-*.whl
