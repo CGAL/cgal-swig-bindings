@@ -12,7 +12,23 @@ on:
 env:
   LATEST_CGAL_VERSION: '5.6'
 
+
 jobs:
+  prepare-matrix:
+    name: Prepare Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set matrix output
+        id: set-matrix
+        run: |
+          MATRIX_JSON=$(jq -c . < .github/workflows/matrix.json)
+          echo "MATRIX_JSON=${MATRIX_JSON}" >> $GITHUB_ENV
+          echo "matrix=${MATRIX_JSON}" >> $GITHUB_OUTPUT
+
   sdist:
     name: Create Source Distribution
     runs-on: ubuntu-latest
@@ -47,29 +63,23 @@ jobs:
 
   build-and-test-wheels:
     name: Wheel
+    needs: prepare-matrix
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix:
-        cgal_branch: [v5.6, 5.6.x-branch, master]
-        #cgal_branch: [v5.5]
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
-        #python-version: ["3.9"]
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        #os: [macos-latest]
-        #os: [windows-latest]
-        #os: [ubuntu-latest]
-
+      matrix: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
+
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
           environment-file: .integration/conda-env-test.yml
           activate-environment: test
+
       - name: Display Python version
         shell: bash -l {0}
         run: |
@@ -180,9 +190,33 @@ jobs:
           esac
           unzip -l cgal-*whl
           python -m twine check cgal-*whl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheel-${{ matrix.os }}-${{ matrix.cgal_branch }}-${{ matrix.python-version }}
+          path: cgal-*.whl
 
-      - name: Install wheel and test it
-        shell: bash -l {0}
+  test-wheel:
+    name: Test Wheel
+    needs: [prepare-matrix, build-and-test-wheels]
+    runs-on: ${{ matrix.os }}
+    if: always()
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: wheel-${{ matrix.os }}-${{ matrix.cgal_branch }}-${{ matrix.python-version }}
+          merge-multiple: true
+
+      - name: Install Wheel and Test
         run: |
           set -ex
           python -m venv cgal_venv
@@ -197,22 +231,14 @@ jobs:
             python $i
           done
 
-      - uses: actions/upload-artifact@v4
-        if: endsWith(matrix.cgal_branch, env.LATEST_CGAL_VERSION)
-        with:
-          name: wheel-${{ matrix.os }}-${{ matrix.cgal_branch }}-${{ matrix.python-version }}
-          path: cgal-*.whl
-
   upload:
     name: Upload to PyPI
     runs-on: ubuntu-latest
-    needs: [sdist, build-and-test-wheels]
+    needs: [sdist, build-and-test-wheels, test-wheel]
     steps:
+      - run: mkdir dist
       - uses: actions/download-artifact@v4
-        with:
-          path: dist
-          merge-multiple: true
-
+      - run : cp -r *v${{ env.LATEST_CGAL_VERSION }}* dist/
       - name: upload to TestPyPI
         if: github.event_name == 'push' && github.ref_name == 'main'
         env:
