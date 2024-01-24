@@ -12,7 +12,7 @@ dependencies:
   - twine
   - delocate
   - pycodestyle
-  - swig
+  - swig<4.2
   - tbb
   - tbb-devel
   - wheel
