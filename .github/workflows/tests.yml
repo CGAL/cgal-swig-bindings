@@ -236,9 +236,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [sdist, build-and-test-wheels, test-wheel]
     steps:
-      - run: mkdir dist
       - uses: actions/download-artifact@v4
-      - run : cp -r *v${{ env.LATEST_CGAL_VERSION }}* dist/
+      - run : |
+          mkdir dist
+          cp -r *v${{ env.LATEST_CGAL_VERSION }}*/*.whl dist/
       - name: upload to TestPyPI
         if: github.event_name == 'push' && github.ref_name == 'main'
         env:
