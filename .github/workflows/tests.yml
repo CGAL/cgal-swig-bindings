@@ -223,6 +223,7 @@ jobs:
           merge-multiple: true
 
       - name: Install Wheel and Test
+        shell: bash -l {0}
         run: |
           set -ex
           python -m venv cgal_venv
