@@ -243,9 +243,13 @@ jobs:
     needs: [sdist, build-and-test-wheels, test-wheel]
     steps:
       - uses: actions/download-artifact@v4
-      - run : |
+
+      - name: Select wheels to push
+        run : |
           mkdir dist
           cp -r *v${{ env.LATEST_CGAL_VERSION }}*/*.whl dist/
+          ls dist
+
       - name: upload to TestPyPI
         if: github.event_name == 'push' && github.ref_name == 'main'
         env:
