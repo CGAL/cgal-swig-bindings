@@ -213,7 +213,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -226,16 +226,25 @@ jobs:
         shell: bash -l {0}
         run: |
           set -ex
-          python -m venv cgal_venv
+          case ${{ runner.os }} in
+            macOS)
+              PYTHON_PATH="/Users/runner/hostedtoolcache/Python/${{ matrix.python-version }}*/x64/bin/python"
+              ;;
+            *)
+              PYTHON_PATH="python"
+              ;;
+          esac
+          
+          $PYTHON_PATH -m venv cgal_venv
           case ${{ runner.os }} in
             Windows) cgal_venv/Scripts/activate
                       ;;
             *) source cgal_venv/bin/activate
           esac
-          python -m pip install cgal-*.whl
+          $PYTHON_PATH -m pip install cgal-*.whl
           cd examples/python
           for i in *.py; do
-            python $i
+            $PYTHON_PATH $i
           done
 
   upload:
