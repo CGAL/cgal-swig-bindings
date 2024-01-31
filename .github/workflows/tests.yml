@@ -226,25 +226,16 @@ jobs:
         shell: bash -l {0}
         run: |
           set -ex
-          case ${{ runner.os }} in
-            macOS)
-              PYTHON_PATH="/Users/runner/hostedtoolcache/Python/${{ matrix.python-version }}*/x64/bin/python"
-              ;;
-            *)
-              PYTHON_PATH="python"
-              ;;
-          esac
-          
-          $PYTHON_PATH -m venv cgal_venv
+          ${pythonLocation}/python -m venv cgal_venv
           case ${{ runner.os }} in
             Windows) cgal_venv/Scripts/activate
                       ;;
             *) source cgal_venv/bin/activate
           esac
-          $PYTHON_PATH -m pip install cgal-*.whl
+          ${pythonLocation}/python -m pip install cgal-*.whl
           cd examples/python
           for i in *.py; do
-            $PYTHON_PATH $i
+            ${pythonLocation}/python $i
           done
 
   upload:
