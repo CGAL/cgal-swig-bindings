@@ -159,10 +159,6 @@ jobs:
               cp wheelhouse/*.whl .
               ;;
             macOS)
-              brew install oras
-              brew uninstall swig
-              oras pull ghcr.io/homebrew/core/swig:4.1.1@sha256:8028a96224cd79b3f7e5fb67195cce44b25698c459853a24f3fa511517701cb8
-              brew install ./swig--4.1.1.monterey.bottle.tar.gz
               LDFLAGS="-rpath ${CONDA_ENV_DIR}/lib -rpath $HOME/.local/lib"
               export LDFLAGS
               CXXFLAGS=-faligned-allocation
@@ -173,8 +169,6 @@ jobs:
               cp fixed_wheel/*.whl .
               ;;
             Windows)
-              choco uninstall swig
-              choco install --version 4.1.1 swig
               LIB=${CONDA_ENV_DIR}\\lib
               CGAL_DIR=$HOME/.local
               CXXFLAGS=-D__TBB_NO_IMPLICIT_LINKAGE
