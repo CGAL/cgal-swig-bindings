@@ -64,8 +64,8 @@ SWIG_CGAL_array_of_int_to_vector_of_pair_of_int_typemap_in
 
 
 
-SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Box_with_id_2>::input,Box_with_id_2,Box_with_id_2,Box_with_id_2::cpp_base,SWIGTYPE_p_Box_with_id_2,"(LCGAL/Box_intersection_d/Box_with_id_2;)J",box_intersection_d)
-SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Box_with_id_3>::input,Box_with_id_3,Box_with_id_3,Box_with_id_3::cpp_base,SWIGTYPE_p_Box_with_id_3,"(LCGAL/Box_intersection_d/Box_with_id_3;)J",box_intersection_d)
+SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Box_with_id_2>::input,Box_with_id_2,Box_with_id_2,Box_with_id_2::cpp_base,$descriptor(Box_with_id_2*),"(LCGAL/Box_intersection_d/Box_with_id_2;)J",box_intersection_d)
+SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Box_with_id_3>::input,Box_with_id_3,Box_with_id_3,Box_with_id_3::cpp_base,$descriptor(Box_with_id_3*),"(LCGAL/Box_intersection_d/Box_with_id_3;)J",box_intersection_d)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(box_intersection_all_pairs_d)
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(box_self_intersection_d)

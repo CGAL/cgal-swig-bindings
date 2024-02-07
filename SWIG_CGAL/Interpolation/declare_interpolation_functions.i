@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_INTERPOLATION_DECLARE_INTERPOLATION_FUNCTIONS_H
@@ -20,7 +20,7 @@ typedef std::pair<Point_2,double> Point_2_and_double_wrapper;
 typedef std::pair<Point_2::cpp_base,double> Point_2_and_double_base;
 %}
 
-SWIG_CGAL_input_iterator_typemap_in(Point_2_and_double_range,Point_2_and_double_wrapper,Point_2_and_double,Point_2_and_double_base,SWIGTYPE_p_std__pairT_Point_2_double_t,"(LCGAL/Interpolation/Point_2_and_double;)J",linear_interpolation)
+SWIG_CGAL_input_iterator_typemap_in(Point_2_and_double_range,Point_2_and_double_wrapper,Point_2_and_double,Point_2_and_double_base,$descriptor(std::pair<Point_2,double>*),"(LCGAL/Interpolation/Point_2_and_double;)J",linear_interpolation)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(quadratic_interpolation)
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(sibson_c1_interpolation)
@@ -37,11 +37,11 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(sibson_c1_interpolatio
   double linear_interpolation(Point_2_and_double_range range,double norm,const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values){
     return CGAL::linear_interpolation(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),norm,function_values.get_data());
   }
-  
+
   std::pair<double,bool> quadratic_interpolation(Point_2_and_double_range range,double norm,const Point_2& p,const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values,const Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>& gradients){
     return CGAL::quadratic_interpolation(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),norm,p.get_data(),function_values.get_data(),gradients.get_data(),CGAL::Interpolation_traits_2<EPIC_Kernel>());
   }
-  
+
   std::pair<double,bool> sibson_c1_interpolation(Point_2_and_double_range range,double norm,const Point_2& p,const Data_access_wrapper<I_DA_PD,Point_2,double>& function_values,const Data_access_wrapper<I_DA_PV2,Point_2,Vector_2>& gradients){
     return CGAL::sibson_c1_interpolation(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range),norm,p.get_data(),function_values.get_data(),gradients.get_data(),CGAL::Interpolation_traits_2<EPIC_Kernel>());
   }

@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_INTERPOLATION_DECLARE_REGULAR_NEIGHBOR_COORDINATES_2_I
@@ -40,9 +40,9 @@ SWIG_CGAL_import_Regular_triangulation_2_Vertex_handle_SWIG_wrapper
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define iWeighted_point_2_and_double_output_iterator boost::function_output_iterator< Container_writer<std::pair<Weighted_point_2,double>,std::pair<Weighted_point_2::cpp_base,double> > >  %enddef
-SWIG_CGAL_output_iterator_typemap_in(iWeighted_point_2_and_double_output_iterator,Weighted_point_2_and_double_wrapper,Weighted_point_2_and_double,Weighted_point_2_and_double_base,SWIGTYPE_p_std__pairT_Weighted_point_2_double_t,"LCGAL/Interpolation/Weighted_point_2_and_double;")
-SWIG_CGAL_input_iterator_typemap_in(RT2_Edge_iterator,Regular_triangulation_2_Edge_SWIG_wrapper,Regular_triangulation_2_Edge,CGAL_RT2::Edge,SWIGTYPE_p_std__pairT_SWIG_Triangulation_2__CGAL_Face_handleT_CGAL_RT2_Weighted_point_2_t_int_t,"(LCGAL/Triangulation_2/Regular_triangulation_2_Edge;)J",regular_neighbor_coordinates_2)
-SWIG_CGAL_input_iterator_typemap_in(RT2_Vertex_iterator,Regular_triangulation_2_Vertex_handle_SWIG_wrapper,Regular_triangulation_2_Vertex_handle,CGAL_RT2::Vertex_handle,SWIGTYPE_p_std__pairT_SWIG_Triangulation_2__CGAL_Face_handleT_CGAL_RT2_Weighted_point_2_t_int_t,"(LCGAL/Triangulation_2/Regular_triangulation_2_Vertex_handle;)J",regular_neighbor_coordinates_2)
+SWIG_CGAL_output_iterator_typemap_in(iWeighted_point_2_and_double_output_iterator,Weighted_point_2_and_double_wrapper,Weighted_point_2_and_double,Weighted_point_2_and_double_base,$descriptor(std::pair<Weighted_point_2,double>*),"LCGAL/Interpolation/Weighted_point_2_and_double;")
+SWIG_CGAL_input_iterator_typemap_in(RT2_Edge_iterator,Regular_triangulation_2_Edge_SWIG_wrapper,Regular_triangulation_2_Edge,CGAL_RT2::Edge,$descriptor(std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CGAL_RT2,Weighted_point_2>,int>*),"(LCGAL/Triangulation_2/Regular_triangulation_2_Edge;)J",regular_neighbor_coordinates_2)
+SWIG_CGAL_input_iterator_typemap_in(RT2_Vertex_iterator,Regular_triangulation_2_Vertex_handle_SWIG_wrapper,Regular_triangulation_2_Vertex_handle,CGAL_RT2::Vertex_handle,$descriptor(std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CGAL_RT2,Weighted_point_2>,int>*),"(LCGAL/Triangulation_2/Regular_triangulation_2_Vertex_handle;)J",regular_neighbor_coordinates_2)
 #else
 %include "SWIG_CGAL/Common/Iterator.h"
 %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
@@ -50,8 +50,8 @@ SWIG_CGAL_input_iterator_typemap_in(RT2_Vertex_iterator,Regular_triangulation_2_
 %define iWeighted_point_2_and_double std::pair<Weighted_point_2,double> %enddef
 SWIG_CGAL_declare_generic_output_iterator(Weighted_point_2_and_double_output_iterator,Weighted_point_2_and_double_output_iterator_nested_iterator,iWeighted_point_2_and_double)
 //input iterator
-%template(Regular_triangulation_2_Edge_input_iterator) Generic_input_iterator< Regular_triangulation_2_Edge_SWIG_wrapper >; 
-%template(Regular_triangulation_2_Vertex_handle_input_iterator) Generic_input_iterator< Regular_triangulation_2_Vertex_handle_SWIG_wrapper >; 
+%template(Regular_triangulation_2_Edge_input_iterator) Generic_input_iterator< Regular_triangulation_2_Edge_SWIG_wrapper >;
+%template(Regular_triangulation_2_Vertex_handle_input_iterator) Generic_input_iterator< Regular_triangulation_2_Vertex_handle_SWIG_wrapper >;
 #endif
 
 
@@ -62,13 +62,13 @@ SWIG_CGAL_declare_generic_output_iterator(Weighted_point_2_and_double_output_ite
 #endif
 
 %inline %{
-  std::pair<double,bool> 
+  std::pair<double,bool>
   regular_neighbor_coordinates_2(const Regular_triangulation_2_SWIG_wrapper& dt,const Weighted_point_2& p,iWeighted_point_2_and_double_output_iterator out,const SWIG_Triangulation_2::CGAL_Face_handle<CGAL_RT2,Weighted_point_2>& start)
   {
     return internal::extract_pair( CGAL::regular_neighbor_coordinates_2(dt.get_data(),p.get_data(),out,start.get_data()) );
   }
 
-  std::pair<double,bool> 
+  std::pair<double,bool>
   regular_neighbor_coordinates_2(const Regular_triangulation_2_SWIG_wrapper& dt,const Weighted_point_2& p,iWeighted_point_2_and_double_output_iterator out)
   {
     return internal::extract_pair( CGAL::regular_neighbor_coordinates_2(dt.get_data(),p.get_data(),out) );
@@ -82,8 +82,8 @@ SWIG_CGAL_declare_generic_output_iterator(Weighted_point_2_and_double_output_ite
     std::copy(SWIG_CGAL::get_begin(erange),SWIG_CGAL::get_end(erange),std::back_inserter(edges));
     return internal::extract_pair( CGAL::regular_neighbor_coordinates_2(dt.get_data(),p.get_data(),out,edges.begin(),edges.end(),SWIG_CGAL::get_begin(vrange),SWIG_CGAL::get_end(vrange)) );
   }
-  
-  std::pair<double,bool> 
+
+  std::pair<double,bool>
   regular_neighbor_coordinates_2(const Regular_triangulation_2_SWIG_wrapper& dt,const SWIG_Triangulation_2::CGAL_Vertex_handle<CGAL_RT2,Weighted_point_2>& vh,iWeighted_point_2_and_double_output_iterator out)
   {
     return internal::extract_pair( CGAL::regular_neighbor_coordinates_2(dt.get_data(),vh.get_data(),out) );

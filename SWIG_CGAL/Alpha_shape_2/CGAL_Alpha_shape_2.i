@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 %define AS2_DOCSTRING
 "SWIG wrapper for the CGAL 2D Alpha Shapes package provided under the GPL-3.0+ license"
@@ -60,9 +60,9 @@ SWIG_CGAL_declare_identifier_of_template_class(Face_Interval_3,SWIG_CGAL::Triple
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemap for point input iterator
-SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",make_alpha_shape)
+SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_false>::Point_range,Point_2,Point_2,Point_2::cpp_base,$descriptor(Point_2*),"(LCGAL/Kernel/Point_2;)J",make_alpha_shape)
 //typemap for weighted point input iterator
-SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_true>::Point_range,Weighted_point_2,Weighted_point_2,Weighted_point_2::cpp_base,SWIGTYPE_p_Weighted_point_2,"(LCGAL/Kernel/Weighted_point_2;)J",make_alpha_shape)
+SWIG_CGAL_input_iterator_typemap_in(Weighting_helper<CGAL::Tag_true>::Point_range,Weighted_point_2,Weighted_point_2,Weighted_point_2::cpp_base,$descriptor(Weighted_point_2*),"(LCGAL/Kernel/Weighted_point_2;)J",make_alpha_shape)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Alpha_shape_2_wrapper::Alpha_shape_2_wrapper)
 #endif

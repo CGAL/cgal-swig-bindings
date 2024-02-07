@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 %import "SWIG_CGAL/Java/JavaData.h"
 %import "SWIG_CGAL/Java/Macro.i"
@@ -9,24 +9,24 @@
 
 //modifiers examples
 %{
-  #include "SWIG_CGAL/Polyhedron_3/modifier_example.h" 
+  #include "SWIG_CGAL/Polyhedron_3/modifier_example.h"
 %}
 %include "SWIG_CGAL/Polyhedron_3/Modifier_base.h"
 
 %template(Polyhedron_3_Modifier_base)                  Modifier_base< Polyhedron_3_ >;
 
-//Advanced modifier that read points and triple of integer to add points 
+//Advanced modifier that read points and triple of integer to add points
 //and facets to the polyhedron
 %include "SWIG_CGAL//Common/triple.h"
 %template(Integer_triple)  SWIG_CGAL::Triple<int,int,int>;
 //typemap for input iterators
-SWIG_CGAL_input_iterator_typemap_in(Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",set_modifier_data)
-SWIG_CGAL_input_iterator_typemap_in(Triple_integer_range,Integer_triple,Integer_triple,iInteger_triple,SWIGTYPE_p_SWIG_CGAL__TripleT_int_int_int_t,"(LCGAL/Polyhedron_3/Integer_triple;)J",set_modifier_data)
+SWIG_CGAL_input_iterator_typemap_in(Point_range,Point_3,Point_3,Point_3::cpp_base,$descriptor(Point_3*),"(LCGAL/Kernel/Point_3;)J",set_modifier_data)
+SWIG_CGAL_input_iterator_typemap_in(Triple_integer_range,Integer_triple,Integer_triple,iInteger_triple,$descriptor(SWIG_CGAL::Triple<int,int,int>*),"(LCGAL/Polyhedron_3/Integer_triple;)J",set_modifier_data)
 
 %{
   #include <SWIG_CGAL/Common/triple.h>
   typedef SWIG_CGAL::Triple<int,int,int> iInteger_triple;
-  
+
   #include <SWIG_CGAL/Polyhedron_3/Modifier_base.h>
   #include <CGAL/Polyhedron_3.h>
 %}

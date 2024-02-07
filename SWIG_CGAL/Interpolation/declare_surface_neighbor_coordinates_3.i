@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_INTERPOLATION_DECLARE_SURFACE_NEIGHBOR_COORDINATES_3_H
@@ -27,7 +27,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(surface_neighbor_coord
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define iPoint_3_and_double_output_iterator boost::function_output_iterator< Container_writer<std::pair<Point_3,double>,std::pair<Point_3::cpp_base,double> > >  %enddef
-SWIG_CGAL_output_iterator_typemap_in(iPoint_3_and_double_output_iterator,Point_3_and_double_wrapper,Point_3_and_double,Point_3_and_double_base,SWIGTYPE_p_std__pairT_Point_3_double_t,"LCGAL/Interpolation/Point_3_and_double;")
+SWIG_CGAL_output_iterator_typemap_in(iPoint_3_and_double_output_iterator,Point_3_and_double_wrapper,Point_3_and_double,Point_3_and_double_base,$descriptor(std::pair<Point_3, double>*),"LCGAL/Interpolation/Point_3_and_double;")
 #else
 %include "SWIG_CGAL/Common/Iterator.h"
 %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"

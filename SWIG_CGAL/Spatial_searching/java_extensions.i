@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 %{
 #include <CGAL/Search_traits_adapter.h>
@@ -23,7 +23,7 @@ typedef CGAL_OI_WI_S_2::Tree                                         CGAL_OI_WI_
 typedef CGAL_I_WI_S_2 ::Tree                                         CGAL_I_WI_T_2;
 typedef CGAL_K_WI_S_2 ::Tree                                         CGAL_K_WI_T_2;
 typedef CGAL_OK_WI_S_2::Tree                                         CGAL_OK_WI_T_2;
-  
+
 typedef First_of_pair<EPIC_Kernel::Point_3,JavaData>                 PPmap_3;
 typedef std::pair<EPIC_Kernel::Point_3,JavaData>                     Point_WI_3;
 typedef CGAL::Search_traits_adapter<Point_WI_3,PPmap_3,CGAL_ST_3>  CGAL_ST_WI_3;
@@ -33,7 +33,7 @@ typedef CGAL::Fuzzy_iso_box<CGAL_ST_WI_3>                            CGAL_FB_WI_
 typedef CGAL::Orthogonal_incremental_neighbor_search<CGAL_ST_WI_3>   CGAL_OI_WI_S_3;
 typedef CGAL::Incremental_neighbor_search<CGAL_ST_WI_3>              CGAL_I_WI_S_3;
 typedef CGAL::K_neighbor_search<CGAL_ST_WI_3>                        CGAL_K_WI_S_3;
-typedef CGAL::Orthogonal_k_neighbor_search<CGAL_ST_WI_3>             CGAL_OK_WI_S_3;  
+typedef CGAL::Orthogonal_k_neighbor_search<CGAL_ST_WI_3>             CGAL_OK_WI_S_3;
 //3D trees
 typedef CGAL_OI_WI_S_3::Tree                                         CGAL_OI_WI_T_3;
 typedef CGAL_I_WI_S_3 ::Tree                                         CGAL_I_WI_T_3;
@@ -76,14 +76,14 @@ SWIG_CGAL_spatial_searching_wrapper_with_info_typedefs(K,NN_search_wrapper)
 //typemap for point with info input iterator
 %define SWIG_Point_WI_2 std::pair<Point_2,JavaData> %enddef
 %define SWIG_Point_WI_3 std::pair<Point_3,JavaData> %enddef
-SWIG_CGAL_input_iterator_typemap_in(Query_iterator_helper<SWIG_Point_WI_2>::input,SWIG_Point_WI_2,Point_with_info_2,internal::Converter<SWIG_Point_WI_2>::result_type,SWIGTYPE_p_Point_2,"(LCGAL/Spatial_searching/Point_with_info_2;)J",insert)
-SWIG_CGAL_input_iterator_typemap_in(Query_iterator_helper<SWIG_Point_WI_3>::input,SWIG_Point_WI_3,Point_with_info_3,internal::Converter<SWIG_Point_WI_3>::result_type,SWIGTYPE_p_Point_3,"(LCGAL/Spatial_searching/Point_with_info_3;)J",insert)
+SWIG_CGAL_input_iterator_typemap_in(Query_iterator_helper<SWIG_Point_WI_2>::input,SWIG_Point_WI_2,Point_with_info_2,internal::Converter<SWIG_Point_WI_2>::result_type,$descriptor(Point_2*),"(LCGAL/Spatial_searching/Point_with_info_2;)J",insert)
+SWIG_CGAL_input_iterator_typemap_in(Query_iterator_helper<SWIG_Point_WI_3>::input,SWIG_Point_WI_3,Point_with_info_3,internal::Converter<SWIG_Point_WI_3>::result_type,$descriptor(Point_3*),"(LCGAL/Spatial_searching/Point_with_info_3;)J",insert)
 
 //typemaps for output iterator
 %define Kd_tree_output_iterator_WI_2 Query_iterator_helper<SWIG_Point_WI_2>::output %enddef
-SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_WI_2,SWIG_Point_WI_2,Point_with_info_2,internal::Converter<SWIG_Point_WI_2>::result_type,SWIGTYPE_p_Point_2,"LCGAL/Spatial_searching/Point_with_info_2;")
+SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_WI_2,SWIG_Point_WI_2,Point_with_info_2,internal::Converter<SWIG_Point_WI_2>::result_type,$descriptor(Point_2*),"LCGAL/Spatial_searching/Point_with_info_2;")
 %define Kd_tree_output_iterator_WI_3 Query_iterator_helper<SWIG_Point_WI_3>::output %enddef
-SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_WI_3,SWIG_Point_WI_3,Point_with_info_3,internal::Converter<SWIG_Point_WI_3>::result_type,SWIGTYPE_p_Point_3,"LCGAL/Spatial_searching/Point_with_info_3;")
+SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_WI_3,SWIG_Point_WI_3,Point_with_info_3,internal::Converter<SWIG_Point_WI_3>::result_type,$descriptor(Point_3*),"LCGAL/Spatial_searching/Point_with_info_3;")
 
 
 //Fuzzy objects
