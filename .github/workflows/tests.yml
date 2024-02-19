@@ -190,6 +190,17 @@ jobs:
           esac
           unzip -l cgal-*whl
           python -m twine check cgal-*whl
+      - name: Install delvewheel
+        shell: bash -l {0}
+        if: runner.os == 'Windows'
+        run: pip install delvewheel
+      - name: Repair wheel with delvewheel
+        shell: bash -l {0}
+        if: runner.os == 'Windows'
+        run: |
+          delvewheel repair --ignore-in-wheel cgal-*.whl -w fixed_wheels
+          rm cgal-*.whl
+          mv fixed_wheels/*.whl .
       - uses: actions/upload-artifact@v4
         with:
           name: wheel-${{ matrix.os }}-${{ matrix.cgal_branch }}-${{ matrix.python-version }}
