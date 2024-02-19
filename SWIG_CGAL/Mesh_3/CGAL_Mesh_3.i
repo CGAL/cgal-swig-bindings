@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 %define MESH3_DOCSTRING
 "SWIG wrapper for the CGAL 3D Mesh Generation package provided under the GPL-3.0+ license"
@@ -55,7 +55,7 @@ SWIG_CGAL_declare_identifier_of_template_class(Mesh_3_Quality,std::pair<int,doub
 SWIG_CGAL_declare_identifier_of_template_class(Mesh_3_Badness,Optional< std::pair<int,double> >)
 
 %import "SWIG_CGAL/Polyhedron_3/CGAL_Polyhedron_3.i"
-      
+
 %pragma(java) jniclassimports=%{import CGAL.Kernel.Point_3; import CGAL.Kernel.Weighted_point_3; import CGAL.Kernel.Ref_int; import CGAL.Kernel.Triangle_3; import CGAL.Kernel.Segment_3; import CGAL.Kernel.Tetrahedron_3; import java.util.Collection; import java.util.Iterator; import CGAL.Polyhedron_3.Polyhedron_3;%}
 
 //extends Cell and vertex handles of Regular triangulation
@@ -90,12 +90,12 @@ SWIG_CGAL_declare_identifier_of_template_class(Mesh_3_Badness,Optional< std::pai
   {
     os << p.first << " " << p.second;
     return os;
-  }               
+  }
 %}
 
 //Regular triangulation
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-SWIG_CGAL_input_iterator_typemap_in(Weighting_helper_3<CGAL::Tag_true>::Point_range,Weighted_point_3,Weighted_point_3,Weighted_point_3::cpp_base,SWIGTYPE_p_Weighted_point_3,"(LCGAL/Kernel/Weighted_point_3;)J",insert)
+SWIG_CGAL_input_iterator_typemap_in(Weighting_helper_3<CGAL::Tag_true>::Point_range,Weighted_point_3,Weighted_point_3,Weighted_point_3::cpp_base,$descriptor(Weighted_point_3*),"(LCGAL/Kernel/Weighted_point_3;)J",insert)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Triangulation_3_wrapper::Triangulation_3_wrapper)
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Regular_triangulation_3_wrapper::Regular_triangulation_3_wrapper)

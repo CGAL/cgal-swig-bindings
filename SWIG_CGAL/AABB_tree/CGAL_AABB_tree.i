@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 %define AABB_DOCSTRING
 "SWIG wrapper for the CGAL 3D Fast Intersection and Distance Computation package provided under the GPL-3.0+ license"
@@ -79,14 +79,14 @@ SWIG_CGAL_declare_identifier_of_template_class(Optional_Object_and_Integer,Optio
 
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< Polyhedron_3_Facet_handle_SWIG_wrapper_for_typemap >::input,Polyhedron_3_Facet_handle_SWIG_wrapper,Polyhedron_3_Facet_handle,Polyhedron_3_Facet_handle_SWIG_wrapper::cpp_base,SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t,"(LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;)J",rebuild)
-SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< Polyhedron_3_Halfedge_handle_SWIG_wrapper_for_typemap >::input,Polyhedron_3_Halfedge_handle_SWIG_wrapper,Polyhedron_3_Halfedge_handle,Polyhedron_3_Halfedge_handle_SWIG_wrapper::cpp_base,SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t,"(LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;)J",rebuild)
-SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< Triangle_3 >::input,Triangle_3,Triangle_3,Triangle_3::cpp_base,SWIGTYPE_p_Triangle_3,"(LCGAL/Kernel/Triangle_3;)J",rebuild)
-SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< Segment_3 >::input,Segment_3,Segment_3,Segment_3::cpp_base,SWIGTYPE_p_Segment_3,"(LCGAL/Kernel/Segment_3;)J",rebuild)
+SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< Polyhedron_3_Facet_handle_SWIG_wrapper_for_typemap >::input,Polyhedron_3_Facet_handle_SWIG_wrapper,Polyhedron_3_Facet_handle,Polyhedron_3_Facet_handle_SWIG_wrapper::cpp_base,$descriptor(SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>*),"(LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;)J",rebuild)
+SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< Polyhedron_3_Halfedge_handle_SWIG_wrapper_for_typemap >::input,Polyhedron_3_Halfedge_handle_SWIG_wrapper,Polyhedron_3_Halfedge_handle,Polyhedron_3_Halfedge_handle_SWIG_wrapper::cpp_base,$descriptor(SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>*),"(LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;)J",rebuild)
+SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< Triangle_3 >::input,Triangle_3,Triangle_3,Triangle_3::cpp_base,$descriptor(Triangle_3*),"(LCGAL/Kernel/Triangle_3;)J",rebuild)
+SWIG_CGAL_input_iterator_typemap_in(Primitive_iterator_helper< Segment_3 >::input,Segment_3,Segment_3,Segment_3::cpp_base,$descriptor(Segment_3*),"(LCGAL/Kernel/Segment_3;)J",rebuild)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(AABB_tree_wrapper::AABB_tree_wrapper)
 #endif
-SWIG_CGAL_input_iterator_typemap_in(Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",accelerate_distance_queries)
+SWIG_CGAL_input_iterator_typemap_in(Point_range,Point_3,Point_3,Point_3::cpp_base,$descriptor(Point_3*),"(LCGAL/Kernel/Point_3;)J",accelerate_distance_queries)
 #else //!SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_3_Facet_handle_input_iterator,Generic_input_iterator< Polyhedron_3_Facet_handle_SWIG_wrapper >)
 SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_3_Halfedge_handle_input_iterator,Generic_input_iterator< Polyhedron_3_Halfedge_handle_SWIG_wrapper >)
@@ -94,21 +94,21 @@ SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_3_Halfedge_handle_inpu
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //intersected primitive output iterator
-SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper<Polyhedron_3_Facet_handle_SWIG_wrapper_for_typemap >::output,Polyhedron_3_Facet_handle_SWIG_wrapper ,Polyhedron_3_Facet_handle,Polyhedron_3_Facet_handle_SWIG_wrapper ::cpp_base,SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t,"LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;")
-SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper<Polyhedron_3_Halfedge_handle_SWIG_wrapper_for_typemap >::output,Polyhedron_3_Halfedge_handle_SWIG_wrapper,Polyhedron_3_Halfedge_handle,Polyhedron_3_Halfedge_handle_SWIG_wrapper::cpp_base,SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t,"LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;")
+SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper<Polyhedron_3_Facet_handle_SWIG_wrapper_for_typemap >::output,Polyhedron_3_Facet_handle_SWIG_wrapper ,Polyhedron_3_Facet_handle,Polyhedron_3_Facet_handle_SWIG_wrapper ::cpp_base,$descriptor(SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>*),"LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;")
+SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper<Polyhedron_3_Halfedge_handle_SWIG_wrapper_for_typemap >::output,Polyhedron_3_Halfedge_handle_SWIG_wrapper,Polyhedron_3_Halfedge_handle,Polyhedron_3_Halfedge_handle_SWIG_wrapper::cpp_base,$descriptor(SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>*),"LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;")
 SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper< int >::output,int,Integer,int,swig_types[0],"Ljava/lang/Integer;")
 
 //intersection output iterator
 %{ typedef std::pair<Object,Polyhedron_3_Facet_handle_SWIG_wrapper > Object_and_Polyhedron_3_Facet_handle; %}
 %define Object_and_Polyhedron_3_Facet_handle_base std::pair<CGAL::Object,Polyhedron_3_Facet_handle_SWIG_wrapper::cpp_base> %enddef
-SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper<Polyhedron_3_Facet_handle_SWIG_wrapper_for_typemap >::output2,Object_and_Polyhedron_3_Facet_handle,Object_and_Polyhedron_3_Facet_handle,Object_and_Polyhedron_3_Facet_handle_base,SWIGTYPE_p_std__pairT_Object_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t_t,"LCGAL/AABB_tree/Object_and_Polyhedron_3_Facet_handle;")
+SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper<Polyhedron_3_Facet_handle_SWIG_wrapper_for_typemap >::output2,Object_and_Polyhedron_3_Facet_handle,Object_and_Polyhedron_3_Facet_handle,Object_and_Polyhedron_3_Facet_handle_base,$descriptor(std::pair<Object, SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>>*),"LCGAL/AABB_tree/Object_and_Polyhedron_3_Facet_handle;")
 %{ typedef std::pair<Object,Polyhedron_3_Halfedge_handle_SWIG_wrapper > Object_and_Polyhedron_3_Halfedge_handle; %}
 %define Object_and_Polyhedron_3_Halfedge_handle_base std::pair<CGAL::Object,Polyhedron_3_Halfedge_handle_SWIG_wrapper::cpp_base> %enddef
-SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper<Polyhedron_3_Halfedge_handle_SWIG_wrapper_for_typemap >::output2,Object_and_Polyhedron_3_Halfedge_handle,Object_and_Polyhedron_3_Halfedge_handle,Object_and_Polyhedron_3_Halfedge_handle_base,SWIGTYPE_p_std__pairT_Object_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t_t,"LCGAL/AABB_tree/Object_and_Polyhedron_3_Halfedge_handle;")
+SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper<Polyhedron_3_Halfedge_handle_SWIG_wrapper_for_typemap >::output2,Object_and_Polyhedron_3_Halfedge_handle,Object_and_Polyhedron_3_Halfedge_handle,Object_and_Polyhedron_3_Halfedge_handle_base,$descriptor(std::pair<Object, SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>>*),"LCGAL/AABB_tree/Object_and_Polyhedron_3_Halfedge_handle;")
 
 %{ typedef std::pair<Object,int > Object_and_Integer; %}
 %define Object_and_Integer_base std::pair<CGAL::Object,int> %enddef
-SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper< int >::output2,Object_and_Integer,Object_and_Integer,Object_and_Integer_base,SWIGTYPE_p_std__pairT_Object_int_t,"LCGAL/AABB_tree/Object_and_Integer;")
+SWIG_CGAL_output_iterator_typemap_in(Primitive_iterator_helper< int >::output2,Object_and_Integer,Object_and_Integer,Object_and_Integer_base,$descriptor(std::pair<Object, int>*),"LCGAL/AABB_tree/Object_and_Integer;")
 #else
 %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
 SWIG_CGAL_declare_generic_output_iterator(Polyhedron_3_Facet_output_iterator,Polyhedron_3_Facet_output_iterator_nested_iterator,Polyhedron_3_Facet_handle_SWIG_wrapper)

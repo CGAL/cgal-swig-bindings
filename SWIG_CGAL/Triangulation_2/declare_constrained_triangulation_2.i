@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_TRIANGULATION_2_DECLARE_CONSTRAINED_TRIANGULATION_2_I
@@ -24,9 +24,9 @@
   %{
   typedef std::pair<SWIG_Triangulation_2::CGAL_Face_handle< CPPTYPE,Point_2 >,int> CLASSNAME_PREFIX##_Edge;
   %}
-  SWIG_CGAL_output_iterator_typemap_in(EXPOSEDNAME##_Edge_output_iterator,CLASSNAME_PREFIX##_Edge,CLASSNAME_PREFIX##_Edge,CPPTYPE::Edge,SWIGTYPE_p_std__pairT_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t_int_t,"LCGAL/"#MODULENAME"/" #CLASSNAME_PREFIX "_Edge;")
+  SWIG_CGAL_output_iterator_typemap_in(EXPOSEDNAME##_Edge_output_iterator,CLASSNAME_PREFIX##_Edge,CLASSNAME_PREFIX##_Edge,CPPTYPE::Edge,$descriptor(std::pair<SWIG_Triangulation_2::CGAL_Face_handle<##CPPTYPE##,Point_2>,int>*),"LCGAL/"#MODULENAME"/" #CLASSNAME_PREFIX "_Edge;")
   #else
-  %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"  
+  %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
   %define i##EXPOSEDNAME##_Triangulation_Edge  std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,Point_2>,int > %enddef
   SWIG_CGAL_declare_generic_output_iterator(EXPOSEDNAME##_Edge_output_iterator,EXPOSEDNAME##_Edge_output_iterator_nested_iterator,i##EXPOSEDNAME##_Triangulation_Edge)
   #endif

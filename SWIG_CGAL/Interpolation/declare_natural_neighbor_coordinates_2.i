@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_INTERPOLATION_DECLARE_NATURAL_NEIGHBOR_COORDINATES_2_I
@@ -20,14 +20,14 @@ SWIG_CGAL_import_Delaunay_triangulation_2_Edge_SWIG_wrapper
   #else
   typedef Generic_input_iterator< Delaunay_triangulation_2_Edge_SWIG_wrapper > DT2_Edge_iterator;
   typedef Generic_output_iterator< std::pair<Point_2,double> > iPoint_2_and_double_output_iterator;
-  #endif  
+  #endif
 %}
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define DT2_Edge_iterator std::pair<Input_iterator_wrapper<Delaunay_triangulation_2_Edge_SWIG_wrapper,CGAL_DT2::Edge>,Input_iterator_wrapper<Delaunay_triangulation_2_Edge_SWIG_wrapper,CGAL_DT2::Edge> > %enddef
 %define iPoint_2_and_double_output_iterator boost::function_output_iterator< Container_writer<std::pair<Point_2,double>,std::pair<Point_2::cpp_base,double> > >  %enddef
-SWIG_CGAL_output_iterator_typemap_in(iPoint_2_and_double_output_iterator,Point_2_and_double_wrapper,Point_2_and_double,Point_2_and_double_base,SWIGTYPE_p_std__pairT_Point_2_double_t,"LCGAL/Interpolation/Point_2_and_double;")
-SWIG_CGAL_input_iterator_typemap_in(DT2_Edge_iterator,Delaunay_triangulation_2_Edge_SWIG_wrapper,Delaunay_triangulation_2_Edge,CGAL_DT2::Edge,SWIGTYPE_p_std__pairT_SWIG_Triangulation_2__CGAL_Face_handleT_CGAL_DT2_Point_2_t_int_t,"(LCGAL/Triangulation_2/Delaunay_triangulation_2_Edge;)J",natural_neighbor_coordinates_2)
+SWIG_CGAL_output_iterator_typemap_in(iPoint_2_and_double_output_iterator,Point_2_and_double_wrapper,Point_2_and_double,Point_2_and_double_base,$descriptor(std::pair<Point_2,double>*),"LCGAL/Interpolation/Point_2_and_double;")
+SWIG_CGAL_input_iterator_typemap_in(DT2_Edge_iterator,Delaunay_triangulation_2_Edge_SWIG_wrapper,Delaunay_triangulation_2_Edge,CGAL_DT2::Edge,$descriptor(std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CGAL_DT2,Point_2>,int>*),"(LCGAL/Triangulation_2/Delaunay_triangulation_2_Edge;)J",natural_neighbor_coordinates_2)
 #else
 %include "SWIG_CGAL/Common/Iterator.h"
 %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
@@ -46,13 +46,13 @@ SWIG_CGAL_declare_generic_output_iterator(Point_2_and_double_output_iterator,Poi
 %template() std::pair<SWIG_Triangulation_2::CGAL_Face_handle<CGAL_DT2,Point_2>,int>;
 #endif
 %inline %{
-  std::pair<double,bool> 
+  std::pair<double,bool>
   natural_neighbor_coordinates_2(const Delaunay_triangulation_2_SWIG_wrapper& dt,const Point_2& p,iPoint_2_and_double_output_iterator out,const SWIG_Triangulation_2::CGAL_Face_handle<CGAL_DT2,Point_2>& start)
   {
     return internal::extract_pair( CGAL::natural_neighbor_coordinates_2(dt.get_data(),p.get_data(),out,start.get_data()) );
   }
 
-  std::pair<double,bool> 
+  std::pair<double,bool>
   natural_neighbor_coordinates_2(const Delaunay_triangulation_2_SWIG_wrapper& dt,const Point_2& p,iPoint_2_and_double_output_iterator out)
   {
     return internal::extract_pair( CGAL::natural_neighbor_coordinates_2(dt.get_data(),p.get_data(),out) );
@@ -66,8 +66,8 @@ SWIG_CGAL_declare_generic_output_iterator(Point_2_and_double_output_iterator,Poi
     std::copy(SWIG_CGAL::get_begin(its),SWIG_CGAL::get_end(its),std::back_inserter(edges));
     return internal::extract_pair( CGAL::natural_neighbor_coordinates_2(dt.get_data(),p.get_data(),out,edges.begin(),edges.end()) );
   }
-  
-  std::pair<double,bool> 
+
+  std::pair<double,bool>
   natural_neighbor_coordinates_2(const Delaunay_triangulation_2_SWIG_wrapper& dt,const SWIG_Triangulation_2::CGAL_Vertex_handle<CGAL_DT2,Point_2>& vh,iPoint_2_and_double_output_iterator out)
   {
     return internal::extract_pair( CGAL::natural_neighbor_coordinates_2(dt.get_data(),vh.get_data(),out) );

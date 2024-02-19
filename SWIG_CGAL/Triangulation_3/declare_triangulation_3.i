@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_TRIANGULATION_3_DECLARE_TRIANGULATION_3_I
@@ -35,14 +35,14 @@
   typedef SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>                              CLASSNAME_PREFIX##_Cell_handle;
   typedef SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE>                            CLASSNAME_PREFIX##_Vertex_handle;
   typedef std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int>               CLASSNAME_PREFIX##_Facet;
-  typedef SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int,int>   CLASSNAME_PREFIX##_Edge;  
+  typedef SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int,int>   CLASSNAME_PREFIX##_Edge;
   %}
-  SWIG_CGAL_output_iterator_typemap_in(CLASSNAME_PREFIX##_Cell_handle_output_iterator,CLASSNAME_PREFIX##_Cell_handle,CLASSNAME_PREFIX##_Cell_handle,CPPTYPE::Cell_handle,SWIGTYPE_p_SWIG_Triangulation_3__CGAL_Cell_handleT_##CPPTYPE##_##POINT_TYPE##_t,"LCGAL/Triangulation_3/" #CLASSNAME_PREFIX "_Cell_handle;")
-  SWIG_CGAL_output_iterator_typemap_in(CLASSNAME_PREFIX##_Vertex_handle_output_iterator,CLASSNAME_PREFIX##_Vertex_handle,CLASSNAME_PREFIX##_Vertex_handle,CPPTYPE::Vertex_handle,SWIGTYPE_p_SWIG_Triangulation_3__CGAL_Vertex_handleT_##CPPTYPE##_##POINT_TYPE##_t,"LCGAL/Triangulation_3/" #CLASSNAME_PREFIX "_Vertex_handle;")
-  SWIG_CGAL_output_iterator_typemap_in(CLASSNAME_PREFIX##_Edge_output_iterator,CLASSNAME_PREFIX##_Edge,CLASSNAME_PREFIX##_Edge,CPPTYPE::Edge,SWIGTYPE_p_SWIG_CGAL__TripleT_SWIG_Triangulation_3__CGAL_Cell_handleT_##CPPTYPE##_##POINT_TYPE##_t_int_int_t,"LCGAL/Triangulation_3/" #CLASSNAME_PREFIX "_Edge;")
-  SWIG_CGAL_output_iterator_typemap_in(CLASSNAME_PREFIX##_Facet_output_iterator,CLASSNAME_PREFIX##_Facet,CLASSNAME_PREFIX##_Facet,CPPTYPE::Facet,SWIGTYPE_p_std__pairT_SWIG_Triangulation_3__CGAL_Cell_handleT_##CPPTYPE##_##POINT_TYPE##_t_int_t,"LCGAL/Triangulation_3/" #CLASSNAME_PREFIX "_Facet;")
+  SWIG_CGAL_output_iterator_typemap_in(CLASSNAME_PREFIX##_Cell_handle_output_iterator,CLASSNAME_PREFIX##_Cell_handle,CLASSNAME_PREFIX##_Cell_handle,CPPTYPE::Cell_handle,$descriptor(SWIG_Triangulation_3::CGAL_Cell_handle<##CPPTYPE##,##POINT_TYPE##>*),"LCGAL/Triangulation_3/" #CLASSNAME_PREFIX "_Cell_handle;")
+  SWIG_CGAL_output_iterator_typemap_in(CLASSNAME_PREFIX##_Vertex_handle_output_iterator,CLASSNAME_PREFIX##_Vertex_handle,CLASSNAME_PREFIX##_Vertex_handle,CPPTYPE::Vertex_handle,$descriptor(SWIG_Triangulation_3::CGAL_Vertex_handle<##CPPTYPE##,##POINT_TYPE##>*),"LCGAL/Triangulation_3/" #CLASSNAME_PREFIX "_Vertex_handle;")
+  SWIG_CGAL_output_iterator_typemap_in(CLASSNAME_PREFIX##_Edge_output_iterator,CLASSNAME_PREFIX##_Edge,CLASSNAME_PREFIX##_Edge,CPPTYPE::Edge,$descriptor(SWIG_CGAL::Triple<SWIG_Triangulation_3::CGAL_Cell_handle<##CPPTYPE##,##POINT_TYPE##>,int,int>*),"LCGAL/Triangulation_3/" #CLASSNAME_PREFIX "_Edge;")
+  SWIG_CGAL_output_iterator_typemap_in(CLASSNAME_PREFIX##_Facet_output_iterator,CLASSNAME_PREFIX##_Facet,CLASSNAME_PREFIX##_Facet,CPPTYPE::Facet,$descriptor(std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<##CPPTYPE##,##POINT_TYPE##>,int>*),"LCGAL/Triangulation_3/" #CLASSNAME_PREFIX "_Facet;")
   #else
-  %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"  
+  %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
   %define CLASSNAME_PREFIX##_iCell_handle SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE> %enddef
   %define CLASSNAME_PREFIX##_iVertex_handle SWIG_Triangulation_3::CGAL_Vertex_handle<CPPTYPE,POINT_TYPE> %enddef
   %define CLASSNAME_PREFIX##_iFacet std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<CPPTYPE,POINT_TYPE>,int> %enddef

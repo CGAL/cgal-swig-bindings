@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 %define SURFACE_MESHER_DOCSTRING
 "SWIG wrapper for the CGAL 3D Surface Mesh Generation package provided under the GPL-3.0+ license"
@@ -45,7 +45,7 @@ SWIG_CGAL_package_common()
 %pragma(java) moduleimports  =%{import CGAL.Polyhedron_3.Polyhedron_3;%} //for global functions
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-SWIG_CGAL_input_iterator_typemap_in(Weighting_helper_3<CGAL::Tag_false>::Point_range,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert)
+SWIG_CGAL_input_iterator_typemap_in(Weighting_helper_3<CGAL::Tag_false>::Point_range,Point_3,Point_3,Point_3::cpp_base,$descriptor(Point_3*),"(LCGAL/Kernel/Point_3;)J",insert)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Triangulation_3_wrapper::Triangulation_3_wrapper)
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Delaunay_triangulation_3_wrapper::Delaunay_triangulation_3_wrapper)
@@ -67,7 +67,7 @@ typedef std::pair< SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,int >
 %}
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define Complex_2_in_triangulation_3_Facet_output_iterator  C2T3_internal::Iterator_helper<Delaunay_triangulation_3_wrapper<C2T3_DT,SWIG_Triangulation_3::CGAL_Vertex_handle<C2T3_DT,Point_3>,SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT,Point_3>,boost::shared_ptr<C2T3_DT> > >::output %enddef
-SWIG_CGAL_output_iterator_typemap_in(Complex_2_in_triangulation_3_Facet_output_iterator,Surface_mesh_default_triangulation_3_Facet,Surface_mesh_default_triangulation_3_Facet,C2T3_DT::Facet,SWIGTYPE_p_std__pairT_SWIG_Triangulation_3__CGAL_Cell_handleT_C2T3_DT_Point_3_t_int_t,"LCGAL/Surface_mesher/Surface_mesh_default_triangulation_3_Facet;")
+SWIG_CGAL_output_iterator_typemap_in(Complex_2_in_triangulation_3_Facet_output_iterator,Surface_mesh_default_triangulation_3_Facet,Surface_mesh_default_triangulation_3_Facet,C2T3_DT::Facet,$descriptor(std::pair<SWIG_Triangulation_3::CGAL_Cell_handle<C2T3_DT, Point_3>, int>*),"LCGAL/Surface_mesher/Surface_mesh_default_triangulation_3_Facet;")
 #endif //#else is not needed as the output_iterator type is already defined within declare_Delaunay_triangulation_3
 
 
@@ -104,14 +104,14 @@ SWIG_CGAL_import_Polyhedron_3_SWIG_wrapper
 //global functions
 %inline %{
   #include <fstream>
-  
+
   void output_surface_facets_to_off(const std::string& s,const Complex_2_in_triangulation_3_SWIG_wrapper& c2t3)
   {
     std::ofstream outfile(s.c_str());
     if (!outfile) std::cerr << "Error cannot create file: " << s << std::endl;
     else  CGAL::output_surface_facets_to_off(outfile,c2t3.get_data());
   }
-  
+
   // deprecated
   void output_surface_facets_to_polyhedron(const Complex_2_in_triangulation_3_SWIG_wrapper& c2t3,Polyhedron_3_SWIG_wrapper& poly)
   {

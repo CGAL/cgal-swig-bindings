@@ -110,28 +110,28 @@ SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Facet_h
                                     Polyhedron_3_Facet_handle_SWIG_wrapper,
                                     Polyhedron_3_Facet_handle,
                                     Polyhedron_3_Facet_handle_SWIG_wrapper::cpp_base,
-                                    SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t,
+                                    $descriptor(SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>*),
                                     "(LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;)J",
                                     refine)
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Halfedge_handle_SWIG_wrapper>::input,
                                     Polyhedron_3_Halfedge_handle_SWIG_wrapper,
                                     Polyhedron_3_Halfedge_handle,
                                     Polyhedron_3_Halfedge_handle_SWIG_wrapper::cpp_base,
-                                    SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t,
+                                    $descriptor(SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>*),
                                     "(LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;)J",
                                     isotropic_remeshing)
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Vertex_handle_SWIG_wrapper>::input,
                                     Polyhedron_3_Vertex_handle_SWIG_wrapper,
                                     Polyhedron_3_Vertex_handle,
                                     Polyhedron_3_Vertex_handle_SWIG_wrapper::cpp_base,
-                                    SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Vertex_handleT_Polyhedron_3__t,
+                                    $descriptor(SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>*),
                                     "(LCGAL/Polyhedron_3/Polyhedron_3_Vertex_handle;)J",
                                     fair)
 SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<Halfedge_pair_SWIG_wrapper>::input,
                                     Halfedge_pair_SWIG_wrapper,
                                     Halfedge_pair,
                                     internal::Converter<Halfedge_pair_SWIG_wrapper>::result_type,
-                                    SWIGTYPE_p_std__pairT_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t_t,
+                                    $descriptor(std::pair<SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>, SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>>*),
                                     "(LCGAL/Polygon_mesh_processing/Halfedge_pair;)J",
                                     stitch_borders)
 
@@ -150,31 +150,31 @@ SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Facet_
                                      Polyhedron_3_Facet_handle_SWIG_wrapper,
                                      Polyhedron_3_Facet_handle,
                                      Polyhedron_3_Facet_handle_SWIG_wrapper::cpp_base,
-                                     SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t,
+                                     $descriptor(SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>*),
                                      "LCGAL/Polyhedron_3/Polyhedron_3_Facet_handle;")
 SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Halfedge_handle_SWIG_wrapper>::output,
                                      Polyhedron_3_Halfedge_handle_SWIG_wrapper,
                                      Polyhedron_3_Halfedge_handle,
                                      Polyhedron_3_Halfedge_handle_SWIG_wrapper::cpp_base,
-                                     SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Halfedge_handleT_Polyhedron_3__t,
+                                     $descriptor(SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>*),
                                      "LCGAL/Polyhedron_3/Polyhedron_3_Halfedge_handle;")
 SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Vertex_handle_SWIG_wrapper>::output,
                                      Polyhedron_3_Vertex_handle_SWIG_wrapper,
                                      Polyhedron_3_Vertex_handle,
                                      Polyhedron_3_Vertex_handle_SWIG_wrapper::cpp_base,
-                                     SWIGTYPE_p_SWIG_Polyhedron_3__CGAL_Vertex_handleT_Polyhedron_3__t,
+                                     $descriptor(SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>*),
                                      "LCGAL/Polyhedron_3/Polyhedron_3_Vertex_handle;")
 SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<Facet_pair_SWIG_wrapper>::output,
                                      Facet_pair_SWIG_wrapper,
                                      Facet_pair,
                                      internal::Converter<Facet_pair_SWIG_wrapper>::result_type,
-                                     SWIGTYPE_p_std__pairT_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t_SWIG_Polyhedron_3__CGAL_Facet_handleT_Polyhedron_3__t_t,
+                                     $descriptor(std::pair<SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>, SWIG_Polyhedron_3::CGAL_Facet_handle<Polyhedron_3_>>*),
                                      "LCGAL/Polygon_mesh_processing/Facet_pair;")
 SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<Integer_triple_SWIG_wrapper>::output,
                                      Integer_triple_SWIG_wrapper,
                                      Integer_triple,
                                      internal::Converter<Integer_triple_SWIG_wrapper>::result_type,
-                                     SWIGTYPE_p_SWIG_CGAL__TripleT_int_int_int_t,
+                                     $descriptor(SWIG_CGAL::Triple<int,int,int>*),
                                      "LCGAL/Polygon_mesh_processing/Integer_triple;")
 SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper< int >::output,int,Integer,int,swig_types[0],"Ljava/lang/Integer;")
 %types(Vector_3*,Vector_3);//needed so that the identifier SWIGTYPE_p_Vector_3 is generated

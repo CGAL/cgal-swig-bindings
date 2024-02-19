@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_TRIANGULATION_2_DECLARE_DELAUNAY_TRIANGULATION_2_I
@@ -22,10 +22,10 @@
   #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   %define iSWIG_##EXPOSEDNAME##_wrapper Delaunay_triangulation_2_wrapper<CPPTYPE,SWIG_Triangulation_2::CGAL_Vertex_handle<CPPTYPE,Point_2>,SWIG_Triangulation_2::CGAL_Face_handle<CPPTYPE,Point_2> > %enddef
   %define iSWIG_##EXPOSEDNAME##_Edge_base std::pair<CPPTYPE::Face_handle,int > %enddef
-  SWIG_CGAL_output_iterator_typemap_in(iSWIG_##EXPOSEDNAME##_wrapper::Edge_output_iterator,iSWIG_##EXPOSEDNAME##_Edge_wrapper,CLASSNAME_PREFIX##_Edge,iSWIG_##EXPOSEDNAME##_Edge_base,SWIGTYPE_p_std__pairT_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t_int_t,"LCGAL/Triangulation_2/" #EXPOSEDNAME "_Edge;")
-  SWIG_CGAL_output_iterator_typemap_in(iSWIG_##EXPOSEDNAME##_wrapper::Face_output_iterator,iSWIG_##EXPOSEDNAME##_Face_wrapper,CLASSNAME_PREFIX##_Face_handle,CPPTYPE::Face_handle,SWIGTYPE_p_SWIG_Triangulation_2__CGAL_Face_handleT_##CPPTYPE##_Point_2_t,"LCGAL/Triangulation_2/" #EXPOSEDNAME "_Face_handle;")
+  SWIG_CGAL_output_iterator_typemap_in(iSWIG_##EXPOSEDNAME##_wrapper::Edge_output_iterator,iSWIG_##EXPOSEDNAME##_Edge_wrapper,CLASSNAME_PREFIX##_Edge,iSWIG_##EXPOSEDNAME##_Edge_base,$descriptor(std::pair<SWIG_Triangulation_2::CGAL_Face_handle<##CPPTYPE##,Point_2>,int>*),"LCGAL/Triangulation_2/" #EXPOSEDNAME "_Edge;")
+  SWIG_CGAL_output_iterator_typemap_in(iSWIG_##EXPOSEDNAME##_wrapper::Face_output_iterator,iSWIG_##EXPOSEDNAME##_Face_wrapper,CLASSNAME_PREFIX##_Face_handle,CPPTYPE::Face_handle,$descriptor(SWIG_Triangulation_2::CGAL_Face_handle<##CPPTYPE##,Point_2>*),"LCGAL/Triangulation_2/" #EXPOSEDNAME "_Face_handle;")
   #else
-  %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"  
+  %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
   SWIG_CGAL_declare_generic_output_iterator(EXPOSEDNAME##_Edge_output_iterator,EXPOSEDNAME##_Edge_output_iterator_nested_iterator,iSWIG_##EXPOSEDNAME##_Edge_wrapper)
   SWIG_CGAL_declare_generic_output_iterator(EXPOSEDNAME##_Face_handle_output_iterator,EXPOSEDNAME##_Face_handle_output_iterator_nested_iterator,iSWIG_##EXPOSEDNAME##_Face_wrapper)
   #endif

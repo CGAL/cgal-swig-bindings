@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 %define SWIG_CGAL_declare_identifier_of_template_class(Prefix,Type ... )
 %inline %{ typedef Type  Prefix##_SWIG_wrapper; %}
@@ -22,7 +22,7 @@
         throw e;
       }
     }
-  %}      
+  %}
 %enddef
 
 %define SWIG_CGAL_add_java_loadLibrary(NAME)
@@ -37,7 +37,7 @@
     }
   %}
   // always load CGAL_Java to get JNI_OnLoad called
-  SWIG_CGAL_add_java_loadLibrary_CGAL_Java()  
+  SWIG_CGAL_add_java_loadLibrary_CGAL_Java()
 %enddef
 
 // general macro that defines useful instructions for all packages
@@ -65,7 +65,7 @@
   import java.lang.UnsupportedOperationException;
   import java.util.Iterator;
   %}
-  
+
   %typemap(javainterfaces) Iterator_type %{  Iterable<Object_type>, Iterator<Object_type> %}
 
   %typemap(javacode) Iterator_type
@@ -73,7 +73,7 @@
     public void remove() {
       throw new UnsupportedOperationException();
     }
-    
+
     public Iterator<Object_type> iterator() {
       return this;
     }
@@ -83,7 +83,7 @@
     }
   %}
 %enddef
-  
+
 %define SWIG_CGAL_set_as_java_iterator(Iterator_type,Object_type,Extra_import)
   %typemap(javaimports) Iterator_type
   %{
@@ -92,7 +92,7 @@
   import java.lang.UnsupportedOperationException;
   import java.util.Iterator;
   %}
-  
+
   %typemap(javainterfaces) Iterator_type %{  Iterable<Object_type>, Iterator<Object_type> %}
 
   %typemap(javacode) Iterator_type
@@ -100,11 +100,11 @@
     public void remove() {
       throw new UnsupportedOperationException();
     }
-    
+
     public Iterator<Object_type> iterator() {
       return this;
     }
-    
+
     //we store an object of type Object_type to avoid
     //creation and allocation of a java object at each iteration.
     private Object_type objectInstance = new Object_type();
@@ -166,8 +166,8 @@
     }
     else $1=0;
   }
-  
-%enddef  
+
+%enddef
 #endif
 #ifdef SWIGJAVA
 %define SWIG_CGAL_input_iterator_typemap_in(Object_typemap_,Out_Object_,Out_JAVA,Out_Object_cpp_base_,SWIG_for_python_,SWIG_for_java_,Function_name_)
@@ -183,7 +183,7 @@
   }
 %enddef
 #endif
-  
+
 #ifdef SWIGJAVA
 %{
   #include <SWIG_CGAL/Java/exception.h>
@@ -206,8 +206,8 @@
   }
 }
 #endif
-  
-  
+
+
 //-----
 #ifdef SWIGPYTHON
 //Add extra exception handling for function using an input_iterator as input
@@ -236,7 +236,7 @@
    }
 }
 
-#endif  
+#endif
 
 //output iterator typemap
 //   Object_typemap_       is the object on which the typemap should be defined (used in the cpp code)
@@ -377,7 +377,7 @@
   #define SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE 1
 #else
   #define SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE 0
-#endif  
+#endif
 %}
 
 #if SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
@@ -391,11 +391,11 @@
 %include "SWIG_CGAL/Common/Macros.h"
 //typemap for input iterator
 %define SWIG_CGAL_set_wrapper_iterator_helper_input(WRAPPER)
-  SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<WRAPPER>::input,WRAPPER,WRAPPER,internal::Converter<WRAPPER>::result_type,SWIGTYPE_p_##WRAPPER,"(LCGAL/Kernel/"#WRAPPER";)J",insert)
+  SWIG_CGAL_input_iterator_typemap_in(Wrapper_iterator_helper<WRAPPER>::input,WRAPPER,WRAPPER,internal::Converter<WRAPPER>::result_type,$descriptor(##WRAPPER*),"(LCGAL/Kernel/"#WRAPPER";)J",insert)
 %enddef
 //typemap for output iterator
 %define SWIG_CGAL_set_wrapper_iterator_helper_output(WRAPPER)
-  SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<WRAPPER>::output,WRAPPER,WRAPPER,internal::Converter<WRAPPER>::result_type,SWIGTYPE_p_##WRAPPER,"LCGAL/Kernel/"#WRAPPER";")
+  SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<WRAPPER>::output,WRAPPER,WRAPPER,internal::Converter<WRAPPER>::result_type,$descriptor(##WRAPPER*),"LCGAL/Kernel/"#WRAPPER";")
 %enddef
 #else
 //nothing need to be done for input iterator

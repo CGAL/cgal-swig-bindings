@@ -17,7 +17,7 @@
 %typemap(in) boost::shared_ptr<std::vector<KERNEL::Point_3> > {
   boost::shared_ptr<std::vector<KERNEL::Point_3> > res(new std::vector<KERNEL::Point_3>());
   const jsize size = jenv->GetArrayLength($input) / 3;
-  res->reserve((const std::size_t) size);
+  res->reserve((std::size_t) size);
   jboolean is_copy;
   jdouble* points = jenv->GetDoubleArrayElements($input, &is_copy);
   for (int i = 0 ; i < size ; i++){
@@ -107,7 +107,7 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 %typemap(in) boost::shared_ptr<std::vector<boost::tuple<int,int,int> > > {
   boost::shared_ptr<std::vector<boost::tuple<int,int,int> > > res(new std::vector<boost::tuple<int,int,int> >());
   const jsize size = jenv->GetArrayLength($input) / 3;
-  res->reserve((const std::size_t) size);
+  res->reserve((std::size_t) size);
   jboolean is_copy;
   jint* indices = jenv->GetIntArrayElements($input, &is_copy);
   for (int i = 0 ; i < size ; i++){
@@ -128,7 +128,7 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 %typemap(in) boost::shared_ptr<std::vector<std::vector<int> > > {
   boost::shared_ptr<std::vector<std::vector<int> > > res(new std::vector<std::vector<int> >());
   const jsize size = jenv->GetArrayLength($input) / 3;
-  res->reserve((const std::size_t) size);
+  res->reserve((std::size_t) size);
   jboolean is_copy;
   jint* indices = jenv->GetIntArrayElements($input, &is_copy);
   for (int i = 0 ; i < size ; i++){
@@ -152,7 +152,7 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 %typemap(in) boost::shared_ptr<std::vector< std::pair<int,int> > > {
   boost::shared_ptr<std::vector< std::pair<int,int> > > res(new std::vector< std::pair<int,int> >());
   const jsize size = jenv->GetArrayLength($input) / 2;
-  res->reserve((const std::size_t) size);
+  res->reserve((std::size_t) size);
   jboolean is_copy;
   jint* indices = jenv->GetIntArrayElements($input, &is_copy);
   for (int i = 0 ; i < size ; i++){
@@ -173,7 +173,7 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 %typemap(in) boost::shared_ptr<std::vector<int> > {
   boost::shared_ptr<std::vector<int> > res(new std::vector<int>());
   const jsize size = jenv->GetArrayLength($input);
-  res->reserve((const std::size_t) size);
+  res->reserve((std::size_t) size);
   jboolean is_copy;
   jint* indices = jenv->GetIntArrayElements($input, &is_copy);
   for (int i = 0 ; i < size ; i++){
@@ -233,7 +233,7 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 %typemap(in) boost::shared_ptr<std::vector<float> > {
   boost::shared_ptr<std::vector<float> > res(new std::vector<float>());
   const jsize size = jenv->GetArrayLength($input);
-  res->reserve((const std::size_t) size);
+  res->reserve((std::size_t) size);
   jboolean is_copy;
   jfloat* indices = jenv->GetFloatArrayElements($input, &is_copy);
   for (int i = 0 ; i < size ; i++){
@@ -254,7 +254,7 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
 %typemap(in) boost::shared_ptr<std::vector<double> > {
   boost::shared_ptr<std::vector<double> > res(new std::vector<double>());
   const jsize size = jenv->GetArrayLength($input);
-  res->reserve((const std::size_t) size);
+  res->reserve((std::size_t) size);
   jboolean is_copy;
   jdouble* indices = jenv->GetDoubleArrayElements($input, &is_copy);
   for (int i = 0 ; i < size ; i++){
@@ -276,7 +276,7 @@ SWIG_CGAL_array_of_array_of_double_to_vector_of_vector_of_point_2_typemap_in_adv
   boost::shared_ptr<std::vector<EPIC_Kernel::Plane_3> > res(
     new std::vector<EPIC_Kernel::Plane_3>());
   const jsize size = jenv->GetArrayLength($input) / 4;
-  res->reserve((const std::size_t) size);
+  res->reserve((std::size_t) size);
   jboolean is_copy;
   jdouble* indices = jenv->GetDoubleArrayElements($input, &is_copy);
   for (int i = 0 ; i < size ; i++){

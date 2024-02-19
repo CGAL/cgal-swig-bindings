@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 %define DDSS_DOCSTRING
 "SWIG wrapper for the CGAL dD Spatial Searching package provided under the GPL-3.0+ license"
@@ -70,8 +70,8 @@ SWIG_CGAL_spatial_searching_wrapper_typedefs(K,NN_search_wrapper)
 
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 //typemap for point input iterator
-SWIG_CGAL_input_iterator_typemap_in(Query_iterator_helper<Point_2>::input,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
-SWIG_CGAL_input_iterator_typemap_in(Query_iterator_helper<Point_3>::input,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"(LCGAL/Kernel/Point_3;)J",insert)
+SWIG_CGAL_input_iterator_typemap_in(Query_iterator_helper<Point_2>::input,Point_2,Point_2,Point_2::cpp_base,$descriptor(Point_2*),"(LCGAL/Kernel/Point_2;)J",insert)
+SWIG_CGAL_input_iterator_typemap_in(Query_iterator_helper<Point_3>::input,Point_3,Point_3,Point_3::cpp_base,$descriptor(Point_3*),"(LCGAL/Kernel/Point_3;)J",insert)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Kd_tree_wrapper::Kd_tree_wrapper)
 #endif
@@ -90,9 +90,9 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Kd_tree_wrapper::Kd_tr
 //typemaps for output iterator
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
 %define Kd_tree_output_iterator_2 Query_iterator_helper<Point_2>::output %enddef
-SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_2,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"LCGAL/Kernel/Point_2;")
+SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_2,Point_2,Point_2,Point_2::cpp_base,$descriptor(Point_2*),"LCGAL/Kernel/Point_2;")
 %define Kd_tree_output_iterator_3 Query_iterator_helper<Point_3>::output %enddef
-SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_3,Point_3,Point_3,Point_3::cpp_base,SWIGTYPE_p_Point_3,"LCGAL/Kernel/Point_3;")
+SWIG_CGAL_output_iterator_typemap_in(Kd_tree_output_iterator_3,Point_3,Point_3,Point_3::cpp_base,$descriptor(Point_3*),"LCGAL/Kernel/Point_3;")
 #else
 %include "SWIG_CGAL/Common/Output_iterator_wrapper.h"
 SWIG_CGAL_declare_generic_output_iterator(Point_2_output_iterator,Point_2_output_iterator_nested_iterator,Point_2)

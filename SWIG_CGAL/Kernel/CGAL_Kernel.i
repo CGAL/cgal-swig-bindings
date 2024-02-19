@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 %define KERNEL_DOCSTRING
 "SWIG wrapper for the CGAL Geometric Kernel package provided under the GPL-3.0+ license"
@@ -29,11 +29,11 @@ SWIG_CGAL_package_common()
   #include <SWIG_CGAL/Common/Input_iterator_wrapper.h>
 
   #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-  typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > Point_range_2;  
+  typedef std::pair<Input_iterator_wrapper<Point_2,Point_2::cpp_base>,Input_iterator_wrapper<Point_2,Point_2::cpp_base> > Point_range_2;
   #else
   typedef Generic_input_iterator<Point_2> Point_range_2;
   #endif
-  
+
   #include <SWIG_CGAL/Kernel/Weighted_point_2.h>
   #include <SWIG_CGAL/Kernel/Segment_2.h>
   #include <SWIG_CGAL/Kernel/Triangle_2.h>
@@ -67,7 +67,7 @@ SWIG_CGAL_package_common()
 
 //typemaps for Polygon_2
 #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
-SWIG_CGAL_input_iterator_typemap_in(Point_range_2,Point_2,Point_2,Point_2::cpp_base,SWIGTYPE_p_Point_2,"(LCGAL/Kernel/Point_2;)J",insert)
+SWIG_CGAL_input_iterator_typemap_in(Point_range_2,Point_2,Point_2,Point_2::cpp_base,$descriptor(Point_2*),"(LCGAL/Kernel/Point_2;)J",insert)
 #ifdef SWIGPYTHON
 SWIG_CGAL_input_iterator_typemap_in_python_extra_function(Polygon_2::Polygon_2)
 #endif
@@ -147,7 +147,7 @@ Vector_3.__truediv__ = Vector_3.__div__
   SWIG_CGAL_Iterator<Polygon_2::cpp_base::Vertex_iterator,Point_2>   vertices()   {return SWIG_CGAL_Iterator<Polygon_2::cpp_base::Vertex_iterator,Point_2>($self->get_data().vertices_begin(),$self->get_data().vertices_end());}
   SWIG_CGAL_Iterator<Polygon_2::cpp_base::Edge_const_iterator,Segment_2>  edges()      {return SWIG_CGAL_Iterator<Polygon_2::cpp_base::Edge_const_iterator,Segment_2>($self->get_data().edges_begin(),$self->get_data().edges_end());}
   SWIG_CGAL_Circulator<Polygon_2::cpp_base::Vertex_circulator,Point_2>        vertices_circulator()  {return SWIG_CGAL_Circulator<Polygon_2::cpp_base::Vertex_circulator,Point_2>($self->get_data().vertices_circulator());}
-  SWIG_CGAL_Circulator<Polygon_2::cpp_base::Edge_const_circulator,Segment_2>  edges_circulator()     {return SWIG_CGAL_Circulator<Polygon_2::cpp_base::Edge_const_circulator,Segment_2>($self->get_data().edges_circulator());}  
+  SWIG_CGAL_Circulator<Polygon_2::cpp_base::Edge_const_circulator,Segment_2>  edges_circulator()     {return SWIG_CGAL_Circulator<Polygon_2::cpp_base::Edge_const_circulator,Segment_2>($self->get_data().edges_circulator());}
 }
 
 //Iterators
