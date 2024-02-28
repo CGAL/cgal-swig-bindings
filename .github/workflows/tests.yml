@@ -10,7 +10,7 @@ on:
     - cron: "0 2 * * 0"
 
 env:
-  LATEST_CGAL_VERSION: '5.6'
+  LATEST_CGAL_VERSION: '5.6.1'
 
 
 jobs:
