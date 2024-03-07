@@ -74,6 +74,17 @@ jobs:
           fetch-depth: 1
 
       - uses: conda-incubator/setup-miniconda@v3
+        name: Setup Conda
+        if: ${{ runner.os != 'macOS' || runner.arch != 'ARM64' }}
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+          environment-file: .integration/conda-env-test.yml
+          activate-environment: test
+
+      - uses: conda-incubator/setup-miniconda@v3
+        name: Setup Conda macos-arm64
+        if: ${{ runner.os == 'macOS' && runner.arch == 'ARM64' }}
         with:
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
