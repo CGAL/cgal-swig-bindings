@@ -4,7 +4,6 @@ channels:
   - defaults
 dependencies:
   - boost-cpp>=1.77.0
-  - mpir
   - zlib
   - eigen
   - mpfr
