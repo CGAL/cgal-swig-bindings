@@ -170,11 +170,15 @@ jobs:
               ;;
             macOS)
               LDFLAGS="-rpath ${CONDA_ENV_DIR}/lib -rpath $HOME/.local/lib"
+              DYLD_LIBRARY_PATH=${CONDA_ENV_DIR}/lib:/Users/runner/.local/lib
               export LDFLAGS
+              export DYLD_LIBRARY_PATH
               CXXFLAGS=-faligned-allocation
               export CXXFLAGS
               CGAL_DIR=$HOME/.local python -m pip wheel -v .
+              delocate-listdeps --all cgal-*.whl
               delocate-wheel -w fixed_wheel cgal-*.whl
+              delocate-listdeps --all fixed_wheel/*.whl
               rm cgal-*.whl
               cp fixed_wheel/*.whl .
               ;;
