@@ -124,6 +124,8 @@ jobs:
       - name: Install LASTools
         shell: bash -l {0}
         run: |
+          MACOSX_DEPLOYMENT_TARGET=10.13
+          export MACOSX_DEPLOYMENT_TARGET
           set -xe
           pushd $HOME
           git clone --depth 1 https://github.com/CGAL/LAStools.git
@@ -169,15 +171,17 @@ jobs:
               cp wheelhouse/*.whl .
               ;;
             macOS)
+              MACOSX_DEPLOYMENT_TARGET=10.13
               LDFLAGS="-rpath ${CONDA_ENV_DIR}/lib -rpath $HOME/.local/lib"
               DYLD_LIBRARY_PATH=${CONDA_ENV_DIR}/lib:/Users/runner/.local/lib
+              export MACOSX_DEPLOYMENT_TARGET
               export LDFLAGS
               export DYLD_LIBRARY_PATH
               CXXFLAGS=-faligned-allocation
               export CXXFLAGS
               CGAL_DIR=$HOME/.local python -m pip wheel -v .
               delocate-listdeps --all cgal-*.whl
-              delocate-wheel -w fixed_wheel cgal-*.whl
+              delocate-wheel -v -w fixed_wheel cgal-*.whl
               delocate-listdeps --all fixed_wheel/*.whl
               rm cgal-*.whl
               cp fixed_wheel/*.whl .
