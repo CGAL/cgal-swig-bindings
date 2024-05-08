@@ -14,7 +14,7 @@
     "os": [
         "ubuntu-latest",
         "macos-latest",
-        "macos-14",
+        "macos-12",
         "windows-latest"
     ],
     "exclude": [
