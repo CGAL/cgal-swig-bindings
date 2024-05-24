@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 %define POLYHEDRON_DOCSTRING
 "SWIG wrapper for the CGAL 3D Polyhedron package provided under the GPL-3.0+ license"
@@ -18,8 +18,8 @@ SWIG_CGAL_package_common()
 %import  "SWIG_CGAL/Kernel/CGAL_Kernel.i"
 %import  "SWIG_CGAL/Common/Iterator.h"
 
-%{ 
-#include <SWIG_CGAL/Polyhedron_3/all_includes.h> 
+%{
+#include <SWIG_CGAL/Polyhedron_3/all_includes.h>
 %}
 #ifdef SWIG_CGAL_Polyhedron_3_MODULE
 #ifdef SWIGJAVA
@@ -43,6 +43,7 @@ SWIG_CGAL_package_common()
 
 //template instantiation
 SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_3_Halfedge_handle,SWIG_Polyhedron_3::CGAL_Halfedge_handle<Polyhedron_3_>)
+SWIG_CGAL_declare_identifier_of_template_class(Polyhedron_3_Edge_handle,SWIG_Polyhedron_3::CGAL_Edge_handle<Polyhedron_3_>)
 #ifndef NO_VERTEX_HANDLE_IMPORTS
 %typemap(javaimports)                               SWIG_Polyhedron_3::CGAL_Vertex_handle<Polyhedron_3_>%{import CGAL.Kernel.Point_3;%}
 #endif

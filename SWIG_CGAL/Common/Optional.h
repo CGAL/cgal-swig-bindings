@@ -1,23 +1,23 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_COMMON_OPTIONAL_H
 #define SWIG_CGAL_COMMON_OPTIONAL_H
 
-#include <boost/optional.hpp>
+#include <optional>
 
 template <class T>
 class Optional
 {
-  boost::optional<T> data;
+  std::optional<T> data;
   bool empty_;
 public:
   typedef Optional<T> Self;
   #ifndef SWIG
-  typedef boost::optional<T> cpp_base;
+  typedef std::optional<T> cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
   Optional(const cpp_base& base):data(base){}
@@ -26,9 +26,9 @@ public:
 
   Optional():data(){}
   bool empty() const {return data?false:true;}
-  const T& value() const {return *data;}  
+  const T& value() const {return *data;}
 //Deep copy
-//  boost::optinal copy constructor is already a deep copy
+//  std::optional copy constructor is already a deep copy
   Self deepcopy() const {return Self(data);}
   void deepcopy(const Self& other){data=other.get_data();}
 };

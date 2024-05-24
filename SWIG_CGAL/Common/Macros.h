@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_MACROS_H
@@ -38,7 +38,7 @@ template <class T>
 struct Converter{
   typedef typename T::cpp_base  result_type;
   static const bool is_reference=true;
-  
+
   static const result_type& convert(const T& t){return t.get_data();}
   static       result_type& convert(      T& t){return t.get_data();}
 };
@@ -81,9 +81,9 @@ template <class P1,class P2>
 struct Converter<std::pair<P1,P2> >{
   typedef std::pair<typename Converter<P1>::result_type,
                     typename Converter<P2>::result_type>           result_type;
-  
+
   static const bool is_reference=false;
-  
+
   static result_type convert(const std::pair<P1,P2>& t)
   {
     return std::make_pair(Converter<P1>::convert(t.first),
@@ -94,11 +94,11 @@ struct Converter<std::pair<P1,P2> >{
 template <class T1,class T2,class T3>
 struct Converter< SWIG_CGAL::Triple<T1,T2,T3> >{
   typedef CGAL::Triple<  typename Converter<T1>::result_type,
-                         typename Converter<T2>::result_type,    
+                         typename Converter<T2>::result_type,
                          typename Converter<T3>::result_type    >   result_type;
-  
+
   static const bool is_reference=false;
-  
+
   static result_type convert(const SWIG_CGAL::Triple<T1,T2,T3>& t){
     return CGAL::make_triple(Converter<T1>::convert(t.first),
                              Converter<T2>::convert(t.second),
@@ -186,7 +186,7 @@ SWIG_CGAL_extract_data(T& t)
   RET NAME(const IN_TYPE& c){\
     return RET(SWIG_CGAL_extract_data(this->get_data()).INAME(internal::Converter<IN_TYPE>::convert(c)));\
   }
-  
+
 #define SWIG_CGAL_FORWARD_CALL_1(RET,NAME,IN_TYPE) \
   SWIG_CGAL_FORWARD_CALL_SCOPE_1(RET,NAME,NAME,IN_TYPE)
 
@@ -200,7 +200,7 @@ SWIG_CGAL_extract_data(T& t)
   void NAME(const IN_TYPE& c,RET& ret){\
     ret = RET(SWIG_CGAL_extract_data(this->get_data()).INAME(internal::Converter<IN_TYPE>::convert(c)));\
   }
-  
+
 #define SWIG_CGAL_FORWARD_CALL_AND_REF_1(RET,NAME,IN_TYPE) \
   SWIG_CGAL_FORWARD_CALL_AND_REF_SCOPE_1(RET,NAME,NAME,IN_TYPE)
 //---------------------------------------------------------------------------
@@ -209,7 +209,7 @@ SWIG_CGAL_extract_data(T& t)
     return RET(SWIG_CGAL_extract_data(this->get_data()).NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
                                internal::Converter<IN_TYPE_2>::convert(c2)));\
   }
-  
+
 #define SWIG_CGAL_FORWARD_CALL_AND_REF_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
   SWIG_CGAL_FORWARD_CALL_2(RET,NAME,IN_TYPE_1,IN_TYPE_2) \
   void NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, RET& ret){\
@@ -223,7 +223,7 @@ SWIG_CGAL_extract_data(T& t)
                                internal::Converter<IN_TYPE_2>::convert(c2),\
                                internal::Converter<IN_TYPE_3>::convert(c3)));\
   }
-  
+
 #define SWIG_CGAL_FORWARD_CALL_AND_REF_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
   SWIG_CGAL_FORWARD_CALL_3(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3) \
   void NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3,RET& ret){\
@@ -239,7 +239,7 @@ SWIG_CGAL_extract_data(T& t)
                                internal::Converter<IN_TYPE_3>::convert(c3),\
                                internal::Converter<IN_TYPE_4>::convert(c4)));\
   }
-  
+
 #define SWIG_CGAL_FORWARD_CALL_AND_REF_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
     SWIG_CGAL_FORWARD_CALL_4(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4) \
   void NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4,RET& ret){\
@@ -248,7 +248,7 @@ SWIG_CGAL_extract_data(T& t)
                                internal::Converter<IN_TYPE_3>::convert(c3),\
                                internal::Converter<IN_TYPE_4>::convert(c4)));\
   }
-//---------------------------------------------------------------------------  
+//---------------------------------------------------------------------------
 #define SWIG_CGAL_FORWARD_CALL_5(RET,NAME,IN_TYPE_1,IN_TYPE_2,IN_TYPE_3,IN_TYPE_4,IN_TYPE_5) \
   RET NAME(const IN_TYPE_1& c1,const IN_TYPE_2& c2, const IN_TYPE_3& c3, const IN_TYPE_4& c4, const IN_TYPE_5& c5){\
     return RET(SWIG_CGAL_extract_data(this->get_data()).NAME(internal::Converter<IN_TYPE_1>::convert(c1),\
