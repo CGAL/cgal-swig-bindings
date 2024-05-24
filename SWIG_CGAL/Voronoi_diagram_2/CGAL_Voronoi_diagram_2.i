@@ -28,6 +28,7 @@ SWIG_CGAL_package_common()
   #include <SWIG_CGAL/Triangulation_2/all_includes.h>
   #include <SWIG_CGAL/Kernel/Iso_rectangle_2.h>
   #include <SWIG_CGAL/Kernel/Polygon_2.h>
+  #include <SWIG_CGAL/Common/Optional.h>
 %}
 
 %pragma(java) jniclassimports=%{
@@ -114,7 +115,7 @@ Optional<Segment_2> crop_voronoi_edge(Voronoi_diagram_2_SWIG_wrapper&, Voronoi_d
   #include <SWIG_CGAL/Common/Optional.h>
   Optional<Segment_2> crop_voronoi_edge(Voronoi_diagram_2_SWIG_wrapper& vd_wrapper, Voronoi_diagram_2_Halfedge_handle_SWIG_wrapper& hh_wrapper, Iso_rectangle_2& rect_wrapper)
   {
-    std::optional< Segment_2::cpp_base > res =
+    optional_class< Segment_2::cpp_base > res =
       internal::crop_bissector(vd_wrapper.get_data(), hh_wrapper.get_data(), rect_wrapper.get_data());
     if ( !res ) return Optional<Segment_2>();
     return Optional<Segment_2>( Segment_2(*res) );

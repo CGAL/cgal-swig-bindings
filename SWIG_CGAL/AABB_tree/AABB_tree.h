@@ -170,7 +170,6 @@ public:
 //Intersections
   //any_intersection
   Optional_object_and_primitive_id any_intersection(const Segment_3 & query){
-    //std::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> >
     auto res=data.any_intersection(query.get_data());
     if (res)
     {

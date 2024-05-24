@@ -11,7 +11,8 @@
 #include <CGAL/Lazy_exact_nt.h>
 #include <CGAL/Gmpq.h>
 #include <CGAL/Cartesian_converter.h>
-#include <boost/optional.hpp>
+#include <SWIG_CGAL/Common/Optional.h>
+
 
 namespace internal{
 
@@ -260,7 +261,7 @@ crop_voronoi_facet_polygon(const Voronoi_diagram& vd,
 
 /*! crop a voronoi bissector to a given bbox as a segment */
 template <class Voronoi_diagram, class Kernel>
-std::optional< typename Kernel::Segment_2 >
+optional_class< typename Kernel::Segment_2 >
 crop_bissector( const Voronoi_diagram& vd,
                 typename Voronoi_diagram::Halfedge_handle hedge,
                 const CGAL::Iso_rectangle_2<Kernel>& bbox )
@@ -296,7 +297,7 @@ crop_bissector( const Voronoi_diagram& vd,
     }
   }
 
-  if ( crop_obj.empty() ) return std::optional<typename Kernel::Segment_2>();
+  if ( crop_obj.empty() ) return optional_class<typename Kernel::Segment_2>();
 
   if (const EPoint_2 * point = CGAL::object_cast<EPoint_2>(&crop_obj))
       return Segment_2(to_output(*point), to_output(*point));

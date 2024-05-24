@@ -315,7 +315,11 @@ private:
   bool convert_map (const std::string& name)
   {
     auto opt_imap = data_sptr->template property_map<Input>(name);
-    if (!opt_imap.has_value())
+#if CGAL_VERSION_NR >= 1060000000
+    if (!opt_imap)
+#else
+    if (!opt_imap.second)
+#endif
       return false;
 
     bool okay;
@@ -325,8 +329,13 @@ private:
       return false;
 
     for (typename Point_set_base::Index idx : *data_sptr)
-      omap[idx] = static_cast<Output>(opt_imap.value()[idx]);
-    data_sptr->remove_property_map(opt_imap.value());
+#if CGAL_VERSION_NR >= 1060000000
+      omap[idx] = static_cast<Output>((*opt_imap)[idx]);
+    data_sptr->remove_property_map(*opt_imap);
+#else
+      omap[idx] = static_cast<Output>(opt_imap.first[idx]);
+    data_sptr->remove_property_map(opt_imap.first);
+#endif
     return true;
   }
 

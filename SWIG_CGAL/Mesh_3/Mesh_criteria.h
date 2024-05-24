@@ -9,6 +9,7 @@
 
 #include <CGAL/Mesh_criteria_3.h>
 #include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Common/Optional.h>
 
 enum Mesh_facet_topology {
   FACET_VERTICES_ON_SURFACE = 1,
@@ -101,7 +102,7 @@ class Java_cell_criteria{
 public:
   typedef typename Triangulation::Cell_handle Cell_handle;
   typedef std::pair<int,double> Cell_quality;
-  typedef std::optional<Cell_quality> Cell_badness;
+  typedef optional_class<Cell_quality> Cell_badness;
   typedef Cell_badness Is_cell_bad;
 
   Java_cell_criteria(Caller& call):caller(call){}
@@ -117,7 +118,7 @@ public:
   typedef typename Triangulation::Facet Facet;
   typedef typename Triangulation::Cell_handle Cell_handle;
   typedef std::pair<int,double> Facet_quality;
-  typedef std::optional<Facet_quality> Facet_badness;
+  typedef optional_class<Facet_quality> Facet_badness;
   typedef Facet_badness Is_facet_bad;
 
   Java_facet_criteria(Caller& call):caller(call){}

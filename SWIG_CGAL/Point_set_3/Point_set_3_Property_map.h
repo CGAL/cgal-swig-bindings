@@ -52,12 +52,14 @@ public:
 #ifndef SWIG
   typedef typename Point_set_base::template Property_map<typename CppType<Type>::type> cpp_base;
   CGAL_Property_map (cpp_base map, bool valid) : data(map), valid(valid) { }
+#if CGAL_VERSION_NR >= 1060000000
   CGAL_Property_map (const std::optional<cpp_base>& opt_map)
-    : valid(opt_map.has_value())
+    : valid(opt_map)
   {
     if (valid)
-      data=opt_map.value();
+      data=*opt_map;
   }
+#endif
   CGAL_Property_map (std::pair<cpp_base, bool> map_and_valid)
     : data(map_and_valid.first), valid(map_and_valid.second) { }
   const cpp_base& get_data() const {return data;}

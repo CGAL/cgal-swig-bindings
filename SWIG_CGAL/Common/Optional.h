@@ -7,17 +7,25 @@
 #ifndef SWIG_CGAL_COMMON_OPTIONAL_H
 #define SWIG_CGAL_COMMON_OPTIONAL_H
 
+#if CGAL_VERSION_NR >= 1060000000
 #include <optional>
+template <class T>
+using optional_class = std::optional<T>;
+#else
+#include <boost/optional.hpp>
+template <class T>
+using optional_class = boost::optional<T>;
+#endif
 
 template <class T>
 class Optional
 {
-  std::optional<T> data;
+  optional_class<T> data;
   bool empty_;
 public:
   typedef Optional<T> Self;
   #ifndef SWIG
-  typedef std::optional<T> cpp_base;
+  typedef optional_class<T> cpp_base;
   const cpp_base& get_data() const {return data;}
         cpp_base& get_data()       {return data;}
   Optional(const cpp_base& base):data(base){}
