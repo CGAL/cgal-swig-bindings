@@ -21,12 +21,12 @@ using AABB_traits_class = CGAL::AABB_traits<T1,T2>;
 #include <CGAL/AABB_halfedge_graph_segment_primitive.h>
 #include <CGAL/AABB_integer_primitive.h>
 
-template <class Polyhedron, class Base>
-struct Primitive_wrapper : Base
+template <class Polyhedron_type, class Wrapper_primitive_type>
+struct Primitive_wrapper : public Wrapper_primitive_type
 {
   template <class T>
   Primitive_wrapper(T t)
-    : Base(t, Polyhedron())
+    : Wrapper_primitive_type(t, Polyhedron_type())
   {}
 };
 
