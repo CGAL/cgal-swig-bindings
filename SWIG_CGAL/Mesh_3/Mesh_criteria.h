@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_MESH_3_MESH_CRITERIA_H
@@ -9,6 +9,7 @@
 
 #include <CGAL/Mesh_criteria_3.h>
 #include <SWIG_CGAL/Common/Macros.h>
+#include <SWIG_CGAL/Common/Optional.h>
 
 enum Mesh_facet_topology {
   FACET_VERTICES_ON_SURFACE = 1,
@@ -21,13 +22,13 @@ enum Mesh_facet_topology {
 template <class Base, class Field1, class Field2, class Field3, class Field4>
 class Mesh_criteria_with_fields_wrapper
 {
-  
+
   #ifndef SWIG
   template <class Field,class Dummy=int>
   struct Default{ static Field get(){return Field();} };
   template<class Dummy> struct Default<double,Dummy>{ static double get(){return 0;} };
-  #endif  
- 
+  #endif
+
   Field1 m_edge_size;
   double m_facet_angle;
   Field2 m_facet_size;
@@ -50,15 +51,15 @@ public:
     );
   }
 #endif
-  
+
   Mesh_criteria_with_fields_wrapper()
   : m_edge_size(Default<Field1>::get()),m_facet_angle(0),
     m_facet_size(Default<Field2>::get()),m_facet_distance(Default<Field3>::get()),
     m_facet_topology(CGAL::FACET_VERTICES_ON_SURFACE),m_cell_radius_edge_ratio(0),m_cell_size(Default<Field4>::get())
   {}
-    
-  typedef Mesh_criteria_with_fields_wrapper<Base,Field1,Field2,Field3,Field4> Self;  
-    
+
+  typedef Mesh_criteria_with_fields_wrapper<Base,Field1,Field2,Field3,Field4> Self;
+
   //set criteria
   Self& edge_size(const Field1& v){ m_edge_size=v; return *this; }
   Self& facet_angle(double v){m_facet_angle=v; return *this;}
@@ -67,8 +68,8 @@ public:
   Self& facet_topology(Mesh_facet_topology v){m_facet_topology=CGAL::enum_cast<CGAL::Mesh_facet_topology>(v); return *this;}
   Self& cell_radius_edge_ratio(double v){m_cell_radius_edge_ratio=v; return *this;}
   Self& cell_size(const Field4& v){m_cell_size=v; return *this;}
-    
-  
+
+
   //deep copy
   Self deepcopy(){return *this;}
   void deepcopy(const Self& other){*this=other;}
@@ -86,7 +87,7 @@ namespace internal{
 }
 
 //Mesh_criteria_3<Tr> mc ( Facet_criteria facet_criteria, Cell_criteria cell_criteria);
-//Mesh_criteria_3<Tr> mc ( Edge_criteria edge_criteria, Facet_criteria facet_criteria, Cell_criteria cell_criteria); 
+//Mesh_criteria_3<Tr> mc ( Edge_criteria edge_criteria, Facet_criteria facet_criteria, Cell_criteria cell_criteria);
 
 
 #ifdef SWIGJAVA
@@ -101,9 +102,9 @@ class Java_cell_criteria{
 public:
   typedef typename Triangulation::Cell_handle Cell_handle;
   typedef std::pair<int,double> Cell_quality;
-  typedef boost::optional<Cell_quality> Cell_badness;
+  typedef optional_class<Cell_quality> Cell_badness;
   typedef Cell_badness Is_cell_bad;
-  
+
   Java_cell_criteria(Caller& call):caller(call){}
   template <class RT>
   Cell_badness operator()(const RT&, Cell_handle c) const { return caller.run(c); }
@@ -117,7 +118,7 @@ public:
   typedef typename Triangulation::Facet Facet;
   typedef typename Triangulation::Cell_handle Cell_handle;
   typedef std::pair<int,double> Facet_quality;
-  typedef boost::optional<Facet_quality> Facet_badness;
+  typedef optional_class<Facet_quality> Facet_badness;
   typedef Facet_badness Is_facet_bad;
 
   Java_facet_criteria(Caller& call):caller(call){}
@@ -125,6 +126,8 @@ public:
   template <class RT>
   Facet_badness operator()(const RT&, const Facet& f) const {return caller.run(f);}
   Facet_badness operator()(Cell_handle c,int i) const { return (*this)(f(c,i));}
+  double squared_min_radius_bound() const { return 0; }
+
 };
 
 //for user defined criteria

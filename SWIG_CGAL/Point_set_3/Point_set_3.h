@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2020 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_POINT_SET_3_POINT_SET_3_H
@@ -69,18 +69,18 @@ public:
   {
     return data_sptr->join (other.get_data());
   }
-  
+
   SWIG_CGAL_FORWARD_CALL_0(void, clear)
   SWIG_CGAL_FORWARD_CALL_0(void, clear_properties)
-  
+
   SWIG_CGAL_FORWARD_CALL_1(void, reserve, int)
   SWIG_CGAL_FORWARD_CALL_1(void, resize, int)
-  
+
   int insert ()
   {
     return (int)(*(data_sptr->insert()));
   }
-  
+
   int insert (const Point_3& point)
   {
     return (int)(*(data_sptr->insert(point.get_data())));
@@ -156,7 +156,7 @@ public:
   Vector_map normal_map() { return Vector_map(data_sptr->normal_map(), data_sptr->has_normal_map()); }
   SWIG_CGAL_FORWARD_CALL_0(bool, remove_normal_map)
   Point_map point_map() { return Point_map(data_sptr->point_map(), true); }
-  
+
   void copy_properties (const Self& other)
   {
     data_sptr->copy_properties (other.get_data());
@@ -167,7 +167,7 @@ public:
     return boost::shared_ptr<std::vector<std::string> >
       (new std::vector<std::string>(data_sptr->properties()));
   }
-  
+
   SWIG_CGAL_FORWARD_CALL_0(std::string, info)
 
   Int_iterator range (Int_map map)
@@ -181,7 +181,7 @@ public:
     return Float_iterator (get_data().range(map.get_data()).begin(),
                            get_data().range(map.get_data()).end());
   }
-  
+
   Point_iterator points() const { return Point_iterator (get_data().points().begin(), get_data().points().end()); }
   Vector_iterator normals() const { return Vector_iterator (get_data().normals().begin(), get_data().normals().end()); }
 
@@ -199,7 +199,7 @@ public:
                    [](unsigned char c){ return std::tolower(c); });
 
     std::ofstream ofile (file, std::ios_base::binary);
-    
+
     if (extension == "xyz")
     {
       ofile.precision(18);
@@ -230,7 +230,7 @@ public:
 #else
     std::cerr << "Error: unknown extension " << extension << ", possible values are xyz, off or ply" << std::endl;
 #endif
-      
+
     return false;
   }
 
@@ -314,20 +314,28 @@ private:
   template <typename Input, typename Output>
   bool convert_map (const std::string& name)
   {
-    typename Point_set_base::template Property_map<Input> imap;
-    bool okay;
-    std::tie (imap, okay) = data_sptr->template property_map<Input>(name);
-    if (!okay)
+    auto opt_imap = data_sptr->template property_map<Input>(name);
+#if CGAL_VERSION_NR >= 1060000000
+    if (!opt_imap)
+#else
+    if (!opt_imap.second)
+#endif
       return false;
 
+    bool okay;
     typename Point_set_base::template Property_map<Output> omap;
     std::tie (omap, okay) = data_sptr->template add_property_map<Output>(name);
     if (!okay)
       return false;
-    
+
     for (typename Point_set_base::Index idx : *data_sptr)
-      omap[idx] = static_cast<Output>(imap[idx]);
-    data_sptr->remove_property_map(imap);
+#if CGAL_VERSION_NR >= 1060000000
+      omap[idx] = static_cast<Output>((*opt_imap)[idx]);
+    data_sptr->remove_property_map(*opt_imap);
+#else
+      omap[idx] = static_cast<Output>(opt_imap.first[idx]);
+    data_sptr->remove_property_map(opt_imap.first);
+#endif
     return true;
   }
 

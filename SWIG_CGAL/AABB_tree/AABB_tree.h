@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------
 // Copyright (c) 2011 GeometryFactory (FRANCE)
 // SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-Commercial
-// ------------------------------------------------------------------------------ 
+// ------------------------------------------------------------------------------
 
 
 #ifndef SWIG_CGAL_AABB_TREE_AABB_TREE_H
@@ -120,7 +120,7 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(int,size)
   SWIG_CGAL_FORWARD_CALL_0(bool,empty)
 //Intersection Tests
-  //do_intersect  
+  //do_intersect
   SWIG_CGAL_FORWARD_CALL_1(bool,do_intersect,Segment_3)
   SWIG_CGAL_FORWARD_CALL_1(bool,do_intersect,Triangle_3)
   SWIG_CGAL_FORWARD_CALL_1(bool,do_intersect,Plane_3)
@@ -170,7 +170,6 @@ public:
 //Intersections
   //any_intersection
   Optional_object_and_primitive_id any_intersection(const Segment_3 & query){
-    //boost::optional<std::pair<CGAL::Object,typename Tree::Primitive::Id> >
     auto res=data.any_intersection(query.get_data());
     if (res)
     {
@@ -197,7 +196,7 @@ public:
     return Optional_object_and_primitive_id();
   }
   //all_intersections
-  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE  
+  #if !SWIG_CGAL_NON_SUPPORTED_TARGET_LANGUAGE
   void all_intersections (const Segment_3  & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   void all_intersections (const Triangle_3 & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
   void all_intersections (const Plane_3    & query, typename Primitive_iterator_helper<Primitive_id>::output2 out) {data.all_intersections(query.get_data(),out);}
@@ -206,9 +205,9 @@ public:
   void all_intersections (const Segment_3  & query, Generic_output_iterator< std::pair<Object,Primitive_id> > out) {data.all_intersections(query.get_data(),out);}
   void all_intersections (const Triangle_3 & query, Generic_output_iterator< std::pair<Object,Primitive_id> > out) {data.all_intersections(query.get_data(),out);}
   void all_intersections (const Plane_3    & query, Generic_output_iterator< std::pair<Object,Primitive_id> > out) {data.all_intersections(query.get_data(),out);}
-  void all_intersections (const Ray_3      & query, Generic_output_iterator< std::pair<Object,Primitive_id> > out) {data.all_intersections(query.get_data(),out);} 
+  void all_intersections (const Ray_3      & query, Generic_output_iterator< std::pair<Object,Primitive_id> > out) {data.all_intersections(query.get_data(),out);}
   #endif
-  
+
 //Distance Queries
   SWIG_CGAL_FORWARD_CALL_1(double,squared_distance,Point_3)
   SWIG_CGAL_FORWARD_CALL_1(Point_3,closest_point,Point_3)
@@ -221,8 +220,8 @@ public:
   SWIG_CGAL_FORWARD_CALL_0(bool,accelerate_distance_queries)
   SWIG_CGAL_FORWARD_CALL_2(double,squared_distance,Point_3,Point_3)
   SWIG_CGAL_FORWARD_CALL_AND_REF_2(Point_3,closest_point,Point_3,Point_3)
-  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Point_and_primitive_id,closest_point_and_primitive,Point_3,Point_and_primitive_id)  
-  void accelerate_distance_queries (Point_range range) {data.accelerate_distance_queries(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));}  
+  SWIG_CGAL_FORWARD_CALL_AND_REF_2(Point_and_primitive_id,closest_point_and_primitive,Point_3,Point_and_primitive_id)
+  void accelerate_distance_queries (Point_range range) {data.accelerate_distance_queries(SWIG_CGAL::get_begin(range),SWIG_CGAL::get_end(range));}
 };
 
 

@@ -11,7 +11,8 @@
 #include <CGAL/Lazy_exact_nt.h>
 #include <CGAL/Gmpq.h>
 #include <CGAL/Cartesian_converter.h>
-#include <boost/optional.hpp>
+#include <SWIG_CGAL/Common/Optional.h>
+
 
 namespace internal{
 
@@ -39,7 +40,7 @@ cast_into_segment(const Primitive& p, const typename CGAL::Iso_rectangle_2<Kerne
 
   typedef CGAL::Simple_cartesian< CGAL::Lazy_exact_nt<CGAL::Gmpq> > Exact_kernel;
   CGAL::Cartesian_converter<Kernel,Exact_kernel> to_exact;
-  
+
   typename Exact_kernel::Segment_2 s;
   CGAL::Object object = CGAL::intersection( to_exact(p), to_exact(bbox) );
   if ( CGAL::assign(s, object) )
@@ -57,7 +58,7 @@ cast_into_segment(const Primitive& p, const typename CGAL::Iso_rectangle_2<Kerne
       approx( s.target().y() ).do_overlap( bbox.ymax() )? bbox.ymax() :
      (approx( s.target().y() ).do_overlap( bbox.ymin() )? bbox.ymin() : to_double(s.target().y()) )
     );
-    
+
     *out++=typename Kernel::Segment_2(src,tgt);
     return true;
   }
@@ -260,7 +261,7 @@ crop_voronoi_facet_polygon(const Voronoi_diagram& vd,
 
 /*! crop a voronoi bissector to a given bbox as a segment */
 template <class Voronoi_diagram, class Kernel>
-boost::optional< typename Kernel::Segment_2 >
+optional_class< typename Kernel::Segment_2 >
 crop_bissector( const Voronoi_diagram& vd,
                 typename Voronoi_diagram::Halfedge_handle hedge,
                 const CGAL::Iso_rectangle_2<Kernel>& bbox )
@@ -296,7 +297,7 @@ crop_bissector( const Voronoi_diagram& vd,
     }
   }
 
-  if ( crop_obj.empty() ) return boost::optional<typename Kernel::Segment_2>();
+  if ( crop_obj.empty() ) return optional_class<typename Kernel::Segment_2>();
 
   if (const EPoint_2 * point = CGAL::object_cast<EPoint_2>(&crop_obj))
       return Segment_2(to_output(*point), to_output(*point));
