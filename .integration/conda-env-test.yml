@@ -1,5 +1,6 @@
 name: test
 channels:
+  - python_rc
   - conda-forge
   - defaults
 dependencies:
