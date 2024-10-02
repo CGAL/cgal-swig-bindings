@@ -9,7 +9,7 @@ CGAL bindings using SWIG. The available bindings are for:
   - Python,
   - and Ruby
 
-but only Python bindings are really tested and suppored.
+but only Python bindings are really tested and supported.
 
 Python packages are available on PyPI.
 
