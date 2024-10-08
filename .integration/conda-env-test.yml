@@ -14,5 +14,7 @@ dependencies:
   - swig
   - tbb
   - tbb-devel
+  - readme_renderer # for twine
+  - pip
   - wheel
   - bzip2
