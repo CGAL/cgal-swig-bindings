@@ -143,6 +143,10 @@ jobs:
           [ -f $HOME/.local/lib/liblas.dylib ] && install_name_tool -id '@rpath/liblas.dylib' $HOME/.local/lib/liblas.dylib
           popd
 
+      - name: Upgrade pip
+        run: |
+          python3 -m pip install --upgrade pip
+
       - name: Build local wheel
         shell: bash -l {0}
         run: |

@@ -1,5 +1,7 @@
 name: test
 channels:
+  - conda-forge/label/python_debug
+  - conda-forge/label/python_rc
   - conda-forge
   - defaults
 dependencies:
@@ -14,5 +16,7 @@ dependencies:
   - swig
   - tbb
   - tbb-devel
+  - readme_renderer # for twine
+  - pip
   - wheel
   - bzip2
