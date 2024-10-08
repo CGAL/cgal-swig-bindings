@@ -1,5 +1,7 @@
 name: test
 channels:
+  - conda-forge/label/python_debug
+  - conda-forge/label/python_rc
   - conda-forge
   - defaults
 dependencies:
