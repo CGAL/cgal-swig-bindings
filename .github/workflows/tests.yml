@@ -44,7 +44,7 @@ jobs:
 
       - name: Upgrade pip
         run: |
-          python3 -m pip install --upgrade pip
+          python -m pip install --upgrade pip
 
       - name: Create Source Distribution
         run: |
@@ -54,7 +54,7 @@ jobs:
           CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d%H%M')
           CGAL_PYTHON_MODULE_VERSION=$CGAL_VERSION-$CGAL_SWIG_BINDINGS_VERSION
           export CGAL_PYTHON_MODULE_VERSION
-          python3 setup.py sdist
+          python setup.py sdist
 
       - uses: actions/upload-artifact@v4
         with:
@@ -145,7 +145,7 @@ jobs:
 
       - name: Upgrade pip
         run: |
-          python3 -m pip install --upgrade pip
+          python -m pip install --upgrade pip
 
       - name: Build local wheel
         shell: bash -l {0}
@@ -275,7 +275,7 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
         run: |
           pip install  twine
-          python3 -m twine upload --verbose --repository testpypi dist/*
+          python -m twine upload --verbose --repository testpypi dist/*
 
       - name: upload to PyPI
         if: github.event_name == 'push' && github.ref_name == 'main'
@@ -284,4 +284,4 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           pip install  twine
-          python3 -m twine upload --verbose dist/*
+          python -m twine upload --verbose dist/*
