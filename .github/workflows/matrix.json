@@ -1,7 +1,7 @@
 {
     "cgal_branch": [
-        "v6.0",
-        "5.6.x-branch",
+        "v6.0.1",
+        "6.0.x-branch",
         "master"
     ],
     "python-version": [
