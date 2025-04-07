@@ -1,5 +1,5 @@
 [![GitHub branch checks state](https://github.com/CGAL/cgal-swig-bindings/actions/workflows/tests.yml/badge.svg)](https://github.com/CGAL/cgal-swig-bindings/actions)
-![PyPI - Version](https://img.shields.io/pypi/v/cgal?style=flat-square&link=https%3A%2F%2Fpypi.org%2Fproject%2Fcgal%2F)
+[![PyPI - Version](https://img.shields.io/pypi/v/cgal?style=flat-square&link=https%3A%2F%2Fpypi.org%2Fproject%2Fcgal%2F)](https://pypi.org/project/cgal/)
 
 
 # CGAL SWIG bindings

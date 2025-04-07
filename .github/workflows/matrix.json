@@ -10,7 +10,7 @@
     "os": [
         "ubuntu-latest",
         "macos-latest",
-        "macos-12",
+        "macos-13",
         "windows-latest"
     ],
     "exclude": [
