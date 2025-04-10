@@ -17,11 +17,16 @@
 #include <SWIG_CGAL/Triangulation_2/triangulation_handles.h>
 template <class Triangulation,class Point>
 struct Iterator_helper<std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle<Triangulation,Point>,SWIG_Triangulation_2::CGAL_Vertex_handle<Triangulation,Point> > >{
-  typedef SWIG_Triangulation_2::CGAL_Vertex_handle<Triangulation,Point> Vertex_handle;
+  using Vertex_handle = SWIG_Triangulation_2::CGAL_Vertex_handle<Triangulation,Point>;
+  using Tr_vh = typename Triangulation::Vertex_handle;
 
   template <class T1, class T2>
   static std::pair<Vertex_handle,Vertex_handle> convert(const std::pair<T1,T2>& i){
     return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(i.first.first),Vertex_handle(i.first.second));
+  }
+
+  static auto convert(const std::pair<Tr_vh ,Tr_vh>& pair){
+    return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(pair.first),Vertex_handle(pair.second));
   }
 
   static std::pair<Vertex_handle,Vertex_handle> convert(const typename Triangulation::Constraint_id& i){
