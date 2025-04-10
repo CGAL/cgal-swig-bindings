@@ -14,9 +14,11 @@ _deps
 cgal.egg-info/
 *.whl
 examples/java/error.txt
+dist/
 
 # CMake - commonly used build place
 build*/
 
 # Visual Studio Code
 .vscode/
+
