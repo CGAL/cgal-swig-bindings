@@ -1,61 +1,23 @@
-import os
-import pathlib
 import sys
-import shutil
+import os
 import subprocess
-from setuptools import setup, Extension
-from setuptools.command.build_ext import build_ext as build_ext_orig
-from wheel.bdist_wheel import bdist_wheel
-
-# Define dependencies
-DEPENDENCIES = [
-    'gmp', 'mpfr', 'boost_serialization', 'boost_iostreams', 'boost_zlib',
-    'boost_bzip2', 'tbb', 'tbbmalloc', 'zlib', 'boost_regex'
-]
+from skbuild_conan import setup
 
 # Define CGAL modules
 CGAL_MODULES = [
-    'Box_intersection_d', 'Convex_hull_2', 'Convex_hull_3', 'Classification',
-    'HalfedgeDS', 'Interpolation', 'Mesh_2', 'Point_set_3',
-    'Point_set_processing_3', 'Polygon_mesh_processing', 'Polyhedron_3',
-    'Polyline_simplification_2', 'Shape_detection', 'Spatial_searching',
-    'Voronoi_diagram_2', 'AABB_tree', 'Advancing_front_surface_reconstruction',
-    'Alpha_shape_2', 'Kernel', 'Mesh_3', 'Surface_mesher', 'Triangulation_2',
-    'Triangulation_3', 'Alpha_wrap_3'
+    'AABB_tree', 'Advancing_front_surface_reconstruction', 'Alpha_shape_2',
+    'Alpha_wrap_3', 'Box_intersection_d', 'Classification', 'Convex_hull_2',
+    'Convex_hull_3', 'HalfedgeDS', 'Interpolation', 'Kernel', 'Mesh_2',
+    'Mesh_3', 'Point_set_3', 'Point_set_processing_3',
+    'Polygon_mesh_processing', 'Polyhedron_3', 'Polyline_simplification_2',
+    'Shape_detection', 'Spatial_searching', 'Surface_mesher',
+    'Triangulation_2', 'Triangulation_3', 'Voronoi_diagram_2'
 ]
-
-# Create extensions
-extensions = [
-    Extension(f'CGAL._CGAL_{mod_name}', sources=[]) for mod_name in CGAL_MODULES
-]
-
-class BuildExt(build_ext_orig):
-    def run(self):
-        cwd = pathlib.Path(__file__).parent.absolute()  # Ensure the correct path to CMakeLists.txt
-        build_temp = pathlib.Path("build")
-        build_temp.mkdir(parents=True, exist_ok=True)
-
-        # Copy CMakeLists.txt to the build directory if needed
-        cmake_file = cwd / "CMakeLists.txt"
-        if cmake_file.exists():
-            shutil.copy(cmake_file, build_temp / "CMakeLists.txt")
-
-        cmake_args = [
-            '-DBUILD_JAVA=OFF',
-            '-DBUILD_PYTHON=ON',
-            '-DCMAKE_BUILD_TYPE=Release',
-            f'-DPython_EXECUTABLE={sys.executable}'
-        ]
-
-        os.chdir(str(build_temp))
-        self.spawn(['cmake', str(cwd)] + cmake_args)
-        self.spawn(['cmake', '--build', '.', '--', f'-j{os.cpu_count()}'])
-        os.chdir(str(cwd))
 
 def get_cgal_version():
     try:
         result = subprocess.run(
-            ['cmake', '-DGET_CGAL_VERSION=ON''-S', '.', '-B', 'build-temp'],
+            ['cmake', '-DGET_CGAL_VERSION=ON', '-S', '.', '-B', 'build-temp'],
             capture_output=True, text=True, check=True
         )
         for line in result.stdout.splitlines():
@@ -67,9 +29,14 @@ def get_cgal_version():
         print("CMake not found. Please ensure it is installed and available in the PATH.")
     return '0.0.0'  # Default to a valid version string if extraction fails
 
+
+os.environ['CMAKE_POLICY_VERSION_MINIMUM'] = '3.10'
+os.environ['CFLAGS'] = '-std=gnu17'
+os.environ['CXXFLAGS'] = '-std=gnu++17'
+
 setup(
     name='cgal',
-    version=get_cgal_version(),  # Dynamically fetch CGAL version
+    version=os.environ.get('CGAL_PYTHON_MODULE_VERSION') or get_cgal_version(),
     author="CGAL Project",
     description="CGAL bindings for Python.",
     long_description="""
@@ -80,12 +47,19 @@ setup(
     """,
     long_description_content_type="text/markdown",
     url="https://github.com/CGAL/cgal-swig-bindings",
-    packages=['CGAL'],
-    package_dir={'CGAL': '.'},
-    package_data={'CGAL': ['*.dll']},
-    cmdclass={
-        'build_ext': BuildExt,
-        'bdist_wheel': bdist_wheel,
-    },
-    ext_modules=extensions,
+    conan_requirements=["gmp/[>=6.3]", "mpfr/[>=4.2]",
+                        "cmake/[>=3.12 <4]", "cgal/[>=6.0 <7.0]"],
+    packages=['CGAL'] + [f'CGAL.CGAL_{m}' for m in CGAL_MODULES],
+    package_dir=(
+        {'CGAL': 'SWIG_CGAL/files'} |
+        {f'CGAL.CGAL_{m}': f'SWIG_CGAL/{m}' for m in CGAL_MODULES}
+    ),
+    include_package_data=True,
+    python_requires='>=3.9',
+    cmake_args=[
+        '-DBUILD_JAVA=OFF',
+        '-DBUILD_PYTHON=ON',
+        '-DCMAKE_BUILD_TYPE=Release',
+        f'-DPython_EXECUTABLE={sys.executable}'
+    ],
 )

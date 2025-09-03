@@ -15,10 +15,12 @@ cgal.egg-info/
 *.whl
 examples/java/error.txt
 dist/
-
-# CMake - commonly used build place
 build*/
+_skbuild/
+__pycache__/
 
 # Visual Studio Code
-.vscode/
+/.vscode/
 
+# Conan
+/.conan/
