@@ -112,7 +112,7 @@ if (BUILD_PYTHON)
         set (PYTHON_MODULE_PATH ${_REL_PYTHON_MODULE_PATH})
       endif()
     else()
-      execute_process (COMMAND ${Python_EXECUTABLE} -c "import sysconfig; print(sysconfig.get_path('platlib').removeprefix('/usr/local').removeprefix(sysconfig.get_config_var('base')).removeprefix(sysconfig.get_config_var('platbase')).removeprefix(sysconfig.get_config_var('installed_base')).removeprefix('/').removeprefix('\\'))"
+      execute_process (COMMAND ${Python_EXECUTABLE} -c "import sysconfig; print(sysconfig.get_path('platlib').removeprefix('/usr/local').removeprefix(sysconfig.get_config_var('base')).removeprefix(sysconfig.get_config_var('platbase')).removeprefix(sysconfig.get_config_var('installed_base')).removeprefix('/').removeprefix('\\\\'))"
       OUTPUT_VARIABLE PYTHON_MODULE_PATH
       RESULT_VARIABLE _exit_code
       OUTPUT_STRIP_TRAILING_WHITESPACE )
