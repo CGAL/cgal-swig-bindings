@@ -22,7 +22,11 @@ struct Iterator_helper<std::pair<SWIG_Triangulation_2::CGAL_Vertex_handle<Triang
 
   template <class T1, class T2>
   static std::pair<Vertex_handle,Vertex_handle> convert(const std::pair<T1,T2>& i){
+#if CGAL_VERSION_NR >= 1060100910
+    return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(i.first),Vertex_handle(i.second));
+#else
     return std::pair<Vertex_handle,Vertex_handle>(Vertex_handle(i.first.first),Vertex_handle(i.first.second));
+#endif
   }
 
   static auto convert(const std::pair<Tr_vh ,Tr_vh>& pair){
