@@ -48,7 +48,7 @@ jobs:
 
       - name: Create Source Distribution
         run: |
-          pip install setuptools wheel twine
+          pip install setuptools wheel twine skbuild-conan
           mkdir -p build/build-python/CGAL
           CGAL_VERSION=$LATEST_CGAL_VERSION
           CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d%H%M')
