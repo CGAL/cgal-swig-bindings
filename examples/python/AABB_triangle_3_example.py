@@ -27,3 +27,15 @@ point_query = Point_3(2.0, 2.0, 2.0)
 closest_point = tree.closest_point(point_query)
 sqd = tree.squared_distance(point_query)
 print("squared distance: ", sqd)
+
+# compute first intersection and first intersected primitive
+first_intersected_primitive = tree.first_intersected_primitive(ray_query)
+print("first intersected primitive index: " + str(first_intersected_primitive.value()))
+first_intersection = tree.first_intersection(ray_query)
+intersected_object = first_intersection.value()[0]
+if intersected_object.is_Point_3():
+    print("intersected point: " + str(intersected_object.get_Point_3()))
+elif intersected_object.is_Segment_3():
+    print("intersected segment: " + str(intersected_object.get_Segment_3()))
+else:
+    print("Unknown intersected point type")

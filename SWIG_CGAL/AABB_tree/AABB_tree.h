@@ -167,6 +167,14 @@ public:
       return Optional_primitive_id(Primitive_id(*res));
     return Optional_primitive_id();
   }
+  //first_intersected_primitive
+  Optional_primitive_id first_intersected_primitive(const Ray_3     & query) {
+    boost::optional<typename Tree::Primitive::Id> res=data.first_intersected_primitive(query.get_data());
+    if (res)
+      return Optional_primitive_id(Primitive_id(*res));
+    return Optional_primitive_id();
+  }
+
 //Intersections
   //any_intersection
   Optional_object_and_primitive_id any_intersection(const Segment_3 & query){
@@ -191,6 +199,13 @@ public:
   }
   Optional_object_and_primitive_id any_intersection(const Ray_3     & query){
      auto res=data.any_intersection(query.get_data());
+    if (res)
+      return Object_and_primitive_id(std::make_pair(Object(res->first), res->second));
+    return Optional_object_and_primitive_id();
+  }
+  //first_intersection
+  Optional_object_and_primitive_id first_intersection(const Ray_3     & query){
+     boost::optional<typename Tree::template Intersection_and_primitive_id<Ray_3::cpp_base>::Type> res=data.first_intersection(query.get_data());
     if (res)
       return Object_and_primitive_id(std::make_pair(Object(res->first), res->second));
     return Optional_object_and_primitive_id();
