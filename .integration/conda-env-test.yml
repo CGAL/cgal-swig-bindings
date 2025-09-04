@@ -14,5 +14,6 @@ dependencies:
   - swig
   - tbb
   - tbb-devel
+  - pip
   - wheel
   - bzip2

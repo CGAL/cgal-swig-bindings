@@ -1,0 +1,3 @@
+include CMakeLists.txt
+recursive-include SWIG_CGAL *
+recursive-include cmake *
