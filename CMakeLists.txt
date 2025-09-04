@@ -11,6 +11,21 @@ option( BUILD_JAVA "Build Java bindings" ON )
 #set it to OFF by default while it is not fully tested and thus officially supported
 option( BUILD_RUBY "Build Ruby bindings" OFF )
 
+# print version of CGAL used
+if(BRANCH_BUILD)
+  set(PATH2VERSION_H "${CGAL_ROOT}/Installation/include/CGAL/version.h")
+else()
+  set(PATH2VERSION_H "${CGAL_ROOT}/include/CGAL/version.h")
+endif()
+file(READ "${PATH2VERSION_H}" version_file_content)
+string(REGEX MATCH "#define CGAL_VERSION_NR (10[0-9]+)" CGAL_VERSION_FOUND "${version_file_content}")
+if (NOT CGAL_VERSION_FOUND)
+  message(FATAL_ERROR "Cannot extract CGAL version number.")
+endif()
+set(CGAL_VERSION_NR  "${CMAKE_MATCH_1}")
+#define CGAL_VERSION_NR 1060100920
+message(STATUS "Using CGAL ${CGAL_VERSION_PUBLIC_RELEASE_VERSION} (${CGAL_VERSION_NR})")
+
 enable_testing ()
 add_custom_target (tests)
 if(APPLE)
