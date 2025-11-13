@@ -19,11 +19,11 @@
     ],
     "exclude": [
         {
-            "os": "macos-14",
+            "os": "macos-latest",
             "python-version": "3.8"
         },
         {
-            "os": "macos-14",
+            "os": "macos-latest",
             "python-version": "3.9"
         }
     ]
