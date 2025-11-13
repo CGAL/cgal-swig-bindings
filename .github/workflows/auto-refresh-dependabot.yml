@@ -93,7 +93,6 @@ jobs:
           script: |
             // Publish a summary of refreshed and failed PRs, with links
             const result = ${{ steps.rebase-prs.outputs.result }};
-            const core = require('@actions/core');
             let summary = '';
             function prLink(pr) {
               return `[PR #${pr.number}: ${pr.title}](${pr.url})`;
