@@ -132,9 +132,7 @@ jobs:
           cd LAStools
           # Fix CMakeLists.txt: cmake_minimum_required must come before project()
           # Move cmake_minimum_required to the first line and update version to 3.5
-          cat > CMakeLists.txt.new << 'EOF'
-cmake_minimum_required(VERSION 3.5)
-EOF
+          echo 'cmake_minimum_required(VERSION 3.5)' > CMakeLists.txt.new
           grep -v '^cmake_minimum_required' CMakeLists.txt >> CMakeLists.txt.new
           mv CMakeLists.txt.new CMakeLists.txt
           mkdir build
