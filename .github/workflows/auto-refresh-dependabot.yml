@@ -1,0 +1,119 @@
+name: Auto-refresh Dependabot PRs
+
+# This workflow automatically refreshes (rebases) open Dependabot PRs
+# when changes are pushed to the main branch.
+# This helps keep dependency update PRs up to date with the latest main branch.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  refresh-dependabot-prs:
+    runs-on: ubuntu-latest
+    # Only run on main branch
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get open Dependabot PRs
+        id: get-prs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // List open PRs and filter for Dependabot dependency updates
+            try {
+              const { data: pullRequests } = await github.rest.pulls.list({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                per_page: 100
+              });
+              const dependabotPRs = pullRequests.filter(pr =>
+                pr.user.login === 'dependabot[bot]' &&
+                pr.labels.some(label => label.name === 'dependencies')
+              );
+              console.log(`Found ${dependabotPRs.length} Dependabot PRs`);
+              return dependabotPRs.map(pr => ({
+                number: pr.number,
+                title: pr.title,
+                url: pr.html_url
+              }));
+            } catch (error) {
+              console.error('Error fetching PRs:', error.message);
+              return [];
+            }
+
+      - name: Rebase Dependabot PRs
+        id: rebase-prs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Rebase each Dependabot PR by posting a comment
+            const prs = ${{ steps.get-prs.outputs.result }};
+            let refreshed = [];
+            let failed = [];
+            if (!prs || prs.length === 0) {
+              console.log('No Dependabot PRs found to refresh');
+            } else {
+              for (const pr of prs) {
+                console.log(`Refreshing PR #${pr.number}: ${pr.title}`);
+                try {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: pr.number,
+                    body: '@dependabot rebase'
+                  });
+                  refreshed.push(pr);
+                  console.log(`✓ Successfully triggered rebase for PR #${pr.number}`);
+                  await new Promise(resolve => setTimeout(resolve, 2000));
+                } catch (error) {
+                  failed.push({ ...pr, error: error.message });
+                  console.error(`✗ Failed to refresh PR #${pr.number}: ${error.message}`);
+                }
+              }
+              console.log('Finished refreshing Dependabot PRs');
+            }
+            // Store results for summary step
+            return { refreshed, failed };
+
+      - name: Publish summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Publish a summary of refreshed and failed PRs, with links
+            const result = ${{ steps.rebase-prs.outputs.result }};
+            const core = require('@actions/core');
+            let summary = '';
+            function prLink(pr) {
+              return `[PR #${pr.number}: ${pr.title}](${pr.url})`;
+            }
+            if (!result || (!result.refreshed.length && !result.failed.length)) {
+              summary = 'No Dependabot PRs were found or refreshed.';
+            } else {
+              if (result.refreshed.length) {
+                summary += `✅ Refreshed ${result.refreshed.length} Dependabot PR(s):\n`;
+                for (const pr of result.refreshed) {
+                  summary += `- ${prLink(pr)}\n`;
+                }
+              }
+              if (result.failed.length) {
+                summary += `\n❌ Failed to refresh ${result.failed.length} PR(s):\n`;
+                for (const pr of result.failed) {
+                  summary += `- ${prLink(pr)} (Error: ${pr.error})\n`;
+                }
+              }
+            }
+            core.summary.addHeading('Dependabot PR Refresh Summary');
+            core.summary.addRaw(summary);
+            await core.summary.write();
