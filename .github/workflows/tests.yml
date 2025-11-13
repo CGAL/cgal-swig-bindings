@@ -130,13 +130,8 @@ jobs:
           pushd $HOME
           git clone --depth 1 https://github.com/CGAL/LAStools.git
           cd LAStools
-          # Fix CMakeLists.txt: cmake_minimum_required must come before project()
-          # Move cmake_minimum_required to the first line and update version to 3.5
-          echo 'cmake_minimum_required(VERSION 3.5)' > CMakeLists.txt.new
-          grep -v '^cmake_minimum_required' CMakeLists.txt >> CMakeLists.txt.new
-          mv CMakeLists.txt.new CMakeLists.txt
           mkdir build
-          cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release
+          cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5
           cmake --build build --config Release -j$(nproc)
           cmake --install build --config Release
           cd ..
