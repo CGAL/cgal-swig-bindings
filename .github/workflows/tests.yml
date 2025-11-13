@@ -20,7 +20,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set matrix output
         id: set-matrix
@@ -33,7 +33,7 @@ jobs:
     name: Create Source Distribution
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
@@ -69,7 +69,7 @@ jobs:
       fail-fast: false
       matrix: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
@@ -223,7 +223,7 @@ jobs:
       fail-fast: false
       matrix: ${{fromJson(needs.prepare-matrix.outputs.matrix)}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Python
         uses: actions/setup-python@v6
