@@ -15,6 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
