@@ -83,3 +83,22 @@ jobs:
             }
             
             console.log('Finished refreshing Dependabot PRs');
+
+      - name: Publish summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prs = ${{ steps.get-prs.outputs.result }};
+            const core = require('@actions/core');
+            let summary = '';
+            if (!prs || prs.length === 0) {
+              summary = 'No Dependabot PRs were found or refreshed.';
+            } else {
+              summary = `Refreshed ${prs.length} Dependabot PR(s):\n`;
+              for (const pr of prs) {
+                summary += `- PR #${pr.number}: ${pr.title}\n`;
+              }
+            }
+            core.summary.addHeading('Dependabot PR Refresh Summary');
+            core.summary.addRaw(summary);
+            await core.summary.write();
