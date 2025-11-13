@@ -10,7 +10,7 @@ on:
     - cron: "0 2 * * 0"
 
 env:
-  LATEST_CGAL_VERSION: '6.0.1'
+  LATEST_CGAL_VERSION: '6.1'
 
 
 jobs:
@@ -131,7 +131,7 @@ jobs:
           git clone --depth 1 https://github.com/CGAL/LAStools.git
           cd LAStools
           mkdir build
-          cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release
+          cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5
           cmake --build build --config Release -j$(nproc)
           cmake --install build --config Release
           cd ..
