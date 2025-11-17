@@ -63,6 +63,9 @@ public:
 #include <CGAL/value_type_traits.h>
 
 namespace CGAL{
+
+template <class T> struct value_type_traits;
+
 template <class Cpp_wrapper, class Cpp_base>
 struct value_type_traits<
   boost::function_output_iterator< Container_writer<Cpp_wrapper, Cpp_base> >

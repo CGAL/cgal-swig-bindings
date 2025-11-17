@@ -44,17 +44,22 @@ jobs:
 
       - name: Upgrade pip
         run: |
-          python3 -m pip install --upgrade pip
+          python -m pip install --upgrade pip
 
       - name: Create Source Distribution
         run: |
-          pip install setuptools wheel twine
+          pip install setuptools wheel twine skbuild-conan
           mkdir -p build/build-python/CGAL
           CGAL_VERSION=$LATEST_CGAL_VERSION
           CGAL_SWIG_BINDINGS_VERSION=$(git show --no-patch --format='format:%ad' --date=format:'%Y%m%d%H%M')
           CGAL_PYTHON_MODULE_VERSION=$CGAL_VERSION-$CGAL_SWIG_BINDINGS_VERSION
           export CGAL_PYTHON_MODULE_VERSION
-          python3 setup.py sdist
+          python setup.py sdist
+
+      - name: Test Source Distribution
+        run: |
+          pip install dist/*.tar.gz
+          python -c "import CGAL; print(CGAL.__version__)"
 
       - uses: actions/upload-artifact@v5
         with:
@@ -143,6 +148,10 @@ jobs:
           [ -f $HOME/.local/lib/liblas.dylib ] && install_name_tool -id '@rpath/liblas.dylib' $HOME/.local/lib/liblas.dylib
           popd
 
+      - name: Upgrade pip
+        run: |
+          python -m pip install --upgrade pip
+
       - name: Build local wheel
         shell: bash -l {0}
         run: |
@@ -179,7 +188,7 @@ jobs:
               export DYLD_LIBRARY_PATH
               CXXFLAGS=-faligned-allocation
               export CXXFLAGS
-              CGAL_DIR=$HOME/.local python -m pip wheel -v .
+              CGAL_DIR=$HOME/.local python -m pip wheel twine -v .
               delocate-listdeps --all cgal-*.whl
               delocate-wheel -v -w fixed_wheel cgal-*.whl
               delocate-listdeps --all fixed_wheel/*.whl
@@ -193,7 +202,7 @@ jobs:
               export CXXFLAGS
               export LIB
               export CGAL_DIR
-              python -m pip wheel -v .
+              python -m pip wheel twine -v .
               ;;
           esac
           unzip -l cgal-*whl
@@ -271,7 +280,7 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
         run: |
           pip install  twine
-          python3 -m twine upload --verbose --repository testpypi dist/*
+          python -m twine upload --verbose --repository testpypi dist/*
 
       - name: upload to PyPI
         if: github.event_name == 'push' && github.ref_name == 'main'
@@ -280,4 +289,4 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           pip install  twine
-          python3 -m twine upload --verbose dist/*
+          python -m twine upload --verbose dist/*
