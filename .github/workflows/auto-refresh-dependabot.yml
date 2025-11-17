@@ -27,7 +27,7 @@ jobs:
 
       - name: Get open Dependabot PRs
         id: get-prs
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             // List open PRs and filter for Dependabot dependency updates
@@ -55,7 +55,7 @@ jobs:
 
       - name: Rebase Dependabot PRs
         id: rebase-prs
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             // Rebase each Dependabot PR by posting a comment
@@ -88,7 +88,7 @@ jobs:
             return { refreshed, failed };
 
       - name: Publish summary
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             // Publish a summary of refreshed and failed PRs, with links
