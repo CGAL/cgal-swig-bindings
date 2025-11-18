@@ -47,7 +47,7 @@ setup(
     """,
     long_description_content_type="text/markdown",
     url="https://github.com/CGAL/cgal-swig-bindings",
-    conan_requirements=["cmake/[>=3.12 <4]"] + (["gmp/[>=6.3]", "mpfr/[>=4.2]"] if os.environ.get(
+    conan_requirements=["cmake/[>=3.12 <4]"] + ([] if os.environ.get(
         'CGAL_PYTHON_MODULE_VERSION') else ["cgal/[>=6.0 <7.0]"]),
     packages=['CGAL'] + [f'CGAL.CGAL_{m}' for m in CGAL_MODULES],
     package_dir=(
