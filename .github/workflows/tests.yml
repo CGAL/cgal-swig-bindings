@@ -188,7 +188,7 @@ jobs:
               export DYLD_LIBRARY_PATH
               CXXFLAGS=-faligned-allocation
               export CXXFLAGS
-              CGAL_DIR=$HOME/.local python -m pip wheel twine -v .
+              CGAL_DIR=$HOME/.local python -m pip wheel -v .
               delocate-listdeps --all cgal-*.whl
               delocate-wheel -v -w fixed_wheel cgal-*.whl
               delocate-listdeps --all fixed_wheel/*.whl
@@ -202,7 +202,7 @@ jobs:
               export CXXFLAGS
               export LIB
               export CGAL_DIR
-              python -m pip wheel twine -v .
+              python -m pip wheel -v .
               ;;
           esac
           unzip -l cgal-*whl
